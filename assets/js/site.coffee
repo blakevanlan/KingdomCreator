@@ -17,12 +17,14 @@ class window.Card
       @isVictory = data.isVictory
       @isTrashing = data.isTrashing
       @isReaction = data.isReaction
-      @keep = ko.observable()
+      @keep = ko.observable(false)
       
       for set in sets
          if set.id == data.set
             @set = set.name
             break
+   toggleKeep: () =>
+      @keep(!@keep())
 
 
 class window.ViewModel
@@ -38,14 +40,22 @@ class window.ViewModel
          cards: (card.id for card in @cards() when card.keep()).join(',')
       }
       delete options.cards unless options.cards
-      console.log options
       return options
 
-   fetchCards: (options) =>
+   fetchCards: () =>
       @isLoading(true)
-      $.getJSON '/randomCards', @getOptions(), (data) =>
+      options = @getOptions()
+      $.getJSON '/randomCards', options, (data) =>
          @isLoading(false)
          @cards(new window.Card(card, @sets()) for card in data)
+         # Reselect cards that were kept
+         if options.cards
+            cards = @cards()
+            for id in options.cards.split(',')
+               for card in cards
+                  if card.id == id
+                     card.keep(true)
+                     break
 
 
 $(document).ready () ->

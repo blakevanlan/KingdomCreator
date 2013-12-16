@@ -12,27 +12,33 @@ app.get '/', (req, res, next) ->
       res.render 'home', sets: sets
 
 app.get '/randomCards', (req, res) ->
-   cards = req.query.cards?.split(',')
+   keepCards = req.query.cards?.split(',')
    sets = req.query.sets?.split(',')
 
    if sets and sets.length > 0
-      for set, index in sets
-         sets[index] = mongoose.Types.ObjectId(set)
+      sets[index] = mongoose.Types.ObjectId(set) for set, index in sets
       filter = { set: { $in: sets } }
    else filter = {}
+
+   if keepCards and keepCards.length > 0
+      for keepCard, index in keepCards
+         keepCards[index] = mongoose.Types.ObjectId(keepCard)
+      filter._id = { $nin: keepCards }
 
    # Set up what tasks need to be executed
    tasks =
       count: (done) -> Cards.count(filter).exec(done)
    
-   if cards
-      tasks.cards = (done) -> Cards.find( _id: { $in: cards }).lean().exec(done)
+   if keepCards
+      tasks.cards = (done) -> Cards.find( _id: { $in: keepCards }).lean().exec(done)
 
    async.parallel tasks, (err, results) ->
       return next(err) if err
       return res.json { err: 'Invalid set(s)'} if results.count < 10
       
-      cards = [] unless cards
+      if results.cards then cards = results.cards
+      else cards = []
+
       q = async.queue (index, callback) ->
          getCard index, filter, (err, card) ->
             cards.push(card) if card

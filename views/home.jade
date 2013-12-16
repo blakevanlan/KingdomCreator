@@ -5,11 +5,24 @@ block head
       window.sets = !{JSON.stringify(sets)};
 
 block content
+   h1 Kingdom Creator
+   .content
+      .sidebar
+         h1 Sets
+         .sets(data-bind="foreach: sets")
+            .set
+               input(type="checkbox", data-bind="checked: active")
+               span(data-bind="text: name")
+         a.randomizeButton(href, data-bind="click: fetchCards") Randomize!
 
-   .filter-wrap
-   .loading(data-bind="visible: isLoading") Loading...
-   .cards(data-bind="foreach: cards")
-      .card(data-bind="css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure }")
-         span.name(data-bind="text: name")
-         span.cost(data-bind="text: cost.treasure")
-         span.set-name(data-bind="text: set")
+      .main
+         .loading(data-bind="visible: isLoading") Loading...
+         .cards(data-bind="foreach: cards, visible: !isLoading()")
+            .card-wrap
+               .card(data-bind="click: toggleKeep, css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure, keep: keep() }")
+                  .first-line
+                     span.name(data-bind="text: name, css:{'long':name.length > 11, 'x-long':name.length > 15}")
+                     span.potion-cost(data-bind="visible: cost.potion > 0") P
+                     span.treasure-cost(data-bind="text: cost.treasure, visible: cost.treasure > 0")
+                  .second-line
+                  span.set-name(data-bind="text: set")

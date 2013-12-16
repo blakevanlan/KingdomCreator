@@ -1,23 +1,145 @@
 @import "variables"
 
-.cards
+body
+   margin: 10px
    font-family: primary-font
 
-.card
-   padding: 10px
-   border-bottom: 1px solid #ddd
-   color: #333
+h1
+   color: #02779e
+   max-width: 1200px
+   font-size: 28px
+   border-bottom: 1px solid #ccc
+   margin: 12px auto
 
-   &.victory .name
-      color: victory-color
+.content
+   max-width: 1200px
+   position: relative
+   margin: 10px auto
 
-   .name
-      font-size: 28px
-      display: inline-block
-      padding-right: 8px
+   .sidebar
+      float: right
+      width: 172px
+      padding: 10px
+      border-radius: 10px
+      border: 1px solid #ccc
+      margin-top: 2px
+   
+      h1
+         margin: 0 0 8px 0
+         border-bottom: 1px solid #ccc
+         color: #333
 
-   .cost
-      font-size: 28px
-      padding-right: 8px
-      color: treasure-color
+      input[type=checkbox]
+         display: inline-block
+         margin-right: 5px
 
+      .randomizeButton
+         display: block
+         padding: 5px
+         margin-top: 10px
+         text-align: center
+         border: 1px solid #888
+         border-radius: 5px
+         font-size: 20px
+         background: highlight-blue
+         color: #fff
+         box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 2px rgba(0,0,0,0.6)
+         text-decoration: none
+         &:hover
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(0,0,0,0.6)
+
+
+   .main
+      margin-right: 200px
+
+      .loading 
+         text-align: center
+         font-size: 50px
+         padding-top: 40px
+
+.cards
+   .card-wrap
+      width: 20%
+      float: left
+
+   .card
+      padding: 10px
+      border: 1px solid #ccc
+      color: #333
+      margin: 2px
+      border-radius: 10px
+
+      &.keep
+         border: 1px solid highlight-blue
+         box-shadow: inset 0 2px rgba(2, 119, 158, 0.2)
+         background: rgba(2,119,158,0.1)
+
+      &.treasure .name
+         color: treasure-color
+
+      &.victory .name
+         color: victory-color
+
+      .first-line
+         height: 25px
+
+      .name
+         font-size: 20px
+         display: inline-block
+         padding-right: 5px
+         line-height: 25px
+         height: 20px
+         &.long
+            font-size: 16px
+         &.x-long
+            font-size: 12px
+
+      .treasure-cost
+         font-size: 17px
+         display: block
+         color: #333
+         float: right
+         width: 20px
+         text-align: center
+         border-radius: 30px
+         background: treasure-color
+         border: 1px solid #777
+
+      .potion-cost
+         float: right
+         font-size: 17px
+         margin-left: 5px
+         color: #660066
+         display: inline-block
+         margin-top: 2px
+
+@media (max-width: 1070px)
+   .cards .card-wrap
+      width: 25%
+
+@media (max-width: 905px)
+   .cards .card-wrap
+      width: 33.3333%
+
+@media (max-width: 730px)
+   .cards .card-wrap
+      width: 50%
+
+// Mobile view
+@media (max-width: 575px)
+   body 
+      margin: 5px
+   .content
+      .sidebar
+         float: none
+         width: auto
+         margin-top: 10px
+      
+      .main
+         margin: 5px 0 0 0 
+
+      .cards
+         margin-top: 5px
+         .card-wrap
+            width: 100%
+            float: none
