@@ -63,16 +63,58 @@ h1
       float: left
 
    .card
-      padding: 10px
-      border: 1px solid #ccc
-      color: #333
-      margin: 2px
-      border-radius: 10px
+      margin: 2px 2px
+      position: relative
+      cursor: pointer
+      min-height: 250px
 
-      &.keep
-         border: 1px solid highlight-blue
-         box-shadow: inset 0 2px rgba(2, 119, 158, 0.2)
-         background: rgba(2,119,158,0.1)
+      .highlight
+         position: absolute
+         top: 1px
+         right: 1px
+         bottom: 1px
+         left: 1px
+         border: 2px solid highlight-blue
+         background: rgba(2,119,158,0.15)
+         display: none
+
+      .set-name-wrap
+         position: absolute
+         font-size: 18px
+         margin-top: -13px
+         top: 50%
+         width: 100%
+         height: 30px
+         text-align: center
+
+         .set-name
+            padding: 6px 8px
+            margin: 0 auto
+            display: inline-block
+            color: #fff
+            background: rgba(30,30,30,0.7)
+
+            &.baseset
+               color: base-set-color
+            &.intrigue
+               color: intrigue-color
+            &.seaside
+               color: seaside-color
+            &.alchemy
+               color: alchemy-color
+            &.prosperity
+               color: prosperity-color
+            &.cornucopia
+               color: cornucopia-color
+            &.hinderlands
+               color: hinderlands-color
+            &.darkages
+               color: darkages-color
+            &.guilds
+               color: guilds-color
+
+      &.keep .highlight
+         display: block
 
       &.treasure .name
          color: treasure-color
@@ -80,38 +122,10 @@ h1
       &.victory .name
          color: victory-color
 
-      .first-line
-         height: 25px
-
-      .name
-         font-size: 20px
-         display: inline-block
-         padding-right: 5px
-         line-height: 25px
-         height: 20px
-         &.long
-            font-size: 16px
-         &.x-long
-            font-size: 12px
-
-      .treasure-cost
-         font-size: 17px
+      img
+         width: 100%
          display: block
-         color: #333
-         float: right
-         width: 20px
-         text-align: center
-         border-radius: 30px
-         background: treasure-color
-         border: 1px solid #777
-
-      .potion-cost
-         float: right
-         font-size: 17px
-         margin-left: 5px
-         color: #660066
-         display: inline-block
-         margin-top: 2px
+      
 
 @media (max-width: 1070px)
    .cards .card-wrap
@@ -143,3 +157,41 @@ h1
          .card-wrap
             width: 100%
             float: none
+
+         .card
+            padding: 10px
+            border: 1px solid #ccc
+            border-radius: 10px
+
+            .first-line
+               height: 25px
+
+            .name
+               font-size: 20px
+               display: inline-block
+               padding-right: 5px
+               line-height: 25px
+               height: 20px
+               &.long
+                  font-size: 16px
+               &.x-long
+                  font-size: 12px
+
+            .treasure-cost
+               font-size: 17px
+               display: block
+               color: #333
+               float: right
+               width: 20px
+               text-align: center
+               border-radius: 30px
+               background: treasure-color
+               border: 1px solid #777
+
+            .potion-cost
+               float: right
+               font-size: 17px
+               margin-left: 5px
+               color: #660066
+               display: inline-block
+               margin-top: 2px

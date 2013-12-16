@@ -1,4 +1,6 @@
 
+lower = (str) -> return str.replace(/[\s']/g, '').toLowerCase()
+
 class window.Set
    constructor: (data) ->
       @id = data._id
@@ -19,10 +21,15 @@ class window.Card
       @isReaction = data.isReaction
       @keep = ko.observable(false)
       
+      # Set the name of the set
       for set in sets
          if set.id == data.set
             @set = set.name
             break
+      # Build the image URL
+      @imageUrl = "/img/cards/#{lower(@set)}_#{lower(@name)}.jpg"
+      @setClass = lower(@set)
+
    toggleKeep: () =>
       @keep(!@keep())
 
@@ -32,6 +39,7 @@ class window.ViewModel
       @cards = ko.observableArray()
       @sets = ko.observableArray(new window.Set(set) for set in sets)
       @isLoading = ko.observable(false)
+      @showSet = ko.observable(true)
       @fetchCards()
 
    getOptions: () =>

@@ -13,6 +13,10 @@ block content
             .set
                input(type="checkbox", data-bind="checked: active")
                span(data-bind="text: name")
+         h1 Options
+         .option
+            input(type="checkbox", data-bind="checked: showSet")
+            span Show Set on Cards
          a.randomizeButton(href, data-bind="click: fetchCards") Randomize!
 
       .main
@@ -20,9 +24,13 @@ block content
          .cards(data-bind="foreach: cards, visible: !isLoading()")
             .card-wrap
                .card(data-bind="click: toggleKeep, css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure, keep: keep() }")
-                  .first-line
-                     span.name(data-bind="text: name, css:{'long':name.length > 11, 'x-long':name.length > 15}")
-                     span.potion-cost(data-bind="visible: cost.potion > 0") P
-                     span.treasure-cost(data-bind="text: cost.treasure, visible: cost.treasure > 0")
-                  .second-line
-                  span.set-name(data-bind="text: set")
+                  img(data-bind="attr:{src:imageUrl}")
+                  .set-name-wrap
+                     .set-name(data-bind="text: set, visible: $root.showSet, css:setClass")
+                  .highlight
+                  //- .first-line
+                  //-    span.name(data-bind="text: name, css:{'long':name.length > 11, 'x-long':name.length > 15}")
+                  //-    span.potion-cost(data-bind="visible: cost.potion > 0") P
+                  //-    span.treasure-cost(data-bind="text: cost.treasure, visible: cost.treasure > 0")
+                  //- .second-line
+                  //- span.set-name(data-bind="text: set")
