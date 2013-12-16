@@ -1,0 +1,15 @@
+extend layout
+
+block head
+   script.
+      window.sets = !{JSON.stringify(sets)};
+
+block content
+
+   .filter-wrap
+   .loading(data-bind="visible: isLoading") Loading...
+   .cards(data-bind="foreach: cards")
+      .card(data-bind="css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure }")
+         span.name(data-bind="text: name")
+         span.cost(data-bind="text: cost.treasure")
+         span.set-name(data-bind="text: set")

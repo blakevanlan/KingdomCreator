@@ -1,0 +1,21 @@
+doctype 5
+html
+   head
+      title Dominion
+      meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+      link(href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC' rel='stylesheet' type='text/css')
+      != css("normalize")
+      != css("main")
+      != js("lib/knockout.js")
+      != js("lib/jquery.js")
+      != js("ext/binding-handlers")
+      != js("site")
+
+      block head
+
+   - var viewDir = locals.settings.views;
+   - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
+   - var pageClass = view.replace(/[\\\/]/g, "-") + "-page";
+   
+   body(class=pageClass)
+      block content

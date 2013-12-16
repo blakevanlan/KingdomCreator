@@ -1,0 +1,20 @@
+{
+   "author": "Blake VanLandingham",
+   "name": "dominion-randomizer",
+   "version": "0.0.1",
+   "engines": {
+      "node": "0.10.x",
+      "npm": "1.x.x"
+   },
+   "dependencies": {
+      "coffee-script": "1.x.x",
+      "express": "3.x.x",
+      "jade": "0.x.x",
+      "stylus": "0.38.x",
+      "connect-assets": "3.x.x",
+      "passport": "0.1.x",
+      "passport-local": "0.1.x",
+      "mongoose": "3.8.x",
+      "async": "0.2.x"
+   }
+}
