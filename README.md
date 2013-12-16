@@ -1,4 +1,4 @@
-fries-with-that
+Dominion Randomizer
 ===============
 
-A 70's style text-based game for a Sociology project on poverty and obesity
+Deck randomizer for Dominion
