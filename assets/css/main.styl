@@ -76,7 +76,7 @@ h1
          left: 1px
          border: 2px solid highlight-blue
          background: rgba(2,119,158,0.15)
-         display: none
+         opacity: 0
 
       .set-name-wrap
          position: absolute
@@ -114,7 +114,7 @@ h1
                color: guilds-color
 
       &.keep .highlight
-         display: block
+         opacity: 1
 
       &.treasure .name
          color: treasure-color
@@ -132,15 +132,18 @@ h1
       width: 25%
 
 @media (max-width: 905px)
-   .cards .card-wrap
-      width: 33.3333%
+   .cards
+      .card-wrap
+         width: 33.3333%
+      .card
+         min-height: 170px
 
-@media (max-width: 730px)
-   .cards .card-wrap
-      width: 50%
+// @media (max-width: 730px)
+//    .cards .card-wrap
+//       width: 50%
 
-// Mobile view
-@media (max-width: 575px)
+// Move sidebar to the top
+@media (max-width: 600px)
    body 
       margin: 5px
    .content
@@ -152,46 +155,49 @@ h1
       .main
          margin: 5px 0 0 0 
 
-      .cards
-         margin-top: 5px
-         .card-wrap
-            width: 100%
-            float: none
+      .cards .card
+         min-height: 140px
 
-         .card
-            padding: 10px
-            border: 1px solid #ccc
-            border-radius: 10px
+      // .cards
+      //    margin-top: 5px
+      //    .card-wrap
+      //       width: 100%
+      //       float: none
 
-            .first-line
-               height: 25px
+      //    .card
+      //       padding: 10px
+      //       border: 1px solid #ccc
+      //       border-radius: 10px
 
-            .name
-               font-size: 20px
-               display: inline-block
-               padding-right: 5px
-               line-height: 25px
-               height: 20px
-               &.long
-                  font-size: 16px
-               &.x-long
-                  font-size: 12px
+      //       .first-line
+      //          height: 25px
 
-            .treasure-cost
-               font-size: 17px
-               display: block
-               color: #333
-               float: right
-               width: 20px
-               text-align: center
-               border-radius: 30px
-               background: treasure-color
-               border: 1px solid #777
+      //       .name
+      //          font-size: 20px
+      //          display: inline-block
+      //          padding-right: 5px
+      //          line-height: 25px
+      //          height: 20px
+      //          &.long
+      //             font-size: 16px
+      //          &.x-long
+      //             font-size: 12px
 
-            .potion-cost
-               float: right
-               font-size: 17px
-               margin-left: 5px
-               color: #660066
-               display: inline-block
-               margin-top: 2px
+      //       .treasure-cost
+      //          font-size: 17px
+      //          display: block
+      //          color: #333
+      //          float: right
+      //          width: 20px
+      //          text-align: center
+      //          border-radius: 30px
+      //          background: treasure-color
+      //          border: 1px solid #777
+
+      //       .potion-cost
+      //          float: right
+      //          font-size: 17px
+      //          margin-left: 5px
+      //          color: #660066
+      //          display: inline-block
+      //          margin-top: 2px

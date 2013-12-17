@@ -7,7 +7,7 @@ mongoose = require('mongoose')
 module.exports = app = express()
 
 app.get '/', (req, res, next) ->
-   Sets.find().lean().exec (err, sets) ->
+   Sets.find({ inactive: { $ne: true }}).lean().exec (err, sets) ->
       return next(err) if err
       res.render 'home', sets: sets
 

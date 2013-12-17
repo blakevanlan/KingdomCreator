@@ -14,8 +14,9 @@ cardSchema = new Schema(
       isAction: { type: Boolean, require: true },
       isTreasure: { type: Boolean, require: true },
       isVictory: { type: Boolean, require: true },
-      isTrashing: { type: Boolean, require: true }
-      isReaction: { type: Boolean, require: true }
+      isTrashing: { type: Boolean, require: true },
+      isReaction: { type: Boolean, require: true },
+      isDuration: { type: Boolean }
    }
    , { collection: 'cards' })
 
