@@ -1,5 +1,5 @@
 MOBILE_WIDTH = 600
-lower = (str) -> return str.replace(/[\s']/g, '').toLowerCase()
+lower = (str) -> return str.replace(/[\s'-]/g, '').toLowerCase()
 
 class window.Set
    constructor: (data) ->
