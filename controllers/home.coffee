@@ -4,6 +4,8 @@ Cards = require '../models/card'
 Sets = require '../models/set'
 mongoose = require('mongoose')
 
+ALCHEMY_SET_ID = '52ae7d481f29ce019a0001f6'
+
 module.exports = app = express()
 
 app.get '/', (req, res, next) ->
@@ -14,9 +16,17 @@ app.get '/', (req, res, next) ->
 app.get '/randomCards', (req, res) ->
    keepCards = req.query.cards?.split(',')
    sets = req.query.sets?.split(',')
-
+   skipAlchemy = getRandomInt(0, 3) #(sets?.length or 2))
+   
    if sets and sets.length > 0
-      sets[index] = mongoose.Types.ObjectId(set) for set, index in sets
+      # Remove alchemy from set selection
+      if skipAlchemy and sets.length > 2
+         temp = (s for s in sets when s != ALCHEMY_SET_ID)
+         sets = temp
+
+      for set, index in sets
+         sets[index] = mongoose.Types.ObjectId(set) 
+      
       filter = { set: { $in: sets } }
    else filter = {}
 
@@ -25,39 +35,59 @@ app.get '/randomCards', (req, res) ->
          keepCards[index] = mongoose.Types.ObjectId(keepCard)
       filter._id = { $nin: keepCards }
 
-   # Set up what tasks need to be executed
-   tasks =
-      count: (done) -> Cards.count(filter).exec(done)
-   
-   if keepCards
-      tasks.cards = (done) -> Cards.find( _id: { $in: keepCards }).lean().exec(done)
-
-   async.parallel tasks, (err, results) ->
+   respond = (err, keptCards) ->
       return next(err) if err
-      return res.json { err: 'Invalid set(s)'} if results.count < 10
-      
-      if results.cards then cards = results.cards
-      else cards = []
+      getCards (10 - (keptCards?.length or 0)), filter, (err, cards) ->
+         return next(err) if err
+         cards.push(c) for c in keptCards if keptCards?.length > 0
+         alchemySetFix cards, (err, cards) ->
+            return next(err) if err
+            cards.sort cardSorter
+            res.json cards
 
+   if keepCards
+      Cards.find( _id: { $in: keepCards }).lean().exec(respond)
+   else
+      respond()
+
+alchemySetFix = (cards, cb) ->
+   alchemyCards = (c for c in cards when c.set.toString() == ALCHEMY_SET_ID)
+   # Return if there are either more than 3 alchemy cards or none
+   return cb(null, cards) unless 0 < alchemyCards.length < 3
+   numNewCards = getRandomInt(3, 6) - alchemyCards.length
+   
+   filter = 
+      set: mongoose.Types.ObjectId(ALCHEMY_SET_ID)
+      _id: { $nin: (c._id for c in alchemyCards) }
+
+   getCards numNewCards, filter, (err, newCards) ->
+      nonAlchemyCards = (c for c in cards when c.set.toString() != ALCHEMY_SET_ID)
+      indexes = getRandomInts(numNewCards, nonAlchemyCards.length)
+      nonAlchemyCards[indexes[index]] = card for card, index in newCards
+      nonAlchemyCards.push(card) for card in alchemyCards
+      cb(null, nonAlchemyCards)
+
+cardSorter = (a, b) ->
+   return -1 if a.set < b.set
+   return 1 if a.set > b.set
+   return -1 if a.name < b.name
+   return 1 if a.name > b.name
+   return 0
+
+getCards = (count, filter, cb) ->
+   cards = []
+   Cards.count(filter).exec (err, cardCount) ->
+      return cb(err) if err
       q = async.queue (index, callback) ->
          getCard index, filter, (err, card) ->
             cards.push(card) if card
             callback(err)
       , 10
-      
-      indexes = getRandomInts(10 - cards?.length or 0, results.count)
+         
+      indexes = getRandomInts(count, cardCount)
       q.push(index) for index in indexes
-      q.drain = (err) ->
-         # Sort cards by name
-         cards.sort (a, b) ->
-            return -1 if a.set < b.set
-            return 1 if a.set > b.set
-            return -1 if a.name < b.name
-            return 1 if a.name > b.name
-            return 0
-
-         res.json cards
-
+      q.drain = (err) -> 
+         cb(err, cards)
 
 getRandomInt = (min, max) ->
    return Math.floor(Math.random() * (max - min) + min)

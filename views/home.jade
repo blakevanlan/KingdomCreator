@@ -23,16 +23,10 @@ block content
 
       .main
          .loading(data-bind="visible: isLoading") Loading...
-         .cards(data-bind="foreach: cards, visible: !isLoading()")
+         .cards(data-bind="foreach: cards, style: { visibility: isLoading() ? 'hidden':'visible' }")
             .card-wrap
                .card(data-bind="click: toggleKeep, css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure, keep: keep() }")
                   img(data-bind="attr:{src:imageUrl}")
                   .set-name-wrap
                      .set-name(data-bind="text: set, visible: $root.showSet, css:setClass")
                   .highlight
-                  //- .first-line
-                  //-    span.name(data-bind="text: name, css:{'long':name.length > 11, 'x-long':name.length > 15}")
-                  //-    span.potion-cost(data-bind="visible: cost.potion > 0") P
-                  //-    span.treasure-cost(data-bind="text: cost.treasure, visible: cost.treasure > 0")
-                  //- .second-line
-                  //- span.set-name(data-bind="text: set")

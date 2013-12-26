@@ -25,9 +25,12 @@ h1
       margin-top: 2px
    
       h1
-         margin: 0 0 8px 0
+         margin: 8px 0 8px 0
          border-bottom: 1px solid #ccc
          color: #333
+
+      h1:first-child
+         margin-top: 0
 
       input[type=checkbox]
          display: inline-block
@@ -76,7 +79,7 @@ h1
          left: 1px
          border: 2px solid highlight-blue
          background: rgba(2,119,158,0.15)
-         opacity: 0
+         opacity: 1
 
       .set-name-wrap
          position: absolute
@@ -93,6 +96,7 @@ h1
             display: inline-block
             color: #fff
             background: rgba(30,30,30,0.7)
+            text-shadow: 1px 1px 4px #000
 
             &.baseset
                color: base-set-color
@@ -114,7 +118,7 @@ h1
                color: guilds-color
 
       &.keep .highlight
-         opacity: 1
+         opacity: 0
 
       &.treasure .name
          color: treasure-color
@@ -137,10 +141,6 @@ h1
          width: 33.3333%
       .card
          min-height: 170px
-
-// @media (max-width: 730px)
-//    .cards .card-wrap
-//       width: 50%
 
 // Move sidebar to the top
 @media (max-width: 600px)

@@ -1,4 +1,4 @@
-
+MOBILE_WIDTH = 600
 lower = (str) -> return str.replace(/[\s']/g, '').toLowerCase()
 
 class window.Set
@@ -19,7 +19,7 @@ class window.Card
       @isVictory = data.isVictory
       @isTrashing = data.isTrashing
       @isReaction = data.isReaction
-      @keep = ko.observable(false)
+      @keep = ko.observable(true)
       
       # Set the name of the set
       for set in sets
@@ -40,14 +40,18 @@ class window.ViewModel
       @sets = ko.observableArray(new window.Set(set) for set in sets)
       @isLoading = ko.observable(false)
       @showSet = ko.observable(true)
+      @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
+      @showFloatingButton = ko.observable(false)
       @fetchCards()
 
    getOptions: () =>
       options = {
          sets: (set.id for set in @sets() when set.active()).join(',')
-         cards: (card.id for card in @cards() when card.keep()).join(',')
+         cards: card.id for card in @cards() when card.keep()
       }
-      delete options.cards unless options.cards
+      if not options.cards or not options.cards.length or options.cards.length >= 10
+         delete options.cards
+      else options.cards = options.cards.join(',')
       return options
 
    fetchCards: () =>
@@ -56,16 +60,9 @@ class window.ViewModel
       $.getJSON '/randomCards', options, (data) =>
          @isLoading(false)
          @cards(new window.Card(card, @sets()) for card in data)
-         # Reselect cards that were kept
-         if options.cards
-            cards = @cards()
-            for id in options.cards.split(',')
-               for card in cards
-                  if card.id == id
-                     card.keep(true)
-                     break
-
+         
 
 $(document).ready () ->
    vm = new window.ViewModel(window.sets)
    ko.applyBindings(vm)
+   $(window).resize () -> isMobile($(window).width() <= MOBILE_WIDTH)
