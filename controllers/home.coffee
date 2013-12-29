@@ -5,6 +5,8 @@ Sets = require '../models/set'
 mongoose = require('mongoose')
 
 ALCHEMY_SET_ID = '52ae7d481f29ce019a0001f6'
+PROSPERITY_SET_ID = '52ae7d58f44eea5cd40001fa'
+DARK_AGES_SET_ID = '52ae7d7f0b85ba22080001e6'
 
 module.exports = app = express()
 
@@ -16,7 +18,7 @@ app.get '/', (req, res, next) ->
 app.get '/randomCards', (req, res) ->
    keepCards = req.query.cards?.split(',')
    sets = req.query.sets?.split(',')
-   skipAlchemy = getRandomInt(0, 3) #(sets?.length or 2))
+   skipAlchemy = getRandomInt(0, 3)
    
    if sets and sets.length > 0
       # Remove alchemy from set selection
@@ -43,7 +45,11 @@ app.get '/randomCards', (req, res) ->
          alchemySetFix cards, (err, cards) ->
             return next(err) if err
             cards.sort cardSorter
-            res.json cards
+            res.json 
+               kingdom: cards
+               meta:
+                  useColonies: shouldUseColonies(cards)
+                  useShelters: shouldUseShelters(cards)
 
    if keepCards
       Cards.find( _id: { $in: keepCards }).lean().exec(respond)
@@ -66,6 +72,14 @@ alchemySetFix = (cards, cb) ->
       nonAlchemyCards[indexes[index]] = card for card, index in newCards
       nonAlchemyCards.push(card) for card in alchemyCards
       cb(null, nonAlchemyCards)
+
+shouldUseColonies = (cards) ->
+   index = getRandomInt(0, cards.length)
+   return cards[index].set.toString() == PROSPERITY_SET_ID
+
+shouldUseShelters = (cards) ->
+   index = getRandomInt(0, cards.length)
+   return cards[index].set.toString() == DARK_AGES_SET_ID
 
 cardSorter = (a, b) ->
    return -1 if a.set < b.set

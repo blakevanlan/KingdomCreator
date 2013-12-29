@@ -41,6 +41,15 @@ class window.Card
    toggleKeep: () =>
       @keep(!@keep())
 
+class window.Meta
+   constructor: () ->
+      @useColonies = ko.observable(false)
+      @useShelters = ko.observable(false)
+      @show = ko.computed () => return @useColonies or @useShelters()
+
+   update: (data) ->
+      @useColonies(data.useColonies or false)
+      @useShelters(data.useShelters or false)
 
 class window.ViewModel
    constructor: (sets) ->
@@ -50,6 +59,7 @@ class window.ViewModel
       @showSet = ko.observable(true)
       @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
       @showFloatingButton = ko.observable(false)
+      @meta = new window.Meta()
       @fetchCards()
 
    getOptions: () =>
@@ -67,7 +77,8 @@ class window.ViewModel
       options = @getOptions()
       $.getJSON '/randomCards', options, (data) =>
          @isLoading(false)
-         @cards(new window.Card(card, @sets()) for card in data)
+         @cards(new window.Card(card, @sets()) for card in data.kingdom)
+         @meta.update(data.meta)
          
 
 $(document).ready () ->
