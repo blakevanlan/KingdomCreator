@@ -60,6 +60,7 @@ class window.ViewModel
       @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
       @showFloatingButton = ko.observable(false)
       @meta = new window.Meta()
+      @loadOptionsFromCookie()
       @fetchCards()
 
    getOptions: () =>
@@ -75,13 +76,32 @@ class window.ViewModel
    fetchCards: () =>
       @isLoading(true)
       options = @getOptions()
+      @saveOptionsToCookie(options);
+
       $.getJSON '/randomCards', options, (data) =>
          @isLoading(false)
          @cards(new window.Card(card, @sets()) for card in data.kingdom)
          @meta.update(data.meta)
+
+   loadOptionsFromCookie: () =>
+      options = $.cookie('options')
+      if options
+         selectedSets = options.sets.split(',')
+         for set in @sets()
+            set.active(false)
+            for selectedSet in selectedSets
+               if set.id == selectedSet
+                  set.active(true)
+                  break
+
+   saveOptionsToCookie: (options) => $.cookie('options', { sets: options.sets })
+
+      
+         
          
 
 $(document).ready () ->
+   $.cookie.json = true
    vm = new window.ViewModel(window.sets)
    ko.applyBindings(vm)
-   $(window).resize () -> isMobile($(window).width() <= MOBILE_WIDTH)
+   $(window).resize () -> vm.isMobile($(window).width() <= MOBILE_WIDTH)
