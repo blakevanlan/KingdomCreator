@@ -9,7 +9,7 @@ ALCHEMY_SET_ID = '52ae7d481f29ce019a0001f6'
 module.exports = app = express()
 
 app.get '/', (req, res, next) ->
-   Sets.find({ inactive: { $ne: true }}).lean().exec (err, sets) ->
+   Sets.find({ inactive: { $ne: true }}).sort('_id').lean().exec (err, sets) ->
       return next(err) if err
       res.render 'home', sets: sets
 

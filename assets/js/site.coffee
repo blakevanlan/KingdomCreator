@@ -1,6 +1,14 @@
 MOBILE_WIDTH = 600
-lower = (str) -> return str.replace(/[\s'-]/g, '').toLowerCase()
 
+remappedNames = 
+   'knights': 'dameanna'
+
+lower = (str) -> return str.replace(/[\s'-]/g, '').toLowerCase()
+getImageUrl = (set, name) ->
+   name = lower(name)
+   name = remappedNames[name] if (remappedNames[name])
+   return "/img/cards/#{lower(set)}_#{name}.jpg"
+   
 class window.Set
    constructor: (data) ->
       @id = data._id
@@ -27,7 +35,7 @@ class window.Card
             @set = set.name
             break
       # Build the image URL
-      @imageUrl = "/img/cards/#{lower(@set)}_#{lower(@name)}.jpg"
+      @imageUrl = getImageUrl(@set, @name)
       @setClass = lower(@set)
 
    toggleKeep: () =>
