@@ -11,6 +11,10 @@ h1
    border-bottom: 1px solid #ccc
    margin: 12px auto
 
+.clear
+   clear: both
+   min-height: 1px
+
 .content
    max-width: 1200px
    position: relative
@@ -146,6 +150,12 @@ h1
          width: 100%
          display: block
       
+.footer
+   padding: 10px
+   border-top: 1px #ddd solid
+   margin: 10px -10px -10px -10px
+   font-size: 12px
+   text-align: center
 
 @media (max-width: 1070px)
    .cards .card-wrap
@@ -177,46 +187,3 @@ h1
          .set-name-wrap 
             font-size: 16px
 
-      // .cards
-      //    margin-top: 5px
-      //    .card-wrap
-      //       width: 100%
-      //       float: none
-
-      //    .card
-      //       padding: 10px
-      //       border: 1px solid #ccc
-      //       border-radius: 10px
-
-      //       .first-line
-      //          height: 25px
-
-      //       .name
-      //          font-size: 20px
-      //          display: inline-block
-      //          padding-right: 5px
-      //          line-height: 25px
-      //          height: 20px
-      //          &.long
-      //             font-size: 16px
-      //          &.x-long
-      //             font-size: 12px
-
-      //       .treasure-cost
-      //          font-size: 17px
-      //          display: block
-      //          color: #333
-      //          float: right
-      //          width: 20px
-      //          text-align: center
-      //          border-radius: 30px
-      //          background: treasure-color
-      //          border: 1px solid #777
-
-      //       .potion-cost
-      //          float: right
-      //          font-size: 17px
-      //          margin-left: 5px
-      //          color: #660066
-      //          display: inline-block
-      //          margin-top: 2px
