@@ -1,10 +1,15 @@
 {
    "author": "Blake VanLandingham",
-   "name": "dominion-randomizer",
+   "name": "KingdomCreator",
    "version": "0.0.1",
    "engines": {
       "node": "0.10.x",
       "npm": "1.x.x"
+   },
+   "author": "Blake VanLandingham",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/blakevanlan/KingdomCreator.git"
    },
    "dependencies": {
       "coffee-script": "1.x.x",
