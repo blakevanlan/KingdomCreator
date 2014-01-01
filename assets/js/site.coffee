@@ -96,10 +96,6 @@ class window.ViewModel
 
    saveOptionsToCookie: (options) => $.cookie('options', { sets: options.sets })
 
-      
-         
-         
-
 $(document).ready () ->
    $.cookie.json = true
    vm = new window.ViewModel(window.sets)

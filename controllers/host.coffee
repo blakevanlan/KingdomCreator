@@ -4,7 +4,7 @@ path = require 'path'
 # LocalStrategy = require('passport-local').Strategy
 mongoose = require 'mongoose'
 
-mongoose.connect(process.env.MONGO_URL || "mongodb://admin:2a55de6e9a838dbce2a644ef7e@dharma.mongohq.com:10001/dominion")
+mongoose.connect(process.env.MONGO_URL)
 
 app = module.exports = express()
 
