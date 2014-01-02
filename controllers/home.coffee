@@ -123,6 +123,6 @@ getRandomInts = (count, max) ->
    return nums
 
 getCard = (index, filter, cb) ->
-   Cards.find(filter).lean().limit(1).skip(index).exec (err, cards) ->
+   Cards.find(filter).lean().sort('_id').limit(1).skip(index).exec (err, cards) ->
       return cb(err) if err
       cb(null, cards[0])

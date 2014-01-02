@@ -20,7 +20,7 @@ block content
                label
                   input(type="checkbox", data-bind="checked: showSet")
                   span Show Set on Cards
-            a.randomizeButton(href, data-bind="click: fetchCards") Randomize!
+            a.button(id="staticButton", href, data-bind="click: fetchCards") Randomize!
          .meta(data-bind="with: meta")
             h1 Recommendations
             .recommendation
@@ -45,3 +45,6 @@ block content
       | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
       | This site has no affiliation with either party.
       | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>.
+
+   #floatingButtonWrap(data-bind="css: { 'show': showFloatingButton }")
+      a.button(href, data-bind="click: fetchCards") Randomize!

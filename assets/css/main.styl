@@ -15,6 +15,37 @@ h1
    clear: both
    min-height: 1px
 
+.button
+   padding: 5px
+   display: block
+   margin-top: 10px
+   text-align: center
+   border: 1px solid #888
+   border-radius: 5px
+   font-size: 20px
+   background: highlight-blue
+   color: #fff
+   box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 2px rgba(0,0,0,0.6)
+   text-decoration: none
+   &:hover
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(0,0,0,0.6)
+
+#floatingButtonWrap
+   display:none
+   position: fixed
+   left: 0
+   top: 0
+   width: 100%
+   background: rgba(255, 255, 255, 0.8)
+
+   &.show
+      display: block
+
+   .button
+      margin: 0 16px
+   
+#floatingButton
+
 .content
    max-width: 1200px
    position: relative
@@ -41,21 +72,6 @@ h1
       input[type=checkbox]
          display: inline-block
          margin-right: 5px
-
-      .randomizeButton
-         display: block
-         padding: 5px
-         margin-top: 10px
-         text-align: center
-         border: 1px solid #888
-         border-radius: 5px
-         font-size: 20px
-         background: highlight-blue
-         color: #fff
-         box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 2px rgba(0,0,0,0.6)
-         text-decoration: none
-         &:hover
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(0,0,0,0.6)
 
    .meta
       margin-top: 10px
