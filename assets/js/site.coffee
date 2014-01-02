@@ -100,17 +100,4 @@ $(document).ready () ->
    $.cookie.json = true
    vm = new window.ViewModel(window.sets)
    ko.applyBindings(vm)
-   
-   $win = $(window)
-   $staticButton = $('#staticButton')
-   # Check if view is mobile based on size
-   $win.resize () ->
-      vm.isMobile($(window).width() <= MOBILE_WIDTH)
-   
-   # Check if the floating button should be shown
-   $win.scroll () ->
-      console.log 'scrollTop', $win.scrollTop()
-      # console.log 'staticButtonOffset.top', staticButtonOffset.top
-
-      if !vm.isMobile() then vm.showFloatingButton(false)
-      else vm.showFloatingButton($win.scrollTop() > $staticButton.offset().top)
+   $(window).resize () -> vm.isMobile($(window).width() <= MOBILE_WIDTH)
