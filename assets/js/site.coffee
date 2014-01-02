@@ -58,7 +58,6 @@ class window.ViewModel
       @isLoading = ko.observable(false)
       @showSet = ko.observable(true)
       @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
-      @showFloatingButton = ko.observable(false)
       @meta = new window.Meta()
       @loadOptionsFromCookie()
       @fetchCards()
