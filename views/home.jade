@@ -12,15 +12,16 @@ block content
             h1 Sets
             .sets(data-bind="foreach: sets")
                .set
-                  label
+                  label.checkbox
                      input(type="checkbox", data-bind="checked: active")
                      span(data-bind="text: name")
+            .clear
             h1 Options
             .option
-               label
+               label.checkbox
                   input(type="checkbox", data-bind="checked: showSet")
                   span Show Set on Cards
-            a.button(href, data-bind="click: fetchCards") Randomize!
+            a.button(data-bind="click: fetchKingdom") Randomize!
          .meta(data-bind="with: meta")
             h1 Recommendations
             .recommendation
@@ -31,13 +32,12 @@ block content
                | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
 
       .main
-         .loading(data-bind="visible: isLoading") Loading...
-         .cards(data-bind="foreach: cards, style: { visibility: isLoading() ? 'hidden':'visible' }")
+         .cards(data-bind="foreach: cards")
             .card-wrap
-               .card(data-bind="click: toggleKeep, css: { 'victory': isVictory, 'action': isAction, treasure: isTreasure, keep: keep() }")
+               .card(data-bind="click: openDialog, css: { keep: keep() }")
                   img(data-bind="attr:{src:imageUrl}")
                   .set-name-wrap
-                     .set-name(data-bind="text: set, visible: $root.showSet, css:setClass")
+                     .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
                   .highlight
          .clear
 
@@ -45,3 +45,27 @@ block content
       | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
       | This site has no affiliation with either party.
       | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>.
+
+   .dialog-hidden-content
+      .dialog-content(data-bind="with: dialogControl")
+         .dialog-desc Use this dialog to customize the replacement card
+         .sets-wrap
+            h1 Sets
+            .sets(data-bind="foreach: sets")
+               .set.checkbox-wrap.columns
+                  label.checkbox
+                     input(type="checkbox", data-bind="checked: active")
+                     span(data-bind="text: name")
+            .clear
+            h1 Types
+            .types(data-bind="foreach: types")
+               .type.checkbox-wrap.columns
+                  label.checkbox
+                     input(type="checkbox", data-bind="checked: active")
+                     span(data-bind="text: name")
+            .clear
+
+         .dialog-buttons
+            a.button(data-bind="click: fetchNewCard") Randomize
+            a.button.gray(data-bind="click: closeDialog") Close
+            .clear

@@ -17,7 +17,7 @@ h1
 
 .button
    display: block
-   padding: 5px
+   padding: 5px 15px
    margin-top: 10px
    text-align: center
    border: 1px solid #888
@@ -27,8 +27,15 @@ h1
    color: #fff
    box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 2px rgba(0,0,0,0.6)
    text-decoration: none
+   cursor: pointer
+   &.gray
+      background: #aaa
    &:hover
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(0,0,0,0.6)
+
+input[type=checkbox]
+   display: inline-block
+   margin-right: 5px
 
 .content
    max-width: 1200px
@@ -46,16 +53,20 @@ h1
 
       h1:first-child
          margin-top: 0
+
+      .sets
+         font-size: 20px
+         
+         input[type=checkbox]
+            position: relative
+            top: -2px
+
    
    .filters
       padding: 10px
       border-radius: 10px
       border: 1px solid #ccc
       margin-top: 2px
-
-      input[type=checkbox]
-         display: inline-block
-         margin-right: 5px
 
    .meta
       margin-top: 10px
@@ -157,6 +168,39 @@ h1
    font-size: 12px
    text-align: center
 
+.dialog-hidden-content
+   display:none
+
+.dialog-content
+   font-family: primary-font
+   font-size: 23px
+
+   .dialog-desc
+      font-size: 16px
+      line-height: 16px
+   h1
+      margin: 8px 0 8px 0
+      color: #333
+      border-bottom: 1px solid #ccc
+      font-size: 24px
+
+   .checkbox-wrap.columns
+      width: 50%
+      &:nth-child(even)
+         float: right
+      &:nth-child(odd)
+         float: left
+      input[type=checkbox]
+         position: relative
+         top: -2px
+
+   .dialog-buttons
+      margin-top: 12px
+      .button
+         float: right
+         margin-left: 6px
+
+
 @media (max-width: 1070px)
    .cards .card-wrap
       width: 25%
@@ -172,26 +216,33 @@ h1
 @media (max-width: 600px)
    body 
       margin: 5px
-   
 
+   label.checkbox
+      position: relative
+      left: 5px
+      font-size: 23px
+      line-height: 27px
+
+      input[type=checkbox]
+         position: relative
+         margin-right: 12px!important
+         -webkit-transform: scale(1.5,1.5)
+         top: -2px
+   
    .content
       .sidebar
          float: none
          width: auto
          margin-top: 10px
+
+      .sets
+         .set
+            width: 50%
+            &:nth-child(odd)
+               float: left
+            &:nth-child(even)
+               float: left
     
-         label
-            position: relative
-            left: 5px
-            font-size: 23px
-            line-height: 27px
-
-            input
-               position: relative
-               margin-right: 12px!important
-               -webkit-transform: scale(1.5,1.5)
-               top: -2px
-
       .meta
          h1
             font-size: 26px
@@ -208,7 +259,18 @@ h1
          .set-name-wrap 
             font-size: 16px
 
-// Move sidebar to the top
-@media (max-width: 450px)
-   .set-name.hinderlands
-      font-size: 16px
+@media (max-width: 400px)
+   label.checkbox
+      position: relative
+      left: 5px
+      font-size: 20px
+      line-height: 25px
+
+      input[type=checkbox]
+         position: relative
+         margin-right: 12px!important
+         -webkit-transform: scale(1.5,1.5)
+         top: -2px
+
+   .set-name.hinterlands
+      font-size: 15px

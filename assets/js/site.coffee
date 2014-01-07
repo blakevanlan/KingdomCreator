@@ -1,45 +1,107 @@
+#= require lib/jquery.js
+#= require lib/jquery.cookie.js
+#= require lib/knockout.js
+#= require lib/vex.combined.min.js
+#= require ext/binding-handlers.coffee
+
+vex.defaultOptions.className = 'vex-theme-os'
+
+# Constants
 MOBILE_WIDTH = 600
+REMAPPED_NAMES = { 'knights': 'dameanna' }
+LOADING_IMAGE_URL = '/img/cards/backside_blue.jpg'
 
-remappedNames = 
-   'knights': 'dameanna'
-
-lower = (str) -> return str.replace(/[\s'-]/g, '').toLowerCase()
+lower = (str) -> if str then str.replace(/[\s'-]/g, '').toLowerCase() else ''
 getImageUrl = (set, name) ->
    name = lower(name)
-   name = remappedNames[name] if (remappedNames[name])
+   name = REMAPPED_NAMES[name] if (REMAPPED_NAMES[name])
    return "/img/cards/#{lower(set)}_#{name}.jpg"
+
+# Dialog methods
+vexDialogId = null
+closeDialog = () -> vex.close(vexDialogId) if vexDialogId
+openDialog = () ->
+   $content = null
+   $dialog = vex.open
+      afterOpen: ($vexContent) ->
+         $content = $('.dialog-hidden-content .dialog-content').first().detach()
+         $vexContent.append $content
+      beforeClose: ->
+         $content.detach().appendTo($('.dialog-hidden-content'))
+      afterClose: ->
+         vexDialogId = null
+   vexDialogId = $dialog.data().vex.id
+
+class window.CardType
+   constructor: (data) ->
+      if typeof(data) == 'string'
+         @name = data
+         @id = lower(@name)
+      else
+         @name = data.name
+         @id = data.id
+      @active = ko.observable(true)
    
 class window.Set
    constructor: (data) ->
-      @id = data._id
+      @id = data._id or data.id
       @name = data.name
-      @active = ko.observable(true)
+      @active = ko.observable(if data.active? then data.active else true)
+   
+   toObject: () =>
+      return {
+         id: @id
+         name: @name
+         active: @active()
+      }
+
 
 class window.Card
-   constructor: (data, sets) ->
-      @id = data._id
-      @name = data.name
-      @cost = data.cost
-      @description = data.description
-      @isAttack = data.isAttack
-      @isAction = data.isAction
-      @isTreasure = data.isTreasure
-      @isVictory = data.isVictory
-      @isTrashing = data.isTrashing
-      @isReaction = data.isReaction
+   constructor: (parent) ->
+      @parent = parent
+      @id = null
+      @name = ko.observable()
+      @set = ko.observable()
+      @isLoading = ko.observable(true)
       @keep = ko.observable(true)
+
+      # Build the image URL
+      @cardImageUrl = ko.computed () => getImageUrl(@set(), @name())
+      @imageUrl = ko.computed () =>
+         if @isLoading() then LOADING_IMAGE_URL else @cardImageUrl()
+      @setClass = ko.computed () =>
+         if @isLoading() then 'loading' else lower(@set())
+
+   setData: (data, sets) =>
+      @id = data._id
+      @name(data.name)
       
       # Set the name of the set
       for set in sets
          if set.id == data.set
-            @set = set.name
+            @set(set.name)
             break
-      # Build the image URL
-      @imageUrl = getImageUrl(@set, @name)
-      @setClass = lower(@set)
+      # @cost = data.cost
+      # @description = data.description
+      # @isAttack = data.isAttack
+      # @isAction = data.isAction
+      # @isTreasure = data.isTreasure
+      # @isVictory = data.isVictory
+      # @isTrashing = data.isTrashing
+      # @isReaction = data.isReaction
+      @isLoading(false)
 
-   toggleKeep: () =>
-      @keep(!@keep())
+   openDialog: () => @parent.dialogControl.open(@)
+
+   fetchNewCard: () =>
+      @isLoading(true)
+      options =
+         sets: (s.id for s in @parent.dialogControl.sets when s.active()).join(',')
+         cards: (c.id for c in @parent.cards() when @id != c.id).join(',')
+         types: (t.id for t in @parent.dialogControl.types when t.active()).join(',')
+      
+      $.getJSON '/cards/single', options, (data) =>
+         @setData(data, @parent.sets())
 
 class window.Meta
    constructor: () ->
@@ -51,35 +113,74 @@ class window.Meta
       @useColonies(data.useColonies or false)
       @useShelters(data.useShelters or false)
 
+class window.DialogControl
+   constructor: (allSets) ->
+      # Create new set objects so they can be clicked on 
+      @sets = (new window.Set(set.toObject()) for set in allSets())
+      @types = @createTypes()
+      @cardReference = null
+
+      # Watch for changes on the main sets and atomatically apply changes to
+      # dialog
+      for set in allSets()
+         do (cset = set) =>
+            cset.active.subscribe (val) => 
+               for s in @sets
+                  if s.id == cset.id
+                     s.active(val)
+                     break
+
+   fetchNewCard: () =>
+      @cardReference.fetchNewCard()
+      @close()
+
+   open: (card) => 
+      @cardReference = card
+      openDialog()
+   
+   close: () -> 
+      closeDialog()
+      @cardReference = null
+
+   createTypes: ->
+      return [
+         new window.CardType('+2 Actions'), new window.CardType('+1 Buy'),
+         new window.CardType('Attack'), new window.CardType('Reaction'),
+         new window.CardType('Trashing'), new window.CardType('Treasure'),
+         new window.CardType('Victory')
+      ]
+
+
 class window.ViewModel
    constructor: (sets) ->
-      @cards = ko.observableArray()
+      @cards = ko.observableArray(new Card(@) for i in [0...10])
       @sets = ko.observableArray(new window.Set(set) for set in sets)
-      @isLoading = ko.observable(false)
       @showSet = ko.observable(true)
       @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
-      @meta = new window.Meta()
       @loadOptionsFromCookie()
-      @fetchCards()
+      @meta = new window.Meta()
+      @dialogControl = new window.DialogControl(@sets)
+      @fetchKingdom()
 
    getOptions: () =>
       options = {
          sets: (set.id for set in @sets() when set.active()).join(',')
-         cards: card.id for card in @cards() when card.keep()
       }
       if not options.cards or not options.cards.length or options.cards.length >= 10
          delete options.cards
       else options.cards = options.cards.join(',')
       return options
 
-   fetchCards: () =>
-      @isLoading(true)
+   fetchKingdom: () =>
       options = @getOptions()
-      @saveOptionsToCookie(options);
+      @saveOptionsToCookie(options)
+      card.isLoading(true) for card in @cards()
 
-      $.getJSON '/randomCards', options, (data) =>
-         @isLoading(false)
-         @cards(new window.Card(card, @sets()) for card in data.kingdom)
+      $.getJSON '/cards/kingdom', options, (data) =>
+         index = 0
+         cards = @cards()
+         sets = @sets()
+         cards[index++].setData(card, sets) for card in data.kingdom
          @meta.update(data.meta)
 
    loadOptionsFromCookie: () =>
