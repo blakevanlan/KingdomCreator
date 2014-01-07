@@ -94,10 +94,12 @@ input[type=checkbox]
 .cards
    .card-wrap
       width: 20%
+      -webkit-perspective: 1000
+      -moz-perspective: 1000
+      perspective: 1000
       float: left
 
-   .card
-      margin: 2px 2px
+   .card-front
       position: relative
       cursor: pointer
       min-height: 250px
@@ -161,6 +163,42 @@ input[type=checkbox]
          width: 100%
          display: block
       
+   // Styles for flip
+   .flipper 
+      margin: 2px
+      -webkit-transition: 0.6s
+      -webkit-transform-style: preserve-3d
+      -moz-transition: 0.6s
+      -moz-transform-style: preserve-3d
+      transition: 0.6s
+      transform-style: preserve-3d
+      position: relative
+      &.show-front
+         -webkit-transform: rotateY(-180deg)
+         -moz-transform: rotateY(-180deg)
+         transform: rotateY(-180deg)
+      
+   .card-front
+   .card-back
+      -webkit-backface-visibility: hidden
+      -moz-backface-visibility: hidden
+      backface-visibility: hidden
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+   .card-back
+      z-index: 2
+      img
+         width: 100%
+         display: block
+   .card-front
+      -webkit-transform: rotateY(-180deg)
+      -moz-transform: rotateY(-180deg)
+      transform: rotateY(-180deg)
+
+
 .footer
    padding: 10px
    border-top: 1px #ddd solid

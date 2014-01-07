@@ -1,5 +1,6 @@
 #= require lib/jquery.js
 #= require lib/jquery.cookie.js
+#= require lib/jquery.imgpreload.min.js
 #= require lib/knockout.js
 #= require lib/vex.combined.min.js
 #= require ext/binding-handlers.coffee
@@ -8,6 +9,7 @@ vex.defaultOptions.className = 'vex-theme-os'
 
 # Constants
 MOBILE_WIDTH = 600
+ANIMATION_TIME = 600#ms
 REMAPPED_NAMES = { 'knights': 'dameanna' }
 LOADING_IMAGE_URL = '/img/cards/backside_blue.jpg'
 
@@ -63,12 +65,11 @@ class window.Card
       @name = ko.observable()
       @set = ko.observable()
       @isLoading = ko.observable(true)
-      @keep = ko.observable(true)
+      @cardImageLoaded = ko.observable(false)
+      @animationStartTime = null
 
       # Build the image URL
-      @cardImageUrl = ko.computed () => getImageUrl(@set(), @name())
-      @imageUrl = ko.computed () =>
-         if @isLoading() then LOADING_IMAGE_URL else @cardImageUrl()
+      @imageUrl = ko.computed () => getImageUrl(@set(), @name())
       @setClass = ko.computed () =>
          if @isLoading() then 'loading' else lower(@set())
 
@@ -81,23 +82,26 @@ class window.Card
          if set.id == data.set
             @set(set.name)
             break
-      # @cost = data.cost
-      # @description = data.description
-      # @isAttack = data.isAttack
-      # @isAction = data.isAction
-      # @isTreasure = data.isTreasure
-      # @isVictory = data.isVictory
-      # @isTrashing = data.isTrashing
-      # @isReaction = data.isReaction
+
       @isLoading(false)
+      @cardImageLoaded(false)
+      $.imgpreload @imageUrl(), =>
+         # Delay showing image until transition is complete
+         if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
+            setTimeout (=> @cardImageLoaded(true)), left
+         else @cardImageLoaded(true)
+         
+   setToLoading: =>
+      @isLoading(true)
+      @animationStartTime = new Date()
 
    openDialog: () => @parent.dialogControl.open(@)
 
    fetchNewCard: () =>
-      @isLoading(true)
+      @setToLoading()
       options =
          sets: (s.id for s in @parent.dialogControl.sets when s.active()).join(',')
-         cards: (c.id for c in @parent.cards() when @id != c.id).join(',')
+         cards: (c.id for c in @parent.cards()).join(',')
          types: (t.id for t in @parent.dialogControl.types when t.active()).join(',')
       
       $.getJSON '/cards/single', options, (data) =>
@@ -161,6 +165,8 @@ class window.ViewModel
       @meta = new window.Meta()
       @dialogControl = new window.DialogControl(@sets)
       @fetchKingdom()
+      @hasLoaded = ko.observable(false)
+      @loadCardBack()
 
    getOptions: () =>
       options = {
@@ -174,7 +180,7 @@ class window.ViewModel
    fetchKingdom: () =>
       options = @getOptions()
       @saveOptionsToCookie(options)
-      card.isLoading(true) for card in @cards()
+      card.setToLoading() for card in @cards()
 
       $.getJSON '/cards/kingdom', options, (data) =>
          index = 0
@@ -195,6 +201,12 @@ class window.ViewModel
                   break
 
    saveOptionsToCookie: (options) => $.cookie('options', { sets: options.sets })
+   loadCardBack: => 
+      start = new Date
+      $.imgpreload LOADING_IMAGE_URL, =>
+         if (left = 500 - (new Date() - start)) > 0
+            setTimeout (=> @hasLoaded(true)), left
+         else @hasLoaded(true)
 
 $(document).ready () ->
    $.cookie.json = true

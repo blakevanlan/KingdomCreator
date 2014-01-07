@@ -32,13 +32,15 @@ block content
                | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
 
       .main
-         .cards(data-bind="foreach: cards")
+         .cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, foreach: cards", style="visibility:hidden;")
             .card-wrap
-               .card(data-bind="click: openDialog, css: { keep: keep() }")
-                  img(data-bind="attr:{src:imageUrl}")
-                  .set-name-wrap
-                     .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
-                  .highlight
+               .flipper(data-bind="scaleOffWidth: 473/296, css: { 'show-front': cardImageLoaded() && !isLoading() }" )
+                  .card-back
+                     img(src="/img/cards/backside_blue.jpg")
+                  .card-front(data-bind="click: openDialog")
+                     img(data-bind="attr:{src:imageUrl}")
+                     .set-name-wrap
+                        .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
          .clear
 
    .footer

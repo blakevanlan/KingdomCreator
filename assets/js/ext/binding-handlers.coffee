@@ -8,3 +8,12 @@ ko.bindingHandlers.showFloating =
          if ($win.scrollTop() > offset and viewModel.isMobile())
             $el.show()
          else $el.hide()
+
+ko.bindingHandlers.scaleOffWidth =
+   init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+      heightToWidthRatio = ko.utils.unwrapObservable(valueAccessor())
+      $el = $(element)
+      $win = $(window)
+      setHeight = -> $el.height($el.width() * heightToWidthRatio)
+      $win.resize setHeight
+      setHeight()
