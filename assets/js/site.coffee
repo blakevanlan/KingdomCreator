@@ -1,7 +1,6 @@
 #= require lib/jquery.js
 #= require lib/jquery.cookie.js
 #= require lib/jquery.imgpreload.min.js
-#= require lib/jquery.mixitup.min.js
 #= require lib/knockout.js
 #= require lib/vex.combined.min.js
 #= require ext/binding-handlers.coffee
