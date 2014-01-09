@@ -1,6 +1,7 @@
 #= require lib/jquery.js
 #= require lib/jquery.cookie.js
 #= require lib/jquery.imgpreload.min.js
+#= require lib/jquery.mixitup.min.js
 #= require lib/knockout.js
 #= require lib/vex.combined.min.js
 #= require ext/binding-handlers.coffee
@@ -13,16 +14,89 @@ ANIMATION_TIME = 600#ms
 REMAPPED_NAMES = { 'knights': 'dameanna' }
 LOADING_IMAGE_URL = '/img/cards/backside_blue.jpg'
 
+
+
 lower = (str) -> if str then str.replace(/[\s'-]/g, '').toLowerCase() else ''
 getImageUrl = (set, name) ->
    name = lower(name)
    name = REMAPPED_NAMES[name] if (REMAPPED_NAMES[name])
    return "/img/cards/#{lower(set)}_#{name}.jpg"
 
+sortCards = (cardsObservableArray) ->
+   $body = $('body')
+   cards = cardsObservableArray()
+   $cards = $('#cards').find('.card-wrap .card-front')
+   pairs = []
+   for card, index in cards
+      pairs.push({ card: card, element: $($cards[index]) })
+   
+   pairs.sort(cardPairSorter)
+   
+   movedPairs = []
+   for pair, pairIndex in pairs
+      for card, cardIndex in cards
+         if card == pair.card and pairIndex != cardIndex
+            pair.movedFrom = pair.element.offset()
+            pair.movedTo = $($cards[pairIndex]).offset()
+            movedPairs.push(pair)
+      
+   for p in movedPairs
+      do (pair = p) ->
+         pair.clone = pair.element.clone(false)
+         tX = pair.movedTo.left - pair.movedFrom.left
+         tY = pair.movedTo.top - pair.movedFrom.top
+         setVenderProp = (obj, prop, val) ->
+            obj['-webkit-'+prop] = val
+            obj['-moz-'+prop] = val
+            obj[prop] = val
+            return obj
+
+         # Build all the css required
+         css =
+            position: 'absolute'
+            height: pair.element.height()
+            width: pair.element.width()
+            top: pair.movedFrom.top
+            left: pair.movedFrom.left
+            'transition-property': '-webkit-transform, -webkit-filter, opacity'
+            'transition-property': '-moz-transform, -moz-filter, opacity'
+         
+         setVenderProp(css, 'transition-timing-function', 'ease-in-out')
+         setVenderProp(css, 'transition-duration', '600ms')
+         setVenderProp(css, 'transition-delay', 0)
+         setVenderProp(css, 'filter', 'none')
+         setVenderProp(css, 'transition', 'all 600ms ease-in-out')
+         setVenderProp(css, 'transform', "translate(0px,0px)")
+
+         # Set up everything for the animation
+         pair.clone.appendTo($body).css(css)
+         pair.element.css('visibility', 'hidden')
+         pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->
+            pair.element.css('visibility', 'visible')
+            pair.clone.remove()
+         
+         # This timeout is required so that the animation actually takes place
+         setTimeout ->
+            pair.clone.css(setVenderProp({}, 'transform', "translate(#{tX}px,#{tY}px)"))
+         , 0
+
+   # Sort all the cards while the ones that will change position are moving
+   cardsObservableArray.sort(cardSorter)
+
+
+cardPairSorter = (a, b) -> return cardSorter(a.card, b.card)
+cardSorter = (a, b) ->
+   return -1 if a.setId < b.setId
+   return 1 if a.setId > b.setId
+   return -1 if a.name() < b.name()
+   return 1 if a.name() > b.name()
+   return 0
+
+
 # Dialog methods
 vexDialogId = null
-closeDialog = () -> vex.close(vexDialogId) if vexDialogId
-openDialog = () ->
+closeDialog = -> vex.close(vexDialogId) if vexDialogId
+openDialog = ->
    $content = null
    $dialog = vex.open
       afterOpen: ($vexContent) ->
@@ -62,6 +136,7 @@ class window.Card
    constructor: (parent) ->
       @parent = parent
       @id = null
+      @setId = null
       @name = ko.observable()
       @set = ko.observable()
       @isLoading = ko.observable(true)
@@ -76,6 +151,7 @@ class window.Card
    setData: (data, sets) =>
       @id = data._id
       @name(data.name)
+      @setId = data.set
       
       # Set the name of the set
       for set in sets
@@ -88,12 +164,16 @@ class window.Card
       $.imgpreload @imageUrl(), =>
          # Delay showing image until transition is complete
          if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
-            setTimeout (=> @cardImageLoaded(true)), left
-         else @cardImageLoaded(true)
+            setTimeout (=> @setCardLoaded()), left
+         else @setCardLoaded()
          
    setToLoading: =>
       @isLoading(true)
       @animationStartTime = new Date()
+
+   setCardLoaded: =>
+      @cardImageLoaded(true)
+      setTimeout (=> sortCards(@parent.cards)), ANIMATION_TIME
 
    openDialog: () => @parent.dialogControl.open(@)
 

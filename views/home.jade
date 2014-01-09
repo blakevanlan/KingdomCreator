@@ -32,7 +32,7 @@ block content
                | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
 
       .main
-         .cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, foreach: cards", style="visibility:hidden;")
+         #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, foreach: cards", style="visibility:hidden;")
             .card-wrap
                .flipper(data-bind="scaleOffWidth: 473/296, css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
