@@ -267,8 +267,8 @@ input[type=checkbox]
 
 // Move sidebar to the top
 @media (max-width: 600px)
-   body 
-      margin: 5px
+   // body 
+   //    margin: 5px
 
    label.checkbox
       position: relative
@@ -281,12 +281,13 @@ input[type=checkbox]
          margin-right: 12px!important
          -webkit-transform: scale(1.5,1.5)
          top: -2px
-   
+   #header
+      margin: 5px -5px
    .content
       .sidebar
          float: none
          width: auto
-         margin-top: 10px
+         margin: 5px -5px
 
       .sets
          .set
@@ -297,6 +298,7 @@ input[type=checkbox]
                float: left
     
       .meta
+         margin-top: 5px
          h1
             font-size: 26px
          .recommendation
@@ -304,7 +306,7 @@ input[type=checkbox]
 
 
       .main
-         margin: 5px 0 0 0 
+         margin: 5px -5px 0
 
    .set-name-wrap 
       font-size: 16px
