@@ -17,3 +17,12 @@ ko.bindingHandlers.scaleOffWidth =
       setHeight = -> $el.height($el.width() * heightToWidthRatio)
       $win.resize setHeight
       setHeight()
+
+ko.bindingHandlers.slideVisible =
+   update: (element, valueAccessor, allBindings) ->
+      value = ko.unwrap(valueAccessor())
+      duration = allBindings.get('slideDuration') or 400
+ 
+      # Now manipulate the DOM element
+      if (value == true) then $(element).slideDown(duration)
+      else $(element).slideUp(duration)

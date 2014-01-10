@@ -207,6 +207,10 @@ class window.DialogControl
       @costs = @createCosts()
       @callback = null
 
+      @openSetsSection = ko.observable(false)
+      @openTypesSection = ko.observable(false)
+      @openCostsSection = ko.observable(false)
+
       # Watch for changes on the main sets and atomatically apply changes to
       # dialog
       for set in allSets()
@@ -216,6 +220,10 @@ class window.DialogControl
                   if s.id == cset.id
                      s.active(val)
                      break
+
+   toggleSetsSection: => @openSetsSection(!@openSetsSection())
+   toggleTypesSection: => @openTypesSection(!@openTypesSection())
+   toggleCostsSection: => @openCostsSection(!@openCostsSection())
 
    fetchNewCards: () =>
       @callback()

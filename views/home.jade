@@ -53,22 +53,28 @@ block content
       .dialog-content(data-bind="with: dialogControl")
          .dialog-desc Use this dialog to customize the replacement card(s)
          .sets-wrap
-            h1 Sets
-            .sets(data-bind="foreach: sets")
+            h1(data-bind="click: toggleSetsSection")
+               span.heading Sets
+               span.toggleButton(data-bind="text: openSetsSection() ?'Hide':'Show'")
+            .sets(data-bind="foreach: sets, slideVisible: openSetsSection")
                .set.checkbox-wrap.columns
                   label.checkbox
                      input(type="checkbox", data-bind="checked: active")
                      span(data-bind="text: name")
             .clear
-            h1 Types
-            .types(data-bind="foreach: types")
+            h1(data-bind="click: toggleTypesSection")
+               span.heading Types
+               span.toggleButton(data-bind="text: openTypesSection() ?'Hide':'Show'")
+            .types(data-bind="foreach: types, slideVisible: openTypesSection")
                .type.checkbox-wrap.columns
                   label.checkbox
                      input(type="checkbox", data-bind="checked: active")
                      span(data-bind="text: name")
             .clear
-            h1 Cost
-            .costs(data-bind="foreach: costs")
+            h1(data-bind="click: toggleCostsSection")
+               span.heading Cost
+               span.toggleButton(data-bind="text: openCostsSection() ?'Hide':'Show'")
+            .costs(data-bind="foreach: costs, slideVisible: openCostsSection")
                .cost.checkbox-wrap.columns.four
                   label.checkbox
                      input(type="checkbox", data-bind="checked: active")
