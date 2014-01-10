@@ -5,7 +5,7 @@ rand = module.exports =
 
    getRandomInts: (count, max) ->
       nums = []
-      count = max - 1 if count >= max
+      count = max if count >= max
 
       while nums.length < count
          while true

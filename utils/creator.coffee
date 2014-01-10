@@ -103,7 +103,8 @@ fillKingdom = (kingdom, callback) ->
 alchemySetCorrection = (kingdom, callback) ->
    alchemyCards = (c for c in kingdom.cards when c.set.toString() == ALCHEMY_SET_ID)
    # Return if there are either more than 3 alchemy cards or none
-   return callback(null, kingdom) if kingdom.skipAlchemy or not 0 < alchemyCards.length < 3
+   
+   return callback(null, kingdom) if kingdom.skipAlchemy or not (0 < alchemyCards.length < 3)
    numNewCards = rand.getRandomInt(3, 6) - alchemyCards.length
 
    # Change numNewCards to be equal to the number
@@ -112,6 +113,9 @@ alchemySetCorrection = (kingdom, callback) ->
       # that are being randomized
       numKeepCards = kingdom.keepCards.length
       numNewCards = 10 - numKeepCards if numKeepCards + numNewCards > 10
+
+   # Return if the set is fine without new alchemy cards
+   return callback(null, kingdom) if numNewCards == 0
 
    filter = 
       set: mongoose.Types.ObjectId(ALCHEMY_SET_ID)
@@ -122,6 +126,7 @@ alchemySetCorrection = (kingdom, callback) ->
    getCards numNewCards, filter, (err, newCards) ->
       replaceableCards = []
       nonReplaceableCards = []
+
       if kingdom.keepCards?.length > 0
          # Ensure that none of the keepCards are replaced with alchemy cards
          for card in kingdom.cards when card.set.toString() != ALCHEMY_SET_ID

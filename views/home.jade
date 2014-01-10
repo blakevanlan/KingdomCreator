@@ -33,15 +33,15 @@ block content
 
       .main
          #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, foreach: cards", style="visibility:hidden;")
-            .card-wrap
+            .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
                .flipper(data-bind="scaleOffWidth: 473/296, css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img(src="/img/cards/backside_blue.jpg")
-                  .card-front(data-bind="click: toggleSelected")
+                  .card-front
                      img(data-bind="attr:{src:imageUrl}")
                      .set-name-wrap
                         .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
-               .highlight(data-bind="visible: selected")
+               .highlight
          .clear
 
    .footer
@@ -51,7 +51,7 @@ block content
 
    .dialog-hidden-content
       .dialog-content(data-bind="with: dialogControl")
-         .dialog-desc Use this dialog to customize the replacement card
+         .dialog-desc Use this dialog to customize the replacement card(s)
          .sets-wrap
             h1 Sets
             .sets(data-bind="foreach: sets")

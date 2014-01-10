@@ -13,8 +13,6 @@ ANIMATION_TIME = 600#ms
 REMAPPED_NAMES = { 'knights': 'dameanna' }
 LOADING_IMAGE_URL = '/img/cards/backside_blue.jpg'
 
-
-
 lower = (str) -> if str then str.replace(/[\s'-]/g, '').toLowerCase() else ''
 getImageUrl = (set, name) ->
    name = lower(name)
@@ -144,7 +142,7 @@ class window.Card
       @selected = ko.observable(false)
 
       # Build the image URL
-      @imageUrl = ko.computed () => getImageUrl(@set(), @name())
+      @imageUrl = ko.observable(LOADING_IMAGE_URL)
       @setClass = ko.computed () =>
          if @isLoading() then 'loading' else lower(@set())
 
@@ -159,6 +157,7 @@ class window.Card
             @set(set.name)
             break
 
+      @imageUrl(getImageUrl(@set(), @name()))
       @isLoading(false)
       @cardImageLoaded(false)
       $.imgpreload @imageUrl(), =>
