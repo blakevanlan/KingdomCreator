@@ -67,6 +67,13 @@ block content
                      input(type="checkbox", data-bind="checked: active")
                      span(data-bind="text: name")
             .clear
+            h1 Cost
+            .costs(data-bind="foreach: costs")
+               .cost.checkbox-wrap.columns.four
+                  label.checkbox
+                     input(type="checkbox", data-bind="checked: active")
+                     span(data-bind="text: name")
+            .clear
 
          .dialog-buttons
             a.button(data-bind="click: fetchNewCards") Randomize

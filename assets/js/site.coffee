@@ -204,6 +204,7 @@ class window.DialogControl
       # Create new set objects so they can be clicked on 
       @sets = (new window.Set(set.toObject()) for set in allSets())
       @types = @createTypes()
+      @costs = @createCosts()
       @callback = null
 
       # Watch for changes on the main sets and atomatically apply changes to
@@ -236,6 +237,16 @@ class window.DialogControl
          new window.CardType('Victory')
       ]
 
+   createCosts: ->
+      return [
+         new window.CardType({ id: 'cost2', name: '2' })
+         new window.CardType({ id: 'cost5', name: '5' })
+         new window.CardType({ id: 'cost3', name: '3' })
+         new window.CardType({ id: 'cost4', name: '4' })
+         new window.CardType({ id: 'cost6', name: '6' })
+         new window.CardType({ id: 'cost7+', name: '7+' })
+      ]
+
 
 class window.ViewModel
    constructor: (sets) ->
@@ -266,8 +277,19 @@ class window.ViewModel
                sets: (s.id for s in @dialogControl.sets when s.active()).join(',')
                replaceCards: (c.id for c in selectedCards).join(',')
                keepCards: (c.id for c in nonSelectedCards).join(',')
-               types: (t.id for t in @dialogControl.types when t.active()).join(',')
 
+            # Add types if not all are selected
+            types = []
+            activeTypes = (t.id for t in @dialogControl.types when t.active())
+            activeCosts = (c.id for c in @dialogControl.costs when c.active())
+            if activeTypes.length < @dialogControl.types.length
+               types.push(type) for type in activeTypes
+            if activeCosts.length < @dialogControl.costs.length
+               types.push(cost) for cost in activeCosts
+            
+            options.types = types.join(',') if types.length > 0
+            
+            # Set cards to loading and get new cards
             card.setToLoading() for card in selectedCards
             $.getJSON '/cards/kingdom', options, (data) =>
                index = 0

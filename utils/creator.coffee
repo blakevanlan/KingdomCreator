@@ -49,7 +49,7 @@ loadKeepCards = (kingdom, callback) ->
 setTypesOnFilter = (kingdom, callback) ->
    # Return right away if there are no types
    return callback(null, kingdom) if not kingdom.types or kingdom.types.length == 0
-   map = 
+   typeMap = 
       '+2actions': 'isActionSupplier'
       'attack': 'isAttack'
       '+1buy': 'isBuySupplier'
@@ -57,14 +57,24 @@ setTypesOnFilter = (kingdom, callback) ->
       'reaction': 'isReaction'
       'trashing': 'isTrashing'
       'victory': 'isVictory'
+   costMap =
+      'cost2': { 'cost.treasure': 2 }
+      'cost3': { 'cost.treasure': 3 }
+      'cost4': { 'cost.treasure': 4 }
+      'cost5': { 'cost.treasure': 5 }
+      'cost6': { 'cost.treasure': 6 }
+      'cost7+': { 'cost.treasure': { $gte: 7 } }
 
    kingdom.filter.$or = [] unless kingdom.filter.$or
    for type in kingdom.types
-      continue unless map[type]
-      sub = {}
-      sub[map[type]] = true
-      kingdom.filter.$or.push(sub)
+      if typeMap[type]
+         sub = {}
+         sub[map[type]] = true
+         kingdom.filter.$or.push(sub)
+      else if costMap
+         kingdom.filter.$or.push(costMap[type])
 
+   console.log '$or', kingdom.filter.$or
    callback(null, kingdom)
 
 fillKingdom = (kingdom, callback) ->
@@ -157,6 +167,15 @@ getCards = (count, filter, cb, secondTry) ->
    cards = []
    Cards.count(filter).exec (err, cardCount) ->
       return cb(err) if err
+
+      # If there are no possible cards with this filter then remove the
+      # types and try again
+      if cardCount == 0
+         return cb() if secondTry
+         clonedFilter = {}
+         (clonedFilter[k] = v unless k == '$or') for k, v of filter   
+         return getCards count, clonedFilter, cb, true
+
       q = async.queue (index, callback) ->
          getCardFromIndex index, filter, (err, card) ->
             cards.push(card) if card
@@ -171,7 +190,11 @@ getCards = (count, filter, cb, secondTry) ->
          if not secondTry and cards.length < count and filter.$or
             clonedFilter = {}
             (clonedFilter[k] = v unless k == '$or') for k, v of filter
-            getCards (count - cards.length), filter, cb, true
+            getCards (count - cards.length), clonedFilter, (err, moreCards) ->
+               return cb(err) if err
+               cards.push(c) for c in moreCards
+               cb(null, cards)
+            , true
          else
             cb(err, cards)
 

@@ -229,8 +229,14 @@ input[type=checkbox]
 
    .checkbox-wrap.columns
       width: 50%
+      &.three
+         width: 33.33333333%
+      &.four
+         width: 25%
       &:nth-child(even)
          float: right
+         &:last-child
+            float: left
       &:nth-child(odd)
          float: left
       input[type=checkbox]
@@ -317,11 +323,14 @@ input[type=checkbox]
 .vex.vex-theme-os
    padding-top: 80px
 
-@media (max-height: 600px)
+@media (max-height: 675px)
    .vex.vex-theme-os
       padding-top: 40px
 
-@media (max-height: 525px)
+@media (max-height: 650px)
+   .vex.vex-theme-os
+      padding-top: 15px
+
+@media (max-height: 635px)
    .vex.vex-theme-os
       padding-top: 0px
-
