@@ -11,13 +11,8 @@ app.get '/', (req, res, next) ->
 
 app.get '/cards/kingdom', (req, res) ->
    setIds = req.query.sets?.split(',')
-   creator.createKingdom setIds, (err, kingdom) ->
-      res.json kingdom.toObject()
-
-app.get '/cards/single', (req, res) ->
-   setIds = req.query.sets?.split(',')
-   cardIds = req.query.cards?.split(',')
+   replaceCards = req.query.replaceCards?.split(',')
+   keepCards = req.query.keepCards?.split(',')
    types = req.query.types?.split(',')
-
-   creator.singleCard setIds, cardIds, types, (err, card) ->
-      res.json card
+   creator.createKingdom setIds, replaceCards, keepCards, types, (err, kingdom) ->
+      res.json kingdom.toObject()

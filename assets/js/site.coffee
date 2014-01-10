@@ -141,6 +141,7 @@ class window.Card
       @isLoading = ko.observable(true)
       @cardImageLoaded = ko.observable(false)
       @animationStartTime = null
+      @selected = ko.observable(false)
 
       # Build the image URL
       @imageUrl = ko.computed () => getImageUrl(@set(), @name())
@@ -167,6 +168,7 @@ class window.Card
          else @setCardLoaded()
          
    setToLoading: =>
+      @selected(false)
       @isLoading(true)
       @animationStartTime = new Date()
 
@@ -174,7 +176,9 @@ class window.Card
       @cardImageLoaded(true)
       setTimeout (=> sortCards(@parent.cards)), ANIMATION_TIME
 
-   openDialog: () => @parent.dialogControl.open(@)
+   # openDialog: () => @parent.dialogControl.open(@)
+   
+   toggleSelected: () => @selected(!@selected())
 
    fetchNewCard: () =>
       @setToLoading()
@@ -201,7 +205,7 @@ class window.DialogControl
       # Create new set objects so they can be clicked on 
       @sets = (new window.Set(set.toObject()) for set in allSets())
       @types = @createTypes()
-      @cardReference = null
+      @callback = null
 
       # Watch for changes on the main sets and atomatically apply changes to
       # dialog
@@ -213,17 +217,17 @@ class window.DialogControl
                      s.active(val)
                      break
 
-   fetchNewCard: () =>
-      @cardReference.fetchNewCard()
+   fetchNewCards: () =>
+      @callback()
       @close()
 
-   open: (card) => 
-      @cardReference = card
+   open: (callback) => 
+      @callback = callback
       openDialog()
    
    close: () -> 
       closeDialog()
-      @cardReference = null
+      @callback = null
 
    createTypes: ->
       return [
@@ -247,26 +251,67 @@ class window.ViewModel
       @hasLoaded = ko.observable(false)
       @loadCardBack()
 
-   getOptions: () =>
-      options = {
-         sets: (set.id for set in @sets() when set.active()).join(',')
-      }
-      if not options.cards or not options.cards.length or options.cards.length >= 10
-         delete options.cards
-      else options.cards = options.cards.join(',')
-      return options
-
    fetchKingdom: () =>
-      options = @getOptions()
-      @saveOptionsToCookie(options)
-      card.setToLoading() for card in @cards()
+      # Find any cards that are selected
+      selectedCards = []
+      nonSelectedCards = []
 
-      $.getJSON '/cards/kingdom', options, (data) =>
-         index = 0
-         cards = @cards()
-         sets = @sets()
-         cards[index++].setData(card, sets) for card in data.kingdom
-         @meta.update(data.meta)
+      for card in @cards()
+         if card.selected() then selectedCards.push(card)
+         else nonSelectedCards.push(card)
+
+      # If there are cards selected, show dialog so user can filter
+      if selectedCards.length > 0
+         @dialogControl.open () =>
+            options =
+               sets: (s.id for s in @dialogControl.sets when s.active()).join(',')
+               replaceCards: (c.id for c in selectedCards).join(',')
+               keepCards: (c.id for c in nonSelectedCards).join(',')
+               types: (t.id for t in @dialogControl.types when t.active()).join(',')
+
+            card.setToLoading() for card in selectedCards
+            $.getJSON '/cards/kingdom', options, (data) =>
+               index = 0
+               sets = @sets()
+               imagesLeftToLoad = selectedCards.length
+               
+               # Use this function to sync all of the images so that the sort
+               # only happens after all have loaded
+               registerComplete = => 
+                  if --imagesLeftToLoad <= 0 
+                     setTimeout (=> sortCards(@cards)), ANIMATION_TIME
+               
+               for cardData in data.kingdom
+                  isNew = true
+                  for card in nonSelectedCards
+                     if cardData._id == card.id
+                        isNew = false
+                        break
+                  # If this is a new card then set an old card to have the new data
+                  # and then animate the sorting after all have loaded
+                  if isNew
+                     do (card = selectedCards[index++], data = cardData) =>
+                        card.setData(data, sets)
+                        
+                        if card.cardImageLoaded then registerComplete()
+                        else
+                           subscription = card.cardImageLoaded.subscribe (val) =>
+                              return unless val
+                              subscription.dispose()
+                              registerComplete()
+
+               @meta.update(data.meta)
+
+      else 
+         options = sets: (set.id for set in @sets() when set.active()).join(',')
+         @saveOptionsToCookie(options)
+         card.setToLoading() for card in @cards()
+         $.getJSON '/cards/kingdom', options, (data) =>
+            index = 0
+            cards = @cards()
+            sets = @sets()
+            cards[index++].setData(card, sets) for card in data.kingdom
+            @meta.update(data.meta)
 
    loadOptionsFromCookie: () =>
       options = $.cookie('options')

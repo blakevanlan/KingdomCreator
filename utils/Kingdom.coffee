@@ -5,8 +5,11 @@ DARK_AGES_SET_ID = '52ae7d7f0b85ba22080001e6'
 
 class Kingdom
    constructor: (cards, filter) ->
-      @cards = []
-      @filter = filter
+      @cards = cards or []
+      @filter = filter or {}
+      @replaceCards = []
+      @keepCards = []
+      @types = []
       @requireShelters = false
       @requireColonies = false
 

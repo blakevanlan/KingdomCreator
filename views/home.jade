@@ -37,10 +37,11 @@ block content
                .flipper(data-bind="scaleOffWidth: 473/296, css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img(src="/img/cards/backside_blue.jpg")
-                  .card-front(data-bind="click: openDialog")
+                  .card-front(data-bind="click: toggleSelected")
                      img(data-bind="attr:{src:imageUrl}")
                      .set-name-wrap
                         .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
+               .highlight(data-bind="visible: selected")
          .clear
 
    .footer
@@ -68,6 +69,6 @@ block content
             .clear
 
          .dialog-buttons
-            a.button(data-bind="click: fetchNewCard") Randomize
+            a.button(data-bind="click: fetchNewCards") Randomize
             a.button.gray(data-bind="click: closeDialog") Close
             .clear

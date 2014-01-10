@@ -99,10 +99,6 @@ input[type=checkbox]
       perspective: 1000
       float: left
 
-.card-front
-   position: relative
-   cursor: pointer
-
    .highlight
       position: absolute
       top: 1px
@@ -111,7 +107,11 @@ input[type=checkbox]
       left: 1px
       border: 2px solid highlight-blue
       background: rgba(2,119,158,0.65)
-      opacity: 1
+      
+.card-front
+   position: relative
+   cursor: pointer
+
 
    .set-name-wrap
       position: absolute
@@ -288,9 +288,8 @@ input[type=checkbox]
       .main
          margin: 5px 0 0 0 
 
-      #cards
-         .set-name-wrap 
-            font-size: 16px
+   .set-name-wrap 
+      font-size: 16px
 
 @media (max-width: 400px)
    label.checkbox
