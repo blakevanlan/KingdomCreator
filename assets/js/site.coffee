@@ -64,7 +64,7 @@ sortCards = (cardsObservableArray) ->
          setVenderProp(css, 'transition-duration', '600ms')
          setVenderProp(css, 'transition-delay', 0)
          setVenderProp(css, 'filter', 'none')
-         setVenderProp(css, 'transition', 'all 600ms ease-in-out')
+         setVenderProp(css, 'transition', 'transform 600ms ease-in-out')
          setVenderProp(css, 'transform', "translate(0px,0px)")
 
          # Set up everything for the animation
@@ -180,15 +180,15 @@ class window.Card
    
    toggleSelected: () => @selected(!@selected())
 
-   fetchNewCard: () =>
-      @setToLoading()
-      options =
-         sets: (s.id for s in @parent.dialogControl.sets when s.active()).join(',')
-         cards: (c.id for c in @parent.cards()).join(',')
-         types: (t.id for t in @parent.dialogControl.types when t.active()).join(',')
+   # fetchNewCard: () =>
+   #    @setToLoading()
+   #    options =
+   #       sets: (s.id for s in @parent.dialogControl.sets when s.active()).join(',')
+   #       cards: (c.id for c in @parent.cards()).join(',')
+   #       types: (t.id for t in @parent.dialogControl.types when t.active()).join(',')
       
-      $.getJSON '/cards/single', options, (data) =>
-         @setData(data, @parent.sets())
+   #    $.getJSON '/cards/single', options, (data) =>
+   #       @setData(data, @parent.sets())
 
 class window.Meta
    constructor: () ->
@@ -293,7 +293,7 @@ class window.ViewModel
                      do (card = selectedCards[index++], data = cardData) =>
                         card.setData(data, sets)
                         
-                        if card.cardImageLoaded then registerComplete()
+                        if card.cardImageLoaded() then registerComplete()
                         else
                            subscription = card.cardImageLoaded.subscribe (val) =>
                               return unless val

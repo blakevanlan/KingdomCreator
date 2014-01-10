@@ -76,11 +76,14 @@ fillKingdom = (kingdom, callback) ->
       kingdom.filter._id = { $nin: [] } unless kingdom.filter._id
       kingdom.filter._id.$nin.push(c._id) for c in kingdom.cards
 
+      if kingdom.replaceCards?.length > 0
+         kingdom.filter._id.$nin.push(mongoose.Types.ObjectId(id)) for id in kingdom.replaceCards
+
       # Check if alchemy should be used
       alchemyCount = 0
       (alchemyCount++ if c.set.toString() == ALCHEMY_SET_ID) for c in kingdom.cards
       
-      skipAlchemy = alchemyCount > 0 and 3 - alchemyCount + kingdom.keepCards.length > 10
+      skipAlchemy = alchemyCount <= 0 or 3 - alchemyCount + kingdom.keepCards.length > 10
    else
       # Randomly decide if alchemy should be used
       skipAlchemy = kingdom.filter.set.$in.length > 2 and rand.getRandomInt(0, 3)
