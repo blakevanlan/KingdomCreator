@@ -165,6 +165,13 @@ class window.Card
          if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
             setTimeout (=> @setCardLoaded()), left
          else @setCardLoaded()
+
+   failedToLoad: =>
+      @isLoading(false)
+      @cardImageLoaded(false)
+      if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
+         setTimeout (=> @cardImageLoaded(true)), left
+      else @cardImageLoaded(true)
          
    setToLoading: =>
       @selected(false)
@@ -174,20 +181,9 @@ class window.Card
    setCardLoaded: =>
       @cardImageLoaded(true)
       setTimeout (=> sortCards(@parent.cards)), ANIMATION_TIME
-
-   # openDialog: () => @parent.dialogControl.open(@)
    
    toggleSelected: () => @selected(!@selected())
 
-   # fetchNewCard: () =>
-   #    @setToLoading()
-   #    options =
-   #       sets: (s.id for s in @parent.dialogControl.sets when s.active()).join(',')
-   #       cards: (c.id for c in @parent.cards()).join(',')
-   #       types: (t.id for t in @parent.dialogControl.types when t.active()).join(',')
-      
-   #    $.getJSON '/cards/single', options, (data) =>
-   #       @setData(data, @parent.sets())
 
 class window.Meta
    constructor: () ->
@@ -299,7 +295,7 @@ class window.ViewModel
             
             # Set cards to loading and get new cards
             card.setToLoading() for card in selectedCards
-            $.getJSON '/cards/kingdom', options, (data) =>
+            jqxhr = $.getJSON '/cards/kingdom', options, (data) =>
                index = 0
                sets = @sets()
                imagesLeftToLoad = selectedCards.length
@@ -330,6 +326,8 @@ class window.ViewModel
                               registerComplete()
 
                @meta.update(data.meta)
+            # Handle if an error occurs while loading new cards
+            jqxhr.fail () => card.failedToLoad() for card in selectedCards
 
       else 
          options = sets: (set.id for set in @sets() when set.active()).join(',')
