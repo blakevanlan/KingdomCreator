@@ -243,7 +243,7 @@ class window.DialogControl
 
    createCosts: ->
       return [
-         new window.CardType({ id: 'cost2', name: '2' })
+         new window.CardType({ id: 'cost2', name: '1-2' })
          new window.CardType({ id: 'cost5', name: '5' })
          new window.CardType({ id: 'cost3', name: '3' })
          new window.CardType({ id: 'cost4', name: '4' })

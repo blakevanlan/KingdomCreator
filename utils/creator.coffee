@@ -58,7 +58,7 @@ setTypesOnFilter = (kingdom, callback) ->
       'trashing': 'isTrashing'
       'victory': 'isVictory'
    costMap =
-      'cost2': { 'cost.treasure': 2 }
+      'cost2': { 'cost.treasure': { $lte: 2 } }
       'cost3': { 'cost.treasure': 3 }
       'cost4': { 'cost.treasure': 4 }
       'cost5': { 'cost.treasure': 5 }
