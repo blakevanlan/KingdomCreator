@@ -69,7 +69,7 @@ setTypesOnFilter = (kingdom, callback) ->
    for type in kingdom.types
       if typeMap[type]
          sub = {}
-         sub[map[type]] = true
+         sub[typeMap[type]] = true
          kingdom.filter.$or.push(sub)
       else if costMap
          kingdom.filter.$or.push(costMap[type])
