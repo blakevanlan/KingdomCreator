@@ -3,7 +3,7 @@ Environmental variables
  - PORT
 */
 
-require("coffee-script");
+require("coffee-script/register");
 app = require("./controllers/host.coffee");
 http = require("http");
 port = process.env.PORT || 2222;
