@@ -1,7 +1,7 @@
 {
    "author": "Blake VanLandingham",
    "name": "KingdomCreator",
-   "version": "0.0.1",
+   "version": "1.0.0",
    "engines": {
       "node": "0.10.x",
       "npm": "1.x.x"
