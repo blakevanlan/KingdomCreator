@@ -26,6 +26,7 @@ module.exports =
          setTypesOnFilter,
          fillKingdom,
          alchemySetCorrection,
+         actionSupplierCorrection
       ], callback
       
 ###
@@ -74,7 +75,6 @@ setTypesOnFilter = (kingdom, callback) ->
       else if costMap
          kingdom.filter.$or.push(costMap[type])
 
-   console.log '$or', kingdom.filter.$or
    callback(null, kingdom)
 
 fillKingdom = (kingdom, callback) ->
@@ -158,6 +158,24 @@ alchemySetCorrection = (kingdom, callback) ->
       alchemyCards.push(card) for card in replaceableCards
       alchemyCards.push(card) for card in nonReplaceableCards
       kingdom.cards = alchemyCards
+      callback(null, kingdom)
+
+actionSupplierCorrection = (kingdom, callback) ->
+
+   for card in kingdom.cards
+      if card.isActionSupplier
+         console.log "Has Action Supplier"
+         return callback(null, kingdom)
+   console.log "Needs Action Supplier"
+   filter = 
+      set: kingdom.filter.set
+      _id: { $nin: (card._id for card in kingdom.cards) }
+      isActionSupplier: true
+
+   getCards 1, filter, (err, cards) ->
+      return callback(err) if err
+      evictIndex = rand.getRandomInt(0,10)
+      kingdom.cards[evictIndex] = cards[0]
       callback(null, kingdom)
 
 ###
