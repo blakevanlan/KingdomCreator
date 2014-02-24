@@ -164,9 +164,8 @@ actionSupplierCorrection = (kingdom, callback) ->
 
    for card in kingdom.cards
       if card.isActionSupplier
-         console.log "Has Action Supplier"
          return callback(null, kingdom)
-   console.log "Needs Action Supplier"
+         
    filter = 
       set: kingdom.filter.set
       _id: { $nin: (card._id for card in kingdom.cards) }
