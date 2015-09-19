@@ -1,0 +1,10 @@
+{ "_id" : { "$oid" : "52ae276ef44eea793e000124" }, "name" : "Base Set" }
+{ "_id" : { "$oid" : "52ae7ceb0b85ba0805000219" }, "name" : "Intrigue" }
+{ "_id" : { "$oid" : "52ae7d370b85bab9be0001b1" }, "name" : "Seaside" }
+{ "_id" : { "$oid" : "52ae7d481f29ce019a0001f6" }, "name" : "Alchemy" }
+{ "_id" : { "$oid" : "52ae7d58f44eea5cd40001fa" }, "name" : "Prosperity" }
+{ "_id" : { "$oid" : "52ae7d66b3b920573200021f" }, "name" : "Cornucopia" }
+{ "_id" : { "$oid" : "52ae7d723680e48c5e0001d3" }, "name" : "Hinterlands" }
+{ "_id" : { "$oid" : "52ae7d7f0b85ba22080001e6" }, "name" : "Dark Ages" }
+{ "_id" : { "$oid" : "52ae7d8c3680e48c5e0001de" }, "name" : "Guilds" }
+{ "_id" : { "$oid" : "55fd7f9c3f6ba12e28000000" }, "name" : "Adventures" }
