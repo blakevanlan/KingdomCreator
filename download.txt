@@ -1,0 +1,72 @@
+curl -o adventures_coinoftherealm.jpg http://dominion.diehrstraits.com/scans/adventures/coinoftherealm.jpg
+curl -o adventures_page.jpg http://dominion.diehrstraits.com/scans/adventures/page.jpg
+curl -o adventures_peasant.jpg http://dominion.diehrstraits.com/scans/adventures/peasant.jpg
+curl -o adventures_ratcatcher.jpg http://dominion.diehrstraits.com/scans/adventures/ratcatcher.jpg
+curl -o adventures_raze.jpg http://dominion.diehrstraits.com/scans/adventures/raze.jpg
+curl -o adventures_amulet.jpg http://dominion.diehrstraits.com/scans/adventures/amulet.jpg
+curl -o adventures_caravanguard.jpg http://dominion.diehrstraits.com/scans/adventures/caravanguard.jpg
+curl -o adventures_dungeon.jpg http://dominion.diehrstraits.com/scans/adventures/dungeon.jpg
+curl -o adventures_gear.jpg http://dominion.diehrstraits.com/scans/adventures/gear.jpg
+curl -o adventures_guide.jpg http://dominion.diehrstraits.com/scans/adventures/guide.jpg
+curl -o adventures_duplicate.jpg http://dominion.diehrstraits.com/scans/adventures/duplicate.jpg
+curl -o adventures_magpie.jpg http://dominion.diehrstraits.com/scans/adventures/magpie.jpg
+curl -o adventures_messenger.jpg http://dominion.diehrstraits.com/scans/adventures/messenger.jpg
+curl -o adventures_miser.jpg http://dominion.diehrstraits.com/scans/adventures/miser.jpg
+curl -o adventures_port.jpg http://dominion.diehrstraits.com/scans/adventures/port.jpg
+curl -o adventures_ranger.jpg http://dominion.diehrstraits.com/scans/adventures/ranger.jpg
+curl -o adventures_transmogrify.jpg http://dominion.diehrstraits.com/scans/adventures/transmogrify.jpg
+curl -o adventures_artificer.jpg http://dominion.diehrstraits.com/scans/adventures/artificer.jpg
+curl -o adventures_bridgetroll.jpg http://dominion.diehrstraits.com/scans/adventures/bridgetroll.jpg
+curl -o adventures_distantlands.jpg http://dominion.diehrstraits.com/scans/adventures/distantlands.jpg
+curl -o adventures_giant.jpg http://dominion.diehrstraits.com/scans/adventures/giant.jpg
+curl -o adventures_hauntedwoods.jpg http://dominion.diehrstraits.com/scans/adventures/hauntedwoods.jpg
+curl -o adventures_lostcity.jpg http://dominion.diehrstraits.com/scans/adventures/lostcity.jpg
+curl -o adventures_relic.jpg http://dominion.diehrstraits.com/scans/adventures/relic.jpg
+curl -o adventures_royalcarriage.jpg http://dominion.diehrstraits.com/scans/adventures/royalcarriage.jpg
+curl -o adventures_storyteller.jpg http://dominion.diehrstraits.com/scans/adventures/storyteller.jpg
+curl -o adventures_swamphag.jpg http://dominion.diehrstraits.com/scans/adventures/swamphag.jpg
+curl -o adventures_treasuretrove.jpg http://dominion.diehrstraits.com/scans/adventures/treasuretrove.jpg
+curl -o adventures_winemerchant.jpg http://dominion.diehrstraits.com/scans/adventures/winemerchant.jpg
+curl -o adventures_hireling.jpg http://dominion.diehrstraits.com/scans/adventures/hireling.jpg
+curl -o adventures_soldier.jpg http://dominion.diehrstraits.com/scans/adventures/soldier.jpg
+curl -o adventures_fugitive.jpg http://dominion.diehrstraits.com/scans/adventures/fugitive.jpg
+curl -o adventures_disciple.jpg http://dominion.diehrstraits.com/scans/adventures/disciple.jpg
+curl -o adventures_teacher.jpg http://dominion.diehrstraits.com/scans/adventures/teacher.jpg
+curl -o adventures_treasurehunter.jpg http://dominion.diehrstraits.com/scans/adventures/treasurehunter.jpg
+curl -o adventures_warrior.jpg http://dominion.diehrstraits.com/scans/adventures/warrior.jpg
+curl -o adventures_hero.jpg http://dominion.diehrstraits.com/scans/adventures/hero.jpg
+curl -o adventures_champion.jpg http://dominion.diehrstraits.com/scans/adventures/champion.jpg
+curl -o adventures_event_alms.jpg http://dominion.diehrstraits.com/scans/adventures/alms.jpg
+curl -o adventures_event_borrow.jpg http://dominion.diehrstraits.com/scans/adventures/borrow.jpg
+curl -o adventures_event_quest.jpg http://dominion.diehrstraits.com/scans/adventures/quest.jpg
+curl -o adventures_event_save.jpg http://dominion.diehrstraits.com/scans/adventures/save.jpg
+curl -o adventures_event_scoutingparty.jpg http://dominion.diehrstraits.com/scans/adventures/scoutingparty.jpg
+curl -o adventures_event_travellingfair.jpg http://dominion.diehrstraits.com/scans/adventures/travellingfair.jpg
+curl -o adventures_event_bonfire.jpg http://dominion.diehrstraits.com/scans/adventures/bonfire.jpg
+curl -o adventures_event_expedition.jpg http://dominion.diehrstraits.com/scans/adventures/expedition.jpg
+curl -o adventures_event_ferry.jpg http://dominion.diehrstraits.com/scans/adventures/ferry.jpg
+curl -o adventures_event_plan.jpg http://dominion.diehrstraits.com/scans/adventures/plan.jpg
+curl -o adventures_event_mission.jpg http://dominion.diehrstraits.com/scans/adventures/mission.jpg
+curl -o adventures_event_pilgrimage.jpg http://dominion.diehrstraits.com/scans/adventures/pilgrimage.jpg
+curl -o adventures_event_ball.jpg http://dominion.diehrstraits.com/scans/adventures/ball.jpg
+curl -o adventures_event_raid.jpg http://dominion.diehrstraits.com/scans/adventures/raid.jpg
+curl -o adventures_event_seaway.jpg http://dominion.diehrstraits.com/scans/adventures/seaway.jpg
+curl -o adventures_event_trade.jpg http://dominion.diehrstraits.com/scans/adventures/trade.jpg
+curl -o adventures_event_lostarts.jpg http://dominion.diehrstraits.com/scans/adventures/lostarts.jpg
+curl -o adventures_event_training.jpg http://dominion.diehrstraits.com/scans/adventures/training.jpg
+curl -o adventures_event_inheritance.jpg http://dominion.diehrstraits.com/scans/adventures/inheritance.jpg
+curl -o adventures_event_pathfinding.jpg http://dominion.diehrstraits.com/scans/adventures/pathfinding.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
