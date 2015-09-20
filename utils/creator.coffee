@@ -6,15 +6,17 @@ rand = require './rand'
 Kingdom = require './Kingdom'
 
 ALCHEMY_SET_ID = '52ae7d481f29ce019a0001f6'
+DARK_AGES_SET_ID = '52ae7d7f0b85ba22080001e6'
+PROSPERITY_SET_ID = '52ae7d58f44eea5cd40001fa'
 
 module.exports =
    createKingdom: (sets, replaceCards, keepCards, types, callback) ->
       if sets?.length > 0
-         sets[index] = mongoose.Types.ObjectId(set) for set, index in sets
-         filter = { set: { $in: sets } }
+         objectIdSets = (mongoose.Types.ObjectId(set) for set in sets)
+         filter = { set: { $in: objectIdSets } }
       else filter = {}
 
-      kingdom = new Kingdom(null, filter)
+      kingdom = new Kingdom(null, sets, filter)
       kingdom.replaceCards = replaceCards if replaceCards?.length > 0
       kingdom.keepCards = keepCards if keepCards?.length > 0
       kingdom.types = types if types?.length > 0
@@ -26,7 +28,9 @@ module.exports =
          setTypesOnFilter,
          fillKingdom,
          alchemySetCorrection,
-         actionSupplierCorrection
+         actionSupplierCorrection,
+         setShouldUseColonies,
+         setShouldUseShelters
       ], callback
       
 ###
@@ -154,14 +158,13 @@ alchemySetCorrection = (kingdom, callback) ->
       indexes = rand.getRandomInts(numNewCards, replaceableCards.length)
       replaceableCards[indexes[index]] = card for card, index in newCards
 
-      # Smash the all cards back together and return
+      # Smash all the cards back together and return.
       alchemyCards.push(card) for card in replaceableCards
       alchemyCards.push(card) for card in nonReplaceableCards
       kingdom.cards = alchemyCards
       callback(null, kingdom)
 
 actionSupplierCorrection = (kingdom, callback) ->
-
    for card in kingdom.cards
       if card.isActionSupplier
          return callback(null, kingdom)
@@ -175,6 +178,26 @@ actionSupplierCorrection = (kingdom, callback) ->
       return callback(err) if err
       evictIndex = rand.getRandomInt(0,10)
       kingdom.cards[evictIndex] = cards[0]
+      callback(null, kingdom)
+
+setShouldUseColonies = (kingdom, callback) ->
+   # If no sets are defined, then treat it like all sets are defined.
+   if !kingdom.sets.length or PROSPERITY_SET_ID in kingdom.sets
+      isRandomlyPickedCardInSet PROSPERITY_SET_ID, kingdom.sets, (err, shouldUse) ->
+         return callback(err) if err
+         kingdom.shouldUseColonies = shouldUse
+         callback(null, kingdom)
+   else
+      callback(null, kingdom)
+
+setShouldUseShelters = (kingdom, callback) ->
+   # If no sets are defined, then treat it like all sets are defined.
+   if !kingdom.sets.length or DARK_AGES_SET_ID in kingdom.sets
+      isRandomlyPickedCardInSet DARK_AGES_SET_ID, kingdom.sets, (err, shouldUse) ->
+         return callback(err) if err
+         kingdom.shouldUseShelters = shouldUse
+         callback(null, kingdom)
+   else
       callback(null, kingdom)
 
 ###
@@ -220,3 +243,16 @@ getCardFromIndex = (index, filter, cb) ->
    Cards.find(filter).lean().sort('_id').limit(1).skip(index).exec (err, cards) ->
       return cb(err) if err
       cb(null, cards[0])
+
+isRandomlyPickedCardInSet = (setId, sets, callback) ->
+   objectIdSets = (mongoose.Types.ObjectId(set) for set in sets)
+   async.parallel
+      numCardsInAllSets: (done) ->
+         Cards.count({set: {$in: objectIdSets}}).exec(done)
+      numCardsInSet: (done) ->
+         Cards.count({set: mongoose.Types.ObjectId(setId)}).exec(done)
+      , (err, results) ->
+         return callback(err) if err
+         randomCardIndex = rand.getRandomInt(0, results.numCardsInAllSets)
+         callback(null, randomCardIndex <= results.numCardsInSet)
+         
