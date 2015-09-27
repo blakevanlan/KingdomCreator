@@ -12,7 +12,6 @@ class Kingdom
       @shouldUseShelters = false
 
    toObject: () =>
-      console.log("Kingdom", @shouldUseShelters)
       return {
          kingdom: @cards.sort(@cardSorter)
          meta:

@@ -8,3 +8,4 @@
 { "_id" : { "$oid" : "52ae7d7f0b85ba22080001e6" }, "name" : "Dark Ages" }
 { "_id" : { "$oid" : "52ae7d8c3680e48c5e0001de" }, "name" : "Guilds" }
 { "_id" : { "$oid" : "55fd7f9c3f6ba12e28000000" }, "name" : "Adventures" }
+{ "_id" : { "$oid" : "560864a63f6ba10060000024" }, "name" : "Promos" }
