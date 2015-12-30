@@ -19,77 +19,6 @@ getImageUrl = (set, name) ->
    name = REMAPPED_NAMES[name] if (REMAPPED_NAMES[name])
    return "/img/cards/#{lower(set)}_#{name}.jpg"
 
-sortCards = (cardsObservableArray) ->
-   $body = $('body')
-   cards = cardsObservableArray()
-   $cards = $('#cards').find('.card-wrap .card-front')
-   pairs = []
-   for card, index in cards
-      pairs.push({ card: card, element: $($cards[index]) })
-   
-   pairs.sort(cardPairSorter)
-   
-   movedPairs = []
-   for pair, pairIndex in pairs
-      for card, cardIndex in cards
-         if card == pair.card and pairIndex != cardIndex
-            pair.movedFrom = pair.element.offset()
-            pair.movedTo = $($cards[pairIndex]).offset()
-            movedPairs.push(pair)
-      
-   for p in movedPairs
-      do (pair = p) ->
-         pair.clone = pair.element.clone(false)
-         tX = pair.movedTo.left - pair.movedFrom.left
-         tY = pair.movedTo.top - pair.movedFrom.top
-         setVenderProp = (obj, prop, val) ->
-            obj['-webkit-'+prop] = val
-            obj['-moz-'+prop] = val
-            obj[prop] = val
-            return obj
-
-         # Build all the css required
-         css =
-            position: 'absolute'
-            height: pair.element.height()
-            width: pair.element.width()
-            top: pair.movedFrom.top
-            left: pair.movedFrom.left
-            'transition-property': '-webkit-transform, -webkit-filter, opacity'
-            'transition-property': '-moz-transform, -moz-filter, opacity'
-         
-         setVenderProp(css, 'transition-timing-function', 'ease-in-out')
-         setVenderProp(css, 'transition-duration', '600ms')
-         setVenderProp(css, 'transition-delay', 0)
-         setVenderProp(css, 'filter', 'none')
-         setVenderProp(css, 'transition', 'transform 600ms ease-in-out')
-         setVenderProp(css, 'transform', "translate(0px,0px)")
-
-         # Set up everything for the animation
-         pair.clone.appendTo($body).css(css)
-         pair.element.css('visibility', 'hidden')
-         pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->
-            pair.element.css('visibility', 'visible')
-            pair.clone.remove()
-         
-         # This timeout is required so that the animation actually takes place
-         setTimeout ->
-            pair.clone.css(setVenderProp({}, 'transform', "translate(#{tX}px,#{tY}px)"))
-         , 0
-
-   # Sort all the cards while the ones that will change position are moving
-   cardsObservableArray.sort(cardSorter)
-
-
-cardPairSorter = (a, b) -> return cardSorter(a.card, b.card)
-cardSorter = (a, b) ->
-   return -1 if a.setId < b.setId
-   return 1 if a.setId > b.setId
-   return -1 if a.name() < b.name()
-   return 1 if a.name() > b.name()
-   return 0
-
-
 # Dialog methods
 vexDialogId = null
 closeDialog = -> vex.close(vexDialogId) if vexDialogId
@@ -180,7 +109,7 @@ class window.Card
 
    setCardLoaded: =>
       @cardImageLoaded(true)
-      setTimeout (=> sortCards(@parent.cards)), ANIMATION_TIME
+      setTimeout (=> @parent.sortCards()), ANIMATION_TIME
    
    toggleSelected: () => @selected(!@selected())
 
@@ -257,6 +186,8 @@ class window.ViewModel
       @cards = ko.observableArray(new Card(@) for i in [0...10])
       @sets = ko.observableArray(new window.Set(set) for set in sets)
       @showSet = ko.observable(true)
+      @sortAlphabetically = ko.observable(false)
+      @sortAlphabetically.subscribe(@sortCards)
       @isMobile = ko.observable($(window).width() <= MOBILE_WIDTH)
       @loadOptionsFromCookie()
       @meta = new window.Meta()
@@ -304,7 +235,7 @@ class window.ViewModel
                # only happens after all have loaded
                registerComplete = => 
                   if --imagesLeftToLoad <= 0 
-                     setTimeout (=> sortCards(@cards)), ANIMATION_TIME
+                     setTimeout (=> sortCards()), ANIMATION_TIME
                
                for cardData in data.kingdom
                   isNew = true
@@ -331,6 +262,8 @@ class window.ViewModel
 
       else 
          options = sets: (set.id for set in @sets() when set.active()).join(',')
+         options.sortAlphabetically = @sortAlphabetically()
+         options.showSet = @showSet()
          @saveOptionsToCookie(options)
          card.setToLoading() for card in @cards()
          $.getJSON '/cards/kingdom', options, (data) =>
@@ -340,24 +273,98 @@ class window.ViewModel
             cards[index++].setData(card, sets) for card in data.kingdom
             @meta.update(data.meta)
 
-   loadOptionsFromCookie: () =>
+   loadOptionsFromCookie: =>
       options = $.cookie('options')
       if options
-         selectedSets = options.sets.split(',')
-         for set in @sets()
-            set.active(false)
-            for selectedSet in selectedSets
-               if set.id == selectedSet
-                  set.active(true)
-                  break
+         if options.sets
+            selectedSets = options.sets.split(',')
+            for set in @sets()
+               set.active(false)
+               for selectedSet in selectedSets
+                  if set.id == selectedSet
+                     set.active(true)
+                     break
+         @sortAlphabetically(!!options.sortAlphabetically)
+         @showSet(!!options.showSet)
 
-   saveOptionsToCookie: (options) => $.cookie('options', { sets: options.sets })
+   saveOptionsToCookie: (options) => $.cookie('options', options)
+
    loadCardBack: => 
       start = new Date
       $.imgpreload LOADING_IMAGE_URL, =>
          if (left = 500 - (new Date() - start)) > 0
             setTimeout (=> @hasLoaded(true)), left
          else @hasLoaded(true)
+
+   sortCards: =>
+      $body = $('body')
+      cards = @cards()
+      $cards = $('#cards').find('.card-wrap .card-front')
+      pairs = []
+      for card, index in cards
+         pairs.push({ card: card, element: $($cards[index]) })
+      
+      pairs.sort(@cardPairSorter)
+      
+      movedPairs = []
+      for pair, pairIndex in pairs
+         for card, cardIndex in cards
+            if card == pair.card and pairIndex != cardIndex
+               pair.movedFrom = pair.element.offset()
+               pair.movedTo = $($cards[pairIndex]).offset()
+               movedPairs.push(pair)
+         
+      for p in movedPairs
+         do (pair = p) ->
+            pair.clone = pair.element.clone(false)
+            tX = pair.movedTo.left - pair.movedFrom.left
+            tY = pair.movedTo.top - pair.movedFrom.top
+            setVenderProp = (obj, prop, val) ->
+               obj['-webkit-'+prop] = val
+               obj['-moz-'+prop] = val
+               obj[prop] = val
+               return obj
+
+            # Build all the css required
+            css =
+               position: 'absolute'
+               height: pair.element.height()
+               width: pair.element.width()
+               top: pair.movedFrom.top
+               left: pair.movedFrom.left
+               'transition-property': '-webkit-transform, -webkit-filter, opacity'
+               'transition-property': '-moz-transform, -moz-filter, opacity'
+            
+            setVenderProp(css, 'transition-timing-function', 'ease-in-out')
+            setVenderProp(css, 'transition-duration', '600ms')
+            setVenderProp(css, 'transition-delay', 0)
+            setVenderProp(css, 'filter', 'none')
+            setVenderProp(css, 'transition', 'transform 600ms ease-in-out')
+            setVenderProp(css, 'transform', "translate(0px,0px)")
+
+            # Set up everything for the animation
+            pair.clone.appendTo($body).css(css)
+            pair.element.css('visibility', 'hidden')
+            pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->
+               pair.element.css('visibility', 'visible')
+               pair.clone.remove()
+            
+            # This timeout is required so that the animation actually takes place
+            setTimeout ->
+               pair.clone.css(setVenderProp({}, 'transform', "translate(#{tX}px,#{tY}px)"))
+            , 0
+
+      # Sort all the cards while the ones that will change position are moving
+      @cards.sort(@cardSorter)
+
+   cardPairSorter: (a, b) => return @cardSorter(a.card, b.card)
+   cardSorter: (a, b) =>
+      unless @sortAlphabetically()
+         return -1 if a.setId < b.setId
+         return 1 if a.setId > b.setId
+      return -1 if a.name() < b.name()
+      return 1 if a.name() > b.name()
+      return 0
 
 $(document).ready () ->
    $.cookie.json = true

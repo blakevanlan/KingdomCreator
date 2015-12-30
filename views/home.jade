@@ -21,6 +21,10 @@ block content
                label.checkbox
                   input(type="checkbox", data-bind="checked: showSet")
                   span Show Set on Cards
+            .option
+               label.checkbox
+                  input(type="checkbox", data-bind="checked: sortAlphabetically")
+                  span Sort Alphabetically
             a.button(data-bind="click: fetchKingdom") Randomize!
          .meta(data-bind="with: meta")
             h1 Recommendations

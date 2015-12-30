@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/blakevanlan/KingdomCreator.git"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "async": "0.2.x",
     "coffee-script": "1.x.x",

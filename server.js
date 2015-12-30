@@ -1,6 +1,7 @@
 /*
 Environmental variables
  - PORT
+ - MONGO_URL
 */
 
 require("coffee-script/register");
