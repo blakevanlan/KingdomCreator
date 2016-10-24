@@ -1,0 +1,281 @@
+name: Base Set
+cards:  
+- name: Adventurer
+   cost:
+    treasure: 6
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Bureaucrat
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: true
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Cellar
+  cost:
+    treasure: 2
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Chancellor
+  cost:
+    treasure: 3
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Chapel
+  cost:
+    treasure: 2
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: true
+  isReaction: false
+
+- name: Council Room
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+  isBuySupplier: true
+
+- name: Feast
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Festival
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+  isActionSupplier: true
+  isBuySupplier: true
+
+- name: Gardens
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: false
+  isTreasure: false
+  isVictory: true
+  isTrashing: false
+  isReaction: false
+
+- name: Laboratory
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Library
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Market
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Militia
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: true
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Mine
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: true
+  isReaction: false
+
+- name: Moat
+  cost:
+    treasure: 2
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: true
+
+- name: Moneylender
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: true
+  isReaction: false
+
+- name: Remodel
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: true
+  isReaction: false
+
+- name: Smithy
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Spy
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: true
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Thief
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: true
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Throne Room
+  cost:
+    treasure: 4
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Village
+  cost:
+    treasure: 3
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+  isActionSupplier: true
+
+- name: Witch
+  cost:
+    treasure: 5
+    potion: 0
+  isAttack: true
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+
+- name: Woodcutter
+  cost:
+    treasure: 3
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
+  isBuyProvider: true
+
+- name: Workshop
+  cost:
+    treasure: 3
+    potion: 0
+  isAttack: false
+  isAction: true
+  isTreasure: false
+  isVictory: false
+  isTrashing: false
+  isReaction: false
