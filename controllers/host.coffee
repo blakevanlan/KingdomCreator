@@ -1,8 +1,5 @@
 express = require 'express'
 path = require 'path'
-mongoose = require 'mongoose'
-
-mongoose.connect(process.env.MONGO_URL)
 
 app = module.exports = express()
 

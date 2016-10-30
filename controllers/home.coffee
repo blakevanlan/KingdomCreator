@@ -1,13 +1,21 @@
 express = require 'express'
 creator = require '../utils/creator'
 Sets = require '../models/set'
+path = require 'path'
+fs = require 'fs'
+yaml = require 'js-yaml'
 
 module.exports = app = express()
 
-app.get '/', (req, res, next) ->
-   Sets.find({ inactive: { $ne: true }}).sort('_id').lean().exec (err, sets) ->
-      return next(err) if err
-      res.render 'home', sets: sets
+# Read the sets.
+sets = {}
+setFiles = fs.readdirSync(path.join(__dirname, '../sets')
+for setFile in setFiles
+   id = path.basename(setFile, '.yaml')
+   sets[id] = yaml.safeLoad(fs.readFileSync(setFile, 'utf8'))
+
+app.get '/', (req, res, next) ->   
+   res.render 'home', sets: sets
 
 app.get '/cards/kingdom', (req, res) ->
    setIds = req.query.sets?.split(',')
