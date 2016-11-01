@@ -1,474 +1,474 @@
 name: Adventures
 cards:
-- name: Amulet
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: true
-  isReaction: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Amulet
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Artificer
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Artificer
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Bridge Troll
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: true
-  isBuySupplier: true
-  isDuration: true
-  isDrawer: false
-  isReaction: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Bridge Troll
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: true
+    isDuration: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Caravan Guard
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: true
-  isReaction: true
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Caravan Guard
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: true
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Distant Lands
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTreasure: false
-  isVictory: true
+  - name: Distant Lands
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: true
 
-- name: Dungeon
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Dungeon
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Duplicate
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Duplicate
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Gear
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Gear
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Giant
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: true
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Giant
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Guide
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Guide
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Haunted Woods
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: true
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Haunted Woods
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Hireling
-  cost:
-    treasure: 6
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Hireling
+    cost:
+      treasure: 6
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Lost City
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: true
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Lost City
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Magpie
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Magpie
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Messenger
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: true
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Messenger
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Miser
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTreasure: false
-  isVictory: false
+  - name: Miser
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
 
-- name: Page
-  cost:
-    treasure: 2
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: true
-  isTreasure: false
-  isVictory: false
+  - name: Page
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: true
+    isTreasure: false
+    isVictory: false
 
-- name: Peasant
-  cost:
-    treasure: 2
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: true
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: true
-  isTreasure: false
-  isVictory: false
+  - name: Peasant
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: true
+    isTreasure: false
+    isVictory: false
 
-- name: Port
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: true
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Port
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Ranger
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: true
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Ranger
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Ratcatcher
-  cost:
-    treasure: 2
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Ratcatcher
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Raze
-  cost:
-    treasure: 2
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Raze
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Relic
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: false
-  isActionSupplier: false
-  isAttack: true
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: true
-  isVictory: false
+  - name: Relic
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: true
+    isVictory: false
 
-- name: Royal Carriage
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Royal Carriage
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Storyteller
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Storyteller
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Swamp Hag
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: true
-  isBuySupplier: false
-  isDuration: true
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Swamp Hag
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDuration: true
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Transmogrify
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: true
-  isTrashing: true
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Transmogrify
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: true
+    isTrashing: true
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Treasure Trove
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: false
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: true
-  isVictory: false
+  - name: Treasure Trove
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: true
+    isVictory: false
 
-- name: Wine Merchant
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: true
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: true
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Wine Merchant
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 

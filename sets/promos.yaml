@@ -1,103 +1,103 @@
 name: Promos
 cards:
-- name: Black Market
-  cost:
-    treasure: 3
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Black Market
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Envoy
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Envoy
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Walled Village
-  cost:
-    treasure: 4
-    potion: 0
-  isAction: true
-  isActionSupplier: true
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Walled Village
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Governor
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: true
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Governor
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: true
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
 
-- name: Stash
-  cost:
-    treasure: 5
-    potion: 0
-  isAction: false
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: true
-  isVictory: false
+  - name: Stash
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: true
+    isVictory: false
 
-- name: Prince
-  cost:
-    treasure: 8
-    potion: 0
-  isAction: true
-  isActionSupplier: false
-  isAttack: false
-  isBuySupplier: false
-  isDuration: false
-  isDrawer: false
-  isReaction: false
-  isReserve: false
-  isTrashing: false
-  isTraveller: false
-  isTreasure: false
-  isVictory: false
+  - name: Prince
+    cost:
+      treasure: 8
+      potion: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: false
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false

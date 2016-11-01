@@ -1,317 +1,317 @@
 name: Seaside
 cards:
-- name: Ghost Ship
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Ghost Ship
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Smugglers
-  cost:
-    treasure: 3
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Smugglers
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Salvager
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: true
-  isReaction: false
-  isBuySupplier: true
+  - name: Salvager
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isBuySupplier: true
 
-- name: Haven
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
+  - name: Haven
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
 
-- name: Ambassador
-  cost:
-    treasure: 3
-    potion: 0
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Ambassador
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Sea Hag
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Sea Hag
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Native Village
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
-  isActionSupplier: true
+  - name: Native Village
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
 
-- name: Navigator
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Navigator
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Tactician
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
-  isActionSupplier: true
-  isBuySupplier: true
+  - name: Tactician
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isActionSupplier: true
+    isBuySupplier: true
 
-- name: Fishing Village
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
-  isActionSupplier: true
+  - name: Fishing Village
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isActionSupplier: true
 
-- name: Island
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: true
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Island
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Wharf
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
-  isBuySupplier: true
+  - name: Wharf
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isBuySupplier: true
 
-- name: Bazaar
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
-  isActionSupplier: true
+  - name: Bazaar
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
 
-- name: Treasure Map
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Treasure Map
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Explorer
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Explorer
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Lookout
-  cost:
-    treasure: 3
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: true
-  isReaction: false
-  isDuration: false
+  - name: Lookout
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
 
-- name: Treasury
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Treasury
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Cutpurse
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Cutpurse
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Caravan
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
+  - name: Caravan
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
 
-- name: Warehouse
-  cost:
-    treasure: 3
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Warehouse
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Lighthouse
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
+  - name: Lighthouse
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
 
-- name: Pirate Ship
-  cost:
-    treasure: 4
-    potion: 0
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Pirate Ship
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Pearl Diver
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Pearl Diver
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Merchant Ship
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
+  - name: Merchant Ship
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
 
-- name: Embargo
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: false
+  - name: Embargo
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
 
-- name: Outpost
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isDuration: true
+  - name: Outpost
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true

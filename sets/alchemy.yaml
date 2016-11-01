@@ -1,135 +1,135 @@
 name: Alchemy
 cards:
-- name: Alchemist
-  cost:
-    treasure: 3
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Alchemist
+    cost:
+      treasure: 3
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Apothecary
-  cost:
-    treasure: 2
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Apothecary
+    cost:
+      treasure: 2
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Apprentice
-  cost:
-    treasure: 5
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: true
-  isReaction: false
+  - name: Apprentice
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
 
-- name: Familiar
-  cost:
-    treasure: 3
-    potion: 1
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Familiar
+    cost:
+      treasure: 3
+      potion: 1
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Golem
-  cost:
-    treasure: 4
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Golem
+    cost:
+      treasure: 4
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Herbalist
-  cost:
-    treasure: 2
-    potion: 0
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isBuySupplier: true
+  - name: Herbalist
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
 
-- name: Philosopher's Stone
-  cost:
-    treasure: 3
-    potion: 1
-  isAttack: false
-  isAction: false
-  isTreasure: true
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Philosopher's Stone
+    cost:
+      treasure: 3
+      potion: 1
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Possession
-  cost:
-    treasure: 6
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Possession
+    cost:
+      treasure: 6
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Scrying Pool
-  cost:
-    treasure: 2
-    potion: 1
-  isAttack: true
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
+  - name: Scrying Pool
+    cost:
+      treasure: 2
+      potion: 1
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
 
-- name: Transmute
-  cost:
-    treasure: 0
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: true
-  isReaction: false
+  - name: Transmute
+    cost:
+      treasure: 0
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
 
-- name: University
-  cost:
-    treasure: 2
-    potion: 1
-  isAttack: false
-  isAction: true
-  isTreasure: false
-  isVictory: false
-  isTrashing: false
-  isReaction: false
-  isActionSupplier: true
+  - name: University
+    cost:
+      treasure: 2
+      potion: 1
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isActionSupplier: true
 
-- name: Vineyard
-  cost:
-    treasure: 0
-    potion: 1
-  isAttack: false
-  isAction: false
-  isTreasure: false
-  isVictory: true
-  isTrashing: false
-  isReaction: false
+  - name: Vineyard
+    cost:
+      treasure: 0
+      potion: 1
+    isAttack: false
+    isAction: false
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
