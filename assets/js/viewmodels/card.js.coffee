@@ -23,36 +23,39 @@ do ->
             return if @isLoading() then 'loading' else @setId()
 
       setData: (data, sets) =>
-         @id(data.id)
-         @name(data.name)
-         @setId(data.setId)
+         imageUrl = "#{IMAGE_PREFEX}/#{data.id}.jpg"
+         setDataInternal = =>
+            @id(data.id)
+            @name(data.name)
+            @setId(data.setId)
+            for set in sets
+               if set.id == data.setId
+                  @set(set.name)
+                  break
+            @imageUrl(imageUrl)
+            @isLoading(false)
+            @setCardLoaded()
          
-         # Set the name of the set
-         for set in sets
-            if set.id == data.setId
-               @set(set.name)
-               break
-
-         @imageUrl("#{IMAGE_PREFEX}/#{@id()}.jpg")
-         @isLoading(false)
          @cardImageLoaded(false)
-         $.imgpreload @imageUrl(), =>
+         $.imgpreload imageUrl, =>
             # Delay showing image until transition is complete
-            if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
-               setTimeout (=> @setCardLoaded()), left
-            else @setCardLoaded()
+            timeRemaining = ANIMATION_TIME - (Date.now() - @animationStartTime)
+            if timeRemaining > 0
+               setTimeout(setDataInternal, timeRemaining)
+            else
+               setDataInternal()
 
       failedToLoad: =>
          @isLoading(false)
          @cardImageLoaded(false)
-         if (left = ANIMATION_TIME - (new Date() - @animationStartTime)) > 0
+         if (left = ANIMATION_TIME - (Date.now() - @animationStartTime)) > 0
             setTimeout (=> @cardImageLoaded(true)), left
          else @cardImageLoaded(true)
             
       setToLoading: =>
          @selected(false)
          @isLoading(true)
-         @animationStartTime = new Date()
+         @animationStartTime = Date.now()
 
       setCardLoaded: =>
          @cardImageLoaded(true)
