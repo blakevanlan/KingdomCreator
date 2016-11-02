@@ -67,6 +67,17 @@ cards:
     isTrashing: false
     isReaction: false
 
+  - name: Journeyman
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
   - name: Masterpiece
     cost:
       treasure: 3

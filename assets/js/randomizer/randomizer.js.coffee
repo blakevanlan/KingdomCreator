@@ -78,8 +78,8 @@ do ->
       return {
          cards: kingdom
          metadata: {
-            useColonies: shouldUseColonies(allSets, setsToUse)
-            useShelters: shouldUseShelters(allSets, setsToUse)
+            useColonies: shouldUseSpecialtyCardForSet(PROSPERITY_SET_ID, setsToUse)
+            useShelters: shouldUseSpecialtyCardForSet(DARK_AGES_SET_ID, setsToUse)
          }
       }
 
@@ -137,21 +137,15 @@ do ->
       cards = cards.concat(actionSupplierCard)
       return cards
 
-   shouldUseShelters = (allSets, setsBeingUsed) ->
-      numberOfDarkAgesCards = allSets[DARK_AGES_SET_ID]
+   shouldUseSpecialtyCardForSet = (setId, setsBeingUsed) ->
+      index = extractIds(setsBeingUsed).indexOf(setId)
+      return false if index == -1
+      numberOfSpecialtySetCards = setsBeingUsed[index].cards.length
       numberOfCardsBeingUsed = 0
       for set in setsBeingUsed
          numberOfCardsBeingUsed += set.cards.length
       index = RandUtil.getRandomInt(0, numberOfCardsBeingUsed)
-      return index < numberOfDarkAgesCards
-
-   shouldUseColonies = (allSets, setsBeingUsed) ->
-      numberOfProsperityCards = allSets[PROSPERITY_SET_ID]
-      numberOfCardsBeingUsed = 0
-      for set in setsBeingUsed
-         numberOfCardsBeingUsed += set.cards.length
-      index = RandUtil.getRandomInt(0, numberOfCardsBeingUsed)
-      return index < numberOfProsperityCards
+      return index < numberOfSpecialtySetCards
 
    selectRandomCards = (cards, numberToSelect) ->
       randomIndexes = RandUtil.getRandomInts(numberToSelect, cards.length)
