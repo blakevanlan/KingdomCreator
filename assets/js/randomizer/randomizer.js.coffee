@@ -42,10 +42,10 @@ do ->
       setIds = options.setIds or (setId for setId, set of allSets)
       includeCardIds = options.includeCardIds or []
       excludeCardIds = options.excludeCardIds or []
-      allowedTypes = options.allowedTypes or (value for type, value of Type)
+      excludeTypes = options.excludeTypes or []
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
-      costMaximum = options.costMaximum or Number.MAX_VALUE
       requireActionProvider = !!options.requireActionProvider
+      requireBuyProvider = !!options.requireBuyProvider
       
       # Fill the kingdom with included cards.
       kingdom = allCards.filter(filterCardByIncludedIds(includeCardIds))
@@ -61,7 +61,7 @@ do ->
       cardsToUse = flattenSets(setsToUse)
       cardsToUse = cardsToUse.filter(filterCardByExcludedIds(includeCardIds))
       cardsToUse = cardsToUse.filter(filterCardByExcludedIds(excludeCardIds))
-      cardsToUse = cardsToUse.filter(filterCardByAllowedTypes(allowedTypes))
+      cardsToUse = cardsToUse.filter(filterCardByExcludedTypes(excludeTypes))
       cardsToUse = cardsToUse.filter(filterCardByAllowedCost(allowedCosts))
 
       # Fill the kingdom with cards and remove those cards from the usable set.
@@ -73,7 +73,15 @@ do ->
          kingdom = adjustKingdomForAlchemyCards(kingdom, cardsToUse, includeCardIds)
 
       if requireActionProvider
-         kingdom = adjustKingdomForActionProvider(kingdom, cardsToUse, includeCardIds)
+         result = adjustKingdomToIncludeType(Type.ACTION_SUPPLIER, kingdom, cardsToUse, includeCardIds)
+         kingdom = result.kingdom
+         if result.newCard
+            cardsToUse = cardsToUse.filter(filterCardByExcludedIds(result.newCard))
+            includeCardIds.push(result.newCard)
+
+      if requireBuyProvider
+         result = adjustKingdomToIncludeType(Type.BUY_SUPPLIER, kingdom, cardsToUse, includeCardIds)
+         kingdom = result.kingdom
 
       return {
          cards: kingdom
@@ -119,23 +127,23 @@ do ->
 
       return cards
 
-   adjustKingdomForActionProvider = (kingdom, cardsToUse, requiredCardIds) ->
-      actionProviders = kingdom.filter(filterCardByAllowedTypes([Type.ACTION_SUPPLIER]))
+   adjustKingdomToIncludeType = (type, kingdom, cardsToUse, requiredCardIds) ->
+      existingCardsOfType = kingdom.filter(filterCardByAllowedTypes([type]))
       # Ensure that there is at least one action provider in the kingdom.
-      if actionProviders.length >= 1
-         return kingdom
+      if existingCardsOfType.length >= 1
+         return {kingdom: kingdom, newCard: null}
 
       replaceableCards = kingdom.filter(filterCardByExcludedIds(requiredCardIds))
       if replaceableCards.length < 1
-         return kingdom
+         return {kingdom: kingdom, newCard: null}
 
-      cardToBeReplace = selectRandomCards(replaceableCards, 1)
-      actionSupplierCards = cardsToUse.filter(filterCardByAllowedTypes(Type.ACTION_SUPPLIER))
-      actionSupplierCard = selectRandomCards(actionSupplierCards, 1)
+      cardsToBeReplaced = selectRandomCards(replaceableCards, 1)
+      cardsOfTypes = cardsToUse.filter(filterCardByAllowedTypes([type]))
+      newCardOfType = selectRandomCards(cardsOfTypes, 1)
 
-      cards = kingdom.filter(filterCardByExcludedIds([actionSupplierCard.id]))
-      cards = cards.concat(actionSupplierCard)
-      return cards
+      cards = kingdom.filter(filterCardByExcludedIds(extractIds(cardsToBeReplaced)))
+      cards = cards.concat(newCardOfType)
+      return {kingdom: cards, newCard: newCardOfType}
 
    shouldUseSpecialtyCardForSet = (setId, setsBeingUsed) ->
       index = extractIds(setsBeingUsed).indexOf(setId)
@@ -166,17 +174,17 @@ do ->
       excludingB = a.filter(filterCardByExcludedIds(extractIds(b)))
       return excludingB.concat(b)
 
-   filterSetsByAllowedSetIds = (setsMap, allowedSetIds) ->
+   filterSetsByAllowedSetIds = (setsArrayOrMap, allowedSetIds) ->
       setsArray = []
-      for setId, set of setsMap
-         if allowedSetIds.indexOf(setId) != -1
+      for setId, set of setsArrayOrMap
+         if allowedSetIds.indexOf(set.id) != -1
             setsArray.push(set)
       return setsArray
 
-   filterSetsByExcludedSetIds = (setsMap, excludedSetIds) ->
+   filterSetsByExcludedSetIds = (setsArrayOrMap, excludedSetIds) ->
       setsArray = []
-      for setId, set of setsMap
-         if excludedSetIds.indexOf(setId) == -1
+      for setId, set of setsArrayOrMap
+         if excludedSetIds.indexOf(set.id) == -1
             setsArray.push(set)
       return setsArray
 
@@ -199,21 +207,28 @@ do ->
                return true
          return false
 
+   filterCardByExcludedTypes = (excludedTypes) ->
+      return (card) -> 
+         for excludedType in excludedTypes
+            if card[excludedType] == true
+               return false
+         return true
+
    filterCardByAllowedCost = (allowedCosts) ->
+      costs = [
+         Cost.TREASURE_2,
+         Cost.TREASURE_2,
+         Cost.TREASURE_2,
+         Cost.TREASURE_3,
+         Cost.TREASURE_4,
+         Cost.TREASURE_5,
+         Cost.TREASURE_6,
+         Cost.TREASURE_7,
+         Cost.TREASURE_8
+      ]
       return (card) ->
-         if card.cost.treasure <= 2
-            return allowedCosts.indexOf(Cost.TREASURE_2) != -1
-         if card.cost.treasure <= 3
-            return allowedCosts.indexOf(Cost.TREASURE_3) != -1
-         if card.cost.treasure <= 4
-            return allowedCosts.indexOf(Cost.TREASURE_4) != -1
-         if card.cost.treasure <= 5
-            return allowedCosts.indexOf(Cost.TREASURE_5) != -1
-         if card.cost.treasure <= 6
-            return allowedCosts.indexOf(Cost.TREASURE_6) != -1
-         if card.cost.treasure <= 7
-            return allowedCosts.indexOf(Cost.TREASURE_7) != -1
-         return allowedCosts.indexOf(Cost.TREASURE_8) != -1
+         costType = costs[Math.min(card.cost.treasure, 8)]
+         return allowedCosts.indexOf(costType) != -1
 
    shouldUseAlchemyForKingdom = (kingdom) ->
       hasAlchemyCard = false

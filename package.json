@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "coffee-script": "1.11.1",
+    "compression": "^1.6.2",
     "connect-assets": "3.0.2",
     "csswring": "5.1.0",
     "express": "3.0.x",

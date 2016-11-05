@@ -66,3 +66,4 @@ do ->
 
    window.CardViewModel = CardViewModel
    window.CardViewModel.LOADING_IMAGE_URL = LOADING_IMAGE_URL
+   window.CardViewModel.ANIMATION_TIME = ANIMATION_TIME

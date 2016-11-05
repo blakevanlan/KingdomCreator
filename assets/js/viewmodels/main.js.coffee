@@ -18,6 +18,9 @@ do ->
          @dominionSets = dominionSets
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
          @sets = ko.observableArray(new SetViewModel(set) for setId, set of @dominionSets)
+         @requireActionProvider = ko.observable(true)
+         @requireBuyProvider = ko.observable(true)
+         @allowAttackCards = ko.observable(true)
          @showSet = ko.observable(true)
          @sortAlphabetically = ko.observable(false)
          @sortAlphabetically.subscribe(@sortCards)
@@ -32,27 +35,26 @@ do ->
       fetchKingdom: () =>
          # Find any cards that are selected
          selectedCards = []
-         nonSelectedCards = []
+         nonSelectedCardIds = []
 
          for card in @cards()
             if card.selected() then selectedCards.push(card)
-            else nonSelectedCards.push(card)
+            else nonSelectedCardIds.push(ko.unwrap(card.id))
 
          # If there are cards selected, show dialog so user can filter
          if selectedCards.length > 0
             @dialog.open () =>
                options = {
-                  setIds: (set.id for s in @dialog.sets when set.active())
-                  includeCardIds: (card.id for card in selectedCards)
-                  excludeCardIds: (card.id for card in nonSelectedCards)
-                  allowedTypes: (type.id for type in @dialog.types when type.active())
-                  allowedCosts: (costs.id for costs in @dialog.costs when costs.active())
+                  setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
+                  includeCardIds: nonSelectedCardIds
+                  excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
+                  excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
+                  allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
                }
 
                # Set cards to loading and get the new cards.
                card.setToLoading() for card in selectedCards
                kingdom = Randomizer.createKingdom(@dominionSets, options)
-               index = 0
                sets = @sets()
                imagesLeftToLoad = selectedCards.length
                
@@ -60,22 +62,19 @@ do ->
                # only happens after all have loaded
                registerComplete = => 
                   if --imagesLeftToLoad <= 0 
-                     setTimeout (=> sortCards()), ANIMATION_TIME
+                     setTimeout((=> @sortCards()), CardViewModel.ANIMATION_TIME)
                
+               nextSelectedCardIndex = 0
                for cardData in kingdom.cards
-                  isNew = true
-                  for card in nonSelectedCards
-                     if cardData.id == card.id
-                        isNew = false
-                        break
                   # If this is a new card then set an old card to have the new data
                   # and then animate the sorting after all have loaded
-                  if isNew
-                     do (card = selectedCards[index++], data = cardData) =>
-                        card.setData(data, sets)
-                        
-                        if card.cardImageLoaded() then registerComplete()
-                        else
+                  if nonSelectedCardIds.indexOf(cardData.id) == -1
+                     selectedCards[nextSelectedCardIndex++].setData(cardData, sets)
+                     if card.cardImageLoaded()
+                        registerComplete()
+                     else
+                        # Capture the subscription so we can dispose after the image loads.
+                        do =>
                            subscription = card.cardImageLoaded.subscribe (val) =>
                               return unless val
                               subscription.dispose()
@@ -88,9 +87,18 @@ do ->
                sets: setIds.join(',')
                sortAlphabetically: @sortAlphabetically()
                showSet: @showSet()
+               requireActionProvider: @requireActionProvider()
+               requireBuyProvider: @requireBuyProvider()
+               allowAttackCards: @allowAttackCards()
             })
             card.setToLoading() for card in @cards()
-            kingdom = Randomizer.createKingdom(@dominionSets, {setIds: setIds})
+            kingdom = Randomizer.createKingdom(@dominionSets, {
+               setIds: setIds,
+               excludeCardIds: @getCardsToExclude()
+               excludeTypes: @getExcludeTypes()
+               requireActionProvider: @requireActionProvider()
+               requireBuyProvider: @requireBuyProvider()
+            })
             kingdom.cards.sort(@cardSorter)
 
             cards = @cards()
@@ -105,15 +113,26 @@ do ->
             if options.sets
                selectedSets = options.sets.split(',')
                for set in @sets()
-                  set.active(false)
-                  for selectedSet in selectedSets
-                     if set.id == selectedSet
-                        set.active(true)
-                        break
+                  set.active(selectedSets.indexOf(set.id) != -1)
+
             @sortAlphabetically(!!options.sortAlphabetically)
             @showSet(!!options.showSet)
+            @requireActionProvider(!!options.requireActionProvider)
+            @requireBuyProvider(!!options.requireBuyProvider)
+            @allowAttackCards(!!options.allowAttackCards)
 
       saveOptionsToCookie: (options) => $.cookie('options', options)
+
+      getCardsToExclude: ->
+         numberOfCardsInSelectedSets = 0
+         setIds = (set.id for set in @sets() when set.active())
+         return [] unless setIds > 2
+         return (card.id for card in @cards())
+
+      getExcludeTypes: ->
+         types = []
+         types.push(Randomizer.Type.ATTACK) unless @allowAttackCards()
+         return types
 
       loadCardBack: => 
          start = new Date
