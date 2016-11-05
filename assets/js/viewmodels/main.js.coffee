@@ -112,8 +112,9 @@ do ->
          if options
             if options.sets
                selectedSets = options.sets.split(',')
-               for set in @sets()
-                  set.active(selectedSets.indexOf(set.id) != -1)
+               if selectedSets.length
+                  for set in @sets()
+                     set.active(selectedSets.indexOf(set.id) != -1)
 
             @sortAlphabetically(!!options.sortAlphabetically)
             @showSet(!!options.showSet)
