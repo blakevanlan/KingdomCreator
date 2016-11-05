@@ -1,18 +1,32 @@
-express = require 'express'
-creator = require '../utils/creator'
-Sets = require '../models/set'
+express = require('express')
+path = require('path')
+fs = require('fs')
+yaml = require('js-yaml')
 
 module.exports = app = express()
 
-app.get '/', (req, res, next) ->
-   Sets.find({ inactive: { $ne: true }}).sort('_id').lean().exec (err, sets) ->
-      return next(err) if err
-      res.render 'home', sets: sets
+tokenize = (str) -> str.replace(/[\s'-]/g, '').toLowerCase()
 
-app.get '/cards/kingdom', (req, res) ->
-   setIds = req.query.sets?.split(',')
-   replaceCards = req.query.replaceCards?.split(',')
-   keepCards = req.query.keepCards?.split(',')
-   types = req.query.types?.split(',')
-   creator.createKingdom setIds, replaceCards, keepCards, types, (err, kingdom) ->
-      res.json kingdom.toObject()
+# Read the sets.
+console.log("Loading sets...")
+
+sets = {}
+setDirectory = path.join(__dirname, '../sets')
+setFiles = fs.readdirSync(setDirectory)
+for setFile in setFiles
+   filename = path.join(setDirectory, setFile) 
+   id = tokenize(path.basename(setFile, '.yaml'))
+   sets[id] = yaml.safeLoad(fs.readFileSync(filename, 'utf8'))
+   sets[id].id = id
+
+# Create an id for each card.
+for setId, set of sets
+   for card in set.cards
+      card.id = "#{setId}_#{tokenize(card.name)}"
+      card.setId = setId
+
+console.log("Finished loading sets.")
+
+
+app.get '/', (req, res, next) ->   
+   res.render 'home', sets: sets

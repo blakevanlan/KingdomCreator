@@ -1,0 +1,290 @@
+name: Prosperity
+cards:
+  - name: Bank
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: City
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Contraband
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Bishop
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Grand Market
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Goons
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Watchtower
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: true
+    isDuration: false
+
+  - name: Expand
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: King's Court
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Hoard
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Peddler
+    cost:
+      treasure: 8
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Monument
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Forge
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Rabble
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Talisman
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Mint
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Loan
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Trade Route
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Quarry
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Royal Seal
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Mountebank
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Worker's Village
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Vault
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Venture
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false

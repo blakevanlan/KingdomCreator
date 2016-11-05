@@ -2,7 +2,7 @@ extend layout
 
 block head
    script.
-      window.sets = !{JSON.stringify(sets)};
+      window.DominionSets = !{JSON.stringify(sets)};
 
 block content
    h1#header Kingdom Creatin'
@@ -19,6 +19,19 @@ block content
             h1 Options
             .option
                label.checkbox
+                  input(type="checkbox", data-bind="checked: requireActionProvider")
+                  span Require +2 Action
+            .option
+               label.checkbox
+                  input(type="checkbox", data-bind="checked: requireBuyProvider")
+                  span Require Buy
+            .option
+               label.checkbox
+                  input(type="checkbox", data-bind="checked: allowAttackCards")
+                  span Allow Attacks
+            h1 Display
+            .option
+               label.checkbox
                   input(type="checkbox", data-bind="checked: showSet")
                   span Show Set on Cards
             .option
@@ -26,7 +39,7 @@ block content
                   input(type="checkbox", data-bind="checked: sortAlphabetically")
                   span Sort Alphabetically
             a.button(data-bind="click: fetchKingdom") Randomize!
-         .meta(data-bind="with: meta")
+         .meta(data-bind="with: metadata")
             h1 Recommendations
             .recommendation
                | Use Colonies/Platinums:
@@ -54,7 +67,7 @@ block content
       | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>.
 
    .dialog-hidden-content
-      .dialog-content(data-bind="with: dialogControl")
+      .dialog-content(data-bind="with: dialog")
          .dialog-desc Use this dialog to customize the replacement card(s)
          .sets-wrap
             h1(data-bind="click: toggleSetsSection")
@@ -87,5 +100,5 @@ block content
 
          .dialog-buttons
             a.button(data-bind="click: fetchNewCards") Randomize
-            a.button.gray(data-bind="click: closeDialog") Close
+            a.button.gray(data-bind="click: close") Close
             .clear

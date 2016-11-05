@@ -1,0 +1,149 @@
+name: Cornucopia
+cards:
+  - name: Harvest
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Young Witch
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Horse Traders
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+    isBuySupplier: true
+
+  - name: Tournament
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Hamlet
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+    isActionSupplier: true
+
+  - name: Jester
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Fortune Teller
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Fairgrounds
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+
+  - name: Horn of Plenty
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Hunting Party
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Menagerie
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Farming Village
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+    isActionSupplier: true
+
+  - name: Remake
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
