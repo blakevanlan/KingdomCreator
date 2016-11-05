@@ -5,7 +5,7 @@ compression = require('compression')
 app = module.exports = express()
 
 # Settings
-app.set("view engine", "jade")
+app.set("view engine", "pug")
 app.set("view options", {layout: false})
 app.set("views", path.join(__dirname, "../views"))
 

@@ -29,4 +29,4 @@ console.log("Finished loading sets.")
 
 
 app.get '/', (req, res, next) ->   
-   res.render 'home', sets: sets
+   res.render('home', {sets: sets})
