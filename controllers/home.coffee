@@ -1,9 +1,7 @@
-express = require 'express'
-creator = require '../utils/creator'
-Sets = require '../models/set'
-path = require 'path'
-fs = require 'fs'
-yaml = require 'js-yaml'
+express = require('express')
+path = require('path')
+fs = require('fs')
+yaml = require('js-yaml')
 
 module.exports = app = express()
 
@@ -29,13 +27,6 @@ for setId, set of sets
 
 console.log("Finished loading sets.")
 
+
 app.get '/', (req, res, next) ->   
    res.render 'home', sets: sets
-
-app.get '/cards/kingdom', (req, res) ->
-   setIds = req.query.sets?.split(',')
-   replaceCards = req.query.replaceCards?.split(',')
-   keepCards = req.query.keepCards?.split(',')
-   types = req.query.types?.split(',')
-   creator.createKingdom setIds, replaceCards, keepCards, types, (err, kingdom) ->
-      res.json kingdom.toObject()

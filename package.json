@@ -6,6 +6,7 @@
     "node": "4.2.x",
     "npm": "3.10.x"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/blakevanlan/KingdomCreator.git"
@@ -15,7 +16,7 @@
   },
   "dependencies": {
     "coffee-script": "1.11.1",
-    "compression": "^1.6.2",
+    "compression": "1.6.2",
     "connect-assets": "3.0.2",
     "csswring": "5.1.0",
     "express": "3.0.x",
