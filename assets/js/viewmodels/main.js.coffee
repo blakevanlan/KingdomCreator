@@ -16,8 +16,10 @@ do ->
    class MainViewModel
       constructor: (dominionSets) ->
          @dominionSets = dominionSets
+         @kingdom = null
+         @sets = ko.observableArray(new SetViewModel(set, true) for setId, set of @dominionSets)
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
-         @sets = ko.observableArray(new SetViewModel(set) for setId, set of @dominionSets)
+         @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
          @requireActionProvider = ko.observable(true)
          @requireBuyProvider = ko.observable(true)
          @allowAttackCards = ko.observable(true)
@@ -30,16 +32,13 @@ do ->
          @dialog = new DialogViewModel(@sets())
          @fetchKingdom()
          @hasLoaded = ko.observable(false)
-         @loadCardBack()
+         @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
+         @loadCardBacks()
 
       fetchKingdom: () =>
          # Find any cards that are selected
          selectedCards = []
-         nonSelectedCardIds = []
-
-         for card in @cards()
-            if card.selected() then selectedCards.push(card)
-            else nonSelectedCardIds.push(ko.unwrap(card.id))
+         nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when card.selected())
 
          # If there are cards selected, show dialog so user can filter
          if selectedCards.length > 0
@@ -48,13 +47,18 @@ do ->
                   setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
                   includeCardIds: nonSelectedCardIds
                   excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
+                  includeEventIds: (event.id for event in @kingdom.events)
+                  includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
                   excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
                   allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
                }
 
                # Set cards to loading and get the new cards.
                card.setToLoading() for card in selectedCards
-               kingdom = Randomizer.createKingdom(@dominionSets, options)
+               result = Randomizer.createKingdom(@dominionSets, options)
+               
+               # TODO: Implement reshuffling the events and landmarks.
+               @kingdom.cards = result.kingdom.cards
                sets = @sets()
                imagesLeftToLoad = selectedCards.length
                
@@ -65,7 +69,7 @@ do ->
                      setTimeout((=> @sortCards()), CardViewModel.ANIMATION_TIME)
                
                nextSelectedCardIndex = 0
-               for cardData in kingdom.cards
+               for cardData in @kingdom.cards
                   # If this is a new card then set an old card to have the new data
                   # and then animate the sorting after all have loaded
                   if nonSelectedCardIds.indexOf(cardData.id) == -1
@@ -80,7 +84,7 @@ do ->
                               subscription.dispose()
                               registerComplete()
 
-               @metadata.update(kingdom.metadata)
+               @metadata.update(result.metadata)
          else 
             setIds = (set.id for set in @sets() when set.active())
             @saveOptionsToCookie({
@@ -92,20 +96,43 @@ do ->
                allowAttackCards: @allowAttackCards()
             })
             card.setToLoading() for card in @cards()
-            kingdom = Randomizer.createKingdom(@dominionSets, {
+            card.setToLoading() for card in @eventsAndLandmarks()
+            result = Randomizer.createKingdom(@dominionSets, {
                setIds: setIds,
                excludeCardIds: @getCardsToExclude()
                excludeTypes: @getExcludeTypes()
                requireActionProvider: @requireActionProvider()
                requireBuyProvider: @requireBuyProvider()
             })
-            kingdom.cards.sort(@cardSorter)
+            @kingdom = result.kingdom
+            @kingdom.cards.sort(@cardSorter)
 
             cards = @cards()
             sets = @sets()
-            for card, index in kingdom.cards
+            for card, index in @kingdom.cards
                cards[index].setData(card, sets)
-            @metadata.update(kingdom.metadata)
+            for eventOrLandmark, index in @eventsAndLandmarks()
+               if index < @kingdom.events.length
+                  eventOrLandmark.setData(@kingdom.events[index], sets)
+                  continue
+               landmarkIndex = index - @kingdom.events.length
+               if landmarkIndex < @kingdom.landmarks.length
+                  eventOrLandmark.setData(@kingdom.landmarks[landmarkIndex], sets)
+                  continue
+               else
+                  eventOrLandmark.setToLoading()
+
+            @metadata.update(result.metadata)
+      
+      createShowEventsAndLandmarksObservable: ->
+         return ko.computed =>
+            return false unless @hasLoaded()
+            for setViewModel in ko.unwrap(@sets)
+               if ko.unwrap(setViewModel.active)
+                  set = @dominionSets[ko.unwrap(setViewModel.id)]
+                  if set.events?.length or set.landmarks?.length
+                     return true
+            return false
 
       loadOptionsFromCookie: =>
          options = $.cookie('options')
@@ -135,12 +162,16 @@ do ->
          types.push(Randomizer.Type.ATTACK) unless @allowAttackCards()
          return types
 
-      loadCardBack: => 
-         start = new Date
-         $.imgpreload CardViewModel.LOADING_IMAGE_URL, =>
-            if (left = 500 - (new Date() - start)) > 0
+      loadCardBacks: => 
+         start = Date.now()
+         remaining = 2
+         handleLoaded = =>
+            return unless --remaining == 0
+            if (left = 500 - (Date.now() - start)) > 0
                setTimeout (=> @hasLoaded(true)), left
             else @hasLoaded(true)
+         $.imgpreload(CardViewModel.VERTICAL_LOADING_IMAGE_URL, handleLoaded)
+         $.imgpreload(CardViewModel.HORIZONTAL_LOADING_IMAGE_URL, handleLoaded)
 
       sortCards: =>
          $body = $('body')

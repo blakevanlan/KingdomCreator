@@ -472,3 +472,211 @@ cards:
     isTreasure: false
     isVictory: false
 
+events:
+  - name: Mission
+    cost:
+      treasure: 4
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Scouting Party
+    cost:
+      treasure: 2
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: true
+    isDrawer: true
+    isReaction: false
+    isTrashing: false
+  
+  - name: Pathfinding
+    cost:
+      treasure: 8
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: true
+    isReaction: false
+    isTrashing: false
+
+  - name: Bonfire
+    cost:
+      treasure: 3
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: true
+    isReaction: false
+    isTrashing: true
+
+  - name: Pilgrimage
+    cost:
+      treasure: 4
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Training
+    cost:
+      treasure: 6
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Ball
+    cost:
+      treasure: 5
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Travelling Fair
+    cost:
+      treasure: 2
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Save
+    cost:
+      treasure: 1
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Borrow
+    cost:
+      treasure: 0
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Lost Arts
+    cost:
+      treasure: 0
+      potion: 0
+    isActionSupplier: true
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Trade
+    cost:
+      treasure: 5
+      potion: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: true
+
+  - name: Raid
+    cost:
+      treasure: 5
+      potion: 0
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Quest
+    cost:
+      treasure: 0
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+  
+  - name: Expedition
+    cost:
+      treasure: 3
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isReaction: false
+    isTrashing: false
+
+  - name: Alms
+    cost:
+      treasure: 0
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Inheritance
+    cost:
+      treasure: 7
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Ferry
+    cost:
+      treasure: 3
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Plan
+    cost:
+      treasure: 3
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: true
+
+  - name: Seaway
+    cost:
+      treasure: 3
+      potion: 0
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false

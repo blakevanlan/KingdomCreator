@@ -9,13 +9,20 @@ ko.bindingHandlers.showFloating =
             $el.show()
          else $el.hide()
 
-ko.bindingHandlers.scaleOffWidth =
+ko.bindingHandlers.scaleOffWidthOfImage =
    init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
-      heightToWidthRatio = ko.utils.unwrapObservable(valueAccessor())
+      options = ko.unwrap(valueAccessor())
+      selector = ko.unwrap(options.selector)
       $el = $(element)
+      $image = $el.find(selector).eq(0)
+      image = $image.get(0)
       $win = $(window)
-      setHeight = -> $el.height($el.width() * heightToWidthRatio)
-      $win.resize setHeight
+      setHeight = ->
+         ratio = image.naturalHeight / image.naturalWidth
+         $el.height($el.width() *  ratio) if ratio
+      $win.resize(setHeight)
+      $image.load(setHeight)
+      options.trigger?.subscribe(setHeight)
       setHeight()
 
 ko.bindingHandlers.slideVisible =

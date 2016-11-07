@@ -25,6 +25,16 @@ for setId, set of sets
       card.id = "#{setId}_#{tokenize(card.name)}"
       card.setId = setId
 
+   if set.events
+      for card in set.events
+         card.id = "#{setId}_event_#{tokenize(card.name)}"
+         card.setId = setId
+
+   if set.landmarks
+      for card in set.landmarks
+         card.id = "#{setId}_landmark_#{tokenize(card.name)}"
+         card.setId = setId
+
 console.log("Finished loading sets.")
 
 

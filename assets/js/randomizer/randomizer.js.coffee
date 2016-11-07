@@ -18,7 +18,7 @@ do ->
       RESERVE: 'isReserve',
       TRASHING: 'isTrashing',
       TREASURE: 'isTreasure',
-      VICTORY: 'isVictory'
+      VICTORY: 'isVictory',
    }
 
    Cost = {
@@ -35,20 +35,33 @@ do ->
 
    MIN_ALCHEMY_CARDS_IN_KINGDOM = 3
    MAX_ALCHEMY_CARDS_IN_KINGDOM = 5
+   MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM = 2
 
    createKingdom = (allSets, options) ->
-      allCards = flattenSets(allSets)
+      allCards = flattenSetsForProperty(allSets, 'cards')
+      allEvents = flattenSetsForProperty(allSets, 'events')
+      allLandmarks = flattenSetsForProperty(allSets, 'landmarks')
+
+      # Extract options and set defaults.
       options = options or {}
       setIds = options.setIds or (setId for setId, set of allSets)
       includeCardIds = options.includeCardIds or []
       excludeCardIds = options.excludeCardIds or []
+      includeEventIds = options.includeEventIds or []
+      excludeEventIds = options.excludeEventIds or []
+      includeLandmarkIds = options.includeLandmarkIds or []
+      excludeLandmarkIds = options.excludeLandmarkIds or []
       excludeTypes = options.excludeTypes or []
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
       
       # Fill the kingdom with included cards.
-      kingdom = allCards.filter(filterCardByIncludedIds(includeCardIds))
+      kingdom = {
+         cards: allCards.filter(filterByIncludedIds(includeCardIds)),
+         events: allEvents.filter(filterByIncludedIds(includeEventIds)),
+         landmarks: allLandmarks.filter(filterByIncludedIds(includeLandmarkIds)),
+      }
       setsToUse = filterSetsByAllowedSetIds(allSets, setIds)
       
       # Check if alchemy should be excluded. This is because it's only recommend to play with
@@ -58,15 +71,23 @@ do ->
          setsToUse = filterSetsByExcludedSetIds(setsToUse, [ALCHEMY_SET_ID])
 
       # Filter down to the set of useable cards.
-      cardsToUse = flattenSets(setsToUse)
-      cardsToUse = cardsToUse.filter(filterCardByExcludedIds(includeCardIds))
-      cardsToUse = cardsToUse.filter(filterCardByExcludedIds(excludeCardIds))
-      cardsToUse = cardsToUse.filter(filterCardByExcludedTypes(excludeTypes))
-      cardsToUse = cardsToUse.filter(filterCardByAllowedCost(allowedCosts))
+      cardsToUse = flattenSetsForProperty(setsToUse, 'cards')
+      cardsToUse = cardsToUse.filter(filterByExcludedIds(includeCardIds))
+      cardsToUse = cardsToUse.filter(filterByExcludedIds(excludeCardIds))
+      cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
+      cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
+
+      eventsToUse = flattenSetsForProperty(setsToUse, 'events')
+      eventsToUse = eventsToUse.filter(filterByExcludedIds(includeEventIds))
+      eventsToUse = eventsToUse.filter(filterByExcludedIds(excludeEventIds))
+
+      landmarksToUse = flattenSetsForProperty(setsToUse, 'landmarks')
+      landmarksToUse = landmarksToUse.filter(filterByExcludedIds(includeLandmarkIds))
+      landmarksToUse = landmarksToUse.filter(filterByExcludedIds(excludeLandmarkIds))
 
       # Fill the kingdom with cards and remove those cards from the usable set.
-      kingdom = kingdom.concat(selectRandomCards(cardsToUse, NUM_CARDS_IN_KINGDOM - kingdom.length))
-      cardsToUse = cardsToUse.filter(filterCardByExcludedIds(extractIds(kingdom)))
+      kingdom = fillKingdom(kingdom, cardsToUse, eventsToUse, landmarksToUse)
+      cardsToUse = cardsToUse.filter(filterByExcludedIds(extractIds(kingdom.cards)))
 
       # Adjust kingdom to have 3-5 alchemy cards if alchemy is being used.
       if useAlchemy
@@ -76,7 +97,7 @@ do ->
          result = adjustKingdomToIncludeType(Type.ACTION_SUPPLIER, kingdom, cardsToUse, includeCardIds)
          kingdom = result.kingdom
          if result.newCard
-            cardsToUse = cardsToUse.filter(filterCardByExcludedIds(result.newCard))
+            cardsToUse = cardsToUse.filter(filterByExcludedIds(result.newCard))
             includeCardIds.push(result.newCard)
 
       if requireBuyProvider
@@ -84,7 +105,7 @@ do ->
          kingdom = result.kingdom
 
       return {
-         cards: kingdom
+         kingdom: kingdom
          metadata: {
             useColonies: shouldUseSpecialtyCardForSet(PROSPERITY_SET_ID, setsToUse)
             useShelters: shouldUseSpecialtyCardForSet(DARK_AGES_SET_ID, setsToUse)
@@ -92,7 +113,7 @@ do ->
       }
 
    adjustKingdomForAlchemyCards = (kingdom, cardsToUse, requiredCardIds) ->      
-      alchemyCards = kingdom.filter(filterCardByIncludedSetIds([ALCHEMY_SET_ID]))
+      alchemyCards = kingdom.cards.filter(filterByIncludedSetIds([ALCHEMY_SET_ID]))
       if alchemyCards.length == 0
          # Return the existing kingdom if no alchemy cards were randomly selected.
          return kingdom
@@ -101,8 +122,8 @@ do ->
       if MIN_ALCHEMY_CARDS_IN_KINGDOM <= alchemyCards.length <= MAX_ALCHEMY_CARDS_IN_KINGDOM
          return kingdom
 
-      replaceableCards = kingdom.filter(filterCardByExcludedIds(requiredCardIds))
-      replaceableCards = kingdom.filter(filterCardByExcludedSetIds([ALCHEMY_SET_ID]))
+      replaceableCards = kingdom.cards.filter(filterByExcludedIds(requiredCardIds))
+      replaceableCards = kingdom.cards.filter(filterByExcludedSetIds([ALCHEMY_SET_ID]))
       numberOfAlchemyCardsToUse = 
          RandUtil.getRandomInt(MIN_ALCHEMY_CARDS_IN_KINGDOM, MAX_ALCHEMY_CARDS_IN_KINGDOM + 1)
       
@@ -113,27 +134,27 @@ do ->
       if numberOfNewAlchemyCards <= 0
          return kingdom
 
-      # Combine the required cards and the 
-      cards = kingdom.filter(filterCardByIncludedIds(requiredCardIds))
+      # Combine the required cards and the alchemy cards.
+      cards = kingdom.cards.filter(filterByIncludedIds(requiredCardIds))
       cards = unionCards(cards, alchemyCards)
 
       # Added the additional alchemy cards.
-      possibleAlchemyCards = cardsToUse.filter(filterCardByIncludedSetIds([ALCHEMY_SET_ID]))
+      possibleAlchemyCards = cardsToUse.filter(filterByIncludedSetIds([ALCHEMY_SET_ID]))
       cards = cards.concat(selectRandomCards(possibleAlchemyCards, numberOfNewAlchemyCards))
       
       # Added the cards that weren't required but were kept anyways.
-      cards = cards.concat(
+      kingdom.cards = cards.concat(
             selectRandomCards(replaceableCards, replaceableCards.length - numberOfNewAlchemyCards))
 
-      return cards
+      return kingdom
 
    adjustKingdomToIncludeType = (type, kingdom, cardsToUse, requiredCardIds) ->
-      existingCardsOfType = kingdom.filter(filterCardByAllowedTypes([type]))
+      existingCardsOfType = kingdom.cards.filter(filterCardByAllowedTypes([type]))
       # Ensure that there is at least one action provider in the kingdom.
       if existingCardsOfType.length >= 1
          return {kingdom: kingdom, newCard: null}
 
-      replaceableCards = kingdom.filter(filterCardByExcludedIds(requiredCardIds))
+      replaceableCards = kingdom.cards.filter(filterByExcludedIds(requiredCardIds))
       if replaceableCards.length < 1
          return {kingdom: kingdom, newCard: null}
 
@@ -141,9 +162,9 @@ do ->
       cardsOfTypes = cardsToUse.filter(filterCardByAllowedTypes([type]))
       newCardOfType = selectRandomCards(cardsOfTypes, 1)
 
-      cards = kingdom.filter(filterCardByExcludedIds(extractIds(cardsToBeReplaced)))
-      cards = cards.concat(newCardOfType)
-      return {kingdom: cards, newCard: newCardOfType}
+      cards = kingdom.cards.filter(filterByExcludedIds(extractIds(cardsToBeReplaced)))
+      kingdom.cards = cards.concat(newCardOfType)
+      return {kingdom: kingdom, newCard: newCardOfType}
 
    shouldUseSpecialtyCardForSet = (setId, setsBeingUsed) ->
       index = extractIds(setsBeingUsed).indexOf(setId)
@@ -155,23 +176,56 @@ do ->
       index = RandUtil.getRandomInt(0, numberOfCardsBeingUsed)
       return index < numberOfSpecialtySetCards
 
+   fillKingdom = (kingdom, cardsToUse, eventsToUse, landmarksToUse) ->
+      while kingdom.cards.length < NUM_CARDS_IN_KINGDOM
+         numberOfCards = cardsToUse.length + eventsToUse.length + landmarksToUse.length
+         index = RandUtil.getRandomInt(0, numberOfCards)
+
+         # Check if the selected index is a card.
+         if index < cardsToUse.length
+            card = cardsToUse[index]
+            kingdom.cards.push(card)
+            cardsToUse = cardsToUse.filter(filterByExcludedIds([card.id]))
+            continue
+
+         # Check if there are already too many event or landscape cards.
+         if kingdom.events.length + kingdom.landmarks.length >= MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM
+            continue
+
+         # Check if the selected index is an event card.
+         eventIndex = index - cardsToUse.length
+         if eventIndex < eventsToUse.length
+            event = eventsToUse[eventIndex]
+            kingdom.events.push(event)
+            eventsToUse = eventsToUse.filter(filterByExcludedIds([event.id]))
+            continue
+
+         # Selected index must be a landmark card.
+         landmarkIndex = eventIndex - eventsToUse.length
+         landmark = landmarksToUse[landmarkIndex]
+         kingdom.events.push(landmark)
+         landmarksToUse = landmarksToUse.filter(filterByExcludedIds([landmark.id]))
+
+      return kingdom
+
    selectRandomCards = (cards, numberToSelect) ->
       randomIndexes = RandUtil.getRandomInts(numberToSelect, cards.length)
       selectedCards = (cards[index] for index in randomIndexes)
       return selectedCards
 
-   flattenSets = (sets) ->
+   flattenSetsForProperty = (sets, property) ->
       cards = []
       for setId, set of sets
-         for card in set.cards
-            cards.push(card)
+         if set[property]
+            for card in set[property]
+               cards.push(card)
       return cards
 
    extractIds = (cardsOrSets) ->
       return (cardOrSet.id for cardOrSet in cardsOrSets)
 
    unionCards = (a, b) ->
-      excludingB = a.filter(filterCardByExcludedIds(extractIds(b)))
+      excludingB = a.filter(filterByExcludedIds(extractIds(b)))
       return excludingB.concat(b)
 
    filterSetsByAllowedSetIds = (setsArrayOrMap, allowedSetIds) ->
@@ -188,33 +242,33 @@ do ->
             setsArray.push(set)
       return setsArray
 
-   filterCardByIncludedSetIds = (includeSetIds) ->
-      return (card) -> return includeSetIds.indexOf(card.setId) != -1
+   filterByIncludedSetIds = (includeSetIds) ->
+      return (item) -> return includeSetIds.indexOf(item.setId) != -1
    
-   filterCardByExcludedSetIds = (includeSetIds) ->
-      return (card) -> return includeSetIds.indexOf(card.setId) == -1
+   filterByExcludedSetIds = (includeSetIds) ->
+      return (item) -> return includeSetIds.indexOf(item.setId) == -1
 
-   filterCardByIncludedIds = (includeCardIds) ->
-      return (card) -> return includeCardIds.indexOf(card.id) != -1
+   filterByIncludedIds = (includeIds) ->
+      return (item) -> return includeIds.indexOf(item.id) != -1
 
-   filterCardByExcludedIds = (excludeCardIds) ->
-      return (card) -> return excludeCardIds.indexOf(card.id) == -1
+   filterByExcludedIds = (excludeIds) ->
+      return (item) -> return excludeIds.indexOf(item.id) == -1
 
    filterCardByAllowedTypes = (allowedTypes) ->
-      return (card) -> 
+      return (item) -> 
          for allowedType in allowedTypes
-            if card[allowedType] == true
+            if item[allowedType] == true
                return true
          return false
 
-   filterCardByExcludedTypes = (excludedTypes) ->
-      return (card) -> 
+   filterByExcludedTypes = (excludedTypes) ->
+      return (item) -> 
          for excludedType in excludedTypes
-            if card[excludedType] == true
+            if item[excludedType] == true
                return false
          return true
 
-   filterCardByAllowedCost = (allowedCosts) ->
+   filterByAllowedCost = (allowedCosts) ->
       costs = [
          Cost.TREASURE_2,
          Cost.TREASURE_2,
@@ -226,13 +280,13 @@ do ->
          Cost.TREASURE_7,
          Cost.TREASURE_8
       ]
-      return (card) ->
-         costType = costs[Math.min(card.cost.treasure, 8)]
+      return (item) ->
+         costType = costs[Math.min(item.cost.treasure, 8)]
          return allowedCosts.indexOf(costType) != -1
 
    shouldUseAlchemyForKingdom = (kingdom) ->
       hasAlchemyCard = false
-      for card in kingdom
+      for card in kingdom.cards
          if card.setId == ALCHEMY_SET_ID
             hasAlchemyCard = true
             break

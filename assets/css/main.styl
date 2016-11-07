@@ -109,15 +109,33 @@ input[type=checkbox]
    
    .card-wrap
       width: 20%
-      -webkit-perspective: 1000
-      -moz-perspective: 1000
-      perspective: 1000
       float: left
       &.selected .highlight
          cursor:pointer
          display:block
-
       
+   .flipper .highlight
+      cursor: pointer
+
+.eventsAndLandmarks-header
+   float: left
+   clear: left
+   margin: 10px 0 0
+   font-size: 20px
+
+.eventsAndLandmarks
+   .card-wrap
+      width: 30%
+      float: left
+      
+      &:first-child
+         clear: left
+
+.card-wrap
+   -webkit-perspective: 1000
+   -moz-perspective: 1000
+   perspective: 1000
+
 .card-front
    position: relative
    cursor: pointer
@@ -175,9 +193,8 @@ input[type=checkbox]
       width: 100%
       display: block
 
-#cards
-   // Styles for flip
-   .flipper 
+// Styles for flip
+.flipper 
       margin: 2px
       -webkit-transition: 0.6s
       -webkit-transform-style: preserve-3d
@@ -190,29 +207,26 @@ input[type=checkbox]
          -webkit-transform: rotateY(-180deg)
          -moz-transform: rotateY(-180deg)
          transform: rotateY(-180deg)
-      
-         .highlight
-            cursor: pointer
 
-   .card-front
-   .card-back
-      -webkit-backface-visibility: hidden
-      -moz-backface-visibility: hidden
-      backface-visibility: hidden
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-   .card-back
-      z-index: 2
-      img
-         width: 100%
-         display: block
-   .card-front
-      -webkit-transform: rotateY(-180deg)
-      -moz-transform: rotateY(-180deg)
-      transform: rotateY(-180deg)
+.card-front
+.card-back
+   -webkit-backface-visibility: hidden
+   -moz-backface-visibility: hidden
+   backface-visibility: hidden
+   position: absolute
+   top: 0
+   right: 0
+   bottom: 0
+   left: 0
+.card-back
+   z-index: 2
+   img
+      width: 100%
+      display: block
+.card-front
+   -webkit-transform: rotateY(-180deg)
+   -moz-transform: rotateY(-180deg)
+   transform: rotateY(-180deg)
 
 .footer
    padding: 10px
@@ -259,11 +273,16 @@ input[type=checkbox]
 @media (max-width: 950px)
    #cards .card-wrap
       width: 25%
+   
+   .eventsAndLandmarks .card-wrap
+      width: 40%
 
 @media (max-width: 850px)
-   #cards
-      .card-wrap
-         width: 33.3333%
+   #cards .card-wrap
+      width: 33.3333%
+      
+   .eventsAndLandmarks .card-wrap
+      width: 50%
 
 // Move sidebar to the top
 @media (max-width: 650px)

@@ -2,12 +2,14 @@
 
 do ->
    ANIMATION_TIME = 600
-   IMAGE_PREFEX = '/img/cards'      
-   LOADING_IMAGE_URL = "/img/cards/backside_blue.jpg"
+   IMAGE_PREFEX = '/img/cards'
+   VERTICAL_LOADING_IMAGE_URL = "/img/cards/backside_blue.jpg"
+   HORIZONTAL_LOADING_IMAGE_URL = "/img/cards/backside_blue_horizontal.jpg"
 
    class CardViewModel
-      constructor: (parent) ->
+      constructor: (parent, isVertical) ->
          @parent = parent
+         @isVertical = !!isVertical
          @id = ko.observable()
          @setId = ko.observable()
          @name = ko.observable()
@@ -18,7 +20,7 @@ do ->
          @selected = ko.observable(false)
 
          # Build the image URL
-         @imageUrl = ko.observable(LOADING_IMAGE_URL)
+         @imageUrl = ko.observable(@getLoadingImageUrl())
          @setClass = ko.computed () =>
             return if @isLoading() then 'loading' else @setId()
 
@@ -63,7 +65,11 @@ do ->
       
       toggleSelected: () => @selected(!@selected())
 
+      getLoadingImageUrl: =>
+         return if @isVertical then VERTICAL_LOADING_IMAGE_URL else HORIZONTAL_LOADING_IMAGE_URL
+
 
    window.CardViewModel = CardViewModel
-   window.CardViewModel.LOADING_IMAGE_URL = LOADING_IMAGE_URL
+   window.CardViewModel.VERTICAL_LOADING_IMAGE_URL = VERTICAL_LOADING_IMAGE_URL
+   window.CardViewModel.HORIZONTAL_LOADING_IMAGE_URL = HORIZONTAL_LOADING_IMAGE_URL
    window.CardViewModel.ANIMATION_TIME = ANIMATION_TIME
