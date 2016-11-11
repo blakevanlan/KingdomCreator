@@ -36,9 +36,8 @@ do ->
          @loadCardBacks()
 
       fetchKingdom: () =>
-         # Find any cards that are selected
-         selectedCards = []
-         nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when card.selected())
+         selectedCards = (card for card in @cards() when card.selected())
+         nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when !card.selected())
 
          # If there are cards selected, show dialog so user can filter
          if selectedCards.length > 0
