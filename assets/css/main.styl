@@ -7,12 +7,22 @@ body
    margin: 10px
    font-family: primary-font
 
-h1
-   color: #02779e
+header
    max-width: 1200px
-   font-size: 24px
-   border-bottom: 1px solid #ccc
    margin: 12px auto
+   border-bottom: 1px solid #ccc
+
+   h1.title
+      color: #02779e
+      font-size: 30px
+      margin: 0
+      padding: 0
+      
+   h2.tagline
+      color: #666
+      font-size: 18px
+      margin: 0
+      padding: 0
 
 .clear
    clear: both
@@ -55,6 +65,7 @@ input[type=checkbox]
       width: 192px
 
       h1
+         font-size: 24px
          margin: 8px 0 8px 0
          border-bottom: 1px solid #ccc
          color: #333
@@ -234,7 +245,7 @@ input[type=checkbox]
    -moz-transform: rotateY(-180deg)
    transform: rotateY(-180deg)
 
-.footer
+footer
    padding: 10px
    border-top: 1px #ddd solid
    margin: 10px -10px -10px -10px
@@ -306,8 +317,8 @@ input[type=checkbox]
          margin-right: 12px!important
          -webkit-transform: scale(1.5,1.5)
          top: -2px
-   #header
-      margin: 5px -5px
+   .header
+      margin: 5px -5px   
    .content
       .sidebar
          float: none

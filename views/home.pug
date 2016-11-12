@@ -5,7 +5,10 @@ block head
       window.DominionSets = !{JSON.stringify(sets)};
 
 block content
-   h1#header Kingdom Creatin'
+   header
+      h1.title Kingdom Creator
+      h2.tagline Dominion randomizer for desktop and mobile
+      
    .content
       .sidebar
          .filters
@@ -82,10 +85,14 @@ block content
                .highlight
          .clear
 
-   .footer
+   footer
       | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
       | This site has no affiliation with either party.
       | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>.
+      | <br>
+      | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
+      | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+
 
    .dialog-hidden-content
       .dialog-content(data-bind="with: dialog")
