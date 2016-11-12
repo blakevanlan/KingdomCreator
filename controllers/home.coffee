@@ -9,4 +9,4 @@ sets = setLoader.loadSets()
 console.log("Finished loading sets.")
 
 app.get '/', (req, res, next) ->   
-   res.render('home', {sets: sets})
+   res.render('home', {sets: sets, isProduction: process.env.NODE_ENV == 'production'})

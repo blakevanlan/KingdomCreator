@@ -40,7 +40,8 @@ const html = pug.renderFile(pugTemplate, {
    js: function(file) {
       return '<script src="' + file + '.js"></script>';
    },
-   sets: sets
+   sets: sets,
+   isProduction: true
 });
 const indexFilename = path.join(docsPath, 'index.html');
 fs.writeFileSync(indexFilename, html)

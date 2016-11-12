@@ -1,0 +1,305 @@
+name: Empires
+cards:
+  - name: Engineer
+    cost:
+      treasure: 4
+      potion: 0
+      allowsDebt: true
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: City Quarter
+    cost:
+      treasure: 8
+      potion: 0
+      allowsDebt: true
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Overlord
+    cost:
+      treasure: 8
+      potion: 0
+      allowsDebt: true
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Royal Blacksmith
+    cost:
+      treasure: 8
+      potion: 0
+      allowsDebt: true
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Royal Blacksmith
+    cost:
+      treasure: 8
+      potion: 0
+      allowsDebt: true
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Encampment
+    cost:
+      treasure: 2
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Plunder
+    cost:
+      treasure: 5
+      potion: 0
+      allowsDebt: false
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+
+  - name: Patrician
+    cost:
+      treasure: 2
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Emporium
+    cost:
+      treasure: 5
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Settlers
+    cost:
+      treasure: 2
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Bustling Village
+    cost:
+      treasure: 5
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Castles
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: true
+  
+  - name: Catapult
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+
+  - name: Rocks
+    cost:
+      treasure: 4
+      potion: 0
+      allowsDebt: false
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+
+  - name: Chariot Race
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Enchantress
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: fals
+
+  - name: Farmers Market
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDuration: false
+    isGathering: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Gladiator
+    cost:
+      treasure: 3
+      potion: 0
+      allowsDebt: false
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Fortune
+    cost:
+      treasure: 8
+      potion: 0
+      allowsDebt: true
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
