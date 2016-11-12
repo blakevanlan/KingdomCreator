@@ -21,7 +21,9 @@ app.use(compression())
 app.use(express.query())
 app.use(express.bodyParser())
 app.use(require("connect-assets")())
-app.use(express.static(path.join(__dirname, "../docs")))
 
 # Controllers
 app.use(require("./home"))
+
+# Serve the images.
+app.use(express.static(path.join(__dirname, "../docs")))
