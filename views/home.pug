@@ -29,6 +29,10 @@ block content
                label.checkbox
                   input(type="checkbox", data-bind="checked: allowAttackCards")
                   span Allow Attacks
+               .suboption
+                  label.checkbox(data-bind="css:{'disable': !allowAttackCards()}")
+                     input(type="checkbox", data-bind="checked: requireReaction, enable: allowAttackCards")
+                     span Require Reaction
             h1 Display
             .option
                label.checkbox

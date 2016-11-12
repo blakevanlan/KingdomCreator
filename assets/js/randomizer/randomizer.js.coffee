@@ -55,6 +55,7 @@ do ->
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
+      requireReactionIfAttackCards = !!options.requireReactionIfAttackCards
       
       # Fill the kingdom with included cards.
       kingdom = {
@@ -91,28 +92,44 @@ do ->
 
       # Adjust kingdom to have 3-5 alchemy cards if alchemy is being used.
       if useAlchemy
-         kingdom = adjustKingdomForAlchemyCards(kingdom, cardsToUse, includeCardIds)
+         kingdom = adjustKingdomForAlchemyCards(kingdom, cardsToUse, includeCardIds, excludeCardIds)
 
       if requireActionProvider
          result = adjustKingdomToIncludeType(Type.ACTION_SUPPLIER, kingdom, cardsToUse, includeCardIds)
          kingdom = result.kingdom
+         cardsToUse.push(result.oldCard) if result.oldCard
          if result.newCard
-            cardsToUse = cardsToUse.filter(filterByExcludedIds(result.newCard))
-            includeCardIds.push(result.newCard)
+            cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
+            includeCardIds.push(result.newCard.id)
 
       if requireBuyProvider
          result = adjustKingdomToIncludeType(Type.BUY_SUPPLIER, kingdom, cardsToUse, includeCardIds)
          kingdom = result.kingdom
+         cardsToUse.push(result.oldCard) if result.oldCard
+         if result.newCard
+            cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
+            includeCardIds.push(result.newCard)
+
+      if requireReactionIfAttackCards
+         attackCards = kingdom.cards.filter(filterByAllowedTypes([Type.ATTACK]))
+         if attackCards.length
+            requiredAttackCards = attackCards.filter(filterByIncludedIds(includeCardIds))
+            if requiredAttackCards.length < 1 and includeCardIds.length < NUM_CARDS_IN_KINGDOM - 1
+               # Randomly pick an attack card to make required since a card will be exchanged to
+               # make room for a reaction card.
+               includeCardIds.push(selectRandomCards(attackCards, 1)[0].id)
+            result = adjustKingdomToIncludeType(Type.REACTION, kingdom, cardsToUse, includeCardIds)
+            kingdom = result.kingdom
 
       return {
          kingdom: kingdom
          metadata: {
-            useColonies: shouldUseSpecialtyCardForSet(PROSPERITY_SET_ID, setsToUse)
-            useShelters: shouldUseSpecialtyCardForSet(DARK_AGES_SET_ID, setsToUse)
+            useColonies: shouldUseSpecialtyCardFromSet(PROSPERITY_SET_ID, setsToUse)
+            useShelters: shouldUseSpecialtyCardFromSet(DARK_AGES_SET_ID, setsToUse)
          }
       }
 
-   adjustKingdomForAlchemyCards = (kingdom, cardsToUse, requiredCardIds) ->      
+   adjustKingdomForAlchemyCards = (kingdom, cardsToUse, requiredCardIds, excludeCardIds) ->      
       alchemyCards = kingdom.cards.filter(filterByIncludedSetIds([ALCHEMY_SET_ID]))
       if alchemyCards.length == 0
          # Return the existing kingdom if no alchemy cards were randomly selected.
@@ -123,7 +140,7 @@ do ->
          return kingdom
 
       replaceableCards = kingdom.cards.filter(filterByExcludedIds(requiredCardIds))
-      replaceableCards = kingdom.cards.filter(filterByExcludedSetIds([ALCHEMY_SET_ID]))
+      replaceableCards = replaceableCards.filter(filterByExcludedSetIds([ALCHEMY_SET_ID]))
       numberOfAlchemyCardsToUse = 
          RandUtil.getRandomInt(MIN_ALCHEMY_CARDS_IN_KINGDOM, MAX_ALCHEMY_CARDS_IN_KINGDOM + 1)
       
@@ -149,24 +166,24 @@ do ->
       return kingdom
 
    adjustKingdomToIncludeType = (type, kingdom, cardsToUse, requiredCardIds) ->
-      existingCardsOfType = kingdom.cards.filter(filterCardByAllowedTypes([type]))
+      existingCardsOfType = kingdom.cards.filter(filterByAllowedTypes([type]))
       # Ensure that there is at least one action provider in the kingdom.
       if existingCardsOfType.length >= 1
-         return {kingdom: kingdom, newCard: null}
+         return {kingdom: kingdom, newCard: null, oldCard: null}
 
       replaceableCards = kingdom.cards.filter(filterByExcludedIds(requiredCardIds))
       if replaceableCards.length < 1
-         return {kingdom: kingdom, newCard: null}
+         return {kingdom: kingdom, newCard: null, oldCard: null}
 
       cardsToBeReplaced = selectRandomCards(replaceableCards, 1)
-      cardsOfTypes = cardsToUse.filter(filterCardByAllowedTypes([type]))
-      newCardOfType = selectRandomCards(cardsOfTypes, 1)
+      cardsOfTypes = cardsToUse.filter(filterByAllowedTypes([type]))
+      newCardsOfType = selectRandomCards(cardsOfTypes, 1)
 
       cards = kingdom.cards.filter(filterByExcludedIds(extractIds(cardsToBeReplaced)))
-      kingdom.cards = cards.concat(newCardOfType)
-      return {kingdom: kingdom, newCard: newCardOfType}
+      kingdom.cards = cards.concat(newCardsOfType)
+      return {kingdom: kingdom, newCard: newCardsOfType[0], oldCard: cardsToBeReplaced[0]}
 
-   shouldUseSpecialtyCardForSet = (setId, setsBeingUsed) ->
+   shouldUseSpecialtyCardFromSet = (setId, setsBeingUsed) ->
       index = extractIds(setsBeingUsed).indexOf(setId)
       return false if index == -1
       numberOfSpecialtySetCards = setsBeingUsed[index].cards.length
@@ -254,7 +271,7 @@ do ->
    filterByExcludedIds = (excludeIds) ->
       return (item) -> return excludeIds.indexOf(item.id) == -1
 
-   filterCardByAllowedTypes = (allowedTypes) ->
+   filterByAllowedTypes = (allowedTypes) ->
       return (item) -> 
          for allowedType in allowedTypes
             if item[allowedType] == true

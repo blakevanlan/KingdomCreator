@@ -23,6 +23,7 @@ do ->
          @requireActionProvider = ko.observable(true)
          @requireBuyProvider = ko.observable(true)
          @allowAttackCards = ko.observable(true)
+         @requireReaction = ko.observable(false)
          @showSet = ko.observable(true)
          @sortAlphabetically = ko.observable(false)
          @sortAlphabetically.subscribe(@sortCards)
@@ -71,7 +72,8 @@ do ->
                for cardData in @kingdom.cards
                   # If this is a new card then set an old card to have the new data
                   # and then animate the sorting after all have loaded
-                  if nonSelectedCardIds.indexOf(cardData.id) == -1
+                  if (nonSelectedCardIds.indexOf(cardData.id) == -1 and
+                        nextSelectedCardIndex < selectedCards.length)
                      selectedCards[nextSelectedCardIndex++].setData(cardData, sets)
                      if card.cardImageLoaded()
                         registerComplete()
@@ -93,6 +95,7 @@ do ->
                requireActionProvider: @requireActionProvider()
                requireBuyProvider: @requireBuyProvider()
                allowAttackCards: @allowAttackCards()
+               requireReaction: @requireReaction()
             })
             card.setToLoading() for card in @cards()
             card.setToLoading() for card in @eventsAndLandmarks()
@@ -102,6 +105,7 @@ do ->
                excludeTypes: @getExcludeTypes()
                requireActionProvider: @requireActionProvider()
                requireBuyProvider: @requireBuyProvider()
+               requireReactionIfAttackCards: @requireReaction()
             })
             @kingdom = result.kingdom
             @kingdom.cards.sort(@cardSorter)
@@ -147,6 +151,7 @@ do ->
             @requireActionProvider(!!options.requireActionProvider)
             @requireBuyProvider(!!options.requireBuyProvider)
             @allowAttackCards(!!options.allowAttackCards)
+            @requireReaction(!!options.requireReaction)
 
       saveOptionsToCookie: (options) => $.cookie('options', options)
 
