@@ -21,7 +21,7 @@ app.use(compression())
 app.use(express.query())
 app.use(express.bodyParser())
 app.use(require("connect-assets")())
-app.use(express.static(path.join(__dirname, "../public")))
+app.use(express.static(path.join(__dirname, "../docs")))
 
 # Controllers
 app.use(require("./home"))
