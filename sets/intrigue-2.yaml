@@ -1,0 +1,332 @@
+name: Intrigue (2nd)
+cards:
+  - name: Nobles
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+
+  - name: Conspirator
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Mining Village
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+
+  - name: Pawn
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Courtyard
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Trading Post
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Duke
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Baron
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Swindler
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Bridge
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Torturer
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Wishing Well
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Masquerade
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Ironworks
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Steward
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Harem
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Minion
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Upgrade
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Shanty Town
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+
+  - name: Lurker
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+
+  - name: Diplomat
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Mill
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Secret Passage
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Patrol
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Courtier
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: false
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Replace
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isDrawer: false
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false    
