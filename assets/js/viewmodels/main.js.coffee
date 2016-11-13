@@ -34,58 +34,79 @@ do ->
          @fetchKingdom()
          @hasLoaded = ko.observable(false)
          @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
+         @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
          @loadCardBacks()
 
       fetchKingdom: () =>
          selectedCards = (card for card in @cards() when card.selected())
          nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when !card.selected())
+         selectedEvents = @getSelectedEvents()
+         selectedLandmarks = @getSelectedLandmarks()
+         nonSelectedEventAndLandmarkIds = (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected())
 
-         # If there are cards selected, show dialog so user can filter
-         if selectedCards.length > 0
-            @dialog.open () =>
-               options = {
-                  setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
-                  includeCardIds: nonSelectedCardIds
-                  excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
-                  includeEventIds: (event.id for event in @kingdom.events)
-                  includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
-                  excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
-                  allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
-               }
+         # If there are cards selected, show dialog so user can filter.
+         if selectedCards.length or selectedEvents.length or selectedLandmarks.length
+            options = {
+               setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
+               includeCardIds: nonSelectedCardIds
+               excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
+               includeEventIds: (event.id for event in @kingdom.events)
+               includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
+               excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
+               allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
+               eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
+               landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
+               fillKingdomEventsAndLandmarks: false
+            }
 
+            randomizeSelectedCards = =>
                # Set cards to loading and get the new cards.
                card.setToLoading() for card in selectedCards
-               result = Randomizer.createKingdom(@dominionSets, options)
+               card.setToLoading() for card in selectedEvents
+               card.setToLoading() for card in selectedLandmarks
                
-               # TODO: Implement reshuffling the events and landmarks.
-               @kingdom.cards = result.kingdom.cards
+               @kingdom = Randomizer.createKingdom(@dominionSets, options).kingdom
                sets = @sets()
-               imagesLeftToLoad = selectedCards.length
+               imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
                
                # Use this function to sync all of the images so that the sort
-               # only happens after all have loaded
+               # only happens after all have loaded.
                registerComplete = => 
                   if --imagesLeftToLoad <= 0 
                      setTimeout((=> @sortCards()), CardViewModel.ANIMATION_TIME)
                
+               setCardData = (card, data) =>
+                  card.setData(data, sets)
+                  if card.cardImageLoaded()
+                     registerComplete()
+                  else
+                     # Capture the subscription so we can dispose after the image loads.
+                     do =>
+                        subscription = card.cardImageLoaded.subscribe (val) =>
+                           return unless val
+                           subscription.dispose()
+                           registerComplete()
+
                nextSelectedCardIndex = 0
                for cardData in @kingdom.cards
-                  # If this is a new card then set an old card to have the new data
-                  # and then animate the sorting after all have loaded
                   if (nonSelectedCardIds.indexOf(cardData.id) == -1 and
                         nextSelectedCardIndex < selectedCards.length)
-                     selectedCards[nextSelectedCardIndex++].setData(cardData, sets)
-                     if card.cardImageLoaded()
-                        registerComplete()
-                     else
-                        # Capture the subscription so we can dispose after the image loads.
-                        do =>
-                           subscription = card.cardImageLoaded.subscribe (val) =>
-                              return unless val
-                              subscription.dispose()
-                              registerComplete()
+                     setCardData(selectedCards[nextSelectedCardIndex++], cardData)
 
-               @metadata.update(result.metadata)
+               nextIndex = 0
+               selectedEventsAndLandmarks = selectedEvents.concat(selectedLandmarks)
+               eventsAndLandmarks = @kingdom.events.concat(@kingdom.landmarks)
+               for cardData in eventsAndLandmarks
+                  if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
+                        nextIndex < selectedEventsAndLandmarks.length)
+                     setCardData(selectedEventsAndLandmarks[nextIndex++], cardData)
+
+            # Only show the dialog when a card is selected (not for events or landmarks).
+            if selectedCards.length
+               @dialog.open(randomizeSelectedCards)
+            else 
+               randomizeSelectedCards()
+               
          else 
             setIds = (set.id for set in @sets() when set.active())
             @saveOptionsToCookie({
@@ -99,6 +120,10 @@ do ->
             })
             card.setToLoading() for card in @cards()
             card.setToLoading() for card in @eventsAndLandmarks()
+
+            # Bail if no sets are selected.
+            return unless setIds.length
+
             result = Randomizer.createKingdom(@dominionSets, {
                setIds: setIds,
                excludeCardIds: @getCardsToExclude()
@@ -106,6 +131,7 @@ do ->
                requireActionProvider: @requireActionProvider()
                requireBuyProvider: @requireBuyProvider()
                requireReactionIfAttackCards: @requireReaction()
+               fillKingdomEventsAndLandmarks: true
             })
             @kingdom = result.kingdom
             @kingdom.cards.sort(@cardSorter)
@@ -145,6 +171,21 @@ do ->
                      return true
             return false
 
+      createEventsAndLandmarksHeaderObservable: ->
+         return ko.computed =>
+            hasEvents = false
+            hasLandmarks = false
+            for setViewModel in ko.unwrap(@sets)
+               if ko.unwrap(setViewModel.active)
+                  set = @dominionSets[ko.unwrap(setViewModel.id)]
+                  hasEvents = true if set.events?.length
+                  hasLandmarks = true if set.landmarks?.length
+            
+            return 'Events and Landmarks' if hasEvents and hasLandmarks
+            return 'Events' if hasEvents
+            return 'Landmarks' if hasLandmarks
+            return ''
+
       loadOptionsFromCookie: =>
          options = $.cookie('options')
          if options
@@ -178,6 +219,22 @@ do ->
          types = []
          types.push(Randomizer.Type.ATTACK) unless @allowAttackCards()
          return types
+
+      getSelectedEvents: ->
+         selectedEvents = []
+         for card in @eventsAndLandmarks()
+            id = ko.unwrap(card.id)
+            if id and id.indexOf('_event_') != -1 and ko.unwrap(card.selected)
+               selectedEvents.push(card)
+         return selectedEvents
+
+      getSelectedLandmarks: ->
+         selectedLandmarks = []
+         for card in @eventsAndLandmarks()
+            id = ko.unwrap(card.id)
+            if id and id.indexOf('_landmark_') != -1 and ko.unwrap(card.selected)
+               selectedLandmarks.push(card)
+         return selectedLandmarks
 
       loadCardBacks: => 
          start = Date.now()

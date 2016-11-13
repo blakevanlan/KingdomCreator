@@ -69,7 +69,8 @@ block content
                         .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
                .highlight
 
-         .eventsAndLandmarks-header(data-bind="visible: showEventsAndLandmarks") Events
+         .eventsAndLandmarks-header(data-bind="visible: showEventsAndLandmarks, \
+               text: eventsAndLandmarksHeader")
          .eventsAndLandmarks(data-bind="visible: showEventsAndLandmarks, \
                foreach: eventsAndLandmarks")
             .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")

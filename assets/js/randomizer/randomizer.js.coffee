@@ -56,7 +56,10 @@ do ->
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
       requireReactionIfAttackCards = !!options.requireReactionIfAttackCards
-      
+      eventIdsToReplace = options.eventIdsToReplace or []
+      landmarkIdsToReplace = options.landmarkIdsToReplace or []
+      fillKingdomEventsAndLandmarks = !!options.fillKingdomEventsAndLandmarks
+
       # Fill the kingdom with included cards.
       kingdom = {
          cards: allCards.filter(filterByIncludedIds(includeCardIds)),
@@ -86,8 +89,31 @@ do ->
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(includeLandmarkIds))
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(excludeLandmarkIds))
 
+
+      # Replace the event and landmarks cards.
+      if eventIdsToReplace.length or landmarkIdsToReplace.length
+         # Remove the events and landmarks that are being replaced.
+         eventsToUse = eventsToUse.filter(filterByExcludedIds(eventIdsToReplace))
+         kingdom.events = kingdom.events.filter(filterByExcludedIds(eventIdsToReplace))
+         landmarksToUse = landmarksToUse.filter(filterByExcludedIds(landmarkIdsToReplace))
+         kingdom.landmarks = kingdom.landmarks.filter(filterByExcludedIds(landmarkIdsToReplace))
+
+         numberOfNewCards = eventIdsToReplace.length + landmarkIdsToReplace.length
+         newCards = selectRandomCards(eventsToUse.concat(landmarksToUse), numberOfNewCards)
+
+         kingdom.events = kingdom.events.concat(
+            eventsToUse.filter(filterByIncludedIds(extractIds(newCards))))
+         kingdom.landmarks = kingdom.landmarks.concat(
+            landmarksToUse.filter(filterByIncludedIds(extractIds(newCards))))
+
+      # Replace given landmark cards.
+      if landmarkIdsToReplace.length
+         kingdom.landmarks = kingdom.landmarks.concat(selectRandomCards(landmarksToUse, landmarkIdsToReplace.length))
+
       # Fill the kingdom with cards and remove those cards from the usable set.
-      kingdom = fillKingdom(kingdom, cardsToUse, eventsToUse, landmarksToUse)
+      eventsToUseForKingdom = if fillKingdomEventsAndLandmarks then eventsToUse else []
+      landmarksToUseForKingdom = if fillKingdomEventsAndLandmarks then landmarksToUse else []
+      kingdom = fillKingdom(kingdom, cardsToUse, eventsToUseForKingdom, landmarksToUseForKingdom)
       cardsToUse = cardsToUse.filter(filterByExcludedIds(extractIds(kingdom.cards)))
 
       # Adjust kingdom to have 3-5 alchemy cards if alchemy is being used.
@@ -220,7 +246,7 @@ do ->
          # Selected index must be a landmark card.
          landmarkIndex = eventIndex - eventsToUse.length
          landmark = landmarksToUse[landmarkIndex]
-         kingdom.events.push(landmark)
+         kingdom.landmarks.push(landmark)
          landmarksToUse = landmarksToUse.filter(filterByExcludedIds([landmark.id]))
 
       return kingdom

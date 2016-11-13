@@ -113,7 +113,12 @@ input[type=checkbox]
          font-size: 50px
          padding-top: 40px
 
-#cards
+.card-wrap
+   float: left
+   -webkit-perspective: 1000
+   -moz-perspective: 1000
+   perspective: 1000
+   
    .highlight
       display:none
       position: absolute
@@ -123,16 +128,15 @@ input[type=checkbox]
       left: 2px
       border: 2px solid highlight-blue
       background: rgba(2,119,158,0.65)
-   
+      cursor: pointer
+
+   &.selected .highlight
+      cursor:pointer
+      display:block
+
+#cards
    .card-wrap
       width: 20%
-      float: left
-      &.selected .highlight
-         cursor:pointer
-         display:block
-      
-   .flipper .highlight
-      cursor: pointer
 
 .eventsAndLandmarks-header
    float: left
@@ -143,15 +147,9 @@ input[type=checkbox]
 .eventsAndLandmarks
    .card-wrap
       width: 30%
-      float: left
       
       &:first-child
          clear: left
-
-.card-wrap
-   -webkit-perspective: 1000
-   -moz-perspective: 1000
-   perspective: 1000
 
 .card-front
    position: relative
@@ -190,8 +188,8 @@ input[type=checkbox]
             color: prosperity-color
          &.cornucopia
             color: cornucopia-color
-         &.hinderlands
-            color: hinderlands-color
+         &.hinterlands
+            color: hinterlands-color
          &.darkages
             color: darkages-color
          &.guilds
@@ -200,6 +198,8 @@ input[type=checkbox]
             color: adventures-color
          &.promos
             color: promos-color
+         &.empires
+            color: empires-color
 
    &.keep .highlight
       opacity: 0

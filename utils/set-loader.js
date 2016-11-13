@@ -14,7 +14,7 @@ const convertToEventId = function(setId, name) {
    return setId + '_event_' + tokenize(name);
 };
 
-const convertToLandscapeId = function(setId, name) {
+const convertToLandmarkId = function(setId, name) {
    return setId + '_landmark_' + tokenize(name);
 };
 
@@ -49,7 +49,7 @@ const loadSets = function() {
       if (set.landmarks) {
          for (var i = 0; i < set.landmarks.length; i++) {
             var card = set.landmarks[i];
-            card.id = convertToLandscapeId(setId, card.name);
+            card.id = convertToLandmarkId(setId, card.name);
             card.setId = setId
          }
       }
@@ -61,6 +61,6 @@ module.exports = {
    tokenize: tokenize,
    convertToCardId: convertToCardId,
    convertToEventId: convertToEventId,
-   convertToLandscapeId: convertToLandscapeId,
+   convertToLandmarkId: convertToLandmarkId,
    loadSets: loadSets
 };

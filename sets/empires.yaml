@@ -1,0 +1,737 @@
+name: Empires
+cards:
+  - name: Engineer
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 4
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: City Quarter
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 8
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Overlord
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 8
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Royal Blacksmith
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 8
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Encampment
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Plunder
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+
+  - name: Patrician
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Emporium
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Settlers
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Bustling Village
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Castles
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: true
+  
+  - name: Catapult
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+
+  - name: Rocks
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+
+  - name: Chariot Race
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Enchantress
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Farmers Market
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDuration: false
+    isGathering: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Gladiator
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+
+  - name: Fortune
+    cost:
+      treasure: 8
+      potion: 0
+      debt: 8
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+
+  - name: Sacrifice
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+
+  - name: Temple
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Villa
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Archive
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: true
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Capital
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+
+  - name: Charm
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+
+  - name: Crown
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+
+  - name: Forum
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Groundskeeper
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Legionary
+    cost:
+      treasure: 8
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+  - name: Wild Hunt
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDuration: false
+    isGathering: true
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+
+events:
+  - name: Triumph
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 5
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+  
+  - name: Annex
+    cost:
+      treasure: 8
+      potion: 0
+      debt: 8
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Donate
+    cost:
+      treasure: 8
+      potion: 0
+      debt: 8
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: true
+
+  - name: Advance
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: true
+
+  - name: Delve
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: true
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Tax
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Banquet
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Ritual
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: true
+
+  - name: Salt the Earth
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Wedding
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 3
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Windfall
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Conquest
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+  - name: Dominate
+    cost:
+      treasure: 14
+      potion: 0
+      debt: 0
+    isActionSupplier: false
+    isBuySupplier: false
+    isDrawer: false
+    isReaction: false
+    isTrashing: false
+
+landmarks:
+  - name: Aqueduct
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+  
+  - name: Arena
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Bandit Fort
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Basilica
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Baths
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Battlefield
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Colonnade
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Defiled Shrine
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Fountain
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Keep
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Labyrinth
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Mountain Pass
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Museum
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Obelisk
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Orchard
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Palace
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Tomb
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Tower
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+  
+  - name: Triumphal Arch
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Wall
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
+
+  - name: Wolf Den
+    cost:
+      treasure: 0
+      potion: 0
+      debt: 0
