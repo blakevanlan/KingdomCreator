@@ -17,11 +17,11 @@ do ->
       constructor: (dominionSets) ->
          @dominionSets = dominionSets
          @kingdom = null
-         @sets = ko.observableArray(new SetViewModel(set, true) for setId, set of @dominionSets)
+         @sets = ko.observableArray(@createSetViewModels())
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
          @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
          @requireActionProvider = ko.observable(true)
-         @requireBuyProvider = ko.observable(true)
+         @requireBuyProvider = ko.observable(false)
          @allowAttackCards = ko.observable(true)
          @requireReaction = ko.observable(false)
          @showSet = ko.observable(true)
@@ -127,6 +127,14 @@ do ->
 
             @metadata.update(result.metadata)
       
+      createSetViewModels:  ->
+         sets = (set for setId, set of @dominionSets)
+         sets.sort (a, b) ->
+            return 0 if a.name == b.name
+            return if a.name < b.name then -1 else 1
+
+         return (new SetViewModel(set, true) for set in sets)
+
       createShowEventsAndLandmarksObservable: ->
          return ko.computed =>
             return false unless @hasLoaded()
@@ -152,6 +160,11 @@ do ->
             @requireBuyProvider(!!options.requireBuyProvider)
             @allowAttackCards(!!options.allowAttackCards)
             @requireReaction(!!options.requireReaction)
+
+         else
+            # Set default all of the sets but base set to disabled.
+            for set in @sets()
+               set.active(ko.unwrap(set.id) == 'baseset')
 
       saveOptionsToCookie: (options) => $.cookie('options', options)
 

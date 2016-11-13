@@ -2,6 +2,22 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
+const tokenize = function(str) {
+   return str.replace(/[\s'-]/g, '').toLowerCase();
+};
+
+const convertToCardId = function(setId, name) {
+   return setId + '_' + tokenize(name);
+};
+
+const convertToEventId = function(setId, name) {
+   return setId + '_event_' + tokenize(name);
+};
+
+const convertToLandscapeId = function(setId, name) {
+   return setId + '_landmark_' + tokenize(name);
+};
+
 const loadSets = function() {
    sets = {};
    setDirectory = path.join(__dirname, '../sets');
@@ -19,21 +35,21 @@ const loadSets = function() {
       var set = sets[setId];
       for (var i = 0; i < set.cards.length; i++) {
          var card = set.cards[i];
-         card.id = setId + '_' + tokenize(card.name);
+         card.id = convertToCardId(setId, card.name);
          card.setId = setId
       }
 
       if (set.events) {
          for (var i = 0; i < set.events.length; i++) {
             var card = set.events[i];
-            card.id = setId + '_event_' + tokenize(card.name);
+            card.id = convertToEventId(setId, card.name);
             card.setId = setId
          }
       }
       if (set.landmarks) {
          for (var i = 0; i < set.landmarks.length; i++) {
             var card = set.landmarks[i];
-            card.id = setId + '_landmark_' + tokenize(card.name);
+            card.id = convertToLandscapeId(setId, card.name);
             card.setId = setId
          }
       }
@@ -41,10 +57,10 @@ const loadSets = function() {
    return sets;
 };
 
-const tokenize = function(str) {
-   return str.replace(/[\s'-]/g, '').toLowerCase();
-};
-
 module.exports = {
+   tokenize: tokenize,
+   convertToCardId: convertToCardId,
+   convertToEventId: convertToEventId,
+   convertToLandscapeId: convertToLandscapeId,
    loadSets: loadSets
 };
