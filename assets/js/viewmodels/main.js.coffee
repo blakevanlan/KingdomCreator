@@ -46,26 +46,28 @@ do ->
 
          # If there are cards selected, show dialog so user can filter.
          if selectedCards.length or selectedEvents.length or selectedLandmarks.length
-            options = {
-               setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
-               includeCardIds: nonSelectedCardIds
-               excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
-               includeEventIds: (event.id for event in @kingdom.events)
-               includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
-               excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
-               allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
-               eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
-               landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
-               fillKingdomEventsAndLandmarks: false
-            }
-
             randomizeSelectedCards = =>
+               options = {
+                  setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
+                  includeCardIds: nonSelectedCardIds
+                  excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
+                  includeEventIds: (event.id for event in @kingdom.events)
+                  includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
+                  allowedTypes: (ko.unwrap(type.id) for type in @dialog.types when type.active())
+                  allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
+                  eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
+                  landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
+                  fillKingdomEventsAndLandmarks: false
+               }
+               result = Randomizer.createKingdom(@dominionSets, options)
+               return unless result
+               
                # Set cards to loading and get the new cards.
                card.setToLoading() for card in selectedCards
                card.setToLoading() for card in selectedEvents
                card.setToLoading() for card in selectedLandmarks
-               
-               @kingdom = Randomizer.createKingdom(@dominionSets, options).kingdom
+
+               @kingdom = result.kingdom
                sets = @sets()
                imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
                
@@ -207,7 +209,7 @@ do ->
             for set in @sets()
                set.active(ko.unwrap(set.id) == 'baseset')
 
-      saveOptionsToCookie: (options) => $.cookie('options', options)
+      saveOptionsToCookie: (options) => $.cookie('options', options, {expires: 365})
 
       getCardsToExclude: ->
          numberOfCardsInSelectedSets = 0
@@ -226,6 +228,7 @@ do ->
             id = ko.unwrap(card.id)
             if id and id.indexOf('_event_') != -1 and ko.unwrap(card.selected)
                selectedEvents.push(card)
+
          return selectedEvents
 
       getSelectedLandmarks: ->

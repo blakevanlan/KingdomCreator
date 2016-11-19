@@ -106,7 +106,7 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: true
-    isActionSupplier: true
+    isActionSupplier: false
     isBuySupplier: true
 
   - name: Fishing Village

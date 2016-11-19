@@ -18,6 +18,7 @@ do ->
          @cardImageLoaded = ko.observable(false)
          @animationStartTime = null
          @selected = ko.observable(false)
+         @cardIdBeingLoaded = null
 
          # Build the image URL
          @imageUrl = ko.observable(@getLoadingImageUrl())
@@ -25,6 +26,8 @@ do ->
             return if @isLoading() then 'loading' else @setId()
 
       setData: (data, sets) =>
+         @cardIdBeingLoaded = data.id
+         cardIdBeingLoadedByFn = data.id
          imageUrl = "#{IMAGE_PREFEX}/#{data.id}.jpg"
          setDataInternal = =>
             @id(data.id)
@@ -36,17 +39,20 @@ do ->
                   break
             @imageUrl(imageUrl)
             @isLoading(false)
-            @setCardLoaded()
+            @cardImageLoaded(true)
          
          @cardImageLoaded(false)
          $.imgpreload imageUrl, =>
-            # Delay showing image until transition is complete
+            # Don't do anything if the card data has changed since loading started.
+            return if @cardIdBeingLoaded != cardIdBeingLoadedByFn
+
+            # Delay showing image until transition is complete.
             timeRemaining = ANIMATION_TIME - (Date.now() - @animationStartTime)
             if timeRemaining > 0
                setTimeout(setDataInternal, timeRemaining)
             else
                setDataInternal()
-
+            
       failedToLoad: =>
          @isLoading(false)
          @cardImageLoaded(false)
@@ -58,12 +64,10 @@ do ->
          @selected(false)
          @isLoading(true)
          @animationStartTime = Date.now()
-
-      setCardLoaded: =>
-         @cardImageLoaded(true)
-         setTimeout((=> @parent.sortCards()), ANIMATION_TIME)
       
-      toggleSelected: () => @selected(!@selected())
+      toggleSelected: () =>
+         return if !ko.unwrap(@id) and !@selected()
+         @selected(!@selected())
 
       getLoadingImageUrl: =>
          return if @isVertical then VERTICAL_LOADING_IMAGE_URL else HORIZONTAL_LOADING_IMAGE_URL

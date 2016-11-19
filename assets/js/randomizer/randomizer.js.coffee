@@ -52,6 +52,7 @@ do ->
       includeLandmarkIds = options.includeLandmarkIds or []
       excludeLandmarkIds = options.excludeLandmarkIds or []
       excludeTypes = options.excludeTypes or []
+      allowedTypes = options.allowedTypes or (value for type, value of Type)
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
@@ -79,6 +80,7 @@ do ->
       cardsToUse = cardsToUse.filter(filterByExcludedIds(includeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedIds(excludeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
+      cardsToUse = cardsToUse.filter(filterByAllowedTypes(allowedTypes))
       cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
 
       eventsToUse = flattenSetsForProperty(setsToUse, 'events')
@@ -89,6 +91,9 @@ do ->
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(includeLandmarkIds))
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(excludeLandmarkIds))
 
+      unless cardsToUse.length
+         console.log('No cards to use!')
+         return null
 
       # Replace the event and landmarks cards.
       if eventIdsToReplace.length or landmarkIdsToReplace.length
