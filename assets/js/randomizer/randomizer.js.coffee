@@ -31,6 +31,11 @@ do ->
       TREASURE_8: 'treasure8'
    }
 
+   SetsWithDuplicates = {
+      'baseset2': 'baseset',
+      'intrigue2': 'intrigue'
+   };
+
    NUM_CARDS_IN_KINGDOM = 10
 
    MIN_ALCHEMY_CARDS_IN_KINGDOM = 3
@@ -82,6 +87,7 @@ do ->
       cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
       cardsToUse = cardsToUse.filter(filterByAllowedTypes(allowedTypes))
       cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
+      cardsToUse = removeDuplicateCards(cardsToUse)
 
       eventsToUse = flattenSetsForProperty(setsToUse, 'events')
       eventsToUse = eventsToUse.filter(filterByExcludedIds(includeEventIds))
@@ -159,6 +165,15 @@ do ->
             useShelters: shouldUseSpecialtyCardFromSet(DARK_AGES_SET_ID, setsToUse)
          }
       }
+
+   removeDuplicateCards = (cards) ->
+      # Removes duplicate cards; keep setA's version.
+      for setA, setB of SetsWithDuplicates
+         setACards = cards.filter(filterByIncludedSetIds([setA]))
+         setBCardIds = (replaceSetIdInCardId(card.id, setB) for card in setACards)
+         cards = cards.filter(filterByExcludedIds(setBCardIds))
+
+      return cards
 
    adjustKingdomForAlchemyCards = (kingdom, cardsToUse, requiredCardIds, excludeCardIds) ->      
       alchemyCards = kingdom.cards.filter(filterByIncludedSetIds([ALCHEMY_SET_ID]))
@@ -340,6 +355,9 @@ do ->
             break
       useRandomly = !RandUtil.getRandomInt(0, 3)
       return hasAlchemyCard or useRandomly
+
+   replaceSetIdInCardId = (cardId, setId) ->
+       return setId + '_' + cardId.split('_')[1]
 
 
    window.Randomizer = {
