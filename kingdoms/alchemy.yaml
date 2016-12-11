@@ -1,0 +1,96 @@
+kingdoms:
+  - name: Forbidden Arts
+    sets: 
+      - alchemy
+      - baseset
+    cards:
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_possession
+      - alchemy_university
+      - alchemy_cellar
+      - baseset_councilroom
+      - baseset_gardens
+      - baseset_laboratory
+      - baseset_thief
+      - baseset_throneroom
+
+  - name: Potion Mixers
+    sets: 
+      - alchemy
+      - baseset
+    cards:
+      - alchemy_alchemist
+      - alchemy_apothecary
+      - alchemy_golem
+      - alchemy_herbalist
+      - alchemy_transmute
+      - baseset_cellar
+      - baseset_chancellor
+      - baseset_festival
+      - baseset_militia
+      - baseset_smithy
+
+  - name: Chemistry Lesson
+    sets: 
+      - alchemy
+      - baseset
+    cards:
+      - alchemy_alchemist
+      - alchemy_golem
+      - alchemy_philosophersstone
+      - alchemy_university
+      - baseset_bureaucrat
+      - baseset_market
+      - baseset_moat
+      - baseset_remodel
+      - baseset_witch
+      - baseset_woodcutter
+
+  - name: Servants
+    sets:
+      - alchemy
+      - intrigue
+    cards:
+      - alchemy_golem
+      - alchemy_possession
+      - alchemy_scryingpool
+      - alchemy_transmute
+      - alchemy_vineyard
+      - intrigue_conspirator
+      - intrigue_greathall
+      - intrigue_minion
+      - intrigue_pawn
+      - intrigue_steward
+
+  - name: Secret Research
+    sets:
+      - alchemy
+      - intrigue
+    cards:
+      - alchemy_familiar
+      - alchemy_herbalist
+      - alchemy_philosophersstone
+      - alchemy_university
+      - intrigue_bridge
+      - intrigue_masquerade
+      - intrigue_minion
+      - intrigue_nobles
+      - intrigue_shantytown
+      - intrigue_torturer
+
+  - name: Pools, Tools, and Fools
+    sets:
+      - alchemy
+      - intrigue
+    cards:
+      - alchemy_apothecary
+      - alchemy_apprentice
+      - alchemy_golem
+      - alchemy_scryingpool
+      - intrigue_baron
+      - intrigue_coppersmith
+      - intrigue_ironworks
+      - intrigue_nobles
+      - intrigue_tradingpost
+      - intrigue_wishingwell

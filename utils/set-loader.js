@@ -3,7 +3,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 
 const tokenize = function(str) {
-   return str.replace(/[\s'-]/g, '').toLowerCase();
+   return str.replace(/[\s'-\/]/g, '').toLowerCase();
 };
 
 const convertToCardId = function(setId, name) {

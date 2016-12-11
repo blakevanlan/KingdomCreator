@@ -1,0 +1,98 @@
+kingdoms:
+  - name: Bounty of the Hunt
+    sets:
+      - cornucopia
+      - baseset
+    cards:
+      - cornucopia_harvest
+      - cornucopia_hornofplenty
+      - cornucopia_huntingparty
+      - cornucopia_menagerie
+      - cornucopia_tournament
+      - baseset_cellar
+      - baseset_festival
+      - baseset_militia
+      - baseset_moneylender
+      - baseset_smithy
+
+  - name: Bad Omens
+    sets:
+      - cornucopia
+      - baseset
+    cards:
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_jester
+      - cornucopia_remake
+      - baseset_adventureer
+      - baseset_bureaucrat
+      - baseset_laboratory
+      - baseset_spy
+      - baseset_throneroom
+
+  - name: The Jester's Workshop
+    sets:
+      - cornucopia
+      - baseset
+    cards:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_youngwitch
+      - baseset_feast
+      - baseset_laboratory
+      - baseset_market
+      - baseset_remodel
+      - baseset_workshop
+    baneCard: baseset_chancellor
+
+  - name: Last Laughs
+    sets:
+      - cornucopia
+      - intrigue
+    cards:
+      - cornucopia_farmingvillage
+      - cornucopia_harvest
+      - cornucopia_horesetraders
+      - cornucopia_huntingparty
+      - cornucopia_jester
+      - intrigue_minion
+      - intrigue_nobles
+      - intrigue_pawn
+      - intrigue_steward
+      - intrigue_swindler
+
+  - name: The Spice of Life
+    sets:
+      - cornucopia
+      - intrigue
+    cards:
+      - cornucopia_fairgrounds
+      - cornucopia_hornofplenty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - cornucopia_youngwitch
+      - intrigue_coppersmith
+      - intrigue_courtyard
+      - intrigue_greathall
+      - intrigue_miningvillage
+      - intrigue_tribute
+    baseCard: intrigue_wishingwell
+
+  - name: Small Victories
+    sets:
+      - cornucopia
+      - intrigue
+    cards:
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_huntingparty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - intrigue_conspirator
+      - intrigue_duke
+      - intrigue_greathall
+      - intrigue_harem
+      - intrigue_pawn

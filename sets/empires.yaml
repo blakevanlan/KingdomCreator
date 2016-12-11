@@ -63,7 +63,7 @@ cards:
     isTreasure: false
     isVictory: false
 
-  - name: Encampment
+  - name: Encampment / Plunder
     cost:
       treasure: 2
       potion: 0
@@ -79,23 +79,7 @@ cards:
     isTreasure: false
     isVictory: false
 
-  - name: Plunder
-    cost:
-      treasure: 5
-      potion: 0
-      debt: 0
-    isAction: false
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: false
-    isDuration: false
-    isReaction: false
-    isTrashing: false
-    isTreasure: true
-    isVictory: false
-
-  - name: Patrician
+  - name: Patrician / Emporium
     cost:
       treasure: 2
       potion: 0
@@ -111,45 +95,13 @@ cards:
     isTreasure: false
     isVictory: false
 
-  - name: Emporium
-    cost:
-      treasure: 5
-      potion: 0
-      debt: 0
-    isAction: true
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: true
-    isDuration: false
-    isReaction: false
-    isTrashing: false
-    isTreasure: false
-    isVictory: false
-
-  - name: Settlers
+  - name: Settlers / Bustling Village
     cost:
       treasure: 2
       potion: 0
       debt: 0
     isAction: true
     isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: true
-    isDuration: false
-    isReaction: false
-    isTrashing: false
-    isTreasure: false
-    isVictory: false
-
-  - name: Bustling Village
-    cost:
-      treasure: 5
-      potion: 0
-      debt: 0
-    isAction: true
-    isActionSupplier: true
     isAttack: false
     isBuySupplier: false
     isDrawer: true
@@ -175,7 +127,7 @@ cards:
     isTreasure: false
     isVictory: true
   
-  - name: Catapult
+  - name: Catapult / Rocks
     cost:
       treasure: 3
       potion: 0
@@ -189,22 +141,6 @@ cards:
     isReaction: false
     isTrashing: true
     isTreasure: false
-    isVictory: false
-
-  - name: Rocks
-    cost:
-      treasure: 4
-      potion: 0
-      debt: 0
-    isAction: false
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: false
-    isDuration: false
-    isReaction: false
-    isTrashing: false
-    isTreasure: true
     isVictory: false
 
   - name: Chariot Race
@@ -256,7 +192,7 @@ cards:
     isTreasure: false
     isVictory: false
 
-  - name: Gladiator
+  - name: Gladiator / Fortune
     cost:
       treasure: 3
       potion: 0
@@ -270,22 +206,6 @@ cards:
     isReaction: false
     isTrashing: false
     isTreasure: false
-    isVictory: false
-
-  - name: Fortune
-    cost:
-      treasure: 8
-      potion: 0
-      debt: 8
-    isAction: false
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: false
-    isDuration: false
-    isReaction: false
-    isTrashing: false
-    isTreasure: true
     isVictory: false
 
   - name: Sacrifice

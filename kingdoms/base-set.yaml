@@ -1,0 +1,75 @@
+kingdoms:
+  - name: First Game
+    sets:
+      - baseset
+    cards:
+      - baseset_cellar
+      - baseset_market
+      - baseset_militia
+      - baseset_mine
+      - baseset_moat
+      - baseset_remodel
+      - baseset_smithy
+      - baseset_village
+      - baseset_woodcutter
+      - baseset_workshop
+
+  - name: Big Money
+    sets:
+      - baseset
+    cards:
+      - baseset_adventurer
+      - baseset_bureaucrat
+      - baseset_chancellor
+      - baseset_chapel
+      - baseset_feast
+      - baseset_laboratory
+      - baseset_market
+      - baseset_mine
+      - baseset_moneylender
+      - baseset_throneroom
+
+  - name: Interaction
+    sets:
+      - baseset
+    cards:
+      - baseset_bureaucrat
+      - baseset_chancellor
+      - baseset_councilroom
+      - baseset_festival
+      - baseset_library
+      - baseset_militia
+      - baseset_moat
+      - baseset_spy
+      - baseset_thief
+      - baseset_village
+
+  - name: Size Distortion
+    sets:
+      - baseset
+    cards:
+      - baseset_cellar
+      - baseset_chapel
+      - baseset_feast
+      - baseset_gardens
+      - baseset_laboratory
+      - baseset_thief
+      - baseset_village
+      - baseset_witch
+      - baseset_woodcutter
+      - baseset_workshop
+
+  - name: Village Square
+    sets:
+      - baseset
+    cards:
+      - baseset_bureaucrat
+      - baseset_cellar
+      - baseset_festival
+      - baseset_library
+      - baseset_market
+      - baseset_remodel
+      - baseset_smithy
+      - baseset_throneroom
+      - baseset_village
+      - baseset_woodcutter

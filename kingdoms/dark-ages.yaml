@@ -1,0 +1,254 @@
+kingdoms:
+  - name: Grim Parade
+    sets:
+      - darkages
+    cards:
+      - darkages_armory
+      - darkages_bandofmisfits
+      - darkages_catacombs
+      - darkages_cultist
+      - darkages_forager
+      - darkages_fortress
+      - darkages_knights
+      - darkages_marketsquare
+      - darkages_procession
+      - darkages_huntinggrounds
+
+  - name: Playing Chess With Death
+    sets:
+      - darkages
+    cards:
+      - darkages_banditcamp
+      - darkages_graverobber
+      - darkages_junkdealer
+      - darkages_mystic
+      - darkages_pillage
+      - darkages_rats
+      - darkages_sage
+      - darkages_scavenger
+      - darkages_storeroom
+      - darkages_vagrant
+
+  - name: High and Low
+    sets:
+      - darkages
+      - baseset
+    cards:
+      - darkages_hermit
+      - darkages_huntinggrounds
+      - darkages_mystic
+      - darkages_poorhouse
+      - darkages_wanderingminstrel
+      - baseset_cellar
+      - baseset_moneylender
+      - baseset_throneroom
+      - baseset_witch
+      - baseset_workshop
+
+  - name: Chivalry and Revelry
+    sets:
+      - darkages
+      - baseset
+    cards:
+      - darkages_altar
+      - darkages_knights
+      - darkages_rats
+      - darkages_scavenger
+      - darkages_squire
+      - baseset_festival
+      - baseset_gardens
+      - baseset_laboratory
+      - baseset_library
+      - baseset_remodel
+
+  - name: Prophecy
+    sets:
+      - darkages
+      - intrigue
+    cards:
+      - darkages_armory
+      - darkages_ironmonger
+      - darkages_mystic
+      - darkages_rebuild
+      - darkages_vagrant
+      - intrigue_baron
+      - intrigue_conspirator
+      - intrigue_greathall
+      - intrigue_nobles
+      - intrigue_wishingwell
+
+  - name: Invasion
+    sets:
+      - darkages
+      - intrigue
+    cards:
+      - darkages_beggar
+      - darkages_marauder
+      - darkages_rogue
+      - darkages_squire
+      - darkages_urchin
+      - intrigue_harem
+      - intrigue_miningvillage
+      - intrigue_swindler
+      - intrigue_torturer
+      - intrigue_upgrade
+
+  - name: Watery Grave
+    sets:
+      - darkages
+      - seaside
+    cards:
+      - darkages_count
+      - darkages_graverobber
+      - darkages_hermit
+      - darkages_scavenger
+      - darkages_urchin
+      - seaside_nativevillage
+      - seaside_pirateship
+      - seaside_salvager
+      - seaside_treasuremap
+      - seaside_treasury
+
+  - name: Peasants
+    sets:
+      - darkages
+      - seaside
+    cards:
+      - darkages_deathcart
+      - darkages_feodum
+      - darkages_poorhouse
+      - darkages_urchin
+      - darkages_vagrant
+      - seaside_fishingvillage
+      - seaside_haven
+      - seaside_island
+      - seaside_lookout
+      - seaside_warehouse
+
+  - name: Infestations
+    sets:
+      - darkages
+      - alchemy
+    cards:
+      - darkages_armory
+      - darkages_cultist
+      - darkages_feodum
+      - darkages_marketsquare
+      - darkages_rats
+      - darkages_wanderingminstrel
+      - alchemy_apprentice
+      - alchemy_scryingpool
+      - alchemy_transmute
+      - alchemy_vineyard
+
+  - name: Lamentations
+    sets:
+      - darkages
+      - alchemy
+    cards:
+      - darkages_beggar
+      - darkages_catacombs
+      - darkages_counterfeit
+      - darkages_forager
+      - darkages_ironmonger
+      - darkages_pillage
+      - alchemy_apothecary
+      - alchemy_golem
+      - alchemy_herbalist
+      - alchemy_university
+
+  - name: One Man's Trash
+    sets:
+      - darkages
+      - prosperity
+    cards:
+      - darkages_counterfeit
+      - darkages_forager
+      - darkages_graverobber
+      - darkages_marketsquare
+      - darkages_rogue
+      - prosperity_city
+      - prosperity_grandmarket
+      - prosperity_monument
+      - prosperity_talisman
+      - prosperity_venture
+
+  - name: Honor Among Thieves
+    sets:
+      - darkages
+      - prosperity
+    cards:
+      - darkages_banditcamp
+      - darkages_procession
+      - darkages_rebuild
+      - darkages_rogue
+      - darkages_squire
+      - prosperity_forge
+      - prosperity_hoard
+      - prosperity_peddler
+      - prosperity_quarry
+      - prosperity_watchtower
+
+  - name: Dark Carnival
+    sets:
+      - darkages
+      - cornucopia
+    cards:
+      - darkages_bandofmisfits
+      - darkages_cultist
+      - darkages_fortress
+      - darkages_hermit
+      - darkages_junkdealer
+      - darkages_knights
+      - cornucopia_fairgrounds
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_menagerie
+
+  - name: To the Victor
+    sets:
+      - darkages
+      - cornucopia
+    cards:
+      - darkages_banditcamp
+      - darkages_counterfeit
+      - darkages_deathcart
+      - darkages_marauder
+      - darkages_pillage
+      - darkages_sage
+      - cornucopia_harvest
+      - cornucopia_huntingparty
+      - cornucopia_remake
+      - cornucopia_tournament
+
+  - name: Far From Home
+    sets:
+      - darkages
+      - hinterlands
+    cards:
+      - darkages_beggar
+      - darkages_count
+      - darkages_feodum
+      - darkages_marauder
+      - darkages_wanderingminstrel
+      - hinterlands_cartographer
+      - hinterlands_develop
+      - hinterlands_embasy
+      - hinterlands_foolsgold
+      - hinterlands_haggler
+
+  - name: Expeditions
+    sets:
+      - darkages
+      - hinterlands
+    cards:
+      - darkages_altar
+      - darkages_catacombs
+      - darkages_ironmonger
+      - darkages_poorhouse
+      - darkages_storeroom
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel

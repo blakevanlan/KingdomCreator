@@ -1,0 +1,336 @@
+kingdoms:
+  - name: Gentle Intro
+    sets:
+      - adventures
+    cards:
+      - adventures_amulet
+      - adventures_distantlands
+      - adventures_dungeon
+      - adventures_duplicate
+      - adventures_giant
+      - adventures_hireling
+      - adventures_port
+      - adventures_ranger
+      - adventures_ratcatcher
+      - adventures_treasuretrove
+    events:
+      - adventures_event_scoutingparty
+
+  - name: Expert Intro
+    sets:
+      - adventures
+    cards:
+      - adventures_caravanguard 
+      - adventures_coinoftherealm 
+      - adventures_hauntedwoods 
+      - adventures_lostcity 
+      - adventures_magpie 
+      - adventures_peasant 
+      - adventures_raze 
+      - adventures_swamphag 
+      - adventures_transmogrify 
+      - adventures_winemerchant
+    events:
+      - adventures_event_mission 
+      - adventures_event_plan
+
+  - name: Level Up
+    sets:
+      - adventures
+      - baseset
+    cards:
+      - adventures_dungeon
+      - adventures_gear 
+      - adventures_guide 
+      - adventures_lostcity 
+      - adventures_miser
+      - baseset_market 
+      - baseset_militia 
+      - baseset_spy 
+      - baseset_throneroom 
+      - baseset_workshop
+    events:
+      - adventures_event_training
+
+  - name: Son of Size Distortion
+    sets:
+      - adventures
+      - baseset
+    cards:
+      - adventures_amulet 
+      - adventures_duplicate 
+      - adventures_giant 
+      - adventures_messenger 
+      - adventures_treasuretrove
+      - baseset_bureaucrat 
+      - baseset_gardens 
+      - baseset_moneylender 
+      - baseset_thief 
+      - baseset_witch
+    events:
+      - adventures_event_bonfire 
+      - adventures_event_raid
+  
+  - name: Royalty Factory
+    sets:
+      - adventures
+      - intrigue
+    cards: 
+      - adventures_bridgetroll 
+      - adventures_duplicate 
+      - adventures_page 
+      - adventures_raze 
+      - adventures_royalcarriage
+      - intrigue_conspirator 
+      - intrigue_harem 
+      - intrigue_nobles 
+      - intrigue_secretchamber 
+      - intrigue_swindler
+    events:
+      - adventures_event_pilgrimage
+
+  - name: Masters of Finance
+    sets:
+      - adventures
+      - intrigue
+    cards: 
+      - adventures_artificer 
+      - adventures_distantlands 
+      - adventures_gear 
+      - adventures_transmogrify 
+      - adventures_winemerchant
+      - intrigue_bridge 
+      - intrigue_pawn 
+      - intrigue_shantytown 
+      - intrigue_steward 
+      - intrigue_upgrade
+    events:
+      - adventures_event_ball 
+      - adventures_event_borrow
+
+  - name: Prince of Orange
+    sets:
+      - adventures
+      - seaside
+    cards: 
+      - adventures_amulet 
+      - adventures_dungeon 
+      - adventures_hauntedwoods 
+      - adventures_page 
+      - adventures_swamphag
+      - seaside_caravan 
+      - seaside_fishingvillage 
+      - seaside_merchantship 
+      - seaside_tactician 
+      - seaside_treasuremap
+    events:
+      - adventures_event_mission
+
+  - name: Gifts and Mathoms
+    sets:
+      - adventures
+      - seaside
+    cards: 
+      - adventures_bridgetroll
+      - adventures_caravanguard 
+      - adventures_hireling 
+      - adventures_lostcity 
+      - adventures_messenger
+      - seaside_ambassador 
+      - seaside_embargo 
+      - seaside_haven 
+      - seaside_salvager 
+      - seaside_smugglers
+    events:
+      - adventures_event_expedition 
+      - adventures_event_quest
+
+  - name: Last Will and Monument
+    sets:
+      - adventures
+      - prosperity
+    cards: 
+      - adventures_coinoftherealm 
+      - adventures_dungeon 
+      - adventures_messenger 
+      - adventures_relic 
+      - adventures_treasuretrove 
+      - prosperity_bishop 
+      - prosperity_countinghouse 
+      - prosperity_monument 
+      - prosperity_rabble 
+      - prosperity_vault
+    events:
+      - adventures_event_inheritance 
+    useColonies: true
+
+  - name: Think Big
+    sets:
+      - adventures
+      - prosperity
+    cards:
+      - adventures_distantlands 
+      - adventures_giant 
+      - adventures_hireling 
+      - adventures_miser 
+      - adventures_storyteller
+      - prosperity_contraband 
+      - prosperity_expand 
+      - prosperity_hoard 
+      - prosperity_kingscourt 
+      - adventures_peddler
+    events:
+      - adventures_event_ball 
+      - adventures_event_ferry 
+    useColonies: true
+
+  - name: The Hero's Return
+    sets:
+      - adventures
+      - cornucopia
+    cards: 
+      - adventures_artificer 
+      - adventures_miser 
+      - adventures_page 
+      - adventures_ranger 
+      - adventures_relic
+      - cornucopia_fairgrounds 
+      - cornucopia_farmingvillage 
+      - cornucopia_horsetraders 
+      - cornucopia_jester 
+      - cornucopia_menagerie
+    events:
+      - adventures_event_travellingfair 
+
+  - name: Seacraft and Witchcraft
+    sets:
+      - adventures
+      - cornucopia
+    cards:
+      - adventures_peasant 
+      - adventures_storyteller 
+      - adventures_swamphag 
+      - adventures_transmogrify 
+      - adventures_winemerchant 
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_tournament
+      - cornucopia_youngwitch
+    events:
+      - adventures_event_ferry 
+      - adventures_event_seaway 
+    baneCard: adventures_guide
+
+  - name: Traders and Raiders
+    sets:
+      - adventures
+      - hinterlands
+    cards:
+      - adventures_hauntedwoods
+      - adventures_lostcity
+      - adventures_page
+      - adventures_port
+      - adventures_winemerchant
+      - hinterlands_develop
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_spicemerchant
+      - hinterlands_trader
+    events:
+      - adventures_event_raid
+  
+  - name: Journeys
+    sets:
+      - adventures
+      - hinterlands
+    cards:
+      - adventures_bridgetroll
+      - adventures_distantlands
+      - adventures_giant
+      - adventures_guide
+      - adventures_ranger
+      - hinterlands_cartographer
+      - hinterlands_crossraods
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_silkroad
+    events:
+      - adventures_event_expedition
+      - adventures_event_inheritance
+  
+  - name: Cemetery Polka
+    sets:
+      - adventures
+      - darkages
+    cards:
+      - adventures_amulet
+      - adventures_caravanguard
+      - adventures_hireling
+      - adventures_peasant
+      - adventures_relic
+      - darkages_graverobber
+      - darkages_marauder
+      - darkages_procession
+      - darkages_rogue
+      - darkages_wanderingminstrel
+    events:
+      - adventures_event_alms
+    useShelters: true
+
+  - name: Groovy Decay
+    sets:
+      - adventures
+      - darkages
+    cards:
+      - adventures_dungeon
+      - adventures_hauntedwoods
+      - adventures_ratcatcher
+      - adventures_raze
+      - adventures_transmogrify
+      - darkages_cultist
+      - darkages_deathcart
+      - darkages_fortress
+      - darkages_knights
+      - darkages_rats
+    events:
+      - adventures_event_lostarts
+      - adventures_event_pathfinding
+    useShelters: true
+
+  - name: Spendthrift
+    sets:
+      - adventures
+      - guilds
+    cards:
+      - adventures_artificer
+      - adventures_gear
+      - adventures_magpie
+      - adventures_miser
+      - adventures_storyteller
+      - guilds_doctor
+      - guilds_masterpiece
+      - guilds_merchantguild
+      - guilds_soothsayer
+      - guilds_stonemason
+    events:
+      - adventures_event_lostarts
+
+  - name: Queen of Tan
+    sets:
+      - adventures
+      - guilds
+    cards:
+      - adventures_coinoftherealm
+      - adventures_duplicate
+      - adventures_guide
+      - adventures_ratcatcher
+      - adventures_royalcarriage
+      - guilds_advisor
+      - adventures_butcher
+      - adventures_candlestickmaker
+      - adventures_herald
+      - adventures_journeyman
+    events:
+      - adventures_event_pathfinding
+      - adventures_event_save

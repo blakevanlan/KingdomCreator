@@ -472,6 +472,23 @@ cards:
     isTreasure: false
     isVictory: false
 
+  - name: Coin of the Realm
+    cost: 
+      treasure: 2
+      potion: 0
+    isAction: false
+    isActionSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDuration: false
+    isDrawer: false
+    isReaction: false
+    isReserve: true
+    isTrashing: false
+    isTraveller: false
+    isTreasure: false
+    isVictory: false
+
 events:
   - name: Mission
     cost:
