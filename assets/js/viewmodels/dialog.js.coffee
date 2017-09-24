@@ -45,8 +45,9 @@ do ->
          @callback()
          @close()
 
-      open: (callback) => 
+      open: (options, callback) => 
          @callback = callback
+         @setDefaults(options)
          $content = null
          $dialog = vex.open
             afterOpen: ($vexContent) ->
@@ -58,6 +59,12 @@ do ->
                @vexDialogId = null
          @vexDialogId = $dialog.data().vex.id
       
+      setDefaults: (options = {}) =>
+         if options.typeStates
+            for cardType in @types
+               if typeof options.typeStates[cardType.id] == 'boolean'
+                  cardType.active(options.typeStates[cardType.id])
+
       close: () => 
          return unless @vexDialogId
          vex.close(@vexDialogId)

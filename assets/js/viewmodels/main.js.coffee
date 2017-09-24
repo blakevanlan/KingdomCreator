@@ -35,6 +35,8 @@ do ->
          @hasLoaded = ko.observable(false)
          @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
          @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
+         @randomizeButtonText = @createRandomizeButtonTextObservable()
+         @firstDialogOpenSinceFullRandomize = false
          @loadCardBacks()
 
       fetchKingdom: () =>
@@ -53,7 +55,7 @@ do ->
                   excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
                   includeEventIds: (event.id for event in @kingdom.events)
                   includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
-                  allowedTypes: (ko.unwrap(type.id) for type in @dialog.types when type.active())
+                  excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
                   allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
                   eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
                   landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
@@ -105,11 +107,20 @@ do ->
 
             # Only show the dialog when a card is selected (not for events or landmarks).
             if selectedCards.length
-               @dialog.open(randomizeSelectedCards)
+               dialogOptions = {typeStates: {}}
+
+               # Set the dialog options to match the randomized kingdom the first time the
+               # user opens the dialog since randomizing.
+               if @firstDialogOpenSinceFullRandomize
+                  dialogOptions.typeStates[Randomizer.Type.ATTACK] = @allowAttackCards()
+
+               @firstDialogOpenSinceFullRandomize = false
+               @dialog.open(dialogOptions, randomizeSelectedCards)
             else 
                randomizeSelectedCards()
                
          else 
+            @firstDialogOpenSinceFullRandomize = true
             setIds = (set.id for set in @sets() when set.active())
             @saveOptionsToCookie({
                sets: setIds.join(',')
@@ -187,6 +198,13 @@ do ->
             return 'Events' if hasEvents
             return 'Landmarks' if hasLandmarks
             return ''
+
+      createRandomizeButtonTextObservable: ->
+         return ko.computed =>
+            allCards = @cards().concat(@eventsAndLandmarks())
+            for card in allCards
+               return 'Replace!' if card.selected()
+            return 'Randomize!'
 
       loadOptionsFromCookie: =>
          options = $.cookie('options')

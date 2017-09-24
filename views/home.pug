@@ -45,7 +45,7 @@ block content
                label.checkbox
                   input(type="checkbox", data-bind="checked: sortAlphabetically")
                   span Sort Alphabetically
-            a.button(data-bind="click: fetchKingdom") Randomize!
+            a.button(data-bind="click: fetchKingdom, text: randomizeButtonText")
          .meta(data-bind="with: metadata")
             h1 Recommendations
             .recommendation
