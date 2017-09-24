@@ -252,6 +252,25 @@ input[type=checkbox]
    -moz-transform: rotateY(-180deg)
    transform: rotateY(-180deg)
 
+.hovering-randomize-button
+   position: fixed 
+   top: -50px
+   left: 0
+   right: 0
+   z-index: 500
+   padding: 6px 17px
+   background: rgba(255, 255, 255, 0.8)
+   border-bottom: 1px #ddd solid
+   -webkit-transition: 0.4s
+   -moz-transition: 0.4s
+   transition: 0.4s
+   
+   &.visible
+      top: 0
+
+   .button
+      margin: 0
+
 footer
    padding: 10px
    border-top: 1px #ddd solid
