@@ -4,12 +4,15 @@ ko.bindingHandlers.showFloating =
       $tracked = $(trackedSelector)
       $el = $(element)
       $win = $(window)
-      padding = 10
+      padding = -8
       $win.scroll () ->
-         offset = $tracked.height() + $tracked.offset().top + padding
+         offset = $tracked.offset().top + padding
          if ($win.scrollTop() > offset and viewModel.isMobile())
             $el.addClass('visible')
-         else $el.removeClass('visible')
+            $tracked.addClass('hidden')
+         else 
+            $el.removeClass('visible')
+            $tracked.removeClass('hidden')
 
 ko.bindingHandlers.scaleOffWidthOfImage =
    init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
