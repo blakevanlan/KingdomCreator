@@ -11,6 +11,7 @@ header
    max-width: 1218px
    margin: 12px auto
    border-bottom: 1px solid #ccc
+   position: relative
 
    h1.title
       color: #02779e
@@ -21,8 +22,18 @@ header
    h2.tagline
       color: #666
       font-size: 18px
-      margin: 0
+      margin: 0 48px 0 0
       padding: 0
+      
+   .menuButton
+      position: absolute
+      top: 6px
+      right: 12px
+      height: 32px
+      width: 32px
+      background-size: contain
+      background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU2IDU2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NiA1NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI2NHB4IiBoZWlnaHQ9IjY0cHgiPgo8Zz4KCTxwYXRoIGQ9Ik0yOCwwQzEyLjU2MSwwLDAsMTIuNTYxLDAsMjhzMTIuNTYxLDI4LDI4LDI4czI4LTEyLjU2MSwyOC0yOFM0My40MzksMCwyOCwweiBNMjgsNTRDMTMuNjYzLDU0LDIsNDIuMzM2LDIsMjggICBTMTMuNjYzLDIsMjgsMnMyNiwxMS42NjQsMjYsMjZTNDIuMzM3LDU0LDI4LDU0eiIgZmlsbD0iIzAyNzc5ZSIvPgoJPHBhdGggZD0iTTE1LDE3aDI2YzAuNTUzLDAsMS0wLjQ0OCwxLTFzLTAuNDQ3LTEtMS0xSDE1Yy0wLjU1MywwLTEsMC40NDgtMSwxUzE0LjQ0NywxNywxNSwxN3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwzMUgxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywzMSw0NSwzMXoiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwyM0gxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywyMyw0NSwyM3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00MSwzOUgxNWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgyNmMwLjU1MywwLDEtMC40NDgsMS0xUzQxLjU1MywzOSw0MSwzOXoiIGZpbGw9IiMwMjc3OWUiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K")
+      cursor: pointer
 
 .clear
    clear: both
@@ -355,7 +366,16 @@ footer
    .set-name-wrap 
       font-size: 16px
 
+@media (max-width: 425px)
+   header
+      .menuButton
+         right: 0px
+
 @media (max-width: 400px)
+   header
+      h2.tagline
+         font-size 16px
+
    label.checkbox
       position: relative
       left: 5px
