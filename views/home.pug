@@ -59,9 +59,11 @@ block content
          a.button(data-bind="click: fetchKingdom, text: randomizeButtonText")
       .main
          #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
-               foreach: cards", style="visibility:hidden;")
+               foreach: cards, css: {'enlarge-cards': isCondensed() && isEnlarged()}",
+               style="visibility:hidden;")
             .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
-               .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image'}, \
+               .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
+                     trigger: $parent.isEnlarged() + Date.now() }, \
                      css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img.card-back-image(src="/img/cards/backside_blue.jpg")
@@ -74,10 +76,10 @@ block content
          .eventsAndLandmarks-header(data-bind="visible: showEventsAndLandmarks, \
                text: eventsAndLandmarksHeader")
          .eventsAndLandmarks(data-bind="visible: showEventsAndLandmarks, \
-               foreach: eventsAndLandmarks")
+               foreach: eventsAndLandmarks, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
             .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
                .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
-                     trigger: $parent.showEventsAndLandmarks }, \
+                     trigger: $parent.isEnlarged() + $parent.showEventsAndLandmarks() + Date.now() }, \
                      css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img.card-back-image(src="/img/cards/backside_blue_horizontal.jpg")
@@ -86,7 +88,7 @@ block content
                      .set-name-wrap
                         .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
                .highlight
-         .clear
+         .clear   
 
    footer
       | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
@@ -96,6 +98,8 @@ block content
       | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
       | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
 
+   a.change-size-button(data-bind="visible: isCondensed")
+      .change-size-button-icon(data-bind="click: toggleEnlarged, css:{ 'enlarged': isEnlarged}")
 
    .dialog-hidden-content
       .dialog-content(data-bind="with: dialog")

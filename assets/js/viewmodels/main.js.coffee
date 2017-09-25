@@ -27,7 +27,8 @@ do ->
          @showSet = ko.observable(true)
          @sortAlphabetically = ko.observable(false)
          @sortAlphabetically.subscribe(@sortCards)
-         @isMobile = ko.observable()
+         @isCondensed = ko.observable(false)
+         @isEnlarged = ko.observable(false)
          @loadOptionsFromCookie()
          @metadata = new MetadataViewModel()
          @dialog = new DialogViewModel(@sets())
@@ -166,6 +167,9 @@ do ->
 
             @metadata.update(result.metadata)
       
+      toggleEnlarged: ->
+         @isEnlarged(!@isEnlarged())
+
       createSetViewModels:  ->
          sets = (set for setId, set of @dominionSets)
          sets.sort (a, b) ->

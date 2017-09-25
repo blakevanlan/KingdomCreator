@@ -4,14 +4,14 @@
 
 
 do ->
-   MOBILE_WIDTH = 600
+   CONDENSED_WIDTH = 750
    
    $(document).ready ->
       $.cookie.json = true
       vm = new window.MainViewModel(window.DominionSets)
       ko.applyBindings(vm)
       
-      updateIsMobile = ->
-         vm.isMobile($(window).width() <= MOBILE_WIDTH)
-      $(window).resize(updateIsMobile) 
-      updateIsMobile()
+      updateIsCondensed = ->
+         vm.isCondensed($(window).width() <= CONDENSED_WIDTH)
+      $(window).resize(updateIsCondensed) 
+      updateIsCondensed()
