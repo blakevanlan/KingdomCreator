@@ -273,6 +273,7 @@ do ->
          $.imgpreload(CardViewModel.HORIZONTAL_LOADING_IMAGE_URL, handleLoaded)
 
       sortCards: =>
+         isEnlarged = @isEnlarged() and @isCondensed()
          $body = $('body')
          cards = @cards()
          $cards = $('#cards').find('.card-wrap .card-front')
@@ -308,6 +309,7 @@ do ->
                   width: pair.element.width()
                   top: pair.movedFrom.top
                   left: pair.movedFrom.left
+                  'z-index': 250
                   'transition-property': '-webkit-transform, -webkit-filter, opacity'
                   'transition-property': '-moz-transform, -moz-filter, opacity'
                }
@@ -320,6 +322,7 @@ do ->
                setVenderProp(css, 'transform', "translate(0px,0px)")
 
                # Set up everything for the animation
+               pair.clone.addClass('enlarge-cards') if isEnlarged
                pair.clone.appendTo($body).css(css)
                pair.element.css('visibility', 'hidden')
                pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->

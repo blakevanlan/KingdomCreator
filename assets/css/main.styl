@@ -111,7 +111,9 @@ input[type=checkbox]
          text-align: center
          font-size: 50px
          padding-top: 40px
-
+#cards
+   position: relative
+   
 .card-wrap
    float: left
    -webkit-perspective: 1000
@@ -137,9 +139,8 @@ input[type=checkbox]
       cursor:pointer
       display:block
 
-#cards
-   .card-wrap
-      width: 20%
+.card-wrap
+   width: 20%
 
 .eventsAndLandmarks-header
    float: left
@@ -219,18 +220,18 @@ input[type=checkbox]
 
 // Styles for flip
 .flipper 
-      margin: 2px
-      -webkit-transition: 0.6s
-      -webkit-transform-style: preserve-3d
-      -moz-transition: 0.6s
-      -moz-transform-style: preserve-3d
-      transition: 0.6s
-      transform-style: preserve-3d
-      position: relative
-      &.show-front
-         -webkit-transform: rotateY(-180deg)
-         -moz-transform: rotateY(-180deg)
-         transform: rotateY(-180deg)
+   margin: 2px
+   -webkit-transition: transform 0.6s
+   -webkit-transform-style: preserve-3d
+   -moz-transition: transform 0.6s
+   -moz-transform-style: preserve-3d
+   transition: transform 0.6s
+   transform-style: preserve-3d
+   position: relative
+   &.show-front
+      -webkit-transform: rotateY(-180deg)
+      -moz-transform: rotateY(-180deg)
+      transform: rotateY(-180deg)
 
 .card-front
 .card-back
@@ -253,16 +254,17 @@ input[type=checkbox]
    transform: rotateY(-180deg)
 
 // Styles for enlarging the cards when in condensed mode.
-#cards.enlarge-cards
+.enlarge-cards
    .card-wrap
       width: 50%
+      
    .set-name
       font-size: 16px
       
    .set-name.baseset2
    .set-name.intrigue2
    .set-name.hinterlands
-      font-size: 14px
+      font-size: 16px
 
 .eventsAndLandmarks.enlarge-cards
    .card-wrap
@@ -285,6 +287,7 @@ input[type=checkbox]
    -moz-user-select: none
    -ms-user-select: none
    user-select: none
+   z-index: 500
 
    .change-size-button-icon
       display: block
@@ -424,6 +427,10 @@ footer
    .set-name.intrigue2
    .set-name.hinterlands
       font-size: 9px
+
+@media (max-width: 450px)
+   .card-wrap
+      width: 25%
 
 @media (max-width: 400px)
    label.checkbox
