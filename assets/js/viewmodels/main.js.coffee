@@ -80,7 +80,6 @@ do ->
                card.setToLoading() for card in selectedLandmarks
 
                @kingdom = result.kingdom
-               debugger
                @updateUrlForKingdom(@kingdom, {
                   useColonies: @metadata.useColonies()
                   useShelters: @metadata.useShelters()   
