@@ -14,7 +14,6 @@ do ->
       return result.join('&')
 
    deserializeKingdom = (allSets, serializedKingdom) -> 
-      debugger
       cardIds = parseNamedCommaSeparatedParameter('cards', serializedKingdom) or []
       eventIds = parseNamedCommaSeparatedParameter('events', serializedKingdom) or []
       landmarkIds = parseNamedCommaSeparatedParameter('landmarks', serializedKingdom) or []
@@ -49,8 +48,8 @@ do ->
 
    serializeCards = (cards) ->
       sortedCards = cards.concat().sort (a, b) ->
-         return 1 if a.id > b.id
-         return -1 if a.id < b.id
+         return 1 if a.shortId > b.shortId
+         return -1 if a.shortId < b.shortId
          return 0
 
       return "cards=#{serializeCardsWithShortIds(sortedCards)}"
