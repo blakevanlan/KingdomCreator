@@ -1,5 +1,6 @@
 #= require lib/all.js
 #= require randomizer/randomizer.js.coffee
+#= require randomizer/serializer.js.coffee
 #= require viewmodels/card.js.coffee
 #= require viewmodels/dialog.js.coffee
 #= require viewmodels/metadata.js.coffee
@@ -12,6 +13,7 @@ do ->
    SetViewModel = window.SetViewModel
 
    Randomizer = window.Randomizer
+   Serializer = window.Serializer
 
    class MainViewModel
       constructor: (dominionSets) ->
@@ -32,15 +34,22 @@ do ->
          @loadOptionsFromCookie()
          @metadata = new MetadataViewModel()
          @dialog = new DialogViewModel(@sets())
-         @fetchKingdom()
          @hasLoaded = ko.observable(false)
          @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
          @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
          @randomizeButtonText = @createRandomizeButtonTextObservable()
          @firstDialogOpenSinceFullRandomize = false
          @loadCardBacks()
+         @loadInitialKingdom()
 
-      fetchKingdom: () =>
+      loadInitialKingdom: () =>
+         resultFromUrl = Serializer.deserializeKingdom(@dominionSets, location.search)
+         if resultFromUrl
+            @setKingdomAndMetadata(resultFromUrl.kingdom, resultFromUrl.metadata)
+            return
+         @randomize()
+
+      randomize: () =>
          selectedCards = (card for card in @cards() when card.selected())
          nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when !card.selected())
          selectedEvents = @getSelectedEvents()
@@ -71,6 +80,11 @@ do ->
                card.setToLoading() for card in selectedLandmarks
 
                @kingdom = result.kingdom
+               debugger
+               @updateUrlForKingdom(@kingdom, {
+                  useColonies: @metadata.useColonies()
+                  useShelters: @metadata.useShelters()   
+               })
                sets = @sets()
                imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
                
@@ -147,26 +161,30 @@ do ->
                requireReactionIfAttackCards: @requireReaction()
                fillKingdomEventsAndLandmarks: true
             })
-            @kingdom = result.kingdom
-            @kingdom.cards.sort(@cardSorter)
-
-            cards = @cards()
-            sets = @sets()
-            for card, index in @kingdom.cards
-               cards[index].setData(card, sets)
-            for eventOrLandmark, index in @eventsAndLandmarks()
-               if index < @kingdom.events.length
-                  eventOrLandmark.setData(@kingdom.events[index], sets)
-                  continue
-               landmarkIndex = index - @kingdom.events.length
-               if landmarkIndex < @kingdom.landmarks.length
-                  eventOrLandmark.setData(@kingdom.landmarks[landmarkIndex], sets)
-                  continue
-               else
-                  eventOrLandmark.setToLoading()
-
-            @metadata.update(result.metadata)
+            @setKingdomAndMetadata(result.kingdom, result.metadata)
       
+      setKingdomAndMetadata: (kingdom, metadata) ->
+         @kingdom = kingdom
+         @kingdom.cards.sort(@cardSorter)
+
+         cards = @cards()
+         sets = @sets()
+         for card, index in @kingdom.cards
+            cards[index].setData(card, sets)
+         for eventOrLandmark, index in @eventsAndLandmarks()
+            if index < @kingdom.events.length
+               eventOrLandmark.setData(@kingdom.events[index], sets)
+               continue
+            landmarkIndex = index - @kingdom.events.length
+            if landmarkIndex < @kingdom.landmarks.length
+               eventOrLandmark.setData(@kingdom.landmarks[landmarkIndex], sets)
+               continue
+            else
+               eventOrLandmark.setToLoading()
+
+         @metadata.update(metadata)
+         @updateUrlForKingdom(kingdom, metadata)
+
       toggleEnlarged: ->
          @isEnlarged(!@isEnlarged())
 
@@ -260,6 +278,11 @@ do ->
             if id and id.indexOf('_landmark_') != -1 and ko.unwrap(card.selected)
                selectedLandmarks.push(card)
          return selectedLandmarks
+
+      updateUrlForKingdom: (kingdom, metadata) ->
+         url = new URL(location.href)
+         url.search = Serializer.serializeKingdom(kingdom, metadata)
+         history.replaceState({}, '', url.href)
 
       loadCardBacks: => 
          start = Date.now()

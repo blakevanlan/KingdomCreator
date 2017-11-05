@@ -46,7 +46,7 @@ block content
                   input(type="checkbox", data-bind="checked: sortAlphabetically")
                   span Sort Alphabetically
             a.sidebarRandomizeButton.button(
-                  data-bind="click: fetchKingdom, text: randomizeButtonText")
+                  data-bind="click: randomize, text: randomizeButtonText")
          .meta(data-bind="with: metadata")
             h1 Recommendations
             .recommendation
@@ -56,7 +56,7 @@ block content
                | Use Shelters:
                | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
       .hovering-randomize-button(data-bind="showFloating: '.sidebarRandomizeButton'")
-         a.button(data-bind="click: fetchKingdom, text: randomizeButtonText")
+         a.button(data-bind="click: randomize, text: randomizeButtonText")
       .main
          #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
                foreach: cards, css: {'enlarge-cards': isCondensed() && isEnlarged()}",

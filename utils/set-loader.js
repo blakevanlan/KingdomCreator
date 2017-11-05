@@ -36,21 +36,24 @@ const loadSets = function() {
       for (var i = 0; i < set.cards.length; i++) {
          var card = set.cards[i];
          card.id = convertToCardId(setId, card.name);
-         card.setId = setId
+         card.shortId = tokenize(card.name);
+         card.setId = setId;
       }
 
       if (set.events) {
          for (var i = 0; i < set.events.length; i++) {
             var card = set.events[i];
             card.id = convertToEventId(setId, card.name);
-            card.setId = setId
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
          }
       }
       if (set.landmarks) {
          for (var i = 0; i < set.landmarks.length; i++) {
             var card = set.landmarks[i];
             card.id = convertToLandmarkId(setId, card.name);
-            card.setId = setId
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
          }
       }
    }

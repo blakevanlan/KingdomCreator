@@ -1,7 +1,9 @@
 #= require randomizer/rand-util.js.coffee
+#= require randomizer/util.js.coffee
 
 do ->
    RandUtil = window.RandUtil
+   Util = window.Util
 
    ALCHEMY_SET_ID = 'alchemy'
    DARK_AGES_SET_ID = 'darkages'
@@ -43,9 +45,9 @@ do ->
    MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM = 2
 
    createKingdom = (allSets, options) ->
-      allCards = flattenSetsForProperty(allSets, 'cards')
-      allEvents = flattenSetsForProperty(allSets, 'events')
-      allLandmarks = flattenSetsForProperty(allSets, 'landmarks')
+      allCards = Util.flattenSetsForProperty(allSets, 'cards')
+      allEvents = Util.flattenSetsForProperty(allSets, 'events')
+      allLandmarks = Util.flattenSetsForProperty(allSets, 'landmarks')
 
       # Extract options and set defaults.
       options = options or {}
@@ -81,7 +83,7 @@ do ->
          setsToUse = filterSetsByExcludedSetIds(setsToUse, [ALCHEMY_SET_ID])
 
       # Filter down to the set of useable cards.
-      cardsToUse = flattenSetsForProperty(setsToUse, 'cards')
+      cardsToUse = Util.flattenSetsForProperty(setsToUse, 'cards')
       cardsToUse = cardsToUse.filter(filterByExcludedIds(includeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedIds(excludeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
@@ -89,11 +91,11 @@ do ->
       cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
       cardsToUse = removeDuplicateCards(cardsToUse)
 
-      eventsToUse = flattenSetsForProperty(setsToUse, 'events')
+      eventsToUse = Util.flattenSetsForProperty(setsToUse, 'events')
       eventsToUse = eventsToUse.filter(filterByExcludedIds(includeEventIds))
       eventsToUse = eventsToUse.filter(filterByExcludedIds(excludeEventIds))
 
-      landmarksToUse = flattenSetsForProperty(setsToUse, 'landmarks')
+      landmarksToUse = Util.flattenSetsForProperty(setsToUse, 'landmarks')
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(includeLandmarkIds))
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(excludeLandmarkIds))
 
@@ -275,14 +277,6 @@ do ->
       randomIndexes = RandUtil.getRandomInts(numberToSelect, cards.length)
       selectedCards = (cards[index] for index in randomIndexes)
       return selectedCards
-
-   flattenSetsForProperty = (sets, property) ->
-      cards = []
-      for setId, set of sets
-         if set[property]
-            for card in set[property]
-               cards.push(card)
-      return cards
 
    extractIds = (cardsOrSets) ->
       return (cardOrSet.id for cardOrSet in cardsOrSets)
