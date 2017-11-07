@@ -30,12 +30,16 @@ block content
                   span Require Buy
             .option
                label.checkbox
-                  input(type="checkbox", data-bind="checked: allowAttackCards")
+                  input(type="checkbox", data-bind="checked: allowAttacks")
                   span Allow Attacks
                .suboption
-                  label.checkbox(data-bind="css:{'disable': !allowAttackCards()}")
-                     input(type="checkbox", data-bind="checked: requireReaction, enable: allowAttackCards")
+                  label.checkbox(data-bind="css:{'disable': !allowAttacks()}")
+                     input(type="checkbox", data-bind="checked: requireReaction, enable: allowAttacks")
                      span Require Reaction
+            .option
+               label.checkbox
+                  input(type="checkbox", data-bind="checked: requireTrashing")
+                  span Require Trashing
             h1 Display
             .option
                label.checkbox
@@ -120,7 +124,8 @@ block content
             .types(data-bind="foreach: types, slideVisible: openTypesSection")
                .type.checkbox-wrap.columns
                   label.checkbox
-                     input(type="checkbox", data-bind="checked: active")
+                     input(type="radio", name="types",
+                           data-bind="checked: $parent.selectedType, attr: {value: id}")
                      span(data-bind="text: name")
             .clear
             h1(data-bind="click: toggleCostsSection")

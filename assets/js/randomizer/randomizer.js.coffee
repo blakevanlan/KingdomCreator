@@ -10,6 +10,7 @@ do ->
    PROSPERITY_SET_ID = 'prosperity'
 
    Type = {
+      NONE: 'none',
       ACTION: 'isAction',
       ACTION_SUPPLIER: 'isActionSupplier',
       ATTACK: 'isAttack',
@@ -58,12 +59,14 @@ do ->
       excludeEventIds = options.excludeEventIds or []
       includeLandmarkIds = options.includeLandmarkIds or []
       excludeLandmarkIds = options.excludeLandmarkIds or []
+      requiredType = options.requiredType or Type.NONE
       excludeTypes = options.excludeTypes or []
       allowedTypes = options.allowedTypes or (value for type, value of Type)
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
-      requireReactionIfAttackCards = !!options.requireReactionIfAttackCards
+      requireReactionIfAttacks = !!options.requireReactionIfAttacks
+      requireTrashing = !!options.requireTrashing
       eventIdsToReplace = options.eventIdsToReplace or []
       landmarkIdsToReplace = options.landmarkIdsToReplace or []
       fillKingdomEventsAndLandmarks = !!options.fillKingdomEventsAndLandmarks
@@ -88,6 +91,7 @@ do ->
       cardsToUse = cardsToUse.filter(filterByExcludedIds(excludeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
       cardsToUse = cardsToUse.filter(filterByAllowedTypes(allowedTypes))
+      cardsToUse = cardsToUse.filter(filterByRequiredType(requiredType))
       cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
       cardsToUse = removeDuplicateCards(cardsToUse)
 
@@ -149,7 +153,15 @@ do ->
             cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
             includeCardIds.push(result.newCard)
 
-      if requireReactionIfAttackCards
+      if requireTrashing
+         result = adjustKingdomToIncludeType(Type.TRASHING, kingdom, cardsToUse, includeCardIds)
+         kingdom = result.kingdom
+         cardsToUse.push(result.oldCard) if result.oldCard
+         if result.newCard
+            cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
+            includeCardIds.push(result.newCard)
+
+      if requireReactionIfAttacks
          attackCards = kingdom.cards.filter(filterByAllowedTypes([Type.ATTACK]))
          if attackCards.length
             requiredAttackCards = attackCards.filter(filterByIncludedIds(includeCardIds))
@@ -324,6 +336,15 @@ do ->
             if item[excludedType] == true
                return false
          return true
+
+   filterByRequiredType = (requiredType) ->
+      if requiredType == Type.NONE
+         return (item) -> return true 
+
+      return (item) ->
+         if item[requiredType] == true
+            return true
+         return false
 
    filterByAllowedCost = (allowedCosts) ->
       costs = [

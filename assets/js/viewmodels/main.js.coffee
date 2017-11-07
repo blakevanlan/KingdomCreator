@@ -24,8 +24,9 @@ do ->
          @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
          @requireActionProvider = ko.observable(true)
          @requireBuyProvider = ko.observable(false)
-         @allowAttackCards = ko.observable(true)
+         @allowAttacks = ko.observable(true)
          @requireReaction = ko.observable(false)
+         @requireTrashing = ko.observable(false)
          @showSet = ko.observable(true)
          @sortAlphabetically = ko.observable(false)
          @sortAlphabetically.subscribe(@sortCards)
@@ -38,7 +39,6 @@ do ->
          @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
          @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
          @randomizeButtonText = @createRandomizeButtonTextObservable()
-         @firstDialogOpenSinceFullRandomize = false
          @loadCardBacks()
          @loadInitialKingdom()
 
@@ -58,23 +58,17 @@ do ->
             @randomizeFullKingdom()
             return
 
-         # Only show the dialog when a card is selected (not for events or landmarks).
-         if !selectedCards.length
-            @randomizeSelectedCards()
+         # Show a dialog for customizing when randomizing a single card for specifying the card.
+         if (selectedCards.length == 1 and
+               !@getSelectedEvents().length and
+               !@getSelectedLandmarks().length)
+            dialogOptions = {typeStates: {}}
+            @dialog.open(dialogOptions, @randomizeIndividualSelectedCard)
             return
 
-         dialogOptions = {typeStates: {}}
-
-         # Set the dialog options to match the randomized kingdom the first time the
-         # user opens the dialog since randomizing.
-         if @firstDialogOpenSinceFullRandomize
-            dialogOptions.typeStates[Randomizer.Type.ATTACK] = @allowAttackCards()
-
-         @firstDialogOpenSinceFullRandomize = false
-         @dialog.open(dialogOptions, @randomizeSelectedCards)
+         @randomizeSelectedCards()
 
       randomizeFullKingdom: ->
-         @firstDialogOpenSinceFullRandomize = true
          setIds = (set.id for set in @sets() when set.active())
          @saveOptionsToCookie({
             sets: setIds.join(',')
@@ -82,8 +76,9 @@ do ->
             showSet: @showSet()
             requireActionProvider: @requireActionProvider()
             requireBuyProvider: @requireBuyProvider()
-            allowAttackCards: @allowAttackCards()
+            allowAttacks: @allowAttacks()
             requireReaction: @requireReaction()
+            requireTrashing: @requireTrashing()
          })
          card.setToLoading() for card in @cards()
          card.setToLoading() for card in @eventsAndLandmarks()
@@ -103,36 +98,53 @@ do ->
          @setKingdomAndMetadata(result.kingdom, result.metadata)
 
       randomizeSelectedCards: =>
+         result = Randomizer.createKingdom(@dominionSets, {
+            setIds: (set.id for set in @sets() when set.active()),
+            includeCardIds: @extractCardIds(@getUnselectedCards())
+            excludeCardIds: @extractCardIds(@getSelectedCards())
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            requireReactionIfAttackCards: @requireReaction()
+            fillKingdomEventsAndLandmarks: false
+         })
+         @replaceSelectedCardsWithKingdom(result.kingdom) if result
+
+      randomizeIndividualSelectedCard: =>
+         result = Randomizer.createKingdom(@dominionSets, {
+            setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
+            includeCardIds: @extractCardIds(@getUnselectedCards())
+            excludeCardIds: @extractCardIds(@getSelectedCards())
+            includeEventIds: (event.id for event in @kingdom.events)
+            includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
+            requiredType: @dialog.selectedType()
+            allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            requireReactionIfAttackCards: @requireReaction()
+            eventIdsToReplace: @extractCardIds(@getSelectedEvents())
+            landmarkIdsToReplace: @extractCardIds(@getSelectedLandmarks())
+            fillKingdomEventsAndLandmarks: false
+         })
+         @replaceSelectedCardsWithKingdom(result.kingdom) if result
+      
+
+      replaceSelectedCardsWithKingdom: (kingdom) ->
          selectedCards = @getSelectedCards()
          nonSelectedCardIds = @extractCardIds(@getUnselectedCards())
          selectedEvents = @getSelectedEvents()
          selectedLandmarks = @getSelectedLandmarks()
-         nonSelectedEventAndLandmarkIds = (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
-
-         options = {
-            setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
-            includeCardIds: nonSelectedCardIds
-            excludeCardIds: @extractCardIds(selectedCards)
-            includeEventIds: (event.id for event in @kingdom.events)
-            includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
-            excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
-            allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
-            eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
-            landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
-            fillKingdomEventsAndLandmarks: false
-         }
-         result = Randomizer.createKingdom(@dominionSets, options)
-         return unless result
+         nonSelectedEventAndLandmarkIds =
+            (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
          
          # Set cards to loading and get the new cards.
          card.setToLoading() for card in selectedCards
          card.setToLoading() for card in selectedEvents
          card.setToLoading() for card in selectedLandmarks
 
-         @kingdom = result.kingdom
+         @kingdom = kingdom
          @updateUrlForKingdom(@kingdom, {
             useColonies: @metadata.useColonies()
-            useShelters: @metadata.useShelters()   
+            useShelters: @metadata.useShelters()
          })
          sets = @sets()
          imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
@@ -247,8 +259,9 @@ do ->
             @showSet(!!options.showSet)
             @requireActionProvider(!!options.requireActionProvider)
             @requireBuyProvider(!!options.requireBuyProvider)
-            @allowAttackCards(!!options.allowAttackCards)
+            @allowAttacks(!!options.allowAttacks)
             @requireReaction(!!options.requireReaction)
+            @requireTrashing(!!options.requireTrashing)
 
          else
             # Set default all of the sets but base set to disabled.
@@ -260,12 +273,12 @@ do ->
       getCardsToExclude: ->
          numberOfCardsInSelectedSets = 0
          setIds = (set.id for set in @sets() when set.active())
-         return [] unless setIds > 2
-         return (card.id for card in @cards())
+         return [] if setIds.length < 3
+         return @extractCardIds(@cards())
 
       getExcludeTypes: ->
          types = []
-         types.push(Randomizer.Type.ATTACK) unless @allowAttackCards()
+         types.push(Randomizer.Type.ATTACK) unless @allowAttacks()
          return types
 
       extractCardIds: (cards) ->

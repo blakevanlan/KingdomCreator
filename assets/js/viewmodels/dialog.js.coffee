@@ -19,6 +19,7 @@ do ->
          # Create new set objects so they can be clicked on 
          @sets = (new SetViewModel(set.toObject()) for set in allSets)
          @types = @createTypes()
+         @selectedType = ko.observable(Randomizer.Type.NONE)
          @costs = @createCosts()
          @vexDialogId = null
          @callback = null
@@ -72,6 +73,7 @@ do ->
 
       createTypes: ->
          return [
+            new CardType({ id: Randomizer.Type.NONE, name: 'Any' })
             new CardType({ id: Randomizer.Type.DRAWER, name: '+ Cards' })
             new CardType({ id: Randomizer.Type.BUY_SUPPLIER, name: '+1 Buy' })
             new CardType({ id: Randomizer.Type.ACTION_SUPPLIER, name: '+2 Actions' })
