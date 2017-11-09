@@ -19,20 +19,14 @@ do ->
       landmarkIds = parseNamedCommaSeparatedParameter('landmarks', serializedKingdom) or []
       useShelters = parseNamedBooleanParameter('shelters', serializedKingdom)
       useColonies = parseNamedBooleanParameter('colonies', serializedKingdom)
-      
-      return null unless cardIds.length == 10
 
       allCards = Util.flattenSetsForProperty(allSets, 'cards')
       allEvents = Util.flattenSetsForProperty(allSets, 'events')
       allLandmarks = Util.flattenSetsForProperty(allSets, 'landmarks')
 
-      cards = findByIds(cardIds, allCards)
-      events = findByIds(eventIds, allEvents)
-      landmarks = findByIds(landmarkIds, allLandmarks)
-
-      # Validate the kingdom
-      if cards.length != 10 || events.length + landmarks.length > 2
-         return null
+      cards = findByIds(cardIds, allCards).slice(0, 10)
+      events = findByIds(eventIds, allEvents).slice(0, 2)
+      landmarks = findByIds(landmarkIds, allLandmarks).slice(0, 2 - events.length)
 
       return {
          kingdom: {

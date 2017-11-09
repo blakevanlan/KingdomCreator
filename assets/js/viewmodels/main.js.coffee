@@ -45,28 +45,46 @@ do ->
       loadInitialKingdom: () =>
          resultFromUrl = Serializer.deserializeKingdom(@dominionSets, location.search)
          if resultFromUrl
-            @setKingdomAndMetadata(resultFromUrl.kingdom, resultFromUrl.metadata)
+            if resultFromUrl.kingdom.cards.length == 10
+               @setKingdomAndMetadata(resultFromUrl.kingdom, resultFromUrl.metadata)
+               return
+
+            # Randomize the rest of the set if there are less than 10 cards.
+            result = Randomizer.createKingdom(@dominionSets, {
+               setIds: (set.id for set in @sets() when set.active()),
+               excludeTypes: @getExcludeTypes()
+               includeCardIds: (card.id for card in resultFromUrl.kingdom.cards)
+               includeEventIds: (event.id for event in resultFromUrl.kingdom.events)
+               includeLandmarkIds: (landmark.id for landmark in resultFromUrl.kingdom.landmarks)
+               requireActionProvider: @requireActionProvider()
+               requireBuyProvider: @requireBuyProvider()
+               requireReactionIfAttackCards: @requireReaction()
+               requireTrashing: @requireTrashing()
+               fillKingdomEventsAndLandmarks: 
+                  !resultFromUrl.kingdom.events.length and !resultFromUrl.kingdom.landmarks.length
+            })
+            @setKingdomAndMetadata(result.kingdom, resultFromUrl.metadata)
             return
+
          @randomize()
 
       randomize: () =>
          selectedCards = @getSelectedCards()
 
-         if (!selectedCards.length and
-               !@getSelectedEvents().length and
-               !@getSelectedLandmarks().length)
-            @randomizeFullKingdom()
+         if (selectedCards.length > 1 or
+               @getSelectedEvents().length or
+               @getSelectedLandmarks().length or
+               @getSelectedUndefinedEventOrLandmarkIds().length)
+            @randomizeSelectedCards()
             return
 
          # Show a dialog for customizing when randomizing a single card for specifying the card.
-         if (selectedCards.length == 1 and
-               !@getSelectedEvents().length and
-               !@getSelectedLandmarks().length)
+         if selectedCards.length == 1
             dialogOptions = {typeStates: {}}
             @dialog.open(dialogOptions, @randomizeIndividualSelectedCard)
             return
 
-         @randomizeSelectedCards()
+         @randomizeFullKingdom()
 
       randomizeFullKingdom: ->
          setIds = (set.id for set in @sets() when set.active())
@@ -93,6 +111,7 @@ do ->
             requireActionProvider: @requireActionProvider()
             requireBuyProvider: @requireBuyProvider()
             requireReactionIfAttackCards: @requireReaction()
+            requireTrashing: @requireTrashing()
             fillKingdomEventsAndLandmarks: true
          })
          @setKingdomAndMetadata(result.kingdom, result.metadata)
@@ -102,9 +121,15 @@ do ->
             setIds: (set.id for set in @sets() when set.active()),
             includeCardIds: @extractCardIds(@getUnselectedCards())
             excludeCardIds: @extractCardIds(@getSelectedCards())
+            includeEventIds: (event.id for event in @kingdom.events)
+            includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
             requireActionProvider: @requireActionProvider()
             requireBuyProvider: @requireBuyProvider()
             requireReactionIfAttackCards: @requireReaction()
+            requireTrashing: @requireTrashing()
+            eventIdsToReplace:
+               @extractCardIds(@getSelectedEvents()).concat(@getSelectedUndefinedEventOrLandmarkIds())
+            landmarkIdsToReplace: @extractCardIds(@getSelectedLandmarks())
             fillKingdomEventsAndLandmarks: false
          })
          @replaceSelectedCardsWithKingdom(result.kingdom) if result
@@ -121,7 +146,9 @@ do ->
             requireActionProvider: @requireActionProvider()
             requireBuyProvider: @requireBuyProvider()
             requireReactionIfAttackCards: @requireReaction()
-            eventIdsToReplace: @extractCardIds(@getSelectedEvents())
+            requireTrashing: @requireTrashing()
+            eventIdsToReplace:
+               @extractCardIds(@getSelectedEvents()).concat(@getSelectedUndefinedEventOrLandmarkIds())
             landmarkIdsToReplace: @extractCardIds(@getSelectedLandmarks())
             fillKingdomEventsAndLandmarks: false
          })
@@ -133,6 +160,7 @@ do ->
          nonSelectedCardIds = @extractCardIds(@getUnselectedCards())
          selectedEvents = @getSelectedEvents()
          selectedLandmarks = @getSelectedLandmarks()
+         selectedUndefinedEventOrLandmark = @getSelectedUndefinedEventOrLandmark()
          nonSelectedEventAndLandmarkIds =
             (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
          
@@ -140,6 +168,7 @@ do ->
          card.setToLoading() for card in selectedCards
          card.setToLoading() for card in selectedEvents
          card.setToLoading() for card in selectedLandmarks
+         card.setToLoading() for card in selectedUndefinedEventOrLandmark
 
          @kingdom = kingdom
          @updateUrlForKingdom(@kingdom, {
@@ -174,7 +203,8 @@ do ->
                setCardData(selectedCards[nextSelectedCardIndex++], cardData)
 
          nextIndex = 0
-         selectedEventsAndLandmarks = selectedEvents.concat(selectedLandmarks)
+         selectedEventsAndLandmarks =
+            selectedEvents.concat(selectedLandmarks).concat(selectedUndefinedEventOrLandmark)
          eventsAndLandmarks = @kingdom.events.concat(@kingdom.landmarks)
          for cardData in eventsAndLandmarks
             if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
@@ -222,6 +252,11 @@ do ->
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
                   if set.events?.length or set.landmarks?.length
                      return true
+
+            # Check if the current kingdom has any events or landmarks.
+            for eventOrLandmark in @eventsAndLandmarks()
+               if !ko.unwrap(eventOrLandmark.isLoading)
+                  return true
             return false
 
       createEventsAndLandmarksHeaderObservable: ->
@@ -233,7 +268,14 @@ do ->
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
                   hasEvents = true if set.events?.length
                   hasLandmarks = true if set.landmarks?.length
+
+            # Check if the current kingdom has any events or landmarks.
+            for eventOrLandmark in @eventsAndLandmarks()
+               id = ko.unwrap(eventOrLandmark.id)
+               hasEvents = true if id and id.indexOf('_event_') != -1
+               hasLandmarks = true if id and id.indexOf('_landmark_') != -1
             
+            debugger
             return 'Events and Landmarks' if hasEvents and hasLandmarks
             return 'Events' if hasEvents
             return 'Landmarks' if hasLandmarks
@@ -306,6 +348,19 @@ do ->
             if id and id.indexOf('_landmark_') != -1 and ko.unwrap(card.selected)
                selectedLandmarks.push(card)
          return selectedLandmarks
+
+      getSelectedUndefinedEventOrLandmark: ->
+         selectedUndefinedEventOrLandmark = []
+         for card in @eventsAndLandmarks()
+            if ko.unwrap(card.isLoading) and ko.unwrap(card.selected)
+               selectedUndefinedEventOrLandmark.push(card)
+         return selectedUndefinedEventOrLandmark
+
+      getSelectedUndefinedEventOrLandmarkIds: ->
+         selectedUndefinedEventOrLandmarkIds = []
+         for card in @getSelectedUndefinedEventOrLandmark()
+            selectedUndefinedEventOrLandmarkIds.push('undefined_event_or_landmark')
+         return selectedUndefinedEventOrLandmarkIds
 
       updateUrlForKingdom: (kingdom, metadata) ->
          url = new URL(location.href)
