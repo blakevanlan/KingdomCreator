@@ -135,10 +135,15 @@ do ->
          @replaceSelectedCardsWithKingdom(result.kingdom) if result
 
       randomizeIndividualSelectedCard: =>
+         excludeTypes = []
+         if @dialog.selectedType() == Randomizer.Type.NONE and !@allowAttacks()
+            excludeTypes.push(Randomizer.Type.ATTACK)
+
          result = Randomizer.createKingdom(@dominionSets, {
             setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
             includeCardIds: @extractCardIds(@getUnselectedCards())
             excludeCardIds: @extractCardIds(@getSelectedCards())
+            excludeTypes: excludeTypes
             includeEventIds: (event.id for event in @kingdom.events)
             includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
             requiredType: @dialog.selectedType()
