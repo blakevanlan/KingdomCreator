@@ -280,7 +280,6 @@ do ->
                hasEvents = true if id and id.indexOf('_event_') != -1
                hasLandmarks = true if id and id.indexOf('_landmark_') != -1
             
-            debugger
             return 'Events and Landmarks' if hasEvents and hasLandmarks
             return 'Events' if hasEvents
             return 'Landmarks' if hasLandmarks
