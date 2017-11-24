@@ -26,12 +26,16 @@ block content
                   span Require Buy
             .option
                label.checkbox
-                  input(type="checkbox", data-bind="checked: allowAttackCards")
+                  input(type="checkbox", data-bind="checked: allowAttacks")
                   span Allow Attacks
                .suboption
-                  label.checkbox(data-bind="css:{'disable': !allowAttackCards()}")
-                     input(type="checkbox", data-bind="checked: requireReaction, enable: allowAttackCards")
+                  label.checkbox(data-bind="css:{'disable': !allowAttacks()}")
+                     input(type="checkbox", data-bind="checked: requireReaction, enable: allowAttacks")
                      span Require Reaction
+            .option
+               label.checkbox
+                  input(type="checkbox", data-bind="checked: requireTrashing")
+                  span Require Trashing
             h1 Display
             .option
                label.checkbox
@@ -41,7 +45,8 @@ block content
                label.checkbox
                   input(type="checkbox", data-bind="checked: sortAlphabetically")
                   span Sort Alphabetically
-            a.button(data-bind="click: fetchKingdom, text: randomizeButtonText")
+            a.sidebarRandomizeButton.button(
+                  data-bind="click: randomize, text: randomizeButtonText")
          .meta(data-bind="with: metadata")
             h1 Recommendations
             .recommendation
@@ -50,12 +55,15 @@ block content
             .recommendation
                | Use Shelters:
                | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
-
+      .hovering-randomize-button(data-bind="showFloating: '.sidebarRandomizeButton'")
+         a.button(data-bind="click: randomize, text: randomizeButtonText")
       .main
          #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
-               foreach: cards", style="visibility:hidden;")
+               foreach: cards, css: {'enlarge-cards': isCondensed() && isEnlarged()}",
+               style="visibility:hidden;")
             .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
-               .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image'}, \
+               .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
+                     trigger: $parent.isEnlarged() + Date.now() }, \
                      css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img.card-back-image(src="/img/cards/backside_blue.jpg")
@@ -68,10 +76,10 @@ block content
          .eventsAndLandmarks-header(data-bind="visible: showEventsAndLandmarks, \
                text: eventsAndLandmarksHeader")
          .eventsAndLandmarks(data-bind="visible: showEventsAndLandmarks, \
-               foreach: eventsAndLandmarks")
+               foreach: eventsAndLandmarks, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
             .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
                .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
-                     trigger: $parent.showEventsAndLandmarks }, \
+                     trigger: $parent.isEnlarged() + $parent.showEventsAndLandmarks() + Date.now() }, \
                      css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                   .card-back
                      img.card-back-image(src="/img/cards/backside_blue_horizontal.jpg")
@@ -80,12 +88,13 @@ block content
                      .set-name-wrap
                         .set-name(data-bind="text: set, visible: $root.showSet() && !isLoading(), css:setClass")
                .highlight
-         .clear
+         .clear   
 
    footer
       | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
       | This site has no affiliation with either party.
-      | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>.
+      | Card images are provided by <a href="http://www.diehrstraits.com/">Mark Diehr</a>
+      | and <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
       | <br>
       | <span>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
       | Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
@@ -94,6 +103,8 @@ block content
       | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
       | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
 
+   a.change-size-button(data-bind="visible: isCondensed")
+      .change-size-button-icon(data-bind="click: toggleEnlarged, css:{ 'enlarged': isEnlarged}")
 
    .dialog-hidden-content
       .dialog-content(data-bind="with: dialog")
@@ -114,7 +125,8 @@ block content
             .types(data-bind="foreach: types, slideVisible: openTypesSection")
                .type.checkbox-wrap.columns
                   label.checkbox
-                     input(type="checkbox", data-bind="checked: active")
+                     input(type="radio", name="types",
+                           data-bind="checked: $parent.selectedType, attr: {value: id}")
                      span(data-bind="text: name")
             .clear
             h1(data-bind="click: toggleCostsSection")

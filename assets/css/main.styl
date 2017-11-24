@@ -54,7 +54,7 @@ header
    cursor: pointer
    &.gray
       background: #aaa
-   &:hover
+   &:active
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(0,0,0,0.6)
 
 .toggleButton
@@ -63,6 +63,7 @@ header
    cursor: pointer
 
 input[type=checkbox]
+input[type=radio]
    display: inline-block
    margin-right: 5px
 
@@ -122,16 +123,18 @@ input[type=checkbox]
          text-align: center
          font-size: 50px
          padding-top: 40px
-
+#cards
+   position: relative
+   
 .card-wrap
    float: left
    -webkit-perspective: 1000
    -moz-perspective: 1000
    perspective: 1000
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;  
+   -webkit-user-select: none
+   -moz-user-select: none
+   -ms-user-select: none
+   user-select: none
    
    .highlight
       display:none
@@ -148,9 +151,8 @@ input[type=checkbox]
       cursor:pointer
       display:block
 
-#cards
-   .card-wrap
-      width: 20%
+.card-wrap
+   width: 20%
 
 .eventsAndLandmarks-header
    float: left
@@ -214,6 +216,8 @@ input[type=checkbox]
             color: promos-color
          &.empires
             color: empires-color
+         &.nocturne
+            color: nocturne-color
 
    &.keep .highlight
       opacity: 0
@@ -230,18 +234,18 @@ input[type=checkbox]
 
 // Styles for flip
 .flipper 
-      margin: 2px
-      -webkit-transition: 0.6s
-      -webkit-transform-style: preserve-3d
-      -moz-transition: 0.6s
-      -moz-transform-style: preserve-3d
-      transition: 0.6s
-      transform-style: preserve-3d
-      position: relative
-      &.show-front
-         -webkit-transform: rotateY(-180deg)
-         -moz-transform: rotateY(-180deg)
-         transform: rotateY(-180deg)
+   margin: 2px
+   -webkit-transition: transform 0.6s
+   -webkit-transform-style: preserve-3d
+   -moz-transition: transform 0.6s
+   -moz-transform-style: preserve-3d
+   transition: transform 0.6s
+   transform-style: preserve-3d
+   position: relative
+   &.show-front
+      -webkit-transform: rotateY(-180deg)
+      -moz-transform: rotateY(-180deg)
+      transform: rotateY(-180deg)
 
 .card-front
 .card-back
@@ -262,6 +266,74 @@ input[type=checkbox]
    -webkit-transform: rotateY(-180deg)
    -moz-transform: rotateY(-180deg)
    transform: rotateY(-180deg)
+
+// Styles for enlarging the cards when in condensed mode.
+.enlarge-cards
+   .card-wrap
+      width: 50%
+      
+   .set-name
+      font-size: 16px
+      
+   .set-name.baseset2
+   .set-name.intrigue2
+   .set-name.hinterlands
+      font-size: 16px
+
+.eventsAndLandmarks.enlarge-cards
+   .card-wrap
+      width: 100%
+   .set-name
+      font-size: 16px
+      
+.change-size-button
+   position: fixed
+   right: 0
+   width: 48px
+   height: 48px
+   bottom: 5px
+   border: 1px solid #ccc
+   border-radius: 5px 0 0 5px
+   border-right: 0
+   background: rgba(255, 255, 255, 0.9)
+   cursor: pointer
+   -webkit-user-select: none
+   -moz-user-select: none
+   -ms-user-select: none
+   user-select: none
+   z-index: 500
+
+   .change-size-button-icon
+      display: block
+      margin: 6px
+      height: 36px
+      width: 36px
+      background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU5LjIgNTkuMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTkuMiA1OS4yOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTUxLjA2MiwyMS41NjFjLTExLjg4OS0xMS44ODktMzEuMjMyLTExLjg4OS00My4xMjEsMEwwLDI5LjUwMWw4LjEzOCw4LjEzOGM1Ljk0NCw1Ljk0NCwxMy43NTIsOC45MTcsMjEuNTYxLDguOTE3ICAgczE1LjYxNi0yLjk3MiwyMS41NjEtOC45MTdsNy45NDEtNy45NDFMNTEuMDYyLDIxLjU2MXogTTQ5Ljg0NSwzNi4yMjVjLTExLjEwOSwxMS4xMDgtMjkuMTg0LDExLjEwOC00MC4yOTMsMGwtNi43MjQtNi43MjQgICBsNi41MjctNi41MjdjMTEuMTA5LTExLjEwOCwyOS4xODQtMTEuMTA4LDQwLjI5MywwbDYuNzI0LDYuNzI0TDQ5Ljg0NSwzNi4yMjV6IiBmaWxsPSIjMDI3NzllIi8+Cgk8cGF0aCBkPSJNMjguNTcyLDIxLjU3Yy0zLjg2LDAtNywzLjE0LTcsN2MwLDAuNTUyLDAuNDQ4LDEsMSwxczEtMC40NDgsMS0xYzAtMi43NTcsMi4yNDMtNSw1LTVjMC41NTIsMCwxLTAuNDQ4LDEtMSAgIFMyOS4xMjUsMjEuNTcsMjguNTcyLDIxLjU3eiIgZmlsbD0iIzAyNzc5ZSIvPgoJPHBhdGggZD0iTTI5LjU3MiwxNi41N2MtNy4xNjgsMC0xMyw1LjgzMi0xMywxM3M1LjgzMiwxMywxMywxM3MxMy01LjgzMiwxMy0xM1MzNi43NDEsMTYuNTcsMjkuNTcyLDE2LjU3eiBNMjkuNTcyLDQwLjU3ICAgYy02LjA2NSwwLTExLTQuOTM1LTExLTExczQuOTM1LTExLDExLTExczExLDQuOTM1LDExLDExUzM1LjYzOCw0MC41NywyOS41NzIsNDAuNTd6IiBmaWxsPSIjMDI3NzllIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==")
+      background-size: contain
+
+      &.enlarged
+         background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU5LjIgNTkuMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTkuMiA1OS4yOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTUxLjA2MiwyMS41NjFjLTUuNzU5LTUuNzU5LTEzLjQxNi04LjkzMS0yMS41NjEtOC45MzFTMTMuNywxNS44MDEsNy45NDEsMjEuNTYxTDAsMjkuNTAxbDguMTM4LDguMTM4ICAgYzUuNzU5LDUuNzU5LDEzLjQxNiw4LjkzMSwyMS41NjEsOC45MzFzMTUuODAyLTMuMTcxLDIxLjU2MS04LjkzMWw3Ljk0MS03Ljk0MUw1MS4wNjIsMjEuNTYxeiBNNDkuODQ1LDM2LjIyNSAgIGMtNS4zODEsNS4zODEtMTIuNTM2LDguMzQ1LTIwLjE0Niw4LjM0NXMtMTQuNzY1LTIuOTYzLTIwLjE0Ni04LjM0NWwtNi43MjQtNi43MjRsNi41MjctNi41MjcgICBjNS4zODEtNS4zODEsMTIuNTM2LTguMzQ1LDIwLjE0Ni04LjM0NXMxNC43NjUsMi45NjMsMjAuMTQ2LDguMzQ1bDYuNzI0LDYuNzI0TDQ5Ljg0NSwzNi4yMjV6IiBmaWxsPSIjMDI3NzllIi8+Cgk8cGF0aCBkPSJNMjkuNTcyLDE2LjU3Yy03LjE2OCwwLTEzLDUuODMyLTEzLDEzczUuODMyLDEzLDEzLDEzczEzLTUuODMyLDEzLTEzUzM2Ljc0MSwxNi41NywyOS41NzIsMTYuNTd6IE0yOS41NzIsMjQuNTcgICBjLTIuNzU3LDAtNSwyLjI0My01LDVjMCwwLjU1Mi0wLjQ0OCwxLTEsMXMtMS0wLjQ0OC0xLTFjMC0zLjg2LDMuMTQtNyw3LTdjMC41NTIsMCwxLDAuNDQ4LDEsMVMzMC4xMjUsMjQuNTcsMjkuNTcyLDI0LjU3eiIgZmlsbD0iIzAyNzc5ZSIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=")      
+
+.sidebarRandomizeButton
+   &.hidden
+      visibility: hidden
+
+.hovering-randomize-button
+   position: fixed 
+   top: 0
+   left: 0
+   right: 0
+   z-index: 500
+   padding: 6px 17px
+   background: rgba(255, 255, 255, 0.8)
+   border-bottom: 1px #ddd solid
+   display: none
+   
+   &.visible
+      display: block
+      
+   .button
+      margin: 0
 
 footer
    padding: 10px
@@ -295,6 +367,7 @@ footer
       &.four
          width: 25%
       input[type=checkbox]
+      input[type=radio]
          position: relative
          top: -2px
 
@@ -305,25 +378,21 @@ footer
          margin-left: 6px
 
 
-@media (max-width: 950px)
-   #cards .card-wrap
-      width: 25%
-   
+@media (max-width: 950px)   
    .eventsAndLandmarks .card-wrap
       width: 40%
-
-@media (max-width: 850px)
-   #cards .card-wrap
-      width: 33.3333%
       
-   .eventsAndLandmarks .card-wrap
-      width: 50%
+@media (max-width: 900px)   
+   .set-name
+      font-size: 16px
+      
+   .set-name.baseset2
+   .set-name.intrigue2
+   .set-name.hinterlands
+      font-size: 14px
 
 // Move sidebar to the top
-@media (max-width: 650px)
-   // body 
-   //    margin: 5px
-
+@media (max-width: 750px)
    label.checkbox
       position: relative
       left: 5px
@@ -331,6 +400,7 @@ footer
       line-height: 27px
 
       input[type=checkbox]
+      input[type=radio]
          position: relative
          margin-right: 12px!important
          -webkit-transform: scale(1.5,1.5)
@@ -359,12 +429,24 @@ footer
          .recommendation
             font-size: 18px
 
-
       .main
          margin: 5px -5px 0
 
-   .set-name-wrap 
-      font-size: 16px
+@media (max-width: 525px)
+   .eventsAndLandmarks .card-wrap
+      width: 50%
+      
+   .set-name
+      font-size: 11px
+   
+   .set-name.baseset2
+   .set-name.intrigue2
+   .set-name.hinterlands
+      font-size: 9px
+
+@media (max-width: 450px)
+   .card-wrap
+      width: 25%
 
 @media (max-width: 425px)
    header
@@ -383,6 +465,7 @@ footer
       line-height: 25px
 
       input[type=checkbox]
+      input[type=radio]
          position: relative
          margin-right: 12px!important
          -webkit-transform: scale(1.5,1.5)
@@ -391,8 +474,11 @@ footer
    .suboption
       margin-left: 30px
 
-   .set-name.hinterlands
-      font-size: 15px
+   .set-name
+      font-size: 10px
+      
+   // .set-name.hinterlands
+   //    font-size: 15px
 
 // Correction for vex
 .vex.vex-theme-os

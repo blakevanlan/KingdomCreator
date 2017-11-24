@@ -1,5 +1,6 @@
 #= require lib/all.js
 #= require randomizer/randomizer.js.coffee
+#= require randomizer/serializer.js.coffee
 #= require viewmodels/card.js.coffee
 #= require viewmodels/dialog.js.coffee
 #= require viewmodels/metadata.js.coffee
@@ -12,6 +13,7 @@ do ->
    SetViewModel = window.SetViewModel
 
    Randomizer = window.Randomizer
+   Serializer = window.Serializer
 
    class MainViewModel
       constructor: (dominionSets) ->
@@ -22,150 +24,223 @@ do ->
          @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
          @requireActionProvider = ko.observable(true)
          @requireBuyProvider = ko.observable(false)
-         @allowAttackCards = ko.observable(true)
+         @allowAttacks = ko.observable(true)
          @requireReaction = ko.observable(false)
+         @requireTrashing = ko.observable(false)
          @showSet = ko.observable(true)
          @sortAlphabetically = ko.observable(false)
          @sortAlphabetically.subscribe(@sortCards)
-         @isMobile = ko.observable()
+         @isCondensed = ko.observable(false)
+         @isEnlarged = ko.observable(false)
          @loadOptionsFromCookie()
          @metadata = new MetadataViewModel()
          @dialog = new DialogViewModel(@sets())
-         @fetchKingdom()
          @hasLoaded = ko.observable(false)
          @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
          @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
          @randomizeButtonText = @createRandomizeButtonTextObservable()
-         @firstDialogOpenSinceFullRandomize = false
          @loadCardBacks()
+         @loadInitialKingdom()
 
-      fetchKingdom: () =>
-         selectedCards = (card for card in @cards() when card.selected())
-         nonSelectedCardIds = (ko.unwrap(card.id) for card in @cards() when !card.selected())
-         selectedEvents = @getSelectedEvents()
-         selectedLandmarks = @getSelectedLandmarks()
-         nonSelectedEventAndLandmarkIds = (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected())
+      loadInitialKingdom: () =>
+         resultFromUrl = Serializer.deserializeKingdom(@dominionSets, location.search)
+         if resultFromUrl
+            if resultFromUrl.kingdom.cards.length == 10
+               @setKingdomAndMetadata(resultFromUrl.kingdom, resultFromUrl.metadata)
+               return
 
-         # If there are cards selected, show dialog so user can filter.
-         if selectedCards.length or selectedEvents.length or selectedLandmarks.length
-            randomizeSelectedCards = =>
-               options = {
-                  setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
-                  includeCardIds: nonSelectedCardIds
-                  excludeCardIds: (ko.unwrap(card.id) for card in selectedCards)
-                  includeEventIds: (event.id for event in @kingdom.events)
-                  includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
-                  excludeTypes: (ko.unwrap(type.id) for type in @dialog.types when !type.active())
-                  allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
-                  eventIdsToReplace: (ko.unwrap(card.id) for card in selectedEvents)
-                  landmarkIdsToReplace: (ko.unwrap(card.id) for card in selectedLandmarks)
-                  fillKingdomEventsAndLandmarks: false
-               }
-               result = Randomizer.createKingdom(@dominionSets, options)
-               return unless result
-               
-               # Set cards to loading and get the new cards.
-               card.setToLoading() for card in selectedCards
-               card.setToLoading() for card in selectedEvents
-               card.setToLoading() for card in selectedLandmarks
-
-               @kingdom = result.kingdom
-               sets = @sets()
-               imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
-               
-               # Use this function to sync all of the images so that the sort
-               # only happens after all have loaded.
-               registerComplete = => 
-                  if --imagesLeftToLoad <= 0 
-                     setTimeout((=> @sortCards()), CardViewModel.ANIMATION_TIME)
-               
-               setCardData = (card, data) =>
-                  card.setData(data, sets)
-                  if card.cardImageLoaded()
-                     registerComplete()
-                  else
-                     # Capture the subscription so we can dispose after the image loads.
-                     do =>
-                        subscription = card.cardImageLoaded.subscribe (val) =>
-                           return unless val
-                           subscription.dispose()
-                           registerComplete()
-
-               nextSelectedCardIndex = 0
-               for cardData in @kingdom.cards
-                  if (nonSelectedCardIds.indexOf(cardData.id) == -1 and
-                        nextSelectedCardIndex < selectedCards.length)
-                     setCardData(selectedCards[nextSelectedCardIndex++], cardData)
-
-               nextIndex = 0
-               selectedEventsAndLandmarks = selectedEvents.concat(selectedLandmarks)
-               eventsAndLandmarks = @kingdom.events.concat(@kingdom.landmarks)
-               for cardData in eventsAndLandmarks
-                  if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
-                        nextIndex < selectedEventsAndLandmarks.length)
-                     setCardData(selectedEventsAndLandmarks[nextIndex++], cardData)
-
-            # Only show the dialog when a card is selected (not for events or landmarks).
-            if selectedCards.length
-               dialogOptions = {typeStates: {}}
-
-               # Set the dialog options to match the randomized kingdom the first time the
-               # user opens the dialog since randomizing.
-               if @firstDialogOpenSinceFullRandomize
-                  dialogOptions.typeStates[Randomizer.Type.ATTACK] = @allowAttackCards()
-
-               @firstDialogOpenSinceFullRandomize = false
-               @dialog.open(dialogOptions, randomizeSelectedCards)
-            else 
-               randomizeSelectedCards()
-               
-         else 
-            @firstDialogOpenSinceFullRandomize = true
-            setIds = (set.id for set in @sets() when set.active())
-            @saveOptionsToCookie({
-               sets: setIds.join(',')
-               sortAlphabetically: @sortAlphabetically()
-               showSet: @showSet()
-               requireActionProvider: @requireActionProvider()
-               requireBuyProvider: @requireBuyProvider()
-               allowAttackCards: @allowAttackCards()
-               requireReaction: @requireReaction()
-            })
-            card.setToLoading() for card in @cards()
-            card.setToLoading() for card in @eventsAndLandmarks()
-
-            # Bail if no sets are selected.
-            return unless setIds.length
-
+            # Randomize the rest of the set if there are less than 10 cards.
             result = Randomizer.createKingdom(@dominionSets, {
-               setIds: setIds,
-               excludeCardIds: @getCardsToExclude()
+               setIds: (set.id for set in @sets() when set.active()),
                excludeTypes: @getExcludeTypes()
+               includeCardIds: (card.id for card in resultFromUrl.kingdom.cards)
+               includeEventIds: (event.id for event in resultFromUrl.kingdom.events)
+               includeLandmarkIds: (landmark.id for landmark in resultFromUrl.kingdom.landmarks)
                requireActionProvider: @requireActionProvider()
                requireBuyProvider: @requireBuyProvider()
                requireReactionIfAttackCards: @requireReaction()
-               fillKingdomEventsAndLandmarks: true
+               requireTrashing: @requireTrashing()
+               fillKingdomEventsAndLandmarks: 
+                  !resultFromUrl.kingdom.events.length and !resultFromUrl.kingdom.landmarks.length
             })
-            @kingdom = result.kingdom
-            @kingdom.cards.sort(@cardSorter)
+            @setKingdomAndMetadata(result.kingdom, resultFromUrl.metadata)
+            return
 
-            cards = @cards()
-            sets = @sets()
-            for card, index in @kingdom.cards
-               cards[index].setData(card, sets)
-            for eventOrLandmark, index in @eventsAndLandmarks()
-               if index < @kingdom.events.length
-                  eventOrLandmark.setData(@kingdom.events[index], sets)
-                  continue
-               landmarkIndex = index - @kingdom.events.length
-               if landmarkIndex < @kingdom.landmarks.length
-                  eventOrLandmark.setData(@kingdom.landmarks[landmarkIndex], sets)
-                  continue
-               else
-                  eventOrLandmark.setToLoading()
+         @randomize()
 
-            @metadata.update(result.metadata)
+      randomize: () =>
+         selectedCards = @getSelectedCards()
+
+         if (selectedCards.length > 1 or
+               @getSelectedEvents().length or
+               @getSelectedLandmarks().length or
+               @getSelectedUndefinedEventOrLandmarkIds().length)
+            @randomizeSelectedCards()
+            return
+
+         # Show a dialog for customizing when randomizing a single card for specifying the card.
+         if selectedCards.length == 1
+            dialogOptions = {typeStates: {}}
+            @dialog.open(dialogOptions, @randomizeIndividualSelectedCard)
+            return
+
+         @randomizeFullKingdom()
+
+      randomizeFullKingdom: ->
+         setIds = (set.id for set in @sets() when set.active())
+         @saveOptionsToCookie({
+            sets: setIds.join(',')
+            sortAlphabetically: @sortAlphabetically()
+            showSet: @showSet()
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            allowAttacks: @allowAttacks()
+            requireReaction: @requireReaction()
+            requireTrashing: @requireTrashing()
+         })
+         card.setToLoading() for card in @cards()
+         card.setToLoading() for card in @eventsAndLandmarks()
+
+         # Bail if no sets are selected.
+         return unless setIds.length
+
+         result = Randomizer.createKingdom(@dominionSets, {
+            setIds: setIds,
+            excludeCardIds: @getCardsToExclude()
+            excludeTypes: @getExcludeTypes()
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            requireReactionIfAttackCards: @requireReaction()
+            requireTrashing: @requireTrashing()
+            fillKingdomEventsAndLandmarks: true
+         })
+         @setKingdomAndMetadata(result.kingdom, result.metadata)
+
+      randomizeSelectedCards: =>
+         result = Randomizer.createKingdom(@dominionSets, {
+            setIds: (set.id for set in @sets() when set.active()),
+            includeCardIds: @extractCardIds(@getUnselectedCards())
+            excludeCardIds: @extractCardIds(@getSelectedCards())
+            includeEventIds: (event.id for event in @kingdom.events)
+            includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            requireReactionIfAttackCards: @requireReaction()
+            requireTrashing: @requireTrashing()
+            eventIdsToReplace:
+               @extractCardIds(@getSelectedEvents()).concat(@getSelectedUndefinedEventOrLandmarkIds())
+            landmarkIdsToReplace: @extractCardIds(@getSelectedLandmarks())
+            fillKingdomEventsAndLandmarks: false
+         })
+         @replaceSelectedCardsWithKingdom(result.kingdom) if result
+
+      randomizeIndividualSelectedCard: =>
+         excludeTypes = []
+         if @dialog.selectedType() == Randomizer.Type.NONE and !@allowAttacks()
+            excludeTypes.push(Randomizer.Type.ATTACK)
+
+         result = Randomizer.createKingdom(@dominionSets, {
+            setIds: (ko.unwrap(set.id) for set in @dialog.sets when set.active())
+            includeCardIds: @extractCardIds(@getUnselectedCards())
+            excludeCardIds: @extractCardIds(@getSelectedCards())
+            excludeTypes: excludeTypes
+            includeEventIds: (event.id for event in @kingdom.events)
+            includeLandmarkIds: (landmark.id for landmark in @kingdom.landmarks)
+            requiredType: @dialog.selectedType()
+            allowedCosts: (ko.unwrap(costs.id) for costs in @dialog.costs when costs.active())
+            requireActionProvider: @requireActionProvider()
+            requireBuyProvider: @requireBuyProvider()
+            requireReactionIfAttackCards: @requireReaction()
+            requireTrashing: @requireTrashing()
+            eventIdsToReplace:
+               @extractCardIds(@getSelectedEvents()).concat(@getSelectedUndefinedEventOrLandmarkIds())
+            landmarkIdsToReplace: @extractCardIds(@getSelectedLandmarks())
+            fillKingdomEventsAndLandmarks: false
+         })
+         @replaceSelectedCardsWithKingdom(result.kingdom) if result
       
+
+      replaceSelectedCardsWithKingdom: (kingdom) ->
+         selectedCards = @getSelectedCards()
+         nonSelectedCardIds = @extractCardIds(@getUnselectedCards())
+         selectedEvents = @getSelectedEvents()
+         selectedLandmarks = @getSelectedLandmarks()
+         selectedUndefinedEventOrLandmark = @getSelectedUndefinedEventOrLandmark()
+         nonSelectedEventAndLandmarkIds =
+            (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
+         
+         # Set cards to loading and get the new cards.
+         card.setToLoading() for card in selectedCards
+         card.setToLoading() for card in selectedEvents
+         card.setToLoading() for card in selectedLandmarks
+         card.setToLoading() for card in selectedUndefinedEventOrLandmark
+
+         @kingdom = kingdom
+         @updateUrlForKingdom(@kingdom, {
+            useColonies: @metadata.useColonies()
+            useShelters: @metadata.useShelters()
+         })
+         sets = @sets()
+         imagesLeftToLoad = selectedCards.length + selectedEvents.length + selectedLandmarks.length
+         
+         # Use this function to sync all of the images so that the sort
+         # only happens after all have loaded.
+         registerComplete = => 
+            if --imagesLeftToLoad <= 0 
+               setTimeout((=> @sortCards()), CardViewModel.ANIMATION_TIME)
+         
+         setCardData = (card, data) =>
+            card.setData(data, sets)
+            if card.cardImageLoaded()
+               registerComplete()
+            else
+               # Capture the subscription so we can dispose after the image loads.
+               do =>
+                  subscription = card.cardImageLoaded.subscribe (val) =>
+                     return unless val
+                     subscription.dispose()
+                     registerComplete()
+
+         nextSelectedCardIndex = 0
+         for cardData in @kingdom.cards
+            if (nonSelectedCardIds.indexOf(cardData.id) == -1 and
+                  nextSelectedCardIndex < selectedCards.length)
+               setCardData(selectedCards[nextSelectedCardIndex++], cardData)
+
+         nextIndex = 0
+         selectedEventsAndLandmarks =
+            selectedEvents.concat(selectedLandmarks).concat(selectedUndefinedEventOrLandmark)
+         eventsAndLandmarks = @kingdom.events.concat(@kingdom.landmarks)
+         for cardData in eventsAndLandmarks
+            if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
+                  nextIndex < selectedEventsAndLandmarks.length)
+               setCardData(selectedEventsAndLandmarks[nextIndex++], cardData)
+      
+      setKingdomAndMetadata: (kingdom, metadata) ->
+         @kingdom = kingdom
+         @kingdom.cards.sort(@cardSorter)
+
+         cards = @cards()
+         sets = @sets()
+         for card, index in @kingdom.cards
+            cards[index].setData(card, sets)
+         for eventOrLandmark, index in @eventsAndLandmarks()
+            if index < @kingdom.events.length
+               eventOrLandmark.setData(@kingdom.events[index], sets)
+               continue
+            landmarkIndex = index - @kingdom.events.length
+            if landmarkIndex < @kingdom.landmarks.length
+               eventOrLandmark.setData(@kingdom.landmarks[landmarkIndex], sets)
+               continue
+            else
+               eventOrLandmark.setToLoading()
+
+         @metadata.update(metadata)
+         @updateUrlForKingdom(kingdom, metadata)
+
+      toggleEnlarged: ->
+         @isEnlarged(!@isEnlarged())
+
       createSetViewModels:  ->
          sets = (set for setId, set of @dominionSets)
          sets.sort (a, b) ->
@@ -182,6 +257,11 @@ do ->
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
                   if set.events?.length or set.landmarks?.length
                      return true
+
+            # Check if the current kingdom has any events or landmarks.
+            for eventOrLandmark in @eventsAndLandmarks()
+               if !ko.unwrap(eventOrLandmark.isLoading)
+                  return true
             return false
 
       createEventsAndLandmarksHeaderObservable: ->
@@ -193,6 +273,12 @@ do ->
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
                   hasEvents = true if set.events?.length
                   hasLandmarks = true if set.landmarks?.length
+
+            # Check if the current kingdom has any events or landmarks.
+            for eventOrLandmark in @eventsAndLandmarks()
+               id = ko.unwrap(eventOrLandmark.id)
+               hasEvents = true if id and id.indexOf('_event_') != -1
+               hasLandmarks = true if id and id.indexOf('_landmark_') != -1
             
             return 'Events and Landmarks' if hasEvents and hasLandmarks
             return 'Events' if hasEvents
@@ -219,8 +305,9 @@ do ->
             @showSet(!!options.showSet)
             @requireActionProvider(!!options.requireActionProvider)
             @requireBuyProvider(!!options.requireBuyProvider)
-            @allowAttackCards(!!options.allowAttackCards)
+            @allowAttacks(!!options.allowAttacks)
             @requireReaction(!!options.requireReaction)
+            @requireTrashing(!!options.requireTrashing)
 
          else
             # Set default all of the sets but base set to disabled.
@@ -232,13 +319,22 @@ do ->
       getCardsToExclude: ->
          numberOfCardsInSelectedSets = 0
          setIds = (set.id for set in @sets() when set.active())
-         return [] unless setIds > 2
-         return (card.id for card in @cards())
+         return [] if setIds.length < 3
+         return @extractCardIds(@cards())
 
       getExcludeTypes: ->
          types = []
-         types.push(Randomizer.Type.ATTACK) unless @allowAttackCards()
+         types.push(Randomizer.Type.ATTACK) unless @allowAttacks()
          return types
+
+      extractCardIds: (cards) ->
+         return (ko.unwrap(card.id) for card in cards)
+
+      getSelectedCards: ->
+         return (card for card in @cards() when card.selected())
+
+      getUnselectedCards: ->
+         return (card for card in @cards() when !card.selected())
 
       getSelectedEvents: ->
          selectedEvents = []
@@ -257,6 +353,24 @@ do ->
                selectedLandmarks.push(card)
          return selectedLandmarks
 
+      getSelectedUndefinedEventOrLandmark: ->
+         selectedUndefinedEventOrLandmark = []
+         for card in @eventsAndLandmarks()
+            if ko.unwrap(card.isLoading) and ko.unwrap(card.selected)
+               selectedUndefinedEventOrLandmark.push(card)
+         return selectedUndefinedEventOrLandmark
+
+      getSelectedUndefinedEventOrLandmarkIds: ->
+         selectedUndefinedEventOrLandmarkIds = []
+         for card in @getSelectedUndefinedEventOrLandmark()
+            selectedUndefinedEventOrLandmarkIds.push('undefined_event_or_landmark')
+         return selectedUndefinedEventOrLandmarkIds
+
+      updateUrlForKingdom: (kingdom, metadata) ->
+         url = new URL(location.href)
+         url.search = Serializer.serializeKingdom(kingdom, metadata)
+         history.replaceState({}, '', url.href)
+
       loadCardBacks: => 
          start = Date.now()
          remaining = 2
@@ -269,6 +383,7 @@ do ->
          $.imgpreload(CardViewModel.HORIZONTAL_LOADING_IMAGE_URL, handleLoaded)
 
       sortCards: =>
+         isEnlarged = @isEnlarged() and @isCondensed()
          $body = $('body')
          cards = @cards()
          $cards = $('#cards').find('.card-wrap .card-front')
@@ -304,6 +419,7 @@ do ->
                   width: pair.element.width()
                   top: pair.movedFrom.top
                   left: pair.movedFrom.left
+                  'z-index': 250
                   'transition-property': '-webkit-transform, -webkit-filter, opacity'
                   'transition-property': '-moz-transform, -moz-filter, opacity'
                }
@@ -316,6 +432,7 @@ do ->
                setVenderProp(css, 'transform', "translate(0px,0px)")
 
                # Set up everything for the animation
+               pair.clone.addClass('enlarge-cards') if isEnlarged
                pair.clone.appendTo($body).css(css)
                pair.element.css('visibility', 'hidden')
                pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->

@@ -1,13 +1,16 @@
 #= require randomizer/rand-util.js.coffee
+#= require randomizer/util.js.coffee
 
 do ->
    RandUtil = window.RandUtil
+   Util = window.Util
 
    ALCHEMY_SET_ID = 'alchemy'
    DARK_AGES_SET_ID = 'darkages'
    PROSPERITY_SET_ID = 'prosperity'
 
    Type = {
+      NONE: 'none',
       ACTION: 'isAction',
       ACTION_SUPPLIER: 'isActionSupplier',
       ATTACK: 'isAttack',
@@ -43,9 +46,9 @@ do ->
    MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM = 2
 
    createKingdom = (allSets, options) ->
-      allCards = flattenSetsForProperty(allSets, 'cards')
-      allEvents = flattenSetsForProperty(allSets, 'events')
-      allLandmarks = flattenSetsForProperty(allSets, 'landmarks')
+      allCards = Util.flattenSetsForProperty(allSets, 'cards')
+      allEvents = Util.flattenSetsForProperty(allSets, 'events')
+      allLandmarks = Util.flattenSetsForProperty(allSets, 'landmarks')
 
       # Extract options and set defaults.
       options = options or {}
@@ -56,12 +59,14 @@ do ->
       excludeEventIds = options.excludeEventIds or []
       includeLandmarkIds = options.includeLandmarkIds or []
       excludeLandmarkIds = options.excludeLandmarkIds or []
+      requiredType = options.requiredType or Type.NONE
       excludeTypes = options.excludeTypes or []
       allowedTypes = options.allowedTypes or (value for type, value of Type)
       allowedCosts = options.allowedCosts or (value for cost, value of Cost)
       requireActionProvider = !!options.requireActionProvider
       requireBuyProvider = !!options.requireBuyProvider
-      requireReactionIfAttackCards = !!options.requireReactionIfAttackCards
+      requireReactionIfAttacks = !!options.requireReactionIfAttacks
+      requireTrashing = !!options.requireTrashing
       eventIdsToReplace = options.eventIdsToReplace or []
       landmarkIdsToReplace = options.landmarkIdsToReplace or []
       fillKingdomEventsAndLandmarks = !!options.fillKingdomEventsAndLandmarks
@@ -81,19 +86,20 @@ do ->
          setsToUse = filterSetsByExcludedSetIds(setsToUse, [ALCHEMY_SET_ID])
 
       # Filter down to the set of useable cards.
-      cardsToUse = flattenSetsForProperty(setsToUse, 'cards')
+      cardsToUse = Util.flattenSetsForProperty(setsToUse, 'cards')
       cardsToUse = cardsToUse.filter(filterByExcludedIds(includeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedIds(excludeCardIds))
       cardsToUse = cardsToUse.filter(filterByExcludedTypes(excludeTypes))
       cardsToUse = cardsToUse.filter(filterByAllowedTypes(allowedTypes))
+      cardsToUse = cardsToUse.filter(filterByRequiredType(requiredType))
       cardsToUse = cardsToUse.filter(filterByAllowedCost(allowedCosts))
       cardsToUse = removeDuplicateCards(cardsToUse)
 
-      eventsToUse = flattenSetsForProperty(setsToUse, 'events')
+      eventsToUse = Util.flattenSetsForProperty(setsToUse, 'events')
       eventsToUse = eventsToUse.filter(filterByExcludedIds(includeEventIds))
       eventsToUse = eventsToUse.filter(filterByExcludedIds(excludeEventIds))
 
-      landmarksToUse = flattenSetsForProperty(setsToUse, 'landmarks')
+      landmarksToUse = Util.flattenSetsForProperty(setsToUse, 'landmarks')
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(includeLandmarkIds))
       landmarksToUse = landmarksToUse.filter(filterByExcludedIds(excludeLandmarkIds))
 
@@ -147,7 +153,15 @@ do ->
             cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
             includeCardIds.push(result.newCard)
 
-      if requireReactionIfAttackCards
+      if requireTrashing
+         result = adjustKingdomToIncludeType(Type.TRASHING, kingdom, cardsToUse, includeCardIds)
+         kingdom = result.kingdom
+         cardsToUse.push(result.oldCard) if result.oldCard
+         if result.newCard
+            cardsToUse = cardsToUse.filter(filterByExcludedIds([result.newCard.id]))
+            includeCardIds.push(result.newCard)
+
+      if requireReactionIfAttacks
          attackCards = kingdom.cards.filter(filterByAllowedTypes([Type.ATTACK]))
          if attackCards.length
             requiredAttackCards = attackCards.filter(filterByIncludedIds(includeCardIds))
@@ -276,14 +290,6 @@ do ->
       selectedCards = (cards[index] for index in randomIndexes)
       return selectedCards
 
-   flattenSetsForProperty = (sets, property) ->
-      cards = []
-      for setId, set of sets
-         if set[property]
-            for card in set[property]
-               cards.push(card)
-      return cards
-
    extractIds = (cardsOrSets) ->
       return (cardOrSet.id for cardOrSet in cardsOrSets)
 
@@ -330,6 +336,15 @@ do ->
             if item[excludedType] == true
                return false
          return true
+
+   filterByRequiredType = (requiredType) ->
+      if requiredType == Type.NONE
+         return (item) -> return true 
+
+      return (item) ->
+         if item[requiredType] == true
+            return true
+         return false
 
    filterByAllowedCost = (allowedCosts) ->
       costs = [

@@ -253,7 +253,7 @@ cards:
     isTreasure: false
     isVictory: false
     isTrashing: false
-    isReaction: false
+    isReaction: true
     isDuration: true
 
   - name: Pirate Ship

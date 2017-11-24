@@ -66,7 +66,7 @@ do ->
          @animationStartTime = Date.now()
       
       toggleSelected: () =>
-         return if !ko.unwrap(@id) and !@selected()
+         # return if !ko.unwrap(@id) and !@selected()
          @selected(!@selected())
 
       getLoadingImageUrl: =>
