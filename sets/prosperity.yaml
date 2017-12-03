@@ -37,6 +37,18 @@ cards:
     isReaction: false
     isBuySupplier: true
 
+  - name: Counting House
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: false
+
   - name: Bishop
     cost:
       treasure: 4

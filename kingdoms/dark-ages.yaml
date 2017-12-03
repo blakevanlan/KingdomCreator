@@ -2,7 +2,7 @@ kingdoms:
   - name: Grim Parade
     sets:
       - darkages
-    cards:
+    supply:
       - darkages_armory
       - darkages_bandofmisfits
       - darkages_catacombs
@@ -13,11 +13,13 @@ kingdoms:
       - darkages_marketsquare
       - darkages_procession
       - darkages_huntinggrounds
+    metadata:
+      shelters: true
 
   - name: Playing Chess With Death
     sets:
       - darkages
-    cards:
+    supply:
       - darkages_banditcamp
       - darkages_graverobber
       - darkages_junkdealer
@@ -28,12 +30,14 @@ kingdoms:
       - darkages_scavenger
       - darkages_storeroom
       - darkages_vagrant
+    metadata:
+      shelters: true
 
   - name: High and Low
     sets:
       - darkages
       - baseset
-    cards:
+    supply:
       - darkages_hermit
       - darkages_huntinggrounds
       - darkages_mystic
@@ -49,7 +53,7 @@ kingdoms:
     sets:
       - darkages
       - baseset
-    cards:
+    supply:
       - darkages_altar
       - darkages_knights
       - darkages_rats
@@ -65,7 +69,7 @@ kingdoms:
     sets:
       - darkages
       - intrigue
-    cards:
+    supply:
       - darkages_armory
       - darkages_ironmonger
       - darkages_mystic
@@ -81,7 +85,7 @@ kingdoms:
     sets:
       - darkages
       - intrigue
-    cards:
+    supply:
       - darkages_beggar
       - darkages_marauder
       - darkages_rogue
@@ -97,7 +101,7 @@ kingdoms:
     sets:
       - darkages
       - seaside
-    cards:
+    supply:
       - darkages_count
       - darkages_graverobber
       - darkages_hermit
@@ -113,7 +117,7 @@ kingdoms:
     sets:
       - darkages
       - seaside
-    cards:
+    supply:
       - darkages_deathcart
       - darkages_feodum
       - darkages_poorhouse
@@ -129,7 +133,7 @@ kingdoms:
     sets:
       - darkages
       - alchemy
-    cards:
+    supply:
       - darkages_armory
       - darkages_cultist
       - darkages_feodum
@@ -145,7 +149,7 @@ kingdoms:
     sets:
       - darkages
       - alchemy
-    cards:
+    supply:
       - darkages_beggar
       - darkages_catacombs
       - darkages_counterfeit
@@ -161,7 +165,7 @@ kingdoms:
     sets:
       - darkages
       - prosperity
-    cards:
+    supply:
       - darkages_counterfeit
       - darkages_forager
       - darkages_graverobber
@@ -177,7 +181,7 @@ kingdoms:
     sets:
       - darkages
       - prosperity
-    cards:
+    supply:
       - darkages_banditcamp
       - darkages_procession
       - darkages_rebuild
@@ -193,7 +197,7 @@ kingdoms:
     sets:
       - darkages
       - cornucopia
-    cards:
+    supply:
       - darkages_bandofmisfits
       - darkages_cultist
       - darkages_fortress
@@ -209,7 +213,7 @@ kingdoms:
     sets:
       - darkages
       - cornucopia
-    cards:
+    supply:
       - darkages_banditcamp
       - darkages_counterfeit
       - darkages_deathcart
@@ -225,7 +229,7 @@ kingdoms:
     sets:
       - darkages
       - hinterlands
-    cards:
+    supply:
       - darkages_beggar
       - darkages_count
       - darkages_feodum
@@ -233,7 +237,7 @@ kingdoms:
       - darkages_wanderingminstrel
       - hinterlands_cartographer
       - hinterlands_develop
-      - hinterlands_embasy
+      - hinterlands_embassy
       - hinterlands_foolsgold
       - hinterlands_haggler
 
@@ -241,7 +245,7 @@ kingdoms:
     sets:
       - darkages
       - hinterlands
-    cards:
+    supply:
       - darkages_altar
       - darkages_catacombs
       - darkages_ironmonger

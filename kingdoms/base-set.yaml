@@ -2,7 +2,7 @@ kingdoms:
   - name: First Game
     sets:
       - baseset
-    cards:
+    supply:
       - baseset_cellar
       - baseset_market
       - baseset_militia
@@ -17,7 +17,7 @@ kingdoms:
   - name: Big Money
     sets:
       - baseset
-    cards:
+    supply:
       - baseset_adventurer
       - baseset_bureaucrat
       - baseset_chancellor
@@ -32,7 +32,7 @@ kingdoms:
   - name: Interaction
     sets:
       - baseset
-    cards:
+    supply:
       - baseset_bureaucrat
       - baseset_chancellor
       - baseset_councilroom
@@ -47,7 +47,7 @@ kingdoms:
   - name: Size Distortion
     sets:
       - baseset
-    cards:
+    supply:
       - baseset_cellar
       - baseset_chapel
       - baseset_feast
@@ -62,7 +62,7 @@ kingdoms:
   - name: Village Square
     sets:
       - baseset
-    cards:
+    supply:
       - baseset_bureaucrat
       - baseset_cellar
       - baseset_festival

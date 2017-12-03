@@ -3,12 +3,12 @@ kingdoms:
     sets: 
       - alchemy
       - baseset
-    cards:
+    supply:
       - alchemy_apprentice
       - alchemy_familiar
       - alchemy_possession
       - alchemy_university
-      - alchemy_cellar
+      - baseset_cellar
       - baseset_councilroom
       - baseset_gardens
       - baseset_laboratory
@@ -19,7 +19,7 @@ kingdoms:
     sets: 
       - alchemy
       - baseset
-    cards:
+    supply:
       - alchemy_alchemist
       - alchemy_apothecary
       - alchemy_golem
@@ -35,7 +35,7 @@ kingdoms:
     sets: 
       - alchemy
       - baseset
-    cards:
+    supply:
       - alchemy_alchemist
       - alchemy_golem
       - alchemy_philosophersstone
@@ -51,7 +51,7 @@ kingdoms:
     sets:
       - alchemy
       - intrigue
-    cards:
+    supply:
       - alchemy_golem
       - alchemy_possession
       - alchemy_scryingpool
@@ -67,7 +67,7 @@ kingdoms:
     sets:
       - alchemy
       - intrigue
-    cards:
+    supply:
       - alchemy_familiar
       - alchemy_herbalist
       - alchemy_philosophersstone
@@ -83,7 +83,7 @@ kingdoms:
     sets:
       - alchemy
       - intrigue
-    cards:
+    supply:
       - alchemy_apothecary
       - alchemy_apprentice
       - alchemy_golem

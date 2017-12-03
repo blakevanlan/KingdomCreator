@@ -1,11 +1,51 @@
 //= require normalize
+//= require sidebar
 //= require vex
 //= require vex-theme-os
+
 @import "variables"
 
 body
-   margin: 10px
+   margin: 0 10px 10px 10px
    font-family: primary-font
+
+.menu
+   height: 0
+   background: dark-blue
+   margin: 0 -10px
+   -webkit-transition: height 0.6s
+   -webkit-transform-style: preserve-3d
+   -moz-transition: height 0.6s
+   -moz-transform-style: preserve-3d
+   transition: height 0.6s
+   transform-style: preserve-3d
+   overflow-y: hidden
+   
+   .menu-items
+      position: relative
+      display: flex
+      padding: 12px 0
+      margin: 0 auto
+      max-width: 1238px
+      flex-direction: row
+      
+      .menu-item
+         display: block
+         padding: 8px 16px 
+         flex: none
+
+         .menu-item-link
+            display: inline-block
+            font-size: 20px
+            padding: 4px 0
+            color: #ddd
+            text-decoration: none
+            border-top: 1px solid transparent
+            border-bottom: 1px solid transparent
+         
+         &.active .menu-item-link
+            color: #fff
+            border-bottom 1px solid #fff
 
 header
    max-width: 1218px
@@ -13,16 +53,16 @@ header
    border-bottom: 1px solid #ccc
    position: relative
 
-   h1.title
-      color: #02779e
+   .title
+      color: dark-blue
       font-size: 30px
       margin: 0
       padding: 0
       
-   h2.tagline
+   .tagline
       color: #666
       font-size: 18px
-      margin: 0 48px 0 0
+      margin: 0 42px 4px 0 
       padding: 0
       
    .menuButton
@@ -66,6 +106,8 @@ input[type=checkbox]
 input[type=radio]
    display: inline-block
    margin-right: 5px
+   position: relative
+   top: -2px
 
 .content
    max-width: 1200px
@@ -76,216 +118,41 @@ input[type=radio]
       float: right
       width: 210px
 
-      h1
-         font-size: 24px
-         margin: 8px 0 8px 0
-         border-bottom: 1px solid #ccc
-         color: #333
-
-      h1:first-child
-         margin-top: 0
-
-         input[type=checkbox]
-            position: relative
-            top: -2px
-   
-   .filters
-      font-size: 18px
-      padding: 10px
-      border-radius: 10px
-      border: 1px solid #ccc
-      margin-top: 2px
-
-      .suboption
-         margin-left: 20px
-
-      .checkbox.disable
-            color: #bbb
-
-   .meta
-      margin-top: 10px
-      padding: 10px
-      border-radius: 10px
-      border: 1px solid #ccc
-
-      h1
-         font-size: 20px
-
-      .recommendation
-         font-size: 14px
-         span
-            font-weight: bold
-
    .main
       margin-right: 218px
 
-      .loading 
-         text-align: center
-         font-size: 50px
-         padding-top: 40px
-#cards
-   position: relative
-   
-.card-wrap
-   float: left
-   -webkit-perspective: 1000
-   -moz-perspective: 1000
-   perspective: 1000
-   -webkit-user-select: none
-   -moz-user-select: none
-   -ms-user-select: none
-   user-select: none
-   
-   .highlight
-      display:none
-      position: absolute
-      top: 2px
-      right: 2px
-      bottom: 2px
-      left: 2px
-      border: 2px solid highlight-blue
-      background: rgba(2,119,158,0.65)
-      cursor: pointer
+// Set colors
+.baseset
+   color: base-set-color !important
+.baseset2
+   color: base-set-color !important
+.intrigue
+   color: intrigue-color !important
+.intrigue2
+   color: intrigue-color !important
+.seaside
+   color: seaside-color !important
+.alchemy
+   color: alchemy-color !important
+.prosperity
+   color: prosperity-color !important
+.cornucopia
+   color: cornucopia-color !important
+.hinterlands
+   color: hinterlands-color !important
+.darkages
+   color: darkages-color !important
+.guilds
+   color: guilds-color !important
+.adventures
+   color: adventures-color !important
+.promos
+   color: promos-color !important
+.empires
+   color: empires-color !important
+.nocturne
+   color: nocturne-color !important
 
-   &.selected .highlight
-      cursor:pointer
-      display:block
-
-.card-wrap
-   width: 20%
-
-.eventsAndLandmarks-header
-   float: left
-   clear: left
-   margin: 10px 0 0
-   font-size: 20px
-
-.eventsAndLandmarks
-   .card-wrap
-      width: 30%
-      
-      &:first-child
-         clear: left
-
-.card-front
-   position: relative
-   cursor: pointer
-
-   .set-name-wrap
-      position: absolute
-      font-size: 18px
-      margin-top: -13px
-      top: 50%
-      width: 100%
-      height: 30px
-      text-align: center
-
-      .set-name
-         padding: 6px 8px
-         margin: 0 auto
-         display: inline-block
-         color: #fff
-         background: rgba(30,30,30,0.7)
-         text-shadow: 1px 1px 4px #000
-
-         &.baseset
-            color: base-set-color
-         &.baseset2
-            color: base-set-color 
-         &.intrigue
-            color: intrigue-color
-         &.intrigue2
-            color: intrigue-color
-         &.seaside
-            color: seaside-color
-         &.alchemy
-            color: alchemy-color
-         &.prosperity
-            color: prosperity-color
-         &.cornucopia
-            color: cornucopia-color
-         &.hinterlands
-            color: hinterlands-color
-         &.darkages
-            color: darkages-color
-         &.guilds
-            color: guilds-color
-         &.adventures
-            color: adventures-color
-         &.promos
-            color: promos-color
-         &.empires
-            color: empires-color
-         &.nocturne
-            color: nocturne-color
-
-   &.keep .highlight
-      opacity: 0
-
-   &.treasure .name
-      color: treasure-color
-
-   &.victory .name
-      color: victory-color
-
-   img
-      width: 100%
-      display: block
-
-// Styles for flip
-.flipper 
-   margin: 2px
-   -webkit-transition: transform 0.6s
-   -webkit-transform-style: preserve-3d
-   -moz-transition: transform 0.6s
-   -moz-transform-style: preserve-3d
-   transition: transform 0.6s
-   transform-style: preserve-3d
-   position: relative
-   &.show-front
-      -webkit-transform: rotateY(-180deg)
-      -moz-transform: rotateY(-180deg)
-      transform: rotateY(-180deg)
-
-.card-front
-.card-back
-   -webkit-backface-visibility: hidden
-   -moz-backface-visibility: hidden
-   backface-visibility: hidden
-   position: absolute
-   top: 0
-   right: 0
-   bottom: 0
-   left: 0
-.card-back
-   z-index: 2
-   img
-      width: 100%
-      display: block
-.card-front
-   -webkit-transform: rotateY(-180deg)
-   -moz-transform: rotateY(-180deg)
-   transform: rotateY(-180deg)
-
-// Styles for enlarging the cards when in condensed mode.
-.enlarge-cards
-   .card-wrap
-      width: 50%
-      
-   .set-name
-      font-size: 16px
-      
-   .set-name.baseset2
-   .set-name.intrigue2
-   .set-name.hinterlands
-      font-size: 16px
-
-.eventsAndLandmarks.enlarge-cards
-   .card-wrap
-      width: 100%
-   .set-name
-      font-size: 16px
-      
 .change-size-button
    position: fixed
    right: 0
@@ -312,28 +179,7 @@ input[type=radio]
       background-size: contain
 
       &.enlarged
-         background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU5LjIgNTkuMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTkuMiA1OS4yOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTUxLjA2MiwyMS41NjFjLTUuNzU5LTUuNzU5LTEzLjQxNi04LjkzMS0yMS41NjEtOC45MzFTMTMuNywxNS44MDEsNy45NDEsMjEuNTYxTDAsMjkuNTAxbDguMTM4LDguMTM4ICAgYzUuNzU5LDUuNzU5LDEzLjQxNiw4LjkzMSwyMS41NjEsOC45MzFzMTUuODAyLTMuMTcxLDIxLjU2MS04LjkzMWw3Ljk0MS03Ljk0MUw1MS4wNjIsMjEuNTYxeiBNNDkuODQ1LDM2LjIyNSAgIGMtNS4zODEsNS4zODEtMTIuNTM2LDguMzQ1LTIwLjE0Niw4LjM0NXMtMTQuNzY1LTIuOTYzLTIwLjE0Ni04LjM0NWwtNi43MjQtNi43MjRsNi41MjctNi41MjcgICBjNS4zODEtNS4zODEsMTIuNTM2LTguMzQ1LDIwLjE0Ni04LjM0NXMxNC43NjUsMi45NjMsMjAuMTQ2LDguMzQ1bDYuNzI0LDYuNzI0TDQ5Ljg0NSwzNi4yMjV6IiBmaWxsPSIjMDI3NzllIi8+Cgk8cGF0aCBkPSJNMjkuNTcyLDE2LjU3Yy03LjE2OCwwLTEzLDUuODMyLTEzLDEzczUuODMyLDEzLDEzLDEzczEzLTUuODMyLDEzLTEzUzM2Ljc0MSwxNi41NywyOS41NzIsMTYuNTd6IE0yOS41NzIsMjQuNTcgICBjLTIuNzU3LDAtNSwyLjI0My01LDVjMCwwLjU1Mi0wLjQ0OCwxLTEsMXMtMS0wLjQ0OC0xLTFjMC0zLjg2LDMuMTQtNyw3LTdjMC41NTIsMCwxLDAuNDQ4LDEsMVMzMC4xMjUsMjQuNTcsMjkuNTcyLDI0LjU3eiIgZmlsbD0iIzAyNzc5ZSIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=")      
-
-.sidebarRandomizeButton
-   &.hidden
-      visibility: hidden
-
-.hovering-randomize-button
-   position: fixed 
-   top: 0
-   left: 0
-   right: 0
-   z-index: 500
-   padding: 6px 17px
-   background: rgba(255, 255, 255, 0.8)
-   border-bottom: 1px #ddd solid
-   display: none
-   
-   &.visible
-      display: block
-      
-   .button
-      margin: 0
+         background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU5LjIgNTkuMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTkuMiA1OS4yOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTUxLjA2MiwyMS41NjFjLTUuNzU5LTUuNzU5LTEzLjQxNi04LjkzMS0yMS41NjEtOC45MzFTMTMuNywxNS44MDEsNy45NDEsMjEuNTYxTDAsMjkuNTAxbDguMTM4LDguMTM4ICAgYzUuNzU5LDUuNzU5LDEzLjQxNiw4LjkzMSwyMS41NjEsOC45MzFzMTUuODAyLTMuMTcxLDIxLjU2MS04LjkzMWw3Ljk0MS03Ljk0MUw1MS4wNjIsMjEuNTYxeiBNNDkuODQ1LDM2LjIyNSAgIGMtNS4zODEsNS4zODEtMTIuNTM2LDguMzQ1LTIwLjE0Niw4LjM0NXMtMTQuNzY1LTIuOTYzLTIwLjE0Ni04LjM0NWwtNi43MjQtNi43MjRsNi41MjctNi41MjcgICBjNS4zODEtNS4zODEsMTIuNTM2LTguMzQ1LDIwLjE0Ni04LjM0NXMxNC43NjUsMi45NjMsMjAuMTQ2LDguMzQ1bDYuNzI0LDYuNzI0TDQ5Ljg0NSwzNi4yMjV6IiBmaWxsPSIjMDI3NzllIi8+Cgk8cGF0aCBkPSJNMjkuNTcyLDE2LjU3Yy03LjE2OCwwLTEzLDUuODMyLTEzLDEzczUuODMyLDEzLDEzLDEzczEzLTUuODMyLDEzLTEzUzM2Ljc0MSwxNi41NywyOS41NzIsMTYuNTd6IE0yOS41NzIsMjQuNTcgICBjLTIuNzU3LDAtNSwyLjI0My01LDVjMCwwLjU1Mi0wLjQ0OCwxLTEsMXMtMS0wLjQ0OC0xLTFjMC0zLjg2LDMuMTQtNyw3LTdjMC41NTIsMCwxLDAuNDQ4LDEsMVMzMC4xMjUsMjQuNTcsMjkuNTcyLDI0LjU3eiIgZmlsbD0iIzAyNzc5ZSIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=")
 
 footer
    padding: 10px
@@ -341,55 +187,6 @@ footer
    margin: 10px -10px -10px -10px
    font-size: 12px
    text-align: center
-
-.dialog-hidden-content
-   display:none
-
-.dialog-content
-   font-family: primary-font
-   font-size: 23px
-
-   .dialog-desc
-      font-size: 16px
-      line-height: 16px
-   h1
-      margin: 8px 0 8px 0
-      color: #333
-      border-bottom: 1px solid #ccc
-      font-size: 24px
-      cursor: pointer
-
-   .checkbox-wrap.columns
-      width: 50%
-      float: left
-      &.three
-         width: 33.33333333%
-      &.four
-         width: 25%
-      input[type=checkbox]
-      input[type=radio]
-         position: relative
-         top: -2px
-
-   .dialog-buttons
-      margin-top: 12px
-      .button
-         float: right
-         margin-left: 6px
-
-
-@media (max-width: 950px)   
-   .eventsAndLandmarks .card-wrap
-      width: 40%
-      
-@media (max-width: 900px)   
-   .set-name
-      font-size: 16px
-      
-   .set-name.baseset2
-   .set-name.intrigue2
-   .set-name.hinterlands
-      font-size: 14px
 
 // Move sidebar to the top
 @media (max-width: 750px)
@@ -406,47 +203,24 @@ footer
          -webkit-transform: scale(1.5,1.5)
          top: -2px
 
+   .menu
+      .menu-items
+         flex-direction: column
+         padding-bottom: 8px
+      
+         .menu-item
+            padding: 4px 16px
+
    .header
-      margin: 5px -5px   
+      margin: 5px -5px
+
    .content
       .sidebar
          float: none
          width: auto
          margin: 5px -5px
-   
-         .suboption
-            margin-left: 30px
-
-      .sets
-         .set
-            width: 50%
-            float: left
-    
-      .meta
-         margin-top: 5px
-         h1
-            font-size: 26px
-         .recommendation
-            font-size: 18px
-
       .main
          margin: 5px -5px 0
-
-@media (max-width: 525px)
-   .eventsAndLandmarks .card-wrap
-      width: 50%
-      
-   .set-name
-      font-size: 11px
-   
-   .set-name.baseset2
-   .set-name.intrigue2
-   .set-name.hinterlands
-      font-size: 9px
-
-@media (max-width: 450px)
-   .card-wrap
-      width: 25%
 
 @media (max-width: 425px)
    header
@@ -470,15 +244,6 @@ footer
          margin-right: 12px!important
          -webkit-transform: scale(1.5,1.5)
          top: -2px
-   
-   .suboption
-      margin-left: 30px
-
-   .set-name
-      font-size: 10px
-      
-   // .set-name.hinterlands
-   //    font-size: 15px
 
 // Correction for vex
 .vex.vex-theme-os

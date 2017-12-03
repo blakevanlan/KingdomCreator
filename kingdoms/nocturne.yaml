@@ -1,0 +1,34 @@
+kingdoms:
+  - name: Dusk
+    sets:
+      - nocturne
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cobbler
+      - nocturne_denofsin
+      - nocturne_faithfulhound
+      - nocturne_fool
+      - nocturne_monastery
+      - nocturne_nightwatchman
+      - nocturne_shepherd
+      - nocturne_tormentor
+      - nocturne_tragichero
+
+  - name: Midnight
+    sets:
+      - nocturne
+    supply:
+      - nocturne_conclave
+      - nocturne_crypt
+      - nocturne_cursedvillage
+      - nocturne_devilsworkshop
+      - nocturne_druid
+      - nocturne_exorcist
+      - nocturne_leprechaun
+      - nocturne_pooka
+      - nocturne_raider
+      - nocturne_secretcave
+    boons:
+      - nocturne_boon_theswampsgift
+      - nocturne_boon_theflamesgift
+      - nocturne_boon_thewindsgift

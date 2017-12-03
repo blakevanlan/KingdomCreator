@@ -2,7 +2,7 @@ kingdoms:
   - name: Gentle Intro
     sets:
       - adventures
-    cards:
+    supply:
       - adventures_amulet
       - adventures_distantlands
       - adventures_dungeon
@@ -19,7 +19,7 @@ kingdoms:
   - name: Expert Intro
     sets:
       - adventures
-    cards:
+    supply:
       - adventures_caravanguard 
       - adventures_coinoftherealm 
       - adventures_hauntedwoods 
@@ -38,7 +38,7 @@ kingdoms:
     sets:
       - adventures
       - baseset
-    cards:
+    supply:
       - adventures_dungeon
       - adventures_gear 
       - adventures_guide 
@@ -56,7 +56,7 @@ kingdoms:
     sets:
       - adventures
       - baseset
-    cards:
+    supply:
       - adventures_amulet 
       - adventures_duplicate 
       - adventures_giant 
@@ -75,7 +75,7 @@ kingdoms:
     sets:
       - adventures
       - intrigue
-    cards: 
+    supply: 
       - adventures_bridgetroll 
       - adventures_duplicate 
       - adventures_page 
@@ -93,7 +93,7 @@ kingdoms:
     sets:
       - adventures
       - intrigue
-    cards: 
+    supply: 
       - adventures_artificer 
       - adventures_distantlands 
       - adventures_gear 
@@ -112,7 +112,7 @@ kingdoms:
     sets:
       - adventures
       - seaside
-    cards: 
+    supply: 
       - adventures_amulet 
       - adventures_dungeon 
       - adventures_hauntedwoods 
@@ -130,7 +130,7 @@ kingdoms:
     sets:
       - adventures
       - seaside
-    cards: 
+    supply: 
       - adventures_bridgetroll
       - adventures_caravanguard 
       - adventures_hireling 
@@ -149,7 +149,7 @@ kingdoms:
     sets:
       - adventures
       - prosperity
-    cards: 
+    supply: 
       - adventures_coinoftherealm 
       - adventures_dungeon 
       - adventures_messenger 
@@ -168,7 +168,7 @@ kingdoms:
     sets:
       - adventures
       - prosperity
-    cards:
+    supply:
       - adventures_distantlands 
       - adventures_giant 
       - adventures_hireling 
@@ -178,7 +178,7 @@ kingdoms:
       - prosperity_expand 
       - prosperity_hoard 
       - prosperity_kingscourt 
-      - adventures_peddler
+      - prosperity_peddler
     events:
       - adventures_event_ball 
       - adventures_event_ferry 
@@ -188,7 +188,7 @@ kingdoms:
     sets:
       - adventures
       - cornucopia
-    cards: 
+    supply: 
       - adventures_artificer 
       - adventures_miser 
       - adventures_page 
@@ -206,7 +206,7 @@ kingdoms:
     sets:
       - adventures
       - cornucopia
-    cards:
+    supply:
       - adventures_peasant 
       - adventures_storyteller 
       - adventures_swamphag 
@@ -226,7 +226,7 @@ kingdoms:
     sets:
       - adventures
       - hinterlands
-    cards:
+    supply:
       - adventures_hauntedwoods
       - adventures_lostcity
       - adventures_page
@@ -244,14 +244,14 @@ kingdoms:
     sets:
       - adventures
       - hinterlands
-    cards:
+    supply:
       - adventures_bridgetroll
       - adventures_distantlands
       - adventures_giant
       - adventures_guide
       - adventures_ranger
       - hinterlands_cartographer
-      - hinterlands_crossraods
+      - hinterlands_crossroads
       - hinterlands_highway
       - hinterlands_inn
       - hinterlands_silkroad
@@ -263,7 +263,7 @@ kingdoms:
     sets:
       - adventures
       - darkages
-    cards:
+    supply:
       - adventures_amulet
       - adventures_caravanguard
       - adventures_hireling
@@ -282,7 +282,7 @@ kingdoms:
     sets:
       - adventures
       - darkages
-    cards:
+    supply:
       - adventures_dungeon
       - adventures_hauntedwoods
       - adventures_ratcatcher
@@ -302,7 +302,7 @@ kingdoms:
     sets:
       - adventures
       - guilds
-    cards:
+    supply:
       - adventures_artificer
       - adventures_gear
       - adventures_magpie
@@ -320,17 +320,17 @@ kingdoms:
     sets:
       - adventures
       - guilds
-    cards:
+    supply:
       - adventures_coinoftherealm
       - adventures_duplicate
       - adventures_guide
       - adventures_ratcatcher
       - adventures_royalcarriage
       - guilds_advisor
-      - adventures_butcher
-      - adventures_candlestickmaker
-      - adventures_herald
-      - adventures_journeyman
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_journeyman
     events:
       - adventures_event_pathfinding
       - adventures_event_save

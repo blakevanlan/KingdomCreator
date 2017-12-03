@@ -5,16 +5,22 @@ do ->
 
    serializeKingdom = (kingdom, metadata) ->
       result = []
-      result.push(serializeCards(kingdom.cards))
+      result.push(serializeSupply(kingdom.cards))
       result.push(serializeEvents(kingdom.events)) if kingdom.events?.length
-      result.push(serializeEvents(kingdom.landmarks)) if kingdom.landmarks?.length
+      result.push(serializeLandmarks(kingdom.landmarks)) if kingdom.landmarks?.length
 
       serializedMetadata = serializeMetadata(metadata)
       result.push(serializedMetadata) if serializedMetadata.length
       return result.join('&')
 
    deserializeKingdom = (allSets, serializedKingdom) -> 
-      cardIds = parseNamedCommaSeparatedParameter('cards', serializedKingdom) or []
+      supplyIds = parseNamedCommaSeparatedParameter('supply', serializedKingdom)
+
+      # The supply cards used to be serialized under the cards parameter, check if the old parameter
+      # name is being used.
+      if !supplyIds
+         supplyIds = parseNamedCommaSeparatedParameter('cards', serializedKingdom) or []
+
       eventIds = parseNamedCommaSeparatedParameter('events', serializedKingdom) or []
       landmarkIds = parseNamedCommaSeparatedParameter('landmarks', serializedKingdom) or []
       useShelters = parseNamedBooleanParameter('shelters', serializedKingdom)
@@ -24,7 +30,7 @@ do ->
       allEvents = Util.flattenSetsForProperty(allSets, 'events')
       allLandmarks = Util.flattenSetsForProperty(allSets, 'landmarks')
 
-      cards = findByIds(cardIds, allCards).slice(0, 10)
+      cards = findByIds(supplyIds, allCards).slice(0, 10)
       events = findByIds(eventIds, allEvents).slice(0, 2)
       landmarks = findByIds(landmarkIds, allLandmarks).slice(0, 2 - events.length)
 
@@ -40,13 +46,13 @@ do ->
          }
       }
 
-   serializeCards = (cards) ->
-      sortedCards = cards.concat().sort (a, b) ->
+   serializeSupply = (supplyCards) ->
+      sortedSupplyCards = supplyCards.concat().sort (a, b) ->
          return 1 if a.shortId > b.shortId
          return -1 if a.shortId < b.shortId
          return 0
 
-      return "cards=#{serializeCardsWithShortIds(sortedCards)}"
+      return "supply=#{serializeCardsWithShortIds(sortedSupplyCards)}"
 
    serializeEvents = (events) ->
       return "events=#{serializeCardsWithShortIds(events)}"

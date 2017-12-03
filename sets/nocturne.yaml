@@ -626,3 +626,16 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
+
+boons:
+  - name: The Field's Gift
+  - name: The Flame's Gift
+  - name: The Forest's Gift
+  - name: The Moon's Gift
+  - name: The Mountain's Gift
+  - name: The River's Gift
+  - name: The Sea's Gift
+  - name: The Sky's Gift
+  - name: The Sun's Gift
+  - name: The Swamp's Gift
+  - name: The Wind's Gift

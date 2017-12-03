@@ -3,7 +3,7 @@ kingdoms:
     sets:
       - cornucopia
       - baseset
-    cards:
+    supply:
       - cornucopia_harvest
       - cornucopia_hornofplenty
       - cornucopia_huntingparty
@@ -19,13 +19,13 @@ kingdoms:
     sets:
       - cornucopia
       - baseset
-    cards:
+    supply:
       - cornucopia_fortuneteller
       - cornucopia_hamlet
       - cornucopia_hornofplenty
       - cornucopia_jester
       - cornucopia_remake
-      - baseset_adventureer
+      - baseset_adventurer
       - baseset_bureaucrat
       - baseset_laboratory
       - baseset_spy
@@ -35,7 +35,7 @@ kingdoms:
     sets:
       - cornucopia
       - baseset
-    cards:
+    supply:
       - cornucopia_fairgrounds
       - cornucopia_farmingvillage
       - cornucopia_horsetraders
@@ -52,10 +52,10 @@ kingdoms:
     sets:
       - cornucopia
       - intrigue
-    cards:
+    supply:
       - cornucopia_farmingvillage
       - cornucopia_harvest
-      - cornucopia_horesetraders
+      - cornucopia_horsetraders
       - cornucopia_huntingparty
       - cornucopia_jester
       - intrigue_minion
@@ -68,7 +68,7 @@ kingdoms:
     sets:
       - cornucopia
       - intrigue
-    cards:
+    supply:
       - cornucopia_fairgrounds
       - cornucopia_hornofplenty
       - cornucopia_remake
@@ -85,7 +85,7 @@ kingdoms:
     sets:
       - cornucopia
       - intrigue
-    cards:
+    supply:
       - cornucopia_fortuneteller
       - cornucopia_hamlet
       - cornucopia_huntingparty
