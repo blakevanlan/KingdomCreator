@@ -25,15 +25,17 @@ html
       block head
 
    body
-      .menu(data-bind="showMenu: showMenu")
+      .menu(data-bind="showMenu: {show: showMenu, enabled: isCondensed}, \
+            css:{'menu_condensed': isCondensed}")
          ul.menu-items(data-bind="foreach: menuItems")
             li.menu-item(data-bind="css: {active: isActive}")
-               a.menu-item-link(data-bind="attr: {href: url}, text: title")
+               a.menu-item_link(data-bind="attr: {href: url}, text: title")
 
       header
-         h1.title Kingdom Creator
+         h1.title
+           a.title_link(href="/index.html") Kingdom Creator
          h2.tagline(data-bind="text: subtitle")
-         .menuButton(data-bind="click: toggleMenu")
+         .menuButton(data-bind="click: toggleMenu, visible: isCondensed")
         
       .content
          block content

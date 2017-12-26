@@ -3,7 +3,7 @@
 
 
 do ->
-   CONDENSED_WIDTH = 750
+   CONDENSED_WIDTH = 800
 
    initialize = (viewmodel) ->
       $(document).ready ->

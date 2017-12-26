@@ -10,17 +10,13 @@ body
    font-family: primary-font
 
 .menu
-   height: 0
-   background: dark-blue
-   margin: 0 -10px
-   -webkit-transition: height 0.6s
-   -webkit-transform-style: preserve-3d
-   -moz-transition: height 0.6s
-   -moz-transform-style: preserve-3d
-   transition: height 0.6s
-   transform-style: preserve-3d
-   overflow-y: hidden
-   
+   background: transparent
+   margin: 0
+   position: absolute
+   right: 16px
+   top: 0
+   z-index: 1
+
    .menu-items
       position: relative
       display: flex
@@ -29,23 +25,50 @@ body
       max-width: 1238px
       flex-direction: row
       
-      .menu-item
-         display: block
-         padding: 8px 16px 
-         flex: none
+   .menu-item
+      display: block
+      padding: 8px 16px 
+      flex: none
 
-         .menu-item-link
-            display: inline-block
-            font-size: 20px
-            padding: 4px 0
-            color: #ddd
-            text-decoration: none
-            border-top: 1px solid transparent
-            border-bottom: 1px solid transparent
+   .menu-item_link
+      display: inline-block
+      font-size: 18px
+      padding: 4px 0
+      color: dark-blue
+      text-decoration: none
+      border-top: 2px solid transparent
+      border-bottom: 2px solid transparent
+      
+   .menu-item.active .menu-item_link
+      color: dark-blue
+      border-bottom 2px solid dark-blue
+
+   &.menu_condensed
+      background: dark-blue
+      height: 0
+      margin: 0 -10px
+      position: relative
+      right: auto
+      -webkit-transition: height 0.6s
+      -webkit-transform-style: preserve-3d
+      -moz-transition: height 0.6s
+      -moz-transform-style: preserve-3d
+      transition: height 0.6s
+      transform-style: preserve-3d
+      overflow-y: hidden
+      top: auto
+      
+      .menu-item_link
+         font-size: 20px
+         border-top: 1px solid transparent
+         border-bottom: 1px solid transparent
          
-         &.active .menu-item-link
-            color: #fff
-            border-bottom 1px solid #fff
+      .menu-item_link
+         color: #ddd
+      
+      .menu-item.active .menu-item_link
+         color: #fff
+         border-bottom 1px solid #fff
 
 header
    max-width: 1218px
@@ -54,10 +77,13 @@ header
    position: relative
 
    .title
-      color: dark-blue
       font-size: 30px
       margin: 0
       padding: 0
+   
+   .title_link
+      color: dark-blue
+      text-decoration: none
       
    .tagline
       color: #666
