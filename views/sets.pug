@@ -15,7 +15,8 @@ block content
          .sets(data-bind="foreach: sets")
             .set
                label.checkbox
-                  input(type="checkbox", data-bind="checked: active")
+                  input(type="radio", name="selectedSet" \
+                        data-bind="attr: {value: id}, checked: $parent.selectedSetId")
                   span(data-bind="text: name")
          .clear
 

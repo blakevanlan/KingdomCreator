@@ -32,3 +32,327 @@ kingdoms:
       - nocturne_boon_theswampsgift
       - nocturne_boon_theflamesgift
       - nocturne_boon_thewindsgift
+
+  - name: Night Shift
+    sets:
+      - baseset2
+      - nocturne
+    supply:
+      - baseset2_bandit
+      - baseset2_gardens
+      - baseset2_mine
+      - baseset2_poacher
+      - baseset2_smithy
+      - nocturne_druid
+      - nocturne_exorcist
+      - nocturne_ghosttown
+      - nocturne_idol
+      - nocturne_nightwatchman
+    boons:
+      - nocturne_boon_theearthsgift
+      - nocturne_boon_theflamesgift
+      - nocturne_boon_theforestsgift
+
+  - name: Idle Hands
+    sets:
+      - baseset2
+      - nocturne
+    supply:
+      - baseset2_cellar
+      - baseset2_harbinger
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_moneylender
+      - nocturne_bard
+      - nocturne_conclave
+      - nocturne_cursedvillage
+      - nocturne_devilsworkshop
+      - nocturne_tragichero
+
+  - name: Shadowy Figures
+    sets:
+      - intrigue2
+      - nocturne
+    supply:
+      - intrigue2_bridge
+      - intrigue2_conspirator
+      - intrigue2_mill
+      - intrigue2_nobles
+      - intrigue2_secretpassage
+      - nocturne_cobbler
+      - nocturne_conclave
+      - nocturne_faithfulhound
+      - nocturne_shepherd
+      - nocturne_tragichero
+
+  - name: Impending Doom
+    sets:
+      - intrigue2
+      - nocturne
+    supply:
+      - intrigue2_courtier
+      - intrigue2_lurker
+      - intrigue2_miningvillage
+      - intrigue2_swindler
+      - intrigue2_upgrade
+      - nocturne_leprechaun
+      - nocturne_monastery
+      - nocturne_necromancer
+      - nocturne_tormentor
+      - nocturne_werewolf
+
+  - name: The New Black
+    sets:
+      - nocturne
+      - seaside
+    supply:
+      - nocturne_cobbler
+      - nocturne_denofsin
+      - nocturne_ghosttown
+      - nocturne_raider
+      - nocturne_secretcave
+      - seaside_caravan
+      - seaside_haven
+      - seaside_merchantship
+      - seaside_outpost
+      - seaside_tactician
+
+  - name: Forbidden Isle
+    sets:
+      - nocturne
+      - seaside
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cemetery
+      - nocturne_idol
+      - nocturne_tracker
+      - nocturne_tragichero
+      - seaside_fishingvillage
+      - seaside_ghostship
+      - seaside_lookout
+      - seaside_salvager
+      - seaside_treasuremap
+
+  - name: Nightmare Fuel
+    sets:
+      - alchemy
+      - nocturne
+    supply:
+      - alchemy_alchemist
+      - alchemy_apprentice
+      - alchemy_transmute
+      - alchemy_vineyard
+      - nocturne_bard
+      - nocturne_blessedvillage
+      - nocturne_cemetery
+      - nocturne_sacredgrove
+      - nocturne_skulk
+      - nocturne_tracker
+
+  - name: Treasures of the Night
+    sets:
+      - nocturne
+      - prosperity
+    supply:
+      - nocturne_crypt
+      - nocturne_guardian
+      - nocturne_nightwatchman
+      - nocturne_raider
+      - nocturne_vampire
+      - prosperity_bank
+      - prosperity_contraband
+      - prosperity_loan
+      - prosperity_royalseal
+      - prosperity_venture
+
+  - name: Day at the Races
+    sets:
+      - nocturne
+      - prosperity
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cemetery
+      - nocturne_druid
+      - nocturne_tormentor
+      - nocturne_tragichero
+      - prosperity_bishop
+      - prosperity_peddler
+      - prosperity_talisman
+      - prosperity_traderoute
+      - prosperity_watchtower
+
+  - name: The Endless Fair
+    sets:
+      - cornucopia
+      - guilds
+      - nocturne
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_fortuneteller
+      - guilds_baker
+      - guilds_merchantguild
+      - nocturne_devilsworkshop
+      - nocturne_exorcist
+      - nocturne_monastery
+      - nocturne_pixie
+      - nocturne_shepherd
+
+  - name: Happy Chaos
+    sets:
+      - nocturne
+      - cornucopia
+      - guilds
+    supply:
+      - cornucopia_harvest
+      - cornucopia_jester
+      - guilds_doctor
+      - guilds_herald
+      - guilds_masterpiece
+      - nocturne_blessedvillage
+      - nocturne_changeling
+      - nocturne_fool
+      - nocturne_faithfulhound
+      - nocturne_sacredgrove
+
+  - name: Search Party
+    sets:
+      - hinterlands
+      - nocturne
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_oasis
+      - hinterlands_scheme
+      - nocturne_cobbler
+      - nocturne_conclave
+      - nocturne_druid
+      - nocturne_faithfulhound
+      - nocturne_werewolf
+    boons:
+      - nocturne_boon_themountainsgift
+      - nocturne_boon_theskysgift
+      - nocturne_boon_thesunsgift
+
+  - name: Counting Sheep
+    sets:
+      - nocturne
+      - hinterlands
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_noblebrigand
+      - hinterlands_tunnel
+      - nocturne_bard
+      - nocturne_crypt
+      - nocturne_leprechaun
+      - nocturne_pooka
+      - nocturne_shepherd
+
+  - name: Grave Matters
+    sets:
+      - darkages
+      - nocturne
+    supply:
+      - darkages_armory
+      - darkages_forager
+      - darkages_graverobber
+      - darkages_marketsquare
+      - darkages_squire
+      - nocturne_cemetery
+      - nocturne_cursedvillage
+      - nocturne_necromancer
+      - nocturne_skulk
+      - nocturne_tormentor
+
+  - name: Rats and Bats
+    sets:
+      - darkages
+      - nocturne
+    supply:
+      - darkages_catacombs
+      - darkages_count
+      - darkages_fortress
+      - darkages_hermit
+      - darkages_rats
+      - nocturne_changeling
+      - nocturne_devilsworkshop
+      - nocturne_sacredgrove
+      - nocturne_tracker
+      - nocturne_vampire
+
+  - name: Monster Mash
+    sets:
+      - adventures
+      - nocturne
+    supply:
+      - adventures_bridgetroll
+      - adventures_giant
+      - adventures_messenger
+      - adventures_ratcatcher
+      - adventures_storyteller
+      - nocturne_conclave
+      - nocturne_guardian
+      - nocturne_pixie
+      - nocturne_vampire
+      - nocturne_werewolf
+    events: 
+      - adventures_event_quest
+
+  - name: Lost in the Woods
+    sets:
+      - adventures
+      - nocturne
+    supply:
+      - adventures_caravanguard
+      - adventures_guide
+      - adventures_hauntedwoods
+      - adventures_hireling
+      - adventures_ranger
+      - nocturne_blessedvillage
+      - nocturne_druid
+      - nocturne_fool
+      - nocturne_sacredgrove
+      - nocturne_tracker
+    events:
+      - adventures_event_pilgrimage
+    boons:
+      - nocturne_boon_theskysgift
+      - nocturne_boon_thefieldsgift
+      - nocturne_boon_theseasgift
+
+  - name: Luftschloss
+    sets:
+      - empires
+      - nocturne
+    supply:
+      - empires_archive
+      - empires_castles
+      - empires_catapultrocks
+      - empires_engineer
+      - empires_temple
+      - empires_landmark_tomb
+      - nocturne_cemetery
+      - nocturne_changeling
+      - nocturne_exorcist
+      - nocturne_fool
+      - nocturne_shepherd
+
+  - name: Pooka Pranks
+    sets:
+      - empires
+      - nocturne
+    supply:
+      - empires_chariotrace
+      - empires_forum
+      - empires_groundskeeper
+      - empires_sacrifice
+      - empires_settlersbustlingvillage
+      - empires_event_banquet
+      - nocturne_faithfulhound
+      - nocturne_ghosttown
+      - nocturne_pixie
+      - nocturne_pooka
+      - nocturne_skulk

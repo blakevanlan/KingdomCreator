@@ -628,6 +628,7 @@ cards:
     isVictory: false
 
 boons:
+  - name: The Earth's Gift
   - name: The Field's Gift
   - name: The Flame's Gift
   - name: The Forest's Gift

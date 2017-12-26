@@ -11,12 +11,16 @@ do ->
    SUBTITLE = 'Recommended Sets of 10'
    FOUR_COLUMN_WIDTH = 450
 
+   STARTING_SELECTED_SET = 'baseset'
+   SETS_TO_IGNORE = ['baseset2', 'intrigue2']
+
    class SetsViewModel extends PageViewModel
       constructor: (dominionSets, dominionKingdoms) ->
          super(SUBTITLE, PageViewModel.MenuItem.SETS)
          @dominionSets = dominionSets
          @dominionKingdoms = dominionKingdoms
          @sets = ko.observableArray(@createSetViewModels())
+         @selectedSetId = ko.observable(STARTING_SELECTED_SET)
          @visibleKingdoms = @createVisibleKingdomsObservable()
          @numberOfColumns = ko.observable(4)
          @listenForResizeAndSetNumberOfColumns()
@@ -27,36 +31,23 @@ do ->
             return 0 if a.name == b.name
             return if a.name < b.name then -1 else 1
          viewModels = []
-
-         selectedSets = SettingsManager.loadSettings().selectedSets()
          for set in sets
-            viewModel = new SetViewModel(set)
-            viewModel.active(selectedSets.indexOf(set.id) != -1)
-            viewModel.active.subscribe(@saveSettings)
-            viewModels.push(viewModel)
+            if SETS_TO_IGNORE.indexOf(set.id) == -1
+               viewModels.push(new SetViewModel(set))
          return viewModels
-
-      saveSettings: () =>
-         selectedSets = (set.id for set in @sets() when set.active())
-         settings = SettingsManager.loadSettings()
-         settings.selectedSets(selectedSets)
-         SettingsManager.saveSettings(settings)
 
       createVisibleKingdomsObservable: =>
          return ko.computed =>
-            visibleSetIds = (set.id for set in @sets() when set.active())
+            selectedSetId = @selectedSetId()
+
             visibleKingdoms = []
             for setId, kingdomsForSet of @dominionKingdoms
                for kingdom in kingdomsForSet.kingdoms
-                  visible = true
-                  for setIdInKingdom in kingdom.sets
-                     if visibleSetIds.indexOf(setIdInKingdom) == -1
-                        visible = false
-                        break
-                  visibleKingdoms.push(kingdom) if visible
+                  if kingdom.sets.indexOf(selectedSetId) != -1
+                     visibleKingdoms.push(kingdom)
 
             return visibleKingdoms
-      
+
       createRows: (cards) =>
          numberOfColumns = @numberOfColumns()
          rows = []

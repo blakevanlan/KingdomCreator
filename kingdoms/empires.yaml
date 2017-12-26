@@ -1,0 +1,389 @@
+kingdoms:
+  - name: Basic Intro
+    sets:
+      - empires
+    supply:
+      - empires_castles
+      - empires_chariotrace
+      - empires_cityquarter
+      - empires_engineer
+      - empires_event_wedding
+      - empires_farmersmarket
+      - empires_forum
+      - empires_landmark_tower
+      - empires_legionary
+      - empires_patricianemporium
+      - empires_sacrifice
+      - empires_villa
+
+  - name: Advanced Intro
+    sets:
+      - empires
+    supply:
+      - empires_archive
+      - empires_capital
+      - empires_catapultrocks
+      - empires_crown
+      - empires_enchantress
+      - empires_gladiatorfortune
+      - empires_groundskeeper
+      - empires_royalblacksmith
+      - empires_settlersbustlingvillage
+      - empires_temple
+    landmarks:
+      - empires_landmark_arena
+      - empires_landmark_triumphalarch
+
+  - name: Everything in Moderation
+    sets:
+      - baseset2
+      - empires
+    supply:
+      - baseset2_cellar
+      - baseset2_library
+      - baseset2_remodel
+      - baseset2_village
+      - baseset2_workshop
+      - empires_enchantress
+      - empires_forum
+      - empires_legionary
+      - empires_overlord
+      - empires_temple
+    events:
+      - empires_event_windfall
+    landmarks:
+      - empires_landmark_orchard
+
+  - name: Silver Bullets
+    sets:
+      - baseset2
+      - empires
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_gardens
+      - baseset2_laboratory
+      - baseset2_market
+      - baseset2_moneylender
+      - empires_catapultrocks
+      - empires_charm
+      - empires_farmersmarket
+      - empires_groundskeeper
+      - empires_patricianemporium
+    events:
+      - empires_event_conquest
+    landmarks:
+      - empires_landmark_aqueduct
+
+  - name: Delicious Torture
+    sets:
+      - empires
+      - intrigue2
+    supply:
+      - empires_castles
+      - empires_crown
+      - empires_enchantress
+      - empires_sacrifice
+      - empires_settlersbustlingvillage
+      - intrigue2_baron
+      - intrigue2_bridge
+      - intrigue2_harem
+      - intrigue2_ironworks
+      - intrigue2_torturer
+    events:
+      - empires_event_banquet
+    landmarks:
+      - empires_landmark_arena
+
+  - name: Buddy System
+    sets:
+      - empires
+      - intrigue2
+    supply:
+      - empires_archive
+      - empires_capital
+      - empires_catapultrocks
+      - empires_engineer
+      - empires_forum
+      - intrigue2_masquerade
+      - intrigue2_miningvillage
+      - intrigue2_nobles
+      - intrigue2_pawn
+      - intrigue2_tradingpost
+    events:
+      - empires_event_salttheearth
+    landmarks:
+      - empires_landmark_wolfden
+
+  - name: Boxed In
+    sets:
+      - empires
+      - seaside
+    supply:
+      - empires_castles
+      - empires_chariotrace
+      - empires_encampmentplunder
+      - empires_enchantress
+      - empires_event_tax
+      - empires_gladiatorfortune
+      - seaside_salvager
+      - seaside_smugglers
+      - seaside_tactician
+      - seaside_warehouse
+      - seaside_wharf
+    landmarks:
+      - empires_landmark_wall
+
+  - name: King of the Sea
+    sets:
+      - empires
+      - seaside
+    supply:
+      - empires_archive
+      - empires_event_delve
+      - empires_farmersmarket
+      - empires_overlord
+      - empires_temple
+      - empires_wildhunt
+      - seaside_explorer
+      - seaside_haven
+      - seaside_nativevillage
+      - seaside_pirateship
+      - seaside_seahag
+    landmarks:
+      - empires_landmark_fountain
+
+  - name: Collectors
+    sets:
+      - alchemy
+      - empires
+    supply:
+      - alchemy_apothecary
+      - alchemy_apprentice
+      - alchemy_herbalist
+      - alchemy_transmute
+      - alchemy_university
+      - empires_cityquarter
+      - empires_crown
+      - empires_encampmentplunder
+      - empires_enchantress
+      - empires_farmersmarket
+    landmarks:
+      - empires_landmark_colonnade
+      - empires_landmark_museum
+
+  - name: Big Time
+    sets:
+      - empires
+      - prosperity
+    supply:
+      - empires_capital
+      - empires_gladiatorfortune
+      - empires_patricianemporium
+      - empires_royalblacksmith
+      - empires_villa
+      - prosperity_bank
+      - prosperity_forge
+      - prosperity_grandmarket
+      - prosperity_loan
+      - prosperity_royalseal
+    events:
+      - empires_event_dominate
+    landmarks:
+      - empires_landmark_obelisk
+
+  - name: Gilded Gates
+    sets:
+      - empires
+      - prosperity
+    supply:
+      - empires_chariotrace
+      - empires_cityquarter
+      - empires_encampmentplunder
+      - empires_groundskeeper
+      - empires_wildhunt
+      - prosperity_bishop
+      - prosperity_mint
+      - prosperity_monument
+      - prosperity_peddler
+      - prosperity_talisman
+    landmarks:
+      - empires_landmark_basilica
+      - empires_landmark_palace
+
+  - name: Zookeepers
+    sets:
+      - cornucopia
+      - empires
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_menagerie
+      - cornucopia_tournament
+      - empires_overlord
+      - empires_sacrifice
+      - empires_settlersbustlingvillage
+      - empires_villa
+      - empires_wildhunt
+    events:
+      - empires_event_annex
+    landmarks:
+      - empires_landmark_colonnade
+
+  - name: Cash Flow
+    sets:
+      - empires
+      - guilds
+    supply:
+      - empires_castles
+      - empires_cityquarter
+      - empires_engineer
+      - empires_gladiatorfortune
+      - empires_royalblacksmith
+      - guilds_baker
+      - guilds_butcher
+      - guilds_doctor
+      - guilds_herald
+      - guilds_soothsayer
+    landmarks:
+      - empires_landmark_baths
+      - empires_landmark_mountainpass
+
+  - name: Simple Plans
+    sets:
+      - empires
+      - hinterlands
+    supply:
+      - empires_catapultrocks
+      - empires_forum
+      - empires_patricianemporium
+      - empires_temple
+      - empires_villa
+      - hinterlands_bordervillage
+      - hinterlands_develop
+      - hinterlands_haggler
+      - hinterlands_illgottengains
+      - hinterlands_stables
+    events:
+      - empires_event_donate
+    landmarks:
+      - empires_landmark_labyrinth
+
+  - name: Expansion
+    sets:
+      - empires
+      - hinterlands
+    supply:
+      - empires_castles
+      - empires_charm
+      - empires_encampmentplunder
+      - empires_engineer
+      - empires_legionary
+      - hinterlands_cache
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel
+    landmarks:
+      - empires_landmark_battlefield
+      - empires_landmark_fountain
+
+  - name: Tomb of the Rat King
+    sets:
+      - darkages
+      - empires
+    supply:
+      - darkages_deathcart
+      - darkages_fortress
+      - darkages_pillage
+      - darkages_rats
+      - darkages_storeroom
+      - empires_castles
+      - empires_chariotrace
+      - empires_cityquarter
+      - empires_legionary
+      - empires_sacrifice
+    events:
+      - empires_event_advance
+    landmarks:
+      - empires_landmark_tomb
+
+  - name: Triumph of the Bandit King
+    sets:
+      - darkages
+      - empires
+    supply:
+      - darkages_banditcamp
+      - darkages_catacombs
+      - darkages_huntinggrounds
+      - darkages_marketsquare
+      - darkages_procession
+      - empires_capital
+      - empires_charm
+      - empires_engineer
+      - empires_groundskeeper
+      - empires_legionary
+    events:
+      - empires_event_triumph
+    landmarks:
+      - empires_landmark_defiledshrine
+
+  - name: The Squire's Ritual
+    sets:
+      - darkages
+      - empires
+    supply:
+      - darkages_feodum
+      - darkages_hermit
+      - darkages_ironmonger
+      - darkages_rogue
+      - darkages_squire
+      - empires_archive
+      - empires_catapultrocks
+      - empires_crown
+      - empires_patricianemporium
+      - empires_settlersbustlingvillage
+    events:
+      - empires_event_ritual
+    landmarks:
+      - empires_landmark_museum
+
+  - name: Area Control
+    sets:
+      - adventures
+      - empires
+    supply:
+      - adventures_coinoftherealm
+      - adventures_page
+      - adventures_relic
+      - adventures_treasuretrove
+      - adventures_winemerchant
+      - empires_capital
+      - empires_catapultrocks
+      - empires_charm
+      - empires_crown
+      - empires_farmersmarket
+    events:
+      - empires_event_banquet
+    landmarks:
+      - empires_landmark_keep
+
+  - name: No Money No Problems
+    sets:
+      - adventures
+      - empires
+    supply:
+      - adventures_dungeon
+      - adventures_duplicate
+      - adventures_hireling
+      - adventures_peasant
+      - adventures_transmogrify
+      - empires_archive
+      - empires_encampmentplunder
+      - empires_royalblacksmith
+      - empires_temple
+      - empires_villa
+    events:
+      - adventures_event_mission
+    landmarks:
+      - empires_landmark_banditfort

@@ -1,0 +1,94 @@
+kingdoms:
+  - name: Victory Dance
+    sets:
+      - intrigue
+    supply:
+      - intrigue_bridge
+      - intrigue_duke
+      - intrigue_harem
+      - intrigue_ironworks
+      - intrigue_masquerade
+      - intrigue_nobles
+      - intrigue_pawn
+      - intrigue_upgrade
+      - intrigue_greathall
+      - intrigue_scout
+
+  - name: Secret Schemes
+    sets:
+      - intrigue
+    supply:
+      - intrigue_conspirator
+      - intrigue_harem
+      - intrigue_ironworks
+      - intrigue_pawn
+      - intrigue_shantytown
+      - intrigue_steward
+      - intrigue_swindler
+      - intrigue_tradingpost
+      - intrigue_saboteur
+      - intrigue_tribute
+
+  - name: Best Wishes
+    sets:
+      - intrigue
+    supply:
+      - intrigue_courtyard
+      - intrigue_masquerade
+      - intrigue_shantytown
+      - intrigue_steward
+      - intrigue_torturer
+      - intrigue_tradingpost
+      - intrigue_upgrade
+      - intrigue_wishingwell
+      - intrigue_coppersmith
+      - intrigue_scout
+
+  - name: Deconstruction
+    sets:
+      - baseset
+      - intrigue
+    supply:
+      - baseset_remodel
+      - baseset_throneroom
+      - baseset_spy
+      - baseset_thief
+      - intrigue_bridge
+      - intrigue_miningvillage
+      - intrigue_swindler
+      - intrigue_torturer
+      - intrigue_saboteur
+      - intrigue_secretchamber
+
+  - name: Hand Madness
+    sets:
+      - baseset
+      - intrigue
+    supply:
+      - baseset_bureaucrat
+      - baseset_councilroom
+      - baseset_militia
+      - baseset_mine
+      - baseset_chancellor
+      - intrigue_courtyard
+      - intrigue_minion
+      - intrigue_nobles
+      - intrigue_steward
+      - intrigue_torturer
+
+  - name: Underlings
+    sets:
+      - baseset
+      - intrigue
+    supply:
+      - baseset_cellar
+      - baseset_festival
+      - baseset_library
+      - baseset_witch
+      - intrigue_baron
+      - intrigue_masquerade
+      - intrigue_minion
+      - intrigue_nobles
+      - intrigue_pawn
+      - intrigue_steward
+

@@ -1,0 +1,93 @@
+kingdoms:
+  - name: High Seas
+    sets:
+      - seaside
+    supply:
+      - seaside_bazaar
+      - seaside_caravan
+      - seaside_embargo
+      - seaside_explorer
+      - seaside_haven
+      - seaside_island
+      - seaside_lookout
+      - seaside_pirateship
+      - seaside_smugglers
+      - seaside_wharf
+
+  - name: Buried Treasure
+    sets:
+      - seaside
+    supply:
+      - seaside_ambassador
+      - seaside_cutpurse
+      - seaside_fishingvillage
+      - seaside_lighthouse
+      - seaside_outpost
+      - seaside_pearldiver
+      - seaside_tactician
+      - seaside_treasuremap
+      - seaside_warehouse
+      - seaside_wharf
+
+  - name: Shipwrecks
+    sets:
+      - seaside
+    supply:
+      - seaside_ghostship
+      - seaside_merchantship
+      - seaside_nativevillage
+      - seaside_navigator
+      - seaside_pearldiver
+      - seaside_salvager
+      - seaside_seahag
+      - seaside_smugglers
+      - seaside_treasury
+      - seaside_warehouse
+
+  - name: Reach for Tomorrow
+    sets:
+      - baseset
+      - seaside
+    supply:
+      - baseset_cellar
+      - baseset_councilroom
+      - baseset_village
+      - baseset_adventurer
+      - baseset_spy
+      - seaside_cutpurse
+      - seaside_ghostship
+      - seaside_lookout
+      - seaside_seahag
+      - seaside_treasuremap
+
+  - name: Repetition
+    sets:
+      - baseset
+      - seaside
+    supply:
+      - baseset_festival
+      - baseset_militia
+      - baseset_workshop
+      - baseset_chancellor
+      - seaside_caravan
+      - seaside_explorer
+      - seaside_outpost
+      - seaside_pearldiver
+      - seaside_pirateship
+      - seaside_treasury
+
+  - name: Give and Take
+    sets:
+      - baseset
+      - seaside
+    supply:
+      - baseset_library
+      - baseset_market
+      - baseset_moneylender
+      - baseset_witch
+      - seaside_ambassador
+      - seaside_fishingvillage
+      - seaside_haven
+      - seaside_island
+      - seaside_salvager
+      - seaside_smugglers

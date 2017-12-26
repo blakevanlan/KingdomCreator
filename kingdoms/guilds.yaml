@@ -1,0 +1,96 @@
+kingdoms:
+  - name: Arts and Crafts
+    sets:
+      - baseset
+      - guilds
+    supply:
+      - baseset_cellar
+      - baseset_festival
+      - baseset_laboratory
+      - baseset_moneylender
+      - baseset_workshop
+      - guilds_advisor
+      - guilds_baker
+      - guilds_journeyman
+      - guilds_merchantguild
+      - guilds_stonemason
+
+  - name: Clean Living
+    sets:
+      - baseset
+      - guilds
+    supply:
+      - baseset_gardens
+      - baseset_militia
+      - baseset_moneylender
+      - baseset_village
+      - baseset_thief
+      - guilds_baker
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_doctor
+      - guilds_soothsayer
+
+  - name: Gilding the Lily
+    sets:
+      - baseset
+      - guilds
+    supply:
+      - baseset_library
+      - baseset_market
+      - baseset_remodel
+      - baseset_adventurer
+      - baseset_chancellor
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_plaza
+      - guilds_taxman
+
+  - name: Name That Card
+    sets:
+      - guilds
+      - intrigue
+    supply:
+      - guilds_advisor
+      - guilds_baker
+      - guilds_doctor
+      - guilds_masterpiece
+      - guilds_plaza
+      - intrigue_courtyard
+      - intrigue_harem
+      - intrigue_nobles
+      - intrigue_wishingwell
+      - intrigue_tribute
+
+  - name: Tricks of the Trade
+    sets:
+      - guilds
+      - intrigue
+    supply:
+      - guilds_butcher
+      - guilds_herald
+      - guilds_journeyman
+      - guilds_soothsayer
+      - guilds_stonemason
+      - intrigue_conspirator
+      - intrigue_masquerade
+      - intrigue_nobles
+      - intrigue_coppersmith
+      - intrigue_greathall
+
+  - name: Decisions, Decisions
+    sets:
+      - guilds
+      - intrigue
+    supply:
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_masterpiece
+      - guilds_merchantguild
+      - guilds_taxman
+      - intrigue_bridge
+      - intrigue_duke
+      - intrigue_miningvillage
+      - intrigue_pawn
+      - intrigue_upgrade

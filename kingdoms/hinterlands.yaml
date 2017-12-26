@@ -1,0 +1,96 @@
+kingdoms:
+  - name: Instant Gratification
+    sets:
+      - hinterlands
+      - prosperity
+    supply:
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_illgottengains
+      - hinterlands_noblebrigand
+      - hinterlands_trader
+      - prosperity_bishop
+      - prosperity_expand
+      - prosperity_hoard
+      - prosperity_mint
+      - prosperity_watchtower
+
+  - name: Treasure Trove
+    sets:
+      - hinterlands
+      - prosperity
+    supply:
+      - hinterlands_cache
+      - hinterlands_develop
+      - hinterlands_foolsgold
+      - hinterlands_illgottengains
+      - hinterlands_mandarin
+      - prosperity_bank
+      - prosperity_monument
+      - prosperity_royalseal
+      - prosperity_traderoute
+      - prosperity_venture
+
+  - name: Blue Harvest
+    sets:
+      - cornucopia
+      - hinterlands
+    supply:
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_tournament
+      - hinterlands_foolsgold
+      - hinterlands_mandarin
+      - hinterlands_noblebrigand
+      - hinterlands_trader
+      - hinterlands_tunnel
+
+  - name: Traveling Circus
+    sets:
+      - cornucopia
+      - hinterlands
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_huntingparty
+      - cornucopia_jester
+      - cornucopia_menagerie
+      - hinterlands_bordervillage
+      - hinterlands_embassy
+      - hinterlands_foolsgold
+      - hinterlands_nomadcamp
+      - hinterlands_oasis
+
+  - name: Exchanges
+    sets:
+      - guilds
+      - hinterlands
+    supply:
+      - guilds_butcher
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_soothsayer
+      - guilds_stonemason
+      - hinterlands_bordervillage
+      - hinterlands_develop
+      - hinterlands_illgottengains
+      - hinterlands_stables
+      - hinterlands_trader
+
+  - name: Road to Riches
+    sets:
+      - guilds
+      - hinterlands
+    supply:
+      - guilds_advisor
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_journeyman
+      - guilds_merchantguild
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel
