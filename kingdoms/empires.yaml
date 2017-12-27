@@ -7,14 +7,16 @@ kingdoms:
       - empires_chariotrace
       - empires_cityquarter
       - empires_engineer
-      - empires_event_wedding
       - empires_farmersmarket
       - empires_forum
-      - empires_landmark_tower
       - empires_legionary
       - empires_patricianemporium
       - empires_sacrifice
       - empires_villa
+    events:
+      - empires_event_wedding
+    landmarks:
+      - empires_landmark_tower
 
   - name: Advanced Intro
     sets:
@@ -123,13 +125,14 @@ kingdoms:
       - empires_chariotrace
       - empires_encampmentplunder
       - empires_enchantress
-      - empires_event_tax
       - empires_gladiatorfortune
       - seaside_salvager
       - seaside_smugglers
       - seaside_tactician
       - seaside_warehouse
       - seaside_wharf
+    events:
+      - empires_event_tax
     landmarks:
       - empires_landmark_wall
 
@@ -139,7 +142,6 @@ kingdoms:
       - seaside
     supply:
       - empires_archive
-      - empires_event_delve
       - empires_farmersmarket
       - empires_overlord
       - empires_temple
@@ -149,6 +151,8 @@ kingdoms:
       - seaside_nativevillage
       - seaside_pirateship
       - seaside_seahag
+    events:
+      - empires_event_delve
     landmarks:
       - empires_landmark_fountain
 

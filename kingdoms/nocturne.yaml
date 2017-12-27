@@ -333,12 +333,13 @@ kingdoms:
       - empires_catapultrocks
       - empires_engineer
       - empires_temple
-      - empires_landmark_tomb
       - nocturne_cemetery
       - nocturne_changeling
       - nocturne_exorcist
       - nocturne_fool
       - nocturne_shepherd
+    landmarks:
+      - empires_landmark_tomb
 
   - name: Pooka Pranks
     sets:
@@ -350,9 +351,10 @@ kingdoms:
       - empires_groundskeeper
       - empires_sacrifice
       - empires_settlersbustlingvillage
-      - empires_event_banquet
       - nocturne_faithfulhound
       - nocturne_ghosttown
       - nocturne_pixie
       - nocturne_pooka
       - nocturne_skulk
+    events:
+      - empires_event_banquet

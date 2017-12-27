@@ -12,7 +12,7 @@ do ->
    FOUR_COLUMN_WIDTH = 450
 
    STARTING_SELECTED_SET = 'baseset'
-   SETS_TO_IGNORE = ['baseset2', 'intrigue2']
+   SETS_TO_IGNORE = ['baseset2', 'intrigue2', 'promos']
 
    class SetsViewModel extends PageViewModel
       constructor: (dominionSets, dominionKingdoms) ->
