@@ -29,6 +29,8 @@ do ->
          @sets = ko.observableArray(@createSetViewModels())
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
          @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
+         @prioritizeSetEnabled = ko.observable()
+         @prioritizeSetOptions = @createPrioritizeSetOptionsObservable()
          
          # Load settings from cookie.
          @settings = null
@@ -286,6 +288,14 @@ do ->
                return 'Replace!' if card.selected()
             return 'Randomize!'
 
+      createPrioritizeSetOptionsObservable: ->
+         return ko.computed =>
+            options = []
+            for set in @sets()
+               if set.active()
+                  options.push({name: set.name, value: set.id})
+            return options
+
       loadOptionsFromSettings: =>
          @settings = SettingsManager.loadSettings()
          @randomizerSettings = @settings.randomizerSettings()
@@ -296,7 +306,11 @@ do ->
             set.active(selectedSets.indexOf(set.id) != -1)
             set.active.subscribe(@saveSettings)
 
-         # Resort the cards when the sort option changes.
+         # Setup the prirotized set option.
+         @prioritizeSetEnabled(!!@randomizerSettings.prioritizeSet())
+         @prioritizeSetEnabled.subscribe(@prioritizeSetEnabledChanged)
+         
+         # Re-sort the cards when the sort option changes.
          @settings.sortAlphabetically.subscribe(@sortCards)
 
          # Save the settings when settings change.
@@ -307,11 +321,15 @@ do ->
          @randomizerSettings.allowAttacks.subscribe(@saveSettings)
          @randomizerSettings.requireReaction.subscribe(@saveSettings)
          @randomizerSettings.requireTrashing.subscribe(@saveSettings)
+         @randomizerSettings.prioritizeSet.subscribe(@saveSettings)
 
       saveSettings: () =>
          selectedSets = (set.id for set in @sets() when set.active())
          @settings.selectedSets(selectedSets)
          SettingsManager.saveSettings(@settings)
+
+      prioritizeSetEnabledChanged: =>
+         @randomizerSettings.prioritizeSet(null) if !@prioritizeSetEnabled()
 
       getCardsToExclude: ->
          numberOfCardsInSelectedSets = 0

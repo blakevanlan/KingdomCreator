@@ -36,6 +36,14 @@ block content
             label.checkbox
                input(type="checkbox", data-bind="checked: randomizerSettings.requireTrashing")
                span Require Trashing
+         .option
+            label.checkbox
+               input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
+               span Prioritize Set
+            .suboption
+               select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
+                     optionsValue: 'value', optionsText: 'name', optionsCaption: 'Choose set...', \
+                     value: randomizerSettings.prioritizeSet")
          .sidebar-content-title Display
          .option
             label.checkbox
