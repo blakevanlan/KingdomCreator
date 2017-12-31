@@ -38,7 +38,8 @@ block content
                span Require Trashing
          .option
             label.checkbox
-               input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
+               input(type="checkbox", data-bind="enable: prioritizeSetAllowed, \
+                     checked: prioritizeSetEnabled")
                span Prioritize Set
             .suboption
                select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
@@ -55,7 +56,7 @@ block content
                span Sort Alphabetically
          a.sidebarRandomizeButton.button(
                data-bind="click: randomize, text: randomizeButtonText")
-      .sidebar-content.meta(data-bind="with: metadata")
+      .sidebar-content.meta(data-bind="visible: metadata.show, with: metadata")
          .sidebar-content-title Recommendations
          .recommendation
             | Use Colonies/Platinums:

@@ -3,13 +3,13 @@
 do ->
    Util = window.Util
 
-   serializeKingdom = (kingdom, metadata) ->
+   serializeKingdom = (kingdom) ->
       result = []
-      result.push(serializeSupply(kingdom.cards))
-      result.push(serializeEvents(kingdom.events)) if kingdom.events?.length
-      result.push(serializeLandmarks(kingdom.landmarks)) if kingdom.landmarks?.length
+      result.push(serializeSupply(kingdom.getSupply().getCards()))
+      result.push(serializeEvents(kingdom.getEvents())) if kingdom.getEvents().length
+      result.push(serializeLandmarks(kingdom.getLandmarks())) if kingdom.getLandmarks().length
 
-      serializedMetadata = serializeMetadata(metadata)
+      serializedMetadata = serializeMetadata(kingdom.getMetadata())
       result.push(serializedMetadata) if serializedMetadata.length
       return result.join('&')
 
@@ -67,9 +67,9 @@ do ->
 
    serializeMetadata = (metadata) ->
       result = []
-      if metadata.useColonies
+      if metadata.getUseColonies()
          result.push('colonies=1')
-      if metadata.useShelters
+      if metadata.getUseShelters()
          result.push('shelters=1')
       return result.join('&')
 
