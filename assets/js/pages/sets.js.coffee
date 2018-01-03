@@ -46,6 +46,7 @@ do ->
                   if kingdom.sets.indexOf(selectedSetId) != -1
                      visibleKingdoms.push(kingdom)
 
+            visibleKingdoms.sort(@compareKingdoms)
             return visibleKingdoms
 
       createRows: (cards) =>
@@ -76,5 +77,23 @@ do ->
          events = kingdom.events or []
          landmarks = kingdom.landmarks or []
          return events.concat(landmarks)
+
+      compareKingdoms: (a, b) =>
+         setsFromA = @sortedSets(a)
+         setsFromB = @sortedSets(b)
+         return -1 if setsFromA.length < setsFromB.length
+         return 1 if setsFromA.length > setsFromB.length
+         return -1 if setsFromA[0] < setsFromB[0]
+         return 1 if setsFromB[0] > setsFromB[0]
+         for i in [1...setsFromA.length]
+            return -1 if setsFromA[i] < setsFromB[i]
+            return 1 if setsFromA[i] > setsFromB[i]
+         return 0
+
+      sortedSets: (kingdom) ->
+         sortedSets = kingdom.sets 
+         sortedSets.sort()
+         return sortedSets
+
 
    window.SetsViewModel = SetsViewModel

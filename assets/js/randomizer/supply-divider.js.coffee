@@ -1,5 +1,6 @@
 #= require randomizer/supply-division.js.coffee
 #= require utils/rand-util.js.coffee
+#= require utils/range.js.coffee
 #= require utils/segmented-range.js.coffee
 
 do ->
@@ -19,41 +20,68 @@ do ->
          countsPerDivision = @getRandomizedCountsPerDivision(divisions)
 
          for division, index in divisions
+            remainingDivisionTotalCount = division.getTotalCount() - countsPerDivision[index]
+
+            if remainingDivisionTotalCount > 0
+               remainingCards = @getRemainingCards(division)
+               remainingDivision =
+                     new SupplyDivision(remainingCards, [], [], remainingDivisionTotalCount)
+               newDivisions.push(remainingDivision)
+
             if countsPerDivision[index] > 0
                satisfyingCards = @getSatisfyingCards(division)
                satisfyingDivision =
                      new SupplyDivision(satisfyingCards, [], [], countsPerDivision[index])
                newDivisions.push(satisfyingDivision)
 
-            if division.getTotalCount() - countsPerDivision[index] > 0
-               remainingCards = @getRemainingCards(division)
-               newCount = division.getTotalCount() - countsPerDivision[index]
-               remainingDivision = new SupplyDivision(remainingCards, [], [], newCount)
-               newDivisions.push(remainingDivision)
-
          return newDivisions
 
       getRandomizedCountsPerDivision: (divisions) ->
-         segmentedRange = @createSegmentedRangeForSetId(divisions)
-         randomIndices = 
-               RandUtil.getRandomInts(@count, segmentedRange.getLength())
-         
-         countsPerDivision = []
-         for division, index in divisions 
-            countsPerDivision[index] = 0
+         ranges = @createRangesForDivisions(divisions)
+         sumOfMins = 0
 
+         countsPerDivision = []
+         for range in ranges
+            minCount = range.getStart()
+            countsPerDivision.push(minCount)
+            sumOfMins += minCount
+
+         if sumOfMins > @count
+            throw Error('Unable to divide division. Too few remaining cards.')
+
+         numberToRandomize = @count - sumOfMins
+         if numberToRandomize == 0
+            return countsPerDivision
+
+         segmentedRange = @createSegmentedRangeFromRanges(ranges)
+         if segmentedRange.getLength() < numberToRandomize
+            throw Error('Unable to divide division. Too few satisfying cards.')
+         
+         # Allocate the remaining card counts to random divisions. Divisions with more matching
+         # cards are more likely to receive the additional cards.
+         randomIndices = RandUtil.getRandomInts(numberToRandomize, segmentedRange.getLength())
          for index in randomIndices
             divisionIndex = segmentedRange.getSegmentForIndex(index)
             countsPerDivision[divisionIndex] += 1
 
          return countsPerDivision
 
-      createSegmentedRangeForSetId: (divisions) ->
+      createSegmentedRangeFromRanges: (ranges) ->
+         lengths = []
+         for range in ranges
+            lengths.push(range.getLength())
+         return new SegmentedRange(0, lengths)
+
+      createRangesForDivisions: (divisions) ->
          satisfyingCardsPerDivision = @getSatisfyingCardsPerDivision(divisions)
-         counts = []
-         for cards in satisfyingCardsPerDivision
-            counts.push(cards.length)
-         return new SegmentedRange(0, counts)
+         ranges = []
+         for cards, index in satisfyingCardsPerDivision
+            unfilledCount = divisions[index].getUnfilledCount()
+            remainingCount = divisions[index].getAvailableCards().length - cards.length
+            min = Math.max(unfilledCount - remainingCount, 0)
+            max = cards.length
+            ranges.push(new Range(min, max - min))
+         return ranges
 
       getSatisfyingCardsPerDivision: (divisions) ->
          satisfyingCardsPerDivision = []

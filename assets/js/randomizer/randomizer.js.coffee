@@ -53,7 +53,7 @@ do ->
 
    createKingdom = (allSets, randomizerOptions) ->
       supply = createSupply(allSets, randomizerOptions)
-      eventsAndLandmarks = getEventsAndLandmarks(allSets, randomizerOptions.getSetIds())
+      eventsAndLandmarks = getEventsAndLandmarks(allSets, randomizerOptions.getSetIds(), [], [])
       metadata = getMetadata(allSets, randomizerOptions.getSetIds())
       return new Kingdom(supply, eventsAndLandmarks.events, eventsAndLandmarks.landmarks, metadata)
       
@@ -118,18 +118,17 @@ do ->
             allCards.filter(CardUtil.filterByIncludedIds(randomizerOptions.getIncludeCardIds()))
       selectedCards = supplyBuilder.createSupply(existingCards)
       metadata = new Supply.Metadata(
+         supplyBuilder,
          randomizerOptions.getPrioritizeSet() or null,
          alchemyCardsToUse or null,
          highCardsInKingdom or null)
 
       return new Supply(selectedCards, metadata)
 
-   getEventsAndLandmarks = (allSets, setIds) ->
+   getEventsAndLandmarks = (allSets, setIds, excludeIds, excludeLandmarkIds) ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
       cards = Util.flattenSetsForProperty(setsToUse, 'cards')
-      events = Util.flattenSetsForProperty(setsToUse, 'events')
-      landmarks = Util.flattenSetsForProperty(setsToUse, 'landmarks')
-      cardsEventsAndLandmarks = cards.concat(events, landmarks)
+      cardsEventsAndLandmarks = cards.concat(getEventsAndLandmarksFromSets(allSets, setIds, []))
 
       selectedCards = selectRandomCards(cardsEventsAndLandmarks, NUM_CARDS_IN_KINGDOM)
       selectedEvents = []
@@ -146,6 +145,16 @@ do ->
          events: selectedEvents
          landmarks: selectedLandmarks
       }
+
+   getRandomEventsOrLandmarks = (allSets, setIds, excludeIds, numberOfEventsOrLandmarks) ->
+      eventsOrLandmarks = getEventsAndLandmarksFromSets(allSets, setIds, excludeIds)
+      return selectRandomCards(eventsOrLandmarks, numberOfEventsOrLandmarks)
+
+   getEventsAndLandmarksFromSets = (allSets, setIds, excludeIds) ->
+      setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
+      events = Util.flattenSetsForProperty(setsToUse, 'events')
+      landmarks = Util.flattenSetsForProperty(setsToUse, 'landmarks')
+      return events.concat(landmarks).filter(CardUtil.filterByExcludedIds(excludeIds))
 
    getMetadata = (allSets, setIds) ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
@@ -205,4 +214,7 @@ do ->
 
    window.Randomizer = {
       createKingdom: createKingdom
+      createSupply: createSupply
+      getEventsAndLandmarks: getEventsAndLandmarks
+      getRandomEventsOrLandmarks: getRandomEventsOrLandmarks
    }

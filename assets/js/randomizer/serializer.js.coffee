@@ -1,6 +1,10 @@
 #= require randomizer/util.js.coffee
+#= require models/kingdom.js.coffee
+#= require models/supply.js.coffee
 
 do ->
+   Kingdom = window.Kingdom
+   Supply = window.Supply
    Util = window.Util
 
    serializeKingdom = (kingdom) ->
@@ -34,17 +38,10 @@ do ->
       events = findByIds(eventIds, allEvents).slice(0, 2)
       landmarks = findByIds(landmarkIds, allLandmarks).slice(0, 2 - events.length)
 
-      return {
-         kingdom: {
-            cards: cards
-            events: events
-            landmarks: landmarks
-         }
-         metadata: {
-            useColonies: parseNamedBooleanParameter('colonies', serializedKingdom)
-            useShelters: parseNamedBooleanParameter('shelters', serializedKingdom)
-         }
-      }
+      supplyMetadata = new Supply.Metadata(null, null, null, null)
+      supply = new Supply(cards, supplyMetadata)
+
+      return new Kingdom(supply, events, landmarks, deserializeMetadata(serializedKingdom))
 
    serializeSupply = (supplyCards) ->
       sortedSupplyCards = supplyCards.concat().sort (a, b) ->
@@ -72,6 +69,11 @@ do ->
       if metadata.getUseShelters()
          result.push('shelters=1')
       return result.join('&')
+
+   deserializeMetadata = (serializedKingdom) ->
+      return new Kingdom.Metadata(
+            parseNamedBooleanParameter('colonies', serializedKingdom)
+            parseNamedBooleanParameter('shelters', serializedKingdom))
 
    findByIds = (cardIds, cards) ->
       foundCards = []

@@ -27,9 +27,9 @@ do ->
 
       createSupply: (existingCards) ->
          divisions = [new SupplyDivision(@cards, [], [], 10)]
+         divisions = @applyBans(divisions)
          divisions = @applyDividers(divisions)
          divisions = @applyExistingCards(divisions, existingCards)
-         divisions = @applyBans(divisions)
          divisions = @applyRequirements(divisions)
          divisions = @fillDivisions(divisions)
          divisions = @correctDivisions(divisions)
@@ -118,15 +118,18 @@ do ->
       getSegmentedRangeForRequirement: (requirement, divisions) ->
          lengths = []
          for division in divisions
-            lengths.push(requirement.getSatisfyingCardsFromDivisions([division]).length)
+            if division.isFilled()
+               lengths.push(0)
+            else
+               lengths.push(requirement.getSatisfyingCardsFromDivisions([division]).length)
          return new SegmentedRange(0, lengths)
 
       findIndexOfDivisionContainingCardId: (divisions, cardId) ->
          for division, divisionIndex in divisions
             # Each card should only fit within a single division.
             if (!division.isFilled() and
-                  CardUtil.findCardById(division.getAvailableCards(), existingCard.id))
-               return division
+                  CardUtil.findCardById(division.getAvailableCards(), cardId))
+               return divisionIndex
          return -1
 
       getIndexOfDivisionWithMostUnfilledCards: (divisions) ->

@@ -12,10 +12,15 @@ do ->
          return @metadata
 
    class Metadata
-      constructor: (prioritizedSetId, numberOfAlchemyCardsInUse, numberOfHighCostCardsInUse) ->
+      constructor: (builder, prioritizedSetId, numberOfAlchemyCardsInUse,
+               numberOfHighCostCardsInUse) ->
+         @builder = builder
          @prioritizedSetId = prioritizedSetId
          @numberOfAlchemyCardsInUse = numberOfAlchemyCardsInUse
          @numberOfHighCostCardsInUse = numberOfHighCostCardsInUse
+      
+      getBuilder: ->
+         return @builder
 
       getPrioritizedSetId: ->
          return @prioritizedSetId

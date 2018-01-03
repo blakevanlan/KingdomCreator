@@ -27,8 +27,17 @@ do ->
          lockedCards = @getLockedCards(divisions)
          lockedCardsHasAttack = 
                !!lockedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
-         if lockedCardsHasAttack
+         hasAvailableReactions = @hasAvailableReactions(divisions)
+
+         if lockedCardsHasAttack and hasAvailableReactions
             return @correctDivisionsUsingSelectedCards(divisions)
+
+         if lockedCardsHasAttack and !hasAvailableReactions
+            throw Error('Attack is locked but no reactions available.')
+
+         # Replace the attack cards instead if there are no available reactions.
+         if !hasAvailableReactions
+            return @correctDivisionsByReplacingAttacks()
 
          # Validate that there are at least 2 non-locked cards - one for the attack, one for the
          # reaction.
@@ -62,6 +71,25 @@ do ->
                      .createDivisionByLockingCard(cardToLock.id)
          return divisions
 
+      correctDivisionsByReplacingAttacks: (divisions) ->
+         divisions = divisions.concat()
+         for division, divisionIndex in divisions
+            selectedCards = division.getSelectedCards()
+            selectedAttacks = selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK))
+            availableCards = division.getAvailableCards()
+                  .filter(CardUtil.filterByExcludedTypes([CardType.ATTACK]))
+            if availableCards.length < selectedAttacks.length
+               throw Error('No reactions and not enough available cards to replace attacks.')
+
+            # Replace each attack card.
+            for selectedAttack in selectedAttacks
+               division = division.createDivisionByRemovingCards([selectedAttack.id])
+               division = division.createDivisionByLockingCard(
+                     @getRandomCard(division.getAvailableCards()).id)
+            divisions[divisionIndex] = division
+
+         return divisions 
+
       getSelectedCardsPerDivision: (divisions, cardType) ->
          counts = []
          for division, index in divisions
@@ -78,16 +106,26 @@ do ->
                   availableCards.filter(CardUtil.filterByRequiredType(cardType)).length
          return counts
 
+      hasAvailableReactions: (divisions) ->
+         availableReactionsPerDivision = @getAvailableReactionsPerDivision(divisions)
+         sum = 0
+         for count in availableReactionsPerDivision
+            sum += count
+         return sum > 0
+
       getAvailableReactionsPerDivision: (divisions) ->
          counts = []
          for division, index in divisions
-            if division.getSelectedCards().length
+            if division.getSelectedCards().length or !division.isFilled()
                availableCards = division.getAvailableCards()
                counts[index] =
                      availableCards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
             else
                counts[index] = 0
          return counts
+
+         availableReactions =
+            availableCards.filter(CardUtil.filterByRequiredType(CardType.REACTION))
 
       getLockedAndSelectedCards: (divisions) ->
          cards = []

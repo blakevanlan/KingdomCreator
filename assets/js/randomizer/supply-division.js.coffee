@@ -9,8 +9,8 @@ do ->
       constructor: (availableCards, lockedCards, selectedCards, totalCount) ->
          if lockedCards.length + selectedCards.length > totalCount
             throw Error('Cannot create a division with more locked and selected cards than the total count.')
-         if availableCards.length == 0 and lockedCards.length + selectedCards.length < totalCount
-            throw Error('Cannot create an unfilled division without available cards.')
+         if availableCards.length + lockedCards.length + selectedCards.length < totalCount         
+            throw Error('Cannot create an unfilled division without enough available cards to fill it.')
          @availableCards = availableCards
          @lockedCards = lockedCards
          @selectedCards = selectedCards

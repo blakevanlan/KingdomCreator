@@ -4,12 +4,13 @@ do ->
 
    class RandomizerSettings
       constructor: (requireActionProvider, requireBuyProvider, allowAttacks, requireReaction,
-            requireTrashing, prioritizeSet) ->
+            requireTrashing, distributeCost, prioritizeSet) ->
          @requireActionProvider = ko.observable(requireActionProvider)
          @requireBuyProvider = ko.observable(requireBuyProvider)
          @allowAttacks = ko.observable(allowAttacks)
          @requireReaction = ko.observable(requireReaction)
          @requireTrashing = ko.observable(requireTrashing)
+         @distributeCost = ko.observable(distributeCost)
          @prioritizeSet = ko.observable(prioritizeSet)
 
       toObject: () ->
@@ -19,6 +20,7 @@ do ->
             allowAttacks: @allowAttacks()
             requireReaction: @requireReaction()
             requireTrashing: @requireTrashing()
+            distributeCost: @distributeCost()
             prioritizeSet: @prioritizeSet()
          }
 
@@ -30,6 +32,7 @@ do ->
             if data.allowAttacks? then !!data.allowAttacks else true,
             !!data.requireReaction,
             !!data.requireTrashing,
+            !!data.distributeCost,
             data.prioritizeSet or null)
 
 

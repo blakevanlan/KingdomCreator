@@ -38,8 +38,11 @@ block content
                span Require Trashing
          .option
             label.checkbox
-               input(type="checkbox", data-bind="enable: prioritizeSetAllowed, \
-                     checked: prioritizeSetEnabled")
+               input(type="checkbox", data-bind="checked: randomizerSettings.distributeCost")
+               span Distribute Cost
+         .option(data-bind="visible: prioritizeSetAllowed")
+            label.checkbox
+               input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
                span Prioritize Set
             .suboption
                select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
