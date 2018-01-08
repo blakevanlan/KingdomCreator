@@ -25,15 +25,30 @@ do ->
       addCorrection: (correction) ->
          @corrections.push(correction)
 
-      createSupply: (existingCards) ->
+      createUnfilledDivisions: (existingCards) -> 
          divisions = [new SupplyDivision(@cards, [], [], 10)]
          divisions = @applyBans(divisions)
          divisions = @applyDividers(divisions)
          divisions = @applyExistingCards(divisions, existingCards)
+         return divisions
+
+      createSupply: (existingCards) ->
+         divisions = @createUnfilledDivisions(existingCards)
          divisions = @applyRequirements(divisions)
+         divisions = @applyCorrections(divisions)
          divisions = @fillDivisions(divisions)
-         divisions = @correctDivisions(divisions)
          return @gatherCards(divisions)
+
+      clone: () ->
+         clone = new SupplyBuilder()
+         clone.cards = @cards
+         clone.dividers = @dividers
+         clone.requirements = @requirements
+         clone.bans = @bans 
+         clone.corrections = @corrections
+         return clone
+
+      ### Private methods ###
 
       applyBans: (divisions) ->
          divisions = divisions.concat()
@@ -46,7 +61,8 @@ do ->
 
       applyRequirements: (divisions) ->
          divisions = divisions.concat()
-         for requirement in @requirements
+         orderedRequirements = @orderRequirementsForDivisions(divisions)
+         for requirement in orderedRequirements
             if requirement.isSatisfied(divisions)
                continue
 
@@ -57,9 +73,22 @@ do ->
             # Select a random division to lock in a required card.
             divisionIndex = segmentedRange.getRandomSegmentIndex()
             cards = requirement.getSatisfyingCardsFromDivisions([divisions[divisionIndex]])
-            selectedCard = @selectRandomCard(cards)
-            divisions[divisionIndex] = 
-                  divisions[divisionIndex].createDivisionByLockingCard(selectedCard.id)
+            while cards.length
+               randomIndex = RandUtil.getRandomInt(0, cards.length)
+               selectedCard = cards[randomIndex]
+
+               # Check if the selected card is allowed by the corrections.
+               if @allowLockedCard(divisions, selectedCard)
+                  divisions[divisionIndex] = 
+                        divisions[divisionIndex].createDivisionByLockingCard(selectedCard.id)
+                  break
+
+               # Remove the card that wasn't allowed from the available cards.
+               cards.splice(randomIndex, 1)
+
+            if !cards.length
+               throw Error("Unable to satisfy requirement: #{requirement}.")
+
          return divisions
 
       applyDividers: (divisions) ->
@@ -103,7 +132,7 @@ do ->
             results.push(division)
          return results
 
-      correctDivisions: (divisions) ->
+      applyCorrections: (divisions) ->
          for correction in @corrections 
             if not correction.isSatisfied(divisions)
                divisions = correction.correctDivisions(divisions)
@@ -114,6 +143,29 @@ do ->
          for division in divisions 
             cards = cards.concat(division.getLockedAndSelectedCards())
          return cards
+
+      orderRequirementsForDivisions: (divisions) ->
+         satsifiedRequirements = []
+         requirementAndCountPairs = []
+         for requirement, index in @requirements
+            if requirement.isSatisfied(divisions)
+               satsifiedRequirements.push(requirement)
+               continue
+
+            requirementAndCountPairs.push({
+               requirement: requirement,
+               count: requirement.getSatisfyingCardsFromDivisions(divisions)
+            })
+         
+         requirementAndCountPairs.sort (a, b) ->
+            return -1 if a.count < b.count
+            return 1 if a.count > b.count
+            return 0
+
+         ordered = []
+         for pair in requirementAndCountPairs
+            ordered.push(pair.requirement)
+         return satsifiedRequirements.concat(ordered)
 
       getSegmentedRangeForRequirement: (requirement, divisions) ->
          lengths = []
@@ -139,6 +191,12 @@ do ->
             if division.getUnfilledCount() > mostUnfilledCards
                winningIndex = index
          return winningIndex
+
+      allowLockedCard: (divisions, card) ->
+         for correction in @corrections 
+            if not correction.allowLockedCard(divisions, card)
+               return false
+         return true 
 
       selectRandomCard: (cards) ->
          return cards[RandUtil.getRandomInt(0, cards.length)]

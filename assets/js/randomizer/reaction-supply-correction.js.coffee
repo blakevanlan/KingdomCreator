@@ -1,4 +1,5 @@
 #= require randomizer/supply-correction.js.coffee
+#= require randomizer/supply-divisions.js.coffee
 #= require models/card-type.js.coffee
 #= require utils/card-util.js.coffee
 #= require utils/rand-util.js.coffee
@@ -10,122 +11,127 @@ do ->
    RandUtil = window.RandUtil
    SegmentedRange = window.SegmentedRange
    SupplyCorrection = window.SupplyCorrection
+   SupplyDivisions = window.SupplyDivisions
 
    class ReactionSupplyCorrection extends SupplyCorrection
       isSatisfied: (divisions) ->
          selectedCards = @getLockedAndSelectedCards(divisions)
-         hasAttacks = !!selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
-         hasReaction = !!selectedCards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
-         return !hasAttacks || hasReaction
+         if @hasReaction(selectedCards)
+            return true 
+
+         # Correction is not satisfied if there are locked attacks without any reactions.
+         if selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
+            return false
+
+         # Correction is unsatisfied if there are available attacks.
+         attacks = SupplyDivisions.getAvailableCardsOfType(divisions, CardType.ATTACK)
+         if attacks.length
+            return false
+
+         # Correction satisfied if there are no available attacks.
+         return true
+
+      allowLockedCard: (divisions, card) ->
+         console.log("checking if card is allowed: #{card.id}")
+         if not card.isAttack
+            return true 
+         if @hasReaction(@getLockedAndSelectedCards(divisions))
+            console.log("attack allowed because reaction exists")
+            return true 
+
+         availableReactionsPerDivision =
+               SupplyDivisions.getAvailableCardsOfTypePerDivision(divisions, CardType.REACTION)
+         totalReactions = 0
+         for reactions in availableReactionsPerDivision
+            totalReactions += reactions.length
+
+         if totalReactions < 1
+            return false
+
+         divisionContainingCard = @getDivisionContainingCard(divisions, card)
+ 
+         for division, divisionIndex in divisions
+            if division == divisionContainingCard
+               if (division.getUnfilledCount() >= 2 and
+                     availableReactionsPerDivision[divisionIndex] > 0)
+                  # Allow the attack because the division with the attack also has available
+                  # reactions and enough spots for one.
+                  debugger
+                  console.log("attack allowed because of same division having reaction")
+                  return true 
+            else 
+               if !division.isFilled() and availableReactionsPerDivision[divisionIndex] > 0
+                  # Another division is unfilled with available reactions.
+                  debugger
+                  console.log("attack allowed because another division has reaction")
+                  return true
+
+         # There are no unfilled spots for the reaction.
+         return false
 
       correctDivisions: (divisions) ->
-         divisions = divisions.concat()
-         selectedCards = @getSelectedCards(divisions)
-         if not selectedCards.length 
-            throw Error('Unable to correct set. No cards can be changed.')
-
          lockedCards = @getLockedCards(divisions)
          lockedCardsHasAttack = 
                !!lockedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
          hasAvailableReactions = @hasAvailableReactions(divisions)
 
          if lockedCardsHasAttack and hasAvailableReactions
-            return @correctDivisionsUsingSelectedCards(divisions)
+            return @lockRandomCardOfType(divisions, CardType.REACTION)
 
          if lockedCardsHasAttack and !hasAvailableReactions
             throw Error('Attack is locked but no reactions available.')
 
-         # Replace the attack cards instead if there are no available reactions.
          if !hasAvailableReactions
-            return @correctDivisionsByReplacingAttacks()
+            return @removeAttacksFromAvailableCards(divisions)
 
-         # Validate that there are at least 2 non-locked cards - one for the attack, one for the
-         # reaction.
-         if selectedCards.length < 2
-            throw Error('Unable to correct set. Attack card is only card that can be changed.')
+         if !@checkIfAttacksShouldBeIncluded(divisions)
+            return @removeAttacksFromAvailableCards(divisions)
 
-         # Lock one of the selected attack cards so it isn't inadvertently replaced.
-         segmentedRange =
-               new SegmentedRange(0, @getSelectedCardsPerDivision(divisions, CardType.ATTACK))
-         divisionIndex = segmentedRange.getRandomSegmentIndex()
-         division = divisions[divisionIndex]
-         cardToLock = @getRandomCard(
-               division.getSelectedCards().filter(CardUtil.filterByRequiredType(CardType.ATTACK)))
-         divisions[divisionIndex] = division.createDivisionByLockingCard(cardToLock.id)
-         return @correctDivisionsUsingSelectedCards(divisions)
-
-      correctDivisionsUsingSelectedCards: (divisions) ->
-         reactionCounts = @getAvailableReactionsPerDivision(divisions)
-         segmentedRange = new SegmentedRange(0, reactionCounts)
-         divisionIndex = segmentedRange.getRandomSegmentIndex()
-         division = divisions[divisionIndex]
-         availableReactions =
-               division.getAvailableCards().filter(CardUtil.filterByRequiredType(CardType.REACTION))
-         cardToLock = @getRandomCard(availableReactions)
-         cardToRemove = @getRandomCard(division.getSelectedCards())
-         
-         divisions = divisions.concat()
-         divisions[divisionIndex] = 
-               division
-                     .createDivisionByRemovingCards([cardToRemove.id])
-                     .createDivisionByLockingCard(cardToLock.id)
+         divisions = @lockRandomCardOfType(divisions, CardType.REACTION)
+         divisions = @lockRandomCardOfType(divisions, CardType.ATTACK)
          return divisions
 
-      correctDivisionsByReplacingAttacks: (divisions) ->
+      removeAttacksFromAvailableCards: (divisions) ->
+         newDivisions = []
+         for division in divisions
+            availableCards = division.getAvailableCards()
+            attackCards = availableCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK))
+            newDivisions.push(
+                  division.createDivisionByRemovingCards(CardUtil.extractIds(attackCards)))
+         return newDivisions
+
+      checkIfAttacksShouldBeIncluded: (divisions) ->
+         divisions = @lockRandomCardOfType(divisions, CardType.REACTION)
+         filledDivisions = @fillDivisions(divisions)
+         cards = @getLockedAndSelectedCards(filledDivisions)
+         return cards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length > 0
+
+      fillDivisions: (divisions) ->
+         results = []
+         for division in divisions
+            while not division.isFilled()
+               selectedCard = @getRandomCard(division.getAvailableCards())
+               division = division.createDivisionBySelectingCard(selectedCard.id)
+            results.push(division)
+         return results
+
+      lockRandomCardOfType: (divisions, cardType) ->
          divisions = divisions.concat()
-         for division, divisionIndex in divisions
-            selectedCards = division.getSelectedCards()
-            selectedAttacks = selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK))
-            availableCards = division.getAvailableCards()
-                  .filter(CardUtil.filterByExcludedTypes([CardType.ATTACK]))
-            if availableCards.length < selectedAttacks.length
-               throw Error('No reactions and not enough available cards to replace attacks.')
-
-            # Replace each attack card.
-            for selectedAttack in selectedAttacks
-               division = division.createDivisionByRemovingCards([selectedAttack.id])
-               division = division.createDivisionByLockingCard(
-                     @getRandomCard(division.getAvailableCards()).id)
-            divisions[divisionIndex] = division
-
-         return divisions 
-
-      getSelectedCardsPerDivision: (divisions, cardType) ->
+         availableCardsPerDivision =
+               SupplyDivisions.getAvailableCardsOfTypePerDivision(divisions, cardType)
          counts = []
-         for division, index in divisions
-            selectedCards = division.getSelectedCards()
-            counts[index] =
-                  selectedCards.filter(CardUtil.filterByRequiredType(cardType)).length
-         return counts
-
-      getAvailableCardsPerDivision: (divisions, cardType) ->
-         counts = []
-         for division, index in divisions
-            availableCards = division.getAvailableCards()
-            counts[index] =
-                  availableCards.filter(CardUtil.filterByRequiredType(cardType)).length
-         return counts
+         for cards in availableCardsPerDivision
+            counts.push(cards.length)
+         segmentedRange = new SegmentedRange(0, counts)
+         divisionIndex = segmentedRange.getRandomSegmentIndex()
+         cardToLock = @getRandomCard(availableCardsPerDivision[divisionIndex])
+         divisions[divisionIndex] =
+               divisions[divisionIndex].createDivisionByLockingCard(cardToLock.id)
+         return divisions
 
       hasAvailableReactions: (divisions) ->
-         availableReactionsPerDivision = @getAvailableReactionsPerDivision(divisions)
-         sum = 0
-         for count in availableReactionsPerDivision
-            sum += count
-         return sum > 0
-
-      getAvailableReactionsPerDivision: (divisions) ->
-         counts = []
-         for division, index in divisions
-            if division.getSelectedCards().length or !division.isFilled()
-               availableCards = division.getAvailableCards()
-               counts[index] =
-                     availableCards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
-            else
-               counts[index] = 0
-         return counts
-
-         availableReactions =
-            availableCards.filter(CardUtil.filterByRequiredType(CardType.REACTION))
+         availableReactions = SupplyDivisions.getAvailableCardsOfType(divisions, CardType.REACTION)
+         return !!reactions.length
 
       getLockedAndSelectedCards: (divisions) ->
          cards = []
@@ -139,14 +145,18 @@ do ->
             cards = cards.concat(division.getLockedCards())
          return cards
 
-      getSelectedCards: (divisions) ->
-         cards = []
+      getDivisionContainingCard: (divisions, card) ->
          for division in divisions
-            cards = cards.concat(division.getSelectedCards())
-         return cards
+            allCards = division.getLockedAndSelectedCards().concat(division.getAvailableCards())
+            if allCards.filter(CardUtil.filterByIncludedIds([card.id])).length
+               return division
+         throw Error("Card not found in any of the divisions: #{card.id}")
 
       getRandomCard: (cards) ->
          return cards[RandUtil.getRandomInt(0, cards.length)]
+
+      hasReaction: (cards) ->
+         return !!cards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
 
 
    window.ReactionSupplyCorrection = ReactionSupplyCorrection

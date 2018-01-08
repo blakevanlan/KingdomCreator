@@ -36,7 +36,7 @@ block content
             label.checkbox
                input(type="checkbox", data-bind="checked: randomizerSettings.requireTrashing")
                span Require Trashing
-         .option
+         .option(data-bind="visible: distributeCostAllowed")
             label.checkbox
                input(type="checkbox", data-bind="checked: randomizerSettings.distributeCost")
                span Distribute Cost

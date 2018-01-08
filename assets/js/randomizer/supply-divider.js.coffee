@@ -34,6 +34,14 @@ do ->
                      new SupplyDivision(satisfyingCards, [], [], countsPerDivision[index])
                newDivisions.push(satisfyingDivision)
 
+         count = 0 
+         for division in newDivisions
+            count += division.getTotalCount()
+
+         if count > 10
+            debugger
+
+
          return newDivisions
 
       getRandomizedCountsPerDivision: (divisions) ->
@@ -79,7 +87,7 @@ do ->
             unfilledCount = divisions[index].getUnfilledCount()
             remainingCount = divisions[index].getAvailableCards().length - cards.length
             min = Math.max(unfilledCount - remainingCount, 0)
-            max = cards.length
+            max = Math.min(unfilledCount, cards.length)
             ranges.push(new Range(min, max - min))
          return ranges
 

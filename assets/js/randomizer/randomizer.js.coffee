@@ -11,6 +11,7 @@
 #= require randomizer/set-supply-ban.js.coffee
 #= require randomizer/set-supply-divider.js.coffee
 #= require randomizer/supply-builder.js.coffee
+#= require randomizer/supply-divisions.js.coffee
 #= require randomizer/type-supply-ban.js.coffee
 #= require randomizer/type-supply-requirement.js.coffee
 #= require randomizer/util.js.coffee
@@ -28,6 +29,7 @@ do ->
    SetSupplyBan = window.SetSupplyBan
    SetSupplyDivider = window.SetSupplyDivider
    SupplyBuilder = window.SupplyBuilder
+   SupplyDivisions = window.SupplyDivisions
    Supply = window.Supply
    TypeSupplyRequirement = window.TypeSupplyRequirement
    TypeSupplyBan = window.TypeSupplyBan
@@ -63,6 +65,8 @@ do ->
       cardsToUse = Util.flattenSetsForProperty(setsToUse, 'cards')
       cardsToUse = removeDuplicateCards(cardsToUse)
 
+      console.log("start randomizing")
+
       supplyBuilder = new SupplyBuilder(cardsToUse)
 
       # Configure bans.
@@ -89,24 +93,21 @@ do ->
       if randomizerOptions.getRequireTrashing()
          supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.TRASHING, false))
 
-      # Configure corrections.
-      if randomizerOptions.getRequireReactionIfAttacks()
-         supplyBuilder.addCorrection(new ReactionSupplyCorrection())
-
       # Configure dividers.
       remainingCards = NUM_CARDS_IN_KINGDOM
 
       if (randomizerOptions.getPrioritizeSet() and
-            !randomizerOptions.getPrioritizeSet() != SetId.ALCHEMY)
+            randomizerOptions.getPrioritizeSet() != SetId.ALCHEMY)
          supplyBuilder.addDivider(
                new SetSupplyDivider(randomizerOptions.getPrioritizeSet(), NUM_PRIORITIZED_SET))
          remainingCards -= NUM_PRIORITIZED_SET
 
-      if shouldUseAlchemy(randomizerOptions)
+      if shouldUseAlchemyDivider(randomizerOptions)
          alchemyCardsToUse = getNumberOfAlchemyCardsToUse(randomizerOptions, remainingCards)
          supplyBuilder.addDivider(new SetSupplyDivider(SetId.ALCHEMY, alchemyCardsToUse))
          remainingCards -= alchemyCardsToUse
-      else 
+      else if randomizerOptions.getSetIds().length > 1
+         # Only ban all of the Alchemy cards when Alchemy isn't the only set selected.
          supplyBuilder.addBan(new SetSupplyBan([SetId.ALCHEMY]))
 
       if randomizerOptions.getDistributeCost()
@@ -117,11 +118,24 @@ do ->
       existingCards =
             allCards.filter(CardUtil.filterByIncludedIds(randomizerOptions.getIncludeCardIds()))
       selectedCards = supplyBuilder.createSupply(existingCards)
+
+      if randomizerOptions.getRequireReactionIfAttacks()
+         correctedSupplyBuilder =
+               correctSupplyBuilderForRequiredReaction(supplyBuilder, existingCards, selectedCards)
+         if correctedSupplyBuilder
+            supplyBuilder = correctedSupplyBuilder
+            selectedCards = supplyBuilder.createSupply(existingCards)
+
       metadata = new Supply.Metadata(
          supplyBuilder,
          randomizerOptions.getPrioritizeSet() or null,
          alchemyCardsToUse or null,
          highCardsInKingdom or null)
+
+      # for i in [0...3]
+      #    supplyBuilder.createSupply(existingCards)
+      
+      console.log("end randomizing")
 
       return new Supply(selectedCards, metadata)
 
@@ -177,18 +191,47 @@ do ->
       selectedCards = (cards[index] for index in randomIndexes)
       return selectedCards
 
-   shouldUseAlchemy = (randomizerOptions) ->
+   shouldUseAlchemyDivider = (randomizerOptions) ->
+      # Don't use the divider if Alchemy is the only selected set.
+      if randomizerOptions.getSetIds().length == 1
+         return false 
+
       if randomizerOptions.getPrioritizeSet() == SetId.ALCHEMY
          return true
 
       if randomizerOptions.getSetIds().indexOf(SetId.ALCHEMY) == -1
          return false
-      
+
       if randomizerOptions.getSetIds().length < 3
          return true
 
       useRandomly = !RandUtil.getRandomInt(0, randomizerOptions.getSetIds().length)
       return useRandomly
+
+   correctSupplyBuilderForRequiredReaction = (supplyBuilder, existingCards, selectedCards) ->
+      # Check if the selected cards either have no attacks or have a reaction.
+      if selectedCards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
+         console.log("Has reaction")
+         return null
+
+      if !selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
+         console.log("Has no attacks")
+         return null
+
+      supplyBuilder = supplyBuilder.clone()
+      divisions = supplyBuilder.createUnfilledDivisions(existingCards)
+      reactions = SupplyDivisions.getAvailableCardsOfType(divisions, CardType.REACTION)
+      
+      if reactions.length
+         console.log("Require reaction")
+         # Add a requirement for a reaction.
+         supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.REACTION, false))
+         return supplyBuilder
+
+      # Ban attacks since there are no available reactions.
+      console.log("Ban attacks")
+      supplyBuilder.addBan(new TypeSupplyBan(CardType.ATTACK))
+      return supplyBuilder
 
    getNumberOfAlchemyCardsToUse = (randomizerOptions, remainingCards) ->
       min = MIN_ALCHEMY_CARDS_IN_KINGDOM

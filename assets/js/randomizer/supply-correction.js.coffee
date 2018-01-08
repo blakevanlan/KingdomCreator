@@ -6,6 +6,9 @@ do ->
       isSatisfied: (divisions) ->
          throw Error('Not implemented.')
 
+      allowLockedCard: (divisions, card) ->
+         return true
+
       correctDivisions: (divisions) ->
          throw Error('Not implemented.')
 

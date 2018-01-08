@@ -24,7 +24,7 @@ do ->
    Serializer = window.Serializer
 
    MIN_SETS_FOR_PRIORITIZE_OPTION = 3
-   MIN_CARDS_PER_SET_FOR_CARD_EXCLUSION = 20
+   MIN_CARDS_FOR_DISTRIBUTE_COST = 24
 
    SUBTITLE = 'Dominion randomizer for desktop and mobile'
 
@@ -36,6 +36,7 @@ do ->
          @sets = ko.observableArray(@createSetViewModels())
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
          @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
+         @distributeCostAllowed = @createDistributeCostAllowedObservable()
          @prioritizeSetEnabled = ko.observable()
          @prioritizeSetAllowed = @createPrioritizeSetAllowedObservable()
          @prioritizeSetAllowed.subscribe(@prioritizeSetAllowedChanged)
@@ -65,7 +66,7 @@ do ->
 
             # Randomize the rest of the set if there are less than 10 cards.
             options = @createRandomizerOptions()
-               .setSetIds(set.id for set in @sets() when set.active())
+               .setSetIds(@getSelectedSetIds())
                .setExcludeTypes(@getExcludeTypes())
                .setIncludeCardIds(card.id for card in kingdomFromUrl.getSupply().getCards())
                
@@ -99,7 +100,7 @@ do ->
             @randomizeSelectedEventsAndLandmarks()
 
       randomizeFullKingdom: ->
-         setIds = (set.id for set in @sets() when set.active())
+         setIds = @getSelectedSetIds()
          return unless setIds.length
 
          card.setToLoading() for card in @cards()
@@ -115,7 +116,7 @@ do ->
 
       randomizeSelectedCards: =>
          options = @createRandomizerOptions()
-            .setSetIds(set.id for set in @sets() when set.active())
+            .setSetIds(@getSelectedSetIds())
             .setIncludeCardIds(@extractCardIds(@getUnselectedCards()))
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(@getExcludeTypes())
@@ -128,7 +129,7 @@ do ->
          newEventsAndLandmarksCount = 
                selectedEventsAndLandmarks.length + @getSelectedUndefinedEventOrLandmarks().length
          
-         setIds = (set.id for set in @sets() when set.active())
+         setIds = @getSelectedSetIds()
          selectedEventAndLandmarkIds = (card.id for card in selectedEventsAndLandmarks)
          
          newCards = Randomizer.getRandomEventsOrLandmarks(@dominionSets, setIds,
@@ -141,7 +142,7 @@ do ->
             excludeTypes.push(CardType.ATTACK)
 
          options = @createRandomizerOptions()
-            .setSetIds(set.id for set in @sets() when set.active())
+            .setSetIds(@getSelectedSetIds())
             .setIncludeCardIds(@extractCardIds(@getUnselectedCards()))
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(excludeTypes)
@@ -284,14 +285,17 @@ do ->
                return 'Replace!' if card.selected()
             return 'Randomize!'
 
+      createDistributeCostAllowedObservable: ->
+         return ko.computed =>
+            setIds = @getSelectedSetIds()
+            cardCount = 0
+            for setId in setIds
+               cardCount += @dominionSets[setId].cards.length
+            return cardCount >= MIN_CARDS_FOR_DISTRIBUTE_COST
+
       createPrioritizeSetAllowedObservable: ->
          return ko.computed =>
-            options = []
-            activeSets = 0
-            for set in @sets()
-               if set.active()
-                  activeSets += 1
-            return activeSets >= MIN_SETS_FOR_PRIORITIZE_OPTION
+            return @getSelectedSetIds().length >= MIN_SETS_FOR_PRIORITIZE_OPTION
 
       createPrioritizeSetOptionsObservable: ->
          return ko.computed =>
@@ -307,8 +311,8 @@ do ->
                .setRequireBuyProvider(@randomizerSettings.requireBuyProvider())
                .setRequireTrashing(@randomizerSettings.requireTrashing())
                .setRequireReactionIfAttacks(@randomizerSettings.requireReaction())
-               .setDistributeCost(@randomizerSettings.distributeCost())
-               .setPrioritizeSet(@randomizerSettings.prioritizeSet())
+               .setDistributeCost(@distributeCostAllowed() and @randomizerSettings.distributeCost())
+               .setPrioritizeSet(@prioritizeSetAllowed() and @randomizerSettings.prioritizeSet())
 
       loadOptionsFromSettings: =>
          @settings = SettingsManager.loadSettings()
@@ -339,7 +343,7 @@ do ->
          @randomizerSettings.prioritizeSet.subscribe(@saveSettings)
 
       saveSettings: () =>
-         selectedSets = (set.id for set in @sets() when set.active())
+         selectedSets = @getSelectedSetIds()
          @settings.selectedSets(selectedSets)
          SettingsManager.saveSettings(@settings)
 
@@ -352,7 +356,7 @@ do ->
       getCardsToExclude: ->
          # Only exclude cards when at least 3 sets are selected and no sets are prioritized.
          return [] if @randomizerSettings.prioritizeSet()
-         setIds = (set.id for set in @sets() when set.active())
+         setIds = @getSelectedSetIds()
          return [] if setIds.length < 3
          return @extractCardIds(@cards())
 
@@ -363,6 +367,12 @@ do ->
 
       extractCardIds: (cards) ->
          return (ko.unwrap(card.id) for card in cards)
+
+      getSelectedSetIds: ->
+         return (set.id for set in @sets() when set.active())
+
+      getSelectedSets: ->
+         return (set for set in @sets() when set.active())
 
       getSelectedCards: ->
          return (card for card in @cards() when card.selected())
