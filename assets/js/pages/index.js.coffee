@@ -147,7 +147,7 @@ do ->
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(excludeTypes)
             .setExcludeCosts(ko.unwrap(costs.id) for costs in @dialog.costs when not costs.active())
-            .getRequireSingleCardOfType(@dialog.selectedType())
+            .setRequireSingleCardOfType(@dialog.selectedType())
 
          supply = Randomizer.createSupply(@dominionSets, options)
          @replaceSelectedCardsWithSupply(supply)      
@@ -312,7 +312,9 @@ do ->
                .setRequireTrashing(@randomizerSettings.requireTrashing())
                .setRequireReactionIfAttacks(@randomizerSettings.requireReaction())
                .setDistributeCost(@distributeCostAllowed() and @randomizerSettings.distributeCost())
-               .setPrioritizeSet(@prioritizeSetAllowed() and @randomizerSettings.prioritizeSet())
+               .setPrioritizeSet(
+                     (@prioritizeSetAllowed() and @prioritizeSetEnabled() and
+                           @randomizerSettings.prioritizeSet()))
 
       loadOptionsFromSettings: =>
          @settings = SettingsManager.loadSettings()

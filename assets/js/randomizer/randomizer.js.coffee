@@ -40,6 +40,8 @@ do ->
       'intrigue2': 'intrigue'
    };
 
+   MAX_RETRIES = 3
+
    NUM_CARDS_IN_KINGDOM = 10
 
    MIN_ALCHEMY_CARDS_IN_KINGDOM = 3
@@ -64,8 +66,6 @@ do ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, randomizerOptions.getSetIds())
       cardsToUse = Util.flattenSetsForProperty(setsToUse, 'cards')
       cardsToUse = removeDuplicateCards(cardsToUse)
-
-      console.log("start randomizing")
 
       supplyBuilder = new SupplyBuilder(cardsToUse)
 
@@ -117,25 +117,20 @@ do ->
 
       existingCards =
             allCards.filter(CardUtil.filterByIncludedIds(randomizerOptions.getIncludeCardIds()))
-      selectedCards = supplyBuilder.createSupply(existingCards)
+      selectedCards = createSupplyWithRetries(supplyBuilder, existingCards)
 
       if randomizerOptions.getRequireReactionIfAttacks()
          correctedSupplyBuilder =
                correctSupplyBuilderForRequiredReaction(supplyBuilder, existingCards, selectedCards)
          if correctedSupplyBuilder
             supplyBuilder = correctedSupplyBuilder
-            selectedCards = supplyBuilder.createSupply(existingCards)
+            selectedCards = createSupplyWithRetries(supplyBuilder, existingCards)
 
       metadata = new Supply.Metadata(
          supplyBuilder,
          randomizerOptions.getPrioritizeSet() or null,
          alchemyCardsToUse or null,
          highCardsInKingdom or null)
-
-      # for i in [0...3]
-      #    supplyBuilder.createSupply(existingCards)
-      
-      console.log("end randomizing")
 
       return new Supply(selectedCards, metadata)
 
@@ -211,11 +206,9 @@ do ->
    correctSupplyBuilderForRequiredReaction = (supplyBuilder, existingCards, selectedCards) ->
       # Check if the selected cards either have no attacks or have a reaction.
       if selectedCards.filter(CardUtil.filterByRequiredType(CardType.REACTION)).length
-         console.log("Has reaction")
          return null
 
       if !selectedCards.filter(CardUtil.filterByRequiredType(CardType.ATTACK)).length
-         console.log("Has no attacks")
          return null
 
       supplyBuilder = supplyBuilder.clone()
@@ -223,15 +216,24 @@ do ->
       reactions = SupplyDivisions.getAvailableCardsOfType(divisions, CardType.REACTION)
       
       if reactions.length
-         console.log("Require reaction")
          # Add a requirement for a reaction.
          supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.REACTION, false))
          return supplyBuilder
 
       # Ban attacks since there are no available reactions.
-      console.log("Ban attacks")
       supplyBuilder.addBan(new TypeSupplyBan(CardType.ATTACK))
       return supplyBuilder
+
+   createSupplyWithRetries = (supplyBuilder, existingCards) ->
+      retries = MAX_RETRIES
+      while retries > 0
+         try 
+            return supplyBuilder.createSupply(existingCards)
+         catch error
+            console.log("Error when trying to select cards: \n" + error.toString())
+            retries -= 1
+
+      throw Error('Failed to select cards that satisfied all requirements.')      
 
    getNumberOfAlchemyCardsToUse = (randomizerOptions, remainingCards) ->
       min = MIN_ALCHEMY_CARDS_IN_KINGDOM
