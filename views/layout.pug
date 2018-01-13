@@ -11,6 +11,12 @@ html
 
       - if (isProduction)
          script.
+            if (window.location.hostname.indexOf('localhost') == -1
+                  && window.location.protocol.indexOf('https') != 0) {
+               window.location.protocol = 'https:';
+            }
+
+         script.
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -25,17 +31,21 @@ html
       block head
 
    body
-      .menu(data-bind="showMenu: {show: showMenu, enabled: isCondensed}, \
-            css:{'menu_condensed': isCondensed}")
-         ul.menu-items(data-bind="foreach: menuItems")
-            li.menu-item(data-bind="css: {active: isActive}")
-               a.menu-item_link(data-bind="attr: {href: url}, text: title")
+      .condensed-menu(data-bind="if: isCondensed, showMenu: {show: showMenu, enabled: isCondensed}")
+         ul.condensed-menu_items(data-bind="foreach: menuItems")
+            li.condensed-menu_item(data-bind="css: {active: isActive}")
+               a.condensed-menu_item_link(data-bind="attr: {href: url}, text: title")
 
       header
-         h1.title
-           a.title_link(href="/index.html") Kingdom Creator
-         h2.tagline(data-bind="text: subtitle")
-         .menuButton(data-bind="click: toggleMenu, visible: isCondensed")
+         .title-container
+            h1.title
+              a.title_link(href="/index.html") Kingdom Creator
+            h2.tagline(data-bind="text: subtitle")
+         .condensed-menu-button(data-bind="click: toggleMenu, visible: isCondensed")
+         .menu(data-bind="if: !isCondensed()")
+           ul.menu_items(data-bind="foreach: menuItems")
+              li.menu_item(data-bind="css: {active: isActive}")
+                 a.menu_item_link(data-bind="attr: {href: url}, text: title")
         
       .content
          block content

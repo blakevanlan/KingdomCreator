@@ -9,97 +9,109 @@ body
    margin: 0 10px 10px 10px
    font-family: primary-font
 
-.menu
-   background: transparent
+.condensed-menu
+   background: dark-blue
+   height: 0
+   margin: 0 -10px
+   position: relative
+   right: auto
+   -webkit-transition: height 0.6s
+   -webkit-transform-style: preserve-3d
+   -moz-transition: height 0.6s
+   -moz-transform-style: preserve-3d
+   transition: height 0.6s
+   transform-style: preserve-3d
+   overflow-y: hidden
+   top: auto
+
+.condensed-menu_items
+   position: relative
+   display: flex
+   padding: 12px 0 8px 0
+   flex-direction: column
    margin: 0
-   position: absolute
-   right: 16px
-   top: 0
-   z-index: 1
 
-   .menu-items
-      position: relative
-      display: flex
-      padding: 12px 0
-      margin: 0 auto
-      max-width: 1238px
-      flex-direction: row
-      
-   .menu-item
-      display: block
-      padding: 8px 16px 
-      flex: none
+.condensed-menu_item
+   display: block
+   padding: 4px 16px 
+   flex: none
+   
+.condensed-menu_item_link 
+   color: #ddd
+   display: inline-block
+   font-size: 20px
+   border-top: 1px solid transparent
+   border-bottom: 1px solid transparent
+   padding: 4px 0
+   text-decoration: none
 
-   .menu-item_link
-      display: inline-block
-      font-size: 18px
-      padding: 4px 0
-      color: dark-blue
-      text-decoration: none
-      border-top: 2px solid transparent
-      border-bottom: 2px solid transparent
-      
-   .menu-item.active .menu-item_link
-      color: dark-blue
-      border-bottom 2px solid dark-blue
-
-   &.menu_condensed
-      background: dark-blue
-      height: 0
-      margin: 0 -10px
-      position: relative
-      right: auto
-      -webkit-transition: height 0.6s
-      -webkit-transform-style: preserve-3d
-      -moz-transition: height 0.6s
-      -moz-transform-style: preserve-3d
-      transition: height 0.6s
-      transform-style: preserve-3d
-      overflow-y: hidden
-      top: auto
-      
-      .menu-item_link
-         font-size: 20px
-         border-top: 1px solid transparent
-         border-bottom: 1px solid transparent
-         
-      .menu-item_link
-         color: #ddd
-      
-      .menu-item.active .menu-item_link
-         color: #fff
-         border-bottom 1px solid #fff
+.condensed-menu_item.active .condensed-menu_item_link
+   color: #fff
+   border-bottom 1px solid #fff
 
 header
-   max-width: 1218px
-   margin: 12px auto
+   display: flex
    border-bottom: 1px solid #ccc
+   flex-direction: row
+   justify-content: space-between
+   margin: 12px auto
+   max-width: 1218px
    position: relative
 
-   .title
-      font-size: 30px
-      margin: 0
-      padding: 0
+.title-container
+   align-items: flex-start
+   display: flex
+   flex-direction: column
+   justify-content: space-between
+
+.title
+   font-size: 30px
+   margin: 0
+   padding: 0
+
+.title_link
+   color: dark-blue
+   text-decoration: none
    
-   .title_link
-      color: dark-blue
-      text-decoration: none
+.tagline
+   color: #666
+   font-size: 18px
+   margin: 0 42px 4px 0 
+   padding: 0
+
+.menu_items
+   display: flex
+   flex-direction: row
+   margin: 0
+   padding: 0
       
-   .tagline
-      color: #666
-      font-size: 18px
-      margin: 0 42px 4px 0 
-      padding: 0
+.menu_item
+   display: block
+   padding: 8px 16px 
+   flex: none
+
+.menu_item_link
+   display: inline-block
+   font-size: 18px
+   padding: 4px 0
+   color: dark-blue
+   text-decoration: none
+   border-top: 2px solid transparent
+   border-bottom: 2px solid transparent
       
-   .menuButton
-      position: absolute
-      top: 6px
-      right: 12px
-      height: 32px
-      width: 32px
-      background-size: contain
-      background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU2IDU2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NiA1NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI2NHB4IiBoZWlnaHQ9IjY0cHgiPgo8Zz4KCTxwYXRoIGQ9Ik0yOCwwQzEyLjU2MSwwLDAsMTIuNTYxLDAsMjhzMTIuNTYxLDI4LDI4LDI4czI4LTEyLjU2MSwyOC0yOFM0My40MzksMCwyOCwweiBNMjgsNTRDMTMuNjYzLDU0LDIsNDIuMzM2LDIsMjggICBTMTMuNjYzLDIsMjgsMnMyNiwxMS42NjQsMjYsMjZTNDIuMzM3LDU0LDI4LDU0eiIgZmlsbD0iIzAyNzc5ZSIvPgoJPHBhdGggZD0iTTE1LDE3aDI2YzAuNTUzLDAsMS0wLjQ0OCwxLTFzLTAuNDQ3LTEtMS0xSDE1Yy0wLjU1MywwLTEsMC40NDgtMSwxUzE0LjQ0NywxNywxNSwxN3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwzMUgxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywzMSw0NSwzMXoiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwyM0gxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywyMyw0NSwyM3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00MSwzOUgxNWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgyNmMwLjU1MywwLDEtMC40NDgsMS0xUzQxLjU1MywzOSw0MSwzOXoiIGZpbGw9IiMwMjc3OWUiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K")
-      cursor: pointer
+.menu_item.active .menu_item_link
+   color: dark-blue
+   border-bottom 2px solid dark-blue
+
+.condensed-menu-button
+   position: absolute
+   top: 6px
+   right: 12px
+   height: 32px
+   width: 32px
+   background-size: contain
+   background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU2IDU2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NiA1NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI2NHB4IiBoZWlnaHQ9IjY0cHgiPgo8Zz4KCTxwYXRoIGQ9Ik0yOCwwQzEyLjU2MSwwLDAsMTIuNTYxLDAsMjhzMTIuNTYxLDI4LDI4LDI4czI4LTEyLjU2MSwyOC0yOFM0My40MzksMCwyOCwweiBNMjgsNTRDMTMuNjYzLDU0LDIsNDIuMzM2LDIsMjggICBTMTMuNjYzLDIsMjgsMnMyNiwxMS42NjQsMjYsMjZTNDIuMzM3LDU0LDI4LDU0eiIgZmlsbD0iIzAyNzc5ZSIvPgoJPHBhdGggZD0iTTE1LDE3aDI2YzAuNTUzLDAsMS0wLjQ0OCwxLTFzLTAuNDQ3LTEtMS0xSDE1Yy0wLjU1MywwLTEsMC40NDgtMSwxUzE0LjQ0NywxNywxNSwxN3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwzMUgxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywzMSw0NSwzMXoiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwyM0gxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywyMyw0NSwyM3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00MSwzOUgxNWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgyNmMwLjU1MywwLDEtMC40NDgsMS0xUzQxLjU1MywzOSw0MSwzOXoiIGZpbGw9IiMwMjc3OWUiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K")
+   cursor: pointer
 
 .clear
    clear: both
@@ -229,14 +241,6 @@ footer
          -webkit-transform: scale(1.5,1.5)
          top: -2px
 
-   .menu
-      .menu-items
-         flex-direction: column
-         padding-bottom: 8px
-      
-         .menu-item
-            padding: 4px 16px
-
    .header
       margin: 5px -5px
 
@@ -250,7 +254,7 @@ footer
 
 @media (max-width: 425px)
    header
-      .menuButton
+      .condensed-menu-button
          right: 0px
 
 @media (max-width: 400px)

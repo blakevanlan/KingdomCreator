@@ -20,7 +20,6 @@ do ->
       toggleMenu: =>
          # Scroll to the top of the window before showing the menu to make sure the menu comes into
          # view.
-         debugger
          showMenu = !@showMenu()
          $(window).scrollTop(0) if showMenu
          @showMenu(showMenu)
