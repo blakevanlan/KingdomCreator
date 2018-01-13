@@ -10,7 +10,7 @@ do ->
    CardType = window.CardType
    SetViewModel = window.SetViewModel
 
-   class CardType
+   class CardTypeModel
       constructor: (data) ->
          @id = data.id
          @name = data.name
@@ -75,29 +75,29 @@ do ->
 
       createTypes: ->
          return [
-            new CardType({ id: CardType.NONE, name: 'Any' })
-            new CardType({ id: CardType.DRAWER, name: '+ Cards' })
-            new CardType({ id: CardType.BUY_SUPPLIER, name: '+1 Buy' })
-            new CardType({ id: CardType.ACTION_SUPPLIER, name: '+2 Actions' })
-            new CardType({ id: CardType.ACTION, name: 'Action' })
-            new CardType({ id: CardType.ATTACK, name: 'Attack' })
-            new CardType({ id: CardType.DURATION, name: 'Duration' })
-            new CardType({ id: CardType.REACTION, name: 'Reaction' })
-            new CardType({ id: CardType.RESERVE, name: 'Reserve' })
-            new CardType({ id: CardType.TRASHING, name: 'Trashing' })
-            new CardType({ id: CardType.TREASURE, name: 'Treasure' })
-            new CardType({ id: CardType.VICTORY, name: 'Victory' })
+            new CardTypeModel({ id: CardType.NONE, name: 'Any' })
+            new CardTypeModel({ id: CardType.DRAWER, name: '+ Cards' })
+            new CardTypeModel({ id: CardType.BUY_SUPPLIER, name: '+1 Buy' })
+            new CardTypeModel({ id: CardType.ACTION_SUPPLIER, name: '+2 Actions' })
+            new CardTypeModel({ id: CardType.ACTION, name: 'Action' })
+            new CardTypeModel({ id: CardType.ATTACK, name: 'Attack' })
+            new CardTypeModel({ id: CardType.DURATION, name: 'Duration' })
+            new CardTypeModel({ id: CardType.REACTION, name: 'Reaction' })
+            new CardTypeModel({ id: CardType.RESERVE, name: 'Reserve' })
+            new CardTypeModel({ id: CardType.TRASHING, name: 'Trashing' })
+            new CardTypeModel({ id: CardType.TREASURE, name: 'Treasure' })
+            new CardTypeModel({ id: CardType.VICTORY, name: 'Victory' })
          ]
 
       createCosts: ->
          return [
-            new CardType({ id: CardCost.TREASURE_2, name: '1-2' })
-            new CardType({ id: CardCost.TREASURE_3, name: '3' })
-            new CardType({ id: CardCost.TREASURE_4, name: '4' })
-            new CardType({ id: CardCost.TREASURE_5, name: '5' })
-            new CardType({ id: CardCost.TREASURE_6, name: '6' })
-            new CardType({ id: CardCost.TREASURE_7, name: '7' })
-            new CardType({ id: CardCost.TREASURE_8, name: '8+' })
+            new CardTypeModel({ id: CardCost.TREASURE_2, name: '1-2' })
+            new CardTypeModel({ id: CardCost.TREASURE_3, name: '3' })
+            new CardTypeModel({ id: CardCost.TREASURE_4, name: '4' })
+            new CardTypeModel({ id: CardCost.TREASURE_5, name: '5' })
+            new CardTypeModel({ id: CardCost.TREASURE_6, name: '6' })
+            new CardTypeModel({ id: CardCost.TREASURE_7, name: '7' })
+            new CardTypeModel({ id: CardCost.TREASURE_8, name: '8+' })
          ]
 
 

@@ -3,6 +3,11 @@
 do ->
    CardUtil = window.CardUtil 
 
+   getAvailableCards = (divisions) ->
+      cards = []
+      for division in divisions
+         cards = cards.concat(division.getAvailableCards())
+      return cards
 
    getLockedAndSelectedCards = (divisions) ->
       return getLockedCards(divisions).concat(getSelectedCards(divisions))

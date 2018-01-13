@@ -19,5 +19,8 @@ do ->
       getSatisfyingCards: (cards) ->
          return cards.filter(CardUtil.filterByRequiredType(@type))
 
+      toString: () ->
+         return "TypeSupplyRequirement(type=#{@type},requireNewCard=#{@requireNewCard}"
+
 
    window.TypeSupplyRequirement = TypeSupplyRequirement

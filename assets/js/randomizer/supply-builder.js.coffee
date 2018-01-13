@@ -26,9 +26,10 @@ do ->
          @corrections.push(correction)
 
       createUnfilledDivisions: (existingCards) -> 
-         divisions = [new SupplyDivision(@cards, [], [], 10)]
-         divisions = @applyBans(divisions)
-         divisions = @applyDividers(divisions)
+         division = new SupplyDivision(@cards, [], [], 10)
+         division = @applyBans(division)
+         division = @addExistingCardsAsAvailable(division, existingCards)
+         divisions = @applyDividers([division])
          divisions = @applyExistingCards(divisions, existingCards)
          return divisions
 
@@ -50,14 +51,11 @@ do ->
 
       ### Private methods ###
 
-      applyBans: (divisions) ->
-         divisions = divisions.concat()
+      applyBans: (division) ->
          for ban in @bans
-            for division, index in divisions
-               bannedCards = ban.getBannedCards(division.getAvailableCards())
-               divisions[index] = 
-                     division.createDivisionByRemovingCards(CardUtil.extractIds(bannedCards))
-         return divisions
+            bannedCards = ban.getBannedCards(division.getAvailableCards())
+            division = division.createDivisionByRemovingCards(CardUtil.extractIds(bannedCards))
+         return division
 
       applyRequirements: (divisions) ->
          divisions = divisions.concat()
@@ -95,6 +93,17 @@ do ->
          for divider in @dividers 
             divisions = divider.subdivideDivisions(divisions)
          return divisions
+
+      addExistingCardsAsAvailable: (division, existingCards) ->
+         # Add the existing cards as available to allow divisions to be intelligently divided. 
+         availableCardIds = CardUtil.extractIds(division.getAvailableCards())
+         cardsToAdd = []
+         for card in existingCards
+            if availableCardIds.indexOf(card.id) == -1
+               cardsToAdd.push(card)
+         return new SupplyDivision(
+               division.getAvailableCards().concat(cardsToAdd), division.getLockedCards(),
+               division.getSelectedCards(), division.getTotalCount())
 
       applyExistingCards: (divisions, existingCards) ->
          divisions = divisions.concat()

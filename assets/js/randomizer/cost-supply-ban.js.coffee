@@ -11,7 +11,7 @@ do ->
          @costs = costs
 
       getBannedCards: (cards) ->
-         return cards.filter(CardUtil.filterByExcludedCosts(@costs))
+         return cards.filter(CardUtil.filterByAllowedCosts(@costs))
 
 
    window.CostSupplyBan = CostSupplyBan

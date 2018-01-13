@@ -121,8 +121,8 @@ do ->
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(@getExcludeTypes())
 
-         supply = Randomizer.createSupply(@dominionSets, options)
-         @replaceSelectedCardsWithSupply(supply)
+         supply = Randomizer.createSupplySafe(@dominionSets, options)
+         @replaceSelectedCardsWithSupply(supply) if supply
 
       randomizeSelectedEventsAndLandmarks: =>
          selectedEventsAndLandmarks = @getSelectedEvents().concat(@getSelectedLandmarks())
@@ -141,16 +141,24 @@ do ->
          if @dialog.selectedType() and !@randomizerSettings.allowAttacks()
             excludeTypes.push(CardType.ATTACK)
 
-         options = @createRandomizerOptions()
-            .setSetIds(@getSelectedSetIds())
+         options = new RandomizerOptions()
+            .setSetIds(ko.unwrap(set.id) for set in @dialog.sets when set.active())
             .setIncludeCardIds(@extractCardIds(@getUnselectedCards()))
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(excludeTypes)
             .setExcludeCosts(ko.unwrap(costs.id) for costs in @dialog.costs when not costs.active())
-            .setRequireSingleCardOfType(@dialog.selectedType())
-
-         supply = Randomizer.createSupply(@dominionSets, options)
-         @replaceSelectedCardsWithSupply(supply)      
+         
+         if @dialog.selectedType()
+            options.setRequireSingleCardOfType(@dialog.selectedType())
+         else
+            options
+               .setRequireActionProvider(@randomizerSettings.requireActionProvider())
+               .setRequireBuyProvider(@randomizerSettings.requireBuyProvider())
+               .setRequireTrashing(@randomizerSettings.requireTrashing())
+               .setRequireReactionIfAttacks(@randomizerSettings.requireReaction())
+         
+         supply = Randomizer.createSupplySafe(@dominionSets, options)
+         @replaceSelectedCardsWithSupply(supply) if supply
 
       replaceSelectedCardsWithSupply: (supply) ->
          selectedCards = @getSelectedCards()
@@ -199,11 +207,12 @@ do ->
          nonSelectedEventAndLandmarkIds =
                (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
          
+         sets = @sets()
          nextIndex = 0
          for cardData in newEventsAndLandmarks
             if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
                   nextIndex < selectedEventsAndLandmarks.length)
-               setCardData(selectedEventsAndLandmarks[nextIndex++], cardData)         
+               selectedEventsAndLandmarks[nextIndex++].setData(cardData, sets)
 
       setKingdom: (kingdom) ->
          @kingdom = kingdom

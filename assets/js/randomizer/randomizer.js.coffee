@@ -56,16 +56,34 @@ do ->
    NUM_PRIORITIZED_SET = 5
 
    createKingdom = (allSets, randomizerOptions) ->
-      supply = createSupply(allSets, randomizerOptions)
+      supply = createSupplyWithRetries(allSets, randomizerOptions)
       eventsAndLandmarks = getEventsAndLandmarks(allSets, randomizerOptions.getSetIds(), [], [])
       metadata = getMetadata(allSets, randomizerOptions.getSetIds())
       return new Kingdom(supply, eventsAndLandmarks.events, eventsAndLandmarks.landmarks, metadata)
-      
+   
+   createSupplySafe = (allSets, randomizerOptions) ->
+      try
+         return createSupplyWithRetries(allSets, randomizerOptions)
+      catch error
+         console.log("Failed to create supply: \n#{error.toString()}")
+         return null
+
+   createSupplyWithRetries = (allSets, randomizerOptions) ->
+      retries = MAX_RETRIES
+      while retries > 0
+         try 
+            return createSupply(allSets, randomizerOptions)
+         catch error
+            console.log("Error when trying to select cards: \n" + error.toString())
+            retries -= 1
+
+      throw Error('Failed to select cards that satisfied all requirements.')
+
    createSupply = (allSets, randomizerOptions) ->
       allCards = Util.flattenSetsForProperty(allSets, 'cards')
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, randomizerOptions.getSetIds())
       cardsToUse = Util.flattenSetsForProperty(setsToUse, 'cards')
-      cardsToUse = removeDuplicateCards(cardsToUse)
+      cardsToUse = removeDuplicateCards(cardsToUse, randomizerOptions.getIncludeCardIds())
 
       supplyBuilder = new SupplyBuilder(cardsToUse)
 
@@ -80,7 +98,8 @@ do ->
          supplyBuilder.addBan(new CostSupplyBan(randomizerOptions.getExcludeCosts()))
 
       # Configure requirements.
-      if randomizerOptions.getRequireSingleCardOfType() != CardType.NONE
+      if (randomizerOptions.getRequireSingleCardOfType() and
+            randomizerOptions.getRequireSingleCardOfType() != CardType.NONE)
          supplyBuilder.addRequirement(
                new TypeSupplyRequirement(randomizerOptions.getRequireSingleCardOfType(), true))
 
@@ -117,14 +136,14 @@ do ->
 
       existingCards =
             allCards.filter(CardUtil.filterByIncludedIds(randomizerOptions.getIncludeCardIds()))
-      selectedCards = createSupplyWithRetries(supplyBuilder, existingCards)
+      selectedCards = createSupplyCardsWithRetries(supplyBuilder, existingCards)
 
       if randomizerOptions.getRequireReactionIfAttacks()
          correctedSupplyBuilder =
                correctSupplyBuilderForRequiredReaction(supplyBuilder, existingCards, selectedCards)
          if correctedSupplyBuilder
             supplyBuilder = correctedSupplyBuilder
-            selectedCards = createSupplyWithRetries(supplyBuilder, existingCards)
+            selectedCards = createSupplyCardsWithRetries(supplyBuilder, existingCards)
 
       metadata = new Supply.Metadata(
          supplyBuilder,
@@ -224,7 +243,7 @@ do ->
       supplyBuilder.addBan(new TypeSupplyBan(CardType.ATTACK))
       return supplyBuilder
 
-   createSupplyWithRetries = (supplyBuilder, existingCards) ->
+   createSupplyCardsWithRetries = (supplyBuilder, existingCards) ->
       retries = MAX_RETRIES
       while retries > 0
          try 
@@ -245,21 +264,50 @@ do ->
    
       return RandUtil.getRandomInt(min, Math.min(max, remainingCards))
 
-   removeDuplicateCards = (cards) ->
+   removeDuplicateCards = (cards, requiredCardIds) ->
       # Removes duplicate cards; keep setA's version.
+      # Cards to keep = (A - [B required as A]) + (B - ([A as B] - B required))
       for setA, setB of SETS_WITH_DUPLICATES
          setACards = cards.filter(CardUtil.filterByIncludedSetIds([setA]))
-         setBCardIds = (replaceSetIdInCardId(card.id, setB) for card in setACards)
-         cards = cards.filter(CardUtil.filterByExcludedIds(setBCardIds))
+         setBCards = cards.filter(CardUtil.filterByIncludedSetIds([setB]))
+
+         # B to exclude = ([A as B] - B required))
+         setACardIdsAsSetB = replaceSetIdForCards(setACards, setB)
+         setBRequiredCards = setBCards.filter(CardUtil.filterByIncludedIds(requiredCardIds))
+         setBCardIdsToExclude = removeIds(setACardIdsAsSetB, CardUtil.extractIds(setBRequiredCards))
+
+         # B to include = (B - B to exclude)
+         setBCardIdsToInclude = removeIds(CardUtil.extractIds(setBCards), setBCardIdsToExclude)
+
+         # A to include = (A - [B required as A])
+         setBRequiredCardIdsAsSetA = replaceSetIdForCards(setBRequiredCards, setA)
+         setACardIdsToInclude = removeIds(CardUtil.extractIds(setACards), setBRequiredCardIdsAsSetA)
+
+         setACardsToExclude = removeIds(CardUtil.extractIds(setACards), setACardIdsToInclude)
+         setBCardsToExclude = removeIds(CardUtil.extractIds(setBCards), setBCardIdsToInclude)
+
+         cards = cards.filter(CardUtil.filterByExcludedIds(setACardsToExclude))
+         cards = cards.filter(CardUtil.filterByExcludedIds(setBCardsToExclude))
       return cards
 
-   replaceSetIdInCardId = (cardId, setId) ->
-       return setId + '_' + cardId.split('_')[1]
+   removeIds = (ids, idsToRemove) ->
+      return ids.filter((id) -> idsToRemove.indexOf(id) == -1)
+
+   replaceSetIdForCards = (cards, newSetId) ->
+      cardIds = []
+      for card in cards
+         cardIds.push(replaceSetIdInCardId(card.id, newSetId))
+      return cardIds
+
+   replaceSetIdInCardId = (cardId, newSetId) ->
+       return newSetId + '_' + cardId.split('_')[1]
 
 
    window.Randomizer = {
       createKingdom: createKingdom
       createSupply: createSupply
+      createSupplyWithRetries: createSupplyWithRetries
+      createSupplySafe: createSupplySafe
       getEventsAndLandmarks: getEventsAndLandmarks
       getRandomEventsOrLandmarks: getRandomEventsOrLandmarks
    }
