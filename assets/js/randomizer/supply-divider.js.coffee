@@ -34,14 +34,6 @@ do ->
                      new SupplyDivision(satisfyingCards, [], [], countsPerDivision[index])
                newDivisions.push(satisfyingDivision)
 
-         count = 0 
-         for division in newDivisions
-            count += division.getTotalCount()
-
-         if count > 10
-            debugger
-
-
          return newDivisions
 
       getRandomizedCountsPerDivision: (divisions) ->

@@ -12,10 +12,6 @@ do ->
          @setIds = SetId.BASE_SET
          @includeCardIds = []
          @excludeCardIds = []
-         @includeEventIds = []
-         @excludeEventIds = []
-         @includeLandmarkIds = []
-         @excludeLandmarkIds = []
          @requireSingleCardOfType = CardType.NONE
          @excludeTypes =  []
          @excludeCosts = []
@@ -25,9 +21,6 @@ do ->
          @requireTrashing = false
          @distributeCost = false
          @prioritizeSet = null
-         @eventIdsToReplace = []
-         @landmarkIdsToReplace = []
-         @fillKingdomEventsAndLandmarks = false
 
       getSetIds: ->
          return @setIds
@@ -48,34 +41,6 @@ do ->
 
       setExcludeCardIds: (excludeCardIds) ->
          @excludeCardIds = excludeCardIds 
-         return @
-
-      getIncludeEventIds: ->
-         return @includeEventIds
-
-      setIncludeEventIds: (includeEventIds) ->
-         @includeEventIds = includeEventIds
-         return @
-
-      getExcludeEventIds: ->
-         return @excludeEventIds
-
-      setExcludeEventIds: (excludeEventIds) ->
-         @excludeEventIds = excludeEventIds
-         return @
-
-      getIncludeLandmarkIds: ->
-         return @includeLandmarkIds
-
-      setIncludeLandmarkIds: (includeLandmarkIds) ->
-         @includeLandmarkIds = includeLandmarkIds
-         return @
-
-      getExcludeLandmarkIds: ->
-         return @excludeLandmarkIds
-
-      setExcludeLandmarkIds: (excludeLandmarkIds) ->
-         @excludeLandmarkIds = excludeLandmarkIds
          return @
 
       getRequireSingleCardOfType: ->
@@ -141,25 +106,5 @@ do ->
          @prioritizeSet = prioritizeSet
          return @
 
-      getEventIdsToReplace: ->
-         return @eventIdsToReplace
-
-      setEventIdsToReplace: (eventIdsToReplace) ->
-         @eventIdsToReplace = eventIdsToReplace
-         return @
-
-      getLandmarkIdsToReplace: ->
-         return @landmarkIdsToReplace
-
-      setLandmarkIdsToReplace: (landmarkIdsToReplace) ->
-         @landmarkIdsToReplace = landmarkIdsToReplace
-         return @
-
-      getFillKingdomEventsAndLandmarks: ->
-         return @fillKingdomEventsAndLandmarks
-
-      setFillKingdomEventsAndLandmarks: (fillKingdomEventsAndLandmarks) ->
-         @fillKingdomEventsAndLandmarks = fillKingdomEventsAndLandmarks
-         return @
 
    window.RandomizerOptions = RandomizerOptions
