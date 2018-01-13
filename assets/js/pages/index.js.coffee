@@ -1,4 +1,5 @@
 #= require lib/all.js
+#= require analytics/event-tracker.js.coffee
 #= require models/card-type.js.coffee
 #= require pages/page.js.coffee
 #= require randomizer/randomizer.js.coffee
@@ -14,19 +15,21 @@ do ->
    CardType = window.CardType
    CardViewModel = window.CardViewModel
    DialogViewModel = window.DialogViewModel
+   Error = window.EventTracker.Error
+   Event = window.EventTracker.Event
+   EventTracker = window.EventTracker
    MetadataViewModel = window.MetadataViewModel
    PageViewModel = window.PageViewModel
-   SetViewModel = window.SetViewModel
-   SettingsManager = window.SettingsManager
-
    Randomizer = window.Randomizer
    RandomizerOptions = window.RandomizerOptions
    Serializer = window.Serializer
+   SetViewModel = window.SetViewModel
+   SettingsManager = window.SettingsManager
 
    MIN_SETS_FOR_PRIORITIZE_OPTION = 3
    MIN_CARDS_FOR_DISTRIBUTE_COST = 24
 
-   SUBTITLE = 'Dominion randomizer for desktop and mobile'
+   SUBTITLE = 'Dominion card picker for desktop and mobile'
 
    class IndexViewModel extends PageViewModel
       constructor: (dominionSets) ->
@@ -61,6 +64,7 @@ do ->
          kingdomFromUrl = Serializer.deserializeKingdom(@dominionSets, location.search)
          if kingdomFromUrl
             if kingdomFromUrl.getSupply().getCards().length == 10
+               EventTracker.trackEvent(Event.LOAD_FULL_KINGDOM_FROM_URL)
                @setKingdom(kingdomFromUrl)
                return
 
@@ -70,11 +74,15 @@ do ->
                .setExcludeTypes(@getExcludeTypes())
                .setIncludeCardIds(card.id for card in kingdomFromUrl.getSupply().getCards())
                
-            supply = Randomizer.createSupply(@dominionSets, options)
-            kingdom = new Kingdom(supply, kingdomFromUrl.getEvents(), kingdomFromUrl.getLandmarks(),
-                  kingdomFromUrl.getMetadata())
-            @setKingdom(kingdom)
-            return
+            supply = Randomizer.createSupplySafe(@dominionSets, options)
+            if supply 
+               EventTracker.trackEvent(Event.LOAD_PARTIAL_KINGDOM_FROM_URL)
+               kingdom = new Kingdom(supply, kingdomFromUrl.getEvents(),
+                     kingdomFromUrl.getLandmarks(), kingdomFromUrl.getMetadata())
+               @setKingdom(kingdom)
+               return
+            else 
+               EventTracker.trackError(Event.LOAD_PARTIAL_KINGDOM_FROM_URL)
 
          @randomize()
 
@@ -92,8 +100,9 @@ do ->
          if selectedCards.length == 1 and !isEventOrLandmarkSelected
             dialogOptions = {typeStates: {}}
             @dialog.open(dialogOptions, @randomizeIndividualSelectedCard)
+            return
          
-         if selectedCards.length > 1
+         if selectedCards.length
             @randomizeSelectedCards()
 
          if isEventOrLandmarkSelected
@@ -111,7 +120,11 @@ do ->
             .setExcludeCardIds(@getCardsToExclude())
             .setExcludeTypes(@getExcludeTypes())
 
-         @setKingdom(Randomizer.createKingdom(@dominionSets, options))
+         try
+            @setKingdom(Randomizer.createKingdom(@dominionSets, options))
+            EventTracker.trackEvent(Event.RANDOMIZE_KINGDOM)
+         catch      
+            EventTracker.trackError(Event.RANDOMIZE_KINGDOM)
          @saveSettings()
 
       randomizeSelectedCards: =>
@@ -122,7 +135,11 @@ do ->
             .setExcludeTypes(@getExcludeTypes())
 
          supply = Randomizer.createSupplySafe(@dominionSets, options)
-         @replaceSelectedCardsWithSupply(supply) if supply
+         if supply
+            EventTracker.trackEvent(Event.RANDOMIZE_MULTIPLE)
+            @replaceSelectedCardsWithSupply(supply) 
+         else
+            EventTracker.trackError(Event.RANDOMIZE_MULTIPLE)
 
       randomizeSelectedEventsAndLandmarks: =>
          selectedEventsAndLandmarks = @getSelectedEvents().concat(@getSelectedLandmarks())
@@ -135,6 +152,7 @@ do ->
          newCards = Randomizer.getRandomEventsOrLandmarks(@dominionSets, setIds,
                selectedEventAndLandmarkIds,newEventsAndLandmarksCount)
          @replaceSelectedEventsAndLandmarks(newCards)
+         EventTracker.trackEvent(Event.RANDOMIZE_EVENTS_AND_LANDMARKS)
          
       randomizeIndividualSelectedCard: =>
          excludeTypes = []
@@ -158,7 +176,11 @@ do ->
                .setRequireReactionIfAttacks(@randomizerSettings.requireReaction())
          
          supply = Randomizer.createSupplySafe(@dominionSets, options)
-         @replaceSelectedCardsWithSupply(supply) if supply
+         if supply
+            EventTracker.trackEvent(Event.RANDOMIZE_SINGLE)
+            @replaceSelectedCardsWithSupply(supply)
+         else
+            EventTracker.trackError(Event.RANDOMIZE_SINGLE)
 
       replaceSelectedCardsWithSupply: (supply) ->
          selectedCards = @getSelectedCards()
