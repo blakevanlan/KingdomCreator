@@ -145,5 +145,5 @@ cards:
     isAction: true
     isTreasure: false
     isVictory: false
-    isTrashing: false
+    isTrashing: true
     isReaction: false

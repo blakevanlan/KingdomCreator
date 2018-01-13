@@ -1,15 +1,19 @@
 #= require randomizer/util.js.coffee
+#= require models/kingdom.js.coffee
+#= require models/supply.js.coffee
 
 do ->
+   Kingdom = window.Kingdom
+   Supply = window.Supply
    Util = window.Util
 
-   serializeKingdom = (kingdom, metadata) ->
+   serializeKingdom = (kingdom) ->
       result = []
-      result.push(serializeSupply(kingdom.cards))
-      result.push(serializeEvents(kingdom.events)) if kingdom.events?.length
-      result.push(serializeLandmarks(kingdom.landmarks)) if kingdom.landmarks?.length
+      result.push(serializeSupply(kingdom.getSupply().getCards()))
+      result.push(serializeEvents(kingdom.getEvents())) if kingdom.getEvents().length
+      result.push(serializeLandmarks(kingdom.getLandmarks())) if kingdom.getLandmarks().length
 
-      serializedMetadata = serializeMetadata(metadata)
+      serializedMetadata = serializeMetadata(kingdom.getMetadata())
       result.push(serializedMetadata) if serializedMetadata.length
       return result.join('&')
 
@@ -34,17 +38,10 @@ do ->
       events = findByIds(eventIds, allEvents).slice(0, 2)
       landmarks = findByIds(landmarkIds, allLandmarks).slice(0, 2 - events.length)
 
-      return {
-         kingdom: {
-            cards: cards
-            events: events
-            landmarks: landmarks
-         }
-         metadata: {
-            useColonies: parseNamedBooleanParameter('colonies', serializedKingdom)
-            useShelters: parseNamedBooleanParameter('shelters', serializedKingdom)
-         }
-      }
+      supplyMetadata = new Supply.Metadata(null, null, null, null)
+      supply = new Supply(cards, supplyMetadata)
+
+      return new Kingdom(supply, events, landmarks, deserializeMetadata(serializedKingdom))
 
    serializeSupply = (supplyCards) ->
       sortedSupplyCards = supplyCards.concat().sort (a, b) ->
@@ -67,11 +64,16 @@ do ->
 
    serializeMetadata = (metadata) ->
       result = []
-      if metadata.useColonies
+      if metadata.getUseColonies()
          result.push('colonies=1')
-      if metadata.useShelters
+      if metadata.getUseShelters()
          result.push('shelters=1')
       return result.join('&')
+
+   deserializeMetadata = (serializedKingdom) ->
+      return new Kingdom.Metadata(
+            parseNamedBooleanParameter('colonies', serializedKingdom)
+            parseNamedBooleanParameter('shelters', serializedKingdom))
 
    findByIds = (cardIds, cards) ->
       foundCards = []

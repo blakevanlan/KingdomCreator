@@ -36,6 +36,18 @@ block content
             label.checkbox
                input(type="checkbox", data-bind="checked: randomizerSettings.requireTrashing")
                span Require Trashing
+         .option(data-bind="visible: distributeCostAllowed")
+            label.checkbox
+               input(type="checkbox", data-bind="checked: randomizerSettings.distributeCost")
+               span Distribute Cost
+         .option(data-bind="visible: prioritizeSetAllowed")
+            label.checkbox
+               input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
+               span Prioritize Set
+            .suboption
+               select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
+                     optionsValue: 'value', optionsText: 'name', optionsCaption: 'Choose set...', \
+                     value: randomizerSettings.prioritizeSet")
          .sidebar-content-title Display
          .option
             label.checkbox
@@ -47,7 +59,7 @@ block content
                span Sort Alphabetically
          a.sidebarRandomizeButton.button(
                data-bind="click: randomize, text: randomizeButtonText")
-      .sidebar-content.meta(data-bind="with: metadata")
+      .sidebar-content.meta(data-bind="visible: metadata.show, with: metadata")
          .sidebar-content-title Recommendations
          .recommendation
             | Use Colonies/Platinums:

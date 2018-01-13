@@ -1,14 +1,16 @@
 #= require lib/all.js
-#= require randomizer/randomizer.js.coffee
+#= require models/card-cost.js.coffee
+#= require models/card-type.js.coffee
 #= require viewmodels/set.js.coffee
 
 vex.defaultOptions.className = 'vex-theme-os'
 
 do ->
-   Randomizer = window.Randomizer
+   CardCost = window.CardCost
+   CardType = window.CardType
    SetViewModel = window.SetViewModel
 
-   class CardType
+   class CardTypeModel
       constructor: (data) ->
          @id = data.id
          @name = data.name
@@ -19,7 +21,7 @@ do ->
          # Create new set objects so they can be clicked on 
          @sets = (new SetViewModel(set.toObject()) for set in allSets)
          @types = @createTypes()
-         @selectedType = ko.observable(Randomizer.Type.NONE)
+         @selectedType = ko.observable(CardType.NONE)
          @costs = @createCosts()
          @vexDialogId = null
          @callback = null
@@ -73,29 +75,29 @@ do ->
 
       createTypes: ->
          return [
-            new CardType({ id: Randomizer.Type.NONE, name: 'Any' })
-            new CardType({ id: Randomizer.Type.DRAWER, name: '+ Cards' })
-            new CardType({ id: Randomizer.Type.BUY_SUPPLIER, name: '+1 Buy' })
-            new CardType({ id: Randomizer.Type.ACTION_SUPPLIER, name: '+2 Actions' })
-            new CardType({ id: Randomizer.Type.ACTION, name: 'Action' })
-            new CardType({ id: Randomizer.Type.ATTACK, name: 'Attack' })
-            new CardType({ id: Randomizer.Type.DURATION, name: 'Duration' })
-            new CardType({ id: Randomizer.Type.REACTION, name: 'Reaction' })
-            new CardType({ id: Randomizer.Type.RESERVE, name: 'Reserve' })
-            new CardType({ id: Randomizer.Type.TRASHING, name: 'Trashing' })
-            new CardType({ id: Randomizer.Type.TREASURE, name: 'Treasure' })
-            new CardType({ id: Randomizer.Type.VICTORY, name: 'Victory' })
+            new CardTypeModel({ id: CardType.NONE, name: 'Any' })
+            new CardTypeModel({ id: CardType.DRAWER, name: '+ Cards' })
+            new CardTypeModel({ id: CardType.BUY_SUPPLIER, name: '+1 Buy' })
+            new CardTypeModel({ id: CardType.ACTION_SUPPLIER, name: '+2 Actions' })
+            new CardTypeModel({ id: CardType.ACTION, name: 'Action' })
+            new CardTypeModel({ id: CardType.ATTACK, name: 'Attack' })
+            new CardTypeModel({ id: CardType.DURATION, name: 'Duration' })
+            new CardTypeModel({ id: CardType.REACTION, name: 'Reaction' })
+            new CardTypeModel({ id: CardType.RESERVE, name: 'Reserve' })
+            new CardTypeModel({ id: CardType.TRASHING, name: 'Trashing' })
+            new CardTypeModel({ id: CardType.TREASURE, name: 'Treasure' })
+            new CardTypeModel({ id: CardType.VICTORY, name: 'Victory' })
          ]
 
       createCosts: ->
          return [
-            new CardType({ id: Randomizer.Cost.TREASURE_2, name: '1-2' })
-            new CardType({ id: Randomizer.Cost.TREASURE_3, name: '3' })
-            new CardType({ id: Randomizer.Cost.TREASURE_4, name: '4' })
-            new CardType({ id: Randomizer.Cost.TREASURE_5, name: '5' })
-            new CardType({ id: Randomizer.Cost.TREASURE_6, name: '6' })
-            new CardType({ id: Randomizer.Cost.TREASURE_7, name: '7' })
-            new CardType({ id: Randomizer.Cost.TREASURE_8, name: '8+' })
+            new CardTypeModel({ id: CardCost.TREASURE_2, name: '1-2' })
+            new CardTypeModel({ id: CardCost.TREASURE_3, name: '3' })
+            new CardTypeModel({ id: CardCost.TREASURE_4, name: '4' })
+            new CardTypeModel({ id: CardCost.TREASURE_5, name: '5' })
+            new CardTypeModel({ id: CardCost.TREASURE_6, name: '6' })
+            new CardTypeModel({ id: CardCost.TREASURE_7, name: '7' })
+            new CardTypeModel({ id: CardCost.TREASURE_8, name: '8+' })
          ]
 
 

@@ -5,11 +5,11 @@ do ->
       constructor: () ->
          @useColonies = ko.observable(false)
          @useShelters = ko.observable(false)
-         @show = ko.computed () => return @useColonies or @useShelters()
+         @show = ko.computed () => return @useColonies() or @useShelters()
 
-      update: (data) ->
-         @useColonies(data.useColonies or false)
-         @useShelters(data.useShelters or false)
+      update: (metadata) ->
+         @useColonies(metadata.getUseColonies())
+         @useShelters(metadata.getUseShelters())
 
 
    window.MetadataViewModel = MetadataViewModel
