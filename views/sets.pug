@@ -30,7 +30,7 @@ block content
                .kingdom-title_name(data-bind="text: name")
                .kingdom-title_sets(data-bind="dominionSetNames: sets")
 
-            .kingdom-metadata(data-bind="if: $data.metadata")
+            .kingdom-metadata(data-bind="if: $data.metadata, visible: $data.metadata")
                .kingdom-metadata_use-platinums-and-colonies(
                      data-bind="visible: $data.metadata.colonies") Use Platinums/Colonies
                .kingdom-metadata_use-shelters(
