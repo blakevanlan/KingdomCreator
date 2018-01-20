@@ -25,6 +25,9 @@ do ->
       if !supplyIds
          supplyIds = parseNamedCommaSeparatedParameter('cards', serializedKingdom) or []
 
+      if !supplyIds.length
+         return null
+
       eventIds = parseNamedCommaSeparatedParameter('events', serializedKingdom) or []
       landmarkIds = parseNamedCommaSeparatedParameter('landmarks', serializedKingdom) or []
       useShelters = parseNamedBooleanParameter('shelters', serializedKingdom)
