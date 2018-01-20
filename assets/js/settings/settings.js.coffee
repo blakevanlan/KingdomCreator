@@ -13,7 +13,7 @@ do ->
 
       toObject: () ->
          return {
-            sets: @selectedSets().join(',')
+            sets: Settings.serializeSets(@selectedSets())
             sortAlphabetically: @sortAlphabetically()
             showSet: @showSetOnCards()
             randomizerSettings: @randomizerSettings().toObject()
@@ -22,11 +22,23 @@ do ->
       @createFromObject: (data) ->
          data = data or {}
          return new Settings(
-            if data.sets? then data.sets.split(',') else ['baseset'],
+            @deserializeSets(data),
             !!data.sortAlphabetically,
             if data.showSet? then !!data.showSet else true,
             RandomizerSettings.createFromObject(
                if data.randomizerSettings? then data.randomizerSettings else data))
+
+      @serializeSets: (sets) ->
+         if sets.length
+            return sets.join(',')
+         return 'baseset'
+
+      @deserializeSets: (data) ->
+         if data.sets?
+            setIds = data.sets.split(',')
+            if setIds.length and setIds[0].length
+               return setIds
+         return ['baseset']
 
 
    window.Settings = Settings

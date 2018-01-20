@@ -18,7 +18,7 @@ do ->
       @trackEvent: (eventType) ->
          EventTracker.attemptToSend(Category.EVENT, eventType)
 
-      @trackError: (eventType) ->
+      @trackError: (errorType) ->
          EventTracker.attemptToSend(Category.ERROR, errorType)
 
       ### Private methods ###
