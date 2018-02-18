@@ -7,9 +7,12 @@ do ->
    Settings = window.Settings
 
    loadSettings = ->
-      options = $.cookie('options')
-      options = if typeof options == 'string' then JSON.parse(options) else options
-      return Settings.createFromObject(options)
+      try 
+         options = $.cookie('options')
+         options = if typeof options == 'string' then JSON.parse(options) else options
+         return Settings.createFromObject(options)
+      catch
+         return Settings.createFromObject({})
    
    saveSettings = (settings) ->
       $.cookie('options', settings.toObject(), {expires: 365})

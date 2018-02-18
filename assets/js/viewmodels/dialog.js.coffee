@@ -10,6 +10,8 @@ do ->
    CardType = window.CardType
    SetViewModel = window.SetViewModel
 
+   ALL_SETS = 'all'
+
    class CardTypeModel
       constructor: (data) ->
          @id = data.id
@@ -19,7 +21,8 @@ do ->
    class DialogViewModel
       constructor: (allSets) ->
          # Create new set objects so they can be clicked on 
-         @sets = (new SetViewModel(set.toObject()) for set in allSets)
+         @sets = ko.observableArray()
+         @selectedSetId = ko.observable(ALL_SETS)
          @types = @createTypes()
          @selectedType = ko.observable(CardType.NONE)
          @costs = @createCosts()
@@ -30,16 +33,6 @@ do ->
          @openTypesSection = ko.observable(false)
          @openCostsSection = ko.observable(false)
 
-         # Watch for changes on the main sets and atomatically apply changes to
-         # dialog
-         for set in allSets
-            do (cset = set) =>
-               cset.active.subscribe (val) => 
-                  for s in @sets
-                     if s.id == cset.id
-                        s.active(val)
-                        break
-
       toggleSetsSection: => @openSetsSection(!@openSetsSection())
       toggleTypesSection: => @openTypesSection(!@openTypesSection())
       toggleCostsSection: => @openCostsSection(!@openCostsSection())
@@ -48,9 +41,10 @@ do ->
          @callback()
          @close()
 
-      open: (options, callback) => 
+      open: (sets, callback) => 
          @callback = callback
-         @setDefaults(options)
+         @sets(@createSets(sets))
+         @checkSelectedSetState()
          $content = null
          $dialog = vex.open
             afterOpen: ($vexContent) ->
@@ -62,16 +56,29 @@ do ->
                @vexDialogId = null
          @vexDialogId = $dialog.data().vex.id
       
-      setDefaults: (options = {}) =>
-         if options.typeStates
-            for cardType in @types
-               if typeof options.typeStates[cardType.id] == 'boolean'
-                  cardType.active(options.typeStates[cardType.id])
+      resetOptions: ->
+         @selectedSetId(ALL_SETS)
+         @selectedType(CardType.NONE)
+         for cost in @costs
+            cost.active(true)
 
       close: () => 
          return unless @vexDialogId
          vex.close(@vexDialogId)
          @callback = null
+
+      createSets: (sets) ->
+         newSets = [new CardTypeModel({ id: ALL_SETS, name: 'Any' })]
+         for set in sets
+            newSets.push(new CardTypeModel({ id: set.id, name: set.name }))
+         return newSets
+
+      checkSelectedSetState: ->
+         selectedSetId = @selectedSetId()
+         for set in @sets()
+            if set.id == selectedSetId
+               return
+         @selectedSetId(ALL_SETS)
 
       createTypes: ->
          return [
@@ -102,3 +109,4 @@ do ->
 
 
    window.DialogViewModel = DialogViewModel
+   window.DialogViewModel.ALL_SETS = ALL_SETS

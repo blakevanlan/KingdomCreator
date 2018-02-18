@@ -98,8 +98,7 @@ do ->
 
          # Show a dialog for customizing when randomizing a single card for specifying the card.
          if selectedCards.length == 1 and !isEventOrLandmarkSelected
-            dialogOptions = {typeStates: {}}
-            @dialog.open(dialogOptions, @randomizeIndividualSelectedCard)
+            @dialog.open(@getSelectedSets(), @randomizeIndividualSelectedCard)
             return
          
          if selectedCards.length
@@ -119,6 +118,9 @@ do ->
             .setSetIds(setIds)
             .setExcludeCardIds(@getCardsToExclude())
             .setExcludeTypes(@getExcludeTypes())
+
+         # Reset the dialog options whenever the full kingdom is randomized.
+         @dialog.resetOptions()
 
          try
             @setKingdom(Randomizer.createKingdom(@dominionSets, options))
@@ -159,8 +161,12 @@ do ->
          if @dialog.selectedType() and !@randomizerSettings.allowAttacks()
             excludeTypes.push(CardType.ATTACK)
 
+         setIds = [@dialog.selectedSetId()]
+         if @dialog.selectedSetId() == DialogViewModel.ALL_SETS
+            setIds = @getSelectedSetIds()
+
          options = new RandomizerOptions()
-            .setSetIds(ko.unwrap(set.id) for set in @dialog.sets when set.active())
+            .setSetIds(setIds)
             .setIncludeCardIds(@extractCardIds(@getUnselectedCards()))
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(excludeTypes)

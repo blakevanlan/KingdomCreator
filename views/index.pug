@@ -118,7 +118,8 @@ block afterFooter
             .sets(data-bind="foreach: sets, slideVisible: openSetsSection")
                .set.checkbox-wrap.columns
                   label.checkbox
-                     input(type="checkbox", data-bind="checked: active")
+                     input(type="radio", name="sets",
+                           data-bind="checked: $parent.selectedSetId, attr: {value: id}")
                      span(data-bind="text: name")
             .clear
             h1(data-bind="click: toggleTypesSection")
