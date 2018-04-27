@@ -496,7 +496,6 @@ do ->
                   width: pair.element.width()
                   top: pair.movedFrom.top
                   left: pair.movedFrom.left
-                  'z-index': 250
                   'transition-property': '-webkit-transform, -webkit-filter, opacity'
                   'transition-property': '-moz-transform, -moz-filter, opacity'
                }
@@ -511,12 +510,19 @@ do ->
                # Set up everything for the animation
                pair.clone.addClass('enlarge-cards') if isEnlarged
                pair.clone.appendTo($body).css(css)
-               pair.element.css('visibility', 'hidden')
-               pair.clone.bind 'webkitTransitionEnd transitionend otransitionend oTransitionEnd', ->
-                  pair.element.css('visibility', 'visible')
+               elements = $([pair.element.get(0), pair.element.siblings('.card-back').get(0)])
+               elements.css('visibility', 'hidden')
+
+               cleanUp = ->
+                  elements.css('visibility', 'visible')
                   pair.clone.remove()
+               pair.clone.bind(
+                  'webkitTransitionEnd transitionend otransitionend oTransitionEnd', cleanUp)
+               # Schedule an additional clean-up in case the browser fails to send transition ended
+               # events.
+               setTimeout(cleanUp, 610)
                
-               # This timeout is required so that the animation actually takes place
+               # This timeout is required so that the animation actually takes place.
                setTimeout ->
                   pair.clone.css(setVenderProp({}, 'transform', "translate(#{tX}px,#{tY}px)"))
                , 0
