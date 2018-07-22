@@ -1,15 +1,5 @@
 @import "variables"
 
-.sidebar
-   .meta
-      .sidebar-content-title 
-         font-size: 20px
-
-      .recommendation
-         font-size: 14px
-         span
-            font-weight: bold            
-
 .sidebarRandomizeButton
    &.hidden
       visibility: hidden
@@ -48,6 +38,7 @@
    width: 20%
 
 .eventsAndLandmarks-header
+.modifiers-header
    float: left
    clear: left
    margin: 10px 0 0
@@ -59,6 +50,34 @@
       
       &:first-child
          clear: left
+
+.modifiers-header
+.modifiers   
+.modifier-container
+   -webkit-transition: opacity 0.4s
+   -moz-transition: opacity 0.4s
+   transition: opacity 0.4s
+   
+.modifier-margin
+   margin: 2px
+   
+.modifier-card
+   width: 100%
+
+.modifier-name-container
+   position: absolute
+   margin-top: -13px
+   text-align: center
+   top: 50%
+   width: 100%
+
+   .modifier-name 
+      padding: 6px 8px
+      margin: 0 auto
+      display: inline-block
+      color: #fff
+      background: rgba(30,30,30,0.7)
+      text-shadow: 1px 1px 4px #000      
 
 .card-front
    position: relative

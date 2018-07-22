@@ -59,14 +59,6 @@ block content
                span Sort Alphabetically
          a.sidebarRandomizeButton.button(
                data-bind="click: randomize, text: randomizeButtonText")
-      .sidebar-content.meta(data-bind="visible: metadata.show, with: metadata")
-         .sidebar-content-title Recommendations
-         .recommendation
-            | Use Colonies/Platinums:
-            | <span data-bind="text: useColonies() ? 'Yes' : 'No'"></span>
-         .recommendation
-            | Use Shelters:
-            | <span data-bind="text: useShelters() ? 'Yes' : 'No'"></span>
    .hovering-randomize-button(data-bind="showFloating: '.sidebarRandomizeButton'")
       a.button(data-bind="click: randomize, text: randomizeButtonText")
    .main
@@ -102,6 +94,20 @@ block content
                      .set-name(data-bind="text: set, \
                            visible: $root.settings.showSetOnCards() && !isLoading(), css:setClass")
             .highlight
+
+      .modifiers-header(data-bind="fadeIn: metadata.show") Additional
+      .modifiers(data-bind="fadeIn: metadata.show, with: metadata")
+         .clear-left
+         .modifier-container.card-wrap(data-bind="fadeIn: useColonies")
+            .modifier-margin
+               img.modifier-card(src="/img/cards/prosperity_coloniesplatinums.png")
+               .modifier-name-container
+                  .modifier-name Colonies & Platinums
+         .modifier-container.card-wrap(data-bind="fadeIn: useShelters")
+            .modifier-margin
+               img.modifier-card(src="/img/cards/darkages_shelters.png")
+               .modifier-name-container
+                  .modifier-name Shelters
       .clear   
 
 block afterFooter
@@ -110,7 +116,7 @@ block afterFooter
 
    .dialog-hidden-content
       .dialog-content(data-bind="with: dialog")
-         .dialog-desc Use this dialog to customize the replacement card(s)
+         .dialog-desc Use this dialog to customize the replacement card
          .sets-wrap
             h1(data-bind="click: toggleSetsSection")
                span.heading Sets
