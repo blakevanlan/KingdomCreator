@@ -6,6 +6,9 @@ block head
 
 block content
    .sidebar
+      a.desktop_randomize-button.button(
+         data-bind="visible: !isCondensed(), click: randomize, text: randomizeButtonText")
+
       .sidebar-content.filters
          .sidebar-content-title Sets
          .sets(data-bind="foreach: sets")
@@ -57,9 +60,9 @@ block content
             label.checkbox
                input(type="checkbox", data-bind="checked: settings.sortAlphabetically")
                span Sort Alphabetically
-         a.sidebarRandomizeButton.button(
-               data-bind="click: randomize, text: randomizeButtonText")
-   .hovering-randomize-button(data-bind="showFloating: '.sidebarRandomizeButton'")
+         a.condensed_randomize-button.button(
+               data-bind="visible: isCondensed, click: randomize, text: randomizeButtonText")
+   .hovering-randomize-button(data-bind="showFloating: '.condensed_randomize-button'")
       a.button(data-bind="click: randomize, text: randomizeButtonText")
    .main
       #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
@@ -96,7 +99,8 @@ block content
             .highlight
 
       .modifiers-header(data-bind="fadeIn: metadata.show") Additional
-      .modifiers(data-bind="fadeIn: metadata.show, with: metadata")
+      .modifiers(data-bind="fadeIn: metadata.show, with: metadata, \
+            css: {'enlarge-cards': isCondensed() && isEnlarged()}")
          .clear-left
          .modifier-container.card-wrap(data-bind="fadeIn: useColonies")
             .modifier-margin
