@@ -177,6 +177,7 @@ do ->
          else
             options
                .setRequireActionProvider(@randomizerSettings.requireActionProvider())
+               .setRequireCardProvider(@randomizerSettings.requireCardProvider())
                .setRequireBuyProvider(@randomizerSettings.requireBuyProvider())
                .setRequireTrashing(@randomizerSettings.requireTrashing())
                .setRequireReactionIfAttacks(@randomizerSettings.requireReaction())

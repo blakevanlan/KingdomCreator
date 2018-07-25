@@ -24,6 +24,10 @@ block content
                span Require +2 Action
          .option
             label.checkbox
+               input(type="checkbox", data-bind="checked: randomizerSettings.requireCardProvider")
+               span Require Drawer
+         .option
+            label.checkbox
                input(type="checkbox", data-bind="checked: randomizerSettings.requireBuyProvider")
                span Require Buy
          .option

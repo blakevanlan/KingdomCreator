@@ -3,9 +3,10 @@
 do ->
 
    class RandomizerSettings
-      constructor: (requireActionProvider, requireBuyProvider, allowAttacks, requireReaction,
-            requireTrashing, distributeCost, prioritizeSet) ->
+      constructor: (requireActionProvider, requireCardProvider, requireBuyProvider, allowAttacks,
+            requireReaction, requireTrashing, distributeCost, prioritizeSet) ->
          @requireActionProvider = ko.observable(requireActionProvider)
+         @requireCardProvider = ko.observable(requireCardProvider)
          @requireBuyProvider = ko.observable(requireBuyProvider)
          @allowAttacks = ko.observable(allowAttacks)
          @requireReaction = ko.observable(requireReaction)
@@ -16,6 +17,7 @@ do ->
       toObject: () ->
          return {
             requireActionProvider: @requireActionProvider()
+            requireCardProvider: @requireCardProvider()
             requireBuyProvider: @requireBuyProvider()
             allowAttacks: @allowAttacks()
             requireReaction: @requireReaction()
@@ -28,6 +30,7 @@ do ->
          data = data or {}
          return new RandomizerSettings(
             if data.requireActionProvider? then !!data.requireActionProvider else true,
+            if data.requireCardProvider? then !!data.requireCardProvider else false,
             !!data.requireBuyProvider,
             if data.allowAttacks? then !!data.allowAttacks else true,
             !!data.requireReaction,

@@ -7,6 +7,7 @@ do ->
       ATTACK: 'isAttack',
       BUY_SUPPLIER: 'isBuySupplier',
       DRAWER: 'isDrawer',
+      MULTI_DRAWER: 'isMultiDrawer',
       DURATION: 'isDuration',
       REACTION: 'isReaction',
       RESERVE: 'isReserve',
