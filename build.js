@@ -39,6 +39,7 @@ for (var i = 0; i < filenamesNeeded.length; i++) {
 // Load all the sets.
 const sets = Loader.loadSets();
 const kingdoms = Loader.loadKingdoms();
+const now = Date.now()
 
 // Create html files from pug templates.
 for (var i = 0; i < pageNames.length; i++) {
@@ -47,10 +48,10 @@ for (var i = 0; i < pageNames.length; i++) {
       filename: pugTemplate,
       basedir: path.join(__dirname, 'views'),
       css: function(file) {
-         return '<link rel="stylesheet" href="' + file + '.css">';
+         return '<link rel="stylesheet" href="' + file + '.css?' + now +'">';
       },
       js: function(file) {
-         return '<script src="' + file + '.js"></script>';
+         return '<script src="' + file + '.js?' + now +'"></script>';
       },
       sets: sets,
       kingdoms: kingdoms,
