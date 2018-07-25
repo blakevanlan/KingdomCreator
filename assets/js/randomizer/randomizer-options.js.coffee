@@ -16,6 +16,7 @@ do ->
          @excludeTypes =  []
          @excludeCosts = []
          @requireActionProvider = true
+         @requireCardProvider = false
          @requireBuyProvider = false
          @requireReactionIfAttacks = false
          @requireTrashing = false
@@ -69,6 +70,13 @@ do ->
 
       setRequireActionProvider: (requireActionProvider) ->
          @requireActionProvider = requireActionProvider
+         return @
+
+      getRequireCardProvider: ->
+         return @requireCardProvider
+
+      setRequireCardProvider: (requireCardProvider) ->
+         @requireCardProvider = requireCardProvider
          return @
 
       getRequireBuyProvider: ->

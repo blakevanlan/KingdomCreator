@@ -17,6 +17,8 @@ cards:
       potion: 0
     isAttack: false
     isAction: true
+    isDrawer: true
+    isMultiDrawer: true
     isTreasure: false
     isVictory: false
     isTrashing: false
@@ -28,6 +30,8 @@ cards:
       potion: 0
     isAttack: false
     isAction: true
+    isDrawer: true
+    isMultiDrawer: true
     isTreasure: false
     isVictory: false
     isTrashing: false
@@ -96,6 +100,8 @@ cards:
       potion: 0
     isAttack: true
     isAction: true
+    isDrawer: true
+    isMultiDrawer: true
     isTreasure: false
     isVictory: false
     isTrashing: false
@@ -237,6 +243,8 @@ cards:
     isVictory: false
     isTrashing: true
     isReaction: false
+    isDrawer: true
+    isMultiDrawer: true
 
   - name: Pillage
     cost:
@@ -266,6 +274,8 @@ cards:
       potion: 0
     isAttack: false
     isAction: true
+    isDrawer: true
+    isMultiDrawer: true
     isTreasure: false
     isVictory: false
     isTrashing: false
@@ -312,6 +322,8 @@ cards:
       potion: 0
     isAttack: true
     isAction: true
+    isDrawer: true
+    isMultiDrawer: true
     isTreasure: false
     isVictory: false
     isTrashing: false

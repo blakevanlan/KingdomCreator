@@ -29,6 +29,7 @@ cards:
     isAttack: false
     isBuySupplier: false
     isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -351,7 +352,8 @@ cards:
     isActionSupplier: false
     isAttack: false
     isBuySupplier: false
-    isDrawer: false
+    isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -371,6 +373,7 @@ cards:
     isAttack: false
     isBuySupplier: false
     isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -466,6 +469,7 @@ cards:
     isAttack: false
     isBuySupplier: false
     isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -504,6 +508,7 @@ cards:
     isAttack: false
     isBuySupplier: false
     isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -561,6 +566,7 @@ cards:
     isAttack: false
     isBuySupplier: true
     isDrawer: true
+    isMultiDrawer: true
     isDoom: false
     isDuration: false
     isFate: false
@@ -599,6 +605,7 @@ cards:
     isAttack: true
     isBuySupplier: false
     isDrawer: true
+    isMultiDrawer: true
     isDoom: true
     isDuration: false
     isFate: false

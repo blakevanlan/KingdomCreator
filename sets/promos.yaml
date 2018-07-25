@@ -61,6 +61,7 @@ cards:
     isBuySupplier: false
     isDuration: false
     isDrawer: true
+    isMultiDrawer: true
     isReaction: false
     isReserve: false
     isTrashing: false

@@ -106,6 +106,9 @@ do ->
       if randomizerOptions.getRequireActionProvider()
          supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.ACTION_SUPPLIER, false))
 
+      if randomizerOptions.getRequireCardProvider()
+         supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.MULTI_DRAWER, false))         
+
       if randomizerOptions.getRequireBuyProvider()
          supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.BUY_SUPPLIER, false))
 
