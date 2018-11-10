@@ -1,9 +1,10 @@
 do -> 
    class Kingdom
-      constructor: (supply, events, landmarks, metadata) ->
+      constructor: (supply, events, landmarks, projects, metadata) ->
          @supply = supply
          @events = events
          @landmarks = landmarks
+         @projects = projects
          @metadata = metadata
 
       getSupply: ->
@@ -14,6 +15,9 @@ do ->
 
       getLandmarks: ->
          return @landmarks
+
+      getProjects: ->
+         return @projects
 
       getMetadata: ->
          return @metadata

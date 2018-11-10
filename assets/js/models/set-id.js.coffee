@@ -14,5 +14,6 @@ do ->
       NOCTURNE: 'nocturne'
       PROMOS: 'promos'
       PROSPERITY: 'prosperity'
+      RENAISSANCE: 'renaissance'
       SEASIDE: 'seaside'
    }

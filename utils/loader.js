@@ -18,6 +18,10 @@ const convertToLandmarkId = function(setId, name) {
    return setId + '_landmark_' + tokenize(name);
 };
 
+const convertToProjectId = function(setId, name) {
+   return setId + '_project_' + tokenize(name);
+};
+
 const convertToBoonId = function(setId, name) {
    return setId + '_boon_' + tokenize(name);
 };
@@ -63,6 +67,14 @@ const loadSets = function() {
          for (var i = 0; i < set.landmarks.length; i++) {
             var card = set.landmarks[i];
             card.id = convertToLandmarkId(setId, card.name);
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
+         }
+      }
+      if (set.projects) {
+         for (var i = 0; i < set.projects.length; i++) {
+            var card = set.projects[i];
+            card.id = convertToProjectId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
          }

@@ -1,0 +1,695 @@
+name: Renaissance
+cards:  
+  - name: Border Guard
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Ducat
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: true
+    isTerminal: false
+    isVictory: false
+
+  - name: Lackeys
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Acting Troupe
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Cargo Ship
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Experiment
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Improve
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+  
+  - name: Flag Bearer
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Hideout
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Inventor
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Mountain Village
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Patron
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Priest
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Research
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Silk Merchant
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Old Witch
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Recruiter
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Scepter
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Scholar
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Sculptor
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: true
+
+  - name: Seer
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Spices
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isTerminal: false
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Swashbuckler
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Treasurer
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: true
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+  - name: Villain
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+    isVillageSupplier: false
+
+projects:
+  - name: Cathedral
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+
+  - name: City Gate
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+
+  - name: Pageant
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+
+  - name: Sewers
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+
+  - name: Star Chart
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+
+  - name: Exploration
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+
+  - name: Fair
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+
+  - name: Silos
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+
+  - name: Sinister Plot
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+
+  - name: Academy
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Capitalism
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Fleet
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Guildhall
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Piazza
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Road Network
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+
+  - name: Barracks
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+
+  - name: Crop Rotation
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+
+  - name: Innovation
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+
+  - name: Canal
+    cost:
+      treasure: 7
+      potion: 0
+      debt: 0
+
+  - name: Citadel
+    cost:
+      treasure: 8
+      potion: 0
+      debt: 0

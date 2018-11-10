@@ -65,18 +65,24 @@ do ->
          isFourColumnWidth = $(window).width() <= FOUR_COLUMN_WIDTH
          @numberOfColumns(if isFourColumnWidth then 4 else 5)
 
-      titleForEventsAndLandmarks: (kingdom) ->
+      titleForAddons: (kingdom) ->
          hasEvents = kingdom.events?.length
          hasLandmarks = kingdom.landmarks?.length
+         hasProjects = kingdom.projects?.length
+         return 'Events, Landmarks and Projects' if hasEvents and hasLandmarks and hasProjects
          return 'Events and Landmarks' if hasEvents and hasLandmarks
+         return 'Events and Projects' if hasEvents and hasProjects
+         return 'Landmarks and Projects' if hasLandmarks and hasProjects
          return 'Events' if hasEvents
          return 'Landmarks' if hasLandmarks
+         return 'Projects' if hasProjects
          return null
 
-      eventsAndLandmarks: (kingdom) ->
+      addons: (kingdom) ->
          events = kingdom.events or []
          landmarks = kingdom.landmarks or []
-         return events.concat(landmarks)
+         projects = kingdom.projects or []
+         return events.concat(landmarks, projects)
 
       compareKingdoms: (a, b) =>
          setsFromA = @sortedSets(a)

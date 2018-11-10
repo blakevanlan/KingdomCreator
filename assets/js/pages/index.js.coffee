@@ -38,7 +38,7 @@ do ->
          @kingdom = null
          @sets = ko.observableArray(@createSetViewModels())
          @cards = ko.observableArray(new CardViewModel(@) for i in [0...10])
-         @eventsAndLandmarks = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
+         @addons = ko.observableArray(new CardViewModel(@, false) for i in [0...2])
          @distributeCostAllowed = @createDistributeCostAllowedObservable()
          @prioritizeSetEnabled = ko.observable()
          @prioritizeSetAllowed = @createPrioritizeSetAllowedObservable()
@@ -54,8 +54,8 @@ do ->
          @metadata = new MetadataViewModel()
          @dialog = new DialogViewModel(@sets())
          @hasLoaded = ko.observable(false)
-         @showEventsAndLandmarks = @createShowEventsAndLandmarksObservable()
-         @eventsAndLandmarksHeader = @createEventsAndLandmarksHeaderObservable()
+         @showAddons = @createShowAddonsObservable()
+         @addonsHeader = @createAddonsHeaderObservable()
          @randomizeButtonText = @createRandomizeButtonTextObservable()
          @loadCardBacks()
          @loadInitialKingdom()
@@ -78,7 +78,8 @@ do ->
             if supply 
                EventTracker.trackEvent(Event.LOAD_PARTIAL_KINGDOM_FROM_URL)
                kingdom = new Kingdom(supply, kingdomFromUrl.getEvents(),
-                     kingdomFromUrl.getLandmarks(), kingdomFromUrl.getMetadata())
+                     kingdomFromUrl.getLandmarks(), kingdomFromUrl.getProjects(),
+                     kingdomFromUrl.getMetadata())
                @setKingdom(kingdom)
                return
             else 
@@ -88,31 +89,31 @@ do ->
 
       randomize: () =>
          selectedCards = @getSelectedCards()
-         isEventOrLandmarkSelected = (@getSelectedEvents().length or
+         isAddonSelected = (@getSelectedEvents().length or
                @getSelectedLandmarks().length or
-               @getSelectedUndefinedEventOrLandmarks().length)
+               @randomizeSelectedAddons().length)
 
-         if (!selectedCards.length and !isEventOrLandmarkSelected)
+         if (!selectedCards.length and !isAddonSelected)
             @randomizeFullKingdom()
             return
 
          # Show a dialog for customizing when randomizing a single card for specifying the card.
-         if selectedCards.length == 1 and !isEventOrLandmarkSelected
+         if selectedCards.length == 1 and !isAddonSelected
             @dialog.open(@getSelectedSets(), @randomizeIndividualSelectedCard)
             return
          
          if selectedCards.length
             @randomizeSelectedCards()
 
-         if isEventOrLandmarkSelected
-            @randomizeSelectedEventsAndLandmarks()
+         if isAddonSelected
+            @randomizeSelectedAddons()
 
       randomizeFullKingdom: ->
          setIds = @getSelectedSetIds()
          return unless setIds.length
 
          card.setToLoading() for card in @cards()
-         card.setToLoading() for card in @eventsAndLandmarks()
+         card.setToLoading() for card in @addons()
 
          options = @createRandomizerOptions()
             .setSetIds(setIds)
@@ -143,17 +144,17 @@ do ->
          else
             EventTracker.trackError(Event.RANDOMIZE_MULTIPLE)
 
-      randomizeSelectedEventsAndLandmarks: =>
-         selectedEventsAndLandmarks = @getSelectedEvents().concat(@getSelectedLandmarks())
-         newEventsAndLandmarksCount = 
-               selectedEventsAndLandmarks.length + @getSelectedUndefinedEventOrLandmarks().length
+      randomizeSelectedAddons: =>
+         selectedAddons =
+            @getSelectedEvents().concat(@getSelectedLandmarks(), @selectedProjects())
+         newAddonsCount = selectedAddons.length + @randomizeSelectedAddons().length
          
          setIds = @getSelectedSetIds()
-         selectedEventAndLandmarkIds = (card.id for card in selectedEventsAndLandmarks)
+         selectedAddonIds = (card.id for card in selectedAddons)
          
-         newCards = Randomizer.getRandomEventsOrLandmarks(@dominionSets, setIds,
-               selectedEventAndLandmarkIds,newEventsAndLandmarksCount)
-         @replaceSelectedEventsAndLandmarks(newCards)
+         newCards =
+            Randomizer.getRandomAddons(@dominionSets, setIds, selectedAddonIds, newAddonsCount)
+         @replaceSelectedAddons(newCards)
          EventTracker.trackEvent(Event.RANDOMIZE_EVENTS_AND_LANDMARKS)
          
       randomizeIndividualSelectedCard: =>
@@ -197,7 +198,7 @@ do ->
          card.setToLoading() for card in selectedCards
 
          @kingdom = new Kingdom(supply, @kingdom.getEvents(), @kingdom.getLandmarks(),
-               @kingdom.getMetadata())
+               @kingdom.getProjects(), @kingdom.getMetadata())
          sets = @sets()
          imagesLeftToLoad = selectedCards.length
          
@@ -225,23 +226,22 @@ do ->
                   nextSelectedCardIndex < selectedCards.length)
                setCardData(selectedCards[nextSelectedCardIndex++], cardData)
 
-      replaceSelectedEventsAndLandmarks: (newEventsAndLandmarks) ->
+      replaceSelectedAddons: (newAddons) ->
          selectedEvents = @getSelectedEvents()
          selectedLandmarks = @getSelectedLandmarks()
-         selectedUndefinedEventOrLandmark = @getSelectedUndefinedEventOrLandmarks()
-         selectedEventsAndLandmarks =
-               selectedEvents.concat(selectedLandmarks).concat(selectedUndefinedEventOrLandmark)
+         selectedLandmarks = @getSelectedProjects()
+         selectedUndefinedAddons = @randomizeSelectedAddons()
+         selectedAddons = selectedEvents.concat(selectedLandmarks, selectedUndefinedAddons)
          
-         card.setToLoading() for card in selectedEventsAndLandmarks
-         nonSelectedEventAndLandmarkIds =
-               (ko.unwrap(card.id) for card in @eventsAndLandmarks() when !card.selected()) 
+         card.setToLoading() for card in selectedAddons
+         nonSelectedAddonIds =
+               (ko.unwrap(card.id) for card in @addons() when !card.selected()) 
          
          sets = @sets()
          nextIndex = 0
-         for cardData in newEventsAndLandmarks
-            if (nonSelectedEventAndLandmarkIds.indexOf(cardData.id) == -1 and
-                  nextIndex < selectedEventsAndLandmarks.length)
-               selectedEventsAndLandmarks[nextIndex++].setData(cardData, sets)
+         for cardData in newAddons
+            if (nonSelectedAddonIds.indexOf(cardData.id) == -1 and nextIndex < selectedAddons.length)
+               selectedAddons[nextIndex++].setData(cardData, sets)
 
       setKingdom: (kingdom) ->
          @kingdom = kingdom
@@ -250,21 +250,28 @@ do ->
          sortedSupply.sort(@cardSorter)
          events = @kingdom.getEvents()
          landmarks = @kingdom.getLandmarks()
+         projects = @kingdom.getProjects()
 
          cards = @cards()
          sets = @sets()
          for card, index in sortedSupply
             cards[index].setData(card, sets)
-         for eventOrLandmark, index in @eventsAndLandmarks()
+         for addon, index in @addons()
             if index < events.length
-               eventOrLandmark.setData(events[index], sets)
+               addon.setData(events[index], sets)
                continue
+            
             landmarkIndex = index - events.length
             if landmarkIndex < landmarks.length
-               eventOrLandmark.setData(landmarks[landmarkIndex], sets)
+               addon.setData(landmarks[landmarkIndex], sets)
                continue
-            else
-               eventOrLandmark.setToLoading()
+            
+            projectIndex = index - events.length - landmarks.length
+            if projectIndex < projects.length
+               addon.setData(projects[projectIndex], sets)
+               continue
+
+            addon.setToLoading()
 
          @metadata.update(kingdom.getMetadata())
          @updateUrlForKingdom(kingdom)
@@ -280,45 +287,52 @@ do ->
 
          return (new SetViewModel(set) for set in sets)
 
-      createShowEventsAndLandmarksObservable: ->
+      createShowAddonsObservable: ->
          return ko.computed =>
             return false unless @hasLoaded()
             for setViewModel in ko.unwrap(@sets)
                if ko.unwrap(setViewModel.active)
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
-                  if set.events?.length or set.landmarks?.length
+                  if set.events?.length or set.landmarks?.length or set.projects?.length
                      return true
 
             # Check if the current kingdom has any events or landmarks.
-            for eventOrLandmark in @eventsAndLandmarks()
-               if !ko.unwrap(eventOrLandmark.isLoading)
+            for addon in @addons()
+               if !ko.unwrap(addon.isLoading)
                   return true
             return false
 
-      createEventsAndLandmarksHeaderObservable: ->
+      createAddonsHeaderObservable: ->
          return ko.computed =>
             hasEvents = false
             hasLandmarks = false
+            hasProjects = false
             for setViewModel in ko.unwrap(@sets)
                if ko.unwrap(setViewModel.active)
                   set = @dominionSets[ko.unwrap(setViewModel.id)]
                   hasEvents = true if set.events?.length
                   hasLandmarks = true if set.landmarks?.length
+                  hasProjects = true if set.projects?.length
 
             # Check if the current kingdom has any events or landmarks.
-            for eventOrLandmark in @eventsAndLandmarks()
-               id = ko.unwrap(eventOrLandmark.id)
+            for addon in @addons()
+               id = ko.unwrap(addon.id)
                hasEvents = true if id and id.indexOf('_event_') != -1
                hasLandmarks = true if id and id.indexOf('_landmark_') != -1
+               hasProject = true if id and id.indexOf('_project_') != -1
             
+            return 'Events, Landmarks and Projects' if hasEvents and hasLandmarks and hasProjects
             return 'Events and Landmarks' if hasEvents and hasLandmarks
+            return 'Events and Projects' if hasEvents and hasProjects
+            return 'Landmarks and Projects' if hasLandmarks and hasProjects
             return 'Events' if hasEvents
             return 'Landmarks' if hasLandmarks
+            return 'Projects' if hasProjects
             return ''
 
       createRandomizeButtonTextObservable: ->
          return ko.computed =>
-            allCards = @cards().concat(@eventsAndLandmarks())
+            allCards = @cards().concat(@addons())
             for card in allCards
                return 'Replace!' if card.selected()
             return 'Randomize!'
@@ -422,7 +436,7 @@ do ->
 
       getSelectedEvents: ->
          selectedEvents = []
-         for card in @eventsAndLandmarks()
+         for card in @addons()
             id = ko.unwrap(card.id)
             if id and id.indexOf('_event_') != -1 and ko.unwrap(card.selected)
                selectedEvents.push(card)
@@ -431,15 +445,23 @@ do ->
 
       getSelectedLandmarks: ->
          selectedLandmarks = []
-         for card in @eventsAndLandmarks()
+         for card in @addons()
             id = ko.unwrap(card.id)
             if id and id.indexOf('_landmark_') != -1 and ko.unwrap(card.selected)
                selectedLandmarks.push(card)
          return selectedLandmarks
 
-      getSelectedUndefinedEventOrLandmarks: ->
+      getSelectedProjects: ->
+         selectedProjects = []
+         for card in @addons()
+            id = ko.unwrap(card.id)
+            if id and id.indexOf('_project_') != -1 and ko.unwrap(card.selected)
+               selectedProjects.push(card)
+         return selectedProjects
+
+      randomizeSelectedAddons: ->
          selectedUndefinedEventOrLandmark = []
-         for card in @eventsAndLandmarks()
+         for card in @addons()
             if ko.unwrap(card.isLoading) and ko.unwrap(card.selected)
                selectedUndefinedEventOrLandmark.push(card)
          return selectedUndefinedEventOrLandmark
