@@ -43,11 +43,11 @@ block content
                         img.kingdom-card_image(data-bind="cardImage: $data")
 
             .kingdom-extra-cards-horizontal(
-                  data-bind="if: $root.titleForEventsAndLandmarks($data)")
+                  data-bind="if: $root.titleForAddons($data)")
                .kingdom-extra-cards-horizontal_title(
-                     data-bind="text: $root.titleForEventsAndLandmarks($data)")
+                     data-bind="text: $root.titleForAddons($data)")
                .kingdom-extra-cards-horizontal_cards(
-                     data-bind="foreach:$root.eventsAndLandmarks($data)")
+                     data-bind="foreach:$root.addons($data)")
                   img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
                .clear
 

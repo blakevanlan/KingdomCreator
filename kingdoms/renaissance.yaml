@@ -1,0 +1,431 @@
+kingdoms:
+  - name: Overture
+    sets:
+      - renaissance
+    supply:
+      - renaissance_actingtroupe
+      - renaissance_experiment
+      - renaissance_flagbearer
+      - renaissance_hideout
+      - renaissance_improve
+      - renaissance_inventor
+      - renaissance_lackeys
+      - renaissance_oldwitch
+      - renaissance_seer
+      - renaissance_treasurer
+    projects:
+      - renaissance_project_fair
+
+  - name: Prelude
+    sets:
+      - renaissance
+    supply:
+      - renaissance_borderguard
+      - renaissance_cargoship
+      - renaissance_ducat
+      - renaissance_mountainvillage
+      - renaissance_priest
+      - renaissance_recruiter
+      - renaissance_sculptor
+      - renaissance_silkmerchant
+      - renaissance_swashbuckler
+      - renaissance_villain
+    projects:
+      - renaissance_project_citadel
+      - renaissance_project_starchart
+
+  - name: It Takes a Villager
+    sets:
+      - baseset2
+      - renaissance
+    supply:
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_mine
+      - baseset2_smithy
+      - baseset2_vassal
+      - renaissance_actingtroupe
+      - renaissance_cargoship
+      - renaissance_recruiter
+      - renaissance_seer
+      - renaissance_treasurer
+    projects: 
+      - renaissance_project_roadnetwork
+
+  - name: Capture the Flag
+    sets:
+      - baseset2
+      - renaissance
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_harbinger
+      - baseset2_remodel
+      - baseset2_workshop
+      - renaissance_flagbearer
+      - renaissance_lackeys
+      - renaissance_scholar
+      - renaissance_swashbuckler
+      - renaissance_villain
+    projects:
+      - renaissance_project_barracks
+      - renaissance_project_pageant
+
+  - name: Memento Mori
+    sets:
+      - intrigue2
+      - renaissance
+    supply:
+      - intrigue2_ironworks
+      - intrigue2_lurker
+      - intrigue2_patrol
+      - intrigue2_swindler
+      - intrigue2_upgrade
+      - renaissance_experiment
+      - renaissance_flagbearer
+      - renaissance_patron
+      - renaissance_recruiter
+      - renaissance_silkmerchant
+    projects:
+      - renaissance_project_citadel
+
+  - name: Clockwork Court
+    sets:
+      - intrigue2
+      - renaissance
+    supply:
+      - intrigue2_courtier
+      - intrigue2_miningvillage
+      - intrigue2_nobles
+      - intrigue2_replace
+      - intrigue2_steward
+      - renaissance_actingtroupe
+      - renaissance_inventor
+      - renaissance_research
+      - renaissance_scepter
+      - renaissance_scholar
+    projects:
+      - renaissance_project_fleet
+      - renaissance_project_sinisterplot
+
+  - name: Free Shipping
+    sets:
+      - renaissance
+      - seaside
+    supply:
+      - renaissance_actingtroupe
+      - renaissance_cargoship
+      - renaissance_lackeys
+      - renaissance_research
+      - renaissance_spices
+      - seaside_embargo
+      - seaside_island
+      - seaside_outpost
+      - seaside_smugglers
+      - seaside_wharf
+    projects:
+      - renaissance_project_innovation
+
+  - name: Digging for Treasure
+    sets:
+      - renaissance
+      - seaside
+    supply:
+      - renaissance_borderguard
+      - renaissance_flagbearer
+      - renaissance_inventor
+      - renaissance_sculptor
+      - renaissance_swashbuckler
+      - seaside_caravan
+      - seaside_nativevillage
+      - seaside_salvager
+      - seaside_tactician
+      - seaside_treasuremap
+    projects:
+      - renaissance_project_croprotation
+      - renaissance_project_silos
+
+  - name: Peek-a-boo
+    sets:
+      - alchemy
+      - renaissance
+    supply:
+      - alchemy_alchemist
+      - alchemy_apothecary
+      - alchemy_golem
+      - alchemy_scryingpool
+      - renaissance_cargoship
+      - renaissance_improve
+      - renaissance_lackeys
+      - renaissance_patron
+      - renaissance_sculptor
+      - renaissance_silkmerchant
+    projects:
+      - renaissance_project_cathedral
+
+  - name: Dreamers of Dreams
+    sets:
+      - prosperity
+      - renaissance
+    supply:
+      - prosperity_expand
+      - prosperity_monument
+      - prosperity_vault
+      - prosperity_watchtower
+      - prosperity_workersvillage
+      - renaissance_cargoship
+      - renaissance_oldwitch
+      - renaissance_priest
+      - renaissance_scepter
+      - renaissance_scholar
+    projects:
+      - renaissance_project_academy
+
+  - name: Movers and Shakers
+    sets:
+      - prosperity
+      - renaissance
+    supply:
+      - prosperity_bank
+      - prosperity_city
+      - prosperity_grandmarket
+      - prosperity_loan
+      - prosperity_rabble
+      - renaissance_hideout
+      - renaissance_patron
+      - renaissance_research
+      - renaissance_treasurer
+      - renaissance_villain
+    projects:
+      - renaissance_project_capitalism
+      - renaissance_project_citadel
+
+  - name: Sweetened Deals
+    sets:
+      - hinterlands
+      - renaissance
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_develop
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_spicemerchant
+      - renaissance_flagbearer
+      - renaissance_lackeys
+      - renaissance_mountainvillage
+      - renaissance_silkmerchant
+      - renaissance_spices
+    projects:
+      - renaissance_project_silos
+
+  - name: A Penny Saved
+    sets:
+      - hinterlands
+      - renaissance
+    supply:
+      - hinterlands_cache
+      - hinterlands_crossroads
+      - hinterlands_noblebrigand
+      - hinterlands_oasis
+      - hinterlands_trader
+      - renaissance_ducat
+      - renaissance_patron
+      - renaissance_scepter
+      - renaissance_seer
+      - renaissance_swashbuckler
+    projects:
+      - renaissance_project_barracks
+      - renaissance_project_guildhall
+
+  - name: Stargazing
+    sets:
+      - darkages
+      - renaissance
+    supply:
+      - darkages_hermit
+      - darkages_mystic
+      - darkages_procession
+      - darkages_sage
+      - darkages_wanderingminstrel
+      - renaissance_borderguard
+      - renaissance_patron
+      - renaissance_seer
+      - renaissance_silkmerchant
+      - renaissance_swashbuckler
+    projects:
+      - renaissance_project_starchart
+
+  - name: Sewer Rats
+    sets:
+      - darkages
+      - renaissance
+    supply:
+      - darkages_count
+      - darkages_counterfeit
+      - darkages_cultist
+      - darkages_graverobber
+      - darkages_rats
+      - renaissance_flagbearer
+      - renaissance_improve
+      - renaissance_lackeys
+      - renaissance_mountainvillage
+      - renaissance_research
+    projects:
+      - renaissance_project_croprotation
+      - renaissance_project_sewers
+
+  - name: Combo Corner
+    sets:
+      - cornucopia
+      - guilds
+      - renaissance
+    supply:
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - guilds_herald
+      - guilds_stonemason
+      - renaissance_ducat
+      - renaissance_experiment
+      - renaissance_hideout
+      - renaissance_sculptor
+      - renaissance_seer
+    projects:
+      - renaissance_project_canal
+
+  - name: Filling the Coffers
+    sets:
+      - cornucopia
+      - guilds
+      - renaissance
+    supply:
+      - cornucopia_menagerie
+      - guilds_baker
+      - guilds_butcher
+      - guilds_merchantguild
+      - guilds_plaza
+      - renaissance_priest
+      - renaissance_recruiter
+      - renaissance_spices
+      - renaissance_swashbuckler
+      - renaissance_treasurer
+    projects:
+      - renaissance_project_citygate
+      - renaissance_project_starchart
+
+  - name: Progress
+    sets:
+      - adventures
+      - renaissance
+    supply:
+      - adventures_hireling
+      - adventures_ranger
+      - adventures_raze
+      - adventures_swamphag
+      - adventures_transmogrify
+      - renaissance_experiment
+      - renaissance_improve
+      - renaissance_recruiter
+      - renaissance_seer
+      - renaissance_silkmerchant
+    events:
+      - adventures_event_training
+    projects:
+      - renaissance_project_piazza
+
+  - name: Once Upon a Time
+    sets:
+      - adventures
+      - renaissance
+    supply:
+      - adventures_distantlands
+      - adventures_duplicate
+      - adventures_hauntedwoods
+      - adventures_royalcarriage
+      - adventures_storyteller
+      - renaissance_actingtroupe
+      - renaissance_lackeys
+      - renaissance_priest
+      - renaissance_sculptor
+      - renaissance_spices
+    events:
+      - adventures_event_ferry
+    projects:
+      - renaissance_project_innovation
+
+  - name: Exploring the City
+    sets:
+      - empires
+      - renaissance
+    supply:
+      - empires_cityquarter
+      - empires_farmersmarket
+      - empires_groundskeeper
+      - empires_sacrifice
+      - empires_wildhunt
+      - renaissance_cargoship
+      - renaissance_experiment
+      - renaissance_mountainvillage
+      - renaissance_priest
+      - renaissance_sculptor
+    landmarks:
+      - empires_landmark_battlefield
+    projects:
+      - renaissance_project_exploration
+
+  - name: Navigating the Sewers
+    sets:
+      - empires
+      - renaissance
+    supply:
+      - empires_chariotrace
+      - empires_enchantress
+      - empires_gladiatorfortune
+      - empires_patricianemporium
+      - empires_villa
+      - renaissance_actingtroupe
+      - renaissance_flagbearer
+      - renaissance_improve
+      - renaissance_oldwitch
+      - renaissance_scepter
+    events:
+      - empires_event_ritual
+    projects:
+      - renaissance_project_sewers
+
+  - name: Becoming a Monster
+    sets:
+      - nocturne
+      - renaissance
+    supply:
+      - nocturne_devilsworkshop
+      - nocturne_monastery
+      - nocturne_shepherd
+      - nocturne_skulk
+      - nocturne_tragichero
+      - renaissance_experiment
+      - renaissance_mountainvillage
+      - renaissance_oldwitch
+      - renaissance_research
+      - renaissance_spices
+    projects:
+      - renaissance_project_exploration
+
+  - name: True Believers
+    sets:
+      - nocturne
+      - renaissance
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_crypt
+      - nocturne_faithfulhound
+      - nocturne_sacredgrove
+      - nocturne_secretcave
+      - renaissance_borderguard
+      - renaissance_cargoship
+      - renaissance_scholar
+      - renaissance_sculptor
+      - renaissance_villain
+    projects:
+      - renaissance_project_cathedral
+      - renaissance_project_piazza

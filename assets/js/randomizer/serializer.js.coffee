@@ -12,6 +12,7 @@ do ->
       result.push(serializeSupply(kingdom.getSupply().getCards()))
       result.push(serializeEvents(kingdom.getEvents())) if kingdom.getEvents().length
       result.push(serializeLandmarks(kingdom.getLandmarks())) if kingdom.getLandmarks().length
+      result.push(serializeProjects(kingdom.getProjects())) if kingdom.getProjects().length
 
       serializedMetadata = serializeMetadata(kingdom.getMetadata())
       result.push(serializedMetadata) if serializedMetadata.length
@@ -30,21 +31,24 @@ do ->
 
       eventIds = parseNamedCommaSeparatedParameter('events', serializedKingdom) or []
       landmarkIds = parseNamedCommaSeparatedParameter('landmarks', serializedKingdom) or []
+      projectIds = parseNamedCommaSeparatedParameter('projects', serializedKingdom) or []
       useShelters = parseNamedBooleanParameter('shelters', serializedKingdom)
       useColonies = parseNamedBooleanParameter('colonies', serializedKingdom)
 
       allCards = Util.flattenSetsForProperty(allSets, 'cards')
       allEvents = Util.flattenSetsForProperty(allSets, 'events')
       allLandmarks = Util.flattenSetsForProperty(allSets, 'landmarks')
+      allProjects = Util.flattenSetsForProperty(allSets, 'projects')
 
       cards = findByIds(supplyIds, allCards).slice(0, 10)
       events = findByIds(eventIds, allEvents).slice(0, 2)
-      landmarks = findByIds(landmarkIds, allLandmarks).slice(0, 2 - events.length)
+      landmarks = findByIds(landmarkIds, allLandmarks).slice(0, Math.max(0, 2 - events.length))
+      projects = findByIds(projectIds, allProjects).slice(0, Math.max(0, 2 - events.length - landmarks.length))
 
       supplyMetadata = new Supply.Metadata(null, null, null, null)
       supply = new Supply(cards, supplyMetadata)
 
-      return new Kingdom(supply, events, landmarks, deserializeMetadata(serializedKingdom))
+      return new Kingdom(supply, events, landmarks, projects, deserializeMetadata(serializedKingdom))
 
    serializeSupply = (supplyCards) ->
       sortedSupplyCards = supplyCards.concat().sort (a, b) ->
@@ -59,6 +63,9 @@ do ->
 
    serializeLandmarks = (landmarks) ->
       return "landmarks=#{serializeCardsWithShortIds(landmarks)}"
+
+   serializeProjects = (projects) ->
+      return "projects=#{serializeCardsWithShortIds(projects)}"
 
    serializeCardsWithShortIds = (cards) ->
       return '' unless cards.length

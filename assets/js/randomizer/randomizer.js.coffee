@@ -57,9 +57,9 @@ do ->
 
    createKingdom = (allSets, randomizerOptions) ->
       supply = createSupplyWithRetries(allSets, randomizerOptions)
-      eventsAndLandmarks = getEventsAndLandmarks(allSets, randomizerOptions.getSetIds(), [], [])
+      addons = getAddons(allSets, randomizerOptions.getSetIds(), [], [])
       metadata = getMetadata(allSets, randomizerOptions.getSetIds())
-      return new Kingdom(supply, eventsAndLandmarks.events, eventsAndLandmarks.landmarks, metadata)
+      return new Kingdom(supply, addons.events, addons.landmarks, addons.projects, metadata)
    
    createSupplySafe = (allSets, randomizerOptions) ->
       try
@@ -156,36 +156,41 @@ do ->
 
       return new Supply(selectedCards, metadata)
 
-   getEventsAndLandmarks = (allSets, setIds, excludeIds, excludeLandmarkIds) ->
+   getAddons = (allSets, setIds, excludeIds, excludeLandmarkIds) ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
       cards = Util.flattenSetsForProperty(setsToUse, 'cards')
-      cardsEventsAndLandmarks = cards.concat(getEventsAndLandmarksFromSets(allSets, setIds, []))
+      addonCards = cards.concat(getAddonsFromSets(allSets, setIds, []))
 
-      selectedCards = selectRandomCards(cardsEventsAndLandmarks, NUM_CARDS_IN_KINGDOM)
+      selectedCards = selectRandomCards(addonCards, NUM_CARDS_IN_KINGDOM)
       selectedEvents = []
       selectedLandmarks = []
+      selectedProjects = []
       for card in selectedCards
          if CardUtil.isEvent(card)
             selectedEvents.push(card)
          else if CardUtil.isLandmark(card)
             selectedLandmarks.push(card)
-         if selectedEvents.length + selectedLandmarks.length >= MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM
+         else if CardUtil.isProject(card)
+            selectedProjects.push(card)
+         if selectedEvents.length + selectedLandmarks.length + selectedProjects >= MAX_EVENTS_AND_LANDMARKS_IN_KINGDOM
             break
 
       return {
          events: selectedEvents
          landmarks: selectedLandmarks
+         projects: selectedProjects
       }
 
-   getRandomEventsOrLandmarks = (allSets, setIds, excludeIds, numberOfEventsOrLandmarks) ->
-      eventsOrLandmarks = getEventsAndLandmarksFromSets(allSets, setIds, excludeIds)
-      return selectRandomCards(eventsOrLandmarks, numberOfEventsOrLandmarks)
+   getRandomAddons = (allSets, setIds, excludeIds, numberOfAddons) ->
+      addons = getAddonsFromSets(allSets, setIds, excludeIds)
+      return selectRandomCards(addons, numberOfAddons)
 
-   getEventsAndLandmarksFromSets = (allSets, setIds, excludeIds) ->
+   getAddonsFromSets = (allSets, setIds, excludeIds) ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
       events = Util.flattenSetsForProperty(setsToUse, 'events')
       landmarks = Util.flattenSetsForProperty(setsToUse, 'landmarks')
-      return events.concat(landmarks).filter(CardUtil.filterByExcludedIds(excludeIds))
+      projects = Util.flattenSetsForProperty(setsToUse, 'projects')
+      return events.concat(landmarks, projects).filter(CardUtil.filterByExcludedIds(excludeIds))
 
    getMetadata = (allSets, setIds) ->
       setsToUse = CardUtil.filterSetsByAllowedSetIds(allSets, setIds)
@@ -311,6 +316,6 @@ do ->
       createSupply: createSupply
       createSupplyWithRetries: createSupplyWithRetries
       createSupplySafe: createSupplySafe
-      getEventsAndLandmarks: getEventsAndLandmarks
-      getRandomEventsOrLandmarks: getRandomEventsOrLandmarks
+      getAddons: getAddons
+      getRandomAddons: getRandomAddons
    }

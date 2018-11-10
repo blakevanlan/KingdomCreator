@@ -85,13 +85,13 @@ block content
                            visible: $root.settings.showSetOnCards() && !isLoading(), css:setClass")
             .highlight
 
-      .eventsAndLandmarks-header(data-bind="visible: showEventsAndLandmarks, \
-            text: eventsAndLandmarksHeader")
-      .eventsAndLandmarks(data-bind="visible: showEventsAndLandmarks, \
-            foreach: eventsAndLandmarks, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
+      .addons-header(data-bind="visible: showAddons, \
+            text: addonsHeader")
+      .addons(data-bind="visible: showAddons, \
+            foreach: addons, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
          .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
             .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
-                  trigger: $parent.isEnlarged() + $parent.showEventsAndLandmarks() + Date.now() }, \
+                  trigger: $parent.isEnlarged() + $parent.showAddons() + Date.now() }, \
                   css: { 'show-front': cardImageLoaded() && !isLoading() }" )
                .card-back
                   img.card-back-image(src="/img/cards/backside_blue_horizontal.jpg")

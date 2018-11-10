@@ -25,6 +25,9 @@ do ->
    isLandmark = (card) ->
       return card.id.indexOf("_landmark_") != -1
 
+   isProject = (card) ->
+      return card.id.indexOf("_project_") != -1
+
    filterSetsByAllowedSetIds = (setsArrayOrMap, allowedSetIds) ->
       setsArray = []
       for setId, set of setsArrayOrMap
@@ -90,6 +93,7 @@ do ->
       findCardById: findCardById
       isEvent: isEvent
       isLandmark: isLandmark
+      isProject: isProject
       filterSetsByAllowedSetIds: filterSetsByAllowedSetIds
       filterSetsByExcludedSetIds: filterSetsByExcludedSetIds
       filterByIncludedSetIds: filterByIncludedSetIds
