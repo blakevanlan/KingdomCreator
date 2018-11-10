@@ -91,7 +91,8 @@ do ->
          selectedCards = @getSelectedCards()
          isAddonSelected = (@getSelectedEvents().length or
                @getSelectedLandmarks().length or
-               @randomizeSelectedAddons().length)
+               @getSelectedProjects().length or
+               @getSelectedUndefinedAddons().length)
 
          if (!selectedCards.length and !isAddonSelected)
             @randomizeFullKingdom()
@@ -146,8 +147,8 @@ do ->
 
       randomizeSelectedAddons: =>
          selectedAddons =
-            @getSelectedEvents().concat(@getSelectedLandmarks(), @selectedProjects())
-         newAddonsCount = selectedAddons.length + @randomizeSelectedAddons().length
+            @getSelectedEvents().concat(@getSelectedLandmarks(), @getSelectedProjects())
+         newAddonsCount = selectedAddons.length + @getSelectedUndefinedAddons().length
          
          setIds = @getSelectedSetIds()
          selectedAddonIds = (card.id for card in selectedAddons)
@@ -199,6 +200,7 @@ do ->
 
          @kingdom = new Kingdom(supply, @kingdom.getEvents(), @kingdom.getLandmarks(),
                @kingdom.getProjects(), @kingdom.getMetadata())
+         @updateUrlForKingdom(@kingdom)
          sets = @sets()
          imagesLeftToLoad = selectedCards.length
          
@@ -229,9 +231,10 @@ do ->
       replaceSelectedAddons: (newAddons) ->
          selectedEvents = @getSelectedEvents()
          selectedLandmarks = @getSelectedLandmarks()
-         selectedLandmarks = @getSelectedProjects()
-         selectedUndefinedAddons = @randomizeSelectedAddons()
-         selectedAddons = selectedEvents.concat(selectedLandmarks, selectedUndefinedAddons)
+         selectedProjects = @getSelectedProjects()
+         selectedUndefinedAddons = @getSelectedUndefinedAddons()
+         selectedAddons =
+               selectedEvents.concat(selectedLandmarks, selectedProjects, selectedUndefinedAddons)
          
          card.setToLoading() for card in selectedAddons
          nonSelectedAddonIds =
@@ -242,6 +245,8 @@ do ->
          for cardData in newAddons
             if (nonSelectedAddonIds.indexOf(cardData.id) == -1 and nextIndex < selectedAddons.length)
                selectedAddons[nextIndex++].setData(cardData, sets)
+
+         # TODO: Update the URL with the new addons.
 
       setKingdom: (kingdom) ->
          @kingdom = kingdom
@@ -459,12 +464,12 @@ do ->
                selectedProjects.push(card)
          return selectedProjects
 
-      randomizeSelectedAddons: ->
-         selectedUndefinedEventOrLandmark = []
+      getSelectedUndefinedAddons: ->
+         selectedAddons = []
          for card in @addons()
             if ko.unwrap(card.isLoading) and ko.unwrap(card.selected)
-               selectedUndefinedEventOrLandmark.push(card)
-         return selectedUndefinedEventOrLandmark
+               selectedAddons.push(card)
+         return selectedAddons
 
       updateUrlForKingdom: (kingdom) ->
          url = new URL(location.href)
