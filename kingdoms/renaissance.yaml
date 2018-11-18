@@ -180,6 +180,8 @@ kingdoms:
       - renaissance_scholar
     projects:
       - renaissance_project_academy
+    metadata:
+      colonies: true
 
   - name: Movers and Shakers
     sets:
@@ -199,6 +201,8 @@ kingdoms:
     projects:
       - renaissance_project_capitalism
       - renaissance_project_citadel
+    metadata:
+      colonies: true
 
   - name: Sweetened Deals
     sets:
@@ -254,6 +258,8 @@ kingdoms:
       - renaissance_swashbuckler
     projects:
       - renaissance_project_starchart
+    metadata:
+      shelters: true
 
   - name: Sewer Rats
     sets:
@@ -273,6 +279,8 @@ kingdoms:
     projects:
       - renaissance_project_croprotation
       - renaissance_project_sewers
+    metadata:
+      shelters: true
 
   - name: Combo Corner
     sets:

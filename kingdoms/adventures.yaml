@@ -162,7 +162,8 @@ kingdoms:
       - prosperity_vault
     events:
       - adventures_event_inheritance 
-    useColonies: true
+    metadata:
+      colonies: true
 
   - name: Think Big
     sets:
@@ -182,7 +183,8 @@ kingdoms:
     events:
       - adventures_event_ball 
       - adventures_event_ferry 
-    useColonies: true
+    metadata:
+      colonies: true
 
   - name: The Hero's Return
     sets:
@@ -276,7 +278,8 @@ kingdoms:
       - darkages_wanderingminstrel
     events:
       - adventures_event_alms
-    useShelters: true
+    metadata:
+      shelters: true
 
   - name: Groovy Decay
     sets:
@@ -296,7 +299,8 @@ kingdoms:
     events:
       - adventures_event_lostarts
       - adventures_event_pathfinding
-    useShelters: true
+    metadata:
+      shelters: true
 
   - name: Spendthrift
     sets:
