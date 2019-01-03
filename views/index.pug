@@ -55,15 +55,19 @@ block content
                select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
                      optionsValue: 'value', optionsText: 'name', optionsCaption: 'Choose set...', \
                      value: randomizerSettings.prioritizeSet")
-         .sidebar-content-title Display
+         .sidebar-content-title Sort
          .option
             label.checkbox
-               input(type="checkbox", data-bind="checked: settings.showSetOnCards")
-               span Show Set on Cards
+               input(type="radio", value="set", name="sortOption", data-bind="checked: settings.sortOption")
+               span Set
          .option
             label.checkbox
-               input(type="checkbox", data-bind="checked: settings.sortAlphabetically")
-               span Sort Alphabetically
+               input(type="radio", value="alpha", name="sortOption", data-bind="checked: settings.sortOption")
+               span Alphabetical
+         .option
+            label.checkbox
+               input(type="radio", value="cost", name="sortOption", data-bind="checked: settings.sortOption")
+               span Cost
          a.condensed_randomize-button.button(
                data-bind="visible: isCondensed, click: randomize, text: randomizeButtonText")
    .hovering-randomize-button(data-bind="showFloating: '.condensed_randomize-button'")
@@ -81,8 +85,7 @@ block content
                .card-front
                   img(data-bind="attr:{src:imageUrl}")
                   .set-name-wrap
-                     .set-name(data-bind="text: set, \
-                           visible: $root.settings.showSetOnCards() && !isLoading(), css:setClass")
+                     .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
             .highlight
 
       .addons-header(data-bind="visible: showAddons, \
@@ -98,8 +101,7 @@ block content
                .card-front
                   img(data-bind="attr:{src:imageUrl}")
                   .set-name-wrap
-                     .set-name(data-bind="text: set, \
-                           visible: $root.settings.showSetOnCards() && !isLoading(), css:setClass")
+                     .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
             .highlight
 
       .modifiers-header(data-bind="fadeIn: metadata.show") Additional

@@ -4,18 +4,23 @@
 do ->
    RandomizerSettings = window.RandomizerSettings
 
+   SortOption = {
+      SET: 'set',
+      ALPHABETICAL: 'alpha',
+      COST: 'cost'
+   }
+
    class Settings
-      constructor: (selectedSets, sortAlphabetically, showSetOnCards, randomizerSettings) ->
+      constructor: (selectedSets, sortOption, randomizerSettings) ->
          @selectedSets = ko.observableArray(selectedSets)
-         @sortAlphabetically = ko.observable(sortAlphabetically)
-         @showSetOnCards = ko.observable(showSetOnCards)
+         @sortOption = ko.observable(sortOption)
          @randomizerSettings = ko.observable(randomizerSettings)
+         console.log(@sortOption())
 
       toObject: () ->
          return {
             sets: Settings.serializeSets(@selectedSets())
-            sortAlphabetically: @sortAlphabetically()
-            showSet: @showSetOnCards()
+            sortOption: @sortOption()
             randomizerSettings: @randomizerSettings().toObject()
          }
 
@@ -23,8 +28,7 @@ do ->
          data = data or {}
          return new Settings(
             @deserializeSets(data),
-            !!data.sortAlphabetically,
-            if data.showSet? then !!data.showSet else true,
+            @deserailizeSort(data),
             RandomizerSettings.createFromObject(
                if data.randomizerSettings? then data.randomizerSettings else data))
 
@@ -40,5 +44,15 @@ do ->
                return setIds
          return ['baseset']
 
+      @deserailizeSort: (data) -> 
+         if data.sortOption
+            for key, value of SortOption
+               return value if data.sortOption == value
+            return SortOption.SET
+         if !!data.sortAlphabetically
+            return SortOption.ALPHABETICAL
+         return SortOption.SET
+
 
    window.Settings = Settings
+   window.Settings.SortOption = SortOption

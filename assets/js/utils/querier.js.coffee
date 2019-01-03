@@ -27,7 +27,7 @@ do ->
                return landmark
          throw Error('Unknown card id: ' + cardId)
 
-      if idPars.length == 3 and idParts[1] == 'boon'
+      if idParts.length == 3 and idParts[1] == 'boon'
          for boon in set.boons
             if boon.id == cardId
                return boon

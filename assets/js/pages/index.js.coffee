@@ -5,7 +5,9 @@
 #= require randomizer/randomizer.js.coffee
 #= require randomizer/randomizer-options.js.coffee
 #= require randomizer/serializer.js.coffee
+#= require settings/settings.js.coffee
 #= require settings/settings-manager.js.coffee
+#= require utils/querier.js.coffee
 #= require viewmodels/card.js.coffee
 #= require viewmodels/dialog.js.coffee
 #= require viewmodels/metadata.js.coffee
@@ -22,8 +24,10 @@ do ->
    PageViewModel = window.PageViewModel
    Randomizer = window.Randomizer
    RandomizerOptions = window.RandomizerOptions
+   Querier = window.Querier
    Serializer = window.Serializer
    SetViewModel = window.SetViewModel
+   Settings = window.Settings
    SettingsManager = window.SettingsManager
 
    MIN_SETS_FOR_PRIORITIZE_OPTION = 3
@@ -388,11 +392,10 @@ do ->
          @prioritizeSetEnabled.subscribe(@prioritizeSetEnabledChanged)
          
          # Re-sort the cards when the sort option changes.
-         @settings.sortAlphabetically.subscribe(@sortCards)
+         @settings.sortOption.subscribe(@sortCards)
 
          # Save the settings when settings change.
-         @settings.sortAlphabetically.subscribe(@saveSettings)
-         @settings.showSetOnCards.subscribe(@saveSettings)
+         @settings.sortOption.subscribe(@saveSettings)
          @randomizerSettings.requireActionProvider.subscribe(@saveSettings)
          @randomizerSettings.requireBuyProvider.subscribe(@saveSettings)
          @randomizerSettings.allowAttacks.subscribe(@saveSettings)
@@ -560,12 +563,24 @@ do ->
 
       cardPairSorter: (a, b) => return @cardSorter(a.card, b.card)
       cardSorter: (a, b) =>
-         unless @settings.sortAlphabetically()
+         if @settings.sortOption() == Settings.SortOption.SET
             return -1 if ko.unwrap(a.setId) < ko.unwrap(b.setId)
             return 1 if ko.unwrap(a.setId) > ko.unwrap(b.setId)
+         else if @settings.sortOption() == Settings.SortOption.COST
+            costComparison = @compareCosts(ko.unwrap(a.id), ko.unwrap(b.id))
+            return costComparison if costComparison != 0
          return -1 if ko.unwrap(a.name) < ko.unwrap(b.name)
          return 1 if ko.unwrap(a.name) > ko.unwrap(b.name)
          return 0
+
+      compareCosts: (idA, idB) ->
+         costA = @getCostSum(Querier.getCardById(idA))
+         costB = @getCostSum(Querier.getCardById(idB))
+         return -1 if costA < costB
+         return 1 if costA > costB
+
+      getCostSum: (card) ->
+         return (card.cost.treasure or 0) + ((card.cost.potion or 0) * 0.9) + (card.cost.debt or 0)
 
 
    window.IndexViewModel = IndexViewModel
