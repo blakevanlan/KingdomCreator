@@ -2,7 +2,7 @@ name: Intrigue
 cards:
   - name: Nobles
     cost:
-      treasure: 5
+      treasure: 6
       potion: 0
     isAttack: false
     isAction: true
