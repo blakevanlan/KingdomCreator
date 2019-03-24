@@ -177,7 +177,7 @@ do ->
             .setExcludeCardIds(@extractCardIds(@getSelectedCards()))
             .setExcludeTypes(excludeTypes)
             .setExcludeCosts(ko.unwrap(costs.id) for costs in @dialog.costs when not costs.active())
-         
+
          if @dialog.selectedType()
             options.setRequireSingleCardOfType(@dialog.selectedType())
          else

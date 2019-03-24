@@ -27,6 +27,7 @@ do ->
 
       createUnfilledDivisions: (existingCards) -> 
          division = new SupplyDivision(@cards, [], [], 10)
+         division = @prepareDivisionForBanning(division, existingCards)
          division = @applyBans(division)
          division = @addExistingCardsAsAvailable(division, existingCards)
          divisions = @applyDividers([division])
@@ -50,6 +51,12 @@ do ->
          return clone
 
       ### Private methods ###
+
+      prepareDivisionForBanning: (division, existingCards) ->
+         # Prepare the division for banning by reducing the number of cards needed in the division
+         # to account for the existing cards that will be added after banning.
+         return division.createDivisionWithTotalCount(
+            division.getTotalCount() - existingCards.length)
 
       applyBans: (division) ->
          for ban in @bans
@@ -101,9 +108,12 @@ do ->
          for card in existingCards
             if availableCardIds.indexOf(card.id) == -1
                cardsToAdd.push(card)
+
+         # Reinflate the total number of cards in the division by the number of existing cards since
+         # the total was reduced in preparation for banning. See #prepareDivisionForBanning.
          return new SupplyDivision(
                division.getAvailableCards().concat(cardsToAdd), division.getLockedCards(),
-               division.getSelectedCards(), division.getTotalCount())
+               division.getSelectedCards(), division.getTotalCount() + existingCards.length)
 
       applyExistingCards: (divisions, existingCards) ->
          divisions = divisions.concat()

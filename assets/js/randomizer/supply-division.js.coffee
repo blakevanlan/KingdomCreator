@@ -65,5 +65,8 @@ do ->
          return new SupplyDivision(
                cards, @lockedCards, @selectedCards.concat(selectedCard), @totalCount)
 
+      createDivisionWithTotalCount: (totalCount) ->
+         return new SupplyDivision(@availableCards, @lockedCards, @selectedCards, totalCount)
+
 
    window.SupplyDivision = SupplyDivision
