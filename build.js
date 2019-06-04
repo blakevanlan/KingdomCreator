@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Built with Node v6.11.2
 
 const path = require('path');
 const childProcess = require('child_process');
