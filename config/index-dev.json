@@ -1,0 +1,9 @@
+{
+  "extends": "./base-dev",
+  "compilerOptions": {
+    "outFile": "../out/index.js",
+  },
+  "files": [
+    "../src/index.ts",
+  ]
+}

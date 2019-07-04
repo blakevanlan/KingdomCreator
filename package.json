@@ -12,9 +12,14 @@
     "url": "https://github.com/blakevanlan/KingdomCreator.git"
   },
   "scripts": {
+    "build-index": "tsc -p ./config/index-dev.json",
+    "watch-index": "tsc -p ./config/index-dev.json -w",
+    "prestart": "npm run build-index",
     "start": "node server.js"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.30",
+    "@types/knockout": "^3.4.66",
     "coffee-script": "1.11.1",
     "compression": "1.6.2",
     "connect-assets": "3.0.2",

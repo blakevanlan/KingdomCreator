@@ -39,6 +39,9 @@ app.get '/', (req, res, next) ->  res.render('index', renderParams)
 app.get '/index.html', (req, res, next) ->  res.render('index', renderParams)
 app.get '/sets.html', (req, res, next) ->  res.render('sets', renderParams)
 
+# Serve the compiled JS and sourcemaps.
+app.use(express.static(path.join(__dirname, "../out")))
+app.use('/src', express.static(path.join(__dirname, "../src")))
 
 # Serve the images.
 app.use(express.static(path.join(__dirname, "../docs")))

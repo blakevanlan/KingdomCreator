@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "target": "es5",
+    "types" : [
+        "jquery",
+        "knockout"
+    ]
+  }
+}
