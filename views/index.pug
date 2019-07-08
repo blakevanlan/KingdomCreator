@@ -1,164 +1,166 @@
 extends layout.pug
 
 block head
-   script(src="index.js")
-   != css("index")
+  script(src="index.js")
+  script.
+    requirejs(["index"])
+  != css("index")
 
 block content
-   .sidebar
-      a.desktop_randomize-button.button(
-         data-bind="visible: !isCondensed(), click: randomize, text: randomizeButtonText")
+  .sidebar
+    a.desktop_randomize-button.button(
+      data-bind="visible: !isCondensed(), click: randomize, text: randomizeButtonText")
 
-      .sidebar-content.filters
-         .sidebar-content-title Sets
-         .sets(data-bind="foreach: sets")
-            .set
-               label.checkbox
-                  input(type="checkbox", data-bind="checked: active")
-                  span(data-bind="text: name")
-         .clear
-         .sidebar-content-title Options
-         .option
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.requireActionProvider")
-               span Require +2 Action
-         .option
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.requireCardProvider")
-               span Require Drawer
-         .option
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.requireBuyProvider")
-               span Require Buy
-         .option
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.allowAttacks")
-               span Allow Attacks
-            .suboption
-               label.checkbox(data-bind="css:{'disable': !randomizerSettings.allowAttacks}")
-                  input(type="checkbox", data-bind="checked: randomizerSettings.requireReaction, \
-                        enable: randomizerSettings.allowAttacks")
-                  span Require Reaction
-         .option
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.requireTrashing")
-               span Require Trashing
-         .option(data-bind="visible: distributeCostAllowed")
-            label.checkbox
-               input(type="checkbox", data-bind="checked: randomizerSettings.distributeCost")
-               span Distribute Cost
-         .option(data-bind="visible: prioritizeSetAllowed")
-            label.checkbox
-               input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
-               span Prioritize Set
-            .suboption
-               select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
-                     optionsValue: 'value', optionsText: 'name', optionsCaption: 'Choose set...', \
-                     value: randomizerSettings.prioritizeSet")
-         .sidebar-content-title Sort
-         .option
-            label.checkbox
-               input(type="radio", value="set", name="sortOption", data-bind="checked: settings.sortOption")
-               span Set
-         .option
-            label.checkbox
-               input(type="radio", value="alpha", name="sortOption", data-bind="checked: settings.sortOption")
-               span Alphabetical
-         .option
-            label.checkbox
-               input(type="radio", value="cost", name="sortOption", data-bind="checked: settings.sortOption")
-               span Cost
-         a.condensed_randomize-button.button(
-               data-bind="visible: isCondensed, click: randomize, text: randomizeButtonText")
-   .hovering-randomize-button(data-bind="showFloating: '.condensed_randomize-button'")
-      a.button(data-bind="click: randomize, text: randomizeButtonText")
-   .main
-      #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
-            foreach: cards, css: {'enlarge-cards': isCondensed() && isEnlarged()}",
-            style="visibility:hidden;")
-         .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
-            .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
-                  trigger: $parent.isEnlarged() + Date.now() }, \
-                  css: { 'show-front': cardImageLoaded() && !isLoading() }" )
-               .card-back
-                  img.card-back-image(src="/img/cards/backside_blue.jpg")
-               .card-front
-                  img(data-bind="attr:{src:imageUrl}")
-                  .set-name-wrap
-                     .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
-            .highlight
+    .sidebar-content.filters
+      .sidebar-content-title Sets
+      .sets(data-bind="foreach: sets")
+        .set
+          label.checkbox
+            input(type="checkbox", data-bind="checked: active")
+            span(data-bind="text: name")
+      .clear
+      .sidebar-content-title Options
+      .option
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.requireActionProvider")
+          span Require +2 Action
+      .option
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.requireCardProvider")
+          span Require Drawer
+      .option
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.requireBuyProvider")
+          span Require Buy
+      .option
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.allowAttacks")
+          span Allow Attacks
+        .suboption
+          label.checkbox(data-bind="css:{'disable': !randomizerSettings.allowAttacks}")
+            input(type="checkbox", data-bind="checked: randomizerSettings.requireReaction, \
+                enable: randomizerSettings.allowAttacks")
+            span Require Reaction
+      .option
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.requireTrashing")
+          span Require Trashing
+      .option(data-bind="visible: distributeCostAllowed")
+        label.checkbox
+          input(type="checkbox", data-bind="checked: randomizerSettings.distributeCost")
+          span Distribute Cost
+      .option(data-bind="visible: prioritizeSetAllowed")
+        label.checkbox
+          input(type="checkbox", data-bind="checked: prioritizeSetEnabled")
+          span Prioritize Set
+        .suboption
+          select(data-bind="enable: prioritizeSetEnabled, options: prioritizeSetOptions, \
+              optionsValue: 'value', optionsText: 'name', optionsCaption: 'Choose set...', \
+              value: randomizerSettings.prioritizeSet")
+      .sidebar-content-title Sort
+      .option
+        label.checkbox
+          input(type="radio", value="set", name="sortOption", data-bind="checked: settings.sortOption")
+          span Set
+      .option
+        label.checkbox
+          input(type="radio", value="alpha", name="sortOption", data-bind="checked: settings.sortOption")
+          span Alphabetical
+      .option
+        label.checkbox
+          input(type="radio", value="cost", name="sortOption", data-bind="checked: settings.sortOption")
+          span Cost
+      a.condensed_randomize-button.button(
+          data-bind="visible: isCondensed, click: randomize, text: randomizeButtonText")
+  .hovering-randomize-button(data-bind="showFloating: '.condensed_randomize-button'")
+    a.button(data-bind="click: randomize, text: randomizeButtonText")
+  .main
+    #cards(data-bind="style:{visibility: hasLoaded() ? 'visible':'hidden'}, \
+        foreach: cards, css: {'enlarge-cards': isCondensed() && isEnlarged()}",
+        style="visibility:hidden;")
+      .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
+        .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
+            trigger: $parent.isEnlarged() + Date.now() }, \
+            css: { 'show-front': cardImageLoaded() && !isLoading() }" )
+          .card-back
+            img.card-back-image(src="/img/cards/backside_blue.jpg")
+          .card-front
+            img(data-bind="attr:{src:imageUrl}")
+            .set-name-wrap
+              .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
+        .highlight
 
-      .addons-header(data-bind="visible: showAddons, \
-            text: addonsHeader")
-      .addons(data-bind="visible: showAddons, \
-            foreach: addons, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
-         .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
-            .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
-                  trigger: $parent.isEnlarged() + $parent.showAddons() + Date.now() }, \
-                  css: { 'show-front': cardImageLoaded() && !isLoading() }" )
-               .card-back
-                  img.card-back-image(src="/img/cards/backside_blue_horizontal.jpg")
-               .card-front
-                  img(data-bind="attr:{src:imageUrl}")
-                  .set-name-wrap
-                     .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
-            .highlight
+    .addons-header(data-bind="visible: showAddons, \
+        text: addonsHeader")
+    .addons(data-bind="visible: showAddons, \
+        foreach: addons, css: {'enlarge-cards': isCondensed() && isEnlarged()}")
+      .card-wrap(data-bind="click: toggleSelected, css: {'selected': selected}")
+        .flipper(data-bind="scaleOffWidthOfImage:{selector: '.card-back-image', \
+            trigger: $parent.isEnlarged() + $parent.showAddons() + Date.now() }, \
+            css: { 'show-front': cardImageLoaded() && !isLoading() }" )
+          .card-back
+            img.card-back-image(src="/img/cards/backside_blue_horizontal.jpg")
+          .card-front
+            img(data-bind="attr:{src:imageUrl}")
+            .set-name-wrap
+              .set-name(data-bind="text: set, visible: !isLoading(), css:setClass")
+        .highlight
 
-      .modifiers-header(data-bind="fadeIn: metadata.show") Additional
-      .modifiers(data-bind="fadeIn: metadata.show, with: metadata, \
-            css: {'enlarge-cards': isCondensed() && isEnlarged()}")
-         .clear-left
-         .modifier-container.card-wrap(data-bind="fadeIn: useColonies")
-            .modifier-margin
-               img.modifier-card(src="/img/cards/prosperity_coloniesplatinums.png")
-               .modifier-name-container
-                  .modifier-name Colonies & Platinums
-         .modifier-container.card-wrap(data-bind="fadeIn: useShelters")
-            .modifier-margin
-               img.modifier-card(src="/img/cards/darkages_shelters.png")
-               .modifier-name-container
-                  .modifier-name Shelters
-      .clear   
+    .modifiers-header(data-bind="fadeIn: metadata.show") Additional
+    .modifiers(data-bind="fadeIn: metadata.show, with: metadata, \
+        css: {'enlarge-cards': isCondensed() && isEnlarged()}")
+      .clear-left
+      .modifier-container.card-wrap(data-bind="fadeIn: useColonies")
+        .modifier-margin
+          img.modifier-card(src="/img/cards/prosperity_coloniesplatinums.png")
+          .modifier-name-container
+            .modifier-name Colonies & Platinums
+      .modifier-container.card-wrap(data-bind="fadeIn: useShelters")
+        .modifier-margin
+          img.modifier-card(src="/img/cards/darkages_shelters.png")
+          .modifier-name-container
+            .modifier-name Shelters
+    .clear   
 
 block afterFooter
-   a.change-size-button(data-bind="visible: isCondensed")
-      .change-size-button-icon(data-bind="click: toggleEnlarged, css:{ 'enlarged': isEnlarged}")
+  a.change-size-button(data-bind="visible: isCondensed")
+    .change-size-button-icon(data-bind="click: toggleEnlarged, css:{ 'enlarged': isEnlarged}")
 
-   .dialog-hidden-content
-      .dialog-content(data-bind="with: dialog")
-         .dialog-desc Use this dialog to customize the replacement card
-         .sets-wrap
-            h1(data-bind="click: toggleSetsSection")
-               span.heading Sets
-               span.toggleButton(data-bind="text: openSetsSection() ?'Hide':'Show'")
-            .sets(data-bind="foreach: sets, slideVisible: openSetsSection")
-               .set.checkbox-wrap.columns
-                  label.checkbox
-                     input(type="radio", name="sets",
-                           data-bind="checked: $parent.selectedSetId, attr: {value: id}")
-                     span(data-bind="text: name")
-            .clear
-            h1(data-bind="click: toggleTypesSection")
-               span.heading Types
-               span.toggleButton(data-bind="text: openTypesSection() ?'Hide':'Show'")
-            .types(data-bind="foreach: types, slideVisible: openTypesSection")
-               .type.checkbox-wrap.columns
-                  label.checkbox
-                     input(type="radio", name="types",
-                           data-bind="checked: $parent.selectedType, attr: {value: id}")
-                     span(data-bind="text: name")
-            .clear
-            h1(data-bind="click: toggleCostsSection")
-               span.heading Cost
-               span.toggleButton(data-bind="text: openCostsSection() ?'Hide':'Show'")
-            .costs(data-bind="foreach: costs, slideVisible: openCostsSection")
-               .cost.checkbox-wrap.columns.four
-                  label.checkbox
-                     input(type="checkbox", data-bind="checked: active")
-                     span(data-bind="text: name")
-            .clear
+  .dialog-hidden-content
+    .dialog-content(data-bind="with: dialog")
+      .dialog-desc Use this dialog to customize the replacement card
+      .sets-wrap
+        h1(data-bind="click: toggleSetsSection")
+          span.heading Sets
+          span.toggleButton(data-bind="text: openSetsSection() ?'Hide':'Show'")
+        .sets(data-bind="foreach: sets, slideVisible: openSetsSection")
+          .set.checkbox-wrap.columns
+            label.checkbox
+              input(type="radio", name="sets",
+                  data-bind="checked: $parent.selectedSetId, attr: {value: id}")
+              span(data-bind="text: name")
+        .clear
+        h1(data-bind="click: toggleTypesSection")
+          span.heading Types
+          span.toggleButton(data-bind="text: openTypesSection() ?'Hide':'Show'")
+        .types(data-bind="foreach: types, slideVisible: openTypesSection")
+          .type.checkbox-wrap.columns
+            label.checkbox
+              input(type="radio", name="types",
+                  data-bind="checked: $parent.selectedType, attr: {value: id}")
+              span(data-bind="text: name")
+        .clear
+        h1(data-bind="click: toggleCostsSection")
+          span.heading Cost
+          span.toggleButton(data-bind="text: openCostsSection() ?'Hide':'Show'")
+        .costs(data-bind="foreach: costs, slideVisible: openCostsSection")
+          .cost.checkbox-wrap.columns.four
+            label.checkbox
+              input(type="checkbox", data-bind="checked: active")
+              span(data-bind="text: name")
+        .clear
 
-         .dialog-buttons
-            a.button(data-bind="click: fetchNewCards") Randomize
-            a.button.gray(data-bind="click: close") Close
-            .clear
+      .dialog-buttons
+        a.button(data-bind="click: fetchNewCards") Randomize
+        a.button.gray(data-bind="click: close") Close
+        .clear

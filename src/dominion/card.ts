@@ -1,0 +1,7 @@
+import {SetId} from "./set-id"
+
+export interface Card {
+  readonly id: string;
+  readonly shortId: string;
+  readonly setId: SetId;
+}

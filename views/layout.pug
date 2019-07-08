@@ -1,65 +1,65 @@
 doctype 5
 html
-   head
-      title Dominion Randomizer
-      meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
-      meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no")
-      meta(name="description", content="Dominion randomizer for desktop and mobile.")
-      meta(name="keywords", content="dominion, randomizer, dominion randomizer, dominion deck randomizer, dominion card picker, deck randomizer, kingdom, kingdom creator, kingdom creating")
-      link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300' rel='stylesheet' type='text/css')
-      != css("main")
-      != js("system")
+  head
+    title Dominion Randomizer
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no")
+    meta(name="description", content="Dominion randomizer for desktop and mobile.")
+    meta(name="keywords", content="dominion, randomizer, dominion randomizer, dominion deck randomizer, dominion card picker, deck randomizer, kingdom, kingdom creator, kingdom creating")
+    link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300' rel='stylesheet' type='text/css')
+    != css("main")
+    != js("amd")
 
-      - if (isProduction)
-         script.
-            if (window.location.hostname.indexOf('localhost') == -1
-                  && window.location.protocol.indexOf('https') != 0) {
-               window.location.protocol = 'https:';
-            }
-
-         script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
-         script.
-            window.dataLayer = window.dataLayer || [];
-           function gtag(){dataLayer.push(arguments);}
-           gtag('js', new Date());
-           gtag('config', 'UA-33669676-2');
-
-
+    - if (isProduction)
       script.
-         window.DominionSets = !{JSON.stringify(sets)};
+        if (window.location.hostname.indexOf('localhost') == -1
+            && window.location.protocol.indexOf('https') != 0) {
+          window.location.protocol = 'https:';
+        }
 
-      block head
+      script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-33669676-2');
 
-   body
-      .condensed-menu(data-bind="if: isCondensed, showMenu: {show: showMenu, enabled: isCondensed}")
-         ul.condensed-menu_items(data-bind="foreach: menuItems")
-            li.condensed-menu_item(data-bind="css: {active: isActive}")
-               a.condensed-menu_item_link(data-bind="attr: {href: url}, text: title")
 
-      header
-         .title-container
-            h1.title
-              a.title_link(href="/index.html") Dominion Randomizer
-            h2.tagline(data-bind="text: subtitle")
-         .condensed-menu-button(data-bind="click: toggleMenu, visible: isCondensed")
-         .menu(data-bind="if: !isCondensed()")
-           ul.menu_items(data-bind="foreach: menuItems")
-              li.menu_item(data-bind="css: {active: isActive}")
-                 a.menu_item_link(data-bind="attr: {href: url}, text: title")
-        
-      .content
-         block content
+    script.
+      window.DominionSets = !{JSON.stringify(sets)};
 
-      footer
-         | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
-         | This site has no affiliation with either party.
-         | Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
-         | <br>
-         | <span>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
-         | Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-         | is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span>
-         | <br>
-         | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
-         | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+    block head
 
-      block afterFooter
+  body
+    .condensed-menu(data-bind="if: isCondensed, showMenu: {show: showMenu, enabled: isCondensed}")
+      ul.condensed-menu_items(data-bind="foreach: menuItems")
+        li.condensed-menu_item(data-bind="css: {active: isActive}")
+          a.condensed-menu_item_link(data-bind="attr: {href: url}, text: title")
+
+    header
+      .title-container
+        h1.title
+          a.title_link(href="/index.html") Dominion Randomizer
+        h2.tagline(data-bind="text: subtitle")
+      .condensed-menu-button(data-bind="click: toggleMenu, visible: isCondensed")
+      .menu(data-bind="if: !isCondensed()")
+        ul.menu_items(data-bind="foreach: menuItems")
+          li.menu_item(data-bind="css: {active: isActive}")
+            a.menu_item_link(data-bind="attr: {href: url}, text: title")
+      
+    .content
+      block content
+
+    footer
+      | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
+      | This site has no affiliation with either party.
+      | Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
+      | <br>
+      | <span>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
+      | Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      | is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span>
+      | <br>
+      | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
+      | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+
+    block afterFooter

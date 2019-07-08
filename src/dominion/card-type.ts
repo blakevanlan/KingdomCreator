@@ -1,0 +1,17 @@
+export enum CardType {
+  ACTION = "isAction",
+  ACTION_SUPPLIER = "isActionSupplier",
+  ATTACK = "isAttack",
+  BUY_SUPPLIER = "isBuySupplier",
+  DRAWER = "isDrawer",
+  DOOM = "isDoom",
+  DURATION = "isDuration",
+  FATE = "isFate",
+  MULTI_DRAWER = "isMultiDrawer",
+  NIGHT = "isNight",
+  REACTION = "isReaction",
+  RESERVE = "isReserve",
+  TRASHING = "isTrashing",
+  TREASURE = "isTreasure",
+  VICTORY = "isVictory",
+}
