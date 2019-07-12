@@ -1,6 +1,5 @@
 import {Cards} from "../utils/cards";
-import {CostType} from "../dominion/cost-type";
-import {SetId} from "../dominion/setid";
+import {SetId} from "../dominion/set-id";
 import {SupplyBan} from "./supply-ban";
 import {SupplyCard} from "../dominion/supply-card";
 

@@ -1,11 +1,5 @@
 extends layout.pug
 
-block head
-  script(src="index.js")
-  script.
-    requirejs(["index"])
-  != css("index")
-
 block content
   .sidebar
     a.desktop_randomize-button.button(

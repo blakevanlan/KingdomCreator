@@ -14,7 +14,7 @@ export abstract class SupplyDivider {
 
     for (let i = 0; i < divisions.length; i++) {
       const division = divisions[i];
-      const remainingDivisionTotalCount = division.getTotalCount() - countsPerDivision[i];
+      const remainingDivisionTotalCount = division.totalCount - countsPerDivision[i];
 
       if (remainingDivisionTotalCount > 0) {
         const remainingCards = this.getRemainingCards(division);
@@ -37,12 +37,12 @@ export abstract class SupplyDivider {
 
   protected abstract getRemainingCards(division: SupplyDivision): SupplyCard[];
 
-  private getRandomizedCountsPerDivision(divisions): number[] {
+  private getRandomizedCountsPerDivision(divisions: SupplyDivision[]): number[] {
     const ranges = this.createRangesForDivisions(divisions);
     let sumOfMins = 0;
 
     const countsPerDivision: number[] = [];
-    for (range of ranges) {
+    for (let range of ranges) {
       const minCount = range.start;
       countsPerDivision.push(minCount);
       sumOfMins += minCount;
@@ -76,7 +76,8 @@ export abstract class SupplyDivider {
   private createRangesForDivisions(divisions: SupplyDivision[]): Range[] {
     const satisfyingCardsPerDivision = this.getSatisfyingCardsPerDivision(divisions);
     const ranges: Range[] = [];
-    for (let i = 0; i < satisfyingCardsPerDivision; i++) {
+    for (let i = 0; i < satisfyingCardsPerDivision.length; i++) {
+      const cards = satisfyingCardsPerDivision[i];
       const unfilledCount = divisions[i].unfilledCount;
       const remainingCount = divisions[i].availableCards.length - cards.length;
       const min = Math.max(unfilledCount - remainingCount, 0);
@@ -88,16 +89,17 @@ export abstract class SupplyDivider {
 
   private getSatisfyingCardsPerDivision(divisions: SupplyDivision[]): SupplyCard[][] {
     const satisfyingCardsPerDivision: SupplyCard[][] = [];
-    for (division of divisions) {
+    for (let division of divisions) {
       satisfyingCardsPerDivision.push(this.getSatisfyingCards(division));
     }
     return satisfyingCardsPerDivision;
   }
 
-  private createSegmentedRangeFromRanges(ranges) {
-    lengths = []
-    for range in ranges
-      lengths.push(range.getLength())
-    return new SegmentedRange(0, lengths)
+  private createSegmentedRangeFromRanges(ranges: Range[]): SegmentedRange {
+    const lengths: number[] = [];
+    for (let range of ranges) {
+      lengths.push(range.length);
+    }
+    return new SegmentedRange(0, lengths);
   }
 }

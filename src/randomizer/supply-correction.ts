@@ -1,3 +1,4 @@
+import {SupplyCard} from "../dominion/supply-card";
 import {SupplyDivision} from "./supply-division";
 
 export interface SupplyCorrection {

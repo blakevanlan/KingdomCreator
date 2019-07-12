@@ -1,3 +1,6 @@
+import {Event} from "../dominion/event";
+import {Landmark} from "../dominion/landmark";
+import {Project} from "../dominion/project";
 import {Supply} from "./supply"
 
 export class Kingdom {
@@ -5,7 +8,7 @@ export class Kingdom {
         readonly supply: Supply,
         readonly events: Event[],
         readonly landmarks: Landmark[],
-        readonly projects: Projects[],
+        readonly projects: Project[],
         readonly metadata: Metadata) {
     }
 }

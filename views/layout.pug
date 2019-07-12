@@ -6,9 +6,20 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no")
     meta(name="description", content="Dominion randomizer for desktop and mobile.")
     meta(name="keywords", content="dominion, randomizer, dominion randomizer, dominion deck randomizer, dominion card picker, deck randomizer, kingdom, kingdom creator, kingdom creating")
-    link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300' rel='stylesheet' type='text/css')
-    != css("main")
-    != js("amd")
+    link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300',
+        rel="stylesheet", type="text/css")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/css/vex.min.css",
+        rel="stylesheet", type="text/css")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/css/vex-theme-os.min.css",
+        rel="stylesheet", type="text/css")
+
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js",
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=",
+        crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/jquery.imgpreload@1.6.3/jquery.imgpreload.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/js/vex.combined.min.js")
 
     - if (isProduction)
       script.
@@ -23,10 +34,6 @@ html
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-33669676-2');
-
-
-    script.
-      window.DominionSets = !{JSON.stringify(sets)};
 
     block head
 

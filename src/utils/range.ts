@@ -2,11 +2,11 @@
 export class Range {
    readonly end: number;
    constructor(readonly start: number, readonly length: number) {
-      end = start + length;
+      this.end = start + length;
    }
 
    public isInRange(index: number) {
-      return this.start <= index && index < end;
+      return this.start <= index && index < this.end;
    }
 
    public static createFromIndices(start: number, end: number) {

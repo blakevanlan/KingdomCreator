@@ -19,22 +19,13 @@ export class DominionSets {
     const sets: DominionSet[] = [];
     const setIds = Object.keys(DominionSets.sets);
     for (let setId of setIds) {
-      sets.push(DominionSets.sets[setId as SetId]);
+      sets.push(DominionSets.sets[setId as SetId] as DominionSet);
     }
     return sets;
   }
 
-  public static getAllSupplyCards(): SupplyCard[] {
-    let supplyCards: SupplyCard[] = [];
-    const sets = DominionSets.getAllSets();
-    for (let set of sets) {
-      supplyCards = supplyCards.concat(set.supplyCards);
-    }
-    return supplyCards;
-  }
-
   public static getSetById(setId: SetId): DominionSet {
-    return DominionSets.sets[setId];
+    return DominionSets.sets[setId] as DominionSet;
   }
 
   public static getCardById(cardId: string): Card {
@@ -90,7 +81,7 @@ export class DominionSets {
     const cards: {[index: string]: Card} = {};
     const setIds = Object.keys(DominionSets.sets);
     for (let setId of setIds) {
-      const set = DominionSets.sets[setId as SetId];
+      const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
           (set.supplyCards as Card[]).concat(set.events, set.landmarks, set.projects);
       for (let card of cardsFromSet) {
@@ -101,10 +92,5 @@ export class DominionSets {
       }
     }
     return cards;
-  }
-
-  private static createSupplyCardList() {
-    const supplyCards: SupplyCard[] = [];
-    const setIds = Object.keys(DominionSets.sets);
   }
 }

@@ -26,6 +26,12 @@ const convertToBoonId = function(setId, name) {
    return setId + '_boon_' + tokenize(name);
 };
 
+const findFilesFromDirectory = function(directory) {
+   return fs.readdirSync(directory).map(function(file) {
+      return path.join(directory, file);
+   });
+}
+
 const loadFilesFromDirectory = function(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
@@ -103,6 +109,7 @@ module.exports = {
    convertToEventId: convertToEventId,
    convertToLandmarkId: convertToLandmarkId,
    convertToBoonId: convertToBoonId,
+   findFilesFromDirectory: findFilesFromDirectory,
    loadSets: loadSets,
    loadKingdoms: loadKingdoms,
 };

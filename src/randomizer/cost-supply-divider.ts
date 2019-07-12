@@ -1,5 +1,5 @@
 import {SupplyDivider} from "./supply-divider";
-import {Cards} from "../utils/cards";
+import {SupplyDivision} from "./supply-division";
 import {SupplyCard} from "../dominion/supply-card";
 
 const DEBT_COST_VALUE = 1
@@ -11,21 +11,21 @@ export class CostSupplyDivider extends SupplyDivider {
     super(numberOfHighCostCards)
   }
 
-  protected getSatisfyingCards(division): SupplyCard[] {
-    return division.availableCards.filter(@isSatisfyingCard)
+  protected getSatisfyingCards(division: SupplyDivision): SupplyCard[] {
+    return division.availableCards.filter(this.isSatisfyingCard)
   }
 
-  protected getRemainingCards(division): SupplyCard[] {
-    return division.availableCards.filter(@isRemainingCard)
+  protected getRemainingCards(division: SupplyDivision): SupplyCard[] {
+    return division.availableCards.filter(this.isRemainingCard)
   }
 
   private isSatisfyingCard(card: SupplyCard): boolean {
-    const costValue = @getCost(card);
+    const costValue = this.getCost(card);
     return costValue >= this.highCostCutOff;
   }
 
   private isRemainingCard(card: SupplyCard): boolean {
-    const costValue = @getCost(card);
+    const costValue = this.getCost(card);
     return costValue < this.highCostCutOff;
   }
 

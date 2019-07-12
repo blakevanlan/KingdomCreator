@@ -12,22 +12,36 @@
     "url": "https://github.com/blakevanlan/KingdomCreator.git"
   },
   "scripts": {
-    "build-index": "tsc -p ./config/index-dev.json",
-    "watch-index": "tsc -p ./config/index-dev.json -w",
-    "prestart": "npm run build-index",
-    "start": "node server.js"
+    "build": "webpack --config prod.config.js",
+    "start": "webpack-dev-server --mode development"
   },
   "dependencies": {
-    "@types/jquery": "^3.3.30",
-    "@types/knockout": "^3.4.66",
     "coffee-script": "1.11.1",
     "compression": "1.6.2",
     "connect-assets": "3.0.2",
     "csswring": "5.1.0",
     "express": "3.0.x",
     "js-yaml": "3.6.1",
-    "pug": "0.1.0",
-    "stylus": "0.54.5",
     "uglify-js": "2.7.4"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.30",
+    "@types/knockout": "^3.4.66",
+    "css-loader": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.1",
+    "loader-utils": "^1.2.3",
+    "mini-css-extract-plugin": "^0.7.0",
+    "pug": "^2.0.4",
+    "pug-loader": "^2.4.0",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "vex-dialog": "^1.1.0",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
   }
 }

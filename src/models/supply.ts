@@ -1,15 +1,17 @@
-import {SetId} from "./set-id"
+import {SetId} from "../dominion/set-id";
+import {SupplyBuilder} from "../randomizer/supply-builder";
+import {SupplyCard} from "../dominion/supply-card";
 
 export class Supply {
-  constructor(readonly cards: Card[], readonly metadata: Metadata | null) {
+  constructor(readonly cards: SupplyCard[], readonly metadata: Metadata | null) {
   }
 }
 
 export class Metadata {
   constructor(
-      builder: Builder,
-      prioritizedSetId: SetId,
-      numberOfAlchemyCardsInUse: number,
-      numberOfHighCostCardsInUse: number) {
+      readonly builder: SupplyBuilder,
+      readonly prioritizedSetId: SetId | null,
+      readonly numberOfAlchemyCardsInUse: number,
+      readonly numberOfHighCostCardsInUse: number) {
   }
 }

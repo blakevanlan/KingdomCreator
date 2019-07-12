@@ -1,12 +1,14 @@
 import {Cards} from "../utils/cards";
+import {SegmentedRange} from "../utils/segmented-range";
 import {SupplyCard} from "../dominion/supply-card";
 import {SupplyBan} from "./supply-ban";
 import {SupplyCorrection} from "./supply-correction";
 import {SupplyDivider} from "./supply-divider";
+import {SupplyDivision} from "./supply-division";
 import {SupplyRequirement} from "./supply-requirement";
 import {getRandomInt} from "../utils/rand";
 
-class SupplyBuilder {
+export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];
   private requirements: SupplyRequirement[] = [];
   private bans: SupplyBan[] = [];
@@ -60,13 +62,12 @@ class SupplyBuilder {
   private prepareDivisionForBanning(division: SupplyDivision, existingCards: SupplyCard[]) {
     // Prepare the division for banning by reducing the number of cards needed in the division
     // to account for the existing cards that will be added after banning.
-    return division.createDivisionWithTotalCount(
-        division.getTotalCount() - existingCards.length);
+    return division.createDivisionWithTotalCount(division.totalCount - existingCards.length);
   }
 
   private applyBans(division: SupplyDivision) {
-    for (ban of this.bans) {
-      const bannedCards = ban.getBannedCards(division.getAvailableCards())
+    for (let ban of this.bans) {
+      const bannedCards = ban.getBannedCards(division.availableCards)
       division = division.createDivisionByRemovingCards(Cards.extractIds(bannedCards));
     }
     return division;
@@ -75,7 +76,7 @@ class SupplyBuilder {
   private applyRequirements(divisions: SupplyDivision[]): SupplyDivision[] {
     divisions = divisions.concat();
     const orderedRequirements = this.orderRequirementsForDivisions(divisions);
-    for (requirement of orderedRequirements) {
+    for (let requirement of orderedRequirements) {
       if (requirement.isSatisfied(divisions)) {
         continue;
       }
@@ -118,7 +119,7 @@ class SupplyBuilder {
     return divisions;
   }
 
-  private addExistingCardsAsAvailable(division: SupplyDivision, existingCards) {
+  private addExistingCardsAsAvailable(division: SupplyDivision, existingCards: SupplyCard[]) {
     // Add the existing cards as available to allow divisions to be intelligently divided. 
     const availableCardIds = Cards.extractIds(division.availableCards);
     const cardsToAdd = [];
@@ -135,7 +136,7 @@ class SupplyBuilder {
         division.selectedCards, division.totalCount + existingCards.length);
   }
 
-  private applyExistingCards(divisions: SupplyDivision[], existingCards) {
+  private applyExistingCards(divisions: SupplyDivision[], existingCards: SupplyCard[]) {
     divisions = divisions.concat();
 
     const cardsForNewDivision: SupplyCard[] = [];
@@ -155,7 +156,7 @@ class SupplyBuilder {
     }
 
     // Shrink divisions with the most space to make room for the new division.
-    for (let existingCard of cardsForNewDivision) {
+    for (let i = 0; i < cardsForNewDivision.length; i++) {
       const divisionIndex = this.getIndexOfDivisionWithMostUnfilledCards(divisions);
       const division = divisions[divisionIndex];
       divisions[divisionIndex] = new SupplyDivision(division.availableCards,
@@ -179,7 +180,7 @@ class SupplyBuilder {
   }
 
   private applyCorrections(divisions: SupplyDivision[]): SupplyDivision[] {
-    for (correction of this.corrections) {
+    for (let correction of this.corrections) {
       if (!correction.isSatisfied(divisions)) {
         divisions = correction.correctDivisions(divisions);
       }
@@ -197,17 +198,17 @@ class SupplyBuilder {
 
   private orderRequirementsForDivisions(divisions: SupplyDivision[]): SupplyRequirement[] {
     const satsifiedRequirements: SupplyRequirement[] = [];
-    const requirementAndCountPairs: {requirement: SupplyRequirement, count: number} = [];
+    const requirementAndCountPairs: {requirement: SupplyRequirement, count: number}[] = [];
 
     for (let requirement of this.requirements) {
-      if requirement.isSatisfied(divisions) {
+      if (requirement.isSatisfied(divisions)) {
         satsifiedRequirements.push(requirement);
         continue;
       }
 
       requirementAndCountPairs.push({
         requirement: requirement,
-        count: requirement.getSatisfyingCardsFromDivisions(divisions)
+        count: requirement.getSatisfyingCardsFromDivisions(divisions).length
       });
     }
     
@@ -246,11 +247,12 @@ class SupplyBuilder {
   }
 
   private getIndexOfDivisionWithMostUnfilledCards(divisions: SupplyDivision[]): number {
-    const mostUnfilledCards = 0;
-    const winningIndex = -1;
+    let mostUnfilledCards = 0;
+    let winningIndex = -1;
     for (let i = 0; i < divisions.length; i++) {
-      if (division.unfilledCount > mostUnfilledCards) {
-        winningIndex = index;
+      if (divisions[i].unfilledCount > mostUnfilledCards) {
+        mostUnfilledCards = divisions[i].unfilledCount;
+        winningIndex = i;
       }
     }
     return winningIndex;

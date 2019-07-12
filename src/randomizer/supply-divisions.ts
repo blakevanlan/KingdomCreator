@@ -36,9 +36,10 @@ export class SupplyDivisions {
   }
 
   static getAvailableCardsOfTypePerDivision(
-      divisions: SupplyDivision[], cardType: CardType): SupplyCard[] {
-    const cards: SupplyCard[] = [];
+      divisions: SupplyDivision[], cardType: CardType): SupplyCard[][] {
+    const cards: SupplyCard[][] = [];
     for (let i = 0; i < divisions.length; i++) {
+      const division = divisions[i];
       if (division.selectedCards.length || !division.isFilled) {
         cards.push(division.availableCards.filter(Cards.filterByRequiredType(cardType)))
       } else {

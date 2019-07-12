@@ -1,59 +1,54 @@
 extends layout.pug
 
 block head
-   script.
-      window.DominionKingdoms = !{JSON.stringify(kingdoms)};
-
-   != js("sets")
-   != css("sets")
-   link(href="https://fonts.googleapis.com/css?family=Catamaran:300", rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css?family=Catamaran:300", rel="stylesheet")
 
 block content
-   .sidebar
-      .sidebar-content
-         .sidebar-content-title Sets
-         .sets(data-bind="foreach: sets")
-            .set
-               label.checkbox
-                  input(type="radio", name="selectedSet" \
-                        data-bind="attr: {value: id}, checked: $parent.selectedSetId")
-                  span(data-bind="text: name")
-         .clear
+  .sidebar
+    .sidebar-content
+      .sidebar-content-title Sets
+      .sets(data-bind="foreach: sets")
+        .set
+          label.checkbox
+            input(type="radio", name="selectedSet",
+                data-bind="attr: {value: id}, checked: $parent.selectedSetId")
+            span(data-bind="text: name")
+      .clear
 
-   .main
-      .sets-description
-         | Players can play Dominion with any set of 10 Kingdom cards, but these sets have been
-         | specially picked out to be entertaining and show off card interactions and strategies.
-      .kingdoms(data-bind="foreach: visibleKingdoms")
-         .kingdom
-            .kingdom-title
-               .kingdom-title_name(data-bind="text: name")
-               .kingdom-title_sets(data-bind="dominionSetNames: sets")
+  .main
+    .sets-description
+      | Players can play Dominion with any set of 10 Kingdom cards, but these sets have been
+      | specially picked out to be entertaining and show off card interactions and strategies.
+    .kingdoms(data-bind="foreach: visibleKingdoms")
+      .kingdom
+        .kingdom-title
+          .kingdom-title_name(data-bind="text: name")
+          .kingdom-title_sets(data-bind="dominionSetNames: sets")
 
-            .kingdom-metadata(data-bind="if: $data.metadata, visible: $data.metadata")
-               .kingdom-metadata_use-platinums-and-colonies(
-                     data-bind="visible: $data.metadata.colonies") Use Platinums/Colonies
-               .kingdom-metadata_use-shelters(
-                     data-bind="visible: $data.metadata.shelters") Use Shelters
-            
-            table.kingdom-supply
-               tbody(data-bind="foreach: $root.createRows(supply)")
-                  tr(data-bind="foreach: $data")
-                     td.kingdom-card
-                        img.kingdom-card_image(data-bind="cardImage: $data")
+        .kingdom-metadata(data-bind="if: $data.metadata, visible: $data.metadata")
+          .kingdom-metadata_use-platinums-and-colonies(
+              data-bind="visible: $data.metadata.colonies") Use Platinums/Colonies
+          .kingdom-metadata_use-shelters(
+              data-bind="visible: $data.metadata.shelters") Use Shelters
+        
+        table.kingdom-supply
+          tbody(data-bind="foreach: $root.createRows(supply)")
+            tr(data-bind="foreach: $data")
+              td.kingdom-card
+                img.kingdom-card_image(data-bind="cardImage: $data")
 
-            .kingdom-extra-cards-horizontal(
-                  data-bind="if: $root.titleForAddons($data)")
-               .kingdom-extra-cards-horizontal_title(
-                     data-bind="text: $root.titleForAddons($data)")
-               .kingdom-extra-cards-horizontal_cards(
-                     data-bind="foreach:$root.addons($data)")
-                  img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
-               .clear
+        .kingdom-extra-cards-horizontal(
+            data-bind="if: $root.titleForAddons($data)")
+          .kingdom-extra-cards-horizontal_title(
+              data-bind="text: $root.titleForAddons($data)")
+          .kingdom-extra-cards-horizontal_cards(
+              data-bind="foreach:$root.addons($data)")
+            img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
+          .clear
 
-            .kingdom-extra-cards-horizontal(data-bind="if: $data.boons && $data.boons.length")
-               .kingdom-extra-cards-horizontal_title Boons
-               .kingdom-extra-cards-horizontal_cards(
-                     data-bind="foreach: boons")
-                  img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
-               .clear
+        .kingdom-extra-cards-horizontal(data-bind="if: $data.boons && $data.boons.length")
+          .kingdom-extra-cards-horizontal_title Boons
+          .kingdom-extra-cards-horizontal_cards(
+              data-bind="foreach: boons")
+            img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
+          .clear

@@ -7,11 +7,11 @@ declare global {
 
 export class DominionKingdoms {
 
-  static readonly kingdoms:{[key in SetId]?: DominionSet} = DominionKingdoms.createKingdoms();
+  static readonly kingdoms:{[key in SetId]?: DominionKingdom} = DominionKingdoms.createKingdoms();
 
   private static createKingdoms() {
     const setIds = Object.keys(window.DominionKingdoms) as SetId[];
-    const sets: {[key in SetId]?: DominionSet} = {};
+    const sets: {[key in SetId]?: DominionKingdom} = {};
     for (let setId of setIds) {
       sets[setId] = DominionKingdom.fromJson(window.DominionKingdoms[setId]);
     }

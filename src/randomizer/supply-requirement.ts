@@ -12,7 +12,7 @@ export abstract class SupplyRequirement {
     return false;
   }
 
-  getSatisfyingCardsFromDivisions(divisions): SupplyCard[] {
+  getSatisfyingCardsFromDivisions(divisions: SupplyDivision[]): SupplyCard[] {
     let satisfyingCards: SupplyCard[] = [];
     for (let division of divisions) {
       satisfyingCards =
@@ -21,5 +21,5 @@ export abstract class SupplyRequirement {
     return satisfyingCards;
   }
 
-  protected getSatisfyingCards(cards: SupplyCard[]): SupplyCard[];
+  protected abstract getSatisfyingCards(cards: SupplyCard[]): SupplyCard[];
 }

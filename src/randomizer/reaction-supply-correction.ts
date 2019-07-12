@@ -1,6 +1,7 @@
 import {CardType} from "../dominion/card-type";
 import {Cards} from "../utils/cards";
 import {SegmentedRange} from "../utils/segmented-range";
+import {SupplyCard} from "../dominion/supply-card";
 import {SupplyCorrection} from "./supply-correction";
 import {SupplyDivision} from "./supply-division";
 import {SupplyDivisions} from "./supply-divisions";
@@ -48,13 +49,13 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
     for (let i = 0; i < divisions.length; i++) {
       const division = divisions[i];
       if (division == divisionContainingCard) {
-        if (division.getUnfilledCount() >= 2 && availableReactionsPerDivision[i] > 0) {
+        if (division.unfilledCount >= 2 && availableReactionsPerDivision[i].length > 0) {
           // Allow the attack because the division with the attack also has available
           // reactions and enough spots for one.
           return true;
         }
       } else {
-        if (!division.isFilled && availableReactionsPerDivision[i] > 0) {
+        if (!division.isFilled && availableReactionsPerDivision[i].length > 0) {
           // Another division is unfilled with available reactions.
           return true;
         }
@@ -136,11 +137,11 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
   private hasAvailableReactions(divisions: SupplyDivision[]) {
     const availableReactions =
         SupplyDivisions.getAvailableCardsOfType(divisions, CardType.REACTION);
-    return reactions.length > 0;
+    return availableReactions.length > 0;
   }
 
   private getDivisionContainingCard(divisions: SupplyDivision[], card: SupplyCard) {
-    for (let division in divisions) {
+    for (let division of divisions) {
       const allCards = division.lockedAndSelectedCards.concat(division.availableCards);
       if (allCards.filter(Cards.filterByIncludedIds([card.id])).length) {
         return division;
@@ -150,7 +151,7 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
   }
 
   private getRandomCard(cards: SupplyCard[]) {
-    return cards[RandUtil.getRandomInt(0, cards.length)];
+    return cards[getRandomInt(0, cards.length)];
   }
 
   private hasReaction(cards: SupplyCard[]): boolean {

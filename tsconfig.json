@@ -1,19 +1,33 @@
 {
-    "compilerOptions": {
-        "module": "system",
-        "noImplicitAny": true,
-        "removeComments": false,
-        "preserveConstEnums": true,
-        "outDir": "out",
-        "sourceMap": true,
-        "allowJs": true,
-        "target": "es5",
-        "types" : [
-            "jquery",
-            "knockout"
-        ]
-    },
-    "include": [
-        "src/**/*"
+  "compilerOptions": {
+    "module": "amd",
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false, // CHANGE ONCE REFACTORING IS DONE
+    "noUnusedParameters": false, // CHANGE ONCE REFACTORING IS DONE
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "downlevelIteration": true,
+    "target": "es5",
+    "types": [
+      "jquery",
+      "knockout"
     ],
+    "lib": [
+      "DOM",
+      "ES5",
+      "ScriptHost",
+      "ES2015",
+    ],
+  },
+  "include": [
+    "./src/**/*",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

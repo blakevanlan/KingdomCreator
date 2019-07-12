@@ -1,9 +1,9 @@
-import * as $ from "jquery";
-import {Page} from "./pages/page"
+// import * as $ from "jquery";
+// import {Page} from "./pages/page"
 
-const CONDENSED_WIDTH = 800;
+// const CONDENSED_WIDTH = 800;
 
-export function initialize(page: Page) {
+export function initialize(/*page: Page*/) {
    // $(document).ready(() => {
    //    $.cookie.json = true
    //    ko.applyBindings(viewmodel)
@@ -12,6 +12,6 @@ export function initialize(page: Page) {
    // });
 }
 
-function updateIsCondensed(viewmodel: Page) {
-      // viewmodel.isCondensed($(window).width() <= CONDENSED_WIDTH)
-}
+// function updateIsCondensed(viewmodel: Page) {
+//   viewmodel.isCondensed($(window).width() <= CONDENSED_WIDTH)
+// }

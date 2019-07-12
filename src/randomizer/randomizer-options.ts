@@ -7,7 +7,7 @@ export class RandomizerOptions {
     readonly setIds: SetId[],
     readonly includeCardIds: string[],
     readonly excludeCardIds: string[],
-    readonly requireSingleCardOfType: CardType,
+    readonly requireSingleCardOfType: CardType | null,
     readonly excludeTypes: CardType[],
     readonly excludeCosts: CostType[],
     readonly requireActionProvider: boolean,
@@ -21,10 +21,10 @@ export class RandomizerOptions {
 }
 
 export class RandomizerOptionsBuilder {
-  setIds: SetId[] = SetId.BASE_SET;
+  setIds: SetId[] = [SetId.BASE_SET];
   includeCardIds: string[] = [];
   excludeCardIds: string[] = [];
-  requireSingleCardOfType: CardType = CardType.NONE;
+  requireSingleCardOfType: CardType | null = null;
   excludeTypes: CardType[] =  [];
   excludeCosts: CostType[] = [];
   requireActionProvider: boolean = true;
@@ -40,17 +40,17 @@ export class RandomizerOptionsBuilder {
     return this;
   }
 
-  setIncludeCardIds(includeCardIds: String[]) {
+  setIncludeCardIds(includeCardIds: string[]) {
     this.includeCardIds = includeCardIds ;
     return this;
   }
 
-  setExcludeCardIds(excludeCardIds: String[]) {
+  setExcludeCardIds(excludeCardIds: string[]) {
     this.excludeCardIds = excludeCardIds;
     return this;
   }
 
-  setRequireSingleCardOfType(requireSingleCardOfType: CardType) {
+  setRequireSingleCardOfType(requireSingleCardOfType: CardType | null) {
     this.requireSingleCardOfType = requireSingleCardOfType;
     return this;
   }
