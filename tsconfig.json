@@ -14,8 +14,10 @@
     "downlevelIteration": true,
     "target": "es5",
     "types": [
+      "google.analytics",
       "jquery",
-      "knockout"
+      "knockout",
+      "vex-js",
     ],
     "lib": [
       "DOM",

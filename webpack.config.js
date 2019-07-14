@@ -15,9 +15,17 @@ module.exports = {
     sets: ["./src/sets.ts", "./styles/sets.styl"],
   },
   devtool: "inline-source-map",
+  devServer: {
+    proxy: {
+      "/img": {
+        target: 'http://localhost:8080',
+        pathRewrite: {"^/img" : "/docs/img"}
+      }
+    }
+  },
   output: {
     path: path.resolve(__dirname, "out"),
-    filename: "[name].bundle.js"
+    filename: "[name].js"
   },
   module: {
     rules: [
@@ -49,6 +57,8 @@ module.exports = {
   },
   externals: {
     jquery: "jQuery",
+    knockout: "ko",
+    "vex-js": "vex",
   },
   plugins: [
     new DominionContentPlugin(),

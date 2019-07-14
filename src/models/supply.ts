@@ -3,7 +3,7 @@ import {SupplyBuilder} from "../randomizer/supply-builder";
 import {SupplyCard} from "../dominion/supply-card";
 
 export class Supply {
-  constructor(readonly cards: SupplyCard[], readonly metadata: Metadata | null) {
+  constructor(readonly supplyCards: SupplyCard[], readonly metadata: Metadata | null) {
   }
 }
 

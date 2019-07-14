@@ -15,6 +15,24 @@ export class DominionSets {
   static readonly sets: {[key in SetId]?: DominionSet} = DominionSets.createSets();
   static readonly cards: {[index: string]: Card} = DominionSets.createCardMap();
 
+  public static convertToSetId(stringSetId: string) {
+    const setId = this.convertToSetIdSafe(stringSetId);
+    if (!setId) {
+      throw new Error(`Unknown set ID: ${setId}`);
+    }
+    return setId;
+  }
+
+  public static convertToSetIdSafe(stringSetId: string): SetId | null {
+    const setIds = Object.keys(SetId);
+    for (let setId of setIds) {
+      if (SetId[setId as keyof typeof SetId] == stringSetId) {
+        return stringSetId as SetId;
+      }
+    }
+    return null;
+  }
+
   public static getAllSets(): DominionSet[] {
     const sets: DominionSet[] = [];
     const setIds = Object.keys(DominionSets.sets);

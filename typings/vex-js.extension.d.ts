@@ -1,0 +1,3 @@
+interface IVexOptions {
+  beforeClose?: (() => void);
+}

@@ -11,7 +11,7 @@ import {SupplyCard} from "../dominion/supply-card";
 
 export function serializeKingdom(kingdom: Kingdom): string {
   const result: string[] = [];
-  result.push(serializeCards("supply", kingdom.supply.cards));
+  result.push(serializeCards("supply", kingdom.supply.supplyCards));
   if (kingdom.events.length) {
     result.push(serializeCards("events", kingdom.events));
   }
