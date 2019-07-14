@@ -73,7 +73,7 @@ export class IndexPage extends Page {
     this.isDistributeCostAllowed = this.createIsDistributeCostAllowedObservable();
     this.isPrioritizeSetEnabled = ko.observable(false);
     this.isPrioritizeSetAllowed = this.createIsPrioritizeSetAllowedObservable();
-    this.isPrioritizeSetAllowed.subscribe(this.isPrioritizeSetAllowedChanged);
+    this.isPrioritizeSetAllowed.subscribe(() => this.isPrioritizeSetAllowedChanged());
     this.prioritizeSetOptions = this.createPrioritizeSetOptionsObservable();
     
     // Load settings from cookie and initialize.
@@ -141,7 +141,8 @@ export class IndexPage extends Page {
     // Show a dialog for customizing when randomizing a single card for specifying the card.
     if (selectedCards.length == 1 && !isAddonSelected) {
       this.dialog.open(
-          this.getSelectedSets().map((set) => set.setId), this.randomizeIndividualSelectedCard);
+          this.getSelectedSets().map((set) => set.setId),
+          () => this.randomizeIndividualSelectedCard());
       return;
     }
     
@@ -225,7 +226,7 @@ export class IndexPage extends Page {
       .setExcludeCardIds(this.extractCardIds(this.getSelectedCards()))
       .setExcludeTypes(excludeTypes)
       .setExcludeCosts(
-          this.dialog.costs.filter((cost) => cost.isActive()).map((cost) => cost.id));
+          this.dialog.costs.filter((cost) => !cost.isActive()).map((cost) => cost.id));
 
     // Either set a specific card type or add supply card requirements if one isn't selected.
     if (this.dialog.selectedType() != DialogViewModel.ALL_OPTION_ID) {
@@ -624,7 +625,7 @@ export class IndexPage extends Page {
     for (let i = 0; i < cards.length; i++) {
       descriptors.push({card: cards[i], element: $($cards[i])});
     }
-    descriptors.sort(this.descriptorSorter);
+    descriptors.sort((a, b) => this.descriptorSorter(a, b));
     
     const movedDescriptors: CardMoveDescriptor[] = [];
     for (let i = 0; i < descriptors.length; i++) {
@@ -650,22 +651,31 @@ export class IndexPage extends Page {
       if (isEnlarged) {
         clone.addClass("enlarge-cards");
       }
-      clone.appendTo($body).css([
-        "position", "absolute",
-        "height", descriptor.element.height()!.toString(),
-        "width", descriptor.element.width()!.toString(),
-        "top", descriptor.moveFrom!.top.toString(),
-        "left", descriptor.moveFrom!.left.toString(),
-        "transition", "transform 600ms ease-in-out",
-        "transform", "translate(0px,0px)",
-      ]);
+      
+      const css: any = {
+        position: "absolute",
+        height: descriptor.element.height(),
+        width: descriptor.element.width(),
+        top: descriptor.moveFrom!.top,
+        left: descriptor.moveFrom!.left,
+        "transition-property":
+            "-webkit-transform, -webkit-filter, -moz-transform, -moz-filter, opacity",
+      };
+      IndexPage.addVenderPrefixes(css, "transition-timing-function", "ease-in-out");
+      IndexPage.addVenderPrefixes(css, "transition-duration", "600ms");
+      IndexPage.addVenderPrefixes(css, "transition-delay", 0);
+      IndexPage.addVenderPrefixes(css, "filter", "none");
+      IndexPage.addVenderPrefixes(css, "transition", "transform 600ms ease-in-out");
+      IndexPage.addVenderPrefixes(css, "transform", "translate(0px,0px)");
+      clone.appendTo($body);
+      clone.css(css);
       const $elements =
-          $([descriptor.element.get(0), descriptor.element.siblings('.card-back').get(0)]);
+          $([descriptor.element.get(0), descriptor.element.siblings(".card-back").get(0)]);
       $elements.css("visibility", "hidden");
 
       const cleanUp = () => {
-        $elements.css('visibility', 'visible')
-        clone.remove()
+        $elements.css("visibility", "visible");
+        clone.remove();
       };
       clone.bind("webkitTransitionEnd transitionend otransitionend oTransitionEnd", cleanUp);
       
@@ -679,7 +689,7 @@ export class IndexPage extends Page {
     }
 
     // Sort all the cards while the ones that will change position are moving.
-    this.supplyCards.sort(this.cardSorter);
+    this.supplyCards.sort((a, b) => this.cardSorter(a, b));
   }
 
   private descriptorSorter(a: CardMoveDescriptor, b: CardMoveDescriptor) {
@@ -712,5 +722,12 @@ export class IndexPage extends Page {
 
   private static getCostSum(supplyCard: SupplyCard) {
     return supplyCard.cost.treasure + supplyCard.cost.potion * 0.9 + supplyCard.cost.debt;
+  }
+
+  private static addVenderPrefixes(properties: any, propertyName: string, value: string | number) {
+    properties["-webkit-" + propertyName] = value;
+    properties["-moz-" + propertyName] = value;
+    properties[propertyName] = value;
+    return properties;
   }
 }
