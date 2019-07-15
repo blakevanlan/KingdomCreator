@@ -5,8 +5,8 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": false, // CHANGE ONCE REFACTORING IS DONE
-    "noUnusedParameters": false, // CHANGE ONCE REFACTORING IS DONE
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,

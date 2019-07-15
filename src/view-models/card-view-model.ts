@@ -5,8 +5,6 @@ import {Card} from "../dominion/card";
 import {DominionSets} from "../dominion/dominion-sets";
 import {Page} from "../pages/page";
 import {SetId} from "../dominion/set-id";
-import {SetViewModel} from "./set-view-model";
-
 
 const IMAGE_PREFEX = "/img/cards";
 
@@ -47,7 +45,6 @@ export class CardViewModel {
 
   setCard(card: Card) {
     this.cardIdBeingLoaded = card.id;
-    const cardIdBeingLoadedByFn = card.id;
     const imageUrl = `${IMAGE_PREFEX}/${card.id}.jpg`;
     
     this.isCardImageLoaded(false);

@@ -1,6 +1,5 @@
 import * as ko from "knockout";
 import * as $ from "jquery";
-import {Cards} from "../utils/cards";
 import {DominionSets} from "../dominion/dominion-sets";
 import {SetId} from "../dominion/set-id";
 

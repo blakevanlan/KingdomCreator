@@ -1,6 +1,5 @@
 import * as ko from "knockout";
 import * as $ from "jquery";
-import {Card} from "../dominion/card";
 
 interface ScaleOffWithOfImageOptions {
   selector: string;

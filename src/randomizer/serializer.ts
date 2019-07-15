@@ -1,13 +1,8 @@
 import {Card} from "../dominion/card";
 import {DominionSets} from "../dominion/dominion-sets";
-import {Event} from "../dominion/event";
 import {Kingdom} from "../models/kingdom";
-import {Landmark} from "../dominion/landmark";
 import {Metadata as KingdomMetadata} from "../models/kingdom";
-import {Metadata as SupplyMetadata} from "../models/supply";
-import {Project} from "../dominion/project";
 import {Supply} from "../models/supply";
-import {SupplyCard} from "../dominion/supply-card";
 
 export function serializeKingdom(kingdom: Kingdom): string {
   const result: string[] = [];
@@ -47,11 +42,11 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   const projectIds = parseNamedCommaSeparatedParameter("projects", serializedKingdom) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
-  const events = findByIds(supplyIds, DominionSets.getEventById).slice(0, 2);
+  const events = findByIds(eventIds, DominionSets.getEventById).slice(0, 2);
   const landmarks =
-      findByIds(supplyIds, DominionSets.getLandmarkById).slice(0, Math.max(0, 2 - events.length));
+      findByIds(landmarkIds, DominionSets.getLandmarkById).slice(0, Math.max(0, 2 - events.length));
   const projects = 
-      findByIds(supplyIds, DominionSets.getProjectById)
+      findByIds(projectIds, DominionSets.getProjectById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length));
   const supply = new Supply(supplyCards, null);
 

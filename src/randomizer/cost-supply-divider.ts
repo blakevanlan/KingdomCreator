@@ -12,11 +12,11 @@ export class CostSupplyDivider extends SupplyDivider {
   }
 
   protected getSatisfyingCards(division: SupplyDivision): SupplyCard[] {
-    return division.availableCards.filter(this.isSatisfyingCard)
+    return division.availableCards.filter((card) => this.isSatisfyingCard(card));
   }
 
   protected getRemainingCards(division: SupplyDivision): SupplyCard[] {
-    return division.availableCards.filter(this.isRemainingCard)
+    return division.availableCards.filter((card) => this.isRemainingCard(card));
   }
 
   private isSatisfyingCard(card: SupplyCard): boolean {

@@ -1,7 +1,3 @@
-import {Card} from "./card"
-import {Event} from "./event"
-import {Landmark} from "./landmark"
-import {Project} from "./project"
 import {SetId} from "./set-id"
 
 export class DominionKingdom {

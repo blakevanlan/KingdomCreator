@@ -17,7 +17,6 @@ import {MetadataViewModel} from "../view-models/metadata-view-model";
 import {Page} from "./page";
 import {Project} from "../dominion/project";
 import {RandomizerOptionsBuilder} from "../randomizer/randomizer-options";
-import {RandomizerOptions} from "../randomizer/randomizer-options";
 import {RandomizerSettings} from "../settings/randomizer-settings";
 import {Randomizer} from "../randomizer/randomizer";
 import {SetId} from "../dominion/set-id";
@@ -469,7 +468,7 @@ export class IndexPage extends Page {
 
     // Setup the prirotized set option.
     this.isPrioritizeSetEnabled(!!this.randomizerSettings.prioritizeSet());
-    this.isPrioritizeSetEnabled.subscribe(this.isPrioritizeSetEnabledChanged);
+    this.isPrioritizeSetEnabled.subscribe(() => this.isPrioritizeSetEnabledChanged());
     
     // Re-sort the cards when the sort option changes.
     this.settings.sortOption.subscribe(() => this.sortCards());

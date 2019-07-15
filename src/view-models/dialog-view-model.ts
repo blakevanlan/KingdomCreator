@@ -5,7 +5,6 @@ import {CardType} from "../dominion/card-type";
 import {CostType} from "../dominion/cost-type";
 import {DominionSets} from "../dominion/dominion-sets";
 import {SetId} from "../dominion/set-id";
-import {SetViewModel} from "./set-view-model";
 
 class NamedViewModel<T> {
   readonly isActive: KnockoutObservable<boolean>;

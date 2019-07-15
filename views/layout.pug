@@ -22,19 +22,18 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/js/vex.combined.min.js")
     script(src="/dominion-content.js")
 
-    - if (isProduction)
-      script.
-        if (window.location.hostname.indexOf('localhost') == -1
-            && window.location.protocol.indexOf('https') != 0) {
-          window.location.protocol = 'https:';
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
+    script.
+      const isProduction = window.location.hostname.indexOf("localhost") == -1;
+      if (isProduction) {
+        if (window.location.protocol.indexOf("https") != 0) {
+          window.location.protocol = "https:";
         }
-
-      script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
-      script.
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-33669676-2');
+        gtag("js", new Date());
+        gtag("config", "UA-33669676-2");
+      }
 
     block head
 

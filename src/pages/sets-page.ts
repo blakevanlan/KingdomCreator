@@ -1,4 +1,3 @@
-import {Addon} from "../dominion/addon";
 import {DominionSets} from "../dominion/dominion-sets";
 import {DominionKingdoms} from "../dominion/dominion-kingdoms";
 import {DominionKingdom} from "../dominion/dominion-kingdom";
@@ -7,7 +6,6 @@ import {Page} from "./page";
 import {SetId} from "../dominion/set-id";
 import {SetViewModel} from "../view-models/set-view-model";
 import {getMessageForAddonsDescription} from "../utils/messages";
-import {loadSettings, saveSettings} from "../settings/settings-manager";
 
 const SUBTITLE = "Recommended Sets of 10";
 const FOUR_COLUMN_WIDTH = 450;
