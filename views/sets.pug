@@ -11,7 +11,7 @@ block content
         .set
           label.checkbox
             input(type="radio", name="selectedSet",
-                data-bind="attr: {value: id}, checked: $parent.selectedSetId")
+                data-bind="attr: {value: setId}, checked: $parent.selectedSetId")
             span(data-bind="text: name")
       .clear
 
@@ -23,7 +23,7 @@ block content
       .kingdom
         .kingdom-title
           .kingdom-title_name(data-bind="text: name")
-          .kingdom-title_sets(data-bind="dominionSetNames: sets")
+          .kingdom-title_sets(data-bind="dominionSetNames: setIds")
 
         .kingdom-metadata(data-bind="if: $data.metadata, visible: $data.metadata")
           .kingdom-metadata_use-platinums-and-colonies(
@@ -32,7 +32,7 @@ block content
               data-bind="visible: $data.metadata.shelters") Use Shelters
         
         table.kingdom-supply
-          tbody(data-bind="foreach: $root.createRows(supply)")
+          tbody(data-bind="foreach: $root.createRows(supplyIds)")
             tr(data-bind="foreach: $data")
               td.kingdom-card
                 img.kingdom-card_image(data-bind="cardImage: $data")
@@ -42,13 +42,13 @@ block content
           .kingdom-extra-cards-horizontal_title(
               data-bind="text: $root.titleForAddons($data)")
           .kingdom-extra-cards-horizontal_cards(
-              data-bind="foreach:$root.addons($data)")
+              data-bind="foreach:$root.addonIds($data)")
             img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
           .clear
 
-        .kingdom-extra-cards-horizontal(data-bind="if: $data.boons && $data.boons.length")
+        .kingdom-extra-cards-horizontal(data-bind="if: $data.boonIds && $data.boonIds.length")
           .kingdom-extra-cards-horizontal_title Boons
           .kingdom-extra-cards-horizontal_cards(
-              data-bind="foreach: boons")
+              data-bind="foreach: boonIds")
             img.kingdom-extra-cards-horizontal_image(data-bind="cardImage: $data")
           .clear

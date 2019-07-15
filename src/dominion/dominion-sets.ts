@@ -1,3 +1,4 @@
+import {Boon} from "./boon";
 import {Card} from "./card";
 import {DominionSet} from "./dominion-set";
 import {Event} from "./event";
@@ -86,6 +87,14 @@ export class DominionSets {
     return card;
   }
 
+  public static getBoonById(cardId: string): Boon {
+    const card = DominionSets.getCardById(cardId);
+    if (!(card instanceof Boon)) {
+      throw new Error(`Card id ({$cardId}) does not refer to a boon`);
+    }
+    return card;
+  }
+
   private static createSets() {
     const setIds = Object.keys(window.DominionSets) as SetId[];
     const sets: {[key in SetId]?: DominionSet} = {};
@@ -101,7 +110,7 @@ export class DominionSets {
     for (let setId of setIds) {
       const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
-          (set.supplyCards as Card[]).concat(set.events, set.landmarks, set.projects);
+          (set.supplyCards as Card[]).concat(set.events, set.landmarks, set.projects, set.boons);
       for (let card of cardsFromSet) {
         cards[card.id] = card;
         if (!cards[card.shortId]) {

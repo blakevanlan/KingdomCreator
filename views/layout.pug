@@ -38,7 +38,7 @@ html
 
     block head
 
-  body
+  body(data-bind="css:{condensed: isCondensed}")
     .condensed-menu(data-bind="if: isCondensed, showMenu: {show: showMenu, enabled: isCondensed}")
       ul.condensed-menu_items(data-bind="foreach: menuItems")
         li.condensed-menu_item(data-bind="css: {active: isActive}")

@@ -26,6 +26,7 @@ import {SetViewModel} from "../view-models/set-view-model";
 import {SortOption} from "../settings/settings";
 import {Supply} from "../models/supply";
 import {SupplyCard} from "../dominion/supply-card";
+import {getMessageForAddonsDescription} from "../utils/messages";
 import {deserializeKingdom, serializeKingdom} from "../randomizer/serializer";
 import {loadSettings, saveSettings} from "../settings/settings-manager";
 
@@ -398,28 +399,7 @@ export class IndexPage extends Page {
         hasLandmarks = hasLandmarks || addon instanceof Landmark;
         hasProjects = hasProjects || addon instanceof Project;
       }
-      if (hasEvents && hasLandmarks && hasProjects) {
-        return "Events, Landmarks and Projects";
-      }
-      if (hasEvents && hasLandmarks) {
-        return "Events and Landmarks";
-      }
-      if (hasEvents && hasProjects) {
-        return "Events and Projects";
-      }
-      if (hasLandmarks && hasProjects) {
-        return "Landmarks and Projects";  
-      }
-      if (hasEvents) {
-        return "Events";  
-      }
-      if (hasLandmarks) {
-        return "Landmarks";
-      }
-      if (hasProjects) {
-        return "Projects";
-      }
-      return "";
+      return getMessageForAddonsDescription(hasEvents, hasLandmarks, hasProjects);
     });
   }
 

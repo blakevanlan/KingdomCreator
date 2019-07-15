@@ -12,17 +12,19 @@ export class DominionKingdom {
     readonly eventIds: string[],
     readonly landmarkIds: string[],
     readonly projectIds: string[],
+    readonly boonIds: string[],
     readonly metadata: Metadata) {
   }
 
   public static fromJson(json: any) {
     return new DominionKingdom(
-        json["id"],
         json["name"],
+        json["sets"],
         json["supply"] || [],
         json["events"] || [],
         json["landmarks"] || [],
         json["projects"] || [],
+        json["boons"] || [],
         Metadata.fromJson(json["metadata"]));
   }
 }
@@ -31,9 +33,9 @@ export class Metadata {
   constructor(readonly useColonies: boolean, readonly useShelters: boolean) {
   }
 
-  public static fromJson(json: any) {
+  public static fromJson(json: any | null) {
     return new Metadata(
-        json["colonies"],
-        json["shelters"]);
+        json ? json["colonies"] : false,
+        json ? json["shelters"] : false);
   }
 }

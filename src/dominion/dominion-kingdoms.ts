@@ -1,19 +1,26 @@
 import {DominionKingdom} from "./dominion-kingdom"
 import {SetId} from "./set-id"
 
+interface DominionContentKingdoms {
+  kingdoms: any[];
+}
+
 declare global {
-  interface Window { DominionKingdoms: any; }
+  interface Window {
+    DominionKingdoms: {[key in SetId]: DominionContentKingdoms};
+  }
 }
 
 export class DominionKingdoms {
 
-  static readonly kingdoms:{[key in SetId]?: DominionKingdom} = DominionKingdoms.createKingdoms();
+  static readonly kingdoms:{[key in SetId]?: DominionKingdom[]} = DominionKingdoms.createKingdoms();
 
   private static createKingdoms() {
     const setIds = Object.keys(window.DominionKingdoms) as SetId[];
-    const sets: {[key in SetId]?: DominionKingdom} = {};
+    const sets: {[key in SetId]?: DominionKingdom[]} = {};
     for (let setId of setIds) {
-      sets[setId] = DominionKingdom.fromJson(window.DominionKingdoms[setId]);
+      const kingdoms = window.DominionKingdoms[setId].kingdoms;
+      sets[setId] = kingdoms.map((json: any) => DominionKingdom.fromJson(json));
     }
     return sets;
   }

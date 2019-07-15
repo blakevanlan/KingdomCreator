@@ -1,3 +1,4 @@
 import {initialize} from "./setup"
+import {SetsPage} from "./pages/sets-page";
 
-console.log("Setup sets!");
+initialize(new SetsPage());
