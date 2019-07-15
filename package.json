@@ -2,46 +2,36 @@
   "author": "Blake VanLandingham",
   "name": "KingdomCreator",
   "version": "2.0.0",
-  "engines": {
-    "node": "4.2.x",
-    "npm": "3.10.x"
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/blakevanlan/KingdomCreator.git"
   },
   "scripts": {
-    "build": "webpack --config prod.config.js",
-    "start": "webpack-dev-server --mode development"
-  },
-  "dependencies": {
-    "coffee-script": "1.11.1",
-    "compression": "1.6.2",
-    "connect-assets": "3.0.2",
-    "csswring": "5.1.0",
-    "express": "3.0.x",
-    "uglify-js": "2.7.4"
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.js"
   },
   "devDependencies": {
     "@types/google.analytics": "0.0.40",
     "@types/jquery": "^3.3.30",
     "@types/knockout": "^3.4.66",
     "@types/vex-js": "^2.3.29",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
     "js-yaml": "3.6.1",
-    "loader-utils": "^1.2.3",
     "mini-css-extract-plugin": "^0.7.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pug": "^2.0.4",
     "pug-loader": "^2.4.0",
-    "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "terser-webpack-plugin": "^1.3.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1"
   }
 }

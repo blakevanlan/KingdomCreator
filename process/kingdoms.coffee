@@ -1,4 +1,4 @@
-Loader = require('../utils/loader')
+Loader = require('./loader')
 
 
 sets = Loader.loadSets()

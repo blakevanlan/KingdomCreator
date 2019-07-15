@@ -472,7 +472,7 @@ export class IndexPage extends Page {
     this.isPrioritizeSetEnabled.subscribe(this.isPrioritizeSetEnabledChanged);
     
     // Re-sort the cards when the sort option changes.
-    this.settings.sortOption.subscribe(this.sortCards);
+    this.settings.sortOption.subscribe(() => this.sortCards());
 
     // Save the settings when settings change.
     this.settings.sortOption.subscribe(boundSaveSettings);

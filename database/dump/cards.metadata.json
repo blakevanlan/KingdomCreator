@@ -1,1 +1,0 @@
-{ "options" : { "create" : "cards", "size" : "", "max" : "", "capped" : false }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "dominion.cards", "name" : "_id_" } ] }

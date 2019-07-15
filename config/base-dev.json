@@ -1,7 +1,0 @@
-{
-  "extends": "./base",
-  "compilerOptions": {
-    "sourceMap": true,
-    "removeComments": false
-  },
-}
