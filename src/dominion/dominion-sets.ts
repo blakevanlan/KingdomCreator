@@ -17,7 +17,7 @@ export class DominionSets {
   static readonly cards: {[index: string]: Card} = DominionSets.createCardMap();
 
   public static convertToSetId(stringSetId: string) {
-    const setId = this.convertToSetIdSafe(stringSetId);
+    const setId = DominionSets.convertToSetIdSafe(stringSetId);
     if (!setId) {
       throw new Error(`Unknown set ID: ${setId}`);
     }

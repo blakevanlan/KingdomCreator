@@ -1,19 +1,13 @@
-import * as ko from "knockout";
-import * as $ from "jquery";
-import {Page} from "./pages/page";
-import {initializeBindingHandlers} from "./binding-handlers/binding-handlers";
+import { UPDATE_SELECTED_SET } from "./stores/window/mutation-types";
+import { Store } from "vuex";
 
-const CONDENSED_WIDTH = 800;
-
-export function initialize(page: Page) {
-  initializeBindingHandlers();
-  $(document).ready(() => {
-      ko.applyBindings(page);
-      $(window).on("resize", () => updateIsCondensed(page));
-      updateIsCondensed(page);
+export function initializeWindowListener<S>(store: Store<S>) {
+  window.addEventListener("resize", () => {
+    updateWindowSize(store);
   });
+  updateWindowSize(store);
 }
 
-function updateIsCondensed(page: Page) {
-  page.isCondensed($(window).width()! <= CONDENSED_WIDTH);
+function updateWindowSize<S>(store: Store<S>) {
+  store.commit(UPDATE_SELECTED_SET, window.outerWidth);
 }

@@ -4,13 +4,17 @@ import {Project} from "../dominion/project";
 import {Supply} from "./supply"
 
 export class Kingdom {
-    constructor(
-        readonly supply: Supply,
-        readonly events: Event[],
-        readonly landmarks: Landmark[],
-        readonly projects: Project[],
-        readonly metadata: Metadata) {
-    }
+  constructor(
+      readonly supply: Supply,
+      readonly events: Event[],
+      readonly landmarks: Landmark[],
+      readonly projects: Project[],
+      readonly metadata: Metadata) {
+  }
+
+  static empty() {
+    return new Kingdom(Supply.empty(), [], [], [], new Metadata(false, false));
+  }
 }
 
 export class Metadata {

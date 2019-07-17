@@ -1,0 +1,2 @@
+export const UPDATE_SETTINGS = "UPDATE_SETTINGS";
+export const UPDATE_KINGDOM = "UPDATE_KINGDOM";

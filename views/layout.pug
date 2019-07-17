@@ -20,12 +20,17 @@ html
     script(src="https://cdn.jsdelivr.net/npm/jquery.imgpreload@1.6.3/jquery.imgpreload.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/js/vex.combined.min.js")
+    //- - if (!htmlWebpackPlugin.options.isProduction)
+    //-   script(src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js")
+    //-   script(src="https://unpkg.com/vuex@3.1.1/dist/vuex.js")
+    //- - if (htmlWebpackPlugin.options.isProduction)
+    //-   script(src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js")
+    //-   script(src="https://unpkg.com/vuex@3.1.1/dist/vuex.min.js")
     script(src="/dominion-content.js")
 
     script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
-    script.
-      const isProduction = window.location.hostname.indexOf("localhost") == -1;
-      if (isProduction) {
+    - if (htmlWebpackPlugin.options.isProduction)
+      script.
         if (window.location.protocol.indexOf("https") != 0) {
           window.location.protocol = "https:";
         }
@@ -33,40 +38,8 @@ html
         function gtag(){dataLayer.push(arguments);}
         gtag("js", new Date());
         gtag("config", "UA-33669676-2");
-      }
 
     block head
 
-  body(data-bind="css:{condensed: isCondensed}")
-    .condensed-menu(data-bind="if: isCondensed, showMenu: {show: showMenu, enabled: isCondensed}")
-      ul.condensed-menu_items(data-bind="foreach: menuItems")
-        li.condensed-menu_item(data-bind="css: {active: isActive}")
-          a.condensed-menu_item_link(data-bind="attr: {href: url}, text: title")
-
-    header
-      .title-container
-        h1.title
-          a.title_link(href="/index.html") Dominion Randomizer
-        h2.tagline(data-bind="text: subtitle")
-      .condensed-menu-button(data-bind="click: toggleMenu, visible: isCondensed")
-      .menu(data-bind="if: !isCondensed()")
-        ul.menu_items(data-bind="foreach: menuItems")
-          li.menu_item(data-bind="css: {active: isActive}")
-            a.menu_item_link(data-bind="attr: {href: url}, text: title")
-      
-    .content
-      block content
-
-    footer
-      | Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
-      | This site has no affiliation with either party.
-      | Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
-      | <br>
-      | <span>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
-      | Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-      | is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></span>
-      | <br>
-      | Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
-      | Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
-
-    block afterFooter
+  body
+    #app

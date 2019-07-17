@@ -1,0 +1,219 @@
+<template>
+  <div class="sidebar">
+    <a class="desktop_randomize-button button" v-if="!isCondensed" @click="handleRandomize">
+      {{ randomizeButtonText }}
+    </a>
+    <div class="sidebar-content filters">
+      <div class="sidebar-content-title">Sets</div>
+      <div class="sets">
+        <div class="set" v-for="set in sets">
+          <label class="checkbox">
+            <input type="checkbox" v-model="selectedSetIds" :id="set.setId" :value="set.setId">
+            <span>{{ set.name }}</span>
+          </label>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sidebar-content-title">Options</div>
+      <div class="option">
+        <label class="checkbox">
+          <input type="checkbox" v-model="requireActionProvider">
+          <span>Require +2 Action</span>
+        </label>
+      </div>
+      <div class="option">
+        <label class="checkbox">
+          <input type="checkbox" v-model="requireCardProvider">
+          <span>Require Drawer</span>
+        </label>
+      </div>
+      <div class="option">
+        <label class="checkbox">
+          <input type="checkbox" v-model="requireBuyProvider">
+          <span>Require Buy</span>
+        </label>
+      </div>
+      <div class="option">
+        <label class="checkbox">
+          <input type="checkbox" v-model="allowAttacks">
+          <span>Allow Attacks</span>
+        </label>
+        <div class="suboption">
+          <label class="checkbox" :class="{disable: !allowAttacks}">
+            <input type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
+              <span>Require Reaction</span>
+            </label>
+          </div>
+        </div>
+        <div class="option">
+          <label class="checkbox">
+            <input type="checkbox" v-model="requireTrashing">
+            <span>Require Trashing</span>
+          </label>
+        </div>
+        <div class="option" v-if="isDistributeCostAllowed">
+          <label class="checkbox">
+            <input type="checkbox" v-model="distributeCost">
+            <span>Distribute Cost</span>
+          </label>
+        </div>
+        <div class="option" v-if="isPrioritizeSetAllowed">
+          <label class="checkbox">
+            <input type="checkbox" v-model="isPrioritizeSetEnabled">
+            <span>Prioritize Set</span>
+          </label>
+          <div class="suboption">
+            <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
+              <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
+              <option v-for="set in sets" :value="set.setId">
+                {{ set.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="sidebar-content-title">Sort</div>
+        <div class="option" v-for="sortOption in sortOptions">
+          <label class="checkbox">
+            <input type="radio" name="sortOption" :value="sortOption.value" v-model="selectedSortOption">
+            <span>{{ sortOption.display }}</span>
+          </label>
+        </div>
+        <a class="condensed_randomize-button button" v-if="isCondensed" @click="handleRandomize">
+          {{ randomizeButtonText }}
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { UPDATE_SETTINGS } from "../stores/randomizer/mutation-types";
+// import { DominionSet } from "../dominion/dominion-set";
+import { DominionSets } from "../dominion/dominion-sets";
+import { Getter, State } from "vuex-class";
+import { SetId } from "../dominion/set-id";
+import { Vue, Component } from "vue-property-decorator";
+import { Settings, SettingsParams, SortOption } from "../settings/settings";
+import { RandomizerSettings, RandomizerSettingsParams } from "../settings/randomizer-settings";
+
+interface SortOptionParam {
+  value: SortOption,
+  display: string,
+}
+
+@Component
+export default class RandomizerSidebar extends Vue {
+  @Getter("isCondensed") readonly isCondensed!: boolean;
+  @Getter("isDistributeCostAllowed") readonly isDistributeCostAllowed!: boolean;
+  @Getter("isPrioritizeSetAllowed") readonly isPrioritizeSetAllowed!: boolean;
+  @Getter("randomizeButtonText") readonly randomizeButtonText!: string;
+  @State(state => state.randomizer.settings) readonly settings!: Settings;
+  @State(state => state.randomizer.settings.randomizerSettings)
+      readonly randomizerSettings!: RandomizerSettings;
+
+  get sets() {
+    return DominionSets.getAllSets();
+  }
+
+  get selectedSetIds() {
+    return this.settings.selectedSets;
+  }
+  set selectedSetIds(values: string[]) {
+    this.$store.commit(UPDATE_SETTINGS, {
+      selectedSets: values.map(DominionSets.convertToSetId)
+    } as SettingsParams);
+  }
+
+  get requireActionProvider() {
+    return this.randomizerSettings.requireActionProvider;
+  }
+  set requireActionProvider(value: boolean) {
+    this.updateRandomizerSettings({requireActionProvider: value});
+  }
+
+  get requireCardProvider() {
+    return this.randomizerSettings.requireCardProvider;
+  }
+  set requireCardProvider(value: boolean) {
+    this.updateRandomizerSettings({requireCardProvider: value});
+  }
+  
+  get requireBuyProvider() {
+    return this.randomizerSettings.requireBuyProvider;
+  }
+  set requireBuyProvider(value: boolean) {
+    this.updateRandomizerSettings({requireBuyProvider: value});
+  }
+
+  get allowAttacks() {
+    return this.randomizerSettings.allowAttacks;
+  }
+  set allowAttacks(value: boolean) {
+    this.updateRandomizerSettings({allowAttacks: value});
+  }
+  
+  get requireReaction() {
+    return this.randomizerSettings.requireReaction;
+  }
+  set requireReaction(value: boolean) {
+    this.updateRandomizerSettings({requireReaction: value});
+  }
+
+  get requireTrashing() {
+    return this.randomizerSettings.requireTrashing;
+  }
+  set requireTrashing(value: boolean) {
+    this.updateRandomizerSettings({requireTrashing: value});
+  }
+
+  get distributeCost() {
+    return this.randomizerSettings.distributeCost;
+  }
+  set distributeCost(value: boolean) {
+    this.updateRandomizerSettings({distributeCost: value});
+  }
+
+  get isPrioritizeSetEnabled() {
+    return this.randomizerSettings.prioritizeSet != null;
+  }
+  set isPrioritizeSetEnabled(value: boolean) {
+    const setId = value && this.selectedSetIds.length
+        ? DominionSets.convertToSetId(this.selectedSetIds.concat().sort()[0])
+        : null;
+    this.updateRandomizerSettings({prioritizeSet: setId});
+  }
+
+  get prioritizeSet() {
+    return this.randomizerSettings.prioritizeSet;
+  }
+  set prioritizeSet(value: SetId | null) {
+    this.updateRandomizerSettings({prioritizeSet: value});
+  }
+
+  get sortOptions(): SortOptionParam[] {
+    return [
+      {display: "Set", value: SortOption.SET},
+      {display: "Alphabetical", value: SortOption.ALPHABETICAL},
+      {display: "Cost", value: SortOption.COST},
+    ];
+  }
+
+  get selectedSortOption() {
+    return this.settings.sortOption;
+  }
+  set selectedSortOption(sortOption: SortOption) {
+    this.$store.commit(UPDATE_SETTINGS, {sortOption: sortOption} as SettingsParams);
+  }
+
+  handleRandomize() {
+    this.$emit("randomize")
+  }
+
+  private updateRandomizerSettings(params: RandomizerSettingsParams) {
+    this.$store.commit(UPDATE_SETTINGS, {
+      randomizerSettings: params
+    } as SettingsParams);
+  }
+}
+Vue.component("randomizer-sidebar-component", RandomizerSidebar);
+</script>

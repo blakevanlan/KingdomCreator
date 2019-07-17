@@ -1,9 +1,9 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 
-module.exports = merge(common, {
+module.exports = merge(common(false), {
   mode: "development",
-  devtool: "source-map",
+  devtool: "inline-source-map",
   devServer: {
     proxy: {
       "/img": {

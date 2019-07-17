@@ -5,6 +5,10 @@ import {SupplyCard} from "../dominion/supply-card";
 export class Supply {
   constructor(readonly supplyCards: SupplyCard[], readonly metadata: Metadata | null) {
   }
+
+  static empty() {
+    return new Supply([], null);
+  }
 }
 
 export class Metadata {

@@ -1,46 +1,39 @@
 import {DominionSets} from "../dominion/dominion-sets";
 import {SetId} from "../dominion/set-id";
 
-export class RandomizerSettings {
-  readonly requireActionProvider: KnockoutObservable<boolean>;
-  readonly requireCardProvider: KnockoutObservable<boolean>;
-  readonly requireBuyProvider: KnockoutObservable<boolean>;
-  readonly allowAttacks: KnockoutObservable<boolean>;
-  readonly requireReaction: KnockoutObservable<boolean>;
-  readonly requireTrashing: KnockoutObservable<boolean>;
-  readonly distributeCost: KnockoutObservable<boolean>;
-  readonly prioritizeSet: KnockoutObservable<SetId | null>;
+export interface RandomizerSettingsParams {
+  requireActionProvider?: boolean;
+  requireCardProvider?: boolean;
+  requireBuyProvider?: boolean;
+  allowAttacks?: boolean;
+  requireReaction?: boolean;
+  requireTrashing?: boolean;
+  distributeCost?: boolean;
+  prioritizeSet?: SetId | null;
+}
 
+export class RandomizerSettings implements RandomizerSettingsParams {
   constructor(
-      requireActionProvider: boolean,
-      requireCardProvider: boolean,
-      requireBuyProvider: boolean,
-      allowAttacks: boolean,
-      requireReaction: boolean,
-      requireTrashing: boolean,
-      distributeCost: boolean,
-      prioritizeSet: SetId | null) {
-    this.requireActionProvider = ko.observable(requireActionProvider);
-    this.requireCardProvider = ko.observable(requireCardProvider);
-    this.requireBuyProvider = ko.observable(requireBuyProvider);
-    this.allowAttacks = ko.observable(allowAttacks);
-    this.requireReaction = ko.observable(requireReaction);
-    this.requireTrashing = ko.observable(requireTrashing);
-    this.distributeCost = ko.observable(distributeCost);
-    this.prioritizeSet = ko.observable(prioritizeSet);
+      readonly requireActionProvider: boolean,
+      readonly requireCardProvider: boolean,
+      readonly requireBuyProvider: boolean,
+      readonly allowAttacks: boolean,
+      readonly requireReaction: boolean,
+      readonly requireTrashing: boolean,
+      readonly distributeCost: boolean,
+      readonly prioritizeSet: SetId | null) {
   }
 
-  toObject(): any {
-    return {
-      requireActionProvider: this.requireActionProvider(),
-      requireCardProvider: this.requireCardProvider(),
-      requireBuyProvider: this.requireBuyProvider(),
-      allowAttacks: this.allowAttacks(),
-      requireReaction: this.requireReaction(),
-      requireTrashing: this.requireTrashing(),
-      distributeCost: this.distributeCost(),
-      prioritizeSet: this.prioritizeSet(),
-    };
+  withParams(params: RandomizerSettingsParams) {
+    return new RandomizerSettings(
+        params.requireActionProvider !== undefined ? params.requireActionProvider : this.requireActionProvider,
+        params.requireCardProvider !== undefined ? params.requireCardProvider : this.requireCardProvider,
+        params.requireBuyProvider !== undefined ? params.requireBuyProvider : this.requireBuyProvider,
+        params.allowAttacks !== undefined ? params.allowAttacks : this.allowAttacks,
+        params.requireReaction !== undefined ? params.requireReaction : this.requireReaction,
+        params.requireTrashing !== undefined ? params.requireTrashing : this.requireTrashing,
+        params.distributeCost !== undefined ? params.distributeCost : this.distributeCost,
+        params.prioritizeSet !== undefined ? params.prioritizeSet : this.prioritizeSet);
   }
 
   static createFromObject(data: any) {

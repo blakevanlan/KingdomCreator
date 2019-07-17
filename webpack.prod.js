@@ -4,7 +4,7 @@ const TerserJSPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
-module.exports = merge(common, {
+module.exports = merge(common(true), {
   mode: "production",
   devtool: "source-map",
   optimization: {

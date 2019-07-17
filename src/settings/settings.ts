@@ -1,5 +1,5 @@
 import {DominionSets} from "../dominion/dominion-sets";
-import {RandomizerSettings} from "./randomizer-settings";
+import {RandomizerSettings, RandomizerSettingsParams} from "./randomizer-settings";
 import {SetId} from "../dominion/set-id";
 
 export enum SortOption {
@@ -8,58 +8,52 @@ export enum SortOption {
   COST = "cost",
 }
 
-export class Settings {
-  readonly selectedSets: KnockoutObservableArray<SetId>;
-  readonly sortOption: KnockoutObservable<SortOption>;
-  readonly randomizerSettings: KnockoutObservable<RandomizerSettings>;
+export interface SettingsParams {
+  selectedSets?: SetId[];
+  sortOption?: SortOption;
+  randomizerSettings?: RandomizerSettingsParams;
+}
 
+export class Settings implements SettingsParams {
   constructor(
-      selectedSets: SetId[],
-      sortOption: SortOption,
-      randomizerSettings: RandomizerSettings) {
-    this.selectedSets = ko.observableArray(selectedSets);
-    this.sortOption = ko.observable(sortOption);
-    this.randomizerSettings = ko.observable(randomizerSettings);
+      readonly selectedSets: SetId[],
+      readonly sortOption: SortOption,
+      readonly randomizerSettings: RandomizerSettings) {
   }
 
-  toObject(): any {
-    return {
-      sets: Settings.serializeSets(this.selectedSets()),
-      sortOption: this.sortOption(),
-      randomizerSettings: this.randomizerSettings().toObject(),
-    };
+  withParams(params: SettingsParams) {
+    return new Settings(
+        params.selectedSets != undefined ? params.selectedSets : this.selectedSets,
+        params.sortOption != undefined ? params.sortOption : this.sortOption,
+        params.randomizerSettings != undefined
+            ? this.randomizerSettings.withParams(params.randomizerSettings)
+            : this.randomizerSettings);
   }
 
   static createFromObject(data: any) {
     return new Settings(
-      this.deserializeSets(data),
-      this.deserailizeSort(data),
-      RandomizerSettings.createFromObject(
-          data.randomizerSettings ? data.randomizerSettings : data));
-  }
-
-  private static serializeSets(sets: SetId[]): string {
-    if (sets.length) {
-      return sets.join(",");
-    }
-    return SetId.BASE_SET;
+        this.deserializeSets(data),
+        this.deserailizeSort(data),
+        RandomizerSettings.createFromObject(
+            data.randomizerSettings ? data.randomizerSettings : data));
   }
 
   private static deserializeSets(data: any): SetId[] {
-    if (data.sets && typeof data.sets == "string") {
-      const setIds = data.sets.split(",");
-      if (setIds.length && setIds[0].length) {
-        const realSetIds: SetId[] = [];
-        for (let setId of setIds) {
-          const realSetId = DominionSets.convertToSetIdSafe(setId);
-          if (realSetId) {
-            realSetIds.push(realSetId);
-          }
-        }
-        return realSetIds;
+    const setsFromData: string | string[] = data.selectedSets || data.sets;
+    if (!setsFromData) {
+      return [SetId.BASE_SET];
+    }
+    const stringSetIds: string[] = typeof setsFromData == "string"
+        ? setsFromData.split(",")
+        : setsFromData;
+    const setIds: SetId[] = [];
+    for (let stringSetId of stringSetIds) {
+      const setId = DominionSets.convertToSetIdSafe(stringSetId);
+      if (setId) {
+        setIds.push(setId);
       }
     }
-    return [SetId.BASE_SET];
+    return setIds.length ? setIds : [SetId.BASE_SET];
   }
 
   private static deserailizeSort(data: any): SortOption {
