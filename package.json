@@ -12,6 +12,7 @@
     "start": "webpack-dev-server --config webpack.dev.js"
   },
   "dependencies": {
+    "gsap": "^2.1.3",
     "js-cookie": "^2.2.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.1.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/google.analytics": "0.0.40",
+    "@types/gsap": "^1.20.2",
     "@types/jquery": "^3.3.30",
     "@types/js-cookie": "^2.2.2",
     "@types/knockout": "^3.4.66",

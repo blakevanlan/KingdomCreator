@@ -25,6 +25,13 @@
   height: 30px
   text-align: center
 
+.supply-card__front-set-container.fade-enter-active
+  transition: opacity .15s
+
+.supply-card__front-set-container.fade-enter,
+.supply-card__front-set-container.fade-leave-to
+  opacity: 0
+
 .supply-card__front-set-name
   padding: 6px 8px
   margin: 0 auto
@@ -33,10 +40,18 @@
   background: rgba(30,30,30,0.7)
   text-shadow: 1px 1px 4px #000
 
+.supply-card__front-highlight
+  position: absolute
+  box-sizing: border-box
+  height: 100%
+  width: 100%
+  border: 2px solid highlight-blue
+  background: rgba(2, 119, 158, 0.65)
+  cursor: pointer
+  z-index: 1
 
-// .supply-card__front-set-container
-// .supply-card__front-set
-// .supply-card__back-img
+.kingdom-supply_card
+  cursor: pointer
 
 #cards
   position: relative
@@ -294,10 +309,6 @@
   .set-name.intrigue2
   .set-name.hinterlands
     font-size: 9px
-
-@media (max-width: 450px)
-  .card-wrap
-    width: 25%
 
 @media (max-width: 400px)
   .set-name

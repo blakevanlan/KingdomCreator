@@ -67,6 +67,9 @@ export const randomizerStore = {
       // TODO update the url.
       serializeKingdom(kingdom);
     },
+    CLEAR_SELECTION (state: State) {
+      state.selection = Selection.empty();
+    },
     UPDATE_SELECTION (state: State, selection: SelectionParams) {
       state.selection = state.selection.withParams(selection);
     },

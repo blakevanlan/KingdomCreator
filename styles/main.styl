@@ -195,11 +195,7 @@ input[type=radio]
   position: relative
   width: 100%
   height: 100%
-  transition: transform 0.4s
   transform-style: preserve-3d
-
-.flip-card.show-back .flip-card__content
-  transform: rotateY(180deg)
 
 .flip-card__content__front
 .flip-card__content__back
@@ -207,6 +203,9 @@ input[type=radio]
   width: 100%
   height: 100%
   backface-visibility: hidden
+
+.flip-card__content__front
+  cursor: pointer
 
 .flip-card__content__back
   transform: rotateY(180deg)

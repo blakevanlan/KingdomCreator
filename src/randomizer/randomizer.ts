@@ -52,7 +52,8 @@ export class Randomizer {
     const supply = this.createSupplyWithRetries(randomizerOptions);
     const addons = this.getAddons(randomizerOptions.setIds);
     const metadata = this.getMetadata(randomizerOptions.setIds);
-    return new Kingdom(supply, addons.events, addons.landmarks, addons.projects, metadata);
+    return new Kingdom(
+      Date.now(), supply, addons.events, addons.landmarks, addons.projects, metadata);
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {

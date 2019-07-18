@@ -50,7 +50,8 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
           .slice(0, Math.max(0, 2 - events.length - landmarks.length));
   const supply = new Supply(supplyCards, null);
 
-  return new Kingdom(supply, events, landmarks, projects, deserializeMetadata(serializedKingdom));
+  return new Kingdom(
+      Date.now(), supply, events, landmarks, projects, deserializeMetadata(serializedKingdom));
 }
 
 function serializeCards<T extends Card>(identifier: string, cards: T[]): string {

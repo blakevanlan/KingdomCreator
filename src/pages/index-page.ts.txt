@@ -675,33 +675,7 @@ export class IndexPage extends Page {
     return this.cardSorter(a.card, b.card);
   }
 
-  private cardSorter(a: CardViewModel, b: CardViewModel) {
-    return this.supplyCardSorter(
-        DominionSets.getSupplyCardById(a.id()!), DominionSets.getSupplyCardById(b.id()!));
-  }
-
-  private supplyCardSorter(a: SupplyCard, b: SupplyCard) {
-    if (this.settings.sortOption() == SortOption.SET && a.setId != b.setId) {
-      return a.setId < b.setId ? -1 : 1;
-    }
-    if (this.settings.sortOption() == SortOption.COST) {
-      const costComparison = IndexPage.compareCosts(a, b);
-      if (costComparison != 0) {
-        return costComparison;
-      }
-    }
-    return a.name == b.name ? 0 : a.name < b.name ? -1 : 1;
-  }
-
-  private static compareCosts(a: SupplyCard, b: SupplyCard) {
-    const costA = this.getCostSum(a);
-    const costB = this.getCostSum(b);
-    return costA == costB ? 0 : costA < costB ? -1 : 1;
-  }
-
-  private static getCostSum(supplyCard: SupplyCard) {
-    return supplyCard.cost.treasure + supplyCard.cost.potion * 0.9 + supplyCard.cost.debt;
-  }
+  
 
   private static addVenderPrefixes(properties: any, propertyName: string, value: string | number) {
     properties["-webkit-" + propertyName] = value;

@@ -1,4 +1,5 @@
-import { UPDATE_KINGDOM } from "./mutation-types";
+import { UPDATE_KINGDOM, UPDATE_SELECTION, CLEAR_SELECTION } from "./mutation-types";
+import { RANDOMIZE, RANDOMIZE_FULL_KINGDOM } from "./action-types";
 import {EventTracker} from "../../analytics/event-tracker";
 import {EventType} from "../../analytics/event-tracker";
 import { State } from "./randomizer-store";
@@ -9,9 +10,11 @@ import { RandomizerOptionsBuilder } from "../../randomizer/randomizer-options";
 import { Cards } from "../../utils/cards";
 import { Randomizer } from "../../randomizer/randomizer";
 import { Kingdom } from "../../models/kingdom";
-import { RANDOMIZE, RANDOMIZE_FULL_KINGDOM } from "./action-types";
 import { Card } from "../../dominion/card";
 import { Supply } from "../../models/supply";
+import { DominionSets } from "../../dominion/dominion-sets";
+import { SupplyCard } from "../../dominion/supply-card";
+import { SelectionParams } from "./selection";
 
 interface Context extends ActionContext<State, any> {}
 
@@ -37,8 +40,9 @@ export const actions = {
       if (supply) {
         EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
         const kingdom = new Kingdom(
-            supply, kingdomFromUrl.events, kingdomFromUrl.landmarks, kingdomFromUrl.projects,
-            kingdomFromUrl.metadata);
+            Date.now(), supply, kingdomFromUrl.events, kingdomFromUrl.landmarks,
+            kingdomFromUrl.projects, kingdomFromUrl.metadata);
+        context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
         return;
       } else {
@@ -56,12 +60,12 @@ export const actions = {
         getSelectedEvents(context).length ||
         getSelectedLandmarks(context).length ||
         getSelectedProjects(context).length;
-
+    
     if (!selectedCards.length && !isAddonSelected) {
       context.dispatch(RANDOMIZE_FULL_KINGDOM);
       return;
     }
-
+    
     const oldSupply = context.state.kingdom.supply;
     const newSupply = selectedCards.length 
         ? randomizeSelectedCards(context) || oldSupply
@@ -76,10 +80,11 @@ export const actions = {
     const newProjects = newAddons
         ? Cards.getAllProjects(newAddons)
         : getSelectedProjects(context);
-    
+        
     const kingdom = new Kingdom(
-        newSupply, newEvents, newLandmarks, newProjects,
-        context.state.kingdom.metadata);
+      context.state.kingdom.id, newSupply, newEvents, newLandmarks, newProjects,
+      context.state.kingdom.metadata);
+    context.commit(CLEAR_SELECTION);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
 
@@ -97,12 +102,48 @@ export const actions = {
 
     try {
       const kingdom = Randomizer.createKingdom(options);
+      context.commit(CLEAR_SELECTION);
       context.commit(UPDATE_KINGDOM, kingdom);
       EventTracker.trackEvent(EventType.RANDOMIZE_KINGDOM);
     } catch (e) {
       EventTracker.trackError(EventType.RANDOMIZE_KINGDOM);
     }
   },
+
+  SELECT_CARD(context: Context, id: string) {
+    if (context.state.selection.contains(id)) {
+      return;
+    }
+    const selection = context.state.selection;
+    const card = DominionSets.getCardById(id);
+    if (card instanceof SupplyCard) {
+      context.commit(UPDATE_SELECTION, {
+        selectedSupplyIds: selection.selectedSupplyIds.concat([id])
+      } as SelectionParams) ;
+    } else {
+      context.commit(UPDATE_SELECTION, {
+        selectedAddonIds: selection.selectedAddonIds.concat([id]) 
+      } as SelectionParams);
+    }
+  },
+
+  UNSELECT_CARD(context: Context, id: string) {
+    if (!context.state.selection.contains(id)) {
+      return;
+    }
+    const selection = context.state.selection;
+    const card = DominionSets.getCardById(id);
+    const filterFn = (existingId: string) => existingId != id;
+    if (card instanceof SupplyCard) {
+      context.commit(UPDATE_SELECTION, {
+        selectedSupplyIds: selection.selectedSupplyIds.filter(filterFn)
+      } as SelectionParams);
+    } else {
+      context.commit(UPDATE_SELECTION, {
+        selectedAddonIds: selection.selectedAddonIds.filter(filterFn)
+      } as SelectionParams);
+    }
+  }
 }
 
 function randomizeSelectedCards(context: Context): Supply | null {

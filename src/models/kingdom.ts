@@ -5,6 +5,7 @@ import {Supply} from "./supply"
 
 export class Kingdom {
   constructor(
+      readonly id: number,
       readonly supply: Supply,
       readonly events: Event[],
       readonly landmarks: Landmark[],
@@ -13,7 +14,7 @@ export class Kingdom {
   }
 
   static empty() {
-    return new Kingdom(Supply.empty(), [], [], [], new Metadata(false, false));
+    return new Kingdom(0, Supply.empty(), [], [], [], new Metadata(false, false));
   }
 }
 
