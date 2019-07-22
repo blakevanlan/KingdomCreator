@@ -1,5 +1,5 @@
 import { UPDATE_KINGDOM, UPDATE_SELECTION, CLEAR_SELECTION } from "./mutation-types";
-import { RANDOMIZE, RANDOMIZE_FULL_KINGDOM } from "./action-types";
+import { RANDOMIZE, RANDOMIZE_FULL_KINGDOM, UNSELECT_CARD, SELECT_CARD } from "./action-types";
 import {EventTracker} from "../../analytics/event-tracker";
 import {EventType} from "../../analytics/event-tracker";
 import { State } from "./randomizer-store";
@@ -108,6 +108,11 @@ export const actions = {
     } catch (e) {
       EventTracker.trackError(EventType.RANDOMIZE_KINGDOM);
     }
+  },
+
+  TOGGLE_CARD_SELECTION(context: Context, id: string) {
+    const action = context.state.selection.contains(id) ? UNSELECT_CARD : SELECT_CARD;
+    context.dispatch(action, id);
   },
 
   SELECT_CARD(context: Context, id: string) {

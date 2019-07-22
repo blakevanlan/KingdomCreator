@@ -2,7 +2,7 @@
   <div class="main">
     <div class="kingdom-supply" :class=[columnClass]>
       <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
-          @click="handleClick(index)">
+          @click.stop="handleClick(index)">
         <card-component :card="supplyCard" :is-vertical="false"
             @front-visible="handleSupplyCardFrontVisible"
             @flipping-to-back="handleSupplyCardFlippingToBack" />
@@ -31,7 +31,7 @@ import { Kingdom } from "../models/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
-import { SELECT_CARD, UNSELECT_CARD } from "../stores/randomizer/action-types";
+import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
 
 interface Coordinate {
   x: number;
@@ -58,7 +58,7 @@ export default class KingdomComponent extends Vue {
   @Getter("addons") readonly addons!: Addon[];
   @Getter("hasAddons") readonly hasAddons!: boolean;
   @Getter("addonSummary") readonly addonSummary!: string;
-  readonly visualIndexMapping = new Map<number, number>();
+  elementIndexMapping = new Map<number, number>();
   kingdomId: number = 0;
   supplyCards: SupplyCard[] = [];
   numberOfSupplyCardsLoading = 0;
@@ -93,10 +93,12 @@ export default class KingdomComponent extends Vue {
     this.attemptToAnimateSupplyCardSort();
   }
 
+  // Handle clicks on the card container element that might actually be mapped
+  // to a different card due to sorting. This is necessary because the container
+  // will actually be above the card elements in some cases.
   handleClick(index: number) {
     const supplyCard = this.supplyCards[this.getElementIndex(index)];
-    const action = this.selection.contains(supplyCard.id) ? UNSELECT_CARD : SELECT_CARD;
-    this.$store.dispatch(action, supplyCard.id);
+    this.$store.dispatch(TOGGLE_CARD_SELECTION, supplyCard.id);
   }
 
   private updateActiveKingdom() {
@@ -136,6 +138,7 @@ export default class KingdomComponent extends Vue {
   private animateSupplyCardSort() {
     const sortedCards = SupplyCardSorter.sort(this.supplyCards.concat(), this.sortOption);
     const descriptors = this.createMoveDescriptors(sortedCards);
+    const newMapping: Map<number, number> = new Map();
 
     for (let descriptor of descriptors) {
       const element = this.getSupplyCardElement(descriptor.elementIndex);
@@ -149,13 +152,13 @@ export default class KingdomComponent extends Vue {
             ease: Sine.easeInOut,
             onComplete: () => this.handleSortAnimationEnd(descriptor),
           });
+      newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
     }
+    this.elementIndexMapping = newMapping;
   }
 
   private handleSortAnimationEnd(descriptor: MoveDescriptor) {
     this.activeAnimations[descriptor.elementIndex] = null;
-    this.visualIndexMapping.set(
-        descriptor.elementIndex, descriptor.newVisualIndex);
   }
 
   private createMoveDescriptors(sortedSupplyCards: SupplyCard[]) {
@@ -184,13 +187,9 @@ export default class KingdomComponent extends Vue {
   }
 
   private getElementIndex(visualIndex: number) {
-    const keys = this.visualIndexMapping.keys();
-    for (let elementIndex of keys) {
-      if (this.visualIndexMapping.get(elementIndex) == visualIndex) {
-        return elementIndex;
-      }
-    }
-    return visualIndex;
+    return this.elementIndexMapping.has(visualIndex) 
+        ? this.elementIndexMapping.get(visualIndex)!
+        : visualIndex;
   }
 
   private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {

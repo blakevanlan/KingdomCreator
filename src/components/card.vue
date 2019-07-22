@@ -2,7 +2,7 @@
   <div class="flip-card supply-card"
       :class="{isVertical: isVertical}">
     <div class="flip-card__content" :style="{transform: `rotateY(${rotationDegrees}deg)`}">
-      <div class="flip-card__content__front">
+      <div class="flip-card__content__front" @click.stop="handleClick">
         <img class="supply-card__front-img" :src="frontCardImageUrl" :key="card.id"
             @load="handleFrontImageLoaded" />
         <transition name="fade">
@@ -27,6 +27,7 @@ import { getCardImageUrl } from "../utils/images";
 import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
+import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
 
 enum CardState {
   FLIPPING_TO_BACK,
@@ -110,6 +111,12 @@ export default class CardComponent extends Vue {
   handleFrontImageLoaded() {
     this.isFrontLoaded = true;
     this.updateCardState();
+  }
+
+  handleClick() {
+    if (this.activeCard) {
+      this.$store.dispatch(TOGGLE_CARD_SELECTION, this.activeCard.id);
+    }
   }
 
   updateCardState() {
