@@ -3,7 +3,8 @@
       :class="{isVertical: isVertical}">
     <div class="flip-card__content" :style="{transform: `rotateY(${rotationDegrees}deg)`}">
       <div class="flip-card__content__front" @click.stop="handleClick">
-        <img class="supply-card__front-img" :src="frontCardImageUrl" :key="card.id"
+        <img class="supply-card__front-img" v-if="activeCard" :src="frontCardImageUrl"
+            :key="activeCard ? activeCard.id : ''"
             @load="handleFrontImageLoaded" />
         <transition name="fade">
           <div class="supply-card__front-set-container" v-if="showSetName">
@@ -141,9 +142,9 @@ export default class CardComponent extends Vue {
   }
 
   isActiveCardOutdated() {
-    return (this.card && !this.activeCard)
-        || (!this.card && this.activeCard)
-        || (this.card!.id != this.activeCard!.id);
+    const cardId = this.card ? this.card.id : "";
+    const activeCard = this.activeCard ? this.activeCard.id : "";
+    return cardId != activeCard;
   }
 
   updateActiveCard() {

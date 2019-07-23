@@ -23,6 +23,7 @@ export interface Getters {
   randomizeButtonText: string;
   addons: Addon[];
   hasAddons: boolean;
+  canHaveAddons: boolean;
   addonSummary: string;
 }
 
@@ -54,11 +55,21 @@ export const randomizerStore = {
     hasAddons: (state: State, getters: Getters) => {
       return getters.addons.length > 0;
     },
+    canHaveAddons: (state: State, getters: Getters) => {
+      return getters.addonSummary.length > 0;
+    },
     addonSummary: (state: State) => {
+      let hasEvents = false;
+      let hasLandmarks = false;
+      let hasProjects = false;
+      for (let setId of state.settings.selectedSets) {
+        const set = DominionSets.getSetById(setId);
+        hasEvents = hasEvents || set.events.length > 0;
+        hasLandmarks = hasLandmarks || set.landmarks.length > 0;
+        hasProjects = hasProjects || set.projects.length > 0;
+      }
       return getMessageForAddonsDescription(
-          state.kingdom.events.length > 0,
-          state.kingdom.landmarks.length > 0,
-          state.kingdom.projects.length > 0);
+          hasEvents, hasLandmarks, hasProjects);
     },
   },
   mutations: {

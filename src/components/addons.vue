@@ -1,0 +1,96 @@
+<template>
+  <div class="addons">
+    <div class="addons-header" v-if="canHaveAddons">
+      {{ addonSummary }}  
+    </div>
+    <div class="addon_cards">
+      <div class="addon_card" v-for="addonContainer in activeContainers">
+        <card-component :card="addonContainer.addon" :is-vertical="true" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import CardComponent from "./card.vue";
+import { Addon } from "../dominion/addon";
+
+import { Vue, Component, Watch } from "vue-property-decorator";
+import { Getter, State } from "vuex-class";
+// import { Selection } from "../stores/randomizer/selection";
+// import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
+
+interface AddonContainer {
+  addon: Addon | null,
+}
+
+const NUMBER_OF_ADDONS = 2;
+
+@Component
+export default class AddonsComponent extends Vue {
+  constructor() {
+    super({components: {"card-component": CardComponent}});
+  }
+  @State(state => state.randomizer.selection) readonly selection!: Selection;
+  @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
+  @Getter("addonSummary") readonly addonSummary!: string;
+  @Getter("addons") readonly addons!: Addon[];
+  activeContainers: AddonContainer[] = AddonsComponent.fillWithEmptyAddonContainers([]);
+
+  mounted() {
+    this.updateAddonContainers();
+  }
+  
+  @Watch("addons")
+  handleAddonsChanged() {
+    this.updateAddonContainers();
+  }
+  
+  private updateAddonContainers() {
+    if (!this.addons.length) {
+      this.activeContainers = AddonsComponent.fillWithEmptyAddonContainers([]);
+      return;
+    }
+    const newAddons = AddonsComponent.findNewAddons(this.activeContainers, this.addons);
+    let newAddonsIndex = 0;
+    const newContainers = [];
+    for (let i = 0; i < this.activeContainers.length; i++) {
+      const container = this.activeContainers[i];
+      if (container.addon != null 
+          && AddonsComponent.containsAddon(this.addons, container.addon)) {
+        newContainers.push(container);
+      } else {
+        newContainers.push({
+          addon: newAddons.length > newAddonsIndex ? newAddons[newAddonsIndex++] : null
+        });
+      }
+    }
+    this.activeContainers = AddonsComponent.fillWithEmptyAddonContainers(newContainers);
+  }
+
+  private static findNewAddons(containers: AddonContainer[], addons: Addon[]) {
+    let existingIds = containers
+        .filter(container => container.addon != null)
+        .map(container => container.addon!.id);
+    let newAddons: Addon[] = [];
+    for (let addon of addons) {
+      if (existingIds.indexOf(addon.id) == -1) {
+        newAddons.push(addon);
+      }
+    }
+    return newAddons;
+  }
+
+  private static containsAddon(list: Addon[], addon: Addon) {
+    return list.some((listAddon) => listAddon.id == addon.id);
+  }
+
+  private static fillWithEmptyAddonContainers(list: AddonContainer[]) {
+    for (let i = list.length; i < NUMBER_OF_ADDONS; i++) {
+      list.push({addon: null});
+    }
+    return list;
+  }
+}
+Vue.component("addons-component", AddonsComponent);
+</script>

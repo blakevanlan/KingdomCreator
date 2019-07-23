@@ -99,11 +99,17 @@
   font-size: 20px
 
 .addons
-  .card-wrap
-    width: 30%
-    
-    &:first-child
-      clear: left
+  clear: left
+
+.addon_card
+  position: relative
+  width: 30%
+  padding-bottom: 18.77% /* 473:296 = 30 * (296 / 473) */
+  float: left
+  margin-right: 4px
+  
+  &:first-child
+    clear: left
 
 .modifiers-header
 .modifiers   
@@ -304,8 +310,9 @@
         font-size: 18px
 
 @media (max-width: 525px)
-  .addons .card-wrap
-    width: 50%
+  .addon_card
+    width: 50% 
+    padding-bottom: 31.29% /* 473:296 = 50 * (296 / 473) */
     
   .set-name
     font-size: 11px

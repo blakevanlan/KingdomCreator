@@ -1,21 +1,10 @@
 <template>
-  <div class="main">
-    <div class="kingdom-supply" :class=[columnClass]>
-      <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
-          @click.stop="handleClick(index)">
-        <card-component :card="supplyCard" :is-vertical="false"
-            @front-visible="handleSupplyCardFrontVisible"
-            @flipping-to-back="handleSupplyCardFlippingToBack" />
-      </div>
-      <div class="clear"></div>
-    </div>
-    <div class="addons-header" v-if="hasAddons">
-      {{ addonSummary }}  
-    </div>
-    <div class="addons">
-      <div class="kingdom-addon_card" v-for="addon in addons">
-        <card-component :card="addon" :is-vertical="false" />
-      </div>
+  <div class="kingdom-supply" :class=[columnClass]>
+    <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
+        @click.stop="handleClick(index)">
+      <card-component :card="supplyCard" :is-vertical="false"
+          @front-visible="handleSupplyCardFrontVisible"
+          @flipping-to-back="handleSupplyCardFlippingToBack" />
     </div>
   </div>
 </template>
@@ -47,7 +36,7 @@ interface MoveDescriptor {
 const ANIMATION_DURATION_SEC = 0.6;
 
 @Component
-export default class KingdomComponent extends Vue {
+export default class SortableSupplyCardsComponent extends Vue {
   constructor() {
     super({components: {"card-component": CardComponent}});
   }
@@ -63,10 +52,10 @@ export default class KingdomComponent extends Vue {
   supplyCards: SupplyCard[] = [];
   numberOfSupplyCardsLoading = 0;
   requiresSupplyCardSort = false;
-  activeAnimations: (TweenLite | null)[] = [];
+  activeAnimations: Set<TweenLite> = new Set();
 
   mounted() {
-    this.updateActiveKingdom();
+    this.updateActiveSupplyCards();
   }
 
   get columnClass() {
@@ -75,7 +64,7 @@ export default class KingdomComponent extends Vue {
 
   @Watch("kingdom")
   handleKingdomChanged() {
-    this.updateActiveKingdom();
+    this.updateActiveSupplyCards();
   }
 
   @Watch("sortOption")
@@ -93,20 +82,22 @@ export default class KingdomComponent extends Vue {
     this.attemptToAnimateSupplyCardSort();
   }
 
-  // Handle clicks on the card container element that might actually be mapped
-  // to a different card due to sorting. This is necessary because the container
-  // will actually be above the card elements in some cases.
+  /**
+   * Handle clicks on the card container element that might actually be mapped
+   * to a different card due to sorting. This is necessary because the container
+   * will actually be above the card elements in some cases.
+   */
   handleClick(index: number) {
     const supplyCard = this.supplyCards[this.getElementIndex(index)];
     this.$store.dispatch(TOGGLE_CARD_SELECTION, supplyCard.id);
   }
 
-  private updateActiveKingdom() {
+  private updateActiveSupplyCards() {
     if (!this.kingdom) {
       return;
     }
     if (this.kingdomId == this.kingdom.id) {
-      this.updateExistingKingdom();
+      this.updateSupplyCards();
       return;
     }
     this.kingdomId = this.kingdom.id;
@@ -121,9 +112,9 @@ export default class KingdomComponent extends Vue {
     this.supplyCards = mappedSupplyCards;
   }
 
-  private updateExistingKingdom() {
+  private updateSupplyCards() {
     this.requiresSupplyCardSort = true;
-    this.supplyCards = KingdomComponent.replaceSupplyCards(
+    this.supplyCards = SortableSupplyCardsComponent.replaceSupplyCards(
         this.supplyCards, this.kingdom.supply.supplyCards);
   }
 
@@ -132,7 +123,15 @@ export default class KingdomComponent extends Vue {
       return;
     }
     this.requiresSupplyCardSort = false;
+    this.cancelActiveAnimations();
     this.animateSupplyCardSort();
+  }
+
+  private cancelActiveAnimations() {
+    for (let animation of this.activeAnimations) {
+      animation.kill();
+    }
+    this.activeAnimations.clear();
   }
 
   private animateSupplyCardSort() {
@@ -146,19 +145,16 @@ export default class KingdomComponent extends Vue {
       const endCoord = this.getPositionForElementIndex(descriptor.newVisualIndex);
       const x = endCoord.x - startCoord.x;
       const y = endCoord.y - startCoord.y;
-      this.activeAnimations[descriptor.elementIndex] =
+      const tweenLite =
           TweenLite.to(element, ANIMATION_DURATION_SEC, {
             transform: `translate(${x}px,${y}px)`,
             ease: Sine.easeInOut,
-            onComplete: () => this.handleSortAnimationEnd(descriptor),
+            onComplete: () => this.activeAnimations.delete(tweenLite),
           });
+      this.activeAnimations.add(tweenLite);
       newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
     }
     this.elementIndexMapping = newMapping;
-  }
-
-  private handleSortAnimationEnd(descriptor: MoveDescriptor) {
-    this.activeAnimations[descriptor.elementIndex] = null;
   }
 
   private createMoveDescriptors(sortedSupplyCards: SupplyCard[]) {
@@ -194,8 +190,8 @@ export default class KingdomComponent extends Vue {
 
   private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
     const supplyCards: SupplyCard[] = [];
-    const supplyCardsToAdd = KingdomComponent.getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
-    const oldIds = KingdomComponent.getOldIds(oldSupplyCards, newSupplyCards);
+    const supplyCardsToAdd = SortableSupplyCardsComponent.getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
+    const oldIds = SortableSupplyCardsComponent.getOldIds(oldSupplyCards, newSupplyCards);
     let supplyCardsToAddIndex = 0;
     for (let i = 0; i < oldSupplyCards.length; i++) {
       const supplyCard = oldSupplyCards[i];
@@ -219,5 +215,5 @@ export default class KingdomComponent extends Vue {
     return new Set(oldSupplyCards.filter((card) => !newIds.has(card.id)).map((card) => card.id));
   }
 }
-Vue.component("kingdom-component", KingdomComponent);
+Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>

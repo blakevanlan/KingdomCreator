@@ -1,12 +1,17 @@
 <template>
   <div class="content">
     <randomizer-sidebar-component @randomize="handleRandomize" />
-    <kingdom-component />
+    <div class="main">
+      <sortable-supply-cards-component />
+      <addons-component />
+      <div class="clear"></div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import KingdomComponent from "./kingdom.vue";
+import AddonsComponent from "./addons.vue";
+import SortableSupplyCardsComponent from "./sortable-supply-cards.vue";
 import RandomizerSidebarComponent from "./randomizer-sidebar.vue";
 import { Getter, State } from "vuex-class";
 import { Vue, Component } from "vue-property-decorator";
@@ -19,8 +24,9 @@ export default class Randomizer extends Vue {
   constructor() {
     super({
       components: {
-        "kingdom-component": KingdomComponent,
+        "addons-component": AddonsComponent,
         "randomizer-sidebar-component": RandomizerSidebarComponent,
+        "sortable-supply-cards-component": SortableSupplyCardsComponent,
       }
     });
   }
