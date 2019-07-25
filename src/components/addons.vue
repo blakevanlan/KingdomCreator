@@ -4,7 +4,8 @@
       {{ addonSummary }}  
     </div>
     <div class="addon_cards">
-      <div class="addon_card" v-for="addonContainer in activeContainers">
+      <div class="addon_card" v-for="addonContainer in activeContainers"
+          @click="handleClick(addonContainer)">
         <card-component :card="addonContainer.addon" :is-vertical="true" />
       </div>
     </div>
@@ -14,11 +15,9 @@
 <script lang="ts">
 import CardComponent from "./card.vue";
 import { Addon } from "../dominion/addon";
-
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { Getter, State } from "vuex-class";
-// import { Selection } from "../stores/randomizer/selection";
-// import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
+import { RANDOMIZE_UNDEFINED_ADDON } from "../stores/randomizer/action-types";
 
 interface AddonContainer {
   addon: Addon | null,
@@ -46,6 +45,12 @@ export default class AddonsComponent extends Vue {
     this.updateAddonContainers();
   }
   
+  handleClick(addonContainer: AddonContainer) {
+    if (!addonContainer.addon) {
+      this.$store.dispatch(RANDOMIZE_UNDEFINED_ADDON);
+    }
+  }
+
   private updateAddonContainers() {
     if (!this.addons.length) {
       this.activeContainers = AddonsComponent.fillWithEmptyAddonContainers([]);
@@ -94,3 +99,9 @@ export default class AddonsComponent extends Vue {
 }
 Vue.component("addons-component", AddonsComponent);
 </script>
+
+<style>
+.addon_card {
+  cursor: pointer;
+}
+</style>

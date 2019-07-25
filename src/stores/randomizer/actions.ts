@@ -15,6 +15,7 @@ import { Supply } from "../../models/supply";
 import { DominionSets } from "../../dominion/dominion-sets";
 import { SupplyCard } from "../../dominion/supply-card";
 import { SelectionParams } from "./selection";
+import { Addon } from "../../dominion/addon";
 
 interface Context extends ActionContext<State, any> {}
 
@@ -72,14 +73,14 @@ export const actions = {
         : oldSupply;
     const newAddons = isAddonSelected ? randomizeSelectedAddons(context) : null;
     const newEvents = newAddons
-        ? Cards.getAllEvents(newAddons)
-        : getSelectedEvents(context);
+        ? Cards.getAllEvents(newAddons).concat(getUnselectedEvents(context))
+        : context.state.kingdom.events;
     const newLandmarks = newAddons
-        ? Cards.getAllLandmarks(newAddons)
-        : getSelectedLandmarks(context);
+        ? Cards.getAllLandmarks(newAddons).concat(getUnselectedLandmarks(context))
+        : context.state.kingdom.landmarks;
     const newProjects = newAddons
-        ? Cards.getAllProjects(newAddons)
-        : getSelectedProjects(context);
+        ? Cards.getAllProjects(newAddons).concat(getUnselectedProjects(context))
+        : context.state.kingdom.projects;
         
     const kingdom = new Kingdom(
       context.state.kingdom.id, newSupply, newEvents, newLandmarks, newProjects,
@@ -108,6 +109,18 @@ export const actions = {
     } catch (e) {
       EventTracker.trackError(EventType.RANDOMIZE_KINGDOM);
     }
+  },
+
+  RANDOMIZE_UNDEFINED_ADDON(context: Context) {
+    const addons = randomizeUndefinedAddon(context).concat(getAddons(context));        
+    const kingdom = new Kingdom(
+      context.state.kingdom.id,
+      context.state.kingdom.supply,
+      Cards.getAllEvents(addons),
+      Cards.getAllLandmarks(addons),
+      Cards.getAllProjects(addons),
+      context.state.kingdom.metadata);
+    context.commit(UPDATE_KINGDOM, kingdom);
   },
 
   TOGGLE_CARD_SELECTION(context: Context, id: string) {
@@ -176,11 +189,14 @@ function randomizeSelectedAddons(context: Context) {
               getSelectedLandmarks(context).map((card) => card.id),
               getSelectedProjects(context).map((card) => card.id));
   const newAddonsCount = selectedAddonIds.length;
-
-  // TODO: Include undefined addons (allow selected card back)
-  
   EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
   return Randomizer.getRandomAddons(getSelectedSetIds(context), selectedAddonIds, newAddonsCount);
+}
+
+function randomizeUndefinedAddon(context: Context) {
+  const addonIds = getAddons(context).map((addon) => addon.id);
+  EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
+  return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, 1);
 }
 
 function createRandomizerOptionsBuilder(context: Context) {
@@ -209,6 +225,11 @@ function getCardsToExclude(context: Context) {
       : []; 
 }
 
+function getAddons(context: Context) {
+  const kingdom = context.state.kingdom;
+  return (kingdom.events as Addon[])
+      .concat(kingdom.landmarks as Addon[], kingdom.projects as Addon[]);
+}
 
 function getSelectedSetIds(context: Context) {
   return context.state.settings.selectedSets;
@@ -243,4 +264,21 @@ function getSelectedProjects(context: Context) {
 function getSelected<T extends Card>(context: Context, cards: T[]) {
   const selection = context.state.selection;
   return cards.filter((card) => selection.contains(card.id));
+}
+
+function getUnselectedEvents(context: Context) {
+  return getUnselected(context, context.state.kingdom.events);
+}
+
+function getUnselectedLandmarks(context: Context) {
+  return getUnselected(context, context.state.kingdom.landmarks);
+}
+
+function getUnselectedProjects(context: Context) {
+  return getUnselected(context, context.state.kingdom.projects);
+}
+
+function getUnselected<T extends Card>(context: Context, cards: T[]) {
+  const selection = context.state.selection;
+  return cards.filter((card) => !selection.contains(card.id));
 }
