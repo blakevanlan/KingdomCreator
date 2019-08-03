@@ -1,19 +1,20 @@
 <template>
-  <div class="addons">
-    <div class="addons-header" v-if="canHaveAddons">
+  <div class="addons" v-if="canHaveAddons">
+    <div class="addons-header">
       {{ addonSummary }}  
     </div>
     <div class="addon_cards">
       <div class="addon_card" v-for="addonContainer in activeContainers"
           @click="handleClick(addonContainer)">
-        <card-component :card="addonContainer.addon" :is-vertical="true" />
+        <flipping-card-component :card="addonContainer.addon" :is-vertical="true" />
       </div>
     </div>
+    <div class="clear"></div>
   </div>
 </template>
 
 <script lang="ts">
-import CardComponent from "./card.vue";
+import FlippingCardComponent from "./flipping-card.vue";
 import { Addon } from "../dominion/addon";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { Getter, State } from "vuex-class";
@@ -28,7 +29,7 @@ const NUMBER_OF_ADDONS = 2;
 @Component
 export default class AddonsComponent extends Vue {
   constructor() {
-    super({components: {"card-component": CardComponent}});
+    super({components: {"flipping-card-component": FlippingCardComponent}});
   }
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   @Getter("canHaveAddons") readonly canHaveAddons!: boolean;

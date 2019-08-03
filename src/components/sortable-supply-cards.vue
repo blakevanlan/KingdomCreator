@@ -2,7 +2,7 @@
   <div class="kingdom-supply" :class=[columnClass]>
     <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
         @click.stop="handleClick(index)">
-      <card-component :card="supplyCard" :is-vertical="false"
+      <flipping-card-component :card="supplyCard" :is-vertical="false"
           @front-visible="handleSupplyCardFrontVisible"
           @flipping-to-back="handleSupplyCardFlippingToBack" />
     </div>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import CardComponent from "./card.vue";
+import FlippingCardComponent from "./flipping-card.vue";
 import { Addon } from "../dominion/addon";
 import { SupplyCard } from "../dominion/supply-card";
 import { State, Getter } from "vuex-class";
@@ -38,7 +38,7 @@ const ANIMATION_DURATION_SEC = 0.6;
 @Component
 export default class SortableSupplyCardsComponent extends Vue {
   constructor() {
-    super({components: {"card-component": CardComponent}});
+    super({components: {"flipping-card-component": FlippingCardComponent}});
   }
   @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
   @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;

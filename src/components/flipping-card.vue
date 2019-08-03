@@ -44,7 +44,7 @@ interface AnimationParams {
 const ANIMATION_DURATION_SEC = 0.4;
 
 @Component
-export default class CardComponent extends Vue {
+export default class FlippingCardComponent extends Vue {
   @Prop() readonly card!: Card | null;
   @Prop() readonly isVertical!: boolean;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
@@ -193,5 +193,5 @@ export default class CardComponent extends Vue {
     this.animationParams.rotation = this.cardState == CardState.FRONT_VISIBLE ? 1 : 0;
   }
 }
-Vue.component("card-component", CardComponent);
+Vue.component("flipping-card-component", FlippingCardComponent);
 </script>

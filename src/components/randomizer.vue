@@ -4,7 +4,7 @@
     <div class="main">
       <sortable-supply-cards-component />
       <addons-component />
-      <div class="clear"></div>
+      <modifiers-component />
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@ import { Vue, Component } from "vue-property-decorator";
 import { Settings} from "../settings/settings";
 import { RandomizerSettings } from "../settings/randomizer-settings";
 import { LOAD_INITIAL_KINGDOM, RANDOMIZE } from "../stores/randomizer/action-types";
+import ModifiersComponent from "./modifiers.vue";
 
 @Component
 export default class Randomizer extends Vue {
@@ -25,6 +26,7 @@ export default class Randomizer extends Vue {
     super({
       components: {
         "addons-component": AddonsComponent,
+        "modifiers-component": ModifiersComponent,
         "randomizer-sidebar-component": RandomizerSidebarComponent,
         "sortable-supply-cards-component": SortableSupplyCardsComponent,
       }
