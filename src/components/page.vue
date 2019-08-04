@@ -65,7 +65,7 @@ const MENU_ITEMS = [
 ];
 
 @Component
-export default class Heading extends Vue {
+export default class PageComponent extends Vue {
   @Prop() readonly subtitle!: string;
   @Prop() readonly selectedType!: MenuItemType;
   @Getter("isCondensed") readonly isCondensed!: boolean;

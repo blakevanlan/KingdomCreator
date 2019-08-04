@@ -14,8 +14,8 @@ module.exports = function(isProduction) {
       }
     },
     entry: {
-      index: ["./src/index.ts", "./styles/index.styl"],
-      sets: ["./src/sets.ts", "./styles/sets.styl"],
+      index: ["./src/index-page.ts", "./styles/index.styl"],
+      sets: ["./src/sets-page.ts", "./styles/sets.styl"],
     },
     output: {
       path: path.resolve(__dirname, "docs"),

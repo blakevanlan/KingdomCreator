@@ -19,8 +19,6 @@ new Vue({
     subtitle: SUBTITLE,
     selectedType: MenuItemType.RANDOMIZER
   },
-  computed: {
-  },
   components: {
     "page-component": PageComponent,
     "randomizer-component": RandomizerComponent,
