@@ -75,8 +75,9 @@ export const randomizerStore = {
   mutations: {
     UPDATE_KINGDOM (state: State, kingdom: Kingdom) {
       state.kingdom = kingdom;
-      // TODO update the url.
-      serializeKingdom(kingdom);
+      const url = new URL(location.href);
+      url.search = serializeKingdom(kingdom);
+      history.replaceState({}, "", url.href);
     },
     CLEAR_SELECTION (state: State) {
       state.selection = Selection.empty();

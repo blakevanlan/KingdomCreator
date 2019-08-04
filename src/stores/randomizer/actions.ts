@@ -182,15 +182,12 @@ function randomizeSelectedCards(context: Context): Supply | null {
 }
 
 function randomizeSelectedAddons(context: Context) {
-  const selectedAddonIds =
-      getSelectedEvents(context)
-          .map((card) => card.id)
-          .concat(
-              getSelectedLandmarks(context).map((card) => card.id),
-              getSelectedProjects(context).map((card) => card.id));
-  const newAddonsCount = selectedAddonIds.length;
+  const newAddonsCount = getSelectedEvents(context).length
+      + getSelectedLandmarks(context).length
+      + getSelectedProjects(context).length;
+  const addonIds = getAddons(context).map((addon) => addon.id);
   EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
-  return Randomizer.getRandomAddons(getSelectedSetIds(context), selectedAddonIds, newAddonsCount);
+  return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, newAddonsCount);
 }
 
 function randomizeUndefinedAddon(context: Context) {

@@ -1,4 +1,4 @@
-import { UPDATE_SELECTED_SET } from "./stores/window/mutation-types";
+import { UPDATE_WINDOW_WIDTH } from "./stores/window/mutation-types";
 import { Store } from "vuex";
 
 export function initializeWindowListener<S>(store: Store<S>) {
@@ -9,5 +9,6 @@ export function initializeWindowListener<S>(store: Store<S>) {
 }
 
 function updateWindowSize<S>(store: Store<S>) {
-  store.commit(UPDATE_SELECTED_SET, window.outerWidth);
+  console.log("width=", window.outerWidth);
+  store.commit(UPDATE_WINDOW_WIDTH, window.outerWidth);
 }
