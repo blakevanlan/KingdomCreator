@@ -34,6 +34,7 @@ interface MoveDescriptor {
 
 
 const ANIMATION_DURATION_SEC = 0.6;
+const WINDOW_RESIZE_DELAY_MSEC = 300;
 
 @Component
 export default class SortableSupplyCardsComponent extends Vue {
@@ -53,6 +54,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   numberOfSupplyCardsLoading = 0;
   requiresSupplyCardSort = false;
   activeAnimations: Set<TweenLite> = new Set();
+  resizeTimerId: number | null = null;
 
   mounted() {
     this.updateActiveSupplyCards();
@@ -71,6 +73,19 @@ export default class SortableSupplyCardsComponent extends Vue {
   handleSortOptionChanged() {
     this.requiresSupplyCardSort = true;
     this.attemptToAnimateSupplyCardSort();
+  }
+
+  @Watch("windowWidth")
+  handleWindowWidthChanged() {
+    this.cancelActiveAnimations();
+    this.resetCardPositions();
+
+    // Schedule a reset to happen again after the user finishes resizing the window to catch
+    // any cases where the reset happened before the elements were fully positioned.
+    if (this.resizeTimerId) {
+      clearTimeout(this.resizeTimerId);
+    }
+    this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
   }
 
   handleSupplyCardFlippingToBack(supplyCard: SupplyCard) {
@@ -127,6 +142,18 @@ export default class SortableSupplyCardsComponent extends Vue {
     this.animateSupplyCardSort();
   }
 
+  private resetCardPositions() {
+    for (let visualIndex = 0; visualIndex < this.supplyCards.length; visualIndex++) {
+      const elementIndex = this.getElementIndex(visualIndex);
+      const element = this.getSupplyCardElement(elementIndex);
+      const startCoord = this.getPositionForElementIndex(elementIndex);
+      const endCoord = this.getPositionForElementIndex(visualIndex);
+      const x = endCoord.x - startCoord.x;
+      const y = endCoord.y - startCoord.y;
+      element.style.transform = `translate(${x}px,${y}px)`;
+    }
+  }
+
   private cancelActiveAnimations() {
     for (let animation of this.activeAnimations) {
       animation.kill();
@@ -175,7 +202,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   }
 
   private getSupplyCardElement(index: number) {
-    return this.getSupplyCardContainers()[index].firstChild;
+    return this.getSupplyCardContainers()[index].firstChild! as HTMLElement;
   }
 
   private getSupplyCardContainers() {
