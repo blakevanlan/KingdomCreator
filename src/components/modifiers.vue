@@ -6,7 +6,7 @@
     <div class="modifiers" :class=[columnClass]>
       <div class="clear-left"></div>
       <transition name="fade">
-        <div class="kingdom-supply_card" v-if="metadata.useColonies">
+        <div class="kingdom-supply_card use-colonies" v-if="metadata.useColonies">
           <static-card-component
               :cardImageUrl="'/img/cards/prosperity_coloniesplatinums.png'"
               :description="'Colonies & Platinums'" />
@@ -53,8 +53,8 @@ Vue.component("modifiers-component", ModifiersComponent);
 <style>
 .modifiers-header.fade-enter-active,
 .modifiers-header.fade-leave-active,
-.kingdom-supply_card.fade-enter-active,
-.kingdom-supply_card.fade-leave-active {
+.modifiers-container .kingdom-supply_card.fade-enter-active,
+.modifiers-container .kingdom-supply_card.fade-leave-active {
   transition: opacity .3s;
 }
 .modifiers-header.fade-enter,
@@ -62,5 +62,8 @@ Vue.component("modifiers-component", ModifiersComponent);
 .modifiers-container .kingdom-supply_card.fade-enter,
 .modifiers-container .kingdom-supply_card.fade-leave-to {
   opacity: 0;
+}
+.use-colonies .supply-card__front-set-name {
+  font-size: 16px;
 }
 </style>
