@@ -1,7 +1,7 @@
 import {Event} from "../dominion/event";
 import {Landmark} from "../dominion/landmark";
 import {Project} from "../dominion/project";
-import {Supply} from "./supply"
+import {Supply} from "../randomizer/supply"
 
 export class Kingdom {
   constructor(
@@ -22,3 +22,4 @@ export class Metadata {
   constructor(readonly useColonies: boolean, readonly useShelters: boolean) {
   }
 }
+

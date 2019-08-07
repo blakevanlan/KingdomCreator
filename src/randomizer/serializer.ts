@@ -1,8 +1,8 @@
 import {Card} from "../dominion/card";
 import {DominionSets} from "../dominion/dominion-sets";
-import {Kingdom} from "../models/kingdom";
-import {Metadata as KingdomMetadata} from "../models/kingdom";
-import {Supply} from "../models/supply";
+import {Kingdom} from "./kingdom";
+import {Metadata as KingdomMetadata} from "./kingdom";
+import {Supply, Replacements} from "../randomizer/supply";
 
 export function serializeKingdom(kingdom: Kingdom): string {
   const result: string[] = [];
@@ -48,7 +48,7 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   const projects = 
       findByIds(projectIds, DominionSets.getProjectById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length));
-  const supply = new Supply(supplyCards, null);
+  const supply = new Supply(supplyCards, Replacements.empty());
 
   return new Kingdom(
       Date.now(), supply, events, landmarks, projects, deserializeMetadata(serializedKingdom));

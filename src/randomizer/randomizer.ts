@@ -7,17 +7,16 @@ import {Cards} from "../utils/cards";
 import {DominionSet} from "../dominion/dominion-set";
 import {DominionSets} from "../dominion/dominion-sets";
 import {Event} from "../dominion/event"
-import {Kingdom} from "../models/kingdom";
+import {Kingdom} from "./kingdom";
 import {Landmark} from "../dominion/landmark"
-import {Metadata as KingdomMetadata} from "../models/kingdom";
-import {Metadata as SupplyMetadata} from "../models/supply";
+import {Metadata as KingdomMetadata} from "./kingdom";
 import {Project} from "../dominion/project"
 import {RandomizerOptions} from "./randomizer-options";
 //import {ReactionSupplyCorrection} from "./reaction-supply-correction"; REMOVE?
 import {SetId} from "../dominion/set-id";
 import {SetSupplyBan} from "./set-supply-ban";
 import {SetSupplyDivider} from "./set-supply-divider";
-import {Supply} from "../models/supply";
+import {Supply} from "./supply";
 import {SupplyBuilder} from "./supply-builder";
 import {SupplyCard} from "../dominion/supply-card";
 import {SupplyDivisions} from "./supply-divisions";
@@ -144,24 +143,21 @@ export class Randomizer {
 
     const existingCards =
         randomizerOptions.includeCardIds.map((id) => DominionSets.getSupplyCardById(id));
-    let selectedCards = this.createSupplyCardsWithRetries(supplyBuilder, existingCards);
+    let supply = this.buildSupplyWithRetries(supplyBuilder, existingCards);
 
+    // TODO: This is ugly and should ultimately be handled in the supply builder. Perhaps
+    // include a rewinding or merging if the divisions become invalid?
     if (randomizerOptions.requireReactionIfAttacks) {
       const correctedSupplyBuilder =
           this.correctSupplyBuilderForRequiredReaction(
-              supplyBuilder, existingCards, selectedCards);
+              supplyBuilder, existingCards, supply.supplyCards);
       if (correctedSupplyBuilder) {
         supplyBuilder = correctedSupplyBuilder;
-        selectedCards = this.createSupplyCardsWithRetries(supplyBuilder, existingCards);
+        supply = this.buildSupplyWithRetries(supplyBuilder, existingCards);
       }
     }
-
-    const metadata = new SupplyMetadata(
-      supplyBuilder,
-      randomizerOptions.prioritizeSet,
-      alchemyCardsToUse,
-      highCardsInKingdom);
-    return new Supply(selectedCards, metadata);
+    
+    return supply;
   }
 
   private static getAddons(setIds: SetId[]):
@@ -283,7 +279,7 @@ export class Randomizer {
     return supplyBuilder;
   }
 
-  private static createSupplyCardsWithRetries(supplyBuilder: SupplyBuilder, existingCards: SupplyCard[]) {
+  private static buildSupplyWithRetries(supplyBuilder: SupplyBuilder, existingCards: SupplyCard[]) {
     let retries = MAX_RETRIES;
     while (retries > 0) {
       try {

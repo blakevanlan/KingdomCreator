@@ -6,6 +6,7 @@ import {SupplyCorrection} from "./supply-correction";
 import {SupplyDivider} from "./supply-divider";
 import {SupplyDivision} from "./supply-division";
 import {SupplyRequirement} from "./supply-requirement";
+import {Supply, Replacements} from "./supply";
 import {getRandomInt} from "../utils/rand";
 
 export class SupplyBuilder {
@@ -42,12 +43,12 @@ export class SupplyBuilder {
     return divisions;
   }
 
-  createSupply(existingCards: SupplyCard[]): SupplyCard[] {
+  createSupply(existingCards: SupplyCard[]) {
     let divisions = this.createUnfilledDivisions(existingCards);
     divisions = this.applyRequirements(divisions);
     divisions = this.applyCorrections(divisions);
     divisions = this.fillDivisions(divisions);
-    return this.gatherCards(divisions);
+    return this.gatherCardsIntoSupply(divisions);
   }
 
   clone() {
@@ -188,12 +189,12 @@ export class SupplyBuilder {
     return divisions;
   }
 
-  private gatherCards(divisions: SupplyDivision[]): SupplyCard[] {
+  private gatherCardsIntoSupply(divisions: SupplyDivision[]) {
     let cards: SupplyCard[] = [];
     for (let division of divisions) {
       cards = cards.concat(division.lockedAndSelectedCards);
     }
-    return cards;
+    return new Supply(cards, Replacements.empty());
   }
 
   private orderRequirementsForDivisions(divisions: SupplyDivision[]): SupplyRequirement[] {

@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import StaticCardComponent from "./static-card.vue";
-import { Metadata } from "../models/kingdom";
+import { Metadata } from "../randomizer/kingdom";
 import { Vue, Component } from "vue-property-decorator";
 import { State } from "vuex-class";
 

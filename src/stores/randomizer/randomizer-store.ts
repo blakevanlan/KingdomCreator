@@ -1,7 +1,7 @@
 import { Settings, SettingsParams } from "../../settings/settings";
 import { loadSettings, saveSettings } from "../../settings/settings-manager";
 import { DominionSets } from "../../dominion/dominion-sets";
-import { Kingdom } from "../../models/kingdom";
+import { Kingdom } from "../../randomizer/kingdom";
 import { Selection, SelectionParams } from "./selection";
 import { actions } from "./actions";
 import { serializeKingdom } from "../../randomizer/serializer";

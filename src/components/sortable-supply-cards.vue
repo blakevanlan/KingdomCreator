@@ -16,7 +16,7 @@ import { SupplyCard } from "../dominion/supply-card";
 import { State, Getter } from "vuex-class";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { SortOption } from "../settings/settings";
-import { Kingdom } from "../models/kingdom";
+import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
