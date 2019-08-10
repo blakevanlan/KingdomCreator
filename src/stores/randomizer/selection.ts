@@ -7,6 +7,10 @@ export class Selection implements SelectionParams {
   constructor(readonly selectedSupplyIds: string[], readonly selectedAddonIds: string[]) {
   }
 
+  isEmpty() {
+    return this.selectedSupplyIds.length == 0 && this.selectedAddonIds.length == 0;
+  }
+
   contains(id: string) {
     return this.selectedSupplyIds.indexOf(id) != -1 || this.selectedAddonIds.indexOf(id) != -1;
   }

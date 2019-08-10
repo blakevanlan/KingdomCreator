@@ -1,17 +1,31 @@
 <template>
   <div class="kingdom-supply" :class=[columnClass]>
     <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
-        @click.stop="handleClick(index)">
+        @click.stop="handleClick(index)"
+      >
       <flipping-card-component :card="supplyCard" :is-vertical="false"
           @front-visible="handleSupplyCardFrontVisible"
-          @flipping-to-back="handleSupplyCardFlippingToBack" />
+          @flipping-to-back="handleSupplyCardFlippingToBack"
+          @replace="handleReplace(index)"
+          @specify="handleSpecify(index)" />
     </div>
+    <transition name="fade">
+      <card-replacement-component v-if="replacingCard != null"
+        :supplyCard="replacingCard"
+        :cardPosition="replacementCardPosition"
+        :topLeftCoordinate="replacementTopLeftCoordinate"
+        @cancel="replacingCard = null"
+        @replace="handleReplaceWithSupplyCard"
+      />
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
+import CardReplacementComponent from "./card-replacement.vue"
 import FlippingCardComponent from "./flipping-card.vue";
 import { Addon } from "../dominion/addon";
+import { Coordinate } from "../utils/coordinate";
 import { SupplyCard } from "../dominion/supply-card";
 import { State, Getter } from "vuex-class";
 import { Vue, Component, Watch } from "vue-property-decorator";
@@ -20,18 +34,13 @@ import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
-import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
-
-interface Coordinate {
-  x: number;
-  y: number;
-}
+import { REPLACE_SUPPLY_CARD, TOGGLE_CARD_SELECTION, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
+import { CardPosition } from "./card-replacement.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
   newVisualIndex: number;
 }
-
 
 const ANIMATION_DURATION_SEC = 0.6;
 const WINDOW_RESIZE_DELAY_MSEC = 300;
@@ -39,7 +48,12 @@ const WINDOW_RESIZE_DELAY_MSEC = 300;
 @Component
 export default class SortableSupplyCardsComponent extends Vue {
   constructor() {
-    super({components: {"flipping-card-component": FlippingCardComponent}});
+    super({
+      components: {
+        "card-replacement-component": CardReplacementComponent,
+        "flipping-card-component": FlippingCardComponent
+      }
+    });
   }
   @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
   @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;
@@ -55,13 +69,47 @@ export default class SortableSupplyCardsComponent extends Vue {
   requiresSupplyCardSort = false;
   activeAnimations: Set<TweenLite> = new Set();
   resizeTimerId: number | null = null;
+  replacingCard: SupplyCard | null = null;
 
   mounted() {
     this.updateActiveSupplyCards();
   }
 
+  get numberOfColumns() {
+    return this.windowWidth > 450 ? 5 : 4;
+  }
+
   get columnClass() {
-    return this.windowWidth > 450 ? "five-columns" : "four-columns";
+    return this.numberOfColumns == 5 ? "five-columns" : "four-columns";
+  }
+
+  get replacementCardPosition() {
+    if (!this.replacingCard) {
+      return CardPosition.CENTER;
+    }
+    const numberOfColumns = this.numberOfColumns;
+    const index = this.getSupplyCardVisualIndex(this.replacingCard);
+    if (index == 0 || index == numberOfColumns) {
+      return CardPosition.LEFT;
+    }
+    if (index == numberOfColumns - 1 || index == this.supplyCards.length - 1) {
+      return CardPosition.RIGHT;
+    }
+    return CardPosition.CENTER;
+  }
+
+  get replacementTopLeftCoordinate() {
+    if (!this.replacingCard) {
+      return {x: 0, y: 0};
+    }
+    const cardVisualIndex = this.getSupplyCardVisualIndex(this.replacingCard);
+    const cardPosition = this.replacementCardPosition;
+    const visualIndex = cardPosition == CardPosition.LEFT 
+        ? cardVisualIndex
+        : cardPosition == CardPosition.CENTER
+            ? cardVisualIndex - 1
+            : cardVisualIndex - 2;
+    return this.getPositionForElementIndex(visualIndex);
   }
 
   @Watch("kingdom")
@@ -105,6 +153,22 @@ export default class SortableSupplyCardsComponent extends Vue {
   handleClick(index: number) {
     const supplyCard = this.supplyCards[this.getElementIndex(index)];
     this.$store.dispatch(TOGGLE_CARD_SELECTION, supplyCard.id);
+  }
+
+  handleReplace(index: number) {
+    this.replacingCard = this.supplyCards[this.getElementIndex(index)];
+  }
+
+  handleSpecify(index: number) {
+    // const supplyCard = this.supplyCards[this.getElementIndex(index)];
+  }
+
+  handleReplaceWithSupplyCard(supplyCard: SupplyCard) {
+    this.$store.dispatch(REPLACE_SUPPLY_CARD, {
+      currentSupplyCard: this.replacingCard,
+      newSupplyCard: supplyCard
+    } as ReplaceSupplyCardParams);
+    this.replacingCard = null;
   }
 
   private updateActiveSupplyCards() {
@@ -209,11 +273,26 @@ export default class SortableSupplyCardsComponent extends Vue {
     return this.$el.querySelectorAll(".kingdom-supply_card") as NodeListOf<HTMLElement>;
   }
 
+  private getSupplyCardVisualIndex(supplyCard: SupplyCard) {
+    return this.getVisualIndex(this.supplyCards.indexOf(supplyCard));
+  }
+
   private getElementIndex(visualIndex: number) {
     return this.elementIndexMapping.has(visualIndex) 
         ? this.elementIndexMapping.get(visualIndex)!
         : visualIndex;
   }
+
+  private getVisualIndex(elementIndex: number) {
+    const keys = this.elementIndexMapping.keys();
+    for (let key of keys) {
+      if (this.elementIndexMapping.get(key) == elementIndex) {
+        return key;
+      }
+    }
+    return elementIndex;
+  }
+
 
   private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
     const supplyCards: SupplyCard[] = [];
@@ -244,3 +323,9 @@ export default class SortableSupplyCardsComponent extends Vue {
 }
 Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>
+
+<style>
+.kingdom-supply {
+  position: relative
+}
+</style>

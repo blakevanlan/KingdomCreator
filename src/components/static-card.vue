@@ -1,9 +1,7 @@
 <template>
   <div class="supply-card" :class="{isVertical: isVertical}">
     <img class="supply-card__front-img" :src="cardImageUrl" :key="cardImageUrl" />
-    <div class="supply-card__front-set-container" v-if="showDescription">
-      <div class="supply-card__front-set-name">{{ description }}</div>
-    </div>
+    <slot></slot>
   </div>
 </template>
 

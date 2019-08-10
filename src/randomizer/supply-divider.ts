@@ -19,14 +19,14 @@ export abstract class SupplyDivider {
       if (remainingDivisionTotalCount > 0) {
         const remainingCards = this.getRemainingCards(division);
         const remainingDivision =
-            new SupplyDivision(remainingCards, [], [], remainingDivisionTotalCount);
+            new SupplyDivision(remainingCards, [], [], remainingDivisionTotalCount, new Map());
         newDivisions.push(remainingDivision);
       }
 
       if (countsPerDivision[i] > 0) {
         const satisfyingCards = this.getSatisfyingCards(division);
         const satisfyingDivision =
-            new SupplyDivision(satisfyingCards, [], [], countsPerDivision[i]);
+            new SupplyDivision(satisfyingCards, [], [], countsPerDivision[i], new Map());
         newDivisions.push(satisfyingDivision);
       }
     }

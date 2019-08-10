@@ -1,5 +1,11 @@
 import { UPDATE_KINGDOM, UPDATE_SELECTION, CLEAR_SELECTION } from "./mutation-types";
-import { RANDOMIZE, RANDOMIZE_FULL_KINGDOM, UNSELECT_CARD, SELECT_CARD } from "./action-types";
+import {
+  RANDOMIZE,
+  RANDOMIZE_FULL_KINGDOM,
+  UNSELECT_CARD,
+  SELECT_CARD,
+  ReplaceSupplyCardParams,
+} from "./action-types";
 import {EventTracker} from "../../analytics/event-tracker";
 import {EventType} from "../../analytics/event-tracker";
 import { State } from "./randomizer-store";
@@ -11,7 +17,7 @@ import { Cards } from "../../utils/cards";
 import { Randomizer } from "../../randomizer/randomizer";
 import { Kingdom } from "../../randomizer/kingdom";
 import { Card } from "../../dominion/card";
-import { Supply } from "../../randomizer/supply";
+import { Supply, Replacements } from "../../randomizer/supply";
 import { DominionSets } from "../../dominion/dominion-sets";
 import { SupplyCard } from "../../dominion/supply-card";
 import { SelectionParams } from "./selection";
@@ -120,6 +126,24 @@ export const actions = {
       Cards.getAllLandmarks(addons),
       Cards.getAllProjects(addons),
       context.state.kingdom.metadata);
+    context.commit(UPDATE_KINGDOM, kingdom);
+  },
+
+  REPLACE_SUPPLY_CARD(context: Context, params: ReplaceSupplyCardParams) {
+    const supply = context.state.kingdom.supply;
+    const replacements = Replacements.createReplacementByRemoveCards(
+        supply.replacements.replacements, [params.newSupplyCard.id]);
+    const newSupplyCards = supply.supplyCards
+        .filter(Cards.filterByExcludedIds([params.currentSupplyCard.id]))
+        .concat([params.newSupplyCard]);
+    const kingdom = new Kingdom(
+      context.state.kingdom.id,
+      new Supply(newSupplyCards, new Replacements(replacements)),
+      context.state.kingdom.events,
+      context.state.kingdom.landmarks,
+      context.state.kingdom.projects,
+      context.state.kingdom.metadata);
+    context.commit(CLEAR_SELECTION);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
 

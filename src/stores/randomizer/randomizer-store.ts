@@ -45,7 +45,7 @@ export const randomizerStore = {
       return state.settings.selectedSets.length >= MIN_SETS_FOR_PRIORITIZE_OPTION;
     },
     randomizeButtonText: (state: State) => {
-      return "Randomize!";
+      return state.selection.isEmpty() ? "Randomize!" : "Replace!";
     },
     addons: (state: State) => {
       return (state.kingdom.events as Addon[]).concat(

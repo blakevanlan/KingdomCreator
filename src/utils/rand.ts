@@ -11,3 +11,7 @@ export function getRandomInts(count: number, max: number): Set<number> {
   }
   return nums;
 }
+
+export function selectRandom<T>(list: T[]): T {
+  return list[getRandomInt(0, list.length)];
+}

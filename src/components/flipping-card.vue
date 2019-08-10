@@ -11,7 +11,15 @@
             <div class="supply-card__front-set-name" :class="setClassName">{{ setName }}</div>
           </div>
         </transition>
-        <div class="supply-card__front-highlight" v-if="showHighlight"></div>
+        <div class="supply-card__front-highlight" v-if="showHighlight">
+          <div class="supply-card__front-highlight__button" @click.stop="$emit('replace')">
+            Replace
+          </div>
+          <div class="supply-card__front-highlight__sep"></div>
+          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify')">
+            Specify
+          </div>
+        </div>
       </div>
       <div class="flip-card__content__back">
         <img class="supply-card__back-img" :src="backCardImageUrl" />

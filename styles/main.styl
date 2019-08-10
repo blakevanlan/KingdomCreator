@@ -166,24 +166,29 @@ input[type=radio]
 
 // Supply card layout
 
+.kingdom-supply {
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+}
+
 .kingdom-supply_card
   position: relative
-  float:left
 
 .five-columns .kingdom-supply_card
-    width: 19.5%
-    padding-bottom: 31.16% /* 296:473 = 19.5 * (473 / 296) */
-    margin: 0.25%;
+  flex-basis: 19.5%
+  padding-bottom: 31.16% /* 296:473 = 19.5 * (473 / 296) */
+  margin: 0.25%;
 
 .four-columns .kingdom-supply_card
-    width: 24.2%
-    padding-bottom: 38.67% /* 296:473 = 24.2 * (473 / 296) */
-    margin: 0.4%;
+  flex-basis: 24.2%
+  padding-bottom: 38.67% /* 296:473 = 24.2 * (473 / 296) */
+  margin: 0.4%;
 
 .three-columns .kingdom-supply_card
-    width: 31.73333%
-    padding-bottom: 50.709% /* 296:473 = 31.73333 * (473 / 296) */
-    margin: 0.8%;
+  flex-basis: 31.73333%
+  padding-bottom: 50.709% /* 296:473 = 31.73333 * (473 / 296) */
+  margin: 0.8%;
 
 // Flipping styles
 

@@ -8,6 +8,7 @@ import {SupplyDivision} from "./supply-division";
 import {SupplyRequirement} from "./supply-requirement";
 import {Supply, Replacements} from "./supply";
 import {getRandomInt} from "../utils/rand";
+import { SupplyDivisions } from "./supply-divisions";
 
 export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];
@@ -34,11 +35,11 @@ export class SupplyBuilder {
   }
 
   createUnfilledDivisions(existingCards: SupplyCard[]): SupplyDivision[] {
-    let division = new SupplyDivision(this.cards, [], [], 10);
+    let division = new SupplyDivision(this.cards, [], [], 10, new Map());
     division = this.prepareDivisionForBanning(division, existingCards);
-    division = this.applyBans(division);
+    division = SupplyDivisions.applyBans(division, this.bans);
     division = this.addExistingCardsAsAvailable(division, existingCards);
-    let divisions = this.applyDividers([division]);
+    let divisions = SupplyDivisions.applyDividers([division], this.dividers);
     divisions = this.applyExistingCards(divisions, existingCards);
     return divisions;
   }
@@ -46,8 +47,8 @@ export class SupplyBuilder {
   createSupply(existingCards: SupplyCard[]) {
     let divisions = this.createUnfilledDivisions(existingCards);
     divisions = this.applyRequirements(divisions);
-    divisions = this.applyCorrections(divisions);
-    divisions = this.fillDivisions(divisions);
+    divisions = SupplyDivisions.applyCorrections(divisions, this.corrections);
+    divisions = SupplyDivisions.fillDivisions(divisions);
     return this.gatherCardsIntoSupply(divisions);
   }
 
@@ -66,14 +67,6 @@ export class SupplyBuilder {
     return division.createDivisionWithTotalCount(division.totalCount - existingCards.length);
   }
 
-  private applyBans(division: SupplyDivision) {
-    for (let ban of this.bans) {
-      const bannedCards = ban.getBannedCards(division.availableCards)
-      division = division.createDivisionByRemovingCards(Cards.extractIds(bannedCards));
-    }
-    return division;
-  }
-
   private applyRequirements(divisions: SupplyDivision[]): SupplyDivision[] {
     divisions = divisions.concat();
     const orderedRequirements = this.orderRequirementsForDivisions(divisions);
@@ -90,33 +83,24 @@ export class SupplyBuilder {
       // Select a random division to lock in a required card.
       const divisionIndex = segmentedRange.getRandomSegmentIndex();
       const cards = requirement.getSatisfyingCardsFromDivisions([divisions[divisionIndex]]);
-      while (cards.length) {
+      while (true) {
         const randomIndex = getRandomInt(0, cards.length);
         const selectedCard = cards[randomIndex];
+        cards.splice(randomIndex, 1);
 
         // Check if the selected card is allowed by the corrections.
         if (this.allowLockedCard(divisions, selectedCard)) {
           divisions[divisionIndex] = 
-              divisions[divisionIndex].createDivisionByLockingCard(selectedCard.id);
+              divisions[divisionIndex].createDivisionByLockingCard(selectedCard.id, cards);
           break;
         }
 
-        // Remove the card that wasn't allowed from the available cards.
-        cards.splice(randomIndex, 1);
-      }
-
-      if (!cards.length) {
-        throw new Error(`Unable to satisfy requirement: ${requirement}.`);
+        if (!cards.length) {
+          throw new Error(`Unable to satisfy requirement: ${requirement}.`);
+        }
       }
     }
 
-    return divisions;
-  }
-
-  private applyDividers(divisions: SupplyDivision[]) {
-    for (let divider of this.dividers) {
-      divisions = divider.subdivideDivisions(divisions);
-    }
     return divisions;
   }
 
@@ -134,7 +118,7 @@ export class SupplyBuilder {
     // the total was reduced in preparation for banning. See #prepareDivisionForBanning.
     return new SupplyDivision(
         division.availableCards.concat(cardsToAdd), division.lockedCards,
-        division.selectedCards, division.totalCount + existingCards.length);
+        division.selectedCards, division.totalCount + existingCards.length, division.replacements);
   }
 
   private applyExistingCards(divisions: SupplyDivision[], existingCards: SupplyCard[]) {
@@ -161,40 +145,23 @@ export class SupplyBuilder {
       const divisionIndex = this.getIndexOfDivisionWithMostUnfilledCards(divisions);
       const division = divisions[divisionIndex];
       divisions[divisionIndex] = new SupplyDivision(division.availableCards,
-          division.lockedCards, division.selectedCards, division.totalCount - 1);
+          division.lockedCards, division.selectedCards, division.totalCount - 1, division.replacements);
     }
 
-    divisions.push(new SupplyDivision([], cardsForNewDivision, [], cardsForNewDivision.length));
-    return divisions;
-  }
-
-  private fillDivisions(divisions: SupplyDivision[]): SupplyDivision[] {
-    const results: SupplyDivision[] = [];
-    for (let division of divisions) {
-      while (!division.isFilled) {
-        const selectedCard = this.selectRandomCard(division.availableCards);
-        division = division.createDivisionBySelectingCard(selectedCard.id);
-      }
-      results.push(division);
-    }
-    return results;
-  }
-
-  private applyCorrections(divisions: SupplyDivision[]): SupplyDivision[] {
-    for (let correction of this.corrections) {
-      if (!correction.isSatisfied(divisions)) {
-        divisions = correction.correctDivisions(divisions);
-      }
-    }
+    divisions.push(new SupplyDivision([], cardsForNewDivision, [], cardsForNewDivision.length, new Map()));
     return divisions;
   }
 
   private gatherCardsIntoSupply(divisions: SupplyDivision[]) {
+    const replacements: Map<string, SupplyCard[]> = new Map();
     let cards: SupplyCard[] = [];
     for (let division of divisions) {
-      cards = cards.concat(division.lockedAndSelectedCards);
+      for (let card of division.lockedAndSelectedCards) {
+        cards.push(card);
+        replacements.set(card.id, division.getReplacements(card.id));
+      }
     }
-    return new Supply(cards, Replacements.empty());
+    return new Supply(cards, new Replacements(replacements));
   }
 
   private orderRequirementsForDivisions(divisions: SupplyDivision[]): SupplyRequirement[] {
@@ -266,9 +233,5 @@ export class SupplyBuilder {
       }
     }
     return true;
-  }
-
-  private selectRandomCard(cards: SupplyCard[]): SupplyCard {
-    return cards[getRandomInt(0, cards.length)];
   }
 }

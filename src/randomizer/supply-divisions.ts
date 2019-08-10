@@ -2,6 +2,10 @@ import {CardType} from "../dominion/card-type";
 import {Cards} from "../utils/cards";
 import {SupplyCard} from "../dominion/supply-card";
 import {SupplyDivision} from "./supply-division";
+import { SupplyDivider } from "./supply-divider";
+import { SupplyBan } from "./supply-ban";
+import { SupplyCorrection } from "./supply-correction";
+import { selectRandom } from "../utils/rand";
 
 export class SupplyDivisions {
   static getLockedAndSelectedCards(divisions: SupplyDivision[]): SupplyCard[] {
@@ -47,5 +51,41 @@ export class SupplyDivisions {
       }
     }
     return cards;
+  }
+
+  static applyBans(division: SupplyDivision, bans: SupplyBan[]) {
+    for (let ban of bans) {
+      const bannedCards = ban.getBannedCards(division.availableCards)
+      division = division.createDivisionByRemovingCards(Cards.extractIds(bannedCards));
+    }
+    return division;
+  }
+
+  static applyDividers(divisions: SupplyDivision[], dividers: SupplyDivider[]) {
+    for (let divider of dividers) {
+      divisions = divider.subdivideDivisions(divisions);
+    }
+    return divisions;
+  }
+
+  static applyCorrections(divisions: SupplyDivision[], corrections: SupplyCorrection[]) {
+    for (let correction of corrections) {
+      if (!correction.isSatisfied(divisions)) {
+        divisions = correction.correctDivisions(divisions);
+      }
+    }
+    return divisions;
+  }
+
+  static fillDivisions(divisions: SupplyDivision[]): SupplyDivision[] {
+    const results: SupplyDivision[] = [];
+    for (let division of divisions) {
+      while (!division.isFilled) {
+        const selectedCard = selectRandom(division.availableCards);
+        division = division.createDivisionBySelectingCard(selectedCard.id, division.availableCards);
+      }
+      results.push(division);
+    }
+    return results;
   }
 }
