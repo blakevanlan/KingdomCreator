@@ -8,7 +8,7 @@
               v-if="card == supplyCard"
               @click.stop="$emit('cancel')"
             >
-              Keep
+              Cancel
             </div>
             <div class="card-replacement__button" v-else @click.stop="$emit('replace', card)">
               Replace
@@ -78,7 +78,7 @@ Vue.component("card-replacement-component", CardReplacementComponent);
 <style>
 .card-replacement__container {
   position: absolute;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.75);
   height: 100%;
   left: 0;
   top: 0;
@@ -113,9 +113,9 @@ Vue.component("card-replacement-component", CardReplacementComponent);
 }
 
 .card-replacement__content::before {
-  background: rgba(2,119,158,0.65);
+  background: rgb(2,119,158);
   bottom: -3px;
-  box-shadow: 0 0 15px rgba(2,119,158,0.65);
+  box-shadow: 0 0 30px rgb(2,119,158);
   content: '';
   left: -3px;
   position: absolute;

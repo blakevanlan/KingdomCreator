@@ -6,8 +6,8 @@
       <flipping-card-component :card="supplyCard" :is-vertical="false"
           @front-visible="handleSupplyCardFrontVisible"
           @flipping-to-back="handleSupplyCardFlippingToBack"
-          @replace="handleReplace(index)"
-          @specify="handleSpecify(index)" />
+          @replace="handleReplace"
+          @specify="handleSpecify" />
     </div>
     <transition name="fade">
       <card-replacement-component v-if="replacingCard != null"
@@ -155,8 +155,8 @@ export default class SortableSupplyCardsComponent extends Vue {
     this.$store.dispatch(TOGGLE_CARD_SELECTION, supplyCard.id);
   }
 
-  handleReplace(index: number) {
-    this.replacingCard = this.supplyCards[this.getElementIndex(index)];
+  handleReplace(supplyCard: SupplyCard) {
+    this.replacingCard = supplyCard;
   }
 
   handleSpecify(index: number) {

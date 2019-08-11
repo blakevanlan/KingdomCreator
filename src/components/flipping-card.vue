@@ -12,11 +12,11 @@
           </div>
         </transition>
         <div class="supply-card__front-highlight" v-if="showHighlight">
-          <div class="supply-card__front-highlight__button" @click.stop="$emit('replace')">
+          <div class="supply-card__front-highlight__button" @click.stop="$emit('replace', activeCard)">
             Replace
           </div>
           <div class="supply-card__front-highlight__sep"></div>
-          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify')">
+          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify', activeCard)">
             Specify
           </div>
         </div>
