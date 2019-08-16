@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="sidebar-content">
       <div class="sidebar-content-title">Sets</div>
-      <div class="sets" v-for="set in sets">
+      <div class="sets" v-for="set in sets" :key="set.setId">
         <div class="set">
           <label class="checkbox">
             <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />

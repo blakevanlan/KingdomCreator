@@ -20,7 +20,7 @@
         <div class="menu" v-if="!isCondensed">
           <ul class="menu_items">
             <li class="menu_item" v-for="menuItem in menuItems"
-                :class="{active: isMenuItemActive(menuItem)}">
+                :class="{active: isMenuItemActive(menuItem)}" :key="menuItem.title">
               <a class="menu_item_link" :href="menuItem.url">{{ menuItem.title }}</a>
             </li>
           </ul>

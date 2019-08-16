@@ -57,6 +57,21 @@ Vue.component("modifiers-component", ModifiersComponent);
 </script>
 
 <style>
+.modifiers-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.modifiers-header {
+  margin: 10px 0 0;
+  font-size: 20px;
+}
+
+.modifiers {
+  display: flex;
+  flex-direction: row;
+}
+
 .modifiers-header.fade-enter-active,
 .modifiers-header.fade-leave-active,
 .modifiers-container .kingdom-supply_card.fade-enter-active,

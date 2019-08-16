@@ -6,7 +6,7 @@
     <div class="sidebar-content filters">
       <div class="sidebar-content-title">Sets</div>
       <div class="sets">
-        <div class="set" v-for="set in sets">
+        <div class="set" v-for="set in sets" :key="set.setId">
           <label class="checkbox">
             <input type="checkbox" v-model="selectedSetIds" :id="set.setId" :value="set.setId">
             <span>{{ set.name }}</span>
@@ -65,14 +65,14 @@
           <div class="suboption">
             <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
               <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
-              <option v-for="set in sets" :value="set.setId">
+              <option v-for="set in sets" :value="set.setId" :key="set.setId">
                 {{ set.name }}
               </option>
             </select>
           </div>
         </div>
         <div class="sidebar-content-title">Sort</div>
-        <div class="option" v-for="sortOption in sortOptions">
+        <div class="option" v-for="sortOption in sortOptions" :key="sortOption.value">
           <label class="checkbox">
             <input type="radio" name="sortOption" :value="sortOption.value" v-model="selectedSortOption">
             <span>{{ sortOption.display }}</span>

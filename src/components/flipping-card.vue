@@ -16,7 +16,7 @@
             Replace
           </div>
           <div class="supply-card__front-highlight__sep"></div>
-          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify', activeCard)">
+          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify-replacement')">
             Specify
           </div>
         </div>
