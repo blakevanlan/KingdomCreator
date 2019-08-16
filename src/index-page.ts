@@ -15,21 +15,13 @@ new Vue({
     <page-component :subtitle="subtitle" :selectedType="selectedType">
       <randomizer-component @specify-replacement="showReplaceModal = true" />
     </page-component>
-    <replace-supply-card-modal-component
-      :key="this.$store.state.randomizer.kingdom.id"
-      :show="showReplaceModal"
-      @close="showReplaceModal = false"
-    />
+    <replace-supply-card-modal-component :key="this.$store.state.randomizer.kingdom.id" />
   </div>
   `,
   store: store,
   data: {
     subtitle: SUBTITLE,
     selectedType: MenuItemType.RANDOMIZER,
-    showReplaceModal: false,
-  },
-  methods: {
-    
   },
   components: {
     "page-component": PageComponent,

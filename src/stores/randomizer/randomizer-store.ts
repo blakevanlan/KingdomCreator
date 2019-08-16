@@ -2,6 +2,7 @@ import { Settings, SettingsParams } from "../../settings/settings";
 import { loadSettings, saveSettings } from "../../settings/settings-manager";
 import { DominionSets } from "../../dominion/dominion-sets";
 import { Kingdom } from "../../randomizer/kingdom";
+import { SupplyCard } from "../../dominion/supply-card";
 import { Selection, SelectionParams } from "./selection";
 import { actions } from "./actions";
 import { serializeKingdom } from "../../randomizer/serializer";
@@ -15,6 +16,7 @@ export interface State {
   kingdom: Kingdom;
   selection: Selection;
   settings: Settings;
+  specifyingReplacementSupplyCard: SupplyCard | null;
 }
 
 export interface Getters {
@@ -81,6 +83,7 @@ export const randomizerStore = {
     },
     CLEAR_SELECTION (state: State) {
       state.selection = Selection.empty();
+      state.specifyingReplacementSupplyCard = null;
     },
     UPDATE_SELECTION (state: State, selection: SelectionParams) {
       state.selection = state.selection.withParams(selection);
@@ -88,6 +91,12 @@ export const randomizerStore = {
     UPDATE_SETTINGS (state: State, settings: SettingsParams) {
       state.settings = state.settings.withParams(settings);
       saveSettings(state.settings);
+    },
+    UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD (state: State, supplyCard: SupplyCard) {
+      state.specifyingReplacementSupplyCard = supplyCard;
+    },
+    CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD (state: State) {
+      state.specifyingReplacementSupplyCard = null;
     },
   },
   actions: actions

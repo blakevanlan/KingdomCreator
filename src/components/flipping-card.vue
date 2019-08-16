@@ -16,7 +16,7 @@
             Replace
           </div>
           <div class="supply-card__front-highlight__sep"></div>
-          <div class="supply-card__front-highlight__button" @click.stop="$emit('specify-replacement')">
+          <div class="supply-card__front-highlight__button" @click.stop="handleSpecify">
             Specify
           </div>
         </div>
@@ -37,6 +37,7 @@ import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
+import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 
 enum CardState {
   FLIPPING_TO_BACK,
@@ -115,6 +116,10 @@ export default class FlippingCardComponent extends Vue {
         break;
     }
     this.updateCardState();
+  }
+
+  handleSpecify() {
+    this.$store.commit(UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD, this.activeCard);
   }
 
   handleFrontImageLoaded() {
