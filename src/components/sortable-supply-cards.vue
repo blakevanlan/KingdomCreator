@@ -2,9 +2,13 @@
   <div class="kingdom-supply" :class=[columnClass]>
     <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards">
       <flipping-card-component :card="supplyCard" :is-vertical="false"
-          @front-visible="handleSupplyCardFrontVisible"
-          @flipping-to-back="handleSupplyCardFlippingToBack"
-          @replace="handleReplace" />
+        @front-visible="handleSupplyCardFrontVisible"
+        @flipping-to-back="handleSupplyCardFlippingToBack"
+      >
+        <div class="supply-card__front-highlight__button" @click.stop="handleSpecify(supplyCard)">
+          Specify
+        </div>
+      </flipping-card-component>
     </div>
     <transition name="fade">
       <card-replacement-component v-if="replacingCard != null"
@@ -32,6 +36,7 @@ import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { REPLACE_SUPPLY_CARD, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
+import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 import { CardPosition } from "./card-replacement.vue";
 
 interface MoveDescriptor {
@@ -131,6 +136,10 @@ export default class SortableSupplyCardsComponent extends Vue {
       clearTimeout(this.resizeTimerId);
     }
     this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
+  }
+
+  handleSpecify(supplyCard: SupplyCard) {
+    this.$store.commit(UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD, supplyCard);
   }
 
   handleSupplyCardFlippingToBack(supplyCard: SupplyCard) {
