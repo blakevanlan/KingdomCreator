@@ -1,16 +1,16 @@
 
-.standard-button {
+.standard-button
   border-radius: 4px;
-  padding: 6px 12px;
-  position: relative;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .20);
-  overflow: hidden;
-  outline: none;
   cursor: pointer;
-}
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  padding: 6px 12px;
+  text-align: center;
 
 .standard-button:hover::before,
-.standard-button:focus::before {
+.standard-button:focus::before
   content: '';
   position: absolute;
   background: rgba(255, 255, 255, 0.25);
@@ -18,21 +18,26 @@
   left: 0;
   top: 0;
   width: 100%;
-}
 
-.standard-button:active {
+
+.standard-button:active
   box-shadow: none;
   transform: translate(0, 1px);
-}
 
-.standard-button--is-grey {
+
+.standard-button--is-grey
   color: #fff;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid #777;
-}
 
-.standard-button--is-primary {
+
+.standard-button--is-primary
   color: #fff;
   background: rgba(2, 119, 158, 0.75);
   border: 1px solid rgba(2, 119, 158, 1);
-}
+
+.standard-button--light-border
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+.standard-button--large
+  font-size: 20px;

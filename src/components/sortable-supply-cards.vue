@@ -1,11 +1,13 @@
 <template>
   <div class="kingdom-supply" :class=[columnClass]>
-    <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards">
+    <div class="kingdom-supply_card" v-for="supplyCard in supplyCards">
       <flipping-card-component :card="supplyCard" :is-vertical="false"
         @front-visible="handleSupplyCardFrontVisible"
         @flipping-to-back="handleSupplyCardFlippingToBack"
       >
-        <div class="supply-card__front-highlight__button" @click.stop="handleSpecify(supplyCard)">
+        <div class="standard-button standard-button--is-primary standard-button--light-border"
+          @click.stop="handleSpecify(supplyCard)"
+        >
           Specify
         </div>
       </flipping-card-component>

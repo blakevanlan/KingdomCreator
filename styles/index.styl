@@ -2,9 +2,6 @@
 @require "main"
 @require "sidebar"
 
-.desktop_randomize-button
-  margin: 2px
-
 .condensed_randomize-button
   &.hidden
     visibility: hidden
@@ -57,37 +54,6 @@
   background: rgba(2, 119, 158, 0.65)
   cursor: pointer
   z-index: 5
-
-.supply-card__front-highlight__sep
-  background: rgba(255,255,255,0.65)
-  height: 1px
-  width: 20%
-
-.supply-card__front-highlight__button
-  background: rgba(2, 119, 158, 0.75)
-  border: 1px solid #ddd
-  border-radius: 4px
-  color: #ddd
-  padding: 6px 12px
-  position: relative
-  margin: 12px 0
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .20)
-  overflow: hidden
-  outline: none
-
-  &:hover::before,
-  &:focus::before
-    content: ''
-    position: absolute
-    background: rgba(255, 255, 255, 0.25)
-    height: 100%
-    left: 0
-    top: 0
-    width: 100%
-
-  &:active
-    box-shadow: none
-    transform: translate(0, 1px)
 
 .kingdom-supply_card
   cursor: pointer

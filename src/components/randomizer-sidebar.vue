@@ -1,6 +1,9 @@
 <template>
   <div class="sidebar">
-    <a class="desktop_randomize-button button" v-if="!isCondensed" @click="handleRandomize">
+    <a class="standard-button standard-button--is-primary standard-button--large desktop_randomize-button"
+      v-if="!isCondensed"
+      @click="handleRandomize"
+    >
       {{ randomizeButtonText }}
     </a>
     <div class="sidebar-content filters">
@@ -78,7 +81,10 @@
           <span>{{ sortOption.display }}</span>
         </label>
       </div>
-      <a class="condensed_randomize-button button" v-if="isCondensed" @click="handleRandomize">
+      <a class="standard-button standard-button--is-primary standard-button--large condensed_randomize-button"
+        v-if="isCondensed"
+        @click="handleRandomize"
+      >
         {{ randomizeButtonText }}
       </a>
     </div>
@@ -216,3 +222,14 @@ export default class RandomizerSidebar extends Vue {
 }
 Vue.component("randomizer-sidebar-component", RandomizerSidebar);
 </script>
+
+<style>
+.desktop_randomize-button,
+.condensed_randomize-button {
+  display: block;
+  margin: 2px;
+}
+.condensed_randomize-button {
+  margin-top: 12px;
+}
+</style>
