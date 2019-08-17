@@ -1,16 +1,68 @@
 <template>
-  <div class="modal-container" v-if="specifying">
+  <div>
     <transition name="fade">
       <div class="modal-background" v-if="specifying"></div>
     </transition>
     <transition name="expand-fade">
-      <div class="modal" v-if="specifying">
-        <div class="sets" v-for="set in sets" :key="set.setId">
-          <div class="set">
-            <label class="checkbox">
-              <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />
-              <span>{{ set.name }}</span>
-            </label>
+      <div class="modal-container" v-if="specifying" @keydown.esc="handleEscapeKey">
+        <div class="modal" tabindex="0" ref="modal">
+          <div class="modal__title">
+            Replace {{ specifying.name }}
+          </div>
+          <div class="modal__subtitle">
+            Customize the replacement card
+          </div>
+          <div class="modal__body">
+            <div class="modal__body__section">
+              <div class="modal__body__section__title">Set</div>
+              <div>
+                <label class="checkbox">
+                  <input type="radio" id="selectedSet" :value="null" v-model="selectedSetId" />
+                  <span>Any Set</span>
+                </label>
+              </div>
+              <div v-for="set in sets" :key="set.setId">
+                <label class="checkbox">
+                  <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />
+                  <span>{{ set.name }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="modal__body__section__sep"></div>
+
+            <div class="modal__body__section">
+              <div class="modal__body__section__title">Type</div>
+              <div>
+                <label class="checkbox">
+                  <input type="radio" id="selectedType" :value="null" v-model="selectedType" />
+                  <span>Any Type</span>
+                </label>
+              </div>
+              <div v-for="visibleType in visibleTypes" :key="visibleType.type">
+                <label class="checkbox">
+                  <input type="radio" id="selectedType" :value="visibleType.type" v-model="selectedType" />
+                  <span>{{ visibleType.name }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="modal__body__section__sep"></div>
+
+            <div class="modal__body__section">
+              <div class="modal__body__section__title">Cost</div>
+              <div v-for="visibleCost in visibleCosts" :key="visibleCost.type">
+                <label class="checkbox">
+                  <input type="checkbox" id="selectedCost" :value="visibleCost.type" v-model="selectedCosts" />
+                  <span>{{ visibleCost.name }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal__footer">
+            <div class="standard-button standard-button--is-grey" @click="handleCancel">Cancel</div>
+            <div class="standard-button standard-button--is-primary" @click="handleRandomize">Randomize</div>
           </div>
         </div>
       </div>
@@ -21,12 +73,45 @@
 <script lang="ts">
 import StaticCardComponent from "./static-card.vue";
 import StaticCardDescriptionComponent from "./static-card-description.vue";
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch } from "vue-property-decorator";
 import { Settings } from "../settings/settings";
 import { SetId } from "../dominion/set-id";
 import { State } from "vuex-class";
 import { DominionSets } from "../dominion/dominion-sets";
 import { SupplyCard } from "../dominion/supply-card";
+import { CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
+import { CardType } from "../dominion/card-type";
+import { CostType } from "../dominion/cost-type"
+import { RANDOMIZE_SUPPLY_CARD, RandomizeSupplyCardParams } from "../stores/randomizer/action-types";
+
+interface VisibleType<T> {
+  type: T;
+  name: string;
+}
+
+const VISIBLE_CARD_TYPES: VisibleType<CardType>[] = [
+  {type: CardType.ACTION, name: "Action"},
+  {type: CardType.ACTION_SUPPLIER, name: "+2 Actions"},
+  {type: CardType.DRAWER, name: "+ Cards"},
+  {type: CardType.BUY_SUPPLIER, name: "+1 Buy"},
+  {type: CardType.ATTACK, name: "Attack"},
+  {type: CardType.DURATION, name: "Duration"},
+  {type: CardType.REACTION, name: "Reaction"},
+  {type: CardType.RESERVE, name: "Reserve"},
+  {type: CardType.TRASHING, name: "Trashing"},
+  {type: CardType.TREASURE, name: "Treasure"},
+  {type: CardType.VICTORY, name: "Victory"},
+];
+
+const VISIBLE_COSTS: VisibleType<CostType>[] = [
+  {type: CostType.TREASURE_2_OR_LESS, name: "0-2"},
+  {type: CostType.TREASURE_3, name: "3"},
+  {type: CostType.TREASURE_4, name: "4"},
+  {type: CostType.TREASURE_5, name: "5"},
+  {type: CostType.TREASURE_6, name: "6"},
+  {type: CostType.TREASURE_7, name: "7"},
+  {type: CostType.TREASURE_8_OR_MORE, name: "8+"},
+]
 
 @Component
 export default class ReplaceSupplyCardModalComponent extends Vue {
@@ -42,35 +127,150 @@ export default class ReplaceSupplyCardModalComponent extends Vue {
   @State(state => state.randomizer.settings) readonly settings!: Settings;
   @State(state => state.randomizer.settings.selectedSets) readonly selectedSetIds!: SetId[];
   selectedSetId: SetId | null = null;
+  selectedType: CardType | null = null;
+  selectedCosts: CostType[] = [
+    CostType.TREASURE_2_OR_LESS,
+    CostType.TREASURE_3,
+    CostType.TREASURE_4,
+    CostType.TREASURE_5,
+    CostType.TREASURE_6,
+    CostType.TREASURE_7,
+    CostType.TREASURE_8_OR_MORE,
+  ];
 
   get sets() {
-    return this.selectedSetIds.map((setId) => DominionSets.getSetById(setId));
+    return this.selectedSetIds.map((setId) => DominionSets.getSetById(setId)).sort((a, b) => {
+      return a.name == b.name ? 0 : a.name < b.name ? -1 : 1;
+    });
+  }
+
+  get visibleTypes() {
+    return VISIBLE_CARD_TYPES;
+  }
+
+  get visibleCosts() {
+    return VISIBLE_COSTS;
+  }
+
+  @Watch("specifying")
+  handleSpecifyingChanged() {
+    // Focus the modal so that escape works properly.
+    setTimeout(() => { 
+      if (this.specifying) {
+        (this.$refs.modal as HTMLElement).focus();
+      }
+    }, 0);
+  }
+
+  handleEscapeKey() {
+    this.$store.commit(CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD);
+  }
+
+  handleCancel() {
+    this.$store.commit(CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD);
+  }
+
+  handleRandomize() {
+    this.$store.dispatch(RANDOMIZE_SUPPLY_CARD, {
+      selectedSetId: this.selectedSetId,
+      selectedCardType: this.selectedType,
+      selectedCostTypes: this.selectedCosts
+    } as RandomizeSupplyCardParams);
   }
 }
 Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalComponent);
 </script>
 
 <style>
-.modal-container,
-.modal-background {
-  position: absolute;
+.modal-background,
+.modal-container {
+  position: fixed;
   height: 100%;
   left: 0;
   top: 0;
   width: 100%;
+  z-index: 0;
 }
 
 .modal-background {
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.modal-container {
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: row;
   justify-content: center;
+  z-index: 20; 
 }
 
 .modal {
   background: #fff;
   border-radius: 8px;
-  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  min-width: 300px;
+  outline: none;
+  overflow: hidden;
+  z-index: 20;
 }
+
+.modal__title {
+  font-size: 28px;
+  padding: 20px 20px 0 20px;
+}
+
+.modal__subtitle {
+  color: #777;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 8px;
+  padding: 0 20px 4px 20px;
+}
+
+.modal__body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  padding: 0 20px;
+}
+
+.modal__body__section {
+  display: flex;
+  flex-direction: column;
+  margin: 6px;
+  width: 130px;
+}
+
+.modal__body__section__sep {
+  background: #ccc;
+  height: auto;
+  margin: 36px 16px;
+  width: 1px;
+}
+
+.modal__body__section__title {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.modal__body__section .checkbox {
+  font-size: 18px;
+}
+
+.modal__footer {
+  background: #eee;
+  border-top: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding: 16px 20px;
+}
+
+.modal__footer .standard-button {
+  margin-left: 8px;
+}
+
 </style>

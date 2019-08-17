@@ -41,47 +41,46 @@
         <div class="suboption">
           <label class="checkbox" :class="{disable: !allowAttacks}">
             <input type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
-              <span>Require Reaction</span>
-            </label>
-          </div>
-        </div>
-        <div class="option">
-          <label class="checkbox">
-            <input type="checkbox" v-model="requireTrashing">
-            <span>Require Trashing</span>
+            <span>Require Reaction</span>
           </label>
         </div>
-        <div class="option" v-if="isDistributeCostAllowed">
-          <label class="checkbox">
-            <input type="checkbox" v-model="distributeCost">
-            <span>Distribute Cost</span>
-          </label>
-        </div>
-        <div class="option" v-if="isPrioritizeSetAllowed">
-          <label class="checkbox">
-            <input type="checkbox" v-model="isPrioritizeSetEnabled">
-            <span>Prioritize Set</span>
-          </label>
-          <div class="suboption">
-            <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
-              <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
-              <option v-for="set in sets" :value="set.setId" :key="set.setId">
-                {{ set.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="sidebar-content-title">Sort</div>
-        <div class="option" v-for="sortOption in sortOptions" :key="sortOption.value">
-          <label class="checkbox">
-            <input type="radio" name="sortOption" :value="sortOption.value" v-model="selectedSortOption">
-            <span>{{ sortOption.display }}</span>
-          </label>
-        </div>
-        <a class="condensed_randomize-button button" v-if="isCondensed" @click="handleRandomize">
-          {{ randomizeButtonText }}
-        </a>
       </div>
+      <div class="option">
+        <label class="checkbox">
+          <input type="checkbox" v-model="requireTrashing">
+          <span>Require Trashing</span>
+        </label>
+      </div>
+      <div class="option" v-if="isDistributeCostAllowed">
+        <label class="checkbox">
+          <input type="checkbox" v-model="distributeCost">
+          <span>Distribute Cost</span>
+        </label>
+      </div>
+      <div class="option" v-if="isPrioritizeSetAllowed">
+        <label class="checkbox">
+          <input type="checkbox" v-model="isPrioritizeSetEnabled">
+          <span>Prioritize Set</span>
+        </label>
+        <div class="suboption">
+          <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
+            <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
+            <option v-for="set in sets" :value="set.setId" :key="set.setId">
+              {{ set.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="sidebar-content-title">Sort</div>
+      <div class="option" v-for="sortOption in sortOptions" :key="sortOption.value">
+        <label class="checkbox">
+          <input type="radio" name="sortOption" :value="sortOption.value" v-model="selectedSortOption">
+          <span>{{ sortOption.display }}</span>
+        </label>
+      </div>
+      <a class="condensed_randomize-button button" v-if="isCondensed" @click="handleRandomize">
+        {{ randomizeButtonText }}
+      </a>
     </div>
   </div>
 </template>

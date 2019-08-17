@@ -5,6 +5,7 @@ import {
   UNSELECT_CARD,
   SELECT_CARD,
   ReplaceSupplyCardParams,
+  RandomizeSupplyCardParams,
 } from "./action-types";
 import {EventTracker} from "../../analytics/event-tracker";
 import {EventType} from "../../analytics/event-tracker";
@@ -22,6 +23,8 @@ import { DominionSets } from "../../dominion/dominion-sets";
 import { SupplyCard } from "../../dominion/supply-card";
 import { SelectionParams } from "./selection";
 import { Addon } from "../../dominion/addon";
+import { SetId } from "../../dominion/set-id";
+import { CostType } from "../../dominion/cost-type";
 
 interface Context extends ActionContext<State, any> {}
 
@@ -114,6 +117,56 @@ export const actions = {
       EventTracker.trackEvent(EventType.RANDOMIZE_KINGDOM);
     } catch (e) {
       EventTracker.trackError(EventType.RANDOMIZE_KINGDOM);
+    }
+  },
+
+  RANDOMIZE_SUPPLY_CARD(context: Context, params: RandomizeSupplyCardParams) {
+    const randomizerSettings = context.state.settings.randomizerSettings;
+    const excludeTypes: CardType[] = [];
+    if (params.selectedCardType && !randomizerSettings.allowAttacks) {
+      excludeTypes.push(CardType.ATTACK);
+    }
+    const setIds: SetId[] = params.selectedSetId == null
+        ? getSelectedSetIds(context)
+        : [params.selectedSetId!];
+
+    const excludeCosts = [];
+    for (let costType in CostType) {
+      if (params.selectedCostTypes.indexOf(costType as CostType) == -1) {
+        excludeCosts.push(costType as CostType);
+      }
+    }
+
+    const optionsBuilder = new RandomizerOptionsBuilder()
+      .setSetIds(setIds)
+      .setIncludeCardIds(Cards.extractIds(getUnselectedSupplyCards(context)))
+      .setExcludeCardIds(Cards.extractIds(getSelectedSupplyCards(context)))
+      .setExcludeTypes(excludeTypes)
+      .setExcludeCosts(excludeCosts);
+
+    // Either set a specific card type or add supply card requirements if one isn't selected.
+    if (params.selectedCardType) {
+      optionsBuilder.setRequireSingleCardOfType(params.selectedCardType);
+    } else {
+      optionsBuilder
+        .setRequireActionProvider(randomizerSettings.requireActionProvider)
+        .setRequireCardProvider(randomizerSettings.requireCardProvider)
+        .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
+        .setRequireTrashing(randomizerSettings.requireTrashing)
+        .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
+    }
+    
+    const supply = Randomizer.createSupplySafe(optionsBuilder.build());
+    if (supply) {
+      const oldKingdom = context.state.kingdom;
+      const kingdom = new Kingdom(
+        oldKingdom.id, supply, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
+        oldKingdom.metadata);
+      context.commit(CLEAR_SELECTION);
+      context.commit(UPDATE_KINGDOM, kingdom);
+      EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE);
+    } else {
+      EventTracker.trackError(EventType.RANDOMIZE_SINGLE);
     }
   },
 

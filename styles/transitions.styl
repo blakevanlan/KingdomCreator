@@ -1,9 +1,22 @@
+// Fade
+.fade-enter-active
+  transition: opacity .15s
+
+.fade-enter,
+.fade-leave-to
+  opacity: 0
+
+// Expand fade
 .expand-fade-enter-active
-  transition: all .3s ease
+  transition: all .3s cubic-bezier(1.0, 0.2, 0.5, 1.0)
 
 .expand-fade-leave-active
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.2, 1.0)
 
-.expand-fade-enter, .expand-fade-leave-to
+.expand-fade-enter
+  transform: scale(1.1)
+  opacity: 0
+
+.expand-fade-leave-to
   transform: scale(0.9)
   opacity: 0

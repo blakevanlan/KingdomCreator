@@ -33,7 +33,8 @@ export const randomizerStore = {
   state: {
     kingdom: Kingdom.empty(),
     selection: Selection.empty(),
-    settings: loadSettings()
+    settings: loadSettings(), 
+    specifyingReplacementSupplyCard: null,
   } as State,
   getters: {
     isDistributeCostAllowed: (state: State) => {

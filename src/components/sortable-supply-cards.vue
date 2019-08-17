@@ -1,8 +1,6 @@
 <template>
   <div class="kingdom-supply" :class=[columnClass]>
-    <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards"
-        @click.stop="handleClick(index)"
-      >
+    <div class="kingdom-supply_card" v-for="(supplyCard, index) in supplyCards">
       <flipping-card-component :card="supplyCard" :is-vertical="false"
           @front-visible="handleSupplyCardFrontVisible"
           @flipping-to-back="handleSupplyCardFlippingToBack"
@@ -33,7 +31,7 @@ import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
-import { REPLACE_SUPPLY_CARD, TOGGLE_CARD_SELECTION, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
+import { REPLACE_SUPPLY_CARD, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
 import { CardPosition } from "./card-replacement.vue";
 
 interface MoveDescriptor {
@@ -142,16 +140,6 @@ export default class SortableSupplyCardsComponent extends Vue {
   handleSupplyCardFrontVisible(supplyCard: SupplyCard) {
     this.numberOfSupplyCardsLoading -= 1;
     this.attemptToAnimateSupplyCardSort();
-  }
-
-  /**
-   * Handle clicks on the card container element that might actually be mapped
-   * to a different card due to sorting. This is necessary because the container
-   * will actually be above the card elements in some cases.
-   */
-  handleClick(index: number) {
-    const supplyCard = this.supplyCards[this.getElementIndex(index)];
-    this.$store.dispatch(TOGGLE_CARD_SELECTION, supplyCard.id);
   }
 
   handleReplace(supplyCard: SupplyCard) {
@@ -319,8 +307,14 @@ export default class SortableSupplyCardsComponent extends Vue {
 Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>
 
-<style>
+<style scoped>
 .kingdom-supply {
   position: relative
+}
+.kingdom-supply_card {
+  pointer-events: none;
+}
+.supply-card {
+  pointer-events: all;
 }
 </style>

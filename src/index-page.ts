@@ -12,10 +12,10 @@ new Vue({
   el: "#app",
   template: `
   <div>
+    <replace-supply-card-modal-component :key="this.$store.state.randomizer.kingdom.id" />
     <page-component :subtitle="subtitle" :selectedType="selectedType">
       <randomizer-component @specify-replacement="showReplaceModal = true" />
     </page-component>
-    <replace-supply-card-modal-component :key="this.$store.state.randomizer.kingdom.id" />
   </div>
   `,
   store: store,
