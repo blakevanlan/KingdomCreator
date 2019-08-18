@@ -32,9 +32,14 @@
 
 
 .standard-button--is-primary
-  color: #fff;
   background: rgba(2, 119, 158, 0.75);
   border: 1px solid rgba(2, 119, 158, 1);
+  box-shadow: 0 2px 2px rgba(2, 119, 158, 0.4);
+  color: #fff;
+  
+  &:active
+    box-shadow: none;
+
 
 .standard-button--light-border
   border: 1px solid rgba(255, 255, 255, 0.8);

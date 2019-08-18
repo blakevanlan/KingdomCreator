@@ -104,5 +104,13 @@ Vue.component("addons-component", AddonsComponent);
 <style>
 .addon_card {
   cursor: pointer;
+  position: relative;
+  width: 30%;
+  padding-bottom: 18.77%; /* 473:296 = 30 * (296 / 473) */
+  float: left;
+  margin-right: 4px;
+}
+.addon_card:first-child {
+  clear: left
 }
 </style>

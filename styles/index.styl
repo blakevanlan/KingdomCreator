@@ -2,9 +2,12 @@
 @require "main"
 @require "sidebar"
 
-.condensed_randomize-button
-  &.hidden
-    visibility: hidden
+.main
+  display: flex
+  flex-direction: column
+
+.sidebar
+  margin-bottom: 10px
 
 .supply-card
 .supply-card__front-img 
@@ -34,11 +37,13 @@
   opacity: 0
 
 .supply-card__front-set-name
-  padding: 6px 8px
-  margin: 0 auto
-  display: inline-block
-  color: #fff
   background: rgba(30,30,30,0.7)
+  box-sizing: border-box
+  color: #fff
+  display: inline-block
+  margin: 0 auto
+  max-width: 100%
+  padding: 6px 8px
   text-shadow: 1px 1px 4px #000
 
 .supply-card__front-highlight
@@ -59,39 +64,6 @@
   cursor: pointer
   z-index: 0
 
-#cards
-  position: relative
-  
-.card-wrap
-  position: relative
-  float: left
-  -webkit-perspective: 1000
-  -moz-perspective: 1000
-  perspective: 1000
-  -webkit-user-select: none
-  -moz-user-select: none
-  -ms-user-select: none
-  user-select: none
-  
-  .highlight
-    display: none
-    position: absolute
-    top: 2px
-    right: 2px
-    bottom: 2px
-    left: 2px
-    border: 2px solid highlight-blue
-    background: rgba(2,119,158,0.65)
-    cursor: pointer
-    z-index: 1
-
-  &.selected .highlight
-    cursor:pointer
-    display:block
-
-.card-wrap
-  width: 20%
-
 .addons-header
 .modifiers-header
   float: left
@@ -99,173 +71,14 @@
   margin: 10px 0 0
   font-size: 20px
 
-.addons
-  clear: left
-
-.addon_card
-  position: relative
-  width: 30%
-  padding-bottom: 18.77% /* 473:296 = 30 * (296 / 473) */
-  float: left
-  margin-right: 4px
-  
-  &:first-child
-    clear: left
-
-.card-front
-  position: relative
-  cursor: pointer
-
-  .set-name-wrap
-    position: absolute
-    font-size: 18px
-    margin-top: -13px
-    top: 50%
-    width: 100%
-    height: 30px
-    text-align: center
-
-    .set-name
-      padding: 6px 8px
-      margin: 0 auto
-      display: inline-block
-      color: #fff
-      background: rgba(30,30,30,0.7)
-      text-shadow: 1px 1px 4px #000
-
-  &.keep .highlight
-    opacity: 0
-
-  &.treasure .name
-    color: treasure-color
-
-  &.victory .name
-    color: victory-color
-
-  img
-    width: 100%
-    display: block
-
-// Styles for flip
-.flipper 
-  margin: 2px
-  -webkit-transition: transform 0.4s
-  -webkit-transform-style: preserve-3d
-  -moz-transition: transform 0.4s
-  -moz-transform-style: preserve-3d
-  transition: transform 0.4s
-  transform-style: preserve-3d
-  position: relative
-  &.show-front
-    -webkit-transform: rotateY(-180deg)
-    -moz-transform: rotateY(-180deg)
-    transform: rotateY(-180deg)
-
-.card-front
-.card-back
-  -webkit-backface-visibility: hidden
-  -moz-backface-visibility: hidden
-  backface-visibility: hidden
-  position: absolute
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-.card-back
-  img
-    width: 100%
-    display: block
-.card-front
-  -webkit-transform: rotateY(-180deg)
-  -moz-transform: rotateY(-180deg)
-  transform: rotateY(-180deg)
-
-// Styles for enlarging the cards when in condensed mode.
-.enlarge-cards
-  .card-wrap
-    width: 50%
-    
-  .set-name
-    font-size: 16px
-    
-  .set-name.baseset2
-  .set-name.intrigue2
-  .set-name.hinterlands
-    font-size: 16px
-
-  &.addons
-    .card-wrap
-      width: 100%
-    .set-name
-      font-size: 16px
-    
-.hovering-randomize-button
-  position: fixed 
-  top: 0
-  left: 0
-  right: 0
-  z-index: 500
-  padding: 6px 17px
-  background: rgba(255, 255, 255, 0.8)
-  border-bottom: 1px #ddd solid
-  display: none
-  
-  &.visible
-    display: block
-    
-  .button
-    margin: 0
-
-
-.dialog-hidden-content
-  display:none
-
-.dialog-content
-  font-family: primary-font
-  font-size: 23px
-
-  .dialog-desc
-    font-size: 16px
-    line-height: 16px
-  h1
-    margin: 8px 0 8px 0
-    color: #333
-    border-bottom: 1px solid #ccc
-    font-size: 24px
-    cursor: pointer
-
-  .checkbox-wrap.columns
-    width: 50%
-    float: left
-    &.three
-      width: 33.33333333%
-    &.four
-      width: 25%
-    input[type=checkbox]
-    input[type=radio]
-      position: relative
-      top: -2px
-
-  .dialog-buttons
-    margin-top: 12px
-    .button
-      float: right
-      margin-left: 6px
-
-
-@media (max-width: 950px)   
-  .addons .card-wrap
-    width: 40%
-    
 @media (max-width: 900px)   
-  .set-name
+  .supply-card__front-set-name
     font-size: 16px
-    
-  .set-name.baseset2
-  .set-name.intrigue2
-  .set-name.hinterlands
+
+  .supply-card__front-set-name.baseset2
+  .supply-card__front-set-name.intrigue2
+  .supply-card__front-set-name.hinterlands
     font-size: 14px
-    
 
 // Move sidebar to the top
 @media (max-width: 750px)
@@ -277,24 +90,22 @@
    
     .meta
       margin-top: 5px
-      .sidebar-content-title 
+      .sidebar-content-title
         font-size: 26px
-      .recommendation
-        font-size: 18px
 
 @media (max-width: 525px)
   .addon_card
     width: 50% 
     padding-bottom: 31.29% /* 473:296 = 50 * (296 / 473) */
     
-  .set-name
+  .supply-card__front-set-name
     font-size: 11px
   
-  .set-name.baseset2
-  .set-name.intrigue2
-  .set-name.hinterlands
+  .supply-card__front-set-name.baseset2
+  .supply-card__front-set-name.intrigue2
+  .supply-card__front-set-name.hinterlands
     font-size: 9px
 
 @media (max-width: 400px)
-  .set-name
+  .supply-card__front-set-name
     font-size: 10px
