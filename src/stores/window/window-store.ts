@@ -1,4 +1,4 @@
-const CONDENSED_WIDTH = 800;
+const CONDENSED_WIDTH = 750;
 
 export interface State {
   width: number;

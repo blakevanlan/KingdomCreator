@@ -15,17 +15,19 @@
           <div class="modal__body">
             <div class="modal__body__section">
               <div class="modal__body__section__title">Set</div>
-              <div>
-                <label class="checkbox">
-                  <input type="radio" id="selectedSet" :value="null" v-model="selectedSetId" />
-                  <span>Any Set</span>
-                </label>
-              </div>
-              <div v-for="set in sets" :key="set.setId">
-                <label class="checkbox">
-                  <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />
-                  <span>{{ set.name }}</span>
-                </label>
+              <div class="modal__body__section__options">
+              <div class="modal__body__section__option">
+                  <label class="checkbox">
+                    <input type="radio" id="selectedSet" :value="null" v-model="selectedSetId" />
+                    <span>Any Set</span>
+                  </label>
+                </div>
+                <div v-for="set in sets" :key="set.setId" class="modal__body__section__option">
+                  <label class="checkbox">
+                    <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />
+                    <span>{{ set.name }}</span>
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -33,29 +35,33 @@
 
             <div class="modal__body__section">
               <div class="modal__body__section__title">Type</div>
-              <div>
-                <label class="checkbox">
-                  <input type="radio" id="selectedType" :value="null" v-model="selectedType" />
-                  <span>Any Type</span>
-                </label>
-              </div>
-              <div v-for="visibleType in visibleTypes" :key="visibleType.type">
-                <label class="checkbox">
-                  <input type="radio" id="selectedType" :value="visibleType.type" v-model="selectedType" />
-                  <span>{{ visibleType.name }}</span>
-                </label>
+              <div class="modal__body__section__options">
+                <div class="modal__body__section__option">
+                  <label class="checkbox">
+                    <input type="radio" id="selectedType" :value="null" v-model="selectedType" />
+                    <span>Any Type</span>
+                  </label>
+                </div>
+                <div v-for="visibleType in visibleTypes" :key="visibleType.type" class="modal__body__section__option">
+                  <label class="checkbox">
+                    <input type="radio" id="selectedType" :value="visibleType.type" v-model="selectedType" />
+                    <span>{{ visibleType.name }}</span>
+                  </label>
+                </div>
               </div>
             </div>
 
             <div class="modal__body__section__sep"></div>
 
-            <div class="modal__body__section">
+            <div class="modal__body__section modal__body__section--cost">
               <div class="modal__body__section__title">Cost</div>
-              <div v-for="visibleCost in visibleCosts" :key="visibleCost.type">
-                <label class="checkbox">
-                  <input type="checkbox" id="selectedCost" :value="visibleCost.type" v-model="selectedCosts" />
-                  <span>{{ visibleCost.name }}</span>
-                </label>
+              <div class="modal__body__section__options">
+                <div v-for="visibleCost in visibleCosts" :key="visibleCost.type" class="modal__body__section__option">
+                  <label class="checkbox">
+                    <input type="checkbox" id="selectedCost" :value="visibleCost.type" v-model="selectedCosts" />
+                    <span>{{ visibleCost.name }}</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -210,8 +216,11 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,0,0,0.4);
   min-width: 300px;
+  max-height: calc(100% - 8px);
+  max-width: calc(100% - 8px);
   outline: none;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   z-index: 20;
 }
 
@@ -241,6 +250,11 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   flex-direction: column;
   margin: 6px;
   width: 130px;
+}
+
+.modal__body__section__options {
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__body__section__sep {
@@ -273,4 +287,45 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   margin-left: 8px;
 }
 
+@media (max-width: 525px) {
+  .modal__title {
+    padding: 12px 12px 0 12px;
+  }
+
+  .modal__subtitle {
+    padding: 0 12px 4px 12px; 
+  }
+
+  .modal__body {
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0 6px;
+  }
+   
+  .modal__body__section {
+    box-sizing: border-box;
+    flex: 1;
+    margin-bottom: 10px;
+    max-width: 100%;
+    width: auto;
+  }
+
+  .modal__body__section__sep {
+    display: none;
+  }
+
+  .modal__body__section__options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .modal__body__section__option {
+    width: 50%;
+  }
+  
+  .modal__body__section--cost .modal__body__section__option {
+    width: 33%;
+  }
+}
 </style>

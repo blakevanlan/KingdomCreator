@@ -102,15 +102,39 @@ Vue.component("addons-component", AddonsComponent);
 </script>
 
 <style>
+/* .addons {
+
+} */
+
+.addon_cards {
+  display: flex;
+  flex-direction: row;
+}
+
 .addon_card {
   cursor: pointer;
   position: relative;
   width: 30%;
   padding-bottom: 18.77%; /* 473:296 = 30 * (296 / 473) */
-  float: left;
   margin-right: 4px;
 }
-.addon_card:first-child {
-  clear: left
+
+@media (max-width: 525px) {
+  .addon_card {
+    width: 49.25%;
+    padding-bottom: 28.32%; /* 473:296 = 45.25 * (296 / 473) */
+    margin: 0.25%;
+  }
+    
+  .supply-card__front-set-name {
+    font-size: 11px;
+  }
+  
+  .supply-card__front-set-name.baseset2,
+  .supply-card__front-set-name.intrigue2,
+  .supply-card__front-set-name.hinterlands {
+    font-size: 9px;
+  }
 }
+
 </style>
