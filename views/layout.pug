@@ -8,30 +8,13 @@ html
     meta(name="keywords", content="dominion, randomizer, dominion randomizer, dominion deck randomizer, dominion card picker, deck randomizer, kingdom, kingdom creator, kingdom creating")
     link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300',
         rel="stylesheet", type="text/css")
-    link(href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/css/vex.min.css",
-        rel="stylesheet", type="text/css")
-    link(href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/css/vex-theme-os.min.css",
-        rel="stylesheet", type="text/css")
-
-    script(src="https://code.jquery.com/jquery-3.4.1.min.js",
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=",
-        crossorigin="anonymous")
-    script(src="https://cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/jquery.imgpreload@1.6.3/jquery.imgpreload.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/2.0.1/js/vex.combined.min.js")
-    //- - if (!htmlWebpackPlugin.options.isProduction)
-    //-   script(src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js")
-    //-   script(src="https://unpkg.com/vuex@3.1.1/dist/vuex.js")
-    //- - if (htmlWebpackPlugin.options.isProduction)
-    //-   script(src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js")
-    //-   script(src="https://unpkg.com/vuex@3.1.1/dist/vuex.min.js")
     script(src="/dominion-content.js")
 
     script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
     - if (htmlWebpackPlugin.options.isProduction)
       script.
-        if (window.location.protocol.indexOf("https") != 0) {
+        if (window.location.hostname.indexOf("localhost") == -1
+            && window.location.protocol.indexOf("https") != 0) {
           window.location.protocol = "https:";
         }
         window.dataLayer = window.dataLayer || [];
