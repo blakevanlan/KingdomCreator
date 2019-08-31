@@ -201,12 +201,16 @@ input[type=radio]
 
 .flip-card
   background-color: transparent
-  perspective: 1000px
+  -webkit-perspective: 1000
+  perspective: 1000;
+  -webkit-transform-style: preserve-3d
+  transform-style: preserve-3d
 
 .flip-card__content
   position: relative
   width: 100%
   height: 100%
+  -webkit-transform-style: preserve-3d
   transform-style: preserve-3d
 
 .flip-card__content__front
@@ -214,7 +218,10 @@ input[type=radio]
   position: absolute
   width: 100%
   height: 100%
+  -webkit-backface-visibility: hidden
   backface-visibility: hidden
+  -webkit-transform-style: preserve-3d
+  transform-style: preserve-3d
 
 .flip-card__content__front
   cursor: pointer
