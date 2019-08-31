@@ -216,7 +216,7 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,0,0,0.4);
   min-width: 300px;
-  max-height: calc(100% - 8px);
+  max-height: 605px;
   max-width: calc(100% - 8px);
   outline: none;
   overflow-x: hidden;
@@ -287,7 +287,11 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   margin-left: 8px;
 }
 
-@media (max-width: 525px) {
+@media (max-width: 570px) {
+  .modal {
+    height: calc(100vh - 8px);
+  }
+
   .modal__title {
     padding: 12px 12px 0 12px;
   }
@@ -297,14 +301,14 @@ Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalCompo
   }
 
   .modal__body {
-    flex-direction: column;
+    display: block;
     max-width: 100%;
     padding: 0 6px;
   }
    
   .modal__body__section {
     box-sizing: border-box;
-    flex: 1;
+    flex: 0 1 auto;
     margin-bottom: 10px;
     max-width: 100%;
     width: auto;
