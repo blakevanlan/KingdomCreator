@@ -1,5 +1,5 @@
 <template>
-  <div class="kingdom-supply" :class=[columnClass]>
+  <div class="kingdom-supply" :class=kingdomClasses>
     <div class="kingdom-supply_card" v-for="supplyCard in supplyCards">
       <flipping-card-component :card="supplyCard" :is-vertical="false"
         @front-visible="handleSupplyCardFrontVisible"
@@ -62,6 +62,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
   @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;
   @State(state => state.window.width) readonly windowWidth!: number;
+  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   @Getter("addons") readonly addons!: Addon[];
   @Getter("hasAddons") readonly hasAddons!: boolean;
@@ -80,11 +81,16 @@ export default class SortableSupplyCardsComponent extends Vue {
   }
 
   get numberOfColumns() {
-    return this.windowWidth > 450 ? 5 : 4;
+    return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4
   }
 
-  get columnClass() {
-    return this.numberOfColumns == 5 ? "five-columns" : "four-columns";
+  get kingdomClasses() {
+    const columnClasses = ["", "", "two-columns", "three-columns", "four-columns", "five-columns"];
+    const classes = [columnClasses[this.numberOfColumns]];
+    if (this.isEnlarged) {
+      classes.push("kingdom-supply--is-enlarged");
+    }
+    return classes;
   }
 
   get replacementCardPosition() {

@@ -1,4 +1,5 @@
 import Vue from "vue";
+import EnlargeButtonComponent from "./components/enlarge-button.vue";
 import PageComponent, { MenuItemType } from "./components/page.vue";
 import RandomizerComponent from "./components/randomizer.vue";
 import ReplaceSupplyCardModalComponent from "./components/replace-supply-card-modal.vue"
@@ -16,6 +17,7 @@ new Vue({
     <page-component :subtitle="subtitle" :selectedType="selectedType">
       <randomizer-component @specify-replacement="showReplaceModal = true" />
     </page-component>
+    <enlarge-button-component />
   </div>
   `,
   store: store,
@@ -27,5 +29,6 @@ new Vue({
     "page-component": PageComponent,
     "randomizer-component": RandomizerComponent,
     "replace-supply-card-modal-component": ReplaceSupplyCardModalComponent,
+    "enlarge-button-component": EnlargeButtonComponent,
   },
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="modifiers-container">
+  <div class="modifiers-container" :class="{'modifiers-container--is-enlarged': isEnlarged}">
     <transition name="fade">
       <div v-if="isVisible" class="modifiers-header">Additional</div> 
     </transition>
@@ -13,7 +13,7 @@
         </div>
       </transition>
       <transition name="fade">
-        <div class="kingdom-supply_card" v-if="metadata.useShelters">
+        <div class="kingdom-supply_card use-shelters" v-if="metadata.useShelters">
           <static-card-component cardImageUrl="/img/cards/darkages_shelters.png">
             <static-card-description-component description="Shelters" />
           </static-card-component>
@@ -43,13 +43,14 @@ export default class ModifiersComponent extends Vue {
   }
   @State(state => state.randomizer.kingdom.metadata) readonly metadata!: Metadata;
   @State(state => state.window.width) readonly windowWidth!: number;
+  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   
   get isVisible() {
     return this.metadata.useColonies || this.metadata.useShelters;
   }
 
   get columnClass() {
-    return this.windowWidth > 450 ? "five-columns" : "four-columns";
+    return this.isEnlarged ? "two-columns" : this.windowWidth > 450 ? "five-columns" : "four-columns";
   }
 
 }
@@ -87,4 +88,23 @@ Vue.component("modifiers-component", ModifiersComponent);
 .use-colonies .supply-card__front-set-name {
   font-size: 16px;
 }
+
+@media (max-width: 525px) {
+  .use-colonies .supply-card__front-set-name {
+    font-size: 12px;
+  }
+
+  .use-shelters .supply-card__front-set-name {
+    font-size: 13px;
+  }
+}
+
+.modifiers-container--is-enlarged .use-colonies .supply-card__front-set-name {
+  font-size: 16px;
+}
+
+.modifiers-container--is-enlarged .use-shelters .supply-card__front-set-name {
+  font-size: 18px;
+}
+
 </style>

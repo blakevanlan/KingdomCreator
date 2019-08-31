@@ -4,8 +4,11 @@
       {{ addonSummary }}  
     </div>
     <div class="addon_cards">
-      <div class="addon_card" v-for="addonContainer in activeContainers"
-          @click="handleClick(addonContainer)">
+      <div v-for="addonContainer in activeContainers"
+          @click="handleClick(addonContainer)"
+          class="addon_card"
+          :class="{ 'addon_card--is-enlarged': isEnlarged }"
+        >
         <flipping-card-component :card="addonContainer.addon" :is-vertical="true" />
       </div>
     </div>
@@ -32,6 +35,7 @@ export default class AddonsComponent extends Vue {
     super({components: {"flipping-card-component": FlippingCardComponent}});
   }
   @State(state => state.randomizer.selection) readonly selection!: Selection;
+  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
   @Getter("addonSummary") readonly addonSummary!: string;
   @Getter("addons") readonly addons!: Addon[];
@@ -102,13 +106,10 @@ Vue.component("addons-component", AddonsComponent);
 </script>
 
 <style>
-/* .addons {
-
-} */
-
 .addon_cards {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .addon_card {
@@ -135,6 +136,16 @@ Vue.component("addons-component", AddonsComponent);
   .supply-card__front-set-name.hinterlands {
     font-size: 9px;
   }
+}
+
+.addon_card.addon_card--is-enlarged {
+  width: 99.8%;
+  padding-bottom: 62.454%; /* 473:296 = 99.8 * (296 / 473) */
+  margin: 0 0.1% 4px 0.1%;
+}
+
+.addon_card--is-enlarged .supply-card__front-set-name {
+  font-size: 18px;
 }
 
 </style>
