@@ -3,6 +3,8 @@
 @require "transitions"
 @require "buttons"
 
+condensed-menu-open-height = 136px;
+
 body
   margin: 0
   font-family: primary-font
@@ -50,8 +52,8 @@ body
   z-index: 1;
 
   &.show-condensed-menu
-    -webkit-transform: translate(0, 94px)
-    transform: translate(0, 94px)
+    -webkit-transform: translate(0, condensed-menu-open-height)
+    transform: translate(0, condensed-menu-open-height)
 
 header
   display: flex
