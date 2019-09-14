@@ -3,7 +3,9 @@
     <div class="condensed-menu" v-if="isCondensed">
       <ul class="condensed-menu_items">
         <li class="condensed-menu_item" v-for="menuItem in menuItems"
-            :class="{active: isMenuItemActive(menuItem)}">
+          :class="{active: isMenuItemActive(menuItem)}"
+          :key="menuItem.url"
+        >
           <a class="condensed-menu_item_link" :href="menuItem.url">{{ menuItem.title }}</a>
         </li>
       </ul>
@@ -52,6 +54,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export enum MenuItemType {
   RANDOMIZER,
   SETS,
+  RULES,
 }
 
 class MenuItem {
@@ -62,6 +65,7 @@ class MenuItem {
 const MENU_ITEMS = [
   new MenuItem(MenuItemType.RANDOMIZER, "Randomizer", "/index.html"),
   new MenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets.html"),
+  new MenuItem(MenuItemType.RULES, "Rules", "/rules.html"),
 ];
 
 @Component

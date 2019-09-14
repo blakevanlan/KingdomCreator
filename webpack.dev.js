@@ -9,6 +9,10 @@ module.exports = merge(common(false), {
       "/img": {
         target: 'http://localhost:8080',
         pathRewrite: {"^/img" : "/docs/img"}
+      }, 
+      "/rules": {
+        target: 'http://localhost:8080',
+        pathRewrite: {"^/rules" : "/docs/rules"}
       }
     }
   }
