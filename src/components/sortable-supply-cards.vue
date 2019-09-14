@@ -268,15 +268,6 @@ Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>
 
 <style>
-.sortable-supply-cards .card-layout_card {
-  cursor: pointer;
-  z-index: 0;
-}
-
-.sortable-supply-cards .flip-card {
-  pointer-events: all;
-}
-
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
 }

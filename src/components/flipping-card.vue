@@ -15,7 +15,7 @@
           </div>
         </transition>
       </div>
-      <div class="flip-card__content__back">
+      <div class="flip-card__content__back" @click.stop="handleCardBackClick">
         <img class="flip-card__img" :src="backCardImageUrl" />
       </div>
     </div>
@@ -57,6 +57,7 @@ export default class FlippingCardComponent extends Vue {
   }
   @Prop() readonly card!: Card | null;
   @Prop() readonly isVertical!: boolean;
+  @Prop() readonly onCardBackClick!: Function | null;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   activeCard: Card | null = null;
   cardState = CardState.BACK_VISIBLE;
@@ -127,6 +128,12 @@ export default class FlippingCardComponent extends Vue {
   handleClick() {
     if (this.activeCard) {
       this.$store.dispatch(TOGGLE_CARD_SELECTION, this.activeCard.id);
+    }
+  }
+
+  handleCardBackClick() {
+    if (this.onCardBackClick) {
+      this.onCardBackClick();
     }
   }
 
@@ -209,13 +216,16 @@ Vue.component("flipping-card-component", FlippingCardComponent);
 <style>
 .flip-card {
   background-color: transparent;
+  cursor: pointer;
   -webkit-perspective: 1000;
   perspective: 1000;;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  pointer-events: all;
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 0;
 }
 
 .flip-card__content {

@@ -10,7 +10,11 @@
         :is-vertical="false"
       >
       <template v-slot:default="slotProps">
-        <flipping-card-component :card="slotProps.item.addon" :is-vertical="false" />
+        <flipping-card-component
+          :on-card-back-click="function() { handleClick(slotProps.item) }"
+          :card="slotProps.item.addon"
+          :is-vertical="false"
+        />
       </template>
     </card-layout-component>
   </div>
@@ -111,6 +115,11 @@ Vue.component("addons-component", AddonsComponent);
 </script>
 
 <style>
+
+/* .addons .flip-card__content__back {
+  cursor: pointer;
+} */
+
 .addon--is-enlarged .card-description {
   font-size: 18px !important;
 }
