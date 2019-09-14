@@ -63,11 +63,6 @@ module.exports = function(isProduction) {
         }
       ]
     },
-    externals: {
-      jquery: "jQuery",
-      knockout: "ko",
-      "vex-js": "vex",
-    },
     plugins: [
       new VueLoaderPlugin(),
       new DominionContentPlugin(),

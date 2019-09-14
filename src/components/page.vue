@@ -30,18 +30,19 @@
       </header>
       <slot></slot>
       <footer>
-        Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
-        This site has no affiliation with either party.
-        Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
-        <br>
-        <span>
+        <div class="github-info">
+          Source is on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
+          Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+        </div>
+        <div class="disclaimers-and-credit">
+          Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
+          This site has no affiliation with either party.
+          Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
+
           Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
           Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-          is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-        </span>
-        <br>
-        Source on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
-        Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+          and is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.
+        </div>
       </footer>
     </div>
   </div>

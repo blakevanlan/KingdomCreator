@@ -5,6 +5,7 @@
       <sortable-supply-cards-component />
       <addons-component />
       <modifiers-component />
+      <ad-banner-component />
     </div>
   </div>
 </template>
@@ -19,6 +20,7 @@ import { Settings} from "../settings/settings";
 import { RandomizerSettings } from "../settings/randomizer-settings";
 import { LOAD_INITIAL_KINGDOM, RANDOMIZE } from "../stores/randomizer/action-types";
 import ModifiersComponent from "./modifiers.vue";
+import AdBannerComponent from "./ad-banner.vue";
 
 @Component
 export default class Randomizer extends Vue {
@@ -26,6 +28,7 @@ export default class Randomizer extends Vue {
     super({
       components: {
         "addons-component": AddonsComponent,
+        "ad-banner-component": AdBannerComponent,
         "modifiers-component": ModifiersComponent,
         "randomizer-sidebar-component": RandomizerSidebarComponent,
         "sortable-supply-cards-component": SortableSupplyCardsComponent,

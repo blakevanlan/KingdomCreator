@@ -32,7 +32,7 @@ Vue.component("expanded-button-component", EnlargeButton);
   right: 0;
   width: 48px;
   height: 48px;
-  bottom: 5px;
+  bottom: 24px;
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px;
   border-right: 0;

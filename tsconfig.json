@@ -17,9 +17,6 @@
     "target": "es5",
     "types": [
       "google.analytics",
-      "jquery",
-      "knockout",
-      "vex-js",
     ],
     "lib": [
       "dom",
