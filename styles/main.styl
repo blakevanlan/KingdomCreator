@@ -166,69 +166,6 @@ input[type=radio]
   .main
     margin-right: 218px
 
-// Supply card layout
-
-.kingdom-supply {
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-}
-
-.kingdom-supply_card
-  position: relative
-
-.five-columns .kingdom-supply_card
-  flex-basis: 19.5%
-  padding-bottom: 31.16% /* 296:473 = 19.5 * (473 / 296) */
-  margin: 0.25%;
-
-.four-columns .kingdom-supply_card
-  flex-basis: 24.2%
-  padding-bottom: 38.67% /* 296:473 = 24.2 * (473 / 296) */
-  margin: 0.4%;
-
-.three-columns .kingdom-supply_card
-  flex-basis: 31.73333%
-  padding-bottom: 50.709% /* 296:473 = 31.73333 * (473 / 296) */
-  margin: 0.8%;
-
-.two-columns .kingdom-supply_card
-  flex-basis: 48%;
-  padding-bottom: 76.703% /* 296:473 = 48 * (473 / 296) */
-  margin: 1%;
-
-// Flipping styles
-
-.flip-card
-  background-color: transparent
-  -webkit-perspective: 1000
-  perspective: 1000;
-  -webkit-transform-style: preserve-3d
-  transform-style: preserve-3d
-
-.flip-card__content
-  position: relative
-  width: 100%
-  height: 100%
-  -webkit-transform-style: preserve-3d
-  transform-style: preserve-3d
-
-.flip-card__content__front
-.flip-card__content__back
-  position: absolute
-  width: 100%
-  height: 100%
-  -webkit-backface-visibility: hidden
-  backface-visibility: hidden
-  -webkit-transform-style: preserve-3d
-  transform-style: preserve-3d
-
-.flip-card__content__front
-  cursor: pointer
-
-.flip-card__content__back
-  transform: rotateY(180deg)
-
 // Set colors
 .baseset
   color: base-set-color !important

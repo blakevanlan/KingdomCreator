@@ -1,43 +1,51 @@
 <template>
-  <div class="modifiers-container" :class="{'modifiers-container--is-enlarged': isEnlarged}">
-    <transition name="fade">
-      <div v-if="isVisible" class="modifiers-header">Additional</div> 
+  <div>
+    <transition name="slow-fade">
+      <div v-if="modifiers.length" class="modifiers-header">Additional</div> 
     </transition>
-    <div class="modifiers" :class=[columnClass]>
-      <div class="clear-left"></div>
-      <transition name="fade">
-        <div class="kingdom-supply_card use-colonies" v-if="metadata.useColonies">
-          <static-card-component cardImageUrl="/img/cards/prosperity_coloniesplatinums.png">
-            <static-card-description-component description="Colonies & Platinums" />
+    <transition name="slow-fade">
+      <card-layout-component
+        class="modifiers"
+        :class="{'modifiers--is-enlarged': isEnlarged}"
+        :items="modifiers"
+        :number-of-columns="numberOfColumns"
+        :is-vertical="false"
+      >
+        <template v-slot:default="slotProps">
+          <static-card-component :cardImageUrl="slotProps.item.imageUrl">
+            <card-description-component
+              :description="slotProps.item.name"
+              :descriptionClass="slotProps.item.className"
+            />
           </static-card-component>
-        </div>
-      </transition>
-      <transition name="fade">
-        <div class="kingdom-supply_card use-shelters" v-if="metadata.useShelters">
-          <static-card-component cardImageUrl="/img/cards/darkages_shelters.png">
-            <static-card-description-component description="Shelters" />
-          </static-card-component>
-        </div>
-      </transition>
-    </div>
-    <div class="clear"></div>
+        </template>
+      </card-layout-component>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import StaticCardComponent from "./static-card.vue";
-import StaticCardDescriptionComponent from "./static-card-description.vue";
+import CardDescriptionComponent from "./card-description.vue";
 import { Metadata } from "../randomizer/kingdom";
 import { Vue, Component } from "vue-property-decorator";
 import { State } from "vuex-class";
+import CardLayoutComponent from "./card-layout.vue";
+
+interface Modifier {
+  name: string;
+  imageUrl: string;
+  className: string;
+}
 
 @Component
 export default class ModifiersComponent extends Vue {
   constructor() {
     super({
       components: {
+        "card-layout-component": CardLayoutComponent,
         "static-card-component": StaticCardComponent,
-        "static-card-description-component": StaticCardDescriptionComponent,
+        "card-description-component": CardDescriptionComponent,
       }
     });
   }
@@ -45,12 +53,27 @@ export default class ModifiersComponent extends Vue {
   @State(state => state.window.width) readonly windowWidth!: number;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   
-  get isVisible() {
-    return this.metadata.useColonies || this.metadata.useShelters;
+  get numberOfColumns() {
+    return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4;
   }
 
-  get columnClass() {
-    return this.isEnlarged ? "two-columns" : this.windowWidth > 450 ? "five-columns" : "four-columns";
+  get modifiers() {
+    const modifiers: Modifier[] = [];
+    if (this.metadata.useColonies) {
+      modifiers.push({
+        name: "Colonies & Platinums",
+        imageUrl: "/img/cards/prosperity_coloniesplatinums.png",
+        className: "use-colonies"
+      });
+    }
+    if (this.metadata.useShelters) {
+      modifiers.push({
+        name: "Shelters",
+        imageUrl: "/img/cards/darkages_shelters.png",
+        className: "use-shelters"
+      });
+    }
+    return modifiers;
   }
 
 }
@@ -58,53 +81,28 @@ Vue.component("modifiers-component", ModifiersComponent);
 </script>
 
 <style>
-.modifiers-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .modifiers-header {
   margin: 10px 0 0;
   font-size: 20px;
 }
 
-.modifiers {
-  display: flex;
-  flex-direction: row;
-}
-
-.modifiers-header.fade-enter-active,
-.modifiers-header.fade-leave-active,
-.modifiers-container .kingdom-supply_card.fade-enter-active,
-.modifiers-container .kingdom-supply_card.fade-leave-active {
-  transition: opacity .3s;
-}
-.modifiers-header.fade-enter,
-.modifiers-header.fade-leave-to,
-.modifiers-container .kingdom-supply_card.fade-enter,
-.modifiers-container .kingdom-supply_card.fade-leave-to {
-  opacity: 0;
-}
-.use-colonies .supply-card__front-set-name {
+.modifiers .use-colonies {
   font-size: 16px;
 }
 
 @media (max-width: 525px) {
-  .use-colonies .supply-card__front-set-name {
+  .modifiers .use-colonies {
     font-size: 12px;
   }
-
-  .use-shelters .supply-card__front-set-name {
+  .modifiers .use-shelters {
     font-size: 13px;
   }
 }
 
-.modifiers-container--is-enlarged .use-colonies .supply-card__front-set-name {
+.modifiers.modifiers--is-enlarged .use-colonies {
   font-size: 16px;
 }
-
-.modifiers-container--is-enlarged .use-shelters .supply-card__front-set-name {
+.modifiers.modifiers--is-enlarged .use-shelters {
   font-size: 18px;
 }
-
 </style>

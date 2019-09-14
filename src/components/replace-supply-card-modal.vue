@@ -78,7 +78,7 @@
 
 <script lang="ts">
 import StaticCardComponent from "./static-card.vue";
-import StaticCardDescriptionComponent from "./static-card-description.vue";
+import CardDescriptionComponent from "./card-description.vue";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { Settings } from "../settings/settings";
 import { SetId } from "../dominion/set-id";
@@ -125,7 +125,7 @@ export default class ReplaceSupplyCardModalComponent extends Vue {
     super({
       components: {
         "static-card-component": StaticCardComponent,
-        "static-card-description-component": StaticCardDescriptionComponent,
+        "card-description-component": CardDescriptionComponent,
       }
     });
   }

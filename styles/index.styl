@@ -9,74 +9,10 @@
 .sidebar
   margin-bottom: 10px
 
-.supply-card
-.supply-card__front-img 
-.supply-card__back-img
-  position: absolute
-  width: 100%
-  height: 100%
-
-.flip-card__content
-  z-index: 1
-
-.supply-card__front-set-container
-  position: absolute
-  font-size: 18px
-  margin-top: -13px
-  top: 50%
-  width: 100%
-  height: 30px
-  text-align: center
-  z-index: 2
-
-.supply-card__front-set-container.fade-enter-active
-  transition: opacity .15s
-
-.supply-card__front-set-container.fade-enter,
-.supply-card__front-set-container.fade-leave-to
-  opacity: 0
-
-.supply-card__front-set-name
-  background: rgba(30,30,30,0.7)
-  box-sizing: border-box
-  color: #fff
-  display: inline-block
-  margin: 0 auto
-  max-width: 100%
-  padding: 6px 8px
-  text-shadow: 1px 1px 4px #000
-
-.supply-card__front-highlight
-  position: absolute
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  box-sizing: border-box
-  height: 100%
-  width: 100%
-  border: 2px solid highlight-blue
-  background: rgba(2, 119, 158, 0.65)
-  cursor: pointer
-  z-index: 5
-
-.kingdom-supply_card
-  cursor: pointer
-  z-index: 0
-
 .addons-header
 .modifiers-header
   margin: 10px 0 0
   font-size: 20px
-
-@media (max-width: 900px)   
-  .supply-card__front-set-name
-    font-size: 16px
-
-  .supply-card__front-set-name.baseset2
-  .supply-card__front-set-name.intrigue2
-  .supply-card__front-set-name.hinterlands
-    font-size: 14px
 
 // Move sidebar to the top
 @media (max-width: 750px)
@@ -90,12 +26,3 @@
       margin-top: 5px
       .sidebar-content-title
         font-size: 26px
-
-@media (max-width: 400px)
-  .supply-card__front-set-name
-    font-size: 10px
-
-
-.kingdom-supply--is-enlarged .supply-card__front-set-name {
-  font-size: 16px !important;
-}

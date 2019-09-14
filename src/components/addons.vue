@@ -3,16 +3,16 @@
     <div class="addons-header">
       {{ addonSummary }}  
     </div>
-    <div class="addon_cards">
-      <div v-for="addonContainer in activeContainers"
-          @click="handleClick(addonContainer)"
-          class="addon_card"
-          :class="{ 'addon_card--is-enlarged': isEnlarged }"
-        >
-        <flipping-card-component :card="addonContainer.addon" :is-vertical="true" />
-      </div>
-    </div>
-    <div class="clear"></div>
+    <card-layout-component
+        :class="{'addon--is-enlarged': isEnlarged}"
+        :items="activeContainers"
+        :number-of-columns="numberOfColumns"
+        :is-vertical="false"
+      >
+      <template v-slot:default="slotProps">
+        <flipping-card-component :card="slotProps.item.addon" :is-vertical="false" />
+      </template>
+    </card-layout-component>
   </div>
 </template>
 
@@ -36,10 +36,15 @@ export default class AddonsComponent extends Vue {
   }
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
+  @State(state => state.window.width) readonly windowWidth!: number;
   @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
   @Getter("addonSummary") readonly addonSummary!: string;
   @Getter("addons") readonly addons!: Addon[];
   activeContainers: AddonContainer[] = AddonsComponent.fillWithEmptyAddonContainers([]);
+
+  get numberOfColumns() {
+    return this.isEnlarged ? 1 : this.windowWidth > 525 ? 3 : 2;
+  }
 
   mounted() {
     this.updateAddonContainers();
@@ -106,46 +111,7 @@ Vue.component("addons-component", AddonsComponent);
 </script>
 
 <style>
-.addon_cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.addon--is-enlarged .card-description {
+  font-size: 18px !important;
 }
-
-.addon_card {
-  cursor: pointer;
-  position: relative;
-  width: 30%;
-  padding-bottom: 18.77%; /* 473:296 = 30 * (296 / 473) */
-  margin-right: 4px;
-}
-
-@media (max-width: 525px) {
-  .addon_card {
-    width: 49.25%;
-    padding-bottom: 28.32%; /* 473:296 = 45.25 * (296 / 473) */
-    margin: 0.25%;
-  }
-    
-  .supply-card__front-set-name {
-    font-size: 11px;
-  }
-  
-  .supply-card__front-set-name.baseset2,
-  .supply-card__front-set-name.intrigue2,
-  .supply-card__front-set-name.hinterlands {
-    font-size: 9px;
-  }
-}
-
-.addon_card.addon_card--is-enlarged {
-  width: 99.8%;
-  padding-bottom: 62.454%; /* 473:296 = 99.8 * (296 / 473) */
-  margin: 0 0.1% 4px 0.1%;
-}
-
-.addon_card--is-enlarged .supply-card__front-set-name {
-  font-size: 18px;
-}
-
 </style>

@@ -1,10 +1,21 @@
 // Fade
-.fade-enter-active
+.fade-enter-active,
+.fade-leave-active
   transition: opacity .15s
 
 .fade-enter,
 .fade-leave-to
   opacity: 0
+
+// Slow fade
+.slow-fade-enter-active,
+.slow-fade-leave-active {
+  transition: opacity .3s;
+}
+.slow-fade-enter,
+.slow-fade-leave-to {
+  opacity: 0;
+}
 
 // Expand fade
 .expand-fade-enter-active

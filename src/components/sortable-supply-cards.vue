@@ -1,31 +1,27 @@
 <template>
-  <div class="kingdom-supply" :class=kingdomClasses>
-    <div class="kingdom-supply_card" v-for="supplyCard in supplyCards">
-      <flipping-card-component :card="supplyCard" :is-vertical="false"
+  <card-layout-component
+    :items="supplyCards"
+    :number-of-columns="numberOfColumns"
+    :is-vertical="true"
+    class="sortable-supply-cards"
+    :class="{'kingdom-supply--is-enlarged': isEnlarged}"
+  >
+    <template v-slot:default="slotProps">
+      <flipping-card-component :card="slotProps.item" :is-vertical="true"
         @front-visible="handleSupplyCardFrontVisible"
         @flipping-to-back="handleSupplyCardFlippingToBack"
       >
         <div class="standard-button standard-button--is-primary standard-button--light-border"
-          @click.stop="handleSpecify(supplyCard)"
+          @click.stop="handleSpecify(slotProps.item)"
         >
           Specify
         </div>
       </flipping-card-component>
-    </div>
-    <transition name="fade">
-      <card-replacement-component v-if="replacingCard != null"
-        :supplyCard="replacingCard"
-        :cardPosition="replacementCardPosition"
-        :topLeftCoordinate="replacementTopLeftCoordinate"
-        @cancel="replacingCard = null"
-        @replace="handleReplaceWithSupplyCard"
-      />
-    </transition>
-  </div>
+    </template>
+  </card-layout-component>
 </template>
 
 <script lang="ts">
-import CardReplacementComponent from "./card-replacement.vue"
 import FlippingCardComponent from "./flipping-card.vue";
 import { Addon } from "../dominion/addon";
 import { Coordinate } from "../utils/coordinate";
@@ -39,7 +35,7 @@ import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { REPLACE_SUPPLY_CARD, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
-import { CardPosition } from "./card-replacement.vue";
+import CardLayoutComponent from "./card-layout.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
@@ -54,7 +50,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   constructor() {
     super({
       components: {
-        "card-replacement-component": CardReplacementComponent,
+        "card-layout-component": CardLayoutComponent,
         "flipping-card-component": FlippingCardComponent
       }
     });
@@ -82,44 +78,6 @@ export default class SortableSupplyCardsComponent extends Vue {
 
   get numberOfColumns() {
     return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4
-  }
-
-  get kingdomClasses() {
-    const columnClasses = ["", "", "two-columns", "three-columns", "four-columns", "five-columns"];
-    const classes = [columnClasses[this.numberOfColumns]];
-    if (this.isEnlarged) {
-      classes.push("kingdom-supply--is-enlarged");
-    }
-    return classes;
-  }
-
-  get replacementCardPosition() {
-    if (!this.replacingCard) {
-      return CardPosition.CENTER;
-    }
-    const numberOfColumns = this.numberOfColumns;
-    const index = this.getSupplyCardVisualIndex(this.replacingCard);
-    if (index == 0 || index == numberOfColumns) {
-      return CardPosition.LEFT;
-    }
-    if (index == numberOfColumns - 1 || index == this.supplyCards.length - 1) {
-      return CardPosition.RIGHT;
-    }
-    return CardPosition.CENTER;
-  }
-
-  get replacementTopLeftCoordinate() {
-    if (!this.replacingCard) {
-      return {x: 0, y: 0};
-    }
-    const cardVisualIndex = this.getSupplyCardVisualIndex(this.replacingCard);
-    const cardPosition = this.replacementCardPosition;
-    const visualIndex = cardPosition == CardPosition.LEFT 
-        ? cardVisualIndex
-        : cardPosition == CardPosition.CENTER
-            ? cardVisualIndex - 1
-            : cardVisualIndex - 2;
-    return this.getPositionForElementIndex(visualIndex);
   }
 
   @Watch("kingdom")
@@ -270,11 +228,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   }
 
   private getSupplyCardContainers() {
-    return this.$el.querySelectorAll(".kingdom-supply_card") as NodeListOf<HTMLElement>;
-  }
-
-  private getSupplyCardVisualIndex(supplyCard: SupplyCard) {
-    return this.getVisualIndex(this.supplyCards.indexOf(supplyCard));
+    return this.$el.querySelectorAll(".card-layout_card") as NodeListOf<HTMLElement>;
   }
 
   private getElementIndex(visualIndex: number) {
@@ -282,17 +236,6 @@ export default class SortableSupplyCardsComponent extends Vue {
         ? this.elementIndexMapping.get(visualIndex)!
         : visualIndex;
   }
-
-  private getVisualIndex(elementIndex: number) {
-    const keys = this.elementIndexMapping.keys();
-    for (let key of keys) {
-      if (this.elementIndexMapping.get(key) == elementIndex) {
-        return key;
-      }
-    }
-    return elementIndex;
-  }
-
 
   private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
     const supplyCards: SupplyCard[] = [];
@@ -324,14 +267,17 @@ export default class SortableSupplyCardsComponent extends Vue {
 Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>
 
-<style scoped>
-.kingdom-supply {
-  position: relative
+<style>
+.sortable-supply-cards .card-layout_card {
+  cursor: pointer;
+  z-index: 0;
 }
-.kingdom-supply_card {
-  pointer-events: none;
-}
-.supply-card {
+
+.sortable-supply-cards .flip-card {
   pointer-events: all;
+}
+
+.kingdom-supply--is-enlarged .card-set-description .card-description {
+  font-size: 16px !important;
 }
 </style>

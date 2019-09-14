@@ -1,24 +1,22 @@
 <template>
-  <div class="flip-card supply-card"
+  <div class="flip-card"
       :class="{isVertical: isVertical}">
     <div class="flip-card__content" :style="{transform: `rotateY(${rotationDegrees}deg)`}">
       <div class="flip-card__content__front" @click.stop="handleClick">
-        <img class="supply-card__front-img" v-if="activeCard" :src="frontCardImageUrl"
+        <img class="flip-card__img" v-if="activeCard" :src="frontCardImageUrl"
             :key="activeCard ? activeCard.id : ''"
             @load="handleFrontImageLoaded" />
         <transition name="fade">
-          <div class="supply-card__front-set-container" v-if="showSetName">
-            <div class="supply-card__front-set-name" :class="setClassName">{{ setName }}</div>
-          </div>
+          <card-set-description-component v-if="showSetName" :card="activeCard" />
         </transition>
         <transition name="fade">
-          <div class="supply-card__front-highlight" v-if="showHighlight">
+          <div class="flip-card__front-highlight" v-if="showHighlight">
             <slot></slot>
           </div>
         </transition>
       </div>
       <div class="flip-card__content__back">
-        <img class="supply-card__back-img" :src="backCardImageUrl" />
+        <img class="flip-card__img" :src="backCardImageUrl" />
       </div>
     </div>
   </div>
@@ -33,6 +31,7 @@ import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
+import CardSetDescriptionComponent from "./card-set-description.vue";
 
 enum CardState {
   FLIPPING_TO_BACK,
@@ -49,6 +48,13 @@ const ANIMATION_DURATION_SEC = 0.4;
 
 @Component
 export default class FlippingCardComponent extends Vue {
+  constructor() {
+    super({
+      components: {
+        "card-set-description-component": CardSetDescriptionComponent,
+      }
+    });
+  }
   @Prop() readonly card!: Card | null;
   @Prop() readonly isVertical!: boolean;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
@@ -89,8 +95,8 @@ export default class FlippingCardComponent extends Vue {
 
   get backCardImageUrl() {
     return this.isVertical
-        ? "/img/cards/backside_blue_horizontal.jpg"
-        : "/img/cards/backside_blue.jpg";
+        ? "/img/cards/backside_blue.jpg"
+        : "/img/cards/backside_blue_horizontal.jpg";
   }
 
   @Watch("card")
@@ -199,3 +205,65 @@ export default class FlippingCardComponent extends Vue {
 }
 Vue.component("flipping-card-component", FlippingCardComponent);
 </script>
+
+<style>
+.flip-card {
+  background-color: transparent;
+  -webkit-perspective: 1000;
+  perspective: 1000;;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-card__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  z-index: 1;
+}
+
+.flip-card__content__front,
+.flip-card__content__back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.flip-card__content__front {
+  cursor: pointer;
+}
+
+.flip-card__content__back {
+  transform: rotateY(180deg);
+}
+
+.flip-card__img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.flip-card__front-highlight {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  border: 2px solid highlight-blue;
+  background: rgba(2, 119, 158, 0.65);
+  cursor: pointer;
+  z-index: 5;
+}
+</style>
