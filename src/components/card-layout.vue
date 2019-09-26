@@ -1,8 +1,15 @@
 <template>
   <div class="card-layout" :class="columnClasses">
-    <div class="card-layout_card" v-for="item in items">
-      <slot :item="item"></slot>
-    </div>
+    <template v-if="layoutType=='rulebook'">
+      <div class="card-layout_card rule-layout" v-for="item in items">
+        <slot :item="item"></slot>
+      </div>
+    </template>
+    <template v-else>
+      <div class="card-layout_card" v-for="item in items">
+        <slot :item="item"></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -14,6 +21,7 @@ export default class CardLayoutComponent extends Vue {
   @Prop() readonly items!: any[];
   @Prop() readonly numberOfColumns!: number;
   @Prop() readonly isVertical!: boolean;
+  @Prop() readonly layoutType!: string;
 
   get columnClasses() {
     const columnClasses = ["", "one-column", "two-columns", "three-columns", "four-columns", "five-columns"];
@@ -56,6 +64,11 @@ Vue.component("card-layout-component", CardLayoutComponent);
 .three-columns .card-layout_card {
   flex-basis: 31.73333%;
   padding-bottom: 50.709%; /* 296:473 = 31.73333 * (473 / 296) */
+  margin: 0.8%;
+}
+.three-columns .rule-layout {
+  flex-basis: 31.73333%;
+  padding-bottom: 31.73333%; /* 31.73333 * (500 / 500) */
   margin: 0.8%;
 }
 
