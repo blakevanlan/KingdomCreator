@@ -4,6 +4,7 @@
     <div class="main">
       <sortable-supply-cards-component />
       <addons-component />
+      <boons-component />
       <modifiers-component />
       <ad-banner-component />
     </div>
@@ -12,6 +13,7 @@
 
 <script lang="ts">
 import AddonsComponent from "./addons.vue";
+import BoonsComponent from "./boons.vue";
 import SortableSupplyCardsComponent from "./sortable-supply-cards.vue";
 import RandomizerSidebarComponent from "./randomizer-sidebar.vue";
 import { Getter, State } from "vuex-class";
@@ -28,6 +30,7 @@ export default class Randomizer extends Vue {
     super({
       components: {
         "addons-component": AddonsComponent,
+        "boons-component": BoonsComponent,
         "ad-banner-component": AdBannerComponent,
         "modifiers-component": ModifiersComponent,
         "randomizer-sidebar-component": RandomizerSidebarComponent,

@@ -16,6 +16,9 @@ export function serializeKingdom(kingdom: Kingdom): string {
   if (kingdom.projects.length) {
     result.push(serializeCards("projects", kingdom.projects));
   }
+  if (kingdom.boons.length) {
+    result.push(serializeCards("boons", kingdom.boons));
+  }
   const serializedMetadata = serializeMetadata(kingdom.metadata);
   if (serializedMetadata.length) {
     result.push(serializedMetadata) 
@@ -40,6 +43,7 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   const eventIds = parseNamedCommaSeparatedParameter("events", serializedKingdom) || [];
   const landmarkIds = parseNamedCommaSeparatedParameter("landmarks", serializedKingdom) || [];
   const projectIds = parseNamedCommaSeparatedParameter("projects", serializedKingdom) || [];
+  const boonIds = parseNamedCommaSeparatedParameter("boons", serializedKingdom) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
   const events = findByIds(eventIds, DominionSets.getEventById).slice(0, 2);
@@ -48,10 +52,11 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   const projects = 
       findByIds(projectIds, DominionSets.getProjectById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length));
+  const boons = findByIds(boonIds, DominionSets.getBoonById).slice(0, 3);
   const supply = new Supply(supplyCards, Replacements.empty());
 
   return new Kingdom(
-      Date.now(), supply, events, landmarks, projects, deserializeMetadata(serializedKingdom));
+      Date.now(), supply, events, landmarks, projects, boons, deserializeMetadata(serializedKingdom));
 }
 
 function serializeCards<T extends Card>(identifier: string, cards: T[]): string {

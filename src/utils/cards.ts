@@ -1,3 +1,4 @@
+import {Boon} from "../dominion/boon";
 import {Card} from "../dominion/card";
 import {CardType} from "../dominion/card-type";
 import {CostType} from "../dominion/cost-type";
@@ -20,7 +21,10 @@ export class Cards {
 
   static getAllCardsFromSet(set: DominionSet): Card[] {
     return (set.supplyCards as Card[]).concat(
-        (set.events as Card[]), (set.landmarks as Card[]), (set.projects as Card[]));
+        (set.events as Card[]),
+        (set.landmarks as Card[]),
+        (set.projects as Card[]),
+        (set.boons as Card[]));
   }
 
   static getAllSupplyCards(cards: Card[]): SupplyCard[] {
@@ -37,6 +41,10 @@ export class Cards {
 
   static getAllProjects(cards: Card[]): Project[] {
     return Cards.getCardsOfType<Project>(cards, Project);
+  }
+
+  static getAllBoons(cards: Card[]): Boon[] {
+    return Cards.getCardsOfType<Boon>(cards, Boon);
   }
 
   private static getCardsOfType<T extends Card>(cards: Card[], constructor: Function): T[] {
@@ -56,6 +64,16 @@ export class Cards {
   static unionCards<T extends Card>(a: T[], b: T[]): T[] {
     const excludingB = a.filter(Cards.filterByExcludedIds(Cards.extractIds(b)));
     return excludingB.concat(b);
+  }
+
+  static difference<T extends Card>(a: T[], b: T[]): T[] {
+    const ids = new Set(this.extractIds(b));
+    return a.filter(a => !ids.has(a.id))
+  }
+
+  static intersection<T extends Card>(a: T[], b: T[]): T[] {
+    const ids = new Set(this.extractIds(b));
+    return a.filter(a => ids.has(a.id));
   }
 
   static findCardById<T extends Card>(cards: T[], id: string): T | null {
