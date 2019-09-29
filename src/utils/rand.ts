@@ -15,3 +15,9 @@ export function getRandomInts(count: number, max: number): Set<number> {
 export function selectRandom<T>(list: T[]): T {
   return list[getRandomInt(0, list.length)];
 }
+
+export function selectRandomN<T>(list: T[], n: number): T[] {
+  const results: T[] = [];
+  getRandomInts(n, list.length).forEach(i => results.push(list[i]));
+  return results;
+}

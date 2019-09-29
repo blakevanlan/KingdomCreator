@@ -1,3 +1,4 @@
+import {Boon} from "../dominion/boon";
 import {Event} from "../dominion/event";
 import {Landmark} from "../dominion/landmark";
 import {Project} from "../dominion/project";
@@ -10,11 +11,12 @@ export class Kingdom {
       readonly events: Event[],
       readonly landmarks: Landmark[],
       readonly projects: Project[],
+      readonly boons: Boon[],
       readonly metadata: Metadata) {
   }
 
   static empty() {
-    return new Kingdom(0, Supply.empty(), [], [], [], new Metadata(false, false));
+    return new Kingdom(0, Supply.empty(), [], [], [], [], new Metadata(false, false));
   }
 }
 

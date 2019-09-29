@@ -12,7 +12,6 @@ import {Landmark} from "../dominion/landmark"
 import {Metadata as KingdomMetadata} from "./kingdom";
 import {Project} from "../dominion/project"
 import {RandomizerOptions} from "./randomizer-options";
-//import {ReactionSupplyCorrection} from "./reaction-supply-correction"; REMOVE?
 import {SetId} from "../dominion/set-id";
 import {SetSupplyBan} from "./set-supply-ban";
 import {SetSupplyDivider} from "./set-supply-divider";
@@ -22,7 +21,8 @@ import {SupplyCard} from "../dominion/supply-card";
 import {SupplyDivisions} from "./supply-divisions";
 import {TypeSupplyBan} from "./type-supply-ban";
 import {TypeSupplyRequirement} from "./type-supply-requirement";
-import {getRandomInt, getRandomInts} from "../utils/rand";
+import {getRandomInt, getRandomInts, selectRandomN} from "../utils/rand";
+import { Boon } from "../dominion/boon";
 
 const SETS_WITH_DUPLICATES: {[index: string]: string} = {
   'baseset2': 'baseset',
@@ -50,9 +50,10 @@ export class Randomizer {
   static createKingdom(randomizerOptions: RandomizerOptions): Kingdom {
     const supply = this.createSupplyWithRetries(randomizerOptions);
     const addons = this.getAddons(randomizerOptions.setIds);
+    const boons = this.getRandomBoons(supply, []);
     const metadata = this.getMetadata(randomizerOptions.setIds);
     return new Kingdom(
-      Date.now(), supply, addons.events, addons.landmarks, addons.projects, metadata);
+      Date.now(), supply, addons.events, addons.landmarks, addons.projects, boons, metadata);
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
@@ -202,6 +203,16 @@ export class Randomizer {
     const landmarks = Cards.getAllLandmarks(cards) as Addon[];
     const projects = Cards.getAllProjects(cards) as Addon[];
     return events.concat(landmarks, projects);
+  }
+
+  static getRandomBoons(supply: Supply, keepBoons: Boon[]) {
+    if (!supply.supplyCards.some((s) => s.id == "nocturne_druid")) {
+      return [];
+    }
+    const excludeIds = Cards.extractIds(keepBoons);
+    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
+    const boons = Cards.getAllBoons(cards).filter(Cards.filterByExcludedIds(excludeIds));
+    return selectRandomN(boons, 3 - excludeIds.length).concat(keepBoons);
   }
 
   static getMetadata(setIds: SetId[]) {
