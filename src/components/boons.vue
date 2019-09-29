@@ -80,24 +80,4 @@ Vue.component("boons-component", BoonsComponent);
   margin: 10px 0 0;
   font-size: 20px;
 }
-
-.modifiers .use-colonies {
-  font-size: 16px;
-}
-
-@media (max-width: 525px) {
-  .modifiers .use-colonies {
-    font-size: 12px;
-  }
-  .modifiers .use-shelters {
-    font-size: 13px;
-  }
-}
-
-.modifiers.boons--is-enlarged .use-colonies {
-  font-size: 16px;
-}
-.modifiers.boons--is-enlarged .use-shelters {
-  font-size: 18px;
-}
 </style>
