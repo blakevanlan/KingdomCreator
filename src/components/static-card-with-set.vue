@@ -12,7 +12,7 @@
 import { Card } from "../dominion/card";
 import { SupplyCard } from "../dominion/supply-card";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { getCardImageUrl } from "../utils/images";
+import { getCardImageUrl } from "../utils/resources";
 import { DominionSets } from "../dominion/dominion-sets";
 import StaticCardComponent from "./static-card.vue";
 import CardSetDescriptionComponent from "./card-set-description.vue";

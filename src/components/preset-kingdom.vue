@@ -64,7 +64,7 @@ import { DominionKingdom } from "../dominion/dominion-kingdom";
 import { DominionSets } from "../dominion/dominion-sets";
 import { State } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { getCardImageUrl } from "../utils/images";
+//import { getCardImageUrl } from "../utils/images";
 import { getMessageForAddonsDescription } from "../utils/messages";
 import StaticCardWithSetComponent from "./static-card-with-set.vue";
 
@@ -116,7 +116,7 @@ export default class PresetKingdom extends Vue {
     return cardIds.map(DominionSets.getCardById);
   }
 
-  getCardImageUrl = getCardImageUrl;
+//  getCardImageUrl = getCardImageUrl;
 }
 </script>
 

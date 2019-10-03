@@ -1,0 +1,13 @@
+name: Guilds / Cornucopia
+cards:  
+  - name: no card - for rules display
+    cost:
+      treasure: 0
+      potion: 0
+    isAttack: false
+    isAction: false
+    isDrawer: false
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false

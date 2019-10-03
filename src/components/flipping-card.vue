@@ -26,7 +26,7 @@
 import { DominionSets } from "../dominion/dominion-sets";
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { State } from "vuex-class";
-import { getCardImageUrl } from "../utils/images";
+import { getCardImageUrl } from "../utils/resources";
 import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
