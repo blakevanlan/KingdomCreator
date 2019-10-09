@@ -7,6 +7,9 @@ import {Supply, Replacements} from "../randomizer/supply";
 export function serializeKingdom(kingdom: Kingdom): string {
   const result: string[] = [];
   result.push(serializeCards("supply", kingdom.supply.supplyCards));
+  if (kingdom.banesupply.supplyCards.length) {
+    result.push(serializeCards("bane", kingdom.banesupply.supplyCards));
+  } 
   if (kingdom.events.length) {
     result.push(serializeCards("events", kingdom.events));
   }
@@ -40,12 +43,18 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
     return null;
   }
 
+  const baneIds = parseNamedCommaSeparatedParameter("bane", serializedKingdom) || [];
   const eventIds = parseNamedCommaSeparatedParameter("events", serializedKingdom) || [];
   const landmarkIds = parseNamedCommaSeparatedParameter("landmarks", serializedKingdom) || [];
   const projectIds = parseNamedCommaSeparatedParameter("projects", serializedKingdom) || [];
   const boonIds = parseNamedCommaSeparatedParameter("boons", serializedKingdom) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
+  let bane = Supply.empty()
+  if (baneIds.length) {
+     const baneCards = findByIds(baneIds, DominionSets.getSupplyCardById).slice(0,1);
+     bane = new Supply(baneCards, Replacements.empty());
+  }
   const events = findByIds(eventIds, DominionSets.getEventById).slice(0, 2);
   const landmarks =
       findByIds(landmarkIds, DominionSets.getLandmarkById).slice(0, Math.max(0, 2 - events.length));
@@ -56,7 +65,14 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   const supply = new Supply(supplyCards, Replacements.empty());
 
   return new Kingdom(
-      Date.now(), supply, events, landmarks, projects, boons, deserializeMetadata(serializedKingdom));
+               Date.now(),                                /* id: number,  */
+               supply,                                    /* supply: Supply, */
+               bane,                                      /* Banesupply: Supply, */
+               events,                                    /* events: Event[], */
+               landmarks,                                 /* landmarks: Landmark[], */
+               projects,                                  /* projects: Project[], */
+               boons,                                     /* boons: Boon[], */
+               deserializeMetadata(serializedKingdom));   /* metadata: Metadata */
 }
 
 function serializeCards<T extends Card>(identifier: string, cards: T[]): string {

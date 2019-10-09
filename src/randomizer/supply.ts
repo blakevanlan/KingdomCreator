@@ -6,6 +6,14 @@ export class Supply {
       readonly supplyCards: SupplyCard[],
       readonly replacements: Replacements) {
   }
+  
+  getIds() {
+    let Ids = [];
+    for (var current_sCard of this.supplyCards) { 
+      Ids.push(current_sCard.id);
+    }
+    return Ids;
+  }
 
   static empty() {
     return new Supply([], Replacements.empty());

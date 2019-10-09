@@ -73,7 +73,7 @@ Vue.component("card-layout-component", CardLayoutComponent);
     .card-layout--horizontal.three-columns .card-layout_card {
       flex-basis: 30%;
       padding-bottom: 18.77%; /* 30 * (296 / 473) */
-      margin: 0 4px 0 0;
+      margin: 0.25%;
     }
     
     .card-layout--horizontal.three-columns .card-layout_card:nth-child(3n) {
@@ -99,5 +99,17 @@ Vue.component("card-layout-component", CardLayoutComponent);
   margin: 0.8%;
 }
 
+.two-columns .square {
+  flex-basis: 48%;
+  padding-bottom: 48%;; /* 48 * (500 / 500) */
+  margin: 1%;
+}
+
+.one-column .square {
+  flex-direction: column;
+  flex-basis: 95%;
+  padding-bottom: 95%;; /* 49.25 * (500 / 500) */
+  margin: 2%;
+}
 
 </style>

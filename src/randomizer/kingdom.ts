@@ -8,6 +8,7 @@ export class Kingdom {
   constructor(
       readonly id: number,
       readonly supply: Supply,
+      readonly banesupply: Supply,
       readonly events: Event[],
       readonly landmarks: Landmark[],
       readonly projects: Project[],
@@ -16,12 +17,22 @@ export class Kingdom {
   }
 
   static empty() {
-    return new Kingdom(0, Supply.empty(), [], [], [], [], new Metadata(false, false));
+    return new Kingdom(
+                    0,                /* id: number,  */
+                    Supply.empty(),   /* supply: Supply, */
+                    Supply.empty(),   /* Banesupply: Supply, */
+                    [],               /* events: Event[], */
+                    [],               /* landmarks: Landmark[], */
+                    [],               /* projects: Project[], */
+                    [],               /* boons: Boon[], */
+                    new Metadata(false, false));   /* metadata: Metadata */
   }
 }
 
 export class Metadata {
-  constructor(readonly useColonies: boolean, readonly useShelters: boolean) {
+  constructor(
+      readonly useColonies: boolean, 
+      readonly useShelters: boolean) {
   }
 }
 

@@ -1,4 +1,5 @@
 <template>
+<div>
   <card-layout-component
     :items="supplyCards"
     :number-of-columns="numberOfColumns"
@@ -19,6 +20,31 @@
       </flipping-card-component>
     </template>
   </card-layout-component>
+
+  <div v-if="this.kingdom.banesupply.supplyCards.length">
+    <div class="addons-header">
+        {{titleForExtras}}</div>
+    <card-layout-component
+      :items="this.kingdom.banesupply.supplyCards"
+      :number-of-columns="numberOfColumns"
+      :is-vertical="true"
+      shape="card"
+    >
+      <template v-slot:default="slotProps">
+        <flipping-card-component :card="slotProps.item" :is-vertical="true"
+        @front-visible="handleSupplyCardFrontVisible"
+        @flipping-to-back="handleSupplyCardFlippingToBack"
+      >
+        <div class="standard-button standard-button--is-primary standard-button--light-border"
+          @click.stop="handleSpecify(slotProps.item)"
+        >
+          Specify
+        </div>
+      </flipping-card-component>
+      </template>
+    </card-layout-component>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -78,6 +104,10 @@ export default class SortableSupplyCardsComponent extends Vue {
 
   get numberOfColumns() {
     return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4
+  }
+
+  get titleForExtras() {
+    return "Extra Cards : Bane Card";
   }
 
   @Watch("kingdom")

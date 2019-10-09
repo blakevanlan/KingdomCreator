@@ -12,10 +12,10 @@ import {Landmark} from "../dominion/landmark"
 import {Metadata as KingdomMetadata} from "./kingdom";
 import {Project} from "../dominion/project"
 import {RandomizerOptions} from "./randomizer-options";
-import {SetId} from "../dominion/set-id";
+import {SetId, IgnoreSetIdRandomize } from "../dominion/set-id";
 import {SetSupplyBan} from "./set-supply-ban";
 import {SetSupplyDivider} from "./set-supply-divider";
-import {Supply} from "./supply";
+import {Supply, Replacements} from "./supply";
 import {SupplyBuilder} from "./supply-builder";
 import {SupplyCard} from "../dominion/supply-card";
 import {SupplyDivisions} from "./supply-divisions";
@@ -30,6 +30,7 @@ const SETS_WITH_DUPLICATES: {[index: string]: string} = {
 };
 const MAX_RETRIES = 3;
 const NUM_CARDS_IN_KINGDOM = 10;
+const NUM_BANE_CARDS_IN_KINGDOM = 1;
 
 // Alchemy constants.
 const MIN_ALCHEMY_CARDS_IN_KINGDOM = 3;
@@ -49,11 +50,19 @@ const NUM_PRIORITIZED_SET = 5;
 export class Randomizer {
   static createKingdom(randomizerOptions: RandomizerOptions): Kingdom {
     const supply = this.createSupplyWithRetries(randomizerOptions);
+    const banesupply = this.getRandomBaneSupply(supply, [], randomizerOptions);
     const addons = this.getAddons(randomizerOptions.setIds);
     const boons = this.getRandomBoons(supply, []);
     const metadata = this.getMetadata(randomizerOptions.setIds);
     return new Kingdom(
-      Date.now(), supply, addons.events, addons.landmarks, addons.projects, boons, metadata);
+                   Date.now(),          /* id: number,  */
+                   supply,              /* supply: Supply, */
+                   banesupply,          /* Banesupply: Supply, */
+                   addons.events,       /* events: Event[], */
+                   addons.landmarks,    /* landmarks: Landmark[], */
+                   addons.projects,     /* projects: Project[], */
+                   boons,               /* boons: Boon[], */
+                   metadata);           /* metadata: Metadata */
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
@@ -210,9 +219,32 @@ export class Randomizer {
       return [];
     }
     const excludeIds = Cards.extractIds(keepBoons);
-    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
+    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets()
+                              .filter((set) => !IgnoreSetIdRandomize.has(set.setId)));
     const boons = Cards.getAllBoons(cards).filter(Cards.filterByExcludedIds(excludeIds));
     return selectRandomN(boons, 3 - excludeIds.length).concat(keepBoons);
+  }
+
+  static getRandomBaneSupply(actualsupply: Supply, keepBanes: SupplyCard[], randomizerOptions: RandomizerOptions): Supply {
+    if (!actualsupply.supplyCards.some((s) => s.id == "cornucopia_youngwitch")) {
+      return Supply.empty();
+    }
+    if (keepBanes.length) {
+      return new Supply(keepBanes, Replacements.empty());
+    }
+    const allSupplyCards =
+        Cards.getAllSupplyCards(
+                    Cards.getAllCardsFromSets(DominionSets.getAllSets())
+                                .filter((set) => !IgnoreSetIdRandomize.has(set.setId)))
+             .filter(Cards.filterByIncludedSetIds(randomizerOptions.setIds))
+             .filter(Cards.filterByExcludedIds(actualsupply.getIds()));
+    const allSupplyCardsToUse =
+          this.removeDuplicateCards(
+                 allSupplyCards.filter(
+                        Cards.filterByIncludedSetIds(randomizerOptions.setIds)), []);
+    const supplyBuilder = new SupplyBuilder(allSupplyCardsToUse);
+
+    return this.buildSupplyWithRetries(supplyBuilder, [], NUM_BANE_CARDS_IN_KINGDOM);
   }
 
   static getMetadata(setIds: SetId[]) {
@@ -290,11 +322,13 @@ export class Randomizer {
     return supplyBuilder;
   }
 
-  private static buildSupplyWithRetries(supplyBuilder: SupplyBuilder, existingCards: SupplyCard[]) {
+  private static buildSupplyWithRetries(supplyBuilder: SupplyBuilder, 
+                                        existingCards: SupplyCard[], 
+                                        nbCardstoGet = NUM_CARDS_IN_KINGDOM) {
     let retries = MAX_RETRIES;
     while (retries > 0) {
       try {
-        return supplyBuilder.createSupply(existingCards)
+        return supplyBuilder.createSupply(existingCards, nbCardstoGet)
       } catch (error) {
         console.log(`Error when trying to select cards: \n${error.toString()}`);
         retries -= 1;

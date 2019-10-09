@@ -5,6 +5,7 @@ export class DominionKingdom {
     readonly name: string,
     readonly setIds: SetId[],
     readonly supplyIds: string[],
+    readonly baneCardId: string,
     readonly eventIds: string[],
     readonly landmarkIds: string[],
     readonly projectIds: string[],
@@ -17,6 +18,7 @@ export class DominionKingdom {
         json["name"],
         json["sets"],
         json["supply"] || [],
+        json["baneCard"] || "",
         json["events"] || [],
         json["landmarks"] || [],
         json["projects"] || [],
@@ -26,7 +28,10 @@ export class DominionKingdom {
 }
 
 export class Metadata {
-  constructor(readonly useColonies: boolean, readonly useShelters: boolean) {
+  constructor(
+    readonly useColonies: boolean,
+    readonly useShelters: boolean
+  ) {
   }
 
   public static fromJson(json: any | null) {

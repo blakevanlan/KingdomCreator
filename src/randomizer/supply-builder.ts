@@ -10,6 +10,9 @@ import {Supply, Replacements} from "./supply";
 import {getRandomInt} from "../utils/rand";
 import { SupplyDivisions } from "./supply-divisions";
 
+const NUM_CARDS_IN_KINGDOM = 10;
+
+
 export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];
   private requirements: SupplyRequirement[] = [];
@@ -34,8 +37,8 @@ export class SupplyBuilder {
     this.corrections.push(correction);
   }
 
-  createUnfilledDivisions(existingCards: SupplyCard[]): SupplyDivision[] {
-    let division = new SupplyDivision(this.cards, [], [], 10, new Map());
+  createUnfilledDivisions(existingCards: SupplyCard[], numCards = NUM_CARDS_IN_KINGDOM): SupplyDivision[] {
+    let division = new SupplyDivision(this.cards, [], [], numCards, new Map());
     division = this.prepareDivisionForBanning(division, existingCards);
     division = SupplyDivisions.applyBans(division, this.bans);
     division = this.addExistingCardsAsAvailable(division, existingCards);
@@ -44,8 +47,8 @@ export class SupplyBuilder {
     return divisions;
   }
 
-  createSupply(existingCards: SupplyCard[]) {
-    let divisions = this.createUnfilledDivisions(existingCards);
+  createSupply(existingCards: SupplyCard[], numCards = NUM_CARDS_IN_KINGDOM) {
+    let divisions = this.createUnfilledDivisions(existingCards, numCards);
     divisions = this.applyRequirements(divisions);
     divisions = SupplyDivisions.applyCorrections(divisions, this.corrections);
     divisions = SupplyDivisions.fillDivisions(divisions);
