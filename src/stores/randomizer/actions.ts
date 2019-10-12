@@ -4,21 +4,20 @@ import {
   RANDOMIZE_FULL_KINGDOM,
   UNSELECT_CARD,
   SELECT_CARD,
-  ReplaceSupplyCardParams,
   RandomizeSupplyCardParams,
 } from "./action-types";
 import { EventTracker } from "../../analytics/event-tracker";
 import { EventType } from "../../analytics/event-tracker";
 import { State } from "./randomizer-store";
-import { deserializeKingdom } from "../../randomizer/serializer";
+import {deserializeKingdom} from "../../randomizer/serializer";
 import { ActionContext } from "vuex";
 import { CardType } from "../../dominion/card-type";
-import { RandomizerOptions, RandomizerOptionsBuilder } from "../../randomizer/randomizer-options";
+import { RandomizerOptionsBuilder } from "../../randomizer/randomizer-options";
 import { Cards } from "../../utils/cards";
 import { Randomizer } from "../../randomizer/randomizer";
 import { Kingdom } from "../../randomizer/kingdom";
 import { Card } from "../../dominion/card";
-import { Supply, Replacements } from "../../randomizer/supply";
+import { Supply } from "../../randomizer/supply";
 import { DominionSets } from "../../dominion/dominion-sets";
 import { SupplyCard } from "../../dominion/supply-card";
 import { SelectionParams } from "./selection";
@@ -31,7 +30,6 @@ interface Context extends ActionContext<State, any> {}
 
 export const actions = {
   LOAD_INITIAL_KINGDOM(context: Context) {
-
     const kingdomFromUrl = deserializeKingdom(location.search);
     if (kingdomFromUrl) {
       // Use the kingdom as-is if it contains 10 supply cards.
@@ -52,14 +50,8 @@ export const actions = {
       if (supply) {
         EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
         const kingdom = new Kingdom(
-            Date.now(),                     /* id: number,  */
-            supply,                         /* supply: Supply, */
-            kingdomFromUrl.banesupply,      /* Banesupply: Supply, */
-            kingdomFromUrl.events,          /* events: Event[], */
-            kingdomFromUrl.landmarks,       /* landmarks: Landmark[], */
-            kingdomFromUrl.projects,        /* projects: Project[], */
-            kingdomFromUrl.boons,           /* boons: Boon[], */
-            kingdomFromUrl.metadata);       /* metadata: Metadata */
+            Date.now(), supply, kingdomFromUrl.events, kingdomFromUrl.landmarks,
+            kingdomFromUrl.projects, kingdomFromUrl.boons, kingdomFromUrl.metadata);
         context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
         return;
@@ -77,19 +69,11 @@ export const actions = {
       context.dispatch(RANDOMIZE_FULL_KINGDOM);
       return;
     }
-
-    const selectedCards = getSelectedSupplyCards(context);
+    debugger
+    const selectedCards = getSelectedSupplyCards(context);    
     const oldSupply = context.state.kingdom.supply;
-
-    const randomizerOptions = createRandomizerOptionsBuilder(context)
-      .setSetIds(getSelectedSetIds(context))
-      .setIncludeCardIds(getUnselectedSupplyCards(context).map((card) => card.id))
-      .setExcludeCardIds(getSelectedSupplyCards(context).map((card) => card.id))
-      .setExcludeTypes(getExcludeTypes(context))
-      .build();
-
     const newSupply = selectedCards.length 
-        ? randomizeSelectedCards(context, randomizerOptions) || oldSupply
+        ? randomizeSelectedCards(context) || oldSupply
         : oldSupply;
 
     const isAddonSelected = 
@@ -107,18 +91,10 @@ export const actions = {
         ? Cards.getAllProjects(newAddons).concat(getUnselectedProjects(context))
         : context.state.kingdom.projects;
     const newBoons = randomizeSelectedBoons(context, newSupply);
-    const newBaneSupply = randomizeSelectedBaneSupply(context, newSupply, randomizerOptions);
-
+        
     const kingdom = new Kingdom(
-            context.state.kingdom.id,             /* id: number,  */
-            newSupply,                            /* supply: Supply, */
-            newBaneSupply,                        /* Banesupply: Supply, */
-            newEvents,                            /* events: Event[], */
-            newLandmarks,                         /* landmarks: Landmark[], */
-            newProjects,                          /* projects: Project[], */
-            newBoons,                             /* boons: Boon[], */
-            context.state.kingdom.metadata);      /* metadata: Metadata */
-
+      context.state.kingdom.id, newSupply, newEvents, newLandmarks, newProjects,
+      newBoons, context.state.kingdom.metadata);
     context.commit(CLEAR_SELECTION);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
@@ -128,11 +104,13 @@ export const actions = {
     if (!setIds.length) {
       return;
     }
+
     const options = createRandomizerOptionsBuilder(context)
       .setSetIds(setIds)
       .setExcludeCardIds(getCardsToExclude(context))
       .setExcludeTypes(getExcludeTypes(context))
       .build();
+
     try {
       const kingdom = Randomizer.createKingdom(options);
       context.commit(CLEAR_SELECTION);
@@ -178,20 +156,13 @@ export const actions = {
         .setRequireTrashing(randomizerSettings.requireTrashing)
         .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
     }
-    const randomizerOptions = optionsBuilder.build()
-    const supply = Randomizer.createSupplySafe(randomizerOptions);
+    
+    const supply = Randomizer.createSupplySafe(optionsBuilder.build());
     if (supply) {
       const oldKingdom = context.state.kingdom;
       const kingdom = new Kingdom(
-              oldKingdom.id,                                  /* id: number,  */
-              supply,                                         /* supply: Supply, */
-              randomizeSelectedBaneSupply(context, supply, 
-                                randomizerOptions),           /* Banesupply: Supply, */
-              oldKingdom.events,                              /* events: Event[], */
-              oldKingdom.landmarks,                           /* landmarks: Landmark[], */
-              oldKingdom.projects,                            /* projects: Project[], */
-              randomizeSelectedBoons(context, supply, ),        /* boons: Boon[], */
-              oldKingdom.metadata);                           /* metadata: Metadata */
+        oldKingdom.id, supply, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
+        randomizeSelectedBoons(context, supply), oldKingdom.metadata);
       context.commit(CLEAR_SELECTION);
       context.commit(UPDATE_KINGDOM, kingdom);
       EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE);
@@ -203,37 +174,13 @@ export const actions = {
   RANDOMIZE_UNDEFINED_ADDON(context: Context) {
     const addons = randomizeUndefinedAddon(context).concat(getAddons(context));        
     const kingdom = new Kingdom(
-            context.state.kingdom.id,                  /* id: number,  */
-            context.state.kingdom.supply,              /* supply: Supply, */
-            context.state.kingdom.banesupply,          /* Banesupply: Supply, */
-            Cards.getAllEvents(addons),                /* events: Event[], */
-            Cards.getAllLandmarks(addons),             /* landmarks: Landmark[], */
-            Cards.getAllProjects(addons),              /* projects: Project[], */
-            context.state.kingdom.boons,               /* boons: Boon[], */
-            context.state.kingdom.metadata);           /* metadata: Metadata */
-    context.commit(UPDATE_KINGDOM, kingdom);
-  },
-
-  REPLACE_SUPPLY_CARD(context: Context, params: ReplaceSupplyCardParams) {
-    const optionsBuilder = new RandomizerOptionsBuilder();
-    const supply = context.state.kingdom.supply;
-    const replacements = Replacements.createReplacementByRemoveCards(
-        supply.replacements.replacements, [params.newSupplyCard.id]);
-    const newSupplyCards = supply.supplyCards
-        .filter(Cards.filterByExcludedIds([params.currentSupplyCard.id]))
-        .concat([params.newSupplyCard]);
-    const newSupply = new Supply(newSupplyCards, new Replacements(replacements));
-    const kingdom = new Kingdom(
-      context.state.kingdom.id,                          /* id: number,  */
-      newSupply,                                         /* supply: Supply, */
-      randomizeSelectedBaneSupply(context, newSupply, 
-                              optionsBuilder.build()),   /* Banesupply: Supply, */
-      context.state.kingdom.events,                      /* events: Event[], */
-      context.state.kingdom.landmarks,                   /* landmarks: Landmark[], */
-      context.state.kingdom.projects,                    /* projects: Project[], */
-      randomizeSelectedBoons(context, newSupply),        /* boons: Boon[], */
-      context.state.kingdom.metadata);                   /* metadata: Metadata */
-    context.commit(CLEAR_SELECTION);
+      context.state.kingdom.id,
+      context.state.kingdom.supply,
+      Cards.getAllEvents(addons),
+      Cards.getAllLandmarks(addons),
+      Cards.getAllProjects(addons),
+      context.state.kingdom.boons,
+      context.state.kingdom.metadata);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
 
@@ -248,21 +195,10 @@ export const actions = {
     }
     const selection = context.state.selection;
     const card = DominionSets.getCardById(id);
-
     if (card instanceof SupplyCard) {
-      let banecard_id = ""
-      if (context.state.kingdom.banesupply.supplyCards.length) {
-        banecard_id = context.state.kingdom.banesupply.supplyCards[0].id;
-      }
-      if (banecard_id == id) {
-        context.commit(UPDATE_SELECTION, {
-              selectedbaneSupplyIds: selection.selectedbaneSupplyIds.concat([id])
-              } as SelectionParams);
-      } else {
-        context.commit(UPDATE_SELECTION, {
-              selectedSupplyIds: selection.selectedSupplyIds.concat([id])
-              } as SelectionParams);
-      }
+      context.commit(UPDATE_SELECTION, {
+        selectedSupplyIds: selection.selectedSupplyIds.concat([id])
+      } as SelectionParams);
     } else if (card instanceof Boon) {
       context.commit(UPDATE_SELECTION, {
         selectedBoonIds: selection.selectedBoonIds.concat([id])
@@ -282,19 +218,9 @@ export const actions = {
     const card = DominionSets.getCardById(id);
     const filterFn = (existingId: string) => existingId != id;
     if (card instanceof SupplyCard) {
-      let banecard_id = ""
-      if (context.state.kingdom.banesupply.supplyCards.length) {
-        banecard_id = context.state.kingdom.banesupply.supplyCards[0].id;
-      }
-      if (banecard_id == id) {
-        context.commit(UPDATE_SELECTION, {
-              selectedbaneSupplyIds: selection.selectedbaneSupplyIds.filter(filterFn)
-              } as SelectionParams);
-      } else {
-        context.commit(UPDATE_SELECTION, {
-              selectedSupplyIds: selection.selectedSupplyIds.filter(filterFn)
-              } as SelectionParams);
-      }
+      context.commit(UPDATE_SELECTION, {
+        selectedSupplyIds: selection.selectedSupplyIds.filter(filterFn)
+      } as SelectionParams);
     } else if (card instanceof Boon) {
       context.commit(UPDATE_SELECTION, {
         selectedBoonIds: selection.selectedBoonIds.filter(filterFn)
@@ -307,8 +233,23 @@ export const actions = {
   }
 }
 
-function randomizeSelectedCards(context: Context, randomizerOptions: RandomizerOptions): Supply | null {
-  const supply = Randomizer.createSupplySafe(randomizerOptions);
+function randomizeSelectedCards(context: Context): Supply | null {
+  const excludeCardIds = getSelectedSupplyCards(context).map((card) => card.id);
+  const isBaneSelected = isBaneCardSelected(context);
+  if (isBaneSelected) {
+    excludeCardIds.push(context.state.kingdom.supply.baneCard!.id);
+  }
+
+  const optionsBuilder = createRandomizerOptionsBuilder(context)
+      .setSetIds(getSelectedSetIds(context))
+      .setIncludeCardIds(getUnselectedSupplyCards(context).map((card) => card.id))
+      .setExcludeCardIds(excludeCardIds)
+      .setExcludeTypes(getExcludeTypes(context))
+
+  if (!isBaneSelected && context.state.kingdom.supply.baneCard) {
+    optionsBuilder.setBaneCardId(context.state.kingdom.supply.baneCard!.id)
+  }
+  const supply = Randomizer.createSupplySafe(optionsBuilder.build());
   if (supply) {
     EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE);
   } else {
@@ -339,21 +280,9 @@ function randomizeSelectedBoons(context: Context, supply: Supply) {
   return Randomizer.getRandomBoons(supply, getUnselectedBoons(context));
 }
 
-function randomizeSelectedBaneSupply(
-                    context: Context, supply: Supply, 
-                    randomizerOptions: RandomizerOptions) {
-  if (getSelectedBaneSupply(context).length) {
-    EventTracker.trackEvent(EventType.RANDOMIZE_BANE);
-  }
-  return Randomizer.getRandomBaneSupply(supply, 
-                        getUnselectedBaneSupply(context), 
-                        randomizerOptions
-                    );
-}
-
 function createRandomizerOptionsBuilder(context: Context) {
   const randomizerSettings = context.state.settings.randomizerSettings;
-  return  new RandomizerOptionsBuilder()
+  return new RandomizerOptionsBuilder()
       .setRequireActionProvider(randomizerSettings.requireActionProvider)
       .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
       .setRequireTrashing(randomizerSettings.requireTrashing)
@@ -392,7 +321,7 @@ function getExcludeTypes(context: Context): CardType[] {
 }
 
 function getSelectedSupplyCards(context: Context) {
-  return getSelected(context, context.state.kingdom.supply.supplyCards);
+  return getSelected(context, context.state.kingdom.supply.getSupplyCardsWithBane());
 }
 
 function getUnselectedSupplyCards(context: Context) {
@@ -415,16 +344,6 @@ function getSelectedProjects(context: Context) {
 
 function getSelectedBoons(context: Context) {
   return getSelected(context, context.state.kingdom.boons);
-}
-
-function getSelectedBaneSupply(context: Context) {
-  return getSelected(context, context.state.kingdom.banesupply.supplyCards);
-}
-
-function getUnselectedBaneSupply(context: Context) {
-  const selection = context.state.selection;
-  const cards = context.state.kingdom.banesupply.supplyCards;
-  return cards.filter((card) => !selection.contains(card.id));
 }
 
 function getSelected<T extends Card>(context: Context, cards: T[]) {
@@ -451,4 +370,10 @@ function getUnselectedBoons(context: Context) {
 function getUnselected<T extends Card>(context: Context, cards: T[]) {
   const selection = context.state.selection;
   return cards.filter((card) => !selection.contains(card.id));
+}
+
+function isBaneCardSelected(context: Context) {
+  const selection = context.state.selection;
+  const baneCard = context.state.kingdom.supply.baneCard;
+  return Boolean(baneCard && selection.contains(baneCard.id));
 }

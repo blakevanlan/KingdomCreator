@@ -1,7 +1,6 @@
 <template>
-<div>
-  <card-layout-component
-    :items="supplyCards"
+  <grid-layout-component
+    :items="supplyCardsWithBane"
     :number-of-columns="numberOfColumns"
     :is-vertical="true"
     class="sortable-supply-cards"
@@ -12,39 +11,16 @@
         @front-visible="handleSupplyCardFrontVisible"
         @flipping-to-back="handleSupplyCardFlippingToBack"
       >
-        <div class="standard-button standard-button--is-primary standard-button--light-border"
+        <div 
+          v-if="isNotBane(slotProps.item)"
+          class="standard-button standard-button--is-primary standard-button--light-border"
           @click.stop="handleSpecify(slotProps.item)"
         >
           Specify
         </div>
       </flipping-card-component>
     </template>
-  </card-layout-component>
-
-  <div v-if="this.kingdom.banesupply.supplyCards.length">
-    <div class="addons-header">
-        {{titleForExtras}}</div>
-    <card-layout-component
-      :items="this.kingdom.banesupply.supplyCards"
-      :number-of-columns="numberOfColumns"
-      :is-vertical="true"
-      shape="card"
-    >
-      <template v-slot:default="slotProps">
-        <flipping-card-component :card="slotProps.item" :is-vertical="true"
-        @front-visible="handleSupplyCardFrontVisible"
-        @flipping-to-back="handleSupplyCardFlippingToBack"
-      >
-        <div class="standard-button standard-button--is-primary standard-button--light-border"
-          @click.stop="handleSpecify(slotProps.item)"
-        >
-          Specify
-        </div>
-      </flipping-card-component>
-      </template>
-    </card-layout-component>
-  </div>
-</div>
+  </grid-layout-component>
 </template>
 
 <script lang="ts">
@@ -59,9 +35,8 @@ import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
-import { REPLACE_SUPPLY_CARD, ReplaceSupplyCardParams } from "../stores/randomizer/action-types";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
-import CardLayoutComponent from "./card-layout.vue";
+import GridLayoutComponent from "./grid-layout.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
@@ -76,7 +51,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   constructor() {
     super({
       components: {
-        "card-layout-component": CardLayoutComponent,
+        "grid-layout-component": GridLayoutComponent,
         "flipping-card-component": FlippingCardComponent
       }
     });
@@ -106,8 +81,12 @@ export default class SortableSupplyCardsComponent extends Vue {
     return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4
   }
 
-  get titleForExtras() {
-    return "Extra Cards : Bane Card";
+  get supplyCardsWithBane() {
+    const cards = this.supplyCards.concat();
+    if (this.kingdom.supply.baneCard) {
+      cards.push(this.kingdom.supply.baneCard);
+    }
+    return cards;
   }
 
   @Watch("kingdom")
@@ -134,6 +113,11 @@ export default class SortableSupplyCardsComponent extends Vue {
     this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
   }
 
+  isNotBane(supplyCard: SupplyCard) {
+    return !this.kingdom.supply.baneCard ||
+      this.kingdom.supply.baneCard.id != supplyCard.id;
+  }
+
   handleSpecify(supplyCard: SupplyCard) {
     this.$store.commit(UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD, supplyCard);
   }
@@ -149,14 +133,6 @@ export default class SortableSupplyCardsComponent extends Vue {
 
   handleReplace(supplyCard: SupplyCard) {
     this.replacingCard = supplyCard;
-  }
-
-  handleReplaceWithSupplyCard(supplyCard: SupplyCard) {
-    this.$store.dispatch(REPLACE_SUPPLY_CARD, {
-      currentSupplyCard: this.replacingCard,
-      newSupplyCard: supplyCard
-    } as ReplaceSupplyCardParams);
-    this.replacingCard = null;
   }
 
   private updateActiveSupplyCards() {
@@ -258,7 +234,7 @@ export default class SortableSupplyCardsComponent extends Vue {
   }
 
   private getSupplyCardContainers() {
-    return this.$el.querySelectorAll(".card-layout_card") as NodeListOf<HTMLElement>;
+    return this.$el.querySelectorAll(".grid-layout_item") as NodeListOf<HTMLElement>;
   }
 
   private getElementIndex(visualIndex: number) {

@@ -4,19 +4,20 @@ import { Cards } from "../utils/cards";
 export class Supply {
   constructor(
       readonly supplyCards: SupplyCard[],
+      readonly baneCard: SupplyCard | null,
       readonly replacements: Replacements) {
   }
-  
-  getIds() {
-    let Ids = [];
-    for (var current_sCard of this.supplyCards) { 
-      Ids.push(current_sCard.id);
+
+  getSupplyCardsWithBane() {
+    const cards = this.supplyCards;
+    if (this.baneCard) {
+      cards.push(this.baneCard);
     }
-    return Ids;
+    return cards;
   }
 
   static empty() {
-    return new Supply([], Replacements.empty());
+    return new Supply([], null, Replacements.empty());
   }
 }
 

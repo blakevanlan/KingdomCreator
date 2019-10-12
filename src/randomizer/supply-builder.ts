@@ -7,17 +7,20 @@ import {SupplyDivider} from "./supply-divider";
 import {SupplyDivision} from "./supply-division";
 import {SupplyRequirement} from "./supply-requirement";
 import {Supply, Replacements} from "./supply";
-import {getRandomInt} from "../utils/rand";
+import {getRandomInt, selectRandom} from "../utils/rand";
 import { SupplyDivisions } from "./supply-divisions";
 
 const NUM_CARDS_IN_KINGDOM = 10;
-
+const YOUNG_WITCH_ID = "cornucopia_youngwitch";
+const BANE_MIN_COST = 2;
+const BANE_MAX_COST = 3;
 
 export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];
   private requirements: SupplyRequirement[] = [];
   private bans: SupplyBan[] = [];
   private corrections: SupplyCorrection[] = [];
+  private forceBaneCard: SupplyCard | null = null;
   constructor(private readonly cards: SupplyCard[]) {
   }
 
@@ -37,6 +40,10 @@ export class SupplyBuilder {
     this.corrections.push(correction);
   }
 
+  setBaneCard(baneCard: SupplyCard) {
+    this.forceBaneCard = baneCard;
+  }
+
   createUnfilledDivisions(existingCards: SupplyCard[], numCards = NUM_CARDS_IN_KINGDOM): SupplyDivision[] {
     let division = new SupplyDivision(this.cards, [], [], numCards, new Map());
     division = this.prepareDivisionForBanning(division, existingCards);
@@ -52,7 +59,9 @@ export class SupplyBuilder {
     divisions = this.applyRequirements(divisions);
     divisions = SupplyDivisions.applyCorrections(divisions, this.corrections);
     divisions = SupplyDivisions.fillDivisions(divisions);
-    return this.gatherCardsIntoSupply(divisions);
+    debugger
+    const baneCard = this.selectBaneCard(divisions);
+    return this.gatherCardsIntoSupply(divisions, baneCard);
   }
 
   clone() {
@@ -155,7 +164,34 @@ export class SupplyBuilder {
     return divisions;
   }
 
-  private gatherCardsIntoSupply(divisions: SupplyDivision[]) {
+  private selectBaneCard(divisions: SupplyDivision[]) {
+    if (!this.requiresBaneCard(divisions)) {
+      return null;
+    }
+    if (this.forceBaneCard) {
+      return this.forceBaneCard;
+    }
+    const availableCards = 
+      SupplyDivisions
+        .getAvailableCards(divisions)
+        .filter(card => {
+          return card.cost.debt == 0 &&
+            card.cost.potion == 0 &&
+            card.cost.treasure <= BANE_MAX_COST &&
+            card.cost.treasure >= BANE_MIN_COST;
+        });
+    if (!availableCards.length) {
+      return null;
+    }
+    return selectRandom(availableCards);
+  }
+
+  private requiresBaneCard(divisions: SupplyDivision[]) {
+    const supplyCards = SupplyDivisions.getLockedAndSelectedCards(divisions);
+    return supplyCards.some(s => s.id == YOUNG_WITCH_ID);
+  }
+
+  private gatherCardsIntoSupply(divisions: SupplyDivision[], baneCard: SupplyCard | null) {
     const replacements: Map<string, SupplyCard[]> = new Map();
     let cards: SupplyCard[] = [];
     for (let division of divisions) {
@@ -164,7 +200,7 @@ export class SupplyBuilder {
         replacements.set(card.id, division.getReplacements(card.id));
       }
     }
-    return new Supply(cards, new Replacements(replacements));
+    return new Supply(cards, baneCard, new Replacements(replacements));
   }
 
   private orderRequirementsForDivisions(divisions: SupplyDivision[]): SupplyRequirement[] {

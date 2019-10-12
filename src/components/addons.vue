@@ -3,7 +3,7 @@
     <div class="addons-header">
       {{ addonSummary }}  
     </div>
-    <card-layout-component
+    <grid-layout-component
         :class="{'addon--is-enlarged': isEnlarged}"
         :items="activeContainers"
         :number-of-columns="numberOfColumns"
@@ -16,7 +16,7 @@
           :is-vertical="false"
         />
       </template>
-    </card-layout-component>
+    </grid-layout-component>
   </div>
 </template>
 

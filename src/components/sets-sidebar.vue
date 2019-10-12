@@ -19,14 +19,16 @@
 import { UPDATE_SELECTED_SET } from "../stores/sets-store-mutation-types";
 import { DominionSets } from "../dominion/dominion-sets";
 import { State } from "../stores/sets-store";
-import { SetId, IgnoreSetIdKingdoms } from "../dominion/set-id";
+import { SetId } from "../dominion/set-id";
 import { Vue, Component } from "vue-property-decorator";
 
+const SETS_TO_IGNORE =	
+    new Set([SetId.BASE_SET_2, SetId.INTRIGUE_2, SetId.PROMOS]);
 
 @Component
 export default class SetsSidebar extends Vue {
   get sets() {
-    return DominionSets.getAllSets().filter((set) => !IgnoreSetIdKingdoms.has(set.setId));
+    return DominionSets.getAllSets().filter((set) => !SETS_TO_IGNORE.has(set.setId));
   }
 
   get selectedSetId() {

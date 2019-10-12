@@ -1,6 +1,6 @@
 import Vue from "vue";
 import PageComponent, { MenuItemType } from "./components/page.vue";
-import PresetRulesComponent from "./components/preset-rules.vue";
+import RulebooksComponent from "./components/rulebooks.vue";
 import { initializeWindowListener } from "./setup";
 import { store } from "./stores/sets-store";
 
@@ -12,7 +12,7 @@ new Vue({
   template: `
   <page-component :subtitle="subtitle" :selectedType="selectedType">
       <div class="content main">
-      <preset-rules-component />
+      <rulebooks-component />
     </div>
   </page-component>
   `,
@@ -23,6 +23,6 @@ new Vue({
   },
   components: {
     "page-component": PageComponent,
-    "preset-rules-component": PresetRulesComponent
+    "rulebooks-component": RulebooksComponent
   }
 });

@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <card-layout-component
+    <grid-layout-component
       :items="getCards(kingdom.supplyIds)"
       :number-of-columns="numberOfColumnsForSupplyCards"
       :is-vertical="true"
@@ -26,13 +26,13 @@
       <template v-slot:default="slotProps">
         <static-card-with-set-component :card="slotProps.item" />
       </template>
-    </card-layout-component>
+    </grid-layout-component>
 
     <div v-if="titleForAddons.length">
       <div class="preset-kingdom__addon-title">
         {{titleForAddons}}
       </div>
-      <card-layout-component
+      <grid-layout-component
         :items="getCards(addonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
@@ -40,12 +40,12 @@
         <template v-slot:default="slotProps">
           <static-card-with-set-component :card="slotProps.item" />
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </div>
         
     <div v-if="kingdom.boonIds.length">
       <div class="preset-kingdom__addon-title">Boons</div>
-      <card-layout-component
+      <grid-layout-component
         :items="getCards(kingdom.boonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
@@ -53,18 +53,17 @@
         <template v-slot:default="slotProps">
           <static-card-with-set-component :card="slotProps.item" />
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import CardLayoutComponent from "./card-layout.vue";
+import GridLayoutComponent from "./grid-layout.vue";
 import { DominionKingdom } from "../dominion/dominion-kingdom";
 import { DominionSets } from "../dominion/dominion-sets";
 import { State } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
-//import { getCardImageUrl } from "../utils/images";
 import { getMessageForAddonsDescription } from "../utils/messages";
 import StaticCardWithSetComponent from "./static-card-with-set.vue";
 
@@ -76,7 +75,7 @@ export default class PresetKingdom extends Vue {
   constructor() {
     super({
       components: {
-        "card-layout-component": CardLayoutComponent,
+        "grid-layout-component": GridLayoutComponent,
         "static-card-with-set-component": StaticCardWithSetComponent,
       }
     });
@@ -115,8 +114,6 @@ export default class PresetKingdom extends Vue {
   getCards(cardIds: string[]) {
     return cardIds.map(DominionSets.getCardById);
   }
-
-//  getCardImageUrl = getCardImageUrl;
 }
 </script>
 

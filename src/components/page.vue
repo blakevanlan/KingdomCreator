@@ -32,7 +32,7 @@
       <footer>
         <div class="github-info">
           Source is on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
-          Feature requests and complains go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
+          Feature requests and complaints go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
         </div>
         <div class="disclaimers-and-credit">
           Dominion is by Donald X. Vaccarino and published by Rio Grande Games.

@@ -16,7 +16,8 @@ export class RandomizerOptions {
     readonly requireReactionIfAttacks: boolean,
     readonly requireTrashing: boolean,
     readonly distributeCost: boolean,
-    readonly prioritizeSet: SetId | null) {
+    readonly prioritizeSet: SetId | null,
+    readonly baneCardId: string | null) {
   }
 }
 
@@ -34,6 +35,7 @@ export class RandomizerOptionsBuilder {
   requireTrashing: boolean = false;
   distributeCost: boolean = false;
   prioritizeSet: SetId | null = null;
+  baneCardId: string | null = null;
 
   setSetIds(setIds: SetId[]) {
     this.setIds = setIds;
@@ -101,6 +103,11 @@ export class RandomizerOptionsBuilder {
     return this;
   }
 
+  setBaneCardId(baneCardId: string | null) {
+    this.baneCardId = baneCardId;
+    return this;
+  }
+
   build() {
     return new RandomizerOptions(
         this.setIds,
@@ -115,6 +122,7 @@ export class RandomizerOptionsBuilder {
         this.requireReactionIfAttacks,
         this.requireTrashing,
         this.distributeCost,
-        this.prioritizeSet);
+        this.prioritizeSet,
+        this.baneCardId);
   }
 }

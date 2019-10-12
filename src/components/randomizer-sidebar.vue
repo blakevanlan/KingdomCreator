@@ -96,7 +96,7 @@ import { UPDATE_SETTINGS } from "../stores/randomizer/mutation-types";
 // import { DominionSet } from "../dominion/dominion-set";
 import { DominionSets } from "../dominion/dominion-sets";
 import { Getter, State } from "vuex-class";
-import { SetId, IgnoreSetIdRandomize } from "../dominion/set-id";
+import { SetId } from "../dominion/set-id";
 import { Vue, Component } from "vue-property-decorator";
 import { Settings, SettingsParams, SortOption } from "../settings/settings";
 import { RandomizerSettings, RandomizerSettingsParams } from "../settings/randomizer-settings";
@@ -117,16 +117,16 @@ export default class RandomizerSidebar extends Vue {
       readonly randomizerSettings!: RandomizerSettings;
 
   get sets() {
-    return DominionSets.getAllSets().filter((set) => !IgnoreSetIdRandomize.has(set.setId));
+    return DominionSets.getAllSets();
   }
 
   get selectedSetIds() {
     return this.settings.selectedSets;
   }
   set selectedSetIds(values: string[]) {
-    if (!values.some(x => x==this.prioritizeSet)) {
-      const setId = null;
-      this.updateRandomizerSettings({prioritizeSet: setId});
+    // Clear the prioritized set if it's no longer selected.
+    if (!values.some(x => x == this.prioritizeSet)) {
+      this.updateRandomizerSettings({prioritizeSet: null});
     }
     this.$store.commit(UPDATE_SETTINGS, {
       selectedSets: values.map(DominionSets.convertToSetId)
