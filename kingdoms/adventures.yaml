@@ -222,7 +222,7 @@ kingdoms:
     events:
       - adventures_event_ferry 
       - adventures_event_seaway 
-    baneCard: adventures_guide
+    bane: adventures_guide
 
   - name: Traders and Raiders
     sets:

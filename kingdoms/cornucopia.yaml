@@ -46,7 +46,7 @@ kingdoms:
       - baseset_market
       - baseset_remodel
       - baseset_workshop
-    baneCard: baseset_chancellor
+    bane: baseset_chancellor
 
   - name: Last Laughs
     sets:

@@ -1,0 +1,521 @@
+kingdoms:
+  - name: First Game
+    sets:
+      - baseset2
+    supply:
+      - baseset2_cellar
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_militia
+      - baseset2_mine
+      - baseset2_moat
+      - baseset2_remodel
+      - baseset2_smithy
+      - baseset2_village
+      - baseset2_workshop
+
+  - name: Size Distortion
+    sets:
+      - baseset2
+    supply:
+      - baseset2_artisan
+      - baseset2_bandit
+      - baseset2_bureaucrat
+      - baseset2_chapel
+      - baseset2_festival
+      - baseset2_gardens
+      - baseset2_sentry
+      - baseset2_throneroom
+      - baseset2_witch
+      - baseset2_workshop
+
+  - name: Deck Top
+    sets:
+      - baseset2
+    supply:
+      - baseset2_artisan
+      - baseset2_bureaucrat
+      - baseset2_councilroom
+      - baseset2_festival
+      - baseset2_harbinger
+      - baseset2_laboratory
+      - baseset2_moneylender
+      - baseset2_sentry
+      - baseset2_vassal
+      - baseset2_village
+
+  - name: Sleight of Hand
+    sets:
+      - baseset2
+    supply:
+      - baseset2_cellar
+      - baseset2_councilroom
+      - baseset2_festival
+      - baseset2_gardens
+      - baseset2_harbinger
+      - baseset2_library
+      - baseset2_militia
+      - baseset2_poacher
+      - baseset2_smithy
+      - baseset2_throneroom
+
+  - name: Improvements
+    sets:
+      - baseset2
+    supply:
+      - baseset2_artisan
+      - baseset2_cellar
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_mine
+      - baseset2_moat
+      - baseset2_moneylender
+      - baseset2_poacher
+      - baseset2_remodel
+      - baseset2_witch
+
+  - name: Silver & Gold
+    sets:
+      - baseset2
+    supply:
+      - baseset2_bandit
+      - baseset2_bureaucrat
+      - baseset2_chapel
+      - baseset2_harbinger
+      - baseset2_laboratory
+      - baseset2_merchant
+      - baseset2_mine
+      - baseset2_moneylender
+      - baseset2_throneroom
+      - baseset2_vassal
+
+  - name: Underlings
+    sets:
+      - baseset2
+      - intrigue2
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_library
+      - baseset2_sentry
+      - baseset2_vassal
+      - intrigue2_courtier
+      - intrigue2_diplomat
+      - intrigue2_minion
+      - intrigue2_nobles
+      - intrigue2_pawn
+
+  - name: Grand Scheme
+    sets:
+      - baseset2
+      - intrigue2
+    supply:
+      - baseset2_artisan
+      - baseset2_councilroom
+      - baseset2_market
+      - baseset2_militia
+      - baseset2_workshop
+      - intrigue2_bridge
+      - intrigue2_mill
+      - intrigue2_miningvillage
+      - intrigue2_patrol
+      - intrigue2_shantytown
+
+  - name: Deconstruction
+    sets:
+      - baseset2
+      - intrigue2
+    supply:
+      - baseset2_bandit
+      - baseset2_mine
+      - baseset2_remodel
+      - baseset2_throneroom
+      - baseset2_village
+      - intrigue2_diplomat
+      - intrigue2_harem
+      - intrigue2_lurker
+      - intrigue2_replace
+      - intrigue2_swindler
+
+  - name: Reach for Tomorrow
+    sets:
+      - baseset2
+      - seaside
+    supply:
+      - baseset2_artisan
+      - baseset2_cellar
+      - baseset2_councilroom
+      - baseset2_vassal
+      - baseset2_village
+      - seaside_cutpurse
+      - seaside_ghostship
+      - seaside_lookout
+      - seaside_seahag
+      - seaside_treasuremap
+
+  - name: Repetition
+    sets:
+      - baseset2
+      - seaside
+    supply:
+      - baseset2_festival
+      - baseset2_harbinger
+      - baseset2_militia
+      - baseset2_workshop
+      - seaside_caravan
+      - seaside_explorer
+      - seaside_outpost
+      - seaside_pearldiver
+      - seaside_pirateship
+      - seaside_treasury
+
+  - name: Give and Take
+    sets:
+      - baseset2
+      - seaside
+    supply:
+      - baseset2_library
+      - baseset2_market
+      - baseset2_moneylender
+      - baseset2_witch
+      - seaside_ambassador
+      - seaside_fishingvillage
+      - seaside_haven
+      - seaside_island
+      - seaside_salvager
+      - seaside_smugglers
+
+  - name: Forbidden Arts
+    sets:
+      - alchemy
+      - baseset2
+    supply:
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_possession
+      - alchemy_university
+      - baseset2_bandit
+      - baseset2_cellar
+      - baseset2_councilroom
+      - baseset2_gardens
+      - baseset2_laboratory
+      - baseset2_throneroom
+
+  - name: Potion Mixers
+    sets:
+      - alchemy
+      - baseset2
+    supply:
+      - alchemy_alchemist
+      - alchemy_apothecary
+      - alchemy_golem
+      - alchemy_herbalist
+      - alchemy_transmute
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_militia
+      - baseset2_poacher
+      - baseset2_smithy
+
+  - name: Chemistry Lesson
+    sets:
+      - alchemy
+      - baseset2
+    supply:
+      - alchemy_alchemist
+      - alchemy_golem
+      - alchemy_philosophersstone
+      - alchemy_university
+      - baseset2_bureaucrat
+      - baseset2_market
+      - baseset2_moat
+      - baseset2_remodel
+      - baseset2_vassal
+      - baseset2_witch
+
+  - name: Biggest Money
+    sets:
+      - baseset2
+      - prosperity
+    supply:
+      - baseset2_artisan
+      - baseset2_harbinger
+      - baseset2_laboratory
+      - baseset2_mine
+      - baseset2_moneylender
+      - prosperity_bank
+      - prosperity_grandmarket
+      - prosperity_mint
+      - prosperity_royalseal
+      - prosperity_venture
+
+  - name: The King’s Army
+    sets:
+      - baseset2
+      - prosperity
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_councilroom
+      - baseset2_merchant
+      - baseset2_moat
+      - baseset2_village
+      - prosperity_expand
+      - prosperity_goons
+      - prosperity_kingscourt
+      - prosperity_rabble
+      - prosperity_vault
+
+  - name: The Good Life
+    sets:
+      - baseset2
+      - prosperity
+    supply:
+      - baseset2_artisan
+      - baseset2_bureaucrat
+      - baseset2_cellar
+      - baseset2_gardens
+      - baseset2_village
+      - prosperity_contraband
+      - prosperity_countinghouse
+      - prosperity_hoard
+      - prosperity_monument
+      - prosperity_mountebank
+
+  - name: Bounty of the Hunt
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_militia
+      - baseset2_moneylender
+      - baseset2_smithy
+      - cornucopia_harvest
+      - cornucopia_hornofplenty
+      - cornucopia_huntingparty
+      - cornucopia_menagerie
+      - cornucopia_tournament
+
+  - name: Bad Omens
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_laboratory
+      - baseset2_merchant
+      - baseset2_poacher
+      - baseset2_throneroom
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_jester
+      - cornucopia_remake
+
+  - name: The Jester’s Workshop
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_artisan
+      - baseset2_laboratory
+      - baseset2_market
+      - baseset2_remodel
+      - baseset2_workshop
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_youngwitch
+    bane: baseset2_merchant
+
+  - name: Arts and Crafts
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_laboratory
+      - baseset2_moneylender
+      - baseset2_workshop
+      - guilds_advisor
+      - guilds_baker
+      - guilds_journeyman
+      - guilds_merchantguild
+      - guilds_stonemason
+
+  - name: Clean Living
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_bandit
+      - baseset2_gardens
+      - baseset2_militia
+      - baseset2_moneylender
+      - baseset2_village
+      - guilds_baker
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_doctor
+      - guilds_soothsayer
+
+  - name: Gilding the Lily
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_library
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_remodel
+      - baseset2_sentry
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_plaza
+      - guilds_taxman
+
+  - name: Highway Robbery
+    sets:
+      - baseset2
+      - hinterlands
+    supply:
+      - baseset2_cellar
+      - baseset2_library
+      - baseset2_moneylender
+      - baseset2_throneroom
+      - baseset2_workshop
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_margrave
+      - hinterlands_noblebrigand
+      - hinterlands_oasis
+
+  - name: Adventures Abroad
+    sets:
+      - baseset2
+      - hinterlands
+    supply:
+      - baseset2_festival
+      - baseset2_laboratory
+      - baseset2_remodel
+      - baseset2_sentry
+      - baseset2_vassal
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_foolsgold
+      - hinterlands_oracle
+      - hinterlands_spicemerchant
+
+  - name: High and Low
+    sets:
+      - baseset2
+      - darkages
+    supply:
+      - baseset2_cellar
+      - baseset2_moneylender
+      - baseset2_throneroom
+      - baseset2_witch
+      - baseset2_workshop
+      - darkages_hermit
+      - darkages_huntinggrounds
+      - darkages_mystic
+      - darkages_poorhouse
+      - darkages_wanderingminstrel
+
+  - name: Chivalry and Revelry
+    sets:
+      - baseset2
+      - darkages
+    supply:
+      - baseset2_festival
+      - baseset2_gardens
+      - baseset2_laboratory
+      - baseset2_library
+      - baseset2_remodel
+      - darkages_altar
+      - darkages_knights
+      - darkages_rats
+      - darkages_scavenger
+      - darkages_squire
+
+  - name: Level Up
+    sets:
+      - adventures
+      - baseset2
+    supply:
+      - adventures_dungeon
+      - adventures_gear
+      - adventures_guide
+      - adventures_lostcity
+      - adventures_miser
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_militia
+      - baseset2_throneroom
+      - baseset2_workshop
+    events:
+      - adventures_event_training
+
+  - name: Son of Size Distortion
+    sets:
+      - adventures
+      - baseset2
+    supply:
+      - adventures_amulet
+      - adventures_duplicate
+      - adventures_giant
+      - adventures_messenger
+      - adventures_treasuretrove
+      - baseset2_bandit
+      - baseset2_bureaucrat
+      - baseset2_gardens
+      - baseset2_moneylender
+      - baseset2_witch
+    events:
+      - adventures_event_bonfire
+      - adventures_event_raid
+
+  - name: Everything in Moderation
+    sets:
+      - baseset2
+      - empires
+    supply:
+      - baseset2_cellar
+      - baseset2_library
+      - baseset2_remodel
+      - baseset2_village
+      - baseset2_workshop
+      - empires_enchantress
+      - empires_forum
+      - empires_legionary
+      - empires_overlord
+      - empires_temple
+    landmarks:
+      - empires_landmark_orchard
+    events:
+      - empires_event_windfall
+
+  - name: Silver Bullets
+    sets:
+      - baseset2
+      - empires
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_gardens
+      - baseset2_laboratory
+      - baseset2_market
+      - baseset2_moneylender
+      - empires_catapultrocks
+      - empires_charm
+      - empires_farmersmarket
+      - empires_groundskeeper
+      - empires_patricianemporium
+    events:
+      - empires_event_conquest
+    landmarks:
+      - empires_landmark_aqueduct
+

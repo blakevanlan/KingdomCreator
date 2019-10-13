@@ -18,7 +18,7 @@ export class DominionKingdom {
         json["name"],
         json["sets"],
         json["supply"] || [],
-        json["baneCard"] || null,
+        json["bane"] || null,
         json["events"] || [],
         json["landmarks"] || [],
         json["projects"] || [],
