@@ -6,10 +6,13 @@ export class Supply {
       readonly supplyCards: SupplyCard[],
       readonly baneCard: SupplyCard | null,
       readonly replacements: Replacements) {
+    if (supplyCards.length > 10) {
+      throw new Error("Unable to create supply with more than 10 cards.");
+    }
   }
 
   getSupplyCardsWithBane() {
-    const cards = this.supplyCards;
+    const cards = this.supplyCards.concat();
     if (this.baneCard) {
       cards.push(this.baneCard);
     }

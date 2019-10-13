@@ -69,7 +69,6 @@ export const actions = {
       context.dispatch(RANDOMIZE_FULL_KINGDOM);
       return;
     }
-    debugger
     const selectedCards = getSelectedSupplyCards(context);    
     const oldSupply = context.state.kingdom.supply;
     const newSupply = selectedCards.length 

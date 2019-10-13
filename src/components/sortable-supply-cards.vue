@@ -11,12 +11,22 @@
         @front-visible="handleSupplyCardFrontVisible"
         @flipping-to-back="handleSupplyCardFlippingToBack"
       >
-        <div 
-          v-if="isNotBane(slotProps.item)"
-          class="standard-button standard-button--is-primary standard-button--light-border"
-          @click.stop="handleSpecify(slotProps.item)"
+        <template v-slot:highlight-content>
+          <div 
+            v-if="!isBane(slotProps.item)"
+            class="standard-button standard-button--is-primary standard-button--light-border"
+            @click.stop="handleSpecify(slotProps.item)"
+          >
+            Specify
+          </div>
+        </template>
+        <div
+          v-if="isBane(slotProps.item)"
+          class="sortable-supply-card__bane-container"
         >
-          Specify
+          <div class="sortable-supply-card__bane-text">
+            Bane
+          </div>
         </div>
       </flipping-card-component>
     </template>
@@ -113,9 +123,9 @@ export default class SortableSupplyCardsComponent extends Vue {
     this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
   }
 
-  isNotBane(supplyCard: SupplyCard) {
-    return !this.kingdom.supply.baneCard ||
-      this.kingdom.supply.baneCard.id != supplyCard.id;
+  isBane(supplyCard: SupplyCard) {
+    return this.kingdom.supply.baneCard &&
+      this.kingdom.supply.baneCard.id == supplyCard.id;
   }
 
   handleSpecify(supplyCard: SupplyCard) {
@@ -277,4 +287,35 @@ Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
 }
+
+.sortable-supply-card__bane-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-sizing: border-box;
+  border: 5px solid #b78eca /* curse-color */;
+}
+
+.sortable-supply-card__bane-text {
+  transform: rotate(0.75turn);
+  color: white;
+  background: #b78eca /* curse-color */;
+  position: absolute;
+  bottom: 9px;
+  right: -17px;
+  padding: 6px 12px;
+}
+
+@media (max-width: 600px) {
+  .sortable-supply-card__bane-container {
+    border-width: 3px;
+  }
+    
+  .sortable-supply-card__bane-text {
+    font-size: 12px;
+    right: -13px;
+  }
+}
+
+
 </style>

@@ -59,7 +59,6 @@ export class SupplyBuilder {
     divisions = this.applyRequirements(divisions);
     divisions = SupplyDivisions.applyCorrections(divisions, this.corrections);
     divisions = SupplyDivisions.fillDivisions(divisions);
-    debugger
     const baneCard = this.selectBaneCard(divisions);
     return this.gatherCardsIntoSupply(divisions, baneCard);
   }

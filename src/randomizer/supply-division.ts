@@ -17,7 +17,6 @@ export class SupplyDivision {
     this.isFilled = this.lockedAndSelectedCards.length >= totalCount;
 
     if (this.lockedAndSelectedCards.length > totalCount) {
-      debugger
       throw new Error(
           "Cannot create a division with more locked and selected cards than the total count.")
     }

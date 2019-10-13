@@ -7,11 +7,14 @@
             :key="activeCard ? activeCard.id : ''"
             @load="handleFrontImageLoaded" />
         <transition name="fade">
-          <card-set-description-component v-if="showSetName" :card="activeCard" />
+          <div class="flip-card__front-details">
+            <slot></slot>
+            <card-set-description-component v-if="isFrontVisible" :card="activeCard" />
+          </div>
         </transition>
         <transition name="fade">
           <div class="flip-card__front-highlight" v-if="showHighlight">
-            <slot></slot>
+            <slot name="highlight-content"></slot>
           </div>
         </transition>
       </div>
@@ -73,7 +76,7 @@ export default class FlippingCardComponent extends Vue {
     return 180 * (1 - this.animationParams.rotation);
   }
 
-  get showSetName() {
+  get isFrontVisible() {
     return this.cardState == CardState.FRONT_VISIBLE;
   }
 
@@ -259,6 +262,12 @@ Vue.component("flipping-card-component", FlippingCardComponent);
 .flip-card__img {
   position: absolute;
   height: 100%;
+  width: 100%;
+}
+
+.flip-card__front-details {
+  height: 100%;
+  position: absolute;
   width: 100%;
 }
 
