@@ -142,7 +142,10 @@ export const actions = {
       .setIncludeCardIds(Cards.extractIds(getUnselectedSupplyCards(context)))
       .setExcludeCardIds(Cards.extractIds(getSelectedSupplyCards(context)))
       .setExcludeTypes(excludeTypes)
-      .setExcludeCosts(excludeCosts);
+      .setExcludeCosts(excludeCosts)
+      .setBaneCardId(context.state.kingdom.supply.baneCard
+        ? context.state.kingdom.supply.baneCard.id
+        : null);
 
     // Either set a specific card type or add supply card requirements if one isn't selected.
     if (params.selectedCardType) {
@@ -155,7 +158,7 @@ export const actions = {
         .setRequireTrashing(randomizerSettings.requireTrashing)
         .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
     }
-    
+
     const supply = Randomizer.createSupplySafe(optionsBuilder.build());
     if (supply) {
       const oldKingdom = context.state.kingdom;
