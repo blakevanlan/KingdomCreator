@@ -130,10 +130,10 @@ export const actions = {
         ? getSelectedSetIds(context)
         : [params.selectedSetId!];
 
-    const excludeCosts = [];
-    for (let costType in CostType) {
-      if (params.selectedCostTypes.indexOf(costType as CostType) == -1) {
-        excludeCosts.push(costType as CostType);
+    const excludeCosts: CostType[] = [];
+    for (let key in CostType) {
+      if (params.selectedCostTypes.indexOf((CostType as any)[key]) == -1) {
+        excludeCosts.push((CostType as any)[key] as CostType);
       }
     }
 
