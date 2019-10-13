@@ -8,7 +8,8 @@ module.exports = class DominionContentPlugin {
       const script = "window.DominionSets=" + JSON.stringify(DominionContentPlugin.loadSets()) +
           ";window.DominionKingdoms=" + JSON.stringify(DominionContentPlugin.loadKingdoms()) + ";";
 
-      // Insert into the webpack build as new file assets:
+      // Insert into the webpack build as new file assets.
+      // TODO: Include a hash and figure out how to pipe it into the template files.
       compilation.assets['dominion-content.js'] = {
         source: function() {
           return script;

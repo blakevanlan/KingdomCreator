@@ -8,7 +8,9 @@ html
     meta(name="keywords", content="dominion, randomizer, dominion randomizer, dominion deck randomizer, dominion card picker, deck randomizer, kingdom, kingdom creator, kingdom creating")
     link(href='https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Alegreya+Sans:300',
         rel="stylesheet", type="text/css")
-    script(src="/dominion-content.js")
+    
+    //- Cache busting the cheap way. Should use a hash instead.
+    script(src=htmlWebpackPlugin.options.isProduction ? "/dominion-content.js?" + Date.now() : "/dominion-content.js")
 
     script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
     - if (htmlWebpackPlugin.options.isProduction)
