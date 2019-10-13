@@ -68,8 +68,8 @@
         <div class="suboption">
           <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
             <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
-            <option v-for="set in selectedSetIds" :value="set" :key="set">
-              {{ set }}
+            <option v-for="setId in selectedSetIds" :value="setId" :key="setId">
+              {{ getSetName(setId) }}
             </option>
           </select>
         </div>
@@ -93,7 +93,6 @@
 
 <script lang="ts">
 import { UPDATE_SETTINGS } from "../stores/randomizer/mutation-types";
-// import { DominionSet } from "../dominion/dominion-set";
 import { DominionSets } from "../dominion/dominion-sets";
 import { Getter, State } from "vuex-class";
 import { SetId } from "../dominion/set-id";
@@ -121,7 +120,7 @@ export default class RandomizerSidebar extends Vue {
   }
 
   get selectedSetIds() {
-    return this.settings.selectedSets;
+    return this.settings.selectedSets.concat().sort();
   }
   set selectedSetIds(values: string[]) {
     // Clear the prioritized set if it's no longer selected.
@@ -212,6 +211,10 @@ export default class RandomizerSidebar extends Vue {
   }
   set selectedSortOption(sortOption: SortOption) {
     this.$store.commit(UPDATE_SETTINGS, {sortOption: sortOption} as SettingsParams);
+  }
+
+  getSetName(setId: SetId) {
+    return DominionSets.getSetById(setId).name;
   }
 
   handleRandomize() {

@@ -9,7 +9,7 @@
         :class="{'modifiers--is-enlarged': isEnlarged}"
         :items="modifiers"
         :number-of-columns="numberOfColumns"
-        :is-vertical="false"
+        :is-vertical="true"
       >
         <template v-slot:default="slotProps">
           <static-card-component :cardImageUrl="slotProps.item.imageUrl">

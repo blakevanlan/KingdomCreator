@@ -20,14 +20,7 @@
             Specify
           </div>
         </template>
-        <div
-          v-if="isBane(slotProps.item)"
-          class="sortable-supply-card__bane-container"
-        >
-          <div class="sortable-supply-card__bane-text">
-            Bane
-          </div>
-        </div>
+        <bane-card-cover-component v-if="isBane(slotProps.item)" />
       </flipping-card-component>
     </template>
   </grid-layout-component>
@@ -35,6 +28,7 @@
 
 <script lang="ts">
 import FlippingCardComponent from "./flipping-card.vue";
+import BaneCardCoverComponent from "./bane-card-cover.vue";
 import { Addon } from "../dominion/addon";
 import { Coordinate } from "../utils/coordinate";
 import { SupplyCard } from "../dominion/supply-card";
@@ -62,7 +56,8 @@ export default class SortableSupplyCardsComponent extends Vue {
     super({
       components: {
         "grid-layout-component": GridLayoutComponent,
-        "flipping-card-component": FlippingCardComponent
+        "flipping-card-component": FlippingCardComponent,
+        "bane-card-cover-component": BaneCardCoverComponent,
       }
     });
   }
@@ -287,35 +282,4 @@ Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
 }
-
-.sortable-supply-card__bane-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  box-sizing: border-box;
-  border: 5px solid #b78eca /* curse-color */;
-}
-
-.sortable-supply-card__bane-text {
-  transform: rotate(0.75turn);
-  color: white;
-  background: #b78eca /* curse-color */;
-  position: absolute;
-  bottom: 9px;
-  right: -17px;
-  padding: 6px 12px;
-}
-
-@media (max-width: 600px) {
-  .sortable-supply-card__bane-container {
-    border-width: 3px;
-  }
-    
-  .sortable-supply-card__bane-text {
-    font-size: 12px;
-    right: -13px;
-  }
-}
-
-
 </style>
