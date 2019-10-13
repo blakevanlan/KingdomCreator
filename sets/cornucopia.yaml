@@ -49,7 +49,7 @@ cards:
 
   - name: Hamlet
     cost:
-      treasure: 5
+      treasure: 2
       potion: 0
     isAttack: false
     isAction: true

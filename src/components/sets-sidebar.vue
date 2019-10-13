@@ -22,8 +22,7 @@ import { State } from "../stores/sets-store";
 import { SetId } from "../dominion/set-id";
 import { Vue, Component } from "vue-property-decorator";
 
-const SETS_TO_IGNORE =
-    new Set([SetId.BASE_SET_2, SetId.INTRIGUE_2, SetId.PROMOS]);
+const SETS_TO_IGNORE = new Set([SetId.PROMOS]);
 
 @Component
 export default class SetsSidebar extends Vue {

@@ -47,7 +47,9 @@ parseSupplyString = (supplyString) ->
          .split(',')
    cards = []
    for cardName in cardNames 
-      cards.push(findCardByShortId(Loader.tokenize(cardName)))
+      tokenized = Loader.tokenize(cardName)
+      if tokenized
+         cards.push(findCardByShortId(tokenized))
    return {
       name: kingdomName
       cards: cards
@@ -55,29 +57,44 @@ parseSupplyString = (supplyString) ->
 
 
 strings = [
-   "Overture: Fair, Acting Troupe, Experiment, Flag Bearer, Hideout, Improve, Inventor, Lackeys, Old Witch, Seer, Treasurer"
-   "Prelude: Citadel, Star Chart, Border Guard, Cargo Ship, Ducat, Mountain Village, Priest, Recruiter, Sculptor, Silk Merchant, Swashbuckler, Villain"
-   "It Takes a Villager: Road Network, Acting Troupe, Cargo Ship, Recruiter, Seer, Treasurer, Market, Merchant, Mine, Smithy, Vassal"
-   "Capture the Flag: Barracks, Pageant, Flag Bearer, Lackeys, Scholar, Swashbuckler, Villain, Cellar, Festival, Harbinger, Remodel, Workshop"
-   "Memento Mori: Citadel, Experiment, Flag Bearer, Patron, Recruiter, Silk Merchant, Ironworks, Lurker, Patrol, Swindler, Upgrade"
-   "Clockwork Court: Fleet, Sinister Plot, Acting Troupe, Inventor, Research, Scepter, Scholar, Courtier, Mining Village, Nobles, Replace, Steward"
-   "Free Shipping: Innovation, Acting Troupe, Cargo Ship, Lackeys, Research, Spices, Embargo, Island, Outpost, Smugglers, Wharf"
-   "Digging for Treasure: Crop Rotation, Silos, Border Guard, Flag Bearer, Inventor, Sculptor, Swashbuckler, Caravan, Native Village, Salvager, Tactician, Treasure Map"
-   "Peek-a-boo: Cathedral, Cargo Ship, Improve, Lackeys, Patron, Sculptor, Silk Merchant, Alchemist, Apothecary, Golem, Scrying Pool"
-   "Dreamers of Dreams: Academy, Cargo Ship, Old Witch, Priest, Scepter, Scholar, Expand, Monument, Vault, Watchtower, Worker's Village"
-   "Movers and Shakers: Capitalism, Citadel, Hideout, Patron, Research, Treasurer, Villain, Bank, City, Grand Market, Loan, Rabble"
-   "Sweetened Deals: Silos, Flag Bearer, Lackeys, Mountain Village, Silk Merchant, Spices, Cartographer, Develop, Farmland, Haggler, Spice Merchant"
-   "A Penny Saved: Barracks, Guildhall, Ducat, Patron, Scepter, Seer, Swashbuckler, Cache, Crossroads, Noble Brigand, Oasis, Trader"
-   "Stargazing: Star Chart, Border Guard, Patron, Seer, Silk Merchant, Swashbuckler, Hermit, Mystic, Procession, Sage, Wandering Minstrel"
-   "Sewer Rats: Crop Rotation, Sewers, Flag Bearer, Improve, Lackeys, Mountain Village, Research, Count, Counterfeit, Cultist, Graverobber, Rats"
-   "Combo Corner: Canal, Ducat, Experiment, Hideout, Sculptor, Seer, Herald, Horn of Plenty, Horse Traders, Jester, Stonemason"
-   "Filling the Coffers: City Gate, Star Chart, Priest, Recruiter, Spices, Swashbuckler, Treasurer, Baker, Butcher, Menagerie, Merchant Guild, Plaza"
-   "Progress: Piazza, Training, Experiment, Improve, Recruiter, Seer, Silk Merchant, Hireling, Ranger, Raze, Swamp Hag, Transmogrify"
-   "Once Upon a Time: Innovation, Ferry, Acting Troupe, Lackeys, Priest, Sculptor, Spices, Distant Lands, Duplicate, Haunted Woods, Royal Carriage, Storyteller"
-   "Exploring the City: Exploration, Battlefield, Cargo Ship, Experiment, Mountain Village, Priest, Sculptor, City Quarter, Farmers' Market, Groundskeeper, Sacrifice, Wild Hunt"
-   "Navigating the Sewers: Sewers, Ritual, Acting Troupe, Flag Bearer, Improve, Old Witch, Scepter, Chariot Race, Enchantress, GladiatorFortune, PatricianEmporium, Villa"
-   "Becoming a Monster: Exploration, Experiment, Mountain Village, Old Witch, Research, Spices, Devil's Workshop, Monastery, Shepherd, Skulk, Tragic Hero"
-   "True Believers: Cathedral, Piazza, Border Guard, Cargo Ship, Scholar, Sculptor, Villain, Blessed Village, Crypt, Faithful Hound, Sacred Grove, Secret Cave"
+   "Victory Dance: Baron, Courtier, Duke, Harem, Ironworks, Masquerade, Mill, Nobles, Patrol, Replace,"
+   "The Plot Thickens: Conspirator, Ironworks, Lurker, Pawn, Mining Village, Secret Passage, Steward, Swindler, Torturer, Trading Post",
+   "Best Wishes: Baron, Conspirator, Courtyard, Diplomat, Duke, Secret Passage, Shanty Town, Torturer, Upgrade, Wishing Well",
+
+   "Underlings: Courtier, Diplomat, Minion, Nobles, Pawn • Cellar, Festival, Library, Sentry, Vassal",
+   "Grand Scheme: Bridge, Mill, Mining Village, Patrol, Shanty Town • Artisan, Council Room, Market, Militia, Workshop",
+   "Deconstruction: Diplomat, Harem, Lurker, Replace, Swindler • Bandit, Mine, Remodel, Throne Room, Village",
+
+   "A Star to Steer By: Secret Passage, Diplomat, Swindler, Wishing Well, Courtier • Lookout, Treasure Map, Ghost Ship, Haven, Outpost",
+   "Shore Patrol: Patrol, Replace, Shanty Town, Trading Post, Pawn • Island, Wharf, Cutpurse, Lighthouse, Warehouse",
+   "Bridge Crossing: Lurker, Nobles, Duke, Conspirator, Bridge • Salvager, Embargo, Smugglers, Native Village, Treasury",
+
+   "Servants: Conspirator, Mill, Minion, Pawn, Steward • Golem, Possession, Scrying Pool, Transmute, Vineyard",
+   "Secret Research: Bridge, Masquerade, Minion, Nobles, Shanty Town, Torturer • Familiar, Herbalist, Philosopher's Stone, University",
+   "Pools, Tools, and Fools: Baron, Ironworks, Lurker, Nobles, Trading Post, Wishing Well • Apothecary, Apprentice, Golem, Scrying Pool",
+
+   "Paths to Victory: Baron, Harem, Pawn, Shanty Town, Upgrade • Bishop, Counting House, Goons, Monument, Peddler",
+   "All Along the Watchtower: Bridge, Mill, Mining Village, Pawn, Torturer • Hoard, Talisman, Trade Route, Vault, Watchtower",
+   "Lucky Seven: Bridge, Lurker, Patrol, Swindler, Wishing Well • Bank, Expand, Forge, King's Court, Vault",
+
+   "Last Laughs: Minion, Nobles, Pawn, Steward, Swindler • Farming Village, Harvest, Horse Traders, Hunting Party, Jester",
+   "The Spice of Life: Courtier, Courtyard, Diplomat, Mining Village, Replace • Fairgrounds, Horn of Plenty, Remake, Tournament, Young Witch", # Bane: Wishing Well
+   "Small Victories: Conspirator, Duke, Harem, Pawn, Secret Passage • Fortune Teller, Hamlet, Hunting Party, Remake, Tournament",
+   "Name that Card: Courtyard, Harem, Nobles, Replace, Wishing Well • Baker, Doctor, Plaza, Advisor, Masterpiece",
+   "Tricks of the Trade: Conspirator, Masquerade, Mill, Nobles, Secret Passage • Stonemason, Herald, Soothsayer, Journeyman, Butcher",
+   "Decisions, Decisions: Bridge, Pawn, Mining Village, Upgrade, Duke • Merchant Guild, Candlestick Maker, Masterpiece, Taxman, Butcher",
+
+   "Money for Nothing: Replace, Patrol, Pawn, Shanty Town, Torturer • Cache, Cartographer, Jack of All Trades, Silk Road, Tunnel",
+   "The Duke's Ball: Conspirator, Duke, Harem, Masquerade, Upgrade • Duchess, Haggler, Inn, Noble Brigand, Scheme",
+
+   "Prophecy: Baron, Conspirator, Nobles, Secret Passage, Wishing Well • Armory, Ironmonger, Mystic, Rebuild, Vagrant",
+   "Invasion: Diplomat, Harem, Swindler, Torturer, Upgrade • Beggar, Marauder, Rogue, Squire, Urchin",
+
+   "Royalty Factory: Pilgrimage • Conspirator, Courtier, Harem, Nobles, Swindler • Bridge Troll, Duplicate, Page, Raze, Royal Carriage",
+   "Masters of Finance: Ball, Borrow • Bridge, Pawn, Shanty Town, Steward, Upgrade • Artificer, Distant Lands, Gear, Transmogrify, Wine Merchant",
+
+   "Delicious Torture: Arena, Banquet • Baron, Bridge, Harem, Ironworks, Torturer • Castles, Crown, Enchantress, Sacrifice, SettlersBustling Village",
+   "Buddy System: Salt the Earth, Wolf Den • Masquerade, Mining Village, Nobles, Pawn, Trading Post • Archive, Capital, CatapultRocks, Engineer, Forum",
 ]
 
 for string in strings

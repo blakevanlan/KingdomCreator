@@ -29,6 +29,14 @@ export class SupplyDivisions {
     return cards;
   }
 
+  static getAvailableCards(divisions: SupplyDivision[]): SupplyCard[] {
+    let availableCards: SupplyCard[] = [];
+    for (let division of divisions) {
+      availableCards = availableCards.concat(division.availableCards);
+    }
+    return availableCards;
+  }
+
   static getAvailableCardsOfType(divisions: SupplyDivision[], cardType: CardType): SupplyCard[] {
     const cardsPerDivision =
         SupplyDivisions.getAvailableCardsOfTypePerDivision(divisions, cardType);

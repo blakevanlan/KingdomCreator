@@ -4,7 +4,6 @@ import {
   RANDOMIZE_FULL_KINGDOM,
   UNSELECT_CARD,
   SELECT_CARD,
-  ReplaceSupplyCardParams,
   RandomizeSupplyCardParams,
 } from "./action-types";
 import { EventTracker } from "../../analytics/event-tracker";
@@ -18,7 +17,7 @@ import { Cards } from "../../utils/cards";
 import { Randomizer } from "../../randomizer/randomizer";
 import { Kingdom } from "../../randomizer/kingdom";
 import { Card } from "../../dominion/card";
-import { Supply, Replacements } from "../../randomizer/supply";
+import { Supply } from "../../randomizer/supply";
 import { DominionSets } from "../../dominion/dominion-sets";
 import { SupplyCard } from "../../dominion/supply-card";
 import { SelectionParams } from "./selection";
@@ -70,7 +69,6 @@ export const actions = {
       context.dispatch(RANDOMIZE_FULL_KINGDOM);
       return;
     }
-    
     const selectedCards = getSelectedSupplyCards(context);    
     const oldSupply = context.state.kingdom.supply;
     const newSupply = selectedCards.length 
@@ -185,26 +183,6 @@ export const actions = {
     context.commit(UPDATE_KINGDOM, kingdom);
   },
 
-  REPLACE_SUPPLY_CARD(context: Context, params: ReplaceSupplyCardParams) {
-    const supply = context.state.kingdom.supply;
-    const replacements = Replacements.createReplacementByRemoveCards(
-        supply.replacements.replacements, [params.newSupplyCard.id]);
-    const newSupplyCards = supply.supplyCards
-        .filter(Cards.filterByExcludedIds([params.currentSupplyCard.id]))
-        .concat([params.newSupplyCard]);
-    const newSupply = new Supply(newSupplyCards, new Replacements(replacements));
-    const kingdom = new Kingdom(
-      context.state.kingdom.id,
-      newSupply,
-      context.state.kingdom.events,
-      context.state.kingdom.landmarks,
-      context.state.kingdom.projects,
-      randomizeSelectedBoons(context, newSupply),
-      context.state.kingdom.metadata);
-    context.commit(CLEAR_SELECTION);
-    context.commit(UPDATE_KINGDOM, kingdom);
-  },
-
   TOGGLE_CARD_SELECTION(context: Context, id: string) {
     const action = context.state.selection.contains(id) ? UNSELECT_CARD : SELECT_CARD;
     context.dispatch(action, id);
@@ -255,14 +233,22 @@ export const actions = {
 }
 
 function randomizeSelectedCards(context: Context): Supply | null {
-  const options = createRandomizerOptionsBuilder(context)
+  const excludeCardIds = getSelectedSupplyCards(context).map((card) => card.id);
+  const isBaneSelected = isBaneCardSelected(context);
+  if (isBaneSelected) {
+    excludeCardIds.push(context.state.kingdom.supply.baneCard!.id);
+  }
+
+  const optionsBuilder = createRandomizerOptionsBuilder(context)
       .setSetIds(getSelectedSetIds(context))
       .setIncludeCardIds(getUnselectedSupplyCards(context).map((card) => card.id))
-      .setExcludeCardIds(getSelectedSupplyCards(context).map((card) => card.id))
+      .setExcludeCardIds(excludeCardIds)
       .setExcludeTypes(getExcludeTypes(context))
-      .build();
 
-  const supply = Randomizer.createSupplySafe(options);
+  if (!isBaneSelected && context.state.kingdom.supply.baneCard) {
+    optionsBuilder.setBaneCardId(context.state.kingdom.supply.baneCard!.id)
+  }
+  const supply = Randomizer.createSupplySafe(optionsBuilder.build());
   if (supply) {
     EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE);
   } else {
@@ -334,7 +320,7 @@ function getExcludeTypes(context: Context): CardType[] {
 }
 
 function getSelectedSupplyCards(context: Context) {
-  return getSelected(context, context.state.kingdom.supply.supplyCards);
+  return getSelected(context, context.state.kingdom.supply.getSupplyCardsWithBane());
 }
 
 function getUnselectedSupplyCards(context: Context) {
@@ -383,4 +369,10 @@ function getUnselectedBoons(context: Context) {
 function getUnselected<T extends Card>(context: Context, cards: T[]) {
   const selection = context.state.selection;
   return cards.filter((card) => !selection.contains(card.id));
+}
+
+function isBaneCardSelected(context: Context) {
+  const selection = context.state.selection;
+  const baneCard = context.state.kingdom.supply.baneCard;
+  return Boolean(baneCard && selection.contains(baneCard.id));
 }

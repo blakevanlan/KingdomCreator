@@ -4,12 +4,12 @@
       <div v-if="modifiers.length" class="modifiers-header">Additional</div> 
     </transition>
     <transition name="slow-fade">
-      <card-layout-component
+      <grid-layout-component
         class="modifiers"
         :class="{'modifiers--is-enlarged': isEnlarged}"
         :items="modifiers"
         :number-of-columns="numberOfColumns"
-        :is-vertical="false"
+        :is-vertical="true"
       >
         <template v-slot:default="slotProps">
           <static-card-component :cardImageUrl="slotProps.item.imageUrl">
@@ -19,7 +19,7 @@
             />
           </static-card-component>
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </transition>
   </div>
 </template>
@@ -30,7 +30,7 @@ import CardDescriptionComponent from "./card-description.vue";
 import { Metadata } from "../randomizer/kingdom";
 import { Vue, Component } from "vue-property-decorator";
 import { State } from "vuex-class";
-import CardLayoutComponent from "./card-layout.vue";
+import GridLayoutComponent from "./grid-layout.vue";
 
 interface Modifier {
   name: string;
@@ -43,7 +43,7 @@ export default class ModifiersComponent extends Vue {
   constructor() {
     super({
       components: {
-        "card-layout-component": CardLayoutComponent,
+        "grid-layout-component": GridLayoutComponent,
         "static-card-component": StaticCardComponent,
         "card-description-component": CardDescriptionComponent,
       }

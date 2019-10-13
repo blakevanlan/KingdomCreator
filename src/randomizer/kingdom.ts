@@ -16,12 +16,15 @@ export class Kingdom {
   }
 
   static empty() {
-    return new Kingdom(0, Supply.empty(), [], [], [], [], new Metadata(false, false));
+    return new Kingdom(
+      0, Supply.empty(), [], [], [], [], new Metadata(false, false));
   }
 }
 
 export class Metadata {
-  constructor(readonly useColonies: boolean, readonly useShelters: boolean) {
+  constructor(
+      readonly useColonies: boolean, 
+      readonly useShelters: boolean) {
   }
 }
 

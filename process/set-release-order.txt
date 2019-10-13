@@ -10,3 +10,4 @@ guilds
 adventures
 empires
 nocturne
+renaissance

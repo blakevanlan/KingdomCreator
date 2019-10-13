@@ -53,7 +53,13 @@ export class Randomizer {
     const boons = this.getRandomBoons(supply, []);
     const metadata = this.getMetadata(randomizerOptions.setIds);
     return new Kingdom(
-      Date.now(), supply, addons.events, addons.landmarks, addons.projects, boons, metadata);
+      Date.now(),
+      supply,
+      addons.events,
+      addons.landmarks,
+      addons.projects,
+      boons,
+      metadata);
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
@@ -86,6 +92,14 @@ export class Randomizer {
             allSupplyCards.filter(Cards.filterByIncludedSetIds(randomizerOptions.setIds)), []);
     
     let supplyBuilder = new SupplyBuilder(allSupplyCardsToUse);
+
+    // Set the bane card if supplyed in the options and remove it from the pool of 
+    // available cards.
+    if (randomizerOptions.baneCardId) {
+      supplyBuilder.setBaneCard(
+        DominionSets.getSupplyCardById(randomizerOptions.baneCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.baneCardId]));
+    }
 
     // Configure bans.
     if (randomizerOptions.excludeCardIds.length) {
@@ -294,7 +308,7 @@ export class Randomizer {
     let retries = MAX_RETRIES;
     while (retries > 0) {
       try {
-        return supplyBuilder.createSupply(existingCards)
+        return supplyBuilder.createSupply(existingCards);
       } catch (error) {
         console.log(`Error when trying to select cards: \n${error.toString()}`);
         retries -= 1;

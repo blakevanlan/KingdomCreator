@@ -7,6 +7,7 @@ export enum SetId {
   DARK_AGES = "darkages",
   EMPIRES = "empires",
   GUILDS = "guilds",
+  GUILDSCONUCOPIA = "guildscornucopia",
   HINTERLANDS = "hinterlands",
   INTRIGUE = "intrigue",
   INTRIGUE_2 = "intrigue2",

@@ -4,7 +4,7 @@
       <div v-if="activeBoons.length" class="boons-header">Boons</div> 
     </transition>
     <transition name="slow-fade">
-      <card-layout-component
+      <grid-layout-component
         v-if="activeBoons.length"
         class="boons"
         :class="{'boons--is-enlarged': isEnlarged}"
@@ -18,13 +18,13 @@
             :is-vertical="false"
           />
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </transition>
   </div>
 </template>
 
 <script lang="ts">
-import CardLayoutComponent from "./card-layout.vue";
+import GridLayoutComponent from "./grid-layout.vue";
 import FlippingCardComponent from "./flipping-card.vue";
 import { Boon } from "../dominion/boon";
 import { Cards } from "../utils/cards";
@@ -36,7 +36,7 @@ export default class BoonsComponent extends Vue {
   constructor() {
     super({
       components: {
-        "card-layout-component": CardLayoutComponent,
+        "grid-layout-component": GridLayoutComponent,
         "flipping-card-component": FlippingCardComponent,
       }
     });

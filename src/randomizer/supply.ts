@@ -4,11 +4,23 @@ import { Cards } from "../utils/cards";
 export class Supply {
   constructor(
       readonly supplyCards: SupplyCard[],
+      readonly baneCard: SupplyCard | null,
       readonly replacements: Replacements) {
+    if (supplyCards.length > 10) {
+      throw new Error("Unable to create supply with more than 10 cards.");
+    }
+  }
+
+  getSupplyCardsWithBane() {
+    const cards = this.supplyCards.concat();
+    if (this.baneCard) {
+      cards.push(this.baneCard);
+    }
+    return cards;
   }
 
   static empty() {
-    return new Supply([], Replacements.empty());
+    return new Supply([], null, Replacements.empty());
   }
 }
 

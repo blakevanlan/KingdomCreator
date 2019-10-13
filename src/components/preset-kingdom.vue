@@ -18,21 +18,22 @@
       </div>
     </div>
 
-    <card-layout-component
-      :items="getCards(kingdom.supplyIds)"
+    <grid-layout-component
+      :items="getSupplyCards(kingdom)"
       :number-of-columns="numberOfColumnsForSupplyCards"
       :is-vertical="true"
     >
       <template v-slot:default="slotProps">
         <static-card-with-set-component :card="slotProps.item" />
+        <bane-card-cover-component v-if="isBaneCard(slotProps.item)" />
       </template>
-    </card-layout-component>
+    </grid-layout-component>
 
     <div v-if="titleForAddons.length">
       <div class="preset-kingdom__addon-title">
         {{titleForAddons}}
       </div>
-      <card-layout-component
+      <grid-layout-component
         :items="getCards(addonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
@@ -40,12 +41,12 @@
         <template v-slot:default="slotProps">
           <static-card-with-set-component :card="slotProps.item" />
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </div>
         
     <div v-if="kingdom.boonIds.length">
       <div class="preset-kingdom__addon-title">Boons</div>
-      <card-layout-component
+      <grid-layout-component
         :items="getCards(kingdom.boonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
@@ -53,20 +54,21 @@
         <template v-slot:default="slotProps">
           <static-card-with-set-component :card="slotProps.item" />
         </template>
-      </card-layout-component>
+      </grid-layout-component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import CardLayoutComponent from "./card-layout.vue";
+import GridLayoutComponent from "./grid-layout.vue";
 import { DominionKingdom } from "../dominion/dominion-kingdom";
 import { DominionSets } from "../dominion/dominion-sets";
+import { SupplyCard } from "../dominion/supply-card";
 import { State } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { getCardImageUrl } from "../utils/images";
 import { getMessageForAddonsDescription } from "../utils/messages";
 import StaticCardWithSetComponent from "./static-card-with-set.vue";
+import BaneCardCoverComponent from "./bane-card-cover.vue";
 
 const FOUR_COLUMN_SUPPLY_CARD_WIDTH = 450;
 const TWO_COLUMN_ADDON_WIDTH = 525;
@@ -76,8 +78,9 @@ export default class PresetKingdom extends Vue {
   constructor() {
     super({
       components: {
-        "card-layout-component": CardLayoutComponent,
+        "grid-layout-component": GridLayoutComponent,
         "static-card-with-set-component": StaticCardWithSetComponent,
+        "bane-card-cover-component": BaneCardCoverComponent,
       }
     });
   }
@@ -112,11 +115,22 @@ export default class PresetKingdom extends Vue {
     return this.kingdom.metadata.useColonies || this.kingdom.metadata.useShelters;
   }
 
+  getSupplyCards(kingdom: DominionKingdom) {
+    const cardIds = this.kingdom.supplyIds.concat();
+    if (this.kingdom.baneCardId) {
+      cardIds.push(this.kingdom.baneCardId);
+    }
+    return this.getCards(cardIds);
+  }
+
   getCards(cardIds: string[]) {
     return cardIds.map(DominionSets.getCardById);
   }
 
-  getCardImageUrl = getCardImageUrl;
+  isBaneCard(supplyCard: SupplyCard) {
+    return this.kingdom.baneCardId &&
+      this.kingdom.baneCardId == supplyCard.id;
+  }
 }
 </script>
 

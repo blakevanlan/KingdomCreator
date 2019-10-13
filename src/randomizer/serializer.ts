@@ -1,12 +1,16 @@
 import {Card} from "../dominion/card";
 import {DominionSets} from "../dominion/dominion-sets";
 import {Kingdom} from "./kingdom";
+import {SupplyCard} from "../dominion/supply-card";
 import {Metadata as KingdomMetadata} from "./kingdom";
 import {Supply, Replacements} from "../randomizer/supply";
 
 export function serializeKingdom(kingdom: Kingdom): string {
   const result: string[] = [];
   result.push(serializeCards("supply", kingdom.supply.supplyCards));
+  if (kingdom.supply.baneCard) {
+    result.push(serializeCards("bane", [kingdom.supply.baneCard]));
+  } 
   if (kingdom.events.length) {
     result.push(serializeCards("events", kingdom.events));
   }
@@ -40,12 +44,17 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
     return null;
   }
 
+  const baneIds = parseNamedCommaSeparatedParameter("bane", serializedKingdom) || [];
   const eventIds = parseNamedCommaSeparatedParameter("events", serializedKingdom) || [];
   const landmarkIds = parseNamedCommaSeparatedParameter("landmarks", serializedKingdom) || [];
   const projectIds = parseNamedCommaSeparatedParameter("projects", serializedKingdom) || [];
   const boonIds = parseNamedCommaSeparatedParameter("boons", serializedKingdom) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
+  let baneCard: SupplyCard | null = null;
+  if (baneIds.length) {
+     baneCard = findByIds(baneIds, DominionSets.getSupplyCardById)[0] || null;
+  }
   const events = findByIds(eventIds, DominionSets.getEventById).slice(0, 2);
   const landmarks =
       findByIds(landmarkIds, DominionSets.getLandmarkById).slice(0, Math.max(0, 2 - events.length));
@@ -53,10 +62,17 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
       findByIds(projectIds, DominionSets.getProjectById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length));
   const boons = findByIds(boonIds, DominionSets.getBoonById).slice(0, 3);
-  const supply = new Supply(supplyCards, Replacements.empty());
+  const supply = new Supply(supplyCards, baneCard, Replacements.empty());
 
   return new Kingdom(
-      Date.now(), supply, events, landmarks, projects, boons, deserializeMetadata(serializedKingdom));
+    Date.now(),
+    supply,
+    events,
+    landmarks,
+    projects,
+    boons,
+    deserializeMetadata(serializedKingdom)
+  );
 }
 
 function serializeCards<T extends Card>(identifier: string, cards: T[]): string {
