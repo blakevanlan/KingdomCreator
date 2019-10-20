@@ -31,3 +31,18 @@
 .expand-fade-leave-to
   transform: scale(0.9)
   opacity: 0
+
+// Fade, slide in - fade out
+.fade-slide-in-enter-active {
+  transition: all .3s;
+}
+.fade-slide-in-leave-active {
+  transition: all .1s;
+}
+.fade-slide-in-enter {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+.fade-slide-in-leave-to {
+  opacity: 0;
+}

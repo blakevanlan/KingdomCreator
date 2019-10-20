@@ -29,6 +29,11 @@
       </template>
     </grid-layout-component>
 
+    <copy-button-component 
+      :text="getCopyText(kingdom)"
+      class="preset-kingdom-copy-button"
+    />
+
     <div v-if="titleForAddons.length">
       <div class="preset-kingdom__addon-title">
         {{titleForAddons}}
@@ -69,6 +74,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { getMessageForAddonsDescription } from "../utils/messages";
 import StaticCardWithSetComponent from "./static-card-with-set.vue";
 import BaneCardCoverComponent from "./bane-card-cover.vue";
+import CopyButtonComponent from "./copy-button.vue";
 
 const FOUR_COLUMN_SUPPLY_CARD_WIDTH = 450;
 const TWO_COLUMN_ADDON_WIDTH = 525;
@@ -81,6 +87,7 @@ export default class PresetKingdom extends Vue {
         "grid-layout-component": GridLayoutComponent,
         "static-card-with-set-component": StaticCardWithSetComponent,
         "bane-card-cover-component": BaneCardCoverComponent,
+        "copy-button-component": CopyButtonComponent,
       }
     });
   }
@@ -131,6 +138,10 @@ export default class PresetKingdom extends Vue {
     return this.kingdom.baneCardId &&
       this.kingdom.baneCardId == supplyCard.id;
   }
+
+  getCopyText(kingdom: DominionKingdom) {
+    return this.getSupplyCards(kingdom).map((card) => card.name).join(", ");
+  }
 }
 </script>
 
@@ -165,6 +176,10 @@ export default class PresetKingdom extends Vue {
   padding: 6px 8px;
   text-shadow: 1px 1px 4px #fff;
   font-size: 16px;
+}
+
+.preset-kingdom-copy-button {
+  margin-top: 2px;
 }
 
 .preset-kingdom_metadata {
