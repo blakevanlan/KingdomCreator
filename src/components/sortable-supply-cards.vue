@@ -118,6 +118,11 @@ export default class SortableSupplyCardsComponent extends Vue {
     this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
   }
 
+  @Watch("numberOfColumns")
+  handleNumberOfColumnsChanged() {
+    this.$nextTick(() => this.resetCardPositions());
+  }
+
   isBane(supplyCard: SupplyCard) {
     return this.kingdom.supply.baneCard &&
       this.kingdom.supply.baneCard.id == supplyCard.id;
