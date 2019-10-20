@@ -1,29 +1,35 @@
 <template>
-  <grid-layout-component
-    :items="supplyCardsWithBane"
-    :number-of-columns="numberOfColumns"
-    :is-vertical="true"
-    class="sortable-supply-cards"
-    :class="{'kingdom-supply--is-enlarged': isEnlarged}"
-  >
-    <template v-slot:default="slotProps">
-      <flipping-card-component :card="slotProps.item" :is-vertical="true"
-        @front-visible="handleSupplyCardFrontVisible"
-        @flipping-to-back="handleSupplyCardFlippingToBack"
-      >
-        <template v-slot:highlight-content>
-          <div 
-            v-if="!isBane(slotProps.item)"
-            class="standard-button standard-button--is-primary standard-button--light-border"
-            @click.stop="handleSpecify(slotProps.item)"
-          >
-            Specify
-          </div>
-        </template>
-        <bane-card-cover-component v-if="isBane(slotProps.item)" />
-      </flipping-card-component>
-    </template>
-  </grid-layout-component>
+  <div>
+    <grid-layout-component
+      :items="supplyCardsWithBane"
+      :number-of-columns="numberOfColumns"
+      :is-vertical="true"
+      class="sortable-supply-cards"
+      :class="{'kingdom-supply--is-enlarged': isEnlarged}"
+    >
+      <template v-slot:default="slotProps">
+        <flipping-card-component :card="slotProps.item" :is-vertical="true"
+          @front-visible="handleSupplyCardFrontVisible"
+          @flipping-to-back="handleSupplyCardFlippingToBack"
+        >
+          <template v-slot:highlight-content>
+            <div 
+              v-if="!isBane(slotProps.item)"
+              class="standard-button standard-button--is-primary standard-button--light-border"
+              @click.stop="handleSpecify(slotProps.item)"
+            >
+              Specify
+            </div>
+          </template>
+          <bane-card-cover-component v-if="isBane(slotProps.item)" />
+        </flipping-card-component>
+      </template>
+    </grid-layout-component>
+    <copy-button-component
+      :text="supplyCardsCopyText"
+      class="sortable-supply-card-copy-button"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -41,6 +47,7 @@ import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 import GridLayoutComponent from "./grid-layout.vue";
+import CopyButtonComponent from "./copy-button.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
@@ -58,6 +65,7 @@ export default class SortableSupplyCardsComponent extends Vue {
         "grid-layout-component": GridLayoutComponent,
         "flipping-card-component": FlippingCardComponent,
         "bane-card-cover-component": BaneCardCoverComponent,
+        "copy-button-component": CopyButtonComponent,
       }
     });
   }
@@ -92,6 +100,10 @@ export default class SortableSupplyCardsComponent extends Vue {
       cards.push(this.kingdom.supply.baneCard);
     }
     return cards;
+  }
+
+  get supplyCardsCopyText() {
+    return this.supplyCards.map((card) => card.name).join(", ");
   }
 
   @Watch("kingdom")
@@ -286,5 +298,9 @@ Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 <style>
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
+}
+
+.sortable-supply-card-copy-button {
+  margin-top: 4px;
 }
 </style>
