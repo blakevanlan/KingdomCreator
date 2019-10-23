@@ -52,7 +52,8 @@ Vue.component("copy-button-component", CopyButtonComponent);
 <style>
 .copy-button {
   -webkit-appearance: none;
-  border: 0;
+  border: none;
+  display: block;
   height: 30px;
   outline: none;
   padding: 0;
@@ -62,12 +63,17 @@ Vue.component("copy-button-component", CopyButtonComponent);
 
 .copy-button__input,
 .copy-button__icon {
+  border: none;
   height: 100%;
   left: 0;
   outline: none;
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.copy-button__input {
+  overflow: hidden;
 }
 
 .copy-button__icon {
