@@ -123,7 +123,7 @@ const VISIBLE_COSTS: VisibleType<CostType>[] = [
     CardDescription,	
   }	
 })
-export default class ReplaceSupplyCardModalComponent extends Vue {	
+export default class ReplaceSupplyCardModal extends Vue {	
   @State(state => state.randomizer.specifyingReplacementSupplyCard) readonly specifying!: SupplyCard | null;	
   @State(state => state.randomizer.settings) readonly settings!: Settings;	
   @State(state => state.randomizer.settings.selectedSets) readonly selectedSetIds!: SetId[];	

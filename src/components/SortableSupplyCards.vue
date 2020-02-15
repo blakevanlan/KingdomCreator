@@ -65,7 +65,7 @@ const WINDOW_RESIZE_DELAY_MSEC = 300;
     CopyButton,
   }
 })
-export default class SortableSupplyCardsComponent extends Vue {
+export default class SortableSupplyCards extends Vue {
   @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
   @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;
   @State(state => state.window.width) readonly windowWidth!: number;
@@ -176,7 +176,7 @@ export default class SortableSupplyCardsComponent extends Vue {
 
   private updateSupplyCards() {
     this.requiresSupplyCardSort = true;
-    this.supplyCards = SortableSupplyCardsComponent.replaceSupplyCards(
+    this.supplyCards = SortableSupplyCards.replaceSupplyCards(
         this.supplyCards, this.kingdom.supply.supplyCards);
   }
 
@@ -264,8 +264,8 @@ export default class SortableSupplyCardsComponent extends Vue {
 
   private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
     const supplyCards: SupplyCard[] = [];
-    const supplyCardsToAdd = SortableSupplyCardsComponent.getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
-    const oldIds = SortableSupplyCardsComponent.getOldIds(oldSupplyCards, newSupplyCards);
+    const supplyCardsToAdd = SortableSupplyCards.getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
+    const oldIds = SortableSupplyCards.getOldIds(oldSupplyCards, newSupplyCards);
     let supplyCardsToAddIndex = 0;
     for (let i = 0; i < oldSupplyCards.length; i++) {
       const supplyCard = oldSupplyCards[i];
