@@ -1,6 +1,6 @@
 <template>
   <div>
-    <grid-layout-component
+    <GridLayout
       :items="supplyCardsWithBane"
       :number-of-columns="numberOfColumns"
       :is-vertical="true"
@@ -8,7 +8,7 @@
       :class="{'kingdom-supply--is-enlarged': isEnlarged}"
     >
       <template v-slot:default="slotProps">
-        <flipping-card-component :card="slotProps.item" :is-vertical="true"
+        <FlippingCard :card="slotProps.item" :is-vertical="true"
           @front-visible="handleSupplyCardFrontVisible"
           @flipping-to-back="handleSupplyCardFlippingToBack"
         >
@@ -21,11 +21,11 @@
               Specify
             </div>
           </template>
-          <bane-card-cover-component v-if="isBane(slotProps.item)" />
-        </flipping-card-component>
+          <BaneCardCover v-if="isBane(slotProps.item)" />
+        </FlippingCard>
       </template>
-    </grid-layout-component>
-    <copy-button-component
+    </GridLayout>
+    <CopyButton
       :text="supplyCardsCopyText"
       class="sortable-supply-card-copy-button"
     />
@@ -33,8 +33,8 @@
 </template>
 
 <script lang="ts">
-import FlippingCardComponent from "./flipping-card.vue";
-import BaneCardCoverComponent from "./bane-card-cover.vue";
+import FlippingCard from "./FlippingCard.vue";
+import BaneCardCover from "./BaneCardCover.vue";
 import { Addon } from "../dominion/addon";
 import { Coordinate } from "../utils/coordinate";
 import { SupplyCard } from "../dominion/supply-card";
@@ -46,8 +46,8 @@ import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
-import GridLayoutComponent from "./grid-layout.vue";
-import CopyButtonComponent from "./copy-button.vue";
+import GridLayout from "./GridLayout.vue";
+import CopyButton from "./CopyButton.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
@@ -57,18 +57,15 @@ interface MoveDescriptor {
 const ANIMATION_DURATION_SEC = 0.6;
 const WINDOW_RESIZE_DELAY_MSEC = 300;
 
-@Component
-export default class SortableSupplyCardsComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "grid-layout-component": GridLayoutComponent,
-        "flipping-card-component": FlippingCardComponent,
-        "bane-card-cover-component": BaneCardCoverComponent,
-        "copy-button-component": CopyButtonComponent,
-      }
-    });
+@Component({
+  components: {
+    GridLayout,
+    FlippingCard,
+    BaneCardCover,
+    CopyButton,
   }
+})
+export default class SortableSupplyCardsComponent extends Vue {
   @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
   @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;
   @State(state => state.window.width) readonly windowWidth!: number;
@@ -292,7 +289,6 @@ export default class SortableSupplyCardsComponent extends Vue {
     return new Set(oldSupplyCards.filter((card) => !newIds.has(card.id)).map((card) => card.id));
   }
 }
-Vue.component("sortable-supply-cards-component", SortableSupplyCardsComponent);
 </script>
 
 <style>

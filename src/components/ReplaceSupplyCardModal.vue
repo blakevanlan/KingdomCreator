@@ -77,8 +77,8 @@
 </template>	
 
 <script lang="ts">	
-import StaticCardComponent from "./static-card.vue";	
-import CardDescriptionComponent from "./card-description.vue";	
+import StaticCard from "./StaticCard.vue";	
+import CardDescription from "./CardDescription.vue";	
 import { Vue, Component, Watch } from "vue-property-decorator";	
 import { Settings } from "../settings/settings";	
 import { SetId } from "../dominion/set-id";	
@@ -88,7 +88,8 @@ import { SupplyCard } from "../dominion/supply-card";
 import { CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";	
 import { CardType } from "../dominion/card-type";	
 import { CostType } from "../dominion/cost-type"	
-import { RANDOMIZE_SUPPLY_CARD, RandomizeSupplyCardParams } from "../stores/randomizer/action-types";	
+import { RANDOMIZE_SUPPLY_CARD, RandomizeSupplyCardParams } from "../stores/randomizer/action-types";
+
 interface VisibleType<T> {	
   type: T;	
   name: string;	
@@ -115,16 +116,14 @@ const VISIBLE_COSTS: VisibleType<CostType>[] = [
   {type: CostType.TREASURE_7, name: "7"},	
   {type: CostType.TREASURE_8_OR_MORE, name: "8+"},	
 ]	
-@Component	
-export default class ReplaceSupplyCardModalComponent extends Vue {	
-  constructor() {	
-    super({	
-      components: {	
-        "static-card-component": StaticCardComponent,	
-        "card-description-component": CardDescriptionComponent,	
-      }	
-    });	
+
+@Component({	
+  components: {	
+    StaticCard,	
+    CardDescription,	
   }	
+})
+export default class ReplaceSupplyCardModalComponent extends Vue {	
   @State(state => state.randomizer.specifyingReplacementSupplyCard) readonly specifying!: SupplyCard | null;	
   @State(state => state.randomizer.settings) readonly settings!: Settings;	
   @State(state => state.randomizer.settings.selectedSets) readonly selectedSetIds!: SetId[];	
@@ -173,7 +172,6 @@ export default class ReplaceSupplyCardModalComponent extends Vue {
     } as RandomizeSupplyCardParams);	
   }	
 }	
-Vue.component("replace-supply-card-modal-component", ReplaceSupplyCardModalComponent);	
 </script>	
 
 <style>	

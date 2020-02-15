@@ -10,11 +10,10 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class CardDescriptionComponent extends Vue {
+export default class CardDescription extends Vue {
   @Prop() readonly description!: string;
   @Prop() readonly descriptionClass!: string | null;
 }
-Vue.component("card-description-component", CardDescriptionComponent);
 </script>
 
 <style>

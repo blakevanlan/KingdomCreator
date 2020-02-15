@@ -1,11 +1,11 @@
 <template>
-  <static-card-component
+  <StaticCard
     :class="set.id"
     :is-vertical="isVertical"
     :card-image-url="cardImageUrl"
   >
-    <card-set-description-component :card="card" />
-  </static-card-component>
+    <CardSetDescription :card="card" />
+  </StaticCard>
 </template>
 
 <script lang="ts">
@@ -14,19 +14,16 @@ import { SupplyCard } from "../dominion/supply-card";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { getCardImageUrl } from "../utils/resources";
 import { DominionSets } from "../dominion/dominion-sets";
-import StaticCardComponent from "./static-card.vue";
-import CardSetDescriptionComponent from "./card-set-description.vue";
+import StaticCard from "./StaticCard.vue";
+import CardSetDescription from "./CardSetDescription.vue";
 
-@Component
-export default class StaticCardWithSetComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "static-card-component": StaticCardComponent,
-        "card-set-description-component": CardSetDescriptionComponent,
-      }
-    });
+@Component({
+  components: {
+    StaticCard,
+    CardSetDescription,
   }
+})
+export default class StaticCardWithSet extends Vue {
   @Prop() readonly card!: Card;
   
   get isVertical() {
@@ -41,5 +38,4 @@ export default class StaticCardWithSetComponent extends Vue {
     return DominionSets.getSetById(this.card.setId).name;
   }
 }
-Vue.component("static-card-with-set-component", StaticCardWithSetComponent);
 </script>

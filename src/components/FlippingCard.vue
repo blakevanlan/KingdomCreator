@@ -9,7 +9,7 @@
         <transition name="fade">
           <div class="flip-card__front-details">
             <slot></slot>
-            <card-set-description-component v-if="isFrontVisible" :card="activeCard" />
+            <CardSetDescription v-if="isFrontVisible" :card="activeCard" />
           </div>
         </transition>
         <transition name="fade">
@@ -34,7 +34,7 @@ import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
-import CardSetDescriptionComponent from "./card-set-description.vue";
+import CardSetDescription from "./CardSetDescription.vue";
 
 enum CardState {
   FLIPPING_TO_BACK,
@@ -49,15 +49,12 @@ interface AnimationParams {
 
 const ANIMATION_DURATION_SEC = 0.4;
 
-@Component
-export default class FlippingCardComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "card-set-description-component": CardSetDescriptionComponent,
-      }
-    });
+@Component({
+  components: {
+    CardSetDescription
   }
+})
+export default class FlippingCard extends Vue {
   @Prop() readonly card!: Card | null;
   @Prop() readonly isVertical!: boolean;
   @Prop() readonly onCardBackClick!: Function | null;
@@ -213,7 +210,6 @@ export default class FlippingCardComponent extends Vue {
     this.animationParams.rotation = this.cardState == CardState.FRONT_VISIBLE ? 1 : 0;
   }
 }
-Vue.component("flipping-card-component", FlippingCardComponent);
 </script>
 
 <style>

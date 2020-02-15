@@ -1,7 +1,7 @@
 <template>
   <a class="rulebook" target="_rulebookDominion" :href="rulebookUrl">
     <img class="rulebook__img" :src="imageUrl" />
-    <card-description-component
+    <CardDescription
       :description="rulebook.name"
       :description-class="rulebook.id"
     />
@@ -11,23 +11,23 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { getSetImageUrl, getRulebookUrl } from "../utils/resources";
-import CardDescriptionComponent from "./card-description.vue";
+import CardDescription from "./CardDescription.vue";
 
-export interface Rulebook {
+export interface RulebookInterface {
   id: string;
   name: string;
 }
 
-@Component
-export default class RulebookComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "card-description-component": CardDescriptionComponent,
-      }
-    });
+@Component({
+  components: {
+    CardDescription,
   }
-  @Prop() readonly rulebook!: Rulebook;
+})
+export default class Rulebook extends Vue {
+  constructor() {
+    super();
+  }
+  @Prop() readonly rulebook!: RulebookInterface;
 
   get imageUrl() {
     return getSetImageUrl(this.rulebook.id);
@@ -37,7 +37,6 @@ export default class RulebookComponent extends Vue {
     return getRulebookUrl(this.rulebook.id);
   }
 }
-Vue.component("rulebook-component", RulebookComponent);
 </script>
 
 <style>

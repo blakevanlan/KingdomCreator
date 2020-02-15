@@ -1,18 +1,20 @@
 <template>
   <div class="rulebooks">
     <div class="rulebooks-description">
-      Here are the rulebooks published with each set of dominion. Rulebooks contain descriptions of kingdom card and how they interact with other kingdom cards.
+      Here are the rulebooks published with each set of dominion. Rulebooks
+      contain descriptions of kingdom card and how they interact with other
+      kingdom cards.
     </div>
-    <grid-layout-component 
+    <GridLayout 
       :items="RULEBOOK_IDS"
       :number-of-columns="3"
       :is-vertical="true"
       :shape="Shape.SQUARE"
     >
       <template v-slot:default="slotProps">
-        <rulebook-component :rulebook="slotProps.item" />
+        <Rulebook :rulebook="slotProps.item" />
       </template>
-    </grid-layout-component>
+    </GridLayout>
   </div>
 </template>
 
@@ -20,8 +22,8 @@
 <script lang="ts">
 
 import { Vue, Component } from "vue-property-decorator";
-import GridLayoutComponent, { Shape } from "./grid-layout.vue";
-import RulebookComponent, { Rulebook } from "./rulebook.vue";
+import GridLayout, { Shape } from "./GridLayout.vue";
+import Rulebook, { RulebookInterface } from "./rulebook.vue";
 import { SetId } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 
@@ -34,7 +36,7 @@ const RULEBOOK_IDS =
       return {
         id: s.setId,
         name: s.name
-      } as Rulebook
+      } as RulebookInterface
     })
     .concat({
       id: "guildscornucopia",
@@ -44,16 +46,13 @@ const RULEBOOK_IDS =
       return a.id == b.id ? 0 : a.id < b.id ? -1 : 1;
     });
 
-@Component
-export default class Rulebooks extends Vue {
-  constructor() {
-    super({
-      components: {
-        "grid-layout-component": GridLayoutComponent,
-        "rulebook-component": RulebookComponent
-      }
-    });
+@Component({
+  components: {
+    GridLayout,
+    Rulebook
   }
+})
+export default class Rulebooks extends Vue {
   RULEBOOK_IDS = RULEBOOK_IDS;
   Shape = Shape;
 };
