@@ -24,9 +24,6 @@ export interface RulebookInterface {
   }
 })
 export default class Rulebook extends Vue {
-  constructor() {
-    super();
-  }
   @Prop() readonly rulebook!: RulebookInterface;
 
   get imageUrl() {
