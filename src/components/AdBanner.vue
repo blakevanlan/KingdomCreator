@@ -20,7 +20,6 @@ export default class AdBanner extends Vue {
     (w.adsbygoogle = w.adsbygoogle || []).push({});
   }
 }
-Vue.component("ad-banner-component", AdBanner);
 </script>
 
 <style>

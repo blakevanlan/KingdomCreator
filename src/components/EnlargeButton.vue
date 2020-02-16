@@ -21,8 +21,6 @@ export default class EnlargeButton extends Vue {
     this.$store.commit(SET_ENLARGED, !this.isEnlarged);
   }
 }
-
-Vue.component("expanded-button-component", EnlargeButton);
 </script>
 
 

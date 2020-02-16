@@ -4,7 +4,7 @@
       <div v-if="activeBoons.length" class="boons-header">Boons</div> 
     </transition>
     <transition name="slow-fade">
-      <grid-layout-component
+      <GridLayout
         v-if="activeBoons.length"
         class="boons"
         :class="{'boons--is-enlarged': isEnlarged}"
@@ -13,34 +13,31 @@
         :is-vertical="false"
       >
         <template v-slot:default="slotProps">
-          <flipping-card-component
+          <FlippingCard
             :card="slotProps.item"
             :is-vertical="false"
           />
         </template>
-      </grid-layout-component>
+      </GridLayout>
     </transition>
   </div>
 </template>
 
 <script lang="ts">
-import GridLayoutComponent from "./grid-layout.vue";
-import FlippingCardComponent from "./flipping-card.vue";
+import GridLayout from "./GridLayout.vue";
+import FlippingCard from "./FlippingCard.vue";
 import { Boon } from "../dominion/boon";
 import { Cards } from "../utils/cards";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { State } from "vuex-class";
 
-@Component
-export default class BoonsComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "grid-layout-component": GridLayoutComponent,
-        "flipping-card-component": FlippingCardComponent,
-      }
-    });
+@Component({
+  components: {
+    GridLayout,
+    FlippingCard
   }
+})
+export default class Boons extends Vue {
   @State(state => state.randomizer.kingdom.boons) readonly boons!: Boon[];
   @State(state => state.window.width) readonly windowWidth!: number;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
@@ -72,7 +69,6 @@ export default class BoonsComponent extends Vue {
     this.activeBoons = newActiveBoons.concat(newBoons.slice(newBoonIndex));
   }
 }
-Vue.component("boons-component", BoonsComponent);
 </script>
 
 <style>

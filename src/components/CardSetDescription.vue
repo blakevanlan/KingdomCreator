@@ -1,5 +1,5 @@
 <template>
-  <card-description-component
+  <CardDescription
     class="card-set-description"
     :description="setName"
     :description-class="card.setId" 
@@ -10,24 +10,20 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { DominionSets } from "../dominion/dominion-sets";
 import { Card } from "../dominion/card";
-import CardDescriptionComponent from "./card-description.vue";
+import CardDescription from "./CardDescription.vue";
 
-@Component
-export default class CardSetDescriptionComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "card-description-component": CardDescriptionComponent
-      }
-    });
+@Component({
+  components: {
+    CardDescription
   }
+})
+export default class CardSetDescription extends Vue {
   @Prop() readonly card!: Card;
 
   get setName() {
     return DominionSets.getSetById(this.card.setId).name;
   }
 }
-Vue.component("card-set-description-component", CardSetDescriptionComponent);
 </script>
 
 <style>

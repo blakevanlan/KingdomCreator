@@ -15,7 +15,7 @@ export enum Shape {
 }
 
 @Component
-export default class GridLayoutComponent extends Vue {
+export default class GridLayout extends Vue {
   @Prop() readonly items!: any[];
   @Prop() readonly numberOfColumns!: number;
   @Prop() readonly isVertical!: boolean;
@@ -27,7 +27,6 @@ export default class GridLayoutComponent extends Vue {
     return [columnClasses[this.numberOfColumns], directionClass];
   }
 }
-Vue.component("grid-layout-component", GridLayoutComponent);
 </script>
 
 <style>

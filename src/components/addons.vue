@@ -3,25 +3,26 @@
     <div class="addons-header">
       {{ addonSummary }}  
     </div>
-    <grid-layout-component
+    <GridLayout
         :class="{'addon--is-enlarged': isEnlarged}"
         :items="activeContainers"
         :number-of-columns="numberOfColumns"
         :is-vertical="false"
       >
       <template v-slot:default="slotProps">
-        <flipping-card-component
+        <FlippingCard
           :on-card-back-click="function() { handleClick(slotProps.item) }"
           :card="slotProps.item.addon"
           :is-vertical="false"
         />
       </template>
-    </grid-layout-component>
+    </GridLayout>
   </div>
 </template>
 
 <script lang="ts">
-import FlippingCardComponent from "./flipping-card.vue";
+import GridLayout from "./GridLayout";
+import FlippingCard from "./FlippingCard.vue";
 import { Addon } from "../dominion/addon";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { Getter, State } from "vuex-class";
@@ -33,18 +34,20 @@ interface AddonContainer {
 
 const NUMBER_OF_ADDONS = 2;
 
-@Component
-export default class AddonsComponent extends Vue {
-  constructor() {
-    super({components: {"flipping-card-component": FlippingCardComponent}});
+@Component({
+  components: {
+    GridLayout,
+    FlippingCard
   }
+})
+export default class Addons extends Vue {
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @State(state => state.window.width) readonly windowWidth!: number;
   @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
   @Getter("addonSummary") readonly addonSummary!: string;
   @Getter("addons") readonly addons!: Addon[];
-  activeContainers: AddonContainer[] = AddonsComponent.fillWithEmptyAddonContainers([]);
+  activeContainers: AddonContainer[] = Addons.fillWithEmptyAddonContainers([]);
 
   get numberOfColumns() {
     return this.isEnlarged ? 1 : this.windowWidth > 525 ? 3 : 2;
@@ -67,16 +70,16 @@ export default class AddonsComponent extends Vue {
 
   private updateAddonContainers() {
     if (!this.addons.length) {
-      this.activeContainers = AddonsComponent.fillWithEmptyAddonContainers([]);
+      this.activeContainers = Addons.fillWithEmptyAddonContainers([]);
       return;
     }
-    const newAddons = AddonsComponent.findNewAddons(this.activeContainers, this.addons);
+    const newAddons = Addons.findNewAddons(this.activeContainers, this.addons);
     let newAddonsIndex = 0;
     const newContainers = [];
     for (let i = 0; i < this.activeContainers.length; i++) {
       const container = this.activeContainers[i];
       if (container.addon != null 
-          && AddonsComponent.containsAddon(this.addons, container.addon)) {
+          && Addons.containsAddon(this.addons, container.addon)) {
         newContainers.push(container);
       } else {
         newContainers.push({
@@ -84,7 +87,7 @@ export default class AddonsComponent extends Vue {
         });
       }
     }
-    this.activeContainers = AddonsComponent.fillWithEmptyAddonContainers(newContainers);
+    this.activeContainers = Addons.fillWithEmptyAddonContainers(newContainers);
   }
 
   private static findNewAddons(containers: AddonContainer[], addons: Addon[]) {
@@ -111,7 +114,6 @@ export default class AddonsComponent extends Vue {
     return list;
   }
 }
-Vue.component("addons-component", AddonsComponent);
 </script>
 
 <style>

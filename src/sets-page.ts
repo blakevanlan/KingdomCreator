@@ -1,7 +1,7 @@
 import Vue from "vue";
-import PageComponent, { MenuItemType } from "./components/page.vue";
-import PresetKingdomComponent from "./components/preset-kingdom.vue";
-import SetsSidebarComponent from "./components/sets-sidebar.vue";
+import Page, { MenuItemType } from "./components/Page.vue";
+import PresetKingdom from "./components/PresetKingdom.vue";
+import SetsSidebar from "./components/SetsSidebar.vue";
 import { DominionKingdoms } from "./dominion/dominion-kingdoms";
 import { State, store } from "./stores/sets-store";
 import { initializeWindowListener } from "./setup";
@@ -12,20 +12,20 @@ initializeWindowListener(store);
 new Vue({
   el: "#app",
   template: `
-  <page-component :subtitle="subtitle" :selectedType="selectedType">
+  <Page :subtitle="subtitle" :selectedType="selectedType">
     <div class="content">
-      <sets-sidebar-component />
+      <SetsSidebar />
       <div class="main">
         <div class="sets-description">
           Players can play Dominion with any set of 10 Kingdom cards, but these sets have been
           specially picked out to be entertaining and show off card interactions and strategies.
         </div>
         <div class="kingdoms">
-          <preset-kingdom-component v-for="kingdom in kingdoms" :key="kingdom.name" :kingdom="kingdom" />
+          <PresetKingdom v-for="kingdom in kingdoms" :key="kingdom.name" :kingdom="kingdom" />
         </div>
       </div>
     </div>
-  </page-component>
+  </Page>
   `,
   store: store,
   data: {
@@ -39,8 +39,8 @@ new Vue({
     }
   },
   components: {
-    "page-component": PageComponent,
-    "preset-kingdom-component": PresetKingdomComponent,
-    "sets-sidebar-component": SetsSidebarComponent,
+    Page,
+    PresetKingdom,
+    SetsSidebar,
   }
 });

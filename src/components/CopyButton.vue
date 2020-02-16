@@ -25,7 +25,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 const SHOW_COPIED_DURATION_MS = 2000;
 
 @Component
-export default class CopyButtonComponent extends Vue {
+export default class CopyButton extends Vue {
   @Prop() readonly text!: string;
   hasCopiedTimerId: null | number = null;
 
@@ -44,8 +44,6 @@ export default class CopyButtonComponent extends Vue {
     this.hasCopiedTimerId = null;
   }
 }
-
-Vue.component("copy-button-component", CopyButtonComponent);
 </script>
 
 

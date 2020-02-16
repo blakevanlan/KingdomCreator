@@ -9,11 +9,10 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class StaticCardComponent extends Vue {
+export default class StaticCard extends Vue {
   @Prop() readonly cardImageUrl!: string | null;
   @Prop() readonly isVertical!: boolean;
 }
-Vue.component("static-card-component", StaticCardComponent);
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 import Vue from "vue";
-import PageComponent, { MenuItemType } from "./components/page.vue";
-import RulebooksComponent from "./components/rulebooks.vue";
+import Page, { MenuItemType } from "./components/Page.vue";
+import Rulebooks from "./components/Rulebooks.vue";
 import { initializeWindowListener } from "./setup";
 import { store } from "./stores/sets-store";
 
@@ -10,11 +10,11 @@ initializeWindowListener(store);
 new Vue({
   el: "#app",
   template: `
-  <page-component :subtitle="subtitle" :selectedType="selectedType">
+  <Page :subtitle="subtitle" :selectedType="selectedType">
       <div class="content main">
-      <rulebooks-component />
+      <Rulebooks />
     </div>
-  </page-component>
+  </Page>
   `,
   store: store,
   data: {
@@ -22,7 +22,7 @@ new Vue({
     subtitle: SUBTITLE
   },
   components: {
-    "page-component": PageComponent,
-    "rulebooks-component": RulebooksComponent
+    Page,
+    Rulebooks
   }
 });

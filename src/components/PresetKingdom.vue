@@ -18,18 +18,18 @@
       </div>
     </div>
 
-    <grid-layout-component
+    <GridLayout
       :items="getSupplyCards(kingdom)"
       :number-of-columns="numberOfColumnsForSupplyCards"
       :is-vertical="true"
     >
       <template v-slot:default="slotProps">
-        <static-card-with-set-component :card="slotProps.item" />
-        <bane-card-cover-component v-if="isBaneCard(slotProps.item)" />
+        <StaticCardWithSet :card="slotProps.item" />
+        <BaneCardCover v-if="isBaneCard(slotProps.item)" />
       </template>
-    </grid-layout-component>
+    </GridLayout>
 
-    <copy-button-component 
+    <CopyButton 
       :text="getCopyText(kingdom)"
       class="preset-kingdom-copy-button"
     />
@@ -38,59 +38,56 @@
       <div class="preset-kingdom__addon-title">
         {{titleForAddons}}
       </div>
-      <grid-layout-component
+      <GridLayout
         :items="getCards(addonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
       >
         <template v-slot:default="slotProps">
-          <static-card-with-set-component :card="slotProps.item" />
+          <StaticCardWithSet :card="slotProps.item" />
         </template>
-      </grid-layout-component>
+      </GridLayout>
     </div>
         
     <div v-if="kingdom.boonIds.length">
       <div class="preset-kingdom__addon-title">Boons</div>
-      <grid-layout-component
+      <GridLayout
         :items="getCards(kingdom.boonIds)"
         :number-of-columns="numberOfColumnsForAddons"
         :is-vertical="false"
       >
         <template v-slot:default="slotProps">
-          <static-card-with-set-component :card="slotProps.item" />
+          <StaticCardWithSet :card="slotProps.item" />
         </template>
-      </grid-layout-component>
+      </GridLayout>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import GridLayoutComponent from "./grid-layout.vue";
+import GridLayout from "./GridLayout.vue";
 import { DominionKingdom } from "../dominion/dominion-kingdom";
 import { DominionSets } from "../dominion/dominion-sets";
 import { SupplyCard } from "../dominion/supply-card";
 import { State } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { getMessageForAddonsDescription } from "../utils/messages";
-import StaticCardWithSetComponent from "./static-card-with-set.vue";
-import BaneCardCoverComponent from "./bane-card-cover.vue";
-import CopyButtonComponent from "./copy-button.vue";
+import StaticCardWithSet from "./StaticCardWithSet.vue";
+import BaneCardCover from "./BaneCardCover.vue";
+import CopyButton from "./CopyButton.vue";
 
 const FOUR_COLUMN_SUPPLY_CARD_WIDTH = 450;
 const TWO_COLUMN_ADDON_WIDTH = 525;
 
-@Component
-export default class PresetKingdom extends Vue {
-  constructor() {
-    super({
-      components: {
-        "grid-layout-component": GridLayoutComponent,
-        "static-card-with-set-component": StaticCardWithSetComponent,
-        "bane-card-cover-component": BaneCardCoverComponent,
-        "copy-button-component": CopyButtonComponent,
-      }
-    });
+@Component({
+  components: {
+    GridLayout,
+    StaticCardWithSet,
+    BaneCardCover,
+    CopyButton,
   }
+})
+export default class PresetKingdom extends Vue {
   @Prop() readonly kingdom!: DominionKingdom;
   @State(state => state.window.width) windowWidth!: number;
   

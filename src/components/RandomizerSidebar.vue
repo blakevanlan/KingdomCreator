@@ -227,7 +227,6 @@ export default class RandomizerSidebar extends Vue {
     } as SettingsParams);
   }
 }
-Vue.component("randomizer-sidebar-component", RandomizerSidebar);
 </script>
 
 <style>

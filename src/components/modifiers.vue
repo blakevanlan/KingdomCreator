@@ -4,7 +4,7 @@
       <div v-if="modifiers.length" class="modifiers-header">Additional</div> 
     </transition>
     <transition name="slow-fade">
-      <grid-layout-component
+      <GridLayout
         class="modifiers"
         :class="{'modifiers--is-enlarged': isEnlarged}"
         :items="modifiers"
@@ -12,25 +12,25 @@
         :is-vertical="true"
       >
         <template v-slot:default="slotProps">
-          <static-card-component :cardImageUrl="slotProps.item.imageUrl">
-            <card-description-component
+          <StaticCard :cardImageUrl="slotProps.item.imageUrl">
+            <CardDescription
               :description="slotProps.item.name"
               :descriptionClass="slotProps.item.className"
             />
-          </static-card-component>
+          </StaticCard>
         </template>
-      </grid-layout-component>
+      </GridLayout>
     </transition>
   </div>
 </template>
 
 <script lang="ts">
-import StaticCardComponent from "./static-card.vue";
-import CardDescriptionComponent from "./card-description.vue";
+import StaticCard from "./StaticCard.vue";
+import CardDescription from "./CardDescription.vue";
 import { Metadata } from "../randomizer/kingdom";
 import { Vue, Component } from "vue-property-decorator";
 import { State } from "vuex-class";
-import GridLayoutComponent from "./grid-layout.vue";
+import GridLayout from "./GridLayout.vue";
 
 interface Modifier {
   name: string;
@@ -38,17 +38,14 @@ interface Modifier {
   className: string;
 }
 
-@Component
-export default class ModifiersComponent extends Vue {
-  constructor() {
-    super({
-      components: {
-        "grid-layout-component": GridLayoutComponent,
-        "static-card-component": StaticCardComponent,
-        "card-description-component": CardDescriptionComponent,
-      }
-    });
+@Component({
+  components: {
+    GridLayout,
+    StaticCard,
+    CardDescription
   }
+})
+export default class Modifiers extends Vue {
   @State(state => state.randomizer.kingdom.metadata) readonly metadata!: Metadata;
   @State(state => state.window.width) readonly windowWidth!: number;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
@@ -77,7 +74,6 @@ export default class ModifiersComponent extends Vue {
   }
 
 }
-Vue.component("modifiers-component", ModifiersComponent);
 </script>
 
 <style>

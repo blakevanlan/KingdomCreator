@@ -10,9 +10,8 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class BaneCardCoverComponent extends Vue {
+export default class BaneCardCover extends Vue {
 }
-Vue.component("bane-card-cover-component", BaneCardCoverComponent);
 </script>
 
 <style>
