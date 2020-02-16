@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Addons from "./Addons.vue";
-import Boons from "./boons.vue";
+import Boons from "./Boons.vue";
 import SortableSupplyCards from "./SortableSupplyCards.vue";
 import RandomizerSidebar from "./RandomizerSidebar.vue";
 import { Getter, State } from "vuex-class";

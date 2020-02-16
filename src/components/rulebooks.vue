@@ -23,7 +23,7 @@
 
 import { Vue, Component } from "vue-property-decorator";
 import GridLayout, { Shape } from "./GridLayout.vue";
-import Rulebook, { RulebookInterface } from "./rulebook.vue";
+import Rulebook, { RulebookInterface } from "./Rulebook.vue";
 import { SetId } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 
