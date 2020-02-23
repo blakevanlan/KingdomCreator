@@ -4,7 +4,7 @@
     :is-vertical="isVertical"
     :card-image-url="cardImageUrl"
   >
-    <CardSetDescription :card="card" />
+    <CardOverlay :card="card" />
   </StaticCard>
 </template>
 
@@ -15,12 +15,12 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { getCardImageUrl } from "../utils/resources";
 import { DominionSets } from "../dominion/dominion-sets";
 import StaticCard from "./StaticCard.vue";
-import CardSetDescription from "./CardSetDescription.vue";
+import CardOverlay from "./CardOverlay.vue";
 
 @Component({
   components: {
     StaticCard,
-    CardSetDescription,
+    CardOverlay,
   }
 })
 export default class StaticCardWithSet extends Vue {

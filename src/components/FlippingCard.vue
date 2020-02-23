@@ -6,12 +6,10 @@
         <img class="flip-card__img" v-if="activeCard" :src="frontCardImageUrl"
             :key="activeCard ? activeCard.id : ''"
             @load="handleFrontImageLoaded" />
-        <transition name="fade">
           <div class="flip-card__front-details">
             <slot></slot>
-            <CardSetDescription v-if="isFrontVisible" :card="activeCard" />
+            <CardOverlay v-if="activeCard" :card="activeCard" />
           </div>
-        </transition>
         <transition name="fade">
           <div class="flip-card__front-highlight" v-if="showHighlight">
             <slot name="highlight-content"></slot>
@@ -34,7 +32,7 @@ import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
-import CardSetDescription from "./CardSetDescription.vue";
+import CardOverlay from "./CardOverlay.vue";
 
 enum CardState {
   FLIPPING_TO_BACK,
@@ -51,7 +49,7 @@ const ANIMATION_DURATION_SEC = 0.4;
 
 @Component({
   components: {
-    CardSetDescription
+    CardOverlay
   }
 })
 export default class FlippingCard extends Vue {
@@ -262,7 +260,11 @@ export default class FlippingCard extends Vue {
 }
 
 .flip-card__front-details {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  justify-content: center;
   position: absolute;
   width: 100%;
 }

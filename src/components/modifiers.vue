@@ -13,9 +13,9 @@
       >
         <template v-slot:default="slotProps">
           <StaticCard :cardImageUrl="slotProps.item.imageUrl">
-            <CardDescription
-              :description="slotProps.item.name"
-              :descriptionClass="slotProps.item.className"
+            <CardTitleOverlay
+              :title="slotProps.item.name"
+              :title-class="slotProps.item.className"
             />
           </StaticCard>
         </template>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import StaticCard from "./StaticCard.vue";
-import CardDescription from "./CardDescription.vue";
+import CardTitleOverlay from "./CardTitleOverlay.vue";
 import { Metadata } from "../randomizer/kingdom";
 import { Vue, Component } from "vue-property-decorator";
 import { State } from "vuex-class";
@@ -42,7 +42,7 @@ interface Modifier {
   components: {
     GridLayout,
     StaticCard,
-    CardDescription
+    CardTitleOverlay
   }
 })
 export default class Modifiers extends Vue {
@@ -58,21 +58,20 @@ export default class Modifiers extends Vue {
     const modifiers: Modifier[] = [];
     if (this.metadata.useColonies) {
       modifiers.push({
-        name: "Colonies & Platinums",
+        name: this.$tc("colonies_and_platinums"),
         imageUrl: "/img/cards/prosperity_coloniesplatinums.png",
         className: "use-colonies"
       });
     }
     if (this.metadata.useShelters) {
       modifiers.push({
-        name: "Shelters",
+        name: this.$tc("shelters"),
         imageUrl: "/img/cards/darkages_shelters.png",
         className: "use-shelters"
       });
     }
     return modifiers;
   }
-
 }
 </script>
 

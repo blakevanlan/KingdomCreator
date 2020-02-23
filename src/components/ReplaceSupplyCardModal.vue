@@ -77,8 +77,6 @@
 </template>	
 
 <script lang="ts">	
-import StaticCard from "./StaticCard.vue";	
-import CardDescription from "./CardDescription.vue";	
 import { Vue, Component, Watch } from "vue-property-decorator";	
 import { Settings } from "../settings/settings";	
 import { SetId } from "../dominion/set-id";	
@@ -117,12 +115,7 @@ const VISIBLE_COSTS: VisibleType<CostType>[] = [
   {type: CostType.TREASURE_8_OR_MORE, name: "8+"},	
 ]	
 
-@Component({	
-  components: {	
-    StaticCard,	
-    CardDescription,	
-  }	
-})
+@Component
 export default class ReplaceSupplyCardModal extends Vue {	
   @State(state => state.randomizer.specifyingReplacementSupplyCard) readonly specifying!: SupplyCard | null;	
   @State(state => state.randomizer.settings) readonly settings!: Settings;	

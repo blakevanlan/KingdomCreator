@@ -6,7 +6,7 @@
         <div class="set">
           <label class="checkbox">
             <input type="radio" id="selectedSet" :value="set.setId" v-model="selectedSetId" />
-            <span>{{ set.name }}</span>
+            <span>{{ $t(set.setId) }}</span>
           </label>
         </div>
       </div>

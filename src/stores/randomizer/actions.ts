@@ -9,7 +9,6 @@ import {
 import { EventTracker } from "../../analytics/event-tracker";
 import { EventType } from "../../analytics/event-tracker";
 import { State } from "./randomizer-store";
-import {deserializeKingdom} from "../../randomizer/serializer";
 import { ActionContext } from "vuex";
 import { CardType } from "../../dominion/card-type";
 import { RandomizerOptionsBuilder } from "../../randomizer/randomizer-options";
@@ -29,13 +28,12 @@ import { Boon } from "../../dominion/boon";
 interface Context extends ActionContext<State, any> {}
 
 export const actions = {
-  LOAD_INITIAL_KINGDOM(context: Context) {
-    const kingdomFromUrl = deserializeKingdom(location.search);
-    if (kingdomFromUrl) {
+  LOAD_INITIAL_KINGDOM(context: Context, initialKingdom: Kingdom | null) {
+    if (initialKingdom) {
       // Use the kingdom as-is if it contains 10 supply cards.
-      if (kingdomFromUrl.supply.supplyCards.length == 10) {
+      if (initialKingdom.supply.supplyCards.length == 10) {
         EventTracker.trackEvent(EventType.LOAD_FULL_KINGDOM_FROM_URL);
-        context.commit(UPDATE_KINGDOM, kingdomFromUrl);
+        context.commit(UPDATE_KINGDOM, initialKingdom);
         return;
       }
       // Randomize the rest of the set if there are less than 10 cards.
@@ -43,15 +41,15 @@ export const actions = {
           createRandomizerOptionsBuilder(context)
               .setSetIds(getSelectedSetIds(context))
               .setExcludeTypes(getExcludeTypes(context))
-              .setIncludeCardIds(Cards.extractIds(kingdomFromUrl.supply.supplyCards))
+              .setIncludeCardIds(Cards.extractIds(initialKingdom.supply.supplyCards))
               .build();
         
       const supply = Randomizer.createSupplySafe(options);
       if (supply) {
         EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
         const kingdom = new Kingdom(
-            Date.now(), supply, kingdomFromUrl.events, kingdomFromUrl.landmarks,
-            kingdomFromUrl.projects, kingdomFromUrl.boons, kingdomFromUrl.metadata);
+            Date.now(), supply, initialKingdom.events, initialKingdom.landmarks,
+            initialKingdom.projects, initialKingdom.boons, initialKingdom.metadata);
         context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
         return;

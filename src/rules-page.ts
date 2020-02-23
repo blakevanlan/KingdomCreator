@@ -1,28 +1,6 @@
-import Vue from "vue";
-import Page, { MenuItemType } from "./components/Page.vue";
-import Rulebooks from "./components/Rulebooks.vue";
-import { initializeWindowListener } from "./setup";
+import Rules from "./views/Rules.vue"
 import { store } from "./stores/sets-store";
+import { initialize } from "./setup";
+import { createRouter } from "./router";
 
-const SUBTITLE = "Original rule books of Dominion Sets";
-
-initializeWindowListener(store);
-new Vue({
-  el: "#app",
-  template: `
-  <Page :subtitle="subtitle" :selectedType="selectedType">
-      <div class="content main">
-      <Rulebooks />
-    </div>
-  </Page>
-  `,
-  store: store,
-  data: {
-    selectedType: MenuItemType.RULES,
-    subtitle: SUBTITLE
-  },
-  components: {
-    Page,
-    Rulebooks
-  }
-});
+initialize(createRouter(["/rules.html"], Rules), store);

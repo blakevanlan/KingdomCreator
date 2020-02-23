@@ -1,17 +1,18 @@
 <template>
   <a class="rulebook" target="_rulebookDominion" :href="rulebookUrl">
     <img class="rulebook__img" :src="imageUrl" />
-    <CardDescription
-      :description="rulebook.name"
-      :description-class="rulebook.id"
-    />
+    <TextOverlay>
+      <span class="rulebook__overlay" :class="rulebook.id">
+        {{ rulebook.name }}
+      </span>
+    </TextOverlay>
   </a>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { getSetImageUrl, getRulebookUrl } from "../utils/resources";
-import CardDescription from "./CardDescription.vue";
+import TextOverlay from "./TextOverlay.vue";
 
 export interface RulebookInterface {
   id: string;
@@ -20,7 +21,7 @@ export interface RulebookInterface {
 
 @Component({
   components: {
-    CardDescription,
+    TextOverlay,
   }
 })
 export default class Rulebook extends Vue {
@@ -37,6 +38,13 @@ export default class Rulebook extends Vue {
 </script>
 
 <style>
+.rulebook {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+}
 .rulebook,
 .rulebook__img {
   height: 100%;
@@ -46,22 +54,14 @@ export default class Rulebook extends Vue {
   width: 100%;
 }
 
-@media (max-width: 900px) {
-  .rulebook .card-description {
-    font-size: 16px;
-  }
+.rulebook__overlay {
+  font-size: 15px;
+  text-decoration: none;
+}
 
-  .rulebook .baseset2,
-  .rulebook .intrigue2,
-  .rulebook .hinterlands,
-  .rulebook .guildscornicopia {
-    font-size: 14px;
+@media (max-width: 600px) {
+  .rulebook__overlay {
+    font-size: 12px;
   }
 }  
-
-@media (max-width: 400px) {
-  .rulebook .card-description {
-    font-size: 10px
-  }
-}
 </style>

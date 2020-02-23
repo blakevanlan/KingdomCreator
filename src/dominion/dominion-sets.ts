@@ -43,6 +43,15 @@ export class DominionSets {
     return sets;
   }
 
+  public static getAllCards(): Card[] {
+    const cards: Card[] = [];
+    const cardIds = Object.keys(DominionSets.cards);
+    for (let cardId of cardIds) {
+      cards.push(DominionSets.cards[cardId]);
+    }
+    return cards;
+  }
+
   public static getSetById(setId: SetId): DominionSet {
     return DominionSets.sets[setId] as DominionSet;
   }
