@@ -16,6 +16,13 @@ export default class StaticCard extends Vue {
 </script>
 
 <style>
+.static-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .static-card,
 .static-card__img {
   height: 100%;

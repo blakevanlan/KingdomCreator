@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+
+import { Component } from "vue-property-decorator";
+import Base from "./base";
 import EnlargeButton from "../components/EnlargeButton.vue";
 import Page, { MenuItemType } from "../components/Page.vue";
 import Randomizer from "../components/Randomizer.vue";
@@ -25,7 +27,7 @@ const SUBTITLE = "Dominion card picker for desktop and mobile";
     EnlargeButton,
   }
 })
-export default class Index extends Vue {
+export default class Index extends Base {
   subtitle = SUBTITLE
   selectedType = MenuItemType.RANDOMIZER
 }

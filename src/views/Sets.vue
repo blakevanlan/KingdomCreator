@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
+import Base from "./base";
 import Page, { MenuItemType } from "../components/Page.vue";
 import PresetKingdom from "../components/PresetKingdom.vue";
 import SetsSidebar from "../components/SetsSidebar.vue";
@@ -32,7 +33,7 @@ const SUBTITLE = "Recommended Sets of 10";
     SetsSidebar
   }
 })
-export default class Rules extends Vue {
+export default class Rules extends Base {
   subtitle = SUBTITLE
   selectedType = MenuItemType.SETS
 

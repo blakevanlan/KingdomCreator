@@ -1,12 +1,12 @@
 <template>
   <div class="rulebooks">
     <div class="rulebooks-description">
-      Here are the rulebooks published with each set of dominion. Rulebooks
+      Below are the rulebooks published with each set of dominion. Rulebooks
       contain descriptions of kingdom card and how they interact with other
       kingdom cards.
     </div>
     <GridLayout 
-      :items="RULEBOOK_IDS"
+      :items="rulebooks"
       :number-of-columns="3"
       :is-vertical="true"
       :shape="Shape.SQUARE"
@@ -28,23 +28,6 @@ import { SetId } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 
 const SETS_TO_IGNORE = new Set([SetId.PROMOS]);
-const RULEBOOK_IDS = 
-  DominionSets
-    .getAllSets()
-    .filter(s => !SETS_TO_IGNORE.has(s.setId))
-    .map(s => {
-      return {
-        id: s.setId,
-        name: s.name
-      } as RulebookInterface
-    })
-    .concat({
-      id: "guildscornucopia",
-      name: "Guilds / Cornucopia"
-    })
-    .sort((a, b) => {
-      return a.id == b.id ? 0 : a.id < b.id ? -1 : 1;
-    });
 
 @Component({
   components: {
@@ -53,8 +36,26 @@ const RULEBOOK_IDS =
   }
 })
 export default class Rulebooks extends Vue {
-  RULEBOOK_IDS = RULEBOOK_IDS;
   Shape = Shape;
+
+  get rulebooks() {
+    return DominionSets
+      .getAllSets()
+      .filter(s => !SETS_TO_IGNORE.has(s.setId))
+      .map(s => {
+        return {
+          id: s.setId,
+          name: this.$t(s.setId)
+        } as RulebookInterface
+      })
+      .concat({
+        id: "guildscornucopia",
+        name: `${this.$tc(SetId.GUILDS)} / ${this.$tc(SetId.CORNUCOPIA)}`
+      })
+      .sort((a, b) => {
+        return a.id == b.id ? 0 : a.id < b.id ? -1 : 1;
+      });
+  }
 };
 </script>
 

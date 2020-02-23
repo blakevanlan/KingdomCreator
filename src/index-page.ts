@@ -1,10 +1,7 @@
-import Vue from "vue";
 import Index from "./views/Index.vue";
 import { store } from "./stores/index-store";
-import { initializeWindowListener } from "./setup";
+import { initialize } from "./setup";
+import { createRouter } from "./router";
 
-initializeWindowListener(store);
-new Vue({
-  store,
-  render: h => h(Index)
-}).$mount("#app");
+initialize(createRouter(["/", "/index.html"], Index), store);
+

@@ -5,7 +5,6 @@ import { Kingdom } from "../../randomizer/kingdom";
 import { SupplyCard } from "../../dominion/supply-card";
 import { Selection, SelectionParams } from "./selection";
 import { actions } from "./actions";
-import { serializeKingdom } from "../../randomizer/serializer";
 import { getMessageForAddonsDescription } from "../../utils/messages";
 import { Addon } from "../../dominion/addon";
 
@@ -78,9 +77,6 @@ export const randomizerStore = {
   mutations: {
     UPDATE_KINGDOM (state: State, kingdom: Kingdom) {
       state.kingdom = kingdom;
-      const url = new URL(location.href);
-      url.search = serializeKingdom(kingdom);
-      history.replaceState({}, "", url.href);
     },
     CLEAR_SELECTION (state: State) {
       state.selection = Selection.empty();

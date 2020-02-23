@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
+import Base from "./base";
 import Page, { MenuItemType } from "../components/Page.vue";
 import Rulebooks from "../components/Rulebooks.vue";
 
@@ -19,7 +20,7 @@ const SUBTITLE = "Original rule books of Dominion Sets";
     Rulebooks
   }
 })
-export default class Rules extends Vue {
+export default class Rules extends Base {
   subtitle = SUBTITLE
   selectedType = MenuItemType.RULES
 }

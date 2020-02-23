@@ -12,7 +12,7 @@
         <div class="set" v-for="set in sets" :key="set.setId">
           <label class="checkbox">
             <input type="checkbox" v-model="selectedSetIds" :id="set.setId" :value="set.setId">
-            <span>{{ set.name }}</span>
+            <span>{{ $t(set.setId) }}</span>
           </label>
         </div>
       </div>

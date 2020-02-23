@@ -5,50 +5,43 @@ import {SupplyCard} from "../dominion/supply-card";
 import {Metadata as KingdomMetadata} from "./kingdom";
 import {Supply, Replacements} from "../randomizer/supply";
 
-export function serializeKingdom(kingdom: Kingdom): string {
-  const result: string[] = [];
-  result.push(serializeCards("supply", kingdom.supply.supplyCards));
+export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
+  const result: {[index: string]: string} = {
+    ...serializeMetadata(kingdom.metadata),
+    supply: serializeCards(kingdom.supply.supplyCards)
+  };
   if (kingdom.supply.baneCard) {
-    result.push(serializeCards("bane", [kingdom.supply.baneCard]));
+    result.bane = serializeCards([kingdom.supply.baneCard]);
   } 
   if (kingdom.events.length) {
-    result.push(serializeCards("events", kingdom.events));
+    result.events = serializeCards(kingdom.events);
   }
   if (kingdom.landmarks.length) {
-    result.push(serializeCards("landmarks", kingdom.landmarks));
+    result.landmarks = serializeCards(kingdom.landmarks);
   }
   if (kingdom.projects.length) {
-    result.push(serializeCards("projects", kingdom.projects));
+    result.projects = serializeCards(kingdom.projects);
   }
   if (kingdom.boons.length) {
-    result.push(serializeCards("boons", kingdom.boons));
+    result.boons = serializeCards(kingdom.boons);
   }
-  const serializedMetadata = serializeMetadata(kingdom.metadata);
-  if (serializedMetadata.length) {
-    result.push(serializedMetadata) 
-  }
-  return result.join("&");
+  return result;
 }
 
-export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
-  let supplyIds = parseNamedCommaSeparatedParameter("supply", serializedKingdom);
-
-  // The supply cards used to be serialized under the cards parameter, check if the old parameter
-  // name is being used.
-  if (!supplyIds) {
-    supplyIds = parseNamedCommaSeparatedParameter("cards", serializedKingdom) || [];
-  }
+export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
+  const serializedSupply = serializedKingdom.supply || serializedKingdom.cards;
+  const supplyIds = parseCommaSeparatedValues(serializedSupply)
 
   // Only use the deserialized kingdom if the supply exists.
-  if (!supplyIds.length) {
+  if (!supplyIds || !supplyIds.length) {
     return null;
   }
 
-  const baneIds = parseNamedCommaSeparatedParameter("bane", serializedKingdom) || [];
-  const eventIds = parseNamedCommaSeparatedParameter("events", serializedKingdom) || [];
-  const landmarkIds = parseNamedCommaSeparatedParameter("landmarks", serializedKingdom) || [];
-  const projectIds = parseNamedCommaSeparatedParameter("projects", serializedKingdom) || [];
-  const boonIds = parseNamedCommaSeparatedParameter("boons", serializedKingdom) || [];
+  const baneIds = parseCommaSeparatedValues(serializedKingdom.bane) || [];
+  const eventIds = parseCommaSeparatedValues(serializedKingdom.events) || [];
+  const landmarkIds = parseCommaSeparatedValues(serializedKingdom.landmarks) || [];
+  const projectIds = parseCommaSeparatedValues(serializedKingdom.projects) || [];
+  const boonIds = parseCommaSeparatedValues(serializedKingdom.boons) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
   let baneCard: SupplyCard | null = null;
@@ -75,29 +68,29 @@ export function deserializeKingdom(serializedKingdom: string): Kingdom | null {
   );
 }
 
-function serializeCards<T extends Card>(identifier: string, cards: T[]): string {
+function serializeCards<T extends Card>(cards: T[]): string {
   if (!cards.length) {
     return "";
   }
-  const ids = cards.map((card) => card.shortId).sort().join(",");
-  return `${identifier}=${ids}`;
+  return cards.map((card) => card.shortId).sort().join(",");
 }
 
-function serializeMetadata(metadata: KingdomMetadata): string {
-  const result: string[] = [];
+function serializeMetadata(metadata: KingdomMetadata): {[index: string]: string} {
+  const result: {[index: string]: string} = {};
   if (metadata.useColonies) {
-    result.push("colonies=1");
+    result.colonies = "1";
   }
   if (metadata.useShelters) {
-    result.push("shelters=1");
+    result.shelters = "1";
   }
-  return result.join("&");
+  return result;
 }
 
-function deserializeMetadata(serializedKingdom: string): KingdomMetadata {
+function deserializeMetadata(serializedKingdom: any): KingdomMetadata {
   return new KingdomMetadata(
-      parseNamedBooleanParameter("colonies", serializedKingdom),
-      parseNamedBooleanParameter("shelters", serializedKingdom));
+    parseBoolean(serializedKingdom.colonies),
+    parseBoolean(serializedKingdom.shelters)
+  );
 }
 
 function findByIds<T>(ids: string[], lookupFn: (id: string) => T): T[] {
@@ -112,19 +105,10 @@ function findByIds<T>(ids: string[], lookupFn: (id: string) => T): T[] {
   return results;
 } 
 
-function parseNamedCommaSeparatedParameter(
-    parameter: string, serializedKingdom: string): string[] | null {
-  const value = parseNamedParameter(parameter, serializedKingdom);
+function parseCommaSeparatedValues(value: string | null): string[] | null {
   return value ? value.split(",") : null;
 }
 
-function parseNamedBooleanParameter(parameter: string, serializedKingdom: string): boolean {
-  const value = parseNamedParameter(parameter, serializedKingdom);
+function parseBoolean(value: string | null): boolean {
   return value == "1" || value == "true";
-}
-
-function parseNamedParameter(parameter: string, serializedKingdom: string): string | null {
-  const regex = new RegExp(`${parameter}=([\\w,]+)`);
-  const matches = regex.exec(serializedKingdom);
-  return matches && matches[1] ? matches[1] : null;
 }

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "strictNullChecks": true,
@@ -14,7 +14,12 @@
     "preserveConstEnums": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "target": "es5",
+    "baseUrl": "./",
+    "paths": {
+        "*" : ["types/*"]
+    },
     "types": [
       "google.analytics",
     ],
