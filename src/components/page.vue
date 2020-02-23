@@ -36,7 +36,7 @@
               {{ $t(language) }}
             </router-link>
             <span v-if="index < languages.length - 1" :key="`${language}-bullet`">
-              &nbsp;○&nbsp;
+              &nbsp;&bull;&nbsp;
             </span>
           </template>
         </div>

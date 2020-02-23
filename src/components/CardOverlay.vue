@@ -45,10 +45,10 @@ export default class CardOverlay extends Vue {
 
 <style scoped>
 .card-overlay {
-  margin-top: -13px;
+  margin-top: -10px;
 }
 .card-overlay--has-card-name {
-  margin-top: -34px;
+  margin-top: -24px;
 }
 .card-name,
 .set-name {
@@ -66,7 +66,7 @@ export default class CardOverlay extends Vue {
 @media (max-width: 400px) {
   .card-name,
   .set-name {
-    font-size: 10px;
+    font-size: 10px !important;
   }
 }
 </style>
