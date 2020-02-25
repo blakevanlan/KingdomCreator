@@ -1,5 +1,5 @@
 <template>
-  <Page :subtitle="subtitle" :selectedType="selectedType">
+  <Page :subtitle="$t('rules_page_subtitle')" :selectedType="selectedType">
     <div class="content main">
       <Rulebooks />
     </div>
@@ -12,8 +12,6 @@ import Base from "./base";
 import Page, { MenuItemType } from "../components/Page.vue";
 import Rulebooks from "../components/Rulebooks.vue";
 
-const SUBTITLE = "Original rule books of Dominion Sets";
-
 @Component({
   components: {
     Page,
@@ -21,7 +19,6 @@ const SUBTITLE = "Original rule books of Dominion Sets";
   }
 })
 export default class Rules extends Base {
-  subtitle = SUBTITLE
   selectedType = MenuItemType.RULES
 }
 </script>

@@ -1,6 +1,9 @@
 import { DominionSets } from "../dominion/dominion-sets";
+import * as Common from "./messages/common.en.json";
 import * as Languages from "./messages/languages.en.json";
 import * as PageIndex from "./messages/page-index.en.json";
+import * as PageRules from "./messages/page-rules.en.json";
+import * as PageSets from "./messages/page-sets.en.json";
 
 function createCardMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};
@@ -21,6 +24,9 @@ function createSetMessages(): {[index: string]: string} {
 export default {
   ...createCardMessages(),
   ...createSetMessages(),
+  ...(Common as any).default,
   ...(Languages as any).default,
   ...(PageIndex as any).default,
+  ...(PageRules as any).default,
+  ...(PageSets as any).default,
 }
