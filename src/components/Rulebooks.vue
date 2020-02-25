@@ -1,9 +1,7 @@
 <template>
   <div class="rulebooks">
     <div class="rulebooks-description">
-      Below are the rulebooks published with each set of dominion. Rulebooks
-      contain descriptions of kingdom card and how they interact with other
-      kingdom cards.
+      {{ $t("rules_page_description") }}
     </div>
     <GridLayout 
       :items="rulebooks"

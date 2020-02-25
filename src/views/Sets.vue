@@ -1,12 +1,11 @@
 <template>
-  <Page :subtitle="subtitle" :selectedType="selectedType">
+  <Page :subtitle="$t('sets_page_subtitle')" :selectedType="selectedType">
     <div class="content">
       <SetsSidebar />
       <div class="main">
-        <div class="sets-description">
-          Players can play Dominion with any set of 10 Kingdom cards, but these sets have been
-          specially picked out to be entertaining and show off card interactions and strategies.
-        </div>
+        <div class="sets-description">{{
+          $t("sets_page_description")
+        }}</div>
         <div class="kingdoms">
           <PresetKingdom v-for="kingdom in kingdoms" :key="kingdom.name" :kingdom="kingdom" />
         </div>
@@ -24,8 +23,6 @@ import SetsSidebar from "../components/SetsSidebar.vue";
 import { DominionKingdoms } from "../dominion/dominion-kingdoms";
 import { State } from "../stores/sets-store";
 
-const SUBTITLE = "Recommended Sets of 10";
-
 @Component({
   components: {
     Page,
@@ -34,7 +31,6 @@ const SUBTITLE = "Recommended Sets of 10";
   }
 })
 export default class Rules extends Base {
-  subtitle = SUBTITLE
   selectedType = MenuItemType.SETS
 
   get kingdoms() {

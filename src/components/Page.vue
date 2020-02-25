@@ -40,19 +40,40 @@
             </span>
           </template>
         </div>
-        <div class="github-info">
-          Source is on <a href="https://github.com/blakevanlan/KingdomCreator">Github</a>.
-          Feature requests and complaints go <a href="https://github.com/blakevanlan/KingdomCreator/issues">here</a>!
-        </div>
-        <div class="disclaimers-and-credit">
-          Dominion is by Donald X. Vaccarino and published by Rio Grande Games.
-          This site has no affiliation with either party.
-          Card images are provided by <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">Dominion Strategy Wiki</a>.
 
-          Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
-          Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-          and is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.
-        </div>
+        <i18n class="github-info" path="github_info" tag="div">
+          <template v-slot:source>
+            <a href="https://github.com/blakevanlan/KingdomCreator">{{
+              $t("github_info_source")
+            }}</a>
+          </template>
+          <template v-slot:issues>
+            <a href="https://github.com/blakevanlan/KingdomCreator/issues">{{
+              $t("github_info_issues")
+            }}</a>
+          </template>
+        </i18n>
+
+        <i18n class="disclaimers-and-credit" path="disclaimers_and_credits" tag="div">
+          <template v-slot:wiki>
+            <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">{{
+              $t("disclaimers_and_credits_wiki")
+            }}</a>
+          </template>
+          <template v-slot:smashicons>
+            <a href="https://www.flaticon.com/authors/smashicons" target="_blank">{{
+              $t("disclaimers_and_credits_smashicons")
+            }}</a>
+          </template>
+          <template v-slot:flaticon>
+            <a href="https://www.flaticon.com/" target="_blank">www.flaticon.com</a>
+          </template>
+          <template v-slot:creativecommons>
+            <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">{{
+              $t("disclaimers_and_credits_creative_commons")
+            }}</a>
+          </template>
+        </i18n>
       </footer>
     </div>
   </div>

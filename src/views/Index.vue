@@ -1,7 +1,7 @@
 <template>
   <div>
     <ReplaceSupplyCardModal :key="this.$store.state.randomizer.kingdom.id" />
-    <Page :subtitle="subtitle" :selectedType="selectedType">
+    <Page :subtitle="$t('index_page_subtitle')" :selectedType="selectedType">
       <Randomizer @specify-replacement="showReplaceModal = true" />
     </Page>
     <EnlargeButton />
@@ -17,8 +17,6 @@ import Page, { MenuItemType } from "../components/Page.vue";
 import Randomizer from "../components/Randomizer.vue";
 import ReplaceSupplyCardModal from "../components/ReplaceSupplyCardModal.vue";
 
-const SUBTITLE = "Dominion card picker for desktop and mobile";
-
 @Component({
   components: {
     Page,
@@ -28,7 +26,6 @@ const SUBTITLE = "Dominion card picker for desktop and mobile";
   }
 })
 export default class Index extends Base {
-  subtitle = SUBTITLE
   selectedType = MenuItemType.RANDOMIZER
 }
 </script>
