@@ -62,7 +62,7 @@ cards:
 
   - name: Sea Hag
     cost:
-      treasure: 2
+      treasure: 4
       potion: 0
     isAttack: true
     isAction: true
