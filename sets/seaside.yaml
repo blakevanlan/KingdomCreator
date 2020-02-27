@@ -115,7 +115,7 @@ cards:
 
   - name: Fishing Village
     cost:
-      treasure: 2
+      treasure: 3
       potion: 0
     isAttack: false
     isAction: true
