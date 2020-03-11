@@ -168,7 +168,7 @@ cards:
 
   - name: Haggler
     cost:
-      treasure: 4
+      treasure: 5
       potion: 0
     isAttack: false
     isAction: true
@@ -261,7 +261,7 @@ cards:
 
   - name: Cache
     cost:
-      treasure: 4
+      treasure: 5
       potion: 0
     isAttack: false
     isAction: false

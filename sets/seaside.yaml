@@ -228,7 +228,7 @@ cards:
 
   - name: Caravan
     cost:
-      treasure: 5
+      treasure: 4
       potion: 0
     isAttack: false
     isAction: true
@@ -261,7 +261,7 @@ cards:
     isTreasure: false
     isVictory: false
     isTrashing: false
-    isReaction: true
+    isReaction: false
     isDuration: true
 
   - name: Pirate Ship
