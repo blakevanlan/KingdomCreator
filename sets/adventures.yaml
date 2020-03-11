@@ -497,7 +497,7 @@ cards:
     isReserve: true
     isTrashing: false
     isTraveller: false
-    isTreasure: false
+    isTreasure: true
     isVictory: false
 
 events:

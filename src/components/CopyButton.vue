@@ -59,7 +59,6 @@ export default class CopyButton extends Vue {
   width: 30px;
 }
 
-.copy-button__input,
 .copy-button__icon {
   border: none;
   height: 100%;
@@ -72,6 +71,9 @@ export default class CopyButton extends Vue {
 
 .copy-button__input {
   overflow: hidden;
+  position: absolute;
+  top: -999999px;
+  width: 100%;
 }
 
 .copy-button__icon {
