@@ -43,9 +43,9 @@ cards:
       potion: 0
     isAttack: false
     isAction: true
-    isTreasure: true
+    isTreasure: false
     isVictory: false
-    isTrashing: false
+    isTrashing: true
     isReaction: false
 
   - name: Knights

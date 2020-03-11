@@ -363,7 +363,7 @@ cards:
 
   - name: Legionary
     cost:
-      treasure: 8
+      treasure: 5
       potion: 0
       debt: 0
     isAction: true
