@@ -60,7 +60,7 @@ export class Settings implements SettingsParams {
     if (data.sortOption) {
       const keys = Object.keys(SortOption);
       for (let key of keys) {
-        if (data.sortOption == SortOption[key as any]) {
+        if (data.sortOption == SortOption[key as keyof typeof SortOption]) {
           return data.sortOption as SortOption;
         }
       }
