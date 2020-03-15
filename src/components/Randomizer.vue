@@ -6,7 +6,6 @@
       <Addons />
       <Boons />
       <Modifiers />
-      <AdBanner />
     </div>
   </div>
 </template>
@@ -23,14 +22,12 @@ import { RandomizerSettings } from "../settings/randomizer-settings";
 import { LOAD_INITIAL_KINGDOM, RANDOMIZE } from "../stores/randomizer/action-types";
 import { deserializeKingdom, serializeKingdom } from "../randomizer/serializer";
 import Modifiers from "./Modifiers.vue";
-import AdBanner from "./AdBanner.vue";
 import { Kingdom } from "../randomizer/kingdom";
 
 @Component({
   components: {
     Addons,
     Boons,
-    AdBanner,
     Modifiers,
     RandomizerSidebar,
     SortableSupplyCards,
