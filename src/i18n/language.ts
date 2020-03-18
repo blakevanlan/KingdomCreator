@@ -1,8 +1,8 @@
 export enum Language {
   DUTCH = "nl",
   ENGLISH = "en",
-  GERMAN = "de",
   FRENCH = "fr",
+  GERMAN = "de",
 }
 
 export function getLanguage(value: string) {
