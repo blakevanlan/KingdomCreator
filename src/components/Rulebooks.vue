@@ -46,10 +46,17 @@ export default class Rulebooks extends Vue {
           name: this.$t(s.setId)
         } as RulebookInterface
       })
-      .concat({
-        id: "guildscornucopia",
-        name: `${this.$tc(SetId.GUILDS)} / ${this.$tc(SetId.CORNUCOPIA)}`
-      })
+      .concat([
+        {
+          id: "guildscornucopia",
+          name: `${this.$tc(SetId.GUILDS)} / ${this.$tc(SetId.CORNUCOPIA)}`
+        }, 
+        // TODO: Remove once Menagerie is fully supported.
+        {
+          id: "menagerie",
+          name: this.$tc("menagerie")
+        }
+      ])
       .sort((a, b) => {
         return a.id == b.id ? 0 : a.id < b.id ? -1 : 1;
       });
