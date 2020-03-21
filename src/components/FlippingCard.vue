@@ -32,6 +32,7 @@ import { Card } from "../dominion/card";
 import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { TOGGLE_CARD_SELECTION } from "../stores/randomizer/action-types";
+import { Language } from "../i18n/language";
 import CardOverlay from "./CardOverlay.vue";
 
 enum CardState {
@@ -57,6 +58,7 @@ export default class FlippingCard extends Vue {
   @Prop() readonly isVertical!: boolean;
   @Prop() readonly onCardBackClick!: Function | null;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
+  @State(state => state.i18n.language) readonly language!: Language;
   activeCard: Card | null = null;
   cardState = CardState.BACK_VISIBLE;
   animationParams: AnimationParams = {rotation: 0};
@@ -89,7 +91,7 @@ export default class FlippingCard extends Vue {
   }
 
   get frontCardImageUrl() {
-    return this.activeCard ? getCardImageUrl(this.activeCard.id) : "";
+    return this.activeCard ? getCardImageUrl(this.activeCard.id, this.language) : "";
   }
 
   get backCardImageUrl() {
