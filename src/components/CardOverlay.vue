@@ -1,9 +1,9 @@
 <template>
   <TextOverlay
     class="card-overlay"
-    :class="{'card-overlay--has-card-name': language != Language.ENGLISH}"
+    :class="{'card-overlay--has-card-name': hasCardName}"
   >
-    <template v-if="language != Language.ENGLISH">
+    <template v-if="hasCardName">
       <div
       class="card-name"
         :class="card.setId"
@@ -31,6 +31,8 @@ import { Card } from "../dominion/card";
 import { Language } from "../i18n/language";
 import TextOverlay from "./TextOverlay.vue";
 
+const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH]);
+
 @Component({
   components: {
     TextOverlay
@@ -39,7 +41,10 @@ import TextOverlay from "./TextOverlay.vue";
 export default class CardOverlay extends Vue {
   @Prop() readonly card!: Card;
   @State(state => state.i18n.language) readonly language!: Language;
-  readonly Language = Language
+
+  get hasCardName() {
+    return !LANGUAGES_WITH_TRANSLATED_CARDS.has(this.language);
+  }
 }
 </script>
 
