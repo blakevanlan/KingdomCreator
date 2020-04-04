@@ -10,6 +10,7 @@ export class DominionKingdom {
     readonly landmarkIds: string[],
     readonly projectIds: string[],
     readonly boonIds: string[],
+    readonly wayIds: string[],
     readonly metadata: Metadata) {
   }
 
@@ -23,6 +24,7 @@ export class DominionKingdom {
         json["landmarks"] || [],
         json["projects"] || [],
         json["boons"] || [],
+        json["ways"] || [],
         Metadata.fromJson(json["metadata"]));
   }
 }

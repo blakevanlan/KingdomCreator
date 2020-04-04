@@ -71,6 +71,14 @@ module.exports = class DominionContentPlugin {
           card.setId = setId;
         }
       }
+      if (set.ways) {
+        for (var i = 0; i < set.ways.length; i++) {
+          var card = set.ways[i];
+          card.id = this.convertToWayId(setId, card.name);
+          card.shortId = this.tokenize(card.name);
+          card.setId = setId;
+        }
+      }
     }
     return sets;
   }
@@ -92,23 +100,27 @@ module.exports = class DominionContentPlugin {
   }
 
   static convertToEventId(setId, name) {
-    return setId + '_event_' + this.tokenize(name);
+    return `${setId}_event_${this.tokenize(name)}`;
   }
 
   static convertToLandmarkId(setId, name) {
-    return setId + '_landmark_' + this.tokenize(name);
+    return `${setId}_landmark_${this.tokenize(name)}`;
   }
 
   static convertToProjectId(setId, name) {
-    return setId + '_project_' + this.tokenize(name);
+    return `${setId}_project_${this.tokenize(name)}`;
   }
 
   static convertToBoonId(setId, name) {
-    return setId + '_boon_' + this.tokenize(name);
+    return `${setId}_boon_${this.tokenize(name)}`;
+  }
+
+  static convertToWayId(setId, name) {
+    return `${setId}_way_${this.tokenize(name)}`;
   }
 
   static convertToCardId(setId, name) {
-    return setId + '_' + this.tokenize(name);
+    return `${setId}_${this.tokenize(name)}`;
   }
 
   static tokenize(str) {

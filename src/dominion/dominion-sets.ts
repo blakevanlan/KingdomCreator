@@ -6,6 +6,7 @@ import {Landmark} from "./landmark";
 import {Project} from "./project";
 import {SetId} from "./set-id";
 import {SupplyCard} from "./supply-card";
+import {Way} from "./way";
 
 declare global {
   interface Window { DominionSets: any; }
@@ -59,7 +60,7 @@ export class DominionSets {
   public static getCardById(cardId: string): Card {
     const card = DominionSets.cards[cardId];
     if (!card) {
-      throw new Error(`Unknown card id: {$cardId}`);
+      throw new Error(`Unknown card id: ${cardId}`);
     }
     return card;
   }
@@ -67,7 +68,7 @@ export class DominionSets {
   public static getSupplyCardById(cardId: string): SupplyCard {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof SupplyCard)) {
-      throw new Error(`Card id ({$cardId}) does not refer to a supply card`);
+      throw new Error(`Card id (${cardId}) does not refer to a supply card`);
     }
     return card;
   }
@@ -75,7 +76,7 @@ export class DominionSets {
   public static getEventById(cardId: string): Event {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof Event)) {
-      throw new Error(`Card id ({$cardId}) does not refer to an event`);
+      throw new Error(`Card id (${cardId}) does not refer to an event`);
     }
     return card;
   }
@@ -83,7 +84,7 @@ export class DominionSets {
   public static getLandmarkById(cardId: string): Landmark {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof Landmark)) {
-      throw new Error(`Card id ({$cardId}) does not refer to a landmark`);
+      throw new Error(`Card id (${cardId}) does not refer to a landmark`);
     }
     return card;
   }
@@ -91,7 +92,7 @@ export class DominionSets {
   public static getProjectById(cardId: string): Project {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof Project)) {
-      throw new Error(`Card id ({$cardId}) does not refer to a project`);
+      throw new Error(`Card id (${cardId}) does not refer to a project`);
     }
     return card;
   }
@@ -99,7 +100,15 @@ export class DominionSets {
   public static getBoonById(cardId: string): Boon {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof Boon)) {
-      throw new Error(`Card id ({$cardId}) does not refer to a boon`);
+      throw new Error(`Card id (${cardId}) does not refer to a boon`);
+    }
+    return card;
+  }
+  
+  public static getWayById(cardId: string): Way {
+    const card = DominionSets.getCardById(cardId);
+    if (!(card instanceof Way)) {
+      throw new Error(`Card id (${cardId}) does not refer to a way`);
     }
     return card;
   }
@@ -119,7 +128,8 @@ export class DominionSets {
     for (let setId of setIds) {
       const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
-          (set.supplyCards as Card[]).concat(set.events, set.landmarks, set.projects, set.boons);
+          (set.supplyCards as Card[]).concat(
+            set.events, set.landmarks, set.projects, set.ways, set.boons);
       for (let card of cardsFromSet) {
         cards[card.id] = card;
         if (!cards[card.shortId]) {

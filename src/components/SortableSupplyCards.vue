@@ -35,10 +35,9 @@
 <script lang="ts">
 import FlippingCard from "./FlippingCard.vue";
 import BaneCardCover from "./BaneCardCover.vue";
-import { Addon } from "../dominion/addon";
 import { Coordinate } from "../utils/coordinate";
 import { SupplyCard } from "../dominion/supply-card";
-import { State, Getter } from "vuex-class";
+import { State } from "vuex-class";
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { SortOption } from "../settings/settings";
 import { Kingdom } from "../randomizer/kingdom";
@@ -71,9 +70,6 @@ export default class SortableSupplyCards extends Vue {
   @State(state => state.window.width) readonly windowWidth!: number;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @State(state => state.randomizer.selection) readonly selection!: Selection;
-  @Getter("addons") readonly addons!: Addon[];
-  @Getter("hasAddons") readonly hasAddons!: boolean;
-  @Getter("addonSummary") readonly addonSummary!: string;
   elementIndexMapping = new Map<number, number>();
   kingdomId: number = 0;
   supplyCards: SupplyCard[] = [];

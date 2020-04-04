@@ -5,7 +5,6 @@ import { Kingdom } from "../../randomizer/kingdom";
 import { SupplyCard } from "../../dominion/supply-card";
 import { Selection, SelectionParams } from "./selection";
 import { actions } from "./actions";
-import { getMessageForAddonsDescription } from "../../utils/messages";
 import { Addon } from "../../dominion/addon";
 
 const MIN_SETS_FOR_PRIORITIZE_OPTION = 3;
@@ -24,6 +23,10 @@ export interface Getters {
   randomizeButtonText: string;
   addons: Addon[];
   hasAddons: boolean;
+  canHaveEvents: boolean;
+  canHaveLandmarks: boolean;
+  canHaveProjects: boolean;
+  canHaveWays: boolean;
   canHaveAddons: boolean;
   addonSummary: string;
 }
@@ -52,27 +55,50 @@ export const randomizerStore = {
     addons: (state: State) => {
       return (state.kingdom.events as Addon[]).concat(
         state.kingdom.landmarks as Addon[], 
-        state.kingdom.projects as Addon[]);
+        state.kingdom.projects as Addon[],
+        state.kingdom.ways as Addon[]);
     },
     hasAddons: (state: State, getters: Getters) => {
       return getters.addons.length > 0;
     },
-    canHaveAddons: (state: State, getters: Getters) => {
-      return getters.addonSummary.length > 0;
-    },
-    addonSummary: (state: State) => {
-      let hasEvents = false;
-      let hasLandmarks = false;
-      let hasProjects = false;
+    canHaveEvents: (state: State, getters: Getters) => {
       for (let setId of state.settings.selectedSets) {
-        const set = DominionSets.getSetById(setId);
-        hasEvents = hasEvents || set.events.length > 0;
-        hasLandmarks = hasLandmarks || set.landmarks.length > 0;
-        hasProjects = hasProjects || set.projects.length > 0;
+        if (DominionSets.getSetById(setId).events.length) {
+          return true;
+        }
       }
-      return getMessageForAddonsDescription(
-          hasEvents, hasLandmarks, hasProjects);
+      return false;
     },
+    canHaveLandmarks: (state: State, getters: Getters) => {
+      for (let setId of state.settings.selectedSets) {
+        if (DominionSets.getSetById(setId).landmarks.length) {
+          return true;
+        }
+      }
+      return false;
+    },
+    canHaveProjects: (state: State) => {
+      for (let setId of state.settings.selectedSets) {
+        if (DominionSets.getSetById(setId).projects.length) {
+          return true;
+        }
+      }
+      return false;
+    },
+    canHaveWays: (state: State) => {
+      for (let setId of state.settings.selectedSets) {
+        if (DominionSets.getSetById(setId).ways.length) {
+          return true;
+        }
+      }
+      return false;
+    },
+    canHaveAddons: (state: State, getters: Getters) => {
+      return getters.canHaveEvents
+        || getters.canHaveLandmarks
+        || getters.canHaveProjects
+        || getters.canHaveWays;
+    }
   },
   mutations: {
     UPDATE_KINGDOM (state: State, kingdom: Kingdom) {

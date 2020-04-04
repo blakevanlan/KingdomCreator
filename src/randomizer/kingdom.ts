@@ -2,7 +2,8 @@ import {Boon} from "../dominion/boon";
 import {Event} from "../dominion/event";
 import {Landmark} from "../dominion/landmark";
 import {Project} from "../dominion/project";
-import {Supply} from "../randomizer/supply"
+import {Supply} from "../randomizer/supply";
+import {Way} from "../dominion/way";
 
 export class Kingdom {
   constructor(
@@ -11,13 +12,14 @@ export class Kingdom {
       readonly events: Event[],
       readonly landmarks: Landmark[],
       readonly projects: Project[],
+      readonly ways: Way[],
       readonly boons: Boon[],
       readonly metadata: Metadata) {
   }
 
   static empty() {
     return new Kingdom(
-      0, Supply.empty(), [], [], [], [], new Metadata(false, false));
+      0, Supply.empty(), [], [], [], [], [], new Metadata(false, false));
   }
 }
 

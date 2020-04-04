@@ -34,9 +34,14 @@
       class="preset-kingdom-copy-button"
     />
 
-    <div v-if="titleForAddons.length">
+    <div v-if="addonIds.length">
       <div class="preset-kingdom__addon-title">
-        {{titleForAddons}}
+        <AddonTitle
+          :has-events="kingdom.eventIds.length > 0"
+          :has-landmarks="kingdom.landmarkIds.length > 0"
+          :has-projects="kingdom.projectIds.length > 0"
+          :has-ways="kingdom.wayIds.length > 0"
+        />
       </div>
       <GridLayout
         :items="getCards(addonIds)"
@@ -65,13 +70,13 @@
 </template>
 
 <script lang="ts">
+import AddonTitle from "./AddonTitle.vue";
 import GridLayout from "./GridLayout.vue";
 import { DominionKingdom } from "../dominion/dominion-kingdom";
 import { DominionSets } from "../dominion/dominion-sets";
 import { SupplyCard } from "../dominion/supply-card";
 import { State } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { getMessageForAddonsDescription } from "../utils/messages";
 import StaticCardWithSet from "./StaticCardWithSet.vue";
 import BaneCardCover from "./BaneCardCover.vue";
 import CopyButton from "./CopyButton.vue";
@@ -81,6 +86,7 @@ const TWO_COLUMN_ADDON_WIDTH = 525;
 
 @Component({
   components: {
+    AddonTitle,
     GridLayout,
     StaticCardWithSet,
     BaneCardCover,
@@ -103,16 +109,9 @@ export default class PresetKingdom extends Vue {
     return this.windowWidth <= TWO_COLUMN_ADDON_WIDTH ? 2 : 3;
   }
 
-  get titleForAddons() {
-    const hasEvents = this.kingdom.eventIds.length > 0;
-    const hasLandmarks = this.kingdom.landmarkIds.length > 0;
-    const hasProjects = this.kingdom.projectIds.length > 0;
-    return getMessageForAddonsDescription(hasEvents, hasLandmarks, hasProjects);
-  }
-
   get addonIds() {
     return this.kingdom.eventIds.concat(
-        this.kingdom.landmarkIds, this.kingdom.projectIds);
+        this.kingdom.landmarkIds, this.kingdom.projectIds, this.kingdom.wayIds);
   }
 
   get hasMetadata() {
