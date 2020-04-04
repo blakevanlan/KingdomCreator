@@ -91,7 +91,7 @@ cards:
     setup:
       - exile_map
 
-- name: Goatherd
+  - name: Goatherd
     cost:
       treasure: 3
       potion: 0
@@ -788,12 +788,22 @@ events:
 
 ways:
   - name: Way of the Butterfly
+  - name: Way of the Camel
   - name: Way of the Chameleon
+  - name: Way of the Frog
   - name: Way of the Goat
+  - name: Way of the Horse
   - name: Way of the Mole
+  - name: Way of the Monkey
   - name: Way of the Mouse
+  - name: Way of the Mule
   - name: Way of the Otter
+  - name: Way of the Owl
   - name: Way of the Ox
+  - name: Way of the Pig
   - name: Way of the Rat
+  - name: Way of the Seal
   - name: Way of the Sheep
+  - name: Way of the Squirrel
   - name: Way of the Turtle
+  - name: Way of the Worm

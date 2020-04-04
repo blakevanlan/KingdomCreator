@@ -24,6 +24,10 @@ findCardByShortId = (shortId) ->
          for boon in set.boons
             if shortId == boon.shortId
                return boon
+      if set.ways
+         for way in set.ways
+            if shortId == way.shortId
+               return way
             
    throw Error('Card not found: ' + shortId)
 
@@ -57,44 +61,43 @@ parseSupplyString = (supplyString) ->
 
 
 strings = [
-   "Victory Dance: Baron, Courtier, Duke, Harem, Ironworks, Masquerade, Mill, Nobles, Patrol, Replace,"
-   "The Plot Thickens: Conspirator, Ironworks, Lurker, Pawn, Mining Village, Secret Passage, Steward, Swindler, Torturer, Trading Post",
-   "Best Wishes: Baron, Conspirator, Courtyard, Diplomat, Duke, Secret Passage, Shanty Town, Torturer, Upgrade, Wishing Well",
+   "Intro to Horses: Way of the Sheep, Enhance, Animal Fair, Barge, Destrier, Goatherd, Hostelry, Livery, Paddock, Scrap, Sheepdog, Supplies"
+   "Intro to Exile: Way of the Worm, March, Black Cat, Bounty Hunter, Camel Train, Cardinal, Falconer, Mastermind, Sanctuary, Snowy Village, Stockpile, Wayfarer"
 
-   "Underlings: Courtier, Diplomat, Minion, Nobles, Pawn • Cellar, Festival, Library, Sentry, Vassal",
-   "Grand Scheme: Bridge, Mill, Mining Village, Patrol, Shanty Town • Artisan, Council Room, Market, Militia, Workshop",
-   "Deconstruction: Diplomat, Harem, Lurker, Replace, Swindler • Bandit, Mine, Remodel, Throne Room, Village",
+   "Pony Express: Way of the Seal, Stampede, Barge, Destrier, Paddock, Stockpile, Supplies, Artisan, Cellar, Market, Mine, Village"
+   "Garden of Cats: Way of the Mole, Toil, Black Cat, Displace, Sanctuary, Scrap, Snowy Village, Bandit, Gardens, Harbinger, Merchant, Moat"
 
-   "A Star to Steer By: Secret Passage, Diplomat, Swindler, Wishing Well, Courtier • Lookout, Treasure Map, Ghost Ship, Haven, Outpost",
-   "Shore Patrol: Patrol, Replace, Shanty Town, Trading Post, Pawn • Island, Wharf, Cutpurse, Lighthouse, Warehouse",
-   "Bridge Crossing: Lurker, Nobles, Duke, Conspirator, Bridge • Salvager, Embargo, Smugglers, Native Village, Treasury",
+   "Dog & Pony Show: Way of the Horse, Commerce, Camel Train, Cavalry, Goatherd, Paddock, Sheepdog, Mill, Nobles, Pawn, Torturer, Upgrade"
+   "Explosions: Way of the Squirrel, Populate, Animal Fair, Bounty Hunter, Coven, Hunting Lodge, Scrap, Courtyard, Diplomat, Lurker, Replace, Wishing Well"
 
-   "Servants: Conspirator, Mill, Minion, Pawn, Steward • Golem, Possession, Scrying Pool, Transmute, Vineyard",
-   "Secret Research: Bridge, Masquerade, Minion, Nobles, Shanty Town, Torturer • Familiar, Herbalist, Philosopher's Stone, University",
-   "Pools, Tools, and Fools: Baron, Ironworks, Lurker, Nobles, Trading Post, Wishing Well • Apothecary, Apprentice, Golem, Scrying Pool",
+   "Innsmouth: Way of the Goat, Invest, Animal Fair, Barge, Coven, Fisherman, Sheepdog, Caravan, Explorer, Fishing Village, Haven, Treasure Map"
+   "Ruritania: Way of the Monkey, Alliance, Bounty Hunter, Cavalry, Falconer, Sleigh, Village Green, Lookout, Smugglers, Outpost, Tactician, Warehouse"
 
-   "Paths to Victory: Baron, Harem, Pawn, Shanty Town, Upgrade • Bishop, Counting House, Goons, Monument, Peddler",
-   "All Along the Watchtower: Bridge, Mill, Mining Village, Pawn, Torturer • Hoard, Talisman, Trade Route, Vault, Watchtower",
-   "Lucky Seven: Bridge, Lurker, Patrol, Swindler, Wishing Well • Bank, Expand, Forge, King's Court, Vault",
+   "Class of '20: Way of the Owl, Delay, Cavalry, Coven, Hunting Lodge, Kiln, Livery, Snowy Village, Wayfarer, Transmute, Vineyard, University"
 
-   "Last Laughs: Minion, Nobles, Pawn, Steward, Swindler • Farming Village, Harvest, Horse Traders, Hunting Party, Jester",
-   "The Spice of Life: Courtier, Courtyard, Diplomat, Mining Village, Replace • Fairgrounds, Horn of Plenty, Remake, Tournament, Young Witch", # Bane: Wishing Well
-   "Small Victories: Conspirator, Duke, Harem, Pawn, Secret Passage • Fortune Teller, Hamlet, Hunting Party, Remake, Tournament",
-   "Name that Card: Courtyard, Harem, Nobles, Replace, Wishing Well • Baker, Doctor, Plaza, Advisor, Masterpiece",
-   "Tricks of the Trade: Conspirator, Masquerade, Mill, Nobles, Secret Passage • Stonemason, Herald, Soothsayer, Journeyman, Butcher",
-   "Decisions, Decisions: Bridge, Pawn, Mining Village, Upgrade, Duke • Merchant Guild, Candlestick Maker, Masterpiece, Taxman, Butcher",
+   "Limited Time Offer: Way of the Frog, Desperation, Destrier, Displace, Fisherman, Supplies, Wayfarer, Grand Market, Mint, Peddler, Talisman, Worker's Village"
+   "Birth of a Nation: Way of the Otter, Reap, Animal Fair, Camel Train, Mastermind, Paddock, Stockpile, City, Monument, Quarry, Rabble, Trade Route"
 
-   "Money for Nothing: Replace, Patrol, Pawn, Shanty Town, Torturer • Cache, Cartographer, Jack of All Trades, Silk Road, Tunnel",
-   "The Duke's Ball: Conspirator, Duke, Harem, Masquerade, Upgrade • Duchess, Haggler, Inn, Noble Brigand, Scheme",
+   "Living in Exile: Way of the Mule, Enclave, Gatekeeper, Hostelry, Livery, Scrap, Stockpile, Fairgrounds, Hamlet, Jester, Journeyman, Taxman"
+   "Thrill of the Hunt: Way of the Rat, Pursue, Black Cat, Bounty Hunter, Camel Train, Mastermind, Village Green, Butcher, Horse Traders, Hunting Party, Menagerie, Tournament"
 
-   "Prophecy: Baron, Conspirator, Nobles, Secret Passage, Wishing Well • Armory, Ironmonger, Mystic, Rebuild, Vagrant",
-   "Invasion: Diplomat, Harem, Swindler, Torturer, Upgrade • Beggar, Marauder, Rogue, Squire, Urchin",
+   "Big Blue: Way of the Turtle, Banish, Black Cat, Falconer, Sheepdog, Sleigh, Village Green, Cartographer, Fool's Gold, Margrave, Trader, Tunnel"
+   "Intersection: Way of the Mouse, Crossroads, Gamble, Cardinal, Hostelry, Livery, Mastermind, Supplies, Develop, Farmland, Haggler, Nomad Camp, Stables"
 
-   "Royalty Factory: Pilgrimage • Conspirator, Courtier, Harem, Nobles, Swindler • Bridge Troll, Duplicate, Page, Raze, Royal Carriage",
-   "Masters of Finance: Ball, Borrow • Bridge, Pawn, Shanty Town, Steward, Upgrade • Artificer, Distant Lands, Gear, Transmogrify, Wine Merchant",
+   "Friendly Carnage: Way of the Camel, Ride, Animal Fair, Cardinal, Falconer, Goatherd, Hunting Lodge, Altar, Beggar, Catacombs, Fortress, Market Square•"
+   "Gift Horses: Way of the Butterfly, Bargain, Camel Train, Destrier, Displace, Paddock, Scrap, Hunting Grounds, Pillage, Rats, Sage, Squire"
 
-   "Delicious Torture: Arena, Banquet • Baron, Bridge, Harem, Ironworks, Torturer • Castles, Crown, Enchantress, Sacrifice, SettlersBustling Village",
-   "Buddy System: Salt the Earth, Wolf Den • Masquerade, Mining Village, Nobles, Pawn, Trading Post • Archive, Capital, CatapultRocks, Engineer, Forum",
+   "Horse Feathers: Way of the Ox, Pilgrimage, Destrier, Displace, Falconer, Sleigh, Stockpile, Magpie, Ranger, Ratcatcher, Relic, Royal Carriage"
+   "Sooner or Later: Toil, Mission, Barge, Gatekeeper, Groom, Mastermind, Village Green, Amulet, Caravan Guard, Dungeon, Giant, Raze"
+
+   "No Money Down: Way of the Pig, Advance, Animal Fair, Cavalry, Sleigh, Stockpile, Wayfarer, CatapultRocks, City Quarter, Crown, Engineer, Villa"
+   "Detours and Shortcuts: Transport, Triumphal Arch, Camel Train, Fisherman, Gatekeeper, Sanctuary, Snowy Village, Enchantress, Overlord, Sacrifice, SettlersBustling Village, Wild Hunt"
+
+   "Seize the Night: Way of the Sheep, Seize the Day, Barge, Falconer, Hostelry, Sheepdog, Supplies, Cobbler, Devil's Workshop, Exorcist, Monastery, Skulk"
+   "Animal Crackers: Way of the Chameleon, Enhance, Black Cat, Goatherd, Groom, Hunting Lodge, Kiln, Faithful Hound, Pixie, Pooka, Sacred Grove, Shepherd"
+
+   "Biding Time: Way of the Turtle, Sinister Plot, Cavalry, Coven, Displace, Fisherman, Goatherd, Ducat, Priest, Recruiter, Scepter, Swashbuckler"
+   "Villager Madness: Demand, Academy, Cardinal, Groom, Kiln, Livery, Wayfarer, Border Guard, Flag Bearer, Patron, Silk Merchant, Spices"
 ]
 
 for string in strings

@@ -26,6 +26,10 @@ const convertToBoonId = function(setId, name) {
    return setId + '_boon_' + tokenize(name);
 };
 
+const convertToWayId = function(setId, name) {
+   return setId + '_way_' + tokenize(name);
+};
+
 const loadFilesFromDirectory = function(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
@@ -83,6 +87,14 @@ const loadSets = function() {
          for (var i = 0; i < set.boons.length; i++) {
             var card = set.boons[i];
             card.id = convertToBoonId(setId, card.name);
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
+         }
+      }
+      if (set.ways) {
+         for (var i = 0; i < set.ways.length; i++) {
+            var card = set.ways[i];
+            card.id = convertToWayId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
          }

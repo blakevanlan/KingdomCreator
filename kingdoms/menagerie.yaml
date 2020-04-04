@@ -1,0 +1,450 @@
+  - name: Intro to Horses
+    sets:
+      - menagerie
+    supply:
+      - menagerie_animalfair
+      - menagerie_barge
+      - menagerie_destrier
+      - menagerie_event_enhance
+      - menagerie_goatherd
+      - menagerie_hostelry
+      - menagerie_livery
+      - menagerie_paddock
+      - menagerie_scrap
+      - menagerie_sheepdog
+      - menagerie_supplies
+      - menagerie_way_wayofthesheep
+
+  - name: Intro to Exile
+    sets:
+      - menagerie
+    supply:
+      - menagerie_blackcat
+      - menagerie_bountyhunter
+      - menagerie_cameltrain
+      - menagerie_cardinal
+      - menagerie_event_march
+      - menagerie_falconer
+      - menagerie_mastermind
+      - menagerie_sanctuary
+      - menagerie_snowyvillage
+      - menagerie_stockpile
+      - menagerie_way_wayoftheworm
+      - menagerie_wayfarer
+
+  - name: Pony Express
+    sets:
+      - baseset2
+      - menagerie
+    supply:
+      - baseset2_artisan
+      - baseset2_cellar
+      - baseset2_market
+      - baseset2_mine
+      - baseset2_village
+      - menagerie_barge
+      - menagerie_destrier
+      - menagerie_event_stampede
+      - menagerie_paddock
+      - menagerie_stockpile
+      - menagerie_supplies
+      - menagerie_way_wayoftheseal
+
+  - name: Garden of Cats
+    sets:
+      - baseset2
+      - menagerie
+    supply:
+      - baseset2_bandit
+      - baseset2_gardens
+      - baseset2_harbinger
+      - baseset2_merchant
+      - baseset2_moat
+      - menagerie_blackcat
+      - menagerie_displace
+      - menagerie_event_toil
+      - menagerie_sanctuary
+      - menagerie_scrap
+      - menagerie_snowyvillage
+      - menagerie_way_wayofthemole
+
+  - name: Dog & Pony Show
+    sets:
+      - intrigue2
+      - menagerie
+    supply:
+      - intrigue2_mill
+      - intrigue2_nobles
+      - intrigue2_pawn
+      - intrigue2_torturer
+      - intrigue2_upgrade
+      - menagerie_cameltrain
+      - menagerie_cavalry
+      - menagerie_event_commerce
+      - menagerie_goatherd
+      - menagerie_paddock
+      - menagerie_sheepdog
+      - menagerie_way_wayofthehorse
+
+  - name: Explosions
+    sets:
+      - intrigue2
+      - menagerie
+    supply:
+      - intrigue2_courtyard
+      - intrigue2_diplomat
+      - intrigue2_lurker
+      - intrigue2_replace
+      - intrigue2_wishingwell
+      - menagerie_animalfair
+      - menagerie_bountyhunter
+      - menagerie_coven
+      - menagerie_event_populate
+      - menagerie_huntinglodge
+      - menagerie_scrap
+      - menagerie_way_wayofthesquirrel
+
+  - name: Innsmouth
+    sets:
+      - menagerie
+      - seaside
+    supply:
+      - menagerie_animalfair
+      - menagerie_barge
+      - menagerie_coven
+      - menagerie_event_invest
+      - menagerie_fisherman
+      - menagerie_sheepdog
+      - menagerie_way_wayofthegoat
+      - seaside_caravan
+      - seaside_explorer
+      - seaside_fishingvillage
+      - seaside_haven
+      - seaside_treasuremap
+
+  - name: Ruritania
+    sets:
+      - menagerie
+      - seaside
+    supply:
+      - menagerie_bountyhunter
+      - menagerie_cavalry
+      - menagerie_event_alliance
+      - menagerie_falconer
+      - menagerie_sleigh
+      - menagerie_villagegreen
+      - menagerie_way_wayofthemonkey
+      - seaside_lookout
+      - seaside_outpost
+      - seaside_smugglers
+      - seaside_tactician
+      - seaside_warehouse
+
+  - name: Class of '20
+    sets:
+      - alchemy
+      - menagerie
+    supply:
+      - alchemy_transmute
+      - alchemy_university
+      - alchemy_vineyard
+      - menagerie_cavalry
+      - menagerie_coven
+      - menagerie_event_delay
+      - menagerie_huntinglodge
+      - menagerie_kiln
+      - menagerie_livery
+      - menagerie_snowyvillage
+      - menagerie_way_wayoftheowl
+      - menagerie_wayfarer
+
+  - name: Limited Time Offer
+    sets:
+      - menagerie
+      - prosperity
+    supply:
+      - menagerie_destrier
+      - menagerie_displace
+      - menagerie_event_desperation
+      - menagerie_fisherman
+      - menagerie_supplies
+      - menagerie_way_wayofthefrog
+      - menagerie_wayfarer
+      - prosperity_grandmarket
+      - prosperity_mint
+      - prosperity_peddler
+      - prosperity_talisman
+      - prosperity_workersvillage
+
+  - name: Birth of a Nation
+    sets:
+      - menagerie
+      - prosperity
+    supply:
+      - menagerie_animalfair
+      - menagerie_cameltrain
+      - menagerie_event_reap
+      - menagerie_mastermind
+      - menagerie_paddock
+      - menagerie_stockpile
+      - menagerie_way_wayoftheotter
+      - prosperity_city
+      - prosperity_monument
+      - prosperity_quarry
+      - prosperity_rabble
+      - prosperity_traderoute
+
+  - name: Living in Exile
+    sets:
+      - cornucopia
+      - guilds
+      - menagerie
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_hamlet
+      - cornucopia_jester
+      - guilds_journeyman
+      - guilds_taxman
+      - menagerie_event_enclave
+      - menagerie_gatekeeper
+      - menagerie_hostelry
+      - menagerie_livery
+      - menagerie_scrap
+      - menagerie_stockpile
+      - menagerie_way_wayofthemule
+
+  - name: Thrill of the Hunt
+    sets:
+      - cornucopia
+      - guilds
+      - menagerie
+    supply:
+      - cornucopia_horsetraders
+      - cornucopia_huntingparty
+      - cornucopia_menagerie
+      - cornucopia_tournament
+      - guilds_butcher
+      - menagerie_blackcat
+      - menagerie_bountyhunter
+      - menagerie_cameltrain
+      - menagerie_event_pursue
+      - menagerie_mastermind
+      - menagerie_villagegreen
+      - menagerie_way_wayoftherat
+
+  - name: Big Blue
+    sets:
+      - hinterlands
+      - menagerie
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_foolsgold
+      - hinterlands_margrave
+      - hinterlands_trader
+      - hinterlands_tunnel
+      - menagerie_blackcat
+      - menagerie_event_banish
+      - menagerie_falconer
+      - menagerie_sheepdog
+      - menagerie_sleigh
+      - menagerie_villagegreen
+      - menagerie_way_wayoftheturtle
+
+  - name: Intersection
+    sets:
+      - hinterlands
+      - menagerie
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_develop
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_nomadcamp
+      - hinterlands_stables
+      - menagerie_cardinal
+      - menagerie_event_gamble
+      - menagerie_hostelry
+      - menagerie_livery
+      - menagerie_mastermind
+      - menagerie_supplies
+      - menagerie_way_wayofthemouse
+
+  - name: Friendly Carnage
+    sets:
+      - darkages
+      - menagerie
+    supply:
+      - darkages_altar
+      - darkages_beggar
+      - darkages_catacombs
+      - darkages_fortress
+      - darkages_marketsquare
+      - menagerie_animalfair
+      - menagerie_cardinal
+      - menagerie_event_ride
+      - menagerie_falconer
+      - menagerie_goatherd
+      - menagerie_huntinglodge
+      - menagerie_way_wayofthecamel
+
+  - name: Gift Horses
+    sets:
+      - darkages
+      - menagerie
+    supply:
+      - darkages_huntinggrounds
+      - darkages_pillage
+      - darkages_rats
+      - darkages_sage
+      - darkages_squire
+      - menagerie_cameltrain
+      - menagerie_destrier
+      - menagerie_displace
+      - menagerie_event_bargain
+      - menagerie_paddock
+      - menagerie_scrap
+      - menagerie_way_wayofthebutterfly
+
+  - name: Horse Feathers
+    sets:
+      - adventures
+      - menagerie
+    supply:
+      - adventures_event_pilgrimage
+      - adventures_magpie
+      - adventures_ranger
+      - adventures_ratcatcher
+      - adventures_relic
+      - adventures_royalcarriage
+      - menagerie_destrier
+      - menagerie_displace
+      - menagerie_falconer
+      - menagerie_sleigh
+      - menagerie_stockpile
+      - menagerie_way_wayoftheox
+
+  - name: Sooner or Later
+    sets:
+      - adventures
+      - menagerie
+    supply:
+      - adventures_amulet
+      - adventures_caravanguard
+      - adventures_dungeon
+      - adventures_event_mission
+      - adventures_giant
+      - adventures_raze
+      - menagerie_barge
+      - menagerie_event_toil
+      - menagerie_gatekeeper
+      - menagerie_groom
+      - menagerie_mastermind
+      - menagerie_villagegreen
+
+  - name: No Money Down
+    sets:
+      - empires
+      - menagerie
+    supply:
+      - empires_catapultrocks
+      - empires_cityquarter
+      - empires_crown
+      - empires_engineer
+      - empires_event_advance
+      - empires_villa
+      - menagerie_animalfair
+      - menagerie_cavalry
+      - menagerie_sleigh
+      - menagerie_stockpile
+      - menagerie_way_wayofthepig
+      - menagerie_wayfarer
+
+  - name: Detours and Shortcuts
+    sets:
+      - empires
+      - menagerie
+    supply:
+      - empires_enchantress
+      - empires_landmark_triumphalarch
+      - empires_overlord
+      - empires_sacrifice
+      - empires_settlersbustlingvillage
+      - empires_wildhunt
+      - menagerie_cameltrain
+      - menagerie_event_transport
+      - menagerie_fisherman
+      - menagerie_gatekeeper
+      - menagerie_sanctuary
+      - menagerie_snowyvillage
+
+  - name: Seize the Night
+    sets:
+      - menagerie
+      - nocturne
+    supply:
+      - menagerie_barge
+      - menagerie_event_seizetheday
+      - menagerie_falconer
+      - menagerie_hostelry
+      - menagerie_sheepdog
+      - menagerie_supplies
+      - menagerie_way_wayofthesheep
+      - nocturne_cobbler
+      - nocturne_devilsworkshop
+      - nocturne_exorcist
+      - nocturne_monastery
+      - nocturne_skulk
+
+  - name: Animal Crackers
+    sets:
+      - menagerie
+      - nocturne
+    supply:
+      - menagerie_blackcat
+      - menagerie_event_enhance
+      - menagerie_goatherd
+      - menagerie_groom
+      - menagerie_huntinglodge
+      - menagerie_kiln
+      - menagerie_way_wayofthechameleon
+      - nocturne_faithfulhound
+      - nocturne_pixie
+      - nocturne_pooka
+      - nocturne_sacredgrove
+      - nocturne_shepherd
+
+  - name: Biding Time
+    sets:
+      - menagerie
+      - renaissance
+    supply:
+      - menagerie_cavalry
+      - menagerie_coven
+      - menagerie_displace
+      - menagerie_fisherman
+      - menagerie_goatherd
+      - menagerie_way_wayoftheturtle
+      - renaissance_ducat
+      - renaissance_priest
+      - renaissance_project_sinisterplot
+      - renaissance_recruiter
+      - renaissance_scepter
+      - renaissance_swashbuckler
+
+  - name: Villager Madness
+    sets:
+      - menagerie
+      - renaissance
+    supply:
+      - menagerie_cardinal
+      - menagerie_event_demand
+      - menagerie_groom
+      - menagerie_kiln
+      - menagerie_livery
+      - menagerie_wayfarer
+      - renaissance_borderguard
+      - renaissance_flagbearer
+      - renaissance_patron
+      - renaissance_project_academy
+      - renaissance_silkmerchant
+      - renaissance_spices
