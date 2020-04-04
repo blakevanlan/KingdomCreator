@@ -50,11 +50,6 @@ export default class Rulebooks extends Vue {
         {
           id: "guildscornucopia",
           name: `${this.$tc(SetId.GUILDS)} / ${this.$tc(SetId.CORNUCOPIA)}`
-        }, 
-        // TODO: Remove once Menagerie is fully supported.
-        {
-          id: "menagerie",
-          name: this.$tc("menagerie")
         }
       ])
       .sort((a, b) => {

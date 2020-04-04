@@ -1,4 +1,11 @@
 {
+  "addon_description_format_2": "{one} & {two}",
+  "addon_description_format_3": "{one}, {two} & {three}",
+  "addon_description_format_4": "{one}, {two}, {three} & {four}",
+  "addon_events": "Events",
+  "addon_landmarks": "Landmarks",
+  "addon_projects": "Projects",
+  "addon_ways": "Ways",
   "github_info": "Source is on {source}. Feature requests and complaints go {issues}!",
   "github_info_source": "Github",
   "github_info_issues": "here",

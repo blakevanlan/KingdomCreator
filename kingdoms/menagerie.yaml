@@ -1,3 +1,4 @@
+kingdoms:
   - name: Intro to Horses
     sets:
       - menagerie
@@ -5,7 +6,6 @@
       - menagerie_animalfair
       - menagerie_barge
       - menagerie_destrier
-      - menagerie_event_enhance
       - menagerie_goatherd
       - menagerie_hostelry
       - menagerie_livery
@@ -13,6 +13,9 @@
       - menagerie_scrap
       - menagerie_sheepdog
       - menagerie_supplies
+    events:
+      - menagerie_event_enhance
+    ways: 
       - menagerie_way_wayofthesheep
 
   - name: Intro to Exile
@@ -23,14 +26,16 @@
       - menagerie_bountyhunter
       - menagerie_cameltrain
       - menagerie_cardinal
-      - menagerie_event_march
       - menagerie_falconer
       - menagerie_mastermind
       - menagerie_sanctuary
       - menagerie_snowyvillage
       - menagerie_stockpile
-      - menagerie_way_wayoftheworm
       - menagerie_wayfarer
+    events:
+      - menagerie_event_march
+    ways:
+      - menagerie_way_wayoftheworm
 
   - name: Pony Express
     sets:
@@ -44,10 +49,12 @@
       - baseset2_village
       - menagerie_barge
       - menagerie_destrier
-      - menagerie_event_stampede
       - menagerie_paddock
       - menagerie_stockpile
       - menagerie_supplies
+    events:
+      - menagerie_event_stampede
+    ways:
       - menagerie_way_wayoftheseal
 
   - name: Garden of Cats
@@ -62,10 +69,12 @@
       - baseset2_moat
       - menagerie_blackcat
       - menagerie_displace
-      - menagerie_event_toil
       - menagerie_sanctuary
       - menagerie_scrap
       - menagerie_snowyvillage
+    events:
+      - menagerie_event_toil
+    ways:
       - menagerie_way_wayofthemole
 
   - name: Dog & Pony Show
@@ -80,10 +89,12 @@
       - intrigue2_upgrade
       - menagerie_cameltrain
       - menagerie_cavalry
-      - menagerie_event_commerce
       - menagerie_goatherd
       - menagerie_paddock
       - menagerie_sheepdog
+    events:
+      - menagerie_event_commerce
+    ways:
       - menagerie_way_wayofthehorse
 
   - name: Explosions
@@ -99,9 +110,11 @@
       - menagerie_animalfair
       - menagerie_bountyhunter
       - menagerie_coven
-      - menagerie_event_populate
       - menagerie_huntinglodge
       - menagerie_scrap
+    events:
+      - menagerie_event_populate
+    ways:
       - menagerie_way_wayofthesquirrel
 
   - name: Innsmouth
@@ -112,15 +125,17 @@
       - menagerie_animalfair
       - menagerie_barge
       - menagerie_coven
-      - menagerie_event_invest
       - menagerie_fisherman
       - menagerie_sheepdog
-      - menagerie_way_wayofthegoat
       - seaside_caravan
       - seaside_explorer
       - seaside_fishingvillage
       - seaside_haven
       - seaside_treasuremap
+    events:
+      - menagerie_event_invest
+    ways:
+      - menagerie_way_wayofthegoat
 
   - name: Ruritania
     sets:
@@ -129,16 +144,18 @@
     supply:
       - menagerie_bountyhunter
       - menagerie_cavalry
-      - menagerie_event_alliance
       - menagerie_falconer
       - menagerie_sleigh
       - menagerie_villagegreen
-      - menagerie_way_wayofthemonkey
       - seaside_lookout
       - seaside_outpost
       - seaside_smugglers
       - seaside_tactician
       - seaside_warehouse
+    events:
+      - menagerie_event_alliance
+    ways:
+      - menagerie_way_wayofthemonkey
 
   - name: Class of '20
     sets:
@@ -150,13 +167,15 @@
       - alchemy_vineyard
       - menagerie_cavalry
       - menagerie_coven
-      - menagerie_event_delay
       - menagerie_huntinglodge
       - menagerie_kiln
       - menagerie_livery
       - menagerie_snowyvillage
-      - menagerie_way_wayoftheowl
       - menagerie_wayfarer
+    events:
+      - menagerie_event_delay
+    ways:
+      - menagerie_way_wayoftheowl
 
   - name: Limited Time Offer
     sets:
@@ -165,16 +184,20 @@
     supply:
       - menagerie_destrier
       - menagerie_displace
-      - menagerie_event_desperation
       - menagerie_fisherman
       - menagerie_supplies
-      - menagerie_way_wayofthefrog
       - menagerie_wayfarer
       - prosperity_grandmarket
       - prosperity_mint
       - prosperity_peddler
       - prosperity_talisman
       - prosperity_workersvillage
+    events:
+      - menagerie_event_desperation
+    ways:
+      - menagerie_way_wayofthefrog
+    metadata:
+      colonies: true
 
   - name: Birth of a Nation
     sets:
@@ -183,16 +206,20 @@
     supply:
       - menagerie_animalfair
       - menagerie_cameltrain
-      - menagerie_event_reap
       - menagerie_mastermind
       - menagerie_paddock
       - menagerie_stockpile
-      - menagerie_way_wayoftheotter
       - prosperity_city
       - prosperity_monument
       - prosperity_quarry
       - prosperity_rabble
       - prosperity_traderoute
+    events:
+      - menagerie_event_reap
+    ways:
+      - menagerie_way_wayoftheotter
+    metadata:
+      colonies: true
 
   - name: Living in Exile
     sets:
@@ -205,12 +232,14 @@
       - cornucopia_jester
       - guilds_journeyman
       - guilds_taxman
-      - menagerie_event_enclave
       - menagerie_gatekeeper
       - menagerie_hostelry
       - menagerie_livery
       - menagerie_scrap
       - menagerie_stockpile
+    events:
+      - menagerie_event_enclave
+    ways:
       - menagerie_way_wayofthemule
 
   - name: Thrill of the Hunt
@@ -227,9 +256,11 @@
       - menagerie_blackcat
       - menagerie_bountyhunter
       - menagerie_cameltrain
-      - menagerie_event_pursue
       - menagerie_mastermind
       - menagerie_villagegreen
+    events:
+      - menagerie_event_pursue
+    ways:
       - menagerie_way_wayoftherat
 
   - name: Big Blue
@@ -243,11 +274,13 @@
       - hinterlands_trader
       - hinterlands_tunnel
       - menagerie_blackcat
-      - menagerie_event_banish
       - menagerie_falconer
       - menagerie_sheepdog
       - menagerie_sleigh
       - menagerie_villagegreen
+    events:
+      - menagerie_event_banish
+    ways:
       - menagerie_way_wayoftheturtle
 
   - name: Intersection
@@ -262,11 +295,13 @@
       - hinterlands_nomadcamp
       - hinterlands_stables
       - menagerie_cardinal
-      - menagerie_event_gamble
       - menagerie_hostelry
       - menagerie_livery
       - menagerie_mastermind
       - menagerie_supplies
+    events:
+      - menagerie_event_gamble
+    ways:
       - menagerie_way_wayofthemouse
 
   - name: Friendly Carnage
@@ -281,11 +316,15 @@
       - darkages_marketsquare
       - menagerie_animalfair
       - menagerie_cardinal
-      - menagerie_event_ride
       - menagerie_falconer
       - menagerie_goatherd
       - menagerie_huntinglodge
+    events:
+      - menagerie_event_ride
+    ways:
       - menagerie_way_wayofthecamel
+    metadata:
+      shelters: true
 
   - name: Gift Horses
     sets:
@@ -300,17 +339,20 @@
       - menagerie_cameltrain
       - menagerie_destrier
       - menagerie_displace
-      - menagerie_event_bargain
       - menagerie_paddock
       - menagerie_scrap
+    events:
+      - menagerie_event_bargain
+    ways:
       - menagerie_way_wayofthebutterfly
+    metadata:
+      shelters: true
 
   - name: Horse Feathers
     sets:
       - adventures
       - menagerie
     supply:
-      - adventures_event_pilgrimage
       - adventures_magpie
       - adventures_ranger
       - adventures_ratcatcher
@@ -321,6 +363,9 @@
       - menagerie_falconer
       - menagerie_sleigh
       - menagerie_stockpile
+    events:
+      - adventures_event_pilgrimage
+    ways:
       - menagerie_way_wayoftheox
 
   - name: Sooner or Later
@@ -331,15 +376,16 @@
       - adventures_amulet
       - adventures_caravanguard
       - adventures_dungeon
-      - adventures_event_mission
       - adventures_giant
       - adventures_raze
       - menagerie_barge
-      - menagerie_event_toil
       - menagerie_gatekeeper
       - menagerie_groom
       - menagerie_mastermind
       - menagerie_villagegreen
+    events:
+      - adventures_event_mission
+      - menagerie_event_toil
 
   - name: No Money Down
     sets:
@@ -350,14 +396,16 @@
       - empires_cityquarter
       - empires_crown
       - empires_engineer
-      - empires_event_advance
       - empires_villa
       - menagerie_animalfair
       - menagerie_cavalry
       - menagerie_sleigh
       - menagerie_stockpile
-      - menagerie_way_wayofthepig
       - menagerie_wayfarer
+    events:
+      - empires_event_advance
+    ways:
+      - menagerie_way_wayofthepig
 
   - name: Detours and Shortcuts
     sets:
@@ -365,17 +413,19 @@
       - menagerie
     supply:
       - empires_enchantress
-      - empires_landmark_triumphalarch
       - empires_overlord
       - empires_sacrifice
       - empires_settlersbustlingvillage
       - empires_wildhunt
       - menagerie_cameltrain
-      - menagerie_event_transport
       - menagerie_fisherman
       - menagerie_gatekeeper
       - menagerie_sanctuary
       - menagerie_snowyvillage
+    events:
+      - menagerie_event_transport
+    landmarks:
+      - empires_landmark_triumphalarch
 
   - name: Seize the Night
     sets:
@@ -383,17 +433,19 @@
       - nocturne
     supply:
       - menagerie_barge
-      - menagerie_event_seizetheday
       - menagerie_falconer
       - menagerie_hostelry
       - menagerie_sheepdog
       - menagerie_supplies
-      - menagerie_way_wayofthesheep
       - nocturne_cobbler
       - nocturne_devilsworkshop
       - nocturne_exorcist
       - nocturne_monastery
       - nocturne_skulk
+    events:
+      - menagerie_event_seizetheday
+    ways:
+      - menagerie_way_wayofthesheep
 
   - name: Animal Crackers
     sets:
@@ -401,17 +453,19 @@
       - nocturne
     supply:
       - menagerie_blackcat
-      - menagerie_event_enhance
       - menagerie_goatherd
       - menagerie_groom
       - menagerie_huntinglodge
       - menagerie_kiln
-      - menagerie_way_wayofthechameleon
       - nocturne_faithfulhound
       - nocturne_pixie
       - nocturne_pooka
       - nocturne_sacredgrove
       - nocturne_shepherd
+    events:
+      - menagerie_event_enhance
+    ways:
+      - menagerie_way_wayofthechameleon
 
   - name: Biding Time
     sets:
@@ -423,13 +477,15 @@
       - menagerie_displace
       - menagerie_fisherman
       - menagerie_goatherd
-      - menagerie_way_wayoftheturtle
       - renaissance_ducat
       - renaissance_priest
-      - renaissance_project_sinisterplot
       - renaissance_recruiter
       - renaissance_scepter
       - renaissance_swashbuckler
+    projects:
+      - renaissance_project_sinisterplot
+    ways:
+      - menagerie_way_wayoftheturtle
 
   - name: Villager Madness
     sets:
@@ -437,7 +493,6 @@
       - renaissance
     supply:
       - menagerie_cardinal
-      - menagerie_event_demand
       - menagerie_groom
       - menagerie_kiln
       - menagerie_livery
@@ -445,6 +500,9 @@
       - renaissance_borderguard
       - renaissance_flagbearer
       - renaissance_patron
-      - renaissance_project_academy
       - renaissance_silkmerchant
       - renaissance_spices
+    events:
+      - menagerie_event_demand
+    projects:
+      - renaissance_project_academy

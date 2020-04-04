@@ -24,7 +24,8 @@ function isHorizontal(name) {
     "_landmark_",
     "_project_",
     "_boon_",
-    "_war_"
+    "_war_",
+    "_way_"
   ]
   for (let i = 0; i < horizontal.length; i++) {
     if (name.indexOf(horizontal[i]) != -1) {

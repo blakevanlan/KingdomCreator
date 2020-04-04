@@ -1,7 +1,12 @@
 <template>
   <div class="addons" v-if="canHaveAddons">
     <div class="addons-header">
-      {{ addonSummary }}  
+      <AddonTitle
+        :has-events="canHaveEvents"
+        :has-landmarks="canHaveLandmarks"
+        :has-projects="canHaveProjects"
+        :has-ways="canHaveWays"
+      />
     </div>
     <GridLayout
         :class="{'addon--is-enlarged': isEnlarged}"
@@ -21,7 +26,8 @@
 </template>
 
 <script lang="ts">
-import GridLayout from "./GridLayout";
+import AddonTitle from "./AddonTitle.vue";
+import GridLayout from "./GridLayout.vue";
 import FlippingCard from "./FlippingCard.vue";
 import { Addon } from "../dominion/addon";
 import { Vue, Component, Watch } from "vue-property-decorator";
@@ -36,6 +42,7 @@ const NUMBER_OF_ADDONS = 2;
 
 @Component({
   components: {
+    AddonTitle,
     GridLayout,
     FlippingCard
   }
@@ -45,7 +52,10 @@ export default class Addons extends Vue {
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @State(state => state.window.width) readonly windowWidth!: number;
   @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
-  @Getter("addonSummary") readonly addonSummary!: string;
+  @Getter("canHaveEvents") readonly canHaveEvents!: string;
+  @Getter("canHaveLandmarks") readonly canHaveLandmarks!: string;
+  @Getter("canHaveProjects") readonly canHaveProjects!: string;
+  @Getter("canHaveWays") readonly canHaveWays!: string;
   @Getter("addons") readonly addons!: Addon[];
   activeContainers: AddonContainer[] = Addons.fillWithEmptyAddonContainers([]);
 

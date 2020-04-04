@@ -22,7 +22,8 @@ import {SupplyDivisions} from "./supply-divisions";
 import {TypeSupplyBan} from "./type-supply-ban";
 import {TypeSupplyRequirement} from "./type-supply-requirement";
 import {getRandomInt, getRandomInts, selectRandomN} from "../utils/rand";
-import { Boon } from "../dominion/boon";
+import {Boon} from "../dominion/boon";
+import {Way} from "../dominion/way";
 
 const SETS_WITH_DUPLICATES: {[index: string]: string} = {
   'baseset2': 'baseset',
@@ -58,6 +59,7 @@ export class Randomizer {
       addons.events,
       addons.landmarks,
       addons.projects,
+      addons.ways,
       boons,
       metadata);
   }
@@ -176,13 +178,14 @@ export class Randomizer {
   }
 
   private static getAddons(setIds: SetId[]):
-      {events: Event[], landmarks: Landmark[], projects: Project[]} {
+      {events: Event[], landmarks: Landmark[], projects: Project[], ways: Way[]} {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
     const cards = Cards.getAllCardsFromSets(setsToUse);
     const selectedCards = this.selectRandomCards(cards, NUM_CARDS_IN_KINGDOM);
     const selectedEvents: Event[] = [];
     const selectedLandmarks: Landmark[] = [];
     const selectedProjects: Project[] = [];
+    const selectedWays: Way[] = [];
 
     for (let card of selectedCards) {
       if (card instanceof Event) {
@@ -191,9 +194,14 @@ export class Randomizer {
         selectedLandmarks.push(card);
       } else if (card instanceof Project) {
         selectedProjects.push(card);
+      } else if (card instanceof Way) {
+        selectedWays.push(card);
       }
       // Stop once the maximum number of addons has been reached.
-      const addonCount = selectedEvents.length + selectedLandmarks.length + selectedProjects.length;
+      const addonCount = selectedEvents.length
+        + selectedLandmarks.length
+        + selectedProjects.length
+        + selectedWays.length;
       if (addonCount >= MAX_ADDONS_IN_KINGDOM) {
         break;
       }
@@ -201,7 +209,8 @@ export class Randomizer {
     return {
       events: selectedEvents,
       landmarks: selectedLandmarks,
-      projects: selectedProjects
+      projects: selectedProjects,
+      ways: selectedWays,
     };
   }
 
@@ -216,7 +225,8 @@ export class Randomizer {
     const events = Cards.getAllEvents(cards) as Addon[];
     const landmarks = Cards.getAllLandmarks(cards) as Addon[];
     const projects = Cards.getAllProjects(cards) as Addon[];
-    return events.concat(landmarks, projects);
+    const ways = Cards.getAllWays(cards) as Addon[];
+    return events.concat(landmarks, projects, ways);
   }
 
   static getRandomBoons(supply: Supply, keepBoons: Boon[]) {

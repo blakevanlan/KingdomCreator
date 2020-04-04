@@ -17,6 +17,6 @@ export class Landmark implements Addon {
       json["shortId"],
       json["setId"],
       json["name"],
-      Cost.fromJson(json["cost"]));
+      new Cost(0, 0, 0));
   }
 }
