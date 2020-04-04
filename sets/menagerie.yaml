@@ -1,0 +1,799 @@
+name: Menagerie
+cards:  
+  - name: Black Cat
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+  - name: Sleigh
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Supplies
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Camel Train
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_map
+
+- name: Goatherd
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Scrap
+    cost:
+      treasure: 3 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Sheepdog
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Snowy Village
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Stockpile
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: true
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Bounty Hunter
+    cost:
+      treasure: 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Cardinal
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Cavalry
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Groom
+    cost:
+      treasure: 4 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Hostelry
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Village Green
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Barge
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Coven
+    cost:
+      treasure: 5 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Displace
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Falconer
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: true
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Gatekeeper
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Hunting Lodge
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Kiln
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Livery
+    cost:
+      treasure: 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Mastermind
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Paddock
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - horse
+
+  - name: Sanctuary
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    setup:
+      - exile_mat
+
+  - name: Fisherman
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Destrier
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Wayfarer
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Animal Fair
+    cost:
+      treasure: 7
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+events:
+  - name: Delay
+    cost:
+      treasure: 0
+
+  - name: Desperation
+    cost:
+      treasure: 0
+
+  - name: Gamble
+    cost:
+      treasure: 2
+
+  - name: Pursue
+    cost:
+      treasure: 2
+
+  - name: Ride
+    cost:
+      treasure: 2
+    setup:
+      - horse
+
+  - name: Toil
+    cost:
+      treasure: 2
+
+  - name: Enhance
+    cost:
+      treasure: 3
+
+  - name: March
+    cost:
+      treasure: 3
+
+  - name: Transport
+    cost:
+      treasure: 3
+    setup:
+      - exile_mat
+
+  - name: Banish
+    cost:
+      treasure: 4
+    setup:
+      - exile_mat
+
+  - name: Bargain
+    cost:
+      treasure: 4
+    setup:
+      - horse
+
+  - name: Invest
+    cost:
+      treasure: 4
+    setup:
+      - exile_mat
+
+  - name: Seize the Day
+    cost:
+      treasure: 4
+
+  - name: Commerce
+    cost:
+      treasure: 5
+
+  - name: Demand
+    cost:
+      treasure: 5
+    setup:
+      - horse
+
+  - name: Stampede
+    cost:
+      treasure: 5
+    setup:
+      - horse
+
+  - name: Reap
+    cost:
+      treasure: 7
+
+  - name: Enclave
+    cost:
+      treasure: 8
+    setup:
+      - exile_mat
+
+  - name: Alliance
+    cost:
+      treasure: 10
+
+  - name: Populate
+    cost:
+      treasure: 10
+
+ways:
+  - name: Way of the Butterfly
+  - name: Way of the Chameleon
+  - name: Way of the Goat
+  - name: Way of the Mole
+  - name: Way of the Mouse
+  - name: Way of the Otter
+  - name: Way of the Ox
+  - name: Way of the Rat
+  - name: Way of the Sheep
+  - name: Way of the Turtle
