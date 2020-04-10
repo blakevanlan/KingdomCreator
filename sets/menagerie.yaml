@@ -207,7 +207,7 @@ cards:
 
   - name: Bounty Hunter
     cost:
-      treasure: 
+      treasure: 4
       potion: 0
       debt: 0
     isAction: true
@@ -509,7 +509,7 @@ cards:
 
   - name: Livery
     cost:
-      treasure: 
+      treasure: 5
       potion: 0
       debt: 0
     isAction: true
