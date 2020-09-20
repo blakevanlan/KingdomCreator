@@ -25,10 +25,6 @@
         </FlippingCard>
       </template>
     </GridLayout>
-    <CopyButton
-      :text="supplyCardsCopyText"
-      class="sortable-supply-card-copy-button"
-    />
   </div>
 </template>
 
@@ -46,7 +42,6 @@ import { TweenLite, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 import GridLayout from "./GridLayout.vue";
-import CopyButton from "./CopyButton.vue";
 
 interface MoveDescriptor {
   elementIndex: number;
@@ -61,7 +56,6 @@ const WINDOW_RESIZE_DELAY_MSEC = 300;
     GridLayout,
     FlippingCard,
     BaneCardCover,
-    CopyButton,
   }
 })
 export default class SortableSupplyCards extends Vue {
@@ -93,10 +87,6 @@ export default class SortableSupplyCards extends Vue {
       cards.push(this.kingdom.supply.baneCard);
     }
     return cards;
-  }
-
-  get supplyCardsCopyText() {
-    return this.supplyCards.map((card) => card.name).join(", ");
   }
 
   @Watch("kingdom")
@@ -290,9 +280,5 @@ export default class SortableSupplyCards extends Vue {
 <style>
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
-}
-
-.sortable-supply-card-copy-button {
-  margin-top: 4px;
 }
 </style>

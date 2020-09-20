@@ -29,11 +29,6 @@
       </template>
     </GridLayout>
 
-    <CopyButton 
-      :text="getCopyText(kingdom)"
-      class="preset-kingdom-copy-button"
-    />
-
     <div v-if="addonIds.length">
       <div class="preset-kingdom__addon-title">
         <AddonTitle
@@ -66,6 +61,8 @@
         </template>
       </GridLayout>
     </div>
+
+    <CopyButton :text="copyText" class="preset-kingdom-copy-button" />
   </div>
 </template>
 
@@ -118,6 +115,10 @@ export default class PresetKingdom extends Vue {
     return this.kingdom.metadata.useColonies || this.kingdom.metadata.useShelters;
   }
 
+  get copyText() {
+    return this.kingdom.supplyIds.concat(this.addonIds).map((id) => this.$t(id)).join(", ");
+  }
+
   getSupplyCards(kingdom: DominionKingdom) {
     const cardIds = this.kingdom.supplyIds.concat();
     if (this.kingdom.baneCardId) {
@@ -136,7 +137,7 @@ export default class PresetKingdom extends Vue {
   }
 
   getCopyText(kingdom: DominionKingdom) {
-    return this.getSupplyCards(kingdom).map((card) => card.name).join(", ");
+
   }
 }
 </script>
@@ -175,7 +176,7 @@ export default class PresetKingdom extends Vue {
 }
 
 .preset-kingdom-copy-button {
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .preset-kingdom_metadata {

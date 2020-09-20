@@ -6,6 +6,10 @@
       <Addons />
       <Boons />
       <Modifiers />
+      <CopyButton
+        :text="supplyCardsCopyText"
+        class="randomizer-copy-button"
+      />
     </div>
   </div>
 </template>
@@ -23,6 +27,8 @@ import { LOAD_INITIAL_KINGDOM, RANDOMIZE } from "../stores/randomizer/action-typ
 import { deserializeKingdom, serializeKingdom } from "../randomizer/serializer";
 import Modifiers from "./Modifiers.vue";
 import { Kingdom } from "../randomizer/kingdom";
+import { Card } from "../dominion/card";
+import CopyButton from "./CopyButton.vue";
 
 @Component({
   components: {
@@ -31,6 +37,7 @@ import { Kingdom } from "../randomizer/kingdom";
     Modifiers,
     RandomizerSidebar,
     SortableSupplyCards,
+    CopyButton,
   }
 })
 export default class Randomizer extends Vue {
@@ -39,6 +46,16 @@ export default class Randomizer extends Vue {
   @State(state => state.randomizer.settings) readonly settings!: Settings;
   @State(state => state.randomizer.settings.randomizerSettings)
       readonly randomizerSettings!: RandomizerSettings;
+
+  get supplyCardsCopyText() {
+    return (this.kingdom.supply.supplyCards as Card[]).concat(
+      this.kingdom.events,
+      this.kingdom.landmarks,
+      this.kingdom.projects,
+      this.kingdom.ways,
+      this.kingdom.boons,
+    ).map((card) => this.$t(card.id)).join(", ");
+  }
 
   mounted() {
     const kingdomFromUrl = deserializeKingdom(this.$route.query);
@@ -75,3 +92,9 @@ export default class Randomizer extends Vue {
   }
 }
 </script>
+
+<style>
+.randomizer-copy-button {
+  margin-top: 4px;
+}
+</style>
