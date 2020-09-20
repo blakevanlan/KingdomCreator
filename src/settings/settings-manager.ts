@@ -12,5 +12,5 @@ export function loadSettings(): Settings {
 }
 
 export function saveSettings(settings: Settings) {
-  Cookie.set("options", settings, {expires: 365});
+  Cookie.set("options", settings, {expires: 365, sameSite: "none"});
 }
