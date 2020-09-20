@@ -11,6 +11,7 @@
         class="randomizer-copy-button"
       />
     </div>
+    <div class="clearfix"></div>
   </div>
 </template>
 
