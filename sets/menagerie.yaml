@@ -377,7 +377,7 @@ cards:
     isAction: true
     isActionSupplier: false
     isArtifactSupplier: false
-    isAttack: false
+    isAttack: true
     isBuySupplier: false
     isDrawer: false
     isDoom: false
