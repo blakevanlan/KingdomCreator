@@ -146,6 +146,7 @@ export const actions = {
       .setExcludeCardIds(Cards.extractIds(getSelectedSupplyCards(context)))
       .setExcludeTypes(excludeTypes)
       .setExcludeCosts(excludeCosts)
+      .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
       .setBaneCardId(context.state.kingdom.supply.baneCard
         ? context.state.kingdom.supply.baneCard.id
         : null);

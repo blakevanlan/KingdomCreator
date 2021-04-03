@@ -274,6 +274,9 @@ export class Randomizer {
     if (randomizerOptions.setIds.length == 1) {
       return false;
     }
+    if (!randomizerOptions.useAlchemyRecommendation) {
+      return false;
+    }
     if (randomizerOptions.prioritizeSet == SetId.ALCHEMY) {
       return true;
     }
