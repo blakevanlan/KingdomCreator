@@ -54,6 +54,12 @@
           <span>Require Trashing</span>
         </label>
       </div>
+      <div class="option" v-if="isAlchemySelected">
+        <label class="checkbox">
+          <input type="checkbox" v-model="isAlchemyRecommendationEnabled">
+          <span>3+ Alchemy Cards</span>
+        </label>
+      </div>
       <div class="option" v-if="isDistributeCostAllowed">
         <label class="checkbox">
           <input type="checkbox" v-model="distributeCost">
@@ -110,6 +116,7 @@ export default class RandomizerSidebar extends Vue {
   @Getter("isCondensed") readonly isCondensed!: boolean;
   @Getter("isDistributeCostAllowed") readonly isDistributeCostAllowed!: boolean;
   @Getter("isPrioritizeSetAllowed") readonly isPrioritizeSetAllowed!: boolean;
+  @Getter("isAlchemySelected") readonly isAlchemySelected!: boolean;
   @Getter("randomizeButtonText") readonly randomizeButtonText!: string;
   @State(state => state.randomizer.settings) readonly settings!: Settings;
   @State(state => state.randomizer.settings.randomizerSettings)
@@ -196,6 +203,13 @@ export default class RandomizerSidebar extends Vue {
   }
   set prioritizeSet(value: SetId | null) {
     this.updateRandomizerSettings({prioritizeSet: value});
+  }
+
+  get isAlchemyRecommendationEnabled() {
+    return this.randomizerSettings.isAlchemyRecommendationEnabled;
+  }
+  set isAlchemyRecommendationEnabled(value: boolean) {
+    this.updateRandomizerSettings({isAlchemyRecommendationEnabled: value});
   }
 
   get sortOptions(): SortOptionParam[] {

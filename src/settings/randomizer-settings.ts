@@ -10,6 +10,7 @@ export interface RandomizerSettingsParams {
   requireTrashing?: boolean;
   distributeCost?: boolean;
   prioritizeSet?: SetId | null;
+  isAlchemyRecommendationEnabled?: boolean;
 }
 
 export class RandomizerSettings implements RandomizerSettingsParams {
@@ -21,7 +22,8 @@ export class RandomizerSettings implements RandomizerSettingsParams {
       readonly requireReaction: boolean,
       readonly requireTrashing: boolean,
       readonly distributeCost: boolean,
-      readonly prioritizeSet: SetId | null) {
+      readonly prioritizeSet: SetId | null,
+      readonly isAlchemyRecommendationEnabled: boolean) {
   }
 
   withParams(params: RandomizerSettingsParams) {
@@ -33,7 +35,8 @@ export class RandomizerSettings implements RandomizerSettingsParams {
         params.requireReaction !== undefined ? params.requireReaction : this.requireReaction,
         params.requireTrashing !== undefined ? params.requireTrashing : this.requireTrashing,
         params.distributeCost !== undefined ? params.distributeCost : this.distributeCost,
-        params.prioritizeSet !== undefined ? params.prioritizeSet : this.prioritizeSet);
+        params.prioritizeSet !== undefined ? params.prioritizeSet : this.prioritizeSet,
+        params.isAlchemyRecommendationEnabled !== undefined ? params.isAlchemyRecommendationEnabled : this.isAlchemyRecommendationEnabled);
   }
 
   static createFromObject(data: any) {
@@ -45,6 +48,7 @@ export class RandomizerSettings implements RandomizerSettingsParams {
         !!data.requireReaction,
         !!data.requireTrashing,
         !!data.distributeCost,
-        DominionSets.convertToSetIdSafe(data.prioritizeSet));
+        DominionSets.convertToSetIdSafe(data.prioritizeSet),
+        data.isAlchemyRecommendationEnabled != null ? !!data.isAlchemyRecommendationEnabled : true);
   }
 }

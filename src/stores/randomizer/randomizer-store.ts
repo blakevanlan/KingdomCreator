@@ -6,6 +6,7 @@ import { SupplyCard } from "../../dominion/supply-card";
 import { Selection, SelectionParams } from "./selection";
 import { actions } from "./actions";
 import { Addon } from "../../dominion/addon";
+import { SetId } from "../../dominion/set-id";
 
 const MIN_SETS_FOR_PRIORITIZE_OPTION = 3;
 const MIN_CARDS_FOR_DISTRIBUTE_COST = 24;
@@ -48,6 +49,9 @@ export const randomizerStore = {
     },
     isPrioritizeSetAllowed: (state: State) => {
       return state.settings.selectedSets.length >= MIN_SETS_FOR_PRIORITIZE_OPTION;
+    },
+    isAlchemySelected: (state: State) => {
+      return state.settings.selectedSets.indexOf(SetId.ALCHEMY) != -1;
     },
     randomizeButtonText: (state: State) => {
       return state.selection.isEmpty() ? "Randomize!" : "Replace!";

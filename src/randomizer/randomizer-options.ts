@@ -17,7 +17,8 @@ export class RandomizerOptions {
     readonly requireTrashing: boolean,
     readonly distributeCost: boolean,
     readonly prioritizeSet: SetId | null,
-    readonly baneCardId: string | null) {
+    readonly baneCardId: string | null,
+    readonly useAlchemyRecommendation: boolean,) {
   }
 }
 
@@ -36,6 +37,7 @@ export class RandomizerOptionsBuilder {
   distributeCost: boolean = false;
   prioritizeSet: SetId | null = null;
   baneCardId: string | null = null;
+  useAlchemyRecommendation = true;
 
   setSetIds(setIds: SetId[]) {
     this.setIds = setIds;
@@ -108,6 +110,11 @@ export class RandomizerOptionsBuilder {
     return this;
   }
 
+  setUseAlchemyRecommendation(useAlchemyRecommendation: boolean) {
+    this.useAlchemyRecommendation = useAlchemyRecommendation;
+    return this;
+  }
+
   build() {
     return new RandomizerOptions(
         this.setIds,
@@ -123,6 +130,7 @@ export class RandomizerOptionsBuilder {
         this.requireTrashing,
         this.distributeCost,
         this.prioritizeSet,
-        this.baneCardId);
+        this.baneCardId,
+        this.useAlchemyRecommendation);
   }
 }

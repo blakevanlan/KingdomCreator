@@ -146,6 +146,7 @@ export const actions = {
       .setExcludeCardIds(Cards.extractIds(getSelectedSupplyCards(context)))
       .setExcludeTypes(excludeTypes)
       .setExcludeCosts(excludeCosts)
+      .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
       .setBaneCardId(context.state.kingdom.supply.baneCard
         ? context.state.kingdom.supply.baneCard.id
         : null);
@@ -294,6 +295,7 @@ function createRandomizerOptionsBuilder(context: Context) {
       .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
       .setRequireTrashing(randomizerSettings.requireTrashing)
       .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
+      .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
       .setDistributeCost(
           context.getters.isDistributeCostAllowed && randomizerSettings.distributeCost)
       .setPrioritizeSet(
