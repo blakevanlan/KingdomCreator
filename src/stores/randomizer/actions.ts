@@ -295,6 +295,7 @@ function createRandomizerOptionsBuilder(context: Context) {
       .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
       .setRequireTrashing(randomizerSettings.requireTrashing)
       .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
+      .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
       .setDistributeCost(
           context.getters.isDistributeCostAllowed && randomizerSettings.distributeCost)
       .setPrioritizeSet(

@@ -12,6 +12,17 @@ export function loadSettings(): Settings {
 }
 
 export function saveSettings(settings: Settings) {
-  const secure = location.hostname.indexOf("localhost") == -1;
-  Cookie.set("options", settings, {expires: 365, sameSite: "none", secure});
+  if (location.hostname.indexOf("localhost") == -1) {
+    Cookie.set("options", settings, {
+      expires: 365, 
+      sameSite: "none", 
+      secure: true
+    });
+  } else {
+    Cookie.set("options", settings, {
+      expires: 365, 
+      sameSite: "strict", 
+      secure: false,
+    });
+  }
 }

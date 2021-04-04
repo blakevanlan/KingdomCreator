@@ -141,14 +141,15 @@ export class Randomizer {
       remainingCards -= NUM_PRIORITIZED_SET;
     }
 
-    let alchemyCardsToUse = 0;
-    if (this.shouldUseAlchemyDivider(randomizerOptions)) {
-      alchemyCardsToUse = this.getNumberOfAlchemyCardsToUse(randomizerOptions, remainingCards);
-      supplyBuilder.addDivider(new SetSupplyDivider(SetId.ALCHEMY, alchemyCardsToUse));
-      remainingCards -= alchemyCardsToUse;
-     } else if (randomizerOptions.setIds.length > 1) {
-      // Only ban all of the Alchemy cards when Alchemy isn't the only set selected.
-      supplyBuilder.addBan(new SetSupplyBan([SetId.ALCHEMY]));
+    if (randomizerOptions.useAlchemyRecommendation) {
+      if (this.shouldUseAlchemyDivider(randomizerOptions)) {
+        const alchemyCardsToUse = this.getNumberOfAlchemyCardsToUse(randomizerOptions, remainingCards);
+        supplyBuilder.addDivider(new SetSupplyDivider(SetId.ALCHEMY, alchemyCardsToUse));
+        remainingCards -= alchemyCardsToUse;
+      } else if (randomizerOptions.setIds.length > 1) {
+        // Only ban all of the Alchemy cards when Alchemy isn't the only set selected.
+        supplyBuilder.addBan(new SetSupplyBan([SetId.ALCHEMY]));
+      }
     }
 
     let highCardsInKingdom = -1;
@@ -272,9 +273,6 @@ export class Randomizer {
   private static shouldUseAlchemyDivider(randomizerOptions: RandomizerOptions) {
     // Don't use the divider if Alchemy is the only selected set.
     if (randomizerOptions.setIds.length == 1) {
-      return false;
-    }
-    if (!randomizerOptions.useAlchemyRecommendation) {
       return false;
     }
     if (randomizerOptions.prioritizeSet == SetId.ALCHEMY) {
