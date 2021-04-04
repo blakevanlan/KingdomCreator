@@ -17,6 +17,50 @@ cards:
     isTreasure: false
     isVictory: false
 
+  - name: Church
+    cost:
+      treasure: 3 
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+
+  - name: Dismantle
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
+
   - name: Envoy
     cost:
       treasure: 4
@@ -32,6 +76,50 @@ cards:
     isTrashing: false
     isTraveller: false
     isTreasure: false
+    isVictory: false
+    
+  - name: Sauna
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: true
+    isTreasure: false
+    isTerminal: false
+    isVictory: false
+    
+  - name: Avanto
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: true
+    isDoom: false
+    isDuration: false
+    isFate: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
     isVictory: false
 
   - name: Walled Village
@@ -85,6 +173,28 @@ cards:
     isTraveller: false
     isTreasure: true
     isVictory: false
+    
+  - name: Captain
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDrawer: false
+    isDoom: false
+    isDuration: true
+    isFate: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTrashing: false
+    isTreasure: false
+    isTerminal: true
+    isVictory: false
 
   - name: Prince
     cost:
@@ -102,3 +212,8 @@ cards:
     isTraveller: false
     isTreasure: false
     isVictory: false
+
+events:
+  - name: Summon
+    cost:
+      treasure: 5

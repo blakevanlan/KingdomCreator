@@ -4,7 +4,7 @@ const Fs = require("fs");
 const resize = require("./resize");
 
 const sets = Loader.loadSets()
-const cards = getCards(sets.menagerie);
+const cards = getCards(sets.promos);
 
 getAllImages(cards);
 
