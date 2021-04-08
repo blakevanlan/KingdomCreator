@@ -77,32 +77,10 @@ cards:
     isTraveller: false
     isTreasure: false
     isVictory: false
-    
-  - name: Sauna
+
+  - name: Sauna / Avanto
     cost:
       treasure: 4
-      potion: 0
-      debt: 0
-    isAction: true
-    isActionSupplier: false
-    isArtifactSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDrawer: true
-    isDoom: false
-    isDuration: false
-    isFate: false
-    isMultiDrawer: false
-    isNight: false
-    isReaction: false
-    isTrashing: true
-    isTreasure: false
-    isTerminal: false
-    isVictory: false
-    
-  - name: Avanto
-    cost:
-      treasure: 5
       potion: 0
       debt: 0
     isAction: true
@@ -117,9 +95,9 @@ cards:
     isMultiDrawer: true
     isNight: false
     isReaction: false
-    isTrashing: false
+    isTrashing: true
     isTreasure: false
-    isTerminal: true
+    isTerminal: false
     isVictory: false
 
   - name: Walled Village
