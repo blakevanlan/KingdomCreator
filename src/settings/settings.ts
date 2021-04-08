@@ -41,7 +41,7 @@ export class Settings implements SettingsParams {
   private static deserializeSets(data: any): SetId[] {
     const setsFromData: string | string[] = data.selectedSets || data.sets;
     if (!setsFromData) {
-      return [SetId.BASE_SET];
+      return [SetId.BASE_SET_2];
     }
     const stringSetIds: string[] = typeof setsFromData == "string"
         ? setsFromData.split(",")
