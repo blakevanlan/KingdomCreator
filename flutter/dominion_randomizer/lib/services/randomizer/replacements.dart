@@ -1,25 +1,23 @@
 
+import 'package:dominion_randomizer/models/card.dart';
+
 class Replacements {
-  final Map<String, Set<SupplyCard>>
+  final Map<String, Set<Card>> replacements;
 
+  Replacements(this.replacements);
 
-  Replacements
-  constructor(readonly replacements: Map<string, SupplyCard[]>) {
+  Replacements.empty()
+    : replacements = {};
+
+  Set<Card> getReplacementForId(String cardId) {
+    return replacements[cardId] ?? {};
   }
 
-  getReplacementsForId(supplyCardId: string) {
-    return this.replacements.has(supplyCardId) ? this.replacements.get(supplyCardId)! : [];
-  }
-
-  static empty() {
-    return new Replacements(new Map());
-  }
-  
-  static createReplacementByRemoveCards(replacements: Map<string, SupplyCard[]>, cardIds: string[]) {
-    const newReplacements: Map<string, SupplyCard[]> = new Map();
-    for (let id of replacements.keys()) {
-      newReplacements.set(id, replacements.get(id)!.filter(Cards.filterByExcludedIds(cardIds)));
-    }
-    return newReplacements;
+  Replacements createWithout(Iterable<String> cardIds) {
+    final cardIdsSet = cardIds.toSet();
+    return Replacements(
+      replacements.map((key, value) =>
+       MapEntry<String, Set<Card>>(key, value.where((card) => !cardIdsSet.contains(card.id)).toSet()))
+    );
   }
 }
