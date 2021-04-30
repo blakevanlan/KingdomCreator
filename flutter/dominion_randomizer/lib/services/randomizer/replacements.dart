@@ -9,7 +9,7 @@ class Replacements {
   Replacements.empty()
     : replacements = {};
 
-  Set<Card> getReplacementForId(String cardId) {
+  Set<Card> forId(String cardId) {
     return replacements[cardId] ?? {};
   }
 

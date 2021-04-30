@@ -1,12 +1,13 @@
 
 import 'package:dominion_randomizer/models/card.dart';
+import 'replacements.dart';
 
 class SupplyDivision {
   final Set<Card> availableCards;
   final Set<Card> lockedCards;
   final Set<Card> selectedCards;
   final int totalCount;
-  final Map<String, Set<Card>> replacements;
+  final Replacements replacements;
 
   SupplyDivision({
     required this.availableCards,
@@ -37,24 +38,21 @@ class SupplyDivision {
   //   }
   // }
 
-  Iterable<Card> getReplacements(String id) {
-    return replacements[id] ?? [];
-  }
-
   SupplyDivision createDivisionByRemovingCards(Iterable<String> cardIds) {
     return SupplyDivision(
       availableCards: availableCards.where((card) => !cardIds.contains(card.id)).toSet(),
       lockedCards: lockedCards,
       selectedCards: selectedCards.where((card) => cardIds.contains(card.id)).toSet(),
       totalCount: totalCount,
-      replacements: Replacements.createReplacementByRemoveCards(replacements, cardIds)),
+      replacements: replacements.createWithout(cardIds),
     );
   }
 
-  SupplyDivision createDivisionByLockingCard({ required String cardId, Set<Card> replacements = const {} }) {
-    const newReplacements = Replacements.createReplacementByRemoveCards(this.replacements, [cardId]);
-    newReplacements.set(cardId, replacements.concat());
-
+  SupplyDivision createDivisionByLockingCard({ required String cardId, Set<Card> replacementCards = const {} }) {
+    final newReplacements = replacements.createWithout([cardId]);
+    newReplacements.replacements[cardId] = replacementCards;
+    
+    // TODO: FINISH BELOW
     let lockedCard = Cards.findCardById(this.availableCards, cardId);
     if (lockedCard) {
       const cards = this.availableCards.filter(Cards.filterByExcludedIds([cardId]));
@@ -71,7 +69,7 @@ class SupplyDivision {
           newReplacements);
     }
 
-    throw new Error(`Can't lock card: ${cardId}. Not found in available or selected cards.`)
+    throw new Error("Can\'t lock card: ${cardId}. Not found in available or selected cards.")
   }
 
   public createDivisionBySelectingCard(cardId: string, replacements: SupplyCard[] = []) {
