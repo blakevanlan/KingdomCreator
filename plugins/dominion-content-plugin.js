@@ -94,7 +94,9 @@ module.exports = class DominionContentPlugin {
     for (let i = 0; i < files.length; i++) {
       const filename = path.join(directory, files[i]);
       const id = this.tokenize(path.basename(files[i], '.yaml'));
-      values[id] = yaml.safeLoad(fs.readFileSync(filename, 'utf8'));
+	  /* js-yamj v3 to v4
+      values[id] = yaml.safeLoad(fs.readFileSync(filename, 'utf8')); */
+	  values[id] = yaml.load(fs.readFileSync(filename, 'utf8'));
     }
     return values;
   }

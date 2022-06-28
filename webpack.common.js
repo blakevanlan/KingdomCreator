@@ -1,7 +1,7 @@
 const DominionContentPlugin = require("./plugins/dominion-content-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { VueLoaderPlugin } = require('vue-loader')
 const path = require("path");
 const webpack = require("webpack");
 
@@ -53,7 +53,7 @@ module.exports = function(isProduction) {
         },
         { 
           test: /\.pug$/,
-          use: ["pug-loader"],
+          use: ["@webdiscus/pug-loader"],
         },
         {
           test: /\.styl$/,

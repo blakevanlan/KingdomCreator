@@ -68,7 +68,10 @@ export class Randomizer {
     try {
       return this.createSupplyWithRetries(randomizerOptions);
     } catch (error) {
-      console.log(`Failed to create supply: \n${error.toString()}`);
+	  if (typeof error === 'object' && error !== null)
+        console.log(`Failed to create supply: \n${error.toString()}`);
+	  else
+		console.log(`Failed to create supply: \n error is not an object`);
       return null;
     }
   }
@@ -79,7 +82,10 @@ export class Randomizer {
       try {
         return this.createSupply(randomizerOptions);
       } catch (error) {
-        console.log(`Error when trying to select cards: \n${error.toString()}`);
+		  if (typeof error === 'object' && error !== null)
+			console.log(`Error when trying to select cards: \n${error.toString()}`);
+		  else
+			console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
@@ -321,7 +327,10 @@ export class Randomizer {
       try {
         return supplyBuilder.createSupply(existingCards);
       } catch (error) {
-        console.log(`Error when trying to select cards: \n${error.toString()}`);
+		  if (typeof error === 'object' && error !== null) 
+		    console.log(`Error when trying to select cards: \n${error.toString()}`);
+		  else
+			console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
