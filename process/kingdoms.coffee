@@ -98,6 +98,7 @@ strings = ["Decisions, Decisions: City-state, Bauble, Courier, Highwayman, Hunte
 "Mountain Kings: Mountain Folk, Toil, Broker, Courier, Forts, Guildmaster, Skirmisher, Barge, Coven, Scrap, Snowy Village, Supplies"
 ]
 
+console.log("kingdoms:")
 for string in strings
    kingdom = parseSupplyString(string)
    
