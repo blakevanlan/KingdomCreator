@@ -22,7 +22,12 @@ export class SupplyCard implements Card {
     readonly isNight: boolean,
     readonly isReaction: boolean,
     readonly isReserve: boolean,
+    readonly isGathering: boolean,
+    readonly isTerminal: boolean,
+    readonly isArtifactSupplier: boolean,
+    readonly isVillageSupplier: boolean,
     readonly isTrashing: boolean,
+    readonly isTraveller: boolean,
     readonly isTreasure: boolean,
     readonly isVictory: boolean) {
   }
@@ -53,8 +58,20 @@ export class SupplyCard implements Card {
         return this.isReaction;
       case CardType.RESERVE:
         return this.isReserve;
+
+      case CardType.GATHERING:
+        return this.isGathering;
+      case CardType.TERMINAL:
+        return this.isTerminal;
+      case CardType.ARTIFACT_SUPPLIER:
+        return this.isArtifactSupplier;
+      case CardType.VILLAGE_SUPPLIER:
+        return this.isVillageSupplier;
+
       case CardType.TRASHING:
         return this.isTrashing;
+      case CardType.TRAVELLER:
+        return this.isTraveller;
       case CardType.TREASURE:
         return this.isTreasure;
       case CardType.VICTORY:
@@ -83,7 +100,14 @@ export class SupplyCard implements Card {
       json["isNight"] || false,
       json["isReaction"] || false,
       json["isReserve"] || false,
+
+      json["isGathering"] || false,
+      json["isTerminal"] || false,
+      json["isArtifactSupplier"] || false,
+      json["isVillageSupplier"] || false,
+
       json["isTrashing"] || false,
+      json["isTraveller"] || false,
       json["isTreasure"] || false,
       json["isVictory"] || false)
   }

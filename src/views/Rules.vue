@@ -7,6 +7,7 @@
 </template>
 
 <script lang="ts">
+
 import { Component } from "vue-property-decorator";
 import Base from "./base";
 import Page, { MenuItemType } from "../components/Page.vue";

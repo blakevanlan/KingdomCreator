@@ -5,6 +5,7 @@ import {Landmark} from "./landmark";
 import {Project} from "./project";
 import {SetId} from "./set-id";
 import {Way} from "./way";
+import {Ally} from "./ally";
 
 export class DominionSet {
   constructor(
@@ -15,7 +16,8 @@ export class DominionSet {
     readonly landmarks: Landmark[],
     readonly projects: Project[],
     readonly boons: Boon[],
-    readonly ways: Way[]) {
+    readonly ways: Way[],
+    readonly allies: Ally[]) {
   }
 
   public static fromJson(json: any) {
@@ -27,6 +29,8 @@ export class DominionSet {
         (json["landmarks"] || []).map(Landmark.fromJson),
         (json["projects"] || []).map(Project.fromJson),
         (json["boons"] || []).map(Boon.fromJson),
-        (json["ways"] || []).map(Way.fromJson));
+        (json["ways"] || []).map(Way.fromJson),
+        (json["allies"] || []).map(Ally.fromJson)
+    );
   }
 }

@@ -30,6 +30,10 @@ const convertToWayId = function(setId, name) {
    return setId + '_way_' + tokenize(name);
 };
 
+const convertToAllyId = function(setId, name) {
+   return setId + '_ally_' + tokenize(name);
+};
+
 const loadFilesFromDirectory = function(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
@@ -60,6 +64,7 @@ const loadSets = function() {
          card.id = convertToCardId(setId, card.name);
          card.shortId = tokenize(card.name);
          card.setId = setId;
+         card.cardType="0 // supplies"
       }
 
       if (set.events) {
@@ -68,6 +73,7 @@ const loadSets = function() {
             card.id = convertToEventId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
+            card.cardType="1 // events"
          }
       }
       if (set.landmarks) {
@@ -76,6 +82,7 @@ const loadSets = function() {
             card.id = convertToLandmarkId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
+            card.cardType="2 // landmarks"
          }
       }
       if (set.projects) {
@@ -84,6 +91,7 @@ const loadSets = function() {
             card.id = convertToProjectId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
+            card.cardType="3 // projects"
          }
       }
       if (set.boons) {
@@ -92,6 +100,7 @@ const loadSets = function() {
             card.id = convertToBoonId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
+            card.cardType="4 // boons"
          }
       }
       if (set.ways) {
@@ -100,6 +109,16 @@ const loadSets = function() {
             card.id = convertToWayId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
+            card.cardType="5 // ways"
+         }
+      }
+      if (set.allies) {
+         for (var i = 0; i < set.allies.length; i++) {
+            var card = set.allies[i];
+            card.id = convertToAllyId(setId, card.name);
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
+            card.cardType="6 // allies"
          }
       }
    }
@@ -118,6 +137,8 @@ module.exports = {
    convertToEventId: convertToEventId,
    convertToLandmarkId: convertToLandmarkId,
    convertToBoonId: convertToBoonId,
+   convertToWayId: convertToWayId,
+   convertToAllyId: convertToAllyId,
    loadSets: loadSets,
    loadKingdoms: loadKingdoms,
 };

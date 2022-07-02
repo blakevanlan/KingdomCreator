@@ -11,7 +11,12 @@ export enum CardType {
   NIGHT = "isNight",
   REACTION = "isReaction",
   RESERVE = "isReserve",
+  GATHERING = "isGathering",
+  TERMINAL = "isTerminal",
+  ARTIFACT_SUPPLIER = "isArtifactSupplier",
+  VILLAGE_SUPPLIER = "isVillageSupplier",
   TRASHING = "isTrashing",
+  TRAVELLER = "isTraveller",
   TREASURE = "isTreasure",
   VICTORY = "isVictory",
 }

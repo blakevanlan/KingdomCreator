@@ -22,7 +22,7 @@ const result = {
   "de": {}
 };
 
-const types = ["cards", "events", "landmarks", "projects", "boons"]
+const types = ["cards", "events", "landmarks", "projects", "boons", "allies"]
 const languages = ["nl", "de"];
 
 // Merge all items into a single list.

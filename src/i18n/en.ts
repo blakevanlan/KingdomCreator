@@ -18,8 +18,10 @@ function createSetMessages(): {[index: string]: string} {
   for (let set of DominionSets.getAllSets()) {
     messages[set.setId] = set.name;
   }
-  // TODO: Remove once Menagerie is fully supported.
+    
+  // TODO: Remove once Menagerie & Allies is fully supported.
   messages["menagerie"] = "Menagerie";
+  messages["allies"] = "Allies";
   return messages;
 }
 

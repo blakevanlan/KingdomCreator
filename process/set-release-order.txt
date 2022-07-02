@@ -11,3 +11,4 @@ adventures
 empires
 nocturne
 renaissance
+allies

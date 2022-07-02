@@ -28,6 +28,9 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
   if (kingdom.ways.length) {
     result.ways = serializeCards(kingdom.ways);
   }
+  if (kingdom.allies.length) {
+    result.ways = serializeCards(kingdom.allies);
+  }
   return result;
 }
 
@@ -46,6 +49,7 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
   const projectIds = parseCommaSeparatedValues(serializedKingdom.projects) || [];
   const boonIds = parseCommaSeparatedValues(serializedKingdom.boons) || [];
   const wayIds = parseCommaSeparatedValues(serializedKingdom.ways) || [];
+  const allyIds = parseCommaSeparatedValues(serializedKingdom.allies) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
   let baneCard: SupplyCard | null = null;
@@ -61,18 +65,22 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
   const ways = 
       findByIds(wayIds, DominionSets.getWayById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
+  const allies = 
+      findByIds(allyIds, DominionSets.getAllyById)
+          .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
   const boons = findByIds(boonIds, DominionSets.getBoonById).slice(0, 3);
   const supply = new Supply(supplyCards, baneCard, Replacements.empty());
 
   return new Kingdom(
-    Date.now(),
-    supply,
-    events,
-    landmarks,
-    projects,
-    ways,
-    boons,
-    deserializeMetadata(serializedKingdom)
+               Date.now(),                                /* id: number,  */
+               supply,                                    /* supply: Supply, */
+               events,                                    /* events: Event[], */
+               landmarks,                                 /* landmarks: Landmark[], */
+               projects,                                  /* projects: Project[], */
+               ways,                                      /* ways: Way[], */
+               boons,                                     /* boons: Boon[], */
+               allies,                                    /* allies: Ally[], */
+       deserializeMetadata(serializedKingdom)
   );
 }
 
