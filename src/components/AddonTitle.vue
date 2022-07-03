@@ -28,6 +28,7 @@ export default class AddonTitle extends Vue {
   @Prop() readonly hasLandmarks!: boolean;
   @Prop() readonly hasProjects!: boolean;
   @Prop() readonly hasWays!: boolean;
+  @Prop() readonly hasAllies!: boolean;
 
   get addons() {
     const addons = [];
@@ -35,6 +36,7 @@ export default class AddonTitle extends Vue {
     if (this.hasLandmarks) addons.push("addon_landmarks");
     if (this.hasProjects) addons.push("addon_projects");
     if (this.hasWays) addons.push("addon_ways");
+    if (this.hasAllies) addons.push("addon_allies");
     return addons;
   }
 
@@ -46,6 +48,8 @@ export default class AddonTitle extends Vue {
         return "addon_description_format_3";
       case 4:
         return "addon_description_format_4";
+      case 5:
+        return "addon_description_format_5";
     }
     return null;
   }

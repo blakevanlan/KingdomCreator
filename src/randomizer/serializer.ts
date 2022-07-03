@@ -61,6 +61,9 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
   const ways = 
       findByIds(wayIds, DominionSets.getWayById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
+  const allies = 
+      findByIds(wayIds, DominionSets.getAllyById)
+          .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
   const boons = findByIds(boonIds, DominionSets.getBoonById).slice(0, 3);
   const supply = new Supply(supplyCards, baneCard, Replacements.empty());
 
@@ -71,6 +74,7 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
     landmarks,
     projects,
     ways,
+    allies,
     boons,
     deserializeMetadata(serializedKingdom)
   );

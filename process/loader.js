@@ -104,8 +104,8 @@ const loadSets = function() {
          }
       }
       if (set.allies) {
-         for (var i = 0; i < set.ways.length; i++) {
-            var card = set.ways[i];
+         for (var i = 0; i < set.allies.length; i++) {
+            var card = set.allies[i];
             card.id = convertToAlliesId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;

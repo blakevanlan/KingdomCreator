@@ -1,3 +1,4 @@
+import {Ally} from "./ally";
 import {Boon} from "./boon";
 import {Card} from "./card";
 import {DominionSet} from "./dominion-set";
@@ -109,6 +110,14 @@ export class DominionSets {
     const card = DominionSets.getCardById(cardId);
     if (!(card instanceof Way)) {
       throw new Error(`Card id (${cardId}) does not refer to a way`);
+    }
+    return card;
+  }
+
+  public static getAllyById(cardId: string): Ally {
+    const card = DominionSets.getCardById(cardId);
+    if (!(card instanceof Ally)) {
+      throw new Error(`Card id (${cardId}) does not refer to an ally`);
     }
     return card;
   }

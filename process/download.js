@@ -4,7 +4,7 @@ const Fs = require("fs");
 const resize = require("./resize");
 
 const sets = Loader.loadSets()
-const cards = getCards(sets.promos);
+const cards = getCards(sets.allies);
 
 getAllImages(cards);
 
@@ -20,7 +20,7 @@ async function getImage(card) {
     console.log(`Invalid URL: ${card.name}`);
     return;
   } 
-  const match = response.data.match(/Digital\.jpg\"\ssrc=\"(.+.jpg)\"/);
+  const match = response.data.match(/Digital\.jpg\"\ssrc=\"(.+?.jpg)\"/);
   if (!match || match.length < 2) {
     console.log(`Unable to find URL: ${card.name}`);
     return;
@@ -34,9 +34,9 @@ async function getImage(card) {
   imageResponse.data.pipe(writer);
 
   return new Promise((resolve) => {
+    console.log("in promise")
     writer.on("finish", () => {
       resize(tempFilename, `docs/img/cards/${card.id}.jpg`);
-      console.log(`Complete: ${card.id}`)
       resolve();
     });
   });
@@ -63,6 +63,9 @@ function getCards(set) {
   }
   if (set.ways) {
     cards = cards.concat(set.ways);
+  }
+  if (set.allies) {
+    cards = cards.concat(set.allies);
   }
   return cards;
 }

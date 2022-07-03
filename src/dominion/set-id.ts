@@ -1,6 +1,7 @@
 export enum SetId {
   ADVENTURES = "adventures",
   ALCHEMY = "alchemy",
+  ALLIES = "allies",
   BASE_SET = "baseset",
   BASE_SET_2 = "baseset2",
   CORNUCOPIA = "cornucopia",

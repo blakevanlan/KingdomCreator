@@ -6,6 +6,7 @@
         :has-landmarks="canHaveLandmarks"
         :has-projects="canHaveProjects"
         :has-ways="canHaveWays"
+        :has-allies="canHaveAllies"
       />
     </div>
     <GridLayout
@@ -56,6 +57,7 @@ export default class Addons extends Vue {
   @Getter("canHaveLandmarks") readonly canHaveLandmarks!: string;
   @Getter("canHaveProjects") readonly canHaveProjects!: string;
   @Getter("canHaveWays") readonly canHaveWays!: string;
+  @Getter("canHaveAllies") readonly canHaveAllies!: string;
   @Getter("addons") readonly addons!: Addon[];
   activeContainers: AddonContainer[] = Addons.fillWithEmptyAddonContainers([]);
 

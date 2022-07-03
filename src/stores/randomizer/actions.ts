@@ -49,7 +49,7 @@ export const actions = {
         EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
         const kingdom = new Kingdom(
             Date.now(), supply, initialKingdom.events, initialKingdom.landmarks,
-            initialKingdom.projects, initialKingdom.ways, initialKingdom.boons,
+            initialKingdom.projects, initialKingdom.ways, initialKingdom.allies, initialKingdom.boons,
             initialKingdom.metadata);
         context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
@@ -92,11 +92,14 @@ export const actions = {
     const newWays = newAddons
         ? Cards.getAllWays(newAddons).concat(getUnselectedWays(context))
         : context.state.kingdom.ways;
+        const newAllies = newAddons
+        ? Cards.getAllAllies(newAddons).concat(getUnselectedAllies(context))
+        : context.state.kingdom.ways;
     const newBoons = randomizeSelectedBoons(context, newSupply);
         
     const kingdom = new Kingdom(
       context.state.kingdom.id, newSupply, newEvents, newLandmarks, newProjects,
-      newWays, newBoons, context.state.kingdom.metadata);
+      newWays, newAllies, newBoons, context.state.kingdom.metadata);
     context.commit(CLEAR_SELECTION);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
@@ -168,7 +171,7 @@ export const actions = {
       const oldKingdom = context.state.kingdom;
       const kingdom = new Kingdom(
         oldKingdom.id, supply, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
-        oldKingdom.ways, randomizeSelectedBoons(context, supply), oldKingdom.metadata);
+        oldKingdom.ways, oldKingdom.allies, randomizeSelectedBoons(context, supply), oldKingdom.metadata);
       context.commit(CLEAR_SELECTION);
       context.commit(UPDATE_KINGDOM, kingdom);
       EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE);
@@ -186,6 +189,7 @@ export const actions = {
       Cards.getAllLandmarks(addons),
       Cards.getAllProjects(addons),
       Cards.getAllWays(addons),
+      Cards.getAllAllies(addons),
       context.state.kingdom.boons,
       context.state.kingdom.metadata);
     context.commit(UPDATE_KINGDOM, kingdom);
@@ -378,6 +382,10 @@ function getUnselectedProjects(context: Context) {
 
 function getUnselectedWays(context: Context) {
   return getUnselected(context, context.state.kingdom.ways);
+}
+
+function getUnselectedAllies(context: Context) {
+  return getUnselected(context, context.state.kingdom.allies);
 }
 
 function getUnselectedBoons(context: Context) {
