@@ -34,7 +34,6 @@ async function getImage(card) {
   imageResponse.data.pipe(writer);
 
   return new Promise((resolve) => {
-    console.log("in promise")
     writer.on("finish", () => {
       resize(tempFilename, `docs/img/cards/${card.id}.jpg`);
       resolve();

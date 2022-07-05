@@ -274,7 +274,6 @@ function randomizeSelectedCards(context: Context): Supply | null {
 }
 
 function randomizeSelectedAddons(context: Context) {
-  console.log("randomizeSelectedAddons")
   const newAddonsCount = getSelectedEvents(context).length
       + getSelectedLandmarks(context).length
       + getSelectedProjects(context).length
