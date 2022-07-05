@@ -79,6 +79,14 @@ module.exports = class DominionContentPlugin {
           card.setId = setId;
         }
       }
+      if (set.allies) {
+        for (var i = 0; i < set.allies.length; i++) {
+          var card = set.allies[i];
+          card.id = this.convertToAllyId(setId, card.name);
+          card.shortId = this.tokenize(card.name);
+          card.setId = setId;
+        }
+      }
     }
     return sets;
   }
@@ -117,6 +125,10 @@ module.exports = class DominionContentPlugin {
 
   static convertToWayId(setId, name) {
     return `${setId}_way_${this.tokenize(name)}`;
+  }
+
+  static convertToAllyId(setId, name) {
+    return `${setId}_ally_${this.tokenize(name)}`;
   }
 
   static convertToCardId(setId, name) {

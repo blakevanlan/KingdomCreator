@@ -18,6 +18,7 @@ export class SupplyCard implements Card {
     readonly isDoom: boolean,
     readonly isDuration: boolean,
     readonly isFate: boolean,
+    readonly isLiaison: boolean,
     readonly isMultiDrawer: boolean,
     readonly isNight: boolean,
     readonly isReaction: boolean,
@@ -45,6 +46,8 @@ export class SupplyCard implements Card {
         return this.isDuration
       case CardType.FATE:
         return this.isFate;
+      case CardType.LIAISON:
+        return this.isLiaison;
       case CardType.MULTI_DRAWER:
         return this.isMultiDrawer
       case CardType.NIGHT:
@@ -79,6 +82,7 @@ export class SupplyCard implements Card {
       json["isDoom"] || false,
       json["isDuration"] || false,
       json["isFate"] || false,
+      json["isLiaison"] || false,
       json["isMultiDrawer"] || false,
       json["isNight"] || false,
       json["isReaction"] || false,

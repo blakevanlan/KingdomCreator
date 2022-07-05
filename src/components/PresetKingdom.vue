@@ -36,6 +36,7 @@
           :has-landmarks="kingdom.landmarkIds.length > 0"
           :has-projects="kingdom.projectIds.length > 0"
           :has-ways="kingdom.wayIds.length > 0"
+          :has-allies="kingdom.allyIds.length > 0"
         />
       </div>
       <GridLayout
@@ -108,7 +109,7 @@ export default class PresetKingdom extends Vue {
 
   get addonIds() {
     return this.kingdom.eventIds.concat(
-        this.kingdom.landmarkIds, this.kingdom.projectIds, this.kingdom.wayIds);
+        this.kingdom.landmarkIds, this.kingdom.projectIds, this.kingdom.wayIds, this.kingdom.allyIds);
   }
 
   get hasMetadata() {

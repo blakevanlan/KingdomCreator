@@ -9,6 +9,7 @@ import {Project} from "../dominion/project";
 import {SetId} from "../dominion/set-id";
 import {SupplyCard} from "../dominion/supply-card";
 import {Way} from "../dominion/way";
+import {Ally} from "../dominion/ally";
 
 export class Cards {
 
@@ -26,7 +27,8 @@ export class Cards {
         (set.landmarks as Card[]),
         (set.projects as Card[]),
         (set.ways as Card[]),
-        (set.boons as Card[]));
+        (set.boons as Card[]),
+        (set.allies as Card[]));
   }
 
   static getAllSupplyCards(cards: Card[]): SupplyCard[] {
@@ -47,6 +49,10 @@ export class Cards {
   
   static getAllWays(cards: Card[]): Way[] {
     return Cards.getCardsOfType<Way>(cards, Way);
+  }
+  
+  static getAllAllies(cards: Card[]): Ally[] {
+    return Cards.getCardsOfType<Ally>(cards, Ally);
   }
 
   static getAllBoons(cards: Card[]): Boon[] {

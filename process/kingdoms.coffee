@@ -28,7 +28,11 @@ findCardByShortId = (shortId) ->
          for way in set.ways
             if shortId == way.shortId
                return way
-            
+      if set.allies
+         for ally in set.allies
+            if shortId == ally.shortId
+               return ally
+
    throw Error('Card not found: ' + shortId)
 
 getSetsForCards = (cards) ->
@@ -61,43 +65,44 @@ parseSupplyString = (supplyString) ->
 
 
 strings = [
-   "Intro to Horses: Way of the Sheep, Enhance, Animal Fair, Barge, Destrier, Goatherd, Hostelry, Livery, Paddock, Scrap, Sheepdog, Supplies"
-   "Intro to Exile: Way of the Worm, March, Black Cat, Bounty Hunter, Camel Train, Cardinal, Falconer, Mastermind, Sanctuary, Snowy Village, Stockpile, Wayfarer"
-
-   "Pony Express: Way of the Seal, Stampede, Barge, Destrier, Paddock, Stockpile, Supplies, Artisan, Cellar, Market, Mine, Village"
-   "Garden of Cats: Way of the Mole, Toil, Black Cat, Displace, Sanctuary, Scrap, Snowy Village, Bandit, Gardens, Harbinger, Merchant, Moat"
-
-   "Dog & Pony Show: Way of the Horse, Commerce, Camel Train, Cavalry, Goatherd, Paddock, Sheepdog, Mill, Nobles, Pawn, Torturer, Upgrade"
-   "Explosions: Way of the Squirrel, Populate, Animal Fair, Bounty Hunter, Coven, Hunting Lodge, Scrap, Courtyard, Diplomat, Lurker, Replace, Wishing Well"
-
-   "Innsmouth: Way of the Goat, Invest, Animal Fair, Barge, Coven, Fisherman, Sheepdog, Caravan, Explorer, Fishing Village, Haven, Treasure Map"
-   "Ruritania: Way of the Monkey, Alliance, Bounty Hunter, Cavalry, Falconer, Sleigh, Village Green, Lookout, Smugglers, Outpost, Tactician, Warehouse"
-
-   "Class of '20: Way of the Owl, Delay, Cavalry, Coven, Hunting Lodge, Kiln, Livery, Snowy Village, Wayfarer, Transmute, Vineyard, University"
-
-   "Limited Time Offer: Way of the Frog, Desperation, Destrier, Displace, Fisherman, Supplies, Wayfarer, Grand Market, Mint, Peddler, Talisman, Worker's Village"
-   "Birth of a Nation: Way of the Otter, Reap, Animal Fair, Camel Train, Mastermind, Paddock, Stockpile, City, Monument, Quarry, Rabble, Trade Route"
-
-   "Living in Exile: Way of the Mule, Enclave, Gatekeeper, Hostelry, Livery, Scrap, Stockpile, Fairgrounds, Hamlet, Jester, Journeyman, Taxman"
-   "Thrill of the Hunt: Way of the Rat, Pursue, Black Cat, Bounty Hunter, Camel Train, Mastermind, Village Green, Butcher, Horse Traders, Hunting Party, Menagerie, Tournament"
-
-   "Big Blue: Way of the Turtle, Banish, Black Cat, Falconer, Sheepdog, Sleigh, Village Green, Cartographer, Fool's Gold, Margrave, Trader, Tunnel"
-   "Intersection: Way of the Mouse, Crossroads, Gamble, Cardinal, Hostelry, Livery, Mastermind, Supplies, Develop, Farmland, Haggler, Nomad Camp, Stables"
-
-   "Friendly Carnage: Way of the Camel, Ride, Animal Fair, Cardinal, Falconer, Goatherd, Hunting Lodge, Altar, Beggar, Catacombs, Fortress, Market Square•"
-   "Gift Horses: Way of the Butterfly, Bargain, Camel Train, Destrier, Displace, Paddock, Scrap, Hunting Grounds, Pillage, Rats, Sage, Squire"
-
-   "Horse Feathers: Way of the Ox, Pilgrimage, Destrier, Displace, Falconer, Sleigh, Stockpile, Magpie, Ranger, Ratcatcher, Relic, Royal Carriage"
-   "Sooner or Later: Toil, Mission, Barge, Gatekeeper, Groom, Mastermind, Village Green, Amulet, Caravan Guard, Dungeon, Giant, Raze"
-
-   "No Money Down: Way of the Pig, Advance, Animal Fair, Cavalry, Sleigh, Stockpile, Wayfarer, CatapultRocks, City Quarter, Crown, Engineer, Villa"
-   "Detours and Shortcuts: Transport, Triumphal Arch, Camel Train, Fisherman, Gatekeeper, Sanctuary, Snowy Village, Enchantress, Overlord, Sacrifice, SettlersBustling Village, Wild Hunt"
-
-   "Seize the Night: Way of the Sheep, Seize the Day, Barge, Falconer, Hostelry, Sheepdog, Supplies, Cobbler, Devil's Workshop, Exorcist, Monastery, Skulk"
-   "Animal Crackers: Way of the Chameleon, Enhance, Black Cat, Goatherd, Groom, Hunting Lodge, Kiln, Faithful Hound, Pixie, Pooka, Sacred Grove, Shepherd"
-
-   "Biding Time: Way of the Turtle, Sinister Plot, Cavalry, Coven, Displace, Fisherman, Goatherd, Ducat, Priest, Recruiter, Scepter, Swashbuckler"
-   "Villager Madness: Demand, Academy, Cardinal, Groom, Kiln, Livery, Wayfarer, Border Guard, Flag Bearer, Patron, Silk Merchant, Spices"
+   "Decisions, Decisions: City-state • Bauble, Courier, Highwayman, Hunter, Innkeeper, Marquis, Merchant Camp, Modify, Royal Galley, Townsfolk",
+   "Foresight: Order of Astrologers • Augurs, Barbarian, Carpenter, Emissary, Galleria, Sentinel, Skirmisher, Specialist, Town, Underling",
+   "Allies for Beginners: Crafters' Guild • Broker, Capital City, Galleria, Odysseys, Sycophant • Gardens, Harbinger, Market, Remodel, Vassal",
+   "Warring Shopkeepers: League of Shopkeepers • Clashes, Emissary, Guildmaster, Royal Galley, Town • Bandit, Laboratory, Merchant, Moat, Moneylender",
+   "Dark Dealings: Circle of Witches • Broker, Contract, Courier, Hunter, Townsfolk • Courtier, Lurker, Nobles, Secret Passage, Steward",
+   "Pawns and Underlings: Plateau Shepherds • Innkeeper, Merchant Camp, Swap, Underling, Wizards • Baron, Conspirator, Patrol, Pawn, Replace",
+   
+   "Forward Thinking: Cave Dwellers • Guildmaster, Highwayman, Odysseys, Royal Galley, Sentinel • Cutpurse, Native Village, Smugglers, Tactician, Warehouse",
+   "Treasure Hunt: Market Towns • Emissary, Forts, Marquis, Swap, Town • Haven, Lookout, Outpost, Treasure Map, Treasury",
+   
+   "Recursion: Coastal Haven • Barbarian, Galleria, Importer, Merchant Camp, Modify, Wizards • Alchemist, Apprentice, Golem, Scrying Pool",
+   
+   "Inventing Mania: Family of Inventors • Augurs, Bauble, Capital City, Carpenter, Importer • Expand, King's Court, Quarry, Rabble, Talisman",
+   "Bank of Toadies: League of Bankers • Broker, Marquis, Odysseys, Sycophant, Town • Bank, City, Mint, Trade Route, Vault",
+   
+   "Huge Collections: Woodworkers' Guild • Clashes, Contract, Forts, Galleria, Sentinel • Advisor, Fairgrounds, Hunting Party, Menagerie, Plaza",
+   "Forest Scouts: Forest Dwellers • Augurs, Emissary, Innkeeper, Royal Galley, Sentinel • Baker, Candlestick Maker, Farming Village, Jester, Journeyman",
+   
+   "Longest Tunnel: Fellowship of Scribes • Bauble, Capital City, Carpenter, Contract, Innkeeper • Farmland, Haggler, Jack of All Trades, Margrave, Tunnel",
+   "Expertise: Order of Masons • Barbarian, Highwayman, Specialist, Townsfolk, Underling • Border Village, Crossroads, Highway, Inn, Spice Merchant",
+   
+   "Grave Matters: Cave Dwellers • Barbarian, Broker, Contract, Highwayman, Wizards • Bandit Camp, Beggar, Forager, Graverobber, Poor House",
+   "Rat Traders: Desert Guides • Emissary, Importer, Skirmisher, Swap, Townsfolk • Count, Death Cart, Knights, Rats, Squire",
+   
+   "Adventures in Pickpocketing: Gang of Pickpockets, Mission • Augurs, Bauble, Innkeeper, Modify, Specialist • Artificer, Duplicate, Lost City, Miser, Treasure Trove",
+   "Future Perfect: Market Towns, Seaway • Forts, Marquis, Sentinel, Skirmisher, Sycophant • Caravan Guard, Gear, Haunted Woods, Port, Transmogrify",
+   
+   "Island Empire: Island Folk, Orchard • Contract, Forts, Specialist, Swap, Sycophant • City Quarter, Enchantress, Farmers' Market, SettlersBustling Village, Wild Hunt",
+   "Castle Wars: Trappers' Lodge, Triumph • Capital City, Carpenter, Clashes, Hunter, Importer • Castles, CatapultRocks, Charm, Crown, PatricianEmporium",
+   
+   "Love and Death: Peaceful Cult • Augurs, Bauble, Carpenter, Hunter, Sycophant • Conclave, Den of Sin, Faithful Hound, Idol, Necromancer",
+   "Play It Again, Sam: Woodworkers' Guild • Wizards, Swap, Royal Galley, Courier, Hunter • Blessed Village, Leprechaun, Skulk, Tormentor, Tracker",
+   
+   "Production Line: Band of Nomads, Exploration • Courier, Importer, Modify, Townsfolk, Wizards • Experiment, Mountain Village, Patron, Spices, Treasurer",
+   "Age of Scribes: Fellowship of Scribes, Sinister Plot • Capital City, Galleria, Odysseys, Specialist, Underling • Acting Troupe, Inventor, Old Witch, Research, Villain",
+   
+   "Wise Owls: Architects' Guild, Way of the Owl • Barbarian, Marquis, Merchant Camp, Town, Wizards • Animal Fair, Black Cat, Bounty Hunter, Hostelry, Hunting Lodge",
+   "Mountain Kings: Mountain Folk, Toil • Broker, Courier, Forts, Guildmaster, Skirmisher • Barge, Coven, Scrap, Snowy Village, Supplies",
 ]
 
 for string in strings

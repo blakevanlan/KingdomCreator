@@ -30,6 +30,10 @@ const convertToWayId = function(setId, name) {
    return setId + '_way_' + tokenize(name);
 };
 
+const convertToAlliesId = function(setId, name) {
+   return setId + '_allies_' + tokenize(name);
+};
+
 const loadFilesFromDirectory = function(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
@@ -95,6 +99,14 @@ const loadSets = function() {
          for (var i = 0; i < set.ways.length; i++) {
             var card = set.ways[i];
             card.id = convertToWayId(setId, card.name);
+            card.shortId = tokenize(card.name);
+            card.setId = setId;
+         }
+      }
+      if (set.allies) {
+         for (var i = 0; i < set.allies.length; i++) {
+            var card = set.allies[i];
+            card.id = convertToAlliesId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
          }

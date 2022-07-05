@@ -1,0 +1,503 @@
+kingdoms:
+  - name: Decisions, Decisions
+    sets:
+      - allies
+    supply:
+      - allies_bauble
+      - allies_courier
+      - allies_highwayman
+      - allies_hunter
+      - allies_innkeeper
+      - allies_marquis
+      - allies_merchantcamp
+      - allies_modify
+      - allies_royalgalley
+      - allies_townsfolk
+    allies:
+      - allies_ally_citystate
+
+
+  - name: Foresight
+    sets:
+      - allies
+    supply:
+      - allies_augurs
+      - allies_barbarian
+      - allies_carpenter
+      - allies_emissary
+      - allies_galleria
+      - allies_sentinel
+      - allies_skirmisher
+      - allies_specialist
+      - allies_town
+      - allies_underling
+    allies:
+      - allies_ally_orderofastrologers
+
+  - name: Allies for Beginners
+    sets:
+      - allies
+      - baseset2
+    supply:
+      - allies_broker
+      - allies_capitalcity
+      - allies_galleria
+      - allies_odysseys
+      - allies_sycophant
+      - baseset2_gardens
+      - baseset2_harbinger
+      - baseset2_market
+      - baseset2_remodel
+      - baseset2_vassal
+    allies:
+      - allies_ally_craftersguild
+
+  - name: Warring Shopkeepers
+    sets:
+      - allies
+      - baseset2
+    supply:
+      - allies_clashes
+      - allies_emissary
+      - allies_guildmaster
+      - allies_royalgalley
+      - allies_town
+      - baseset2_bandit
+      - baseset2_laboratory
+      - baseset2_merchant
+      - baseset2_moat
+      - baseset2_moneylender
+    allies:
+      - allies_ally_leagueofshopkeepers
+
+  - name: Dark Dealings
+    sets:
+      - allies
+      - intrigue2
+    supply:
+      - allies_broker
+      - allies_contract
+      - allies_courier
+      - allies_hunter
+      - allies_townsfolk
+      - intrigue2_courtier
+      - intrigue2_lurker
+      - intrigue2_nobles
+      - intrigue2_secretpassage
+      - intrigue2_steward
+    allies:
+      - allies_ally_circleofwitches
+
+  - name: Pawns and Underlings
+    sets:
+      - allies
+      - intrigue2
+    supply:
+      - allies_innkeeper
+      - allies_merchantcamp
+      - allies_swap
+      - allies_underling
+      - allies_wizards
+      - intrigue2_baron
+      - intrigue2_conspirator
+      - intrigue2_patrol
+      - intrigue2_pawn
+      - intrigue2_replace
+    allies:
+      - allies_ally_plateaushepherds
+
+  - name: Forward Thinking
+    sets:
+      - allies
+      - seaside
+    supply:
+      - allies_guildmaster
+      - allies_highwayman
+      - allies_odysseys
+      - allies_royalgalley
+      - allies_sentinel
+      - seaside_cutpurse
+      - seaside_nativevillage
+      - seaside_smugglers
+      - seaside_tactician
+      - seaside_warehouse
+    allies:
+      - allies_ally_cavedwellers
+
+  - name: Treasure Hunt
+    sets:
+      - allies
+      - seaside
+    supply:
+      - allies_emissary
+      - allies_forts
+      - allies_marquis
+      - allies_swap
+      - allies_town
+      - seaside_haven
+      - seaside_lookout
+      - seaside_outpost
+      - seaside_treasuremap
+      - seaside_treasury
+    allies:
+      - allies_ally_markettowns
+
+  - name: Recursion
+    sets:
+      - alchemy
+      - allies
+    supply:
+      - alchemy_alchemist
+      - alchemy_apprentice
+      - alchemy_golem
+      - alchemy_scryingpool
+      - allies_barbarian
+      - allies_galleria
+      - allies_importer
+      - allies_merchantcamp
+      - allies_modify
+      - allies_wizards
+    allies:
+      - allies_ally_coastalhaven
+
+  - name: Inventing Mania
+    sets:
+      - allies
+      - prosperity
+    supply:
+      - allies_augurs
+      - allies_bauble
+      - allies_capitalcity
+      - allies_carpenter
+      - allies_importer
+      - prosperity_expand
+      - prosperity_kingscourt
+      - prosperity_quarry
+      - prosperity_rabble
+      - prosperity_talisman
+    allies:
+      - allies_ally_familyofinventors
+
+  - name: Bank of Toadies
+    sets:
+      - allies
+      - prosperity
+    supply:
+      - allies_broker
+      - allies_marquis
+      - allies_odysseys
+      - allies_sycophant
+      - allies_town
+      - prosperity_bank
+      - prosperity_city
+      - prosperity_mint
+      - prosperity_traderoute
+      - prosperity_vault
+    allies:
+      - allies_ally_leagueofbankers
+
+  - name: Huge Collections
+    sets:
+      - allies
+      - cornucopia
+      - guilds
+    supply:
+      - allies_clashes
+      - allies_contract
+      - allies_forts
+      - allies_galleria
+      - allies_sentinel
+      - cornucopia_fairgrounds
+      - cornucopia_huntingparty
+      - cornucopia_menagerie
+      - guilds_advisor
+      - guilds_plaza
+    allies:
+      - allies_ally_woodworkersguild
+
+  - name: Forest Scouts
+    sets:
+      - allies
+      - cornucopia
+      - guilds
+    supply:
+      - allies_augurs
+      - allies_emissary
+      - allies_innkeeper
+      - allies_royalgalley
+      - allies_sentinel
+      - cornucopia_farmingvillage
+      - cornucopia_jester
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_journeyman
+    allies:
+      - allies_ally_forestdwellers
+
+  - name: Longest Tunnel
+    sets:
+      - allies
+      - hinterlands
+    supply:
+      - allies_bauble
+      - allies_capitalcity
+      - allies_carpenter
+      - allies_contract
+      - allies_innkeeper
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_jackofalltrades
+      - hinterlands_margrave
+      - hinterlands_tunnel
+    allies:
+      - allies_ally_fellowshipofscribes
+
+  - name: Expertise
+    sets:
+      - allies
+      - hinterlands
+    supply:
+      - allies_barbarian
+      - allies_highwayman
+      - allies_specialist
+      - allies_townsfolk
+      - allies_underling
+      - hinterlands_bordervillage
+      - hinterlands_crossroads
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_spicemerchant
+    allies:
+      - allies_ally_orderofmasons
+
+  - name: Grave Matters
+    sets:
+      - allies
+      - darkages
+    supply:
+      - allies_barbarian
+      - allies_broker
+      - allies_contract
+      - allies_highwayman
+      - allies_wizards
+      - darkages_banditcamp
+      - darkages_beggar
+      - darkages_forager
+      - darkages_graverobber
+      - darkages_poorhouse
+    allies:
+      - allies_ally_cavedwellers
+
+  - name: Rat Traders
+    sets:
+      - allies
+      - darkages
+    supply:
+      - allies_emissary
+      - allies_importer
+      - allies_skirmisher
+      - allies_swap
+      - allies_townsfolk
+      - darkages_count
+      - darkages_deathcart
+      - darkages_knights
+      - darkages_rats
+      - darkages_squire
+    allies:
+      - allies_ally_desertguides
+
+  - name: Adventures in Pickpocketing
+    sets:
+      - adventures
+      - allies
+    supply:
+      - adventures_artificer
+      - adventures_duplicate
+      - adventures_lostcity
+      - adventures_miser
+      - adventures_treasuretrove
+      - allies_augurs
+      - allies_bauble
+      - allies_innkeeper
+      - allies_modify
+      - allies_specialist
+    events:
+      - adventures_event_mission
+    allies:
+      - allies_ally_gangofpickpockets
+
+  - name: Future Perfect
+    sets:
+      - adventures
+      - allies
+    supply:
+      - adventures_caravanguard
+      - adventures_gear
+      - adventures_hauntedwoods
+      - adventures_port
+      - adventures_transmogrify
+      - allies_forts
+      - allies_marquis
+      - allies_sentinel
+      - allies_skirmisher
+      - allies_sycophant
+    events:
+      - adventures_event_seaway
+    allies:
+      - allies_ally_markettowns
+
+  - name: Island Empire
+    sets:
+      - allies
+      - empires
+    supply:
+      - allies_contract
+      - allies_forts
+      - allies_specialist
+      - allies_swap
+      - allies_sycophant
+      - empires_cityquarter
+      - empires_enchantress
+      - empires_farmersmarket
+      - empires_settlersbustlingvillage
+      - empires_wildhunt
+    landmarks:
+      - empires_landmark_orchard
+    allies:
+      - allies_ally_islandfolk
+
+  - name: Castle Wars
+    sets:
+      - allies
+      - empires
+    supply:
+      - allies_capitalcity
+      - allies_carpenter
+      - allies_clashes
+      - allies_hunter
+      - allies_importer
+      - empires_castles
+      - empires_catapultrocks
+      - empires_charm
+      - empires_crown
+      - empires_patricianemporium
+    events:
+      - empires_event_triumph
+    allies:
+      - allies_ally_trapperslodge
+
+  - name: Love and Death
+    sets:
+      - allies
+      - nocturne
+    supply:
+      - allies_augurs
+      - allies_bauble
+      - allies_carpenter
+      - allies_hunter
+      - allies_sycophant
+      - nocturne_conclave
+      - nocturne_denofsin
+      - nocturne_faithfulhound
+      - nocturne_idol
+      - nocturne_necromancer
+    allies:
+      - allies_ally_peacefulcult
+
+  - name: Play It Again, Sam
+    sets:
+      - allies
+      - nocturne
+    supply:
+      - allies_courier
+      - allies_hunter
+      - allies_royalgalley
+      - allies_swap
+      - allies_wizards
+      - nocturne_blessedvillage
+      - nocturne_leprechaun
+      - nocturne_skulk
+      - nocturne_tormentor
+      - nocturne_tracker
+    allies:
+      - allies_ally_woodworkersguild
+
+  - name: Production Line
+    sets:
+      - allies
+      - renaissance
+    supply:
+      - allies_courier
+      - allies_importer
+      - allies_modify
+      - allies_townsfolk
+      - allies_wizards
+      - renaissance_experiment
+      - renaissance_mountainvillage
+      - renaissance_patron
+      - renaissance_spices
+      - renaissance_treasurer
+    projects:
+      - renaissance_project_exploration
+    allies:
+      - allies_ally_bandofnomads
+
+  - name: Age of Scribes
+    sets:
+      - allies
+      - renaissance
+    supply:
+      - allies_capitalcity
+      - allies_galleria
+      - allies_odysseys
+      - allies_specialist
+      - allies_underling
+      - renaissance_actingtroupe
+      - renaissance_inventor
+      - renaissance_oldwitch
+      - renaissance_research
+      - renaissance_villain
+    projects:
+      - renaissance_project_sinisterplot
+    allies:
+      - allies_ally_fellowshipofscribes
+
+  - name: Wise Owls
+    sets:
+      - allies
+      - menagerie
+    supply:
+      - allies_barbarian
+      - allies_marquis
+      - allies_merchantcamp
+      - allies_town
+      - allies_wizards
+      - menagerie_animalfair
+      - menagerie_blackcat
+      - menagerie_bountyhunter
+      - menagerie_hostelry
+      - menagerie_huntinglodge
+    ways:
+      - menagerie_way_wayoftheowl
+    allies:
+      - allies_ally_architectsguild
+
+  - name: Mountain Kings
+    sets:
+      - allies
+      - menagerie
+    supply:
+      - allies_broker
+      - allies_courier
+      - allies_forts
+      - allies_guildmaster
+      - allies_skirmisher
+      - menagerie_barge
+      - menagerie_coven
+      - menagerie_scrap
+      - menagerie_snowyvillage
+      - menagerie_supplies
+    events:
+      - menagerie_event_toil
+    allies:
+      - allies_ally_mountainfolk

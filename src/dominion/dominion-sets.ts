@@ -1,3 +1,4 @@
+import {Ally} from "./ally";
 import {Boon} from "./boon";
 import {Card} from "./card";
 import {DominionSet} from "./dominion-set";
@@ -113,6 +114,14 @@ export class DominionSets {
     return card;
   }
 
+  public static getAllyById(cardId: string): Ally {
+    const card = DominionSets.getCardById(cardId);
+    if (!(card instanceof Ally)) {
+      throw new Error(`Card id (${cardId}) does not refer to an ally`);
+    }
+    return card;
+  }
+
   private static createSets() {
     const setIds = Object.keys(window.DominionSets) as SetId[];
     const sets: {[key in SetId]?: DominionSet} = {};
@@ -129,7 +138,7 @@ export class DominionSets {
       const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
           (set.supplyCards as Card[]).concat(
-            set.events, set.landmarks, set.projects, set.ways, set.boons);
+            set.events, set.landmarks, set.projects, set.ways, set.boons, set.allies);
       for (let card of cardsFromSet) {
         cards[card.id] = card;
         if (!cards[card.shortId]) {

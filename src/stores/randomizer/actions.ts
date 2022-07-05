@@ -24,6 +24,7 @@ import { Addon } from "../../dominion/addon";
 import { SetId } from "../../dominion/set-id";
 import { CostType } from "../../dominion/cost-type";
 import { Boon } from "../../dominion/boon";
+import { Ally } from "../../dominion/ally";
 
 interface Context extends ActionContext<State, any> {}
 
@@ -50,7 +51,7 @@ export const actions = {
         const kingdom = new Kingdom(
             Date.now(), supply, initialKingdom.events, initialKingdom.landmarks,
             initialKingdom.projects, initialKingdom.ways, initialKingdom.boons,
-            initialKingdom.metadata);
+            initialKingdom.ally, initialKingdom.metadata);
         context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
         return;
@@ -92,11 +93,12 @@ export const actions = {
     const newWays = newAddons
         ? Cards.getAllWays(newAddons).concat(getUnselectedWays(context))
         : context.state.kingdom.ways;
+    const newAlly = randomizeSelectedAlly(context, newSupply);
     const newBoons = randomizeSelectedBoons(context, newSupply);
         
     const kingdom = new Kingdom(
       context.state.kingdom.id, newSupply, newEvents, newLandmarks, newProjects,
-      newWays, newBoons, context.state.kingdom.metadata);
+      newWays, newBoons, newAlly, context.state.kingdom.metadata);
     context.commit(CLEAR_SELECTION);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
@@ -168,7 +170,8 @@ export const actions = {
       const oldKingdom = context.state.kingdom;
       const kingdom = new Kingdom(
         oldKingdom.id, supply, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
-        oldKingdom.ways, randomizeSelectedBoons(context, supply), oldKingdom.metadata);
+        oldKingdom.ways, randomizeSelectedBoons(context, supply), 
+        randomizeSelectedAlly(context, supply), oldKingdom.metadata);
       context.commit(CLEAR_SELECTION);
       context.commit(UPDATE_KINGDOM, kingdom);
       EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE);
@@ -187,6 +190,7 @@ export const actions = {
       Cards.getAllProjects(addons),
       Cards.getAllWays(addons),
       context.state.kingdom.boons,
+      context.state.kingdom.ally,
       context.state.kingdom.metadata);
     context.commit(UPDATE_KINGDOM, kingdom);
   },
@@ -210,6 +214,8 @@ export const actions = {
       context.commit(UPDATE_SELECTION, {
         selectedBoonIds: selection.selectedBoonIds.concat([id])
       } as SelectionParams);
+    } else if (card instanceof Ally) {
+      context.commit(UPDATE_SELECTION, { selectedAllyId: id });
     } else {
       context.commit(UPDATE_SELECTION, {
         selectedAddonIds: selection.selectedAddonIds.concat([id]) 
@@ -232,6 +238,8 @@ export const actions = {
       context.commit(UPDATE_SELECTION, {
         selectedBoonIds: selection.selectedBoonIds.filter(filterFn)
       } as SelectionParams);
+    } else if (card instanceof Ally) {
+      context.commit(UPDATE_SELECTION, { selectedAllyId: null });
     } else {
       context.commit(UPDATE_SELECTION, {
         selectedAddonIds: selection.selectedAddonIds.filter(filterFn)
@@ -288,6 +296,15 @@ function randomizeSelectedBoons(context: Context, supply: Supply) {
   return Randomizer.getRandomBoons(supply, getUnselectedBoons(context));
 }
 
+function randomizeSelectedAlly(context: Context, supply: Supply) {
+  const selectedAlly = getSelectedAlly(context);
+  if (!selectedAlly.length) {
+    return getUnselectedAlly(context);
+  }
+  EventTracker.trackEvent(EventType.RANDOMIZE_ALLY);
+  return Randomizer.getRandomAlly(supply, selectedAlly[0].id);
+}
+
 function createRandomizerOptionsBuilder(context: Context) {
   const randomizerSettings = context.state.settings.randomizerSettings;
   return new RandomizerOptionsBuilder()
@@ -318,7 +335,11 @@ function getCardsToExclude(context: Context) {
 function getAddons(context: Context) {
   const kingdom = context.state.kingdom;
   return (kingdom.events as Addon[])
-      .concat(kingdom.landmarks as Addon[], kingdom.projects as Addon[]);
+      .concat(
+        kingdom.landmarks as Addon[], 
+        kingdom.projects as Addon[],
+        kingdom.ways as Addon[],
+      );
 }
 
 function getSelectedSetIds(context: Context) {
@@ -359,6 +380,10 @@ function getSelectedBoons(context: Context) {
   return getSelected(context, context.state.kingdom.boons);
 }
 
+function getSelectedAlly(context: Context) {
+  return getSelected(context, context.state.kingdom.ally ? [context.state.kingdom.ally] : []);
+}
+
 function getSelected<T extends Card>(context: Context, cards: T[]) {
   const selection = context.state.selection;
   return cards.filter((card) => selection.contains(card.id));
@@ -378,6 +403,11 @@ function getUnselectedProjects(context: Context) {
 
 function getUnselectedWays(context: Context) {
   return getUnselected(context, context.state.kingdom.ways);
+}
+
+function getUnselectedAlly(context: Context) {
+  const unselected = getUnselected(context, context.state.kingdom.ally ? [context.state.kingdom.ally] : []);
+  return unselected.length ? unselected[0] : null;
 }
 
 function getUnselectedBoons(context: Context) {

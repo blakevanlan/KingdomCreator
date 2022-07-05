@@ -46,6 +46,8 @@ export default class AddonTitle extends Vue {
         return "addon_description_format_3";
       case 4:
         return "addon_description_format_4";
+      case 5:
+        return "addon_description_format_5";
     }
     return null;
   }
