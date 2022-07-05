@@ -27,7 +27,8 @@ export class Cards {
         (set.landmarks as Card[]),
         (set.projects as Card[]),
         (set.ways as Card[]),
-        (set.boons as Card[]));
+        (set.boons as Card[]),
+        (set.allies as Card[]));
   }
 
   static getAllSupplyCards(cards: Card[]): SupplyCard[] {

@@ -376,7 +376,7 @@ cards:
     isVictory: false
   - name: Town
     cost:
-      treasure: 2
+      treasure: 4
       potion: 0
       debt: 0
     isAction: true
@@ -420,7 +420,7 @@ cards:
     isVictory: false
   - name: Capital City
     cost:
-      treasure: 2
+      treasure: 5
       potion: 0
       debt: 0
     isAction: true

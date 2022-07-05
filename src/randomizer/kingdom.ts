@@ -14,14 +14,14 @@ export class Kingdom {
       readonly landmarks: Landmark[],
       readonly projects: Project[],
       readonly ways: Way[],
-      readonly allies: Ally[],
       readonly boons: Boon[],
+      readonly ally: Ally | null,
       readonly metadata: Metadata) {
   }
 
   static empty() {
     return new Kingdom(
-      0, Supply.empty(), [], [], [], [], [], [], new Metadata(false, false));
+      0, Supply.empty(), [], [], [], [], [], null, new Metadata(false, false));
   }
 }
 

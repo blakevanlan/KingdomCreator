@@ -7,6 +7,7 @@ export enum CardType {
   DOOM = "isDoom",
   DURATION = "isDuration",
   FATE = "isFate",
+  LIAISON = "isLiaison",
   MULTI_DRAWER = "isMultiDrawer",
   NIGHT = "isNight",
   REACTION = "isReaction",

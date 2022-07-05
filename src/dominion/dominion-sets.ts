@@ -115,7 +115,9 @@ export class DominionSets {
   }
 
   public static getAllyById(cardId: string): Ally {
+    console.log("getAllyById", cardId)
     const card = DominionSets.getCardById(cardId);
+    console.log("card", card)
     if (!(card instanceof Ally)) {
       throw new Error(`Card id (${cardId}) does not refer to an ally`);
     }
@@ -138,7 +140,7 @@ export class DominionSets {
       const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
           (set.supplyCards as Card[]).concat(
-            set.events, set.landmarks, set.projects, set.ways, set.boons);
+            set.events, set.landmarks, set.projects, set.ways, set.boons, set.allies);
       for (let card of cardsFromSet) {
         cards[card.id] = card;
         if (!cards[card.shortId]) {

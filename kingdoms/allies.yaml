@@ -14,7 +14,7 @@ kingdoms:
       - allies_royalgalley
       - allies_townsfolk
     allies:
-      - allies_allies_citystate
+      - allies_ally_citystate
 
 
   - name: Foresight
@@ -32,7 +32,7 @@ kingdoms:
       - allies_town
       - allies_underling
     allies:
-      - allies_allies_orderofastrologers
+      - allies_ally_orderofastrologers
 
   - name: Allies for Beginners
     sets:
@@ -50,7 +50,7 @@ kingdoms:
       - baseset2_remodel
       - baseset2_vassal
     allies:
-      - allies_allies_craftersguild
+      - allies_ally_craftersguild
 
   - name: Warring Shopkeepers
     sets:
@@ -68,7 +68,7 @@ kingdoms:
       - baseset2_moat
       - baseset2_moneylender
     allies:
-      - allies_allies_leagueofshopkeepers
+      - allies_ally_leagueofshopkeepers
 
   - name: Dark Dealings
     sets:
@@ -86,7 +86,7 @@ kingdoms:
       - intrigue2_secretpassage
       - intrigue2_steward
     allies:
-      - allies_allies_circleofwitches
+      - allies_ally_circleofwitches
 
   - name: Pawns and Underlings
     sets:
@@ -104,7 +104,7 @@ kingdoms:
       - intrigue2_pawn
       - intrigue2_replace
     allies:
-      - allies_allies_plateaushepherds
+      - allies_ally_plateaushepherds
 
   - name: Forward Thinking
     sets:
@@ -122,7 +122,7 @@ kingdoms:
       - seaside_tactician
       - seaside_warehouse
     allies:
-      - allies_allies_cavedwellers
+      - allies_ally_cavedwellers
 
   - name: Treasure Hunt
     sets:
@@ -140,7 +140,7 @@ kingdoms:
       - seaside_treasuremap
       - seaside_treasury
     allies:
-      - allies_allies_markettowns
+      - allies_ally_markettowns
 
   - name: Recursion
     sets:
@@ -158,7 +158,7 @@ kingdoms:
       - allies_modify
       - allies_wizards
     allies:
-      - allies_allies_coastalhaven
+      - allies_ally_coastalhaven
 
   - name: Inventing Mania
     sets:
@@ -176,7 +176,7 @@ kingdoms:
       - prosperity_rabble
       - prosperity_talisman
     allies:
-      - allies_allies_familyofinventors
+      - allies_ally_familyofinventors
 
   - name: Bank of Toadies
     sets:
@@ -194,7 +194,7 @@ kingdoms:
       - prosperity_traderoute
       - prosperity_vault
     allies:
-      - allies_allies_leagueofbankers
+      - allies_ally_leagueofbankers
 
   - name: Huge Collections
     sets:
@@ -213,7 +213,7 @@ kingdoms:
       - guilds_advisor
       - guilds_plaza
     allies:
-      - allies_allies_woodworkersguild
+      - allies_ally_woodworkersguild
 
   - name: Forest Scouts
     sets:
@@ -232,7 +232,7 @@ kingdoms:
       - guilds_candlestickmaker
       - guilds_journeyman
     allies:
-      - allies_allies_forestdwellers
+      - allies_ally_forestdwellers
 
   - name: Longest Tunnel
     sets:
@@ -250,7 +250,7 @@ kingdoms:
       - hinterlands_margrave
       - hinterlands_tunnel
     allies:
-      - allies_allies_fellowshipofscribes
+      - allies_ally_fellowshipofscribes
 
   - name: Expertise
     sets:
@@ -268,7 +268,7 @@ kingdoms:
       - hinterlands_inn
       - hinterlands_spicemerchant
     allies:
-      - allies_allies_orderofmasons
+      - allies_ally_orderofmasons
 
   - name: Grave Matters
     sets:
@@ -286,7 +286,7 @@ kingdoms:
       - darkages_graverobber
       - darkages_poorhouse
     allies:
-      - allies_allies_cavedwellers
+      - allies_ally_cavedwellers
 
   - name: Rat Traders
     sets:
@@ -304,7 +304,7 @@ kingdoms:
       - darkages_rats
       - darkages_squire
     allies:
-      - allies_allies_desertguides
+      - allies_ally_desertguides
 
   - name: Adventures in Pickpocketing
     sets:
@@ -324,7 +324,7 @@ kingdoms:
     events:
       - adventures_event_mission
     allies:
-      - allies_allies_gangofpickpockets
+      - allies_ally_gangofpickpockets
 
   - name: Future Perfect
     sets:
@@ -344,7 +344,7 @@ kingdoms:
     events:
       - adventures_event_seaway
     allies:
-      - allies_allies_markettowns
+      - allies_ally_markettowns
 
   - name: Island Empire
     sets:
@@ -364,7 +364,7 @@ kingdoms:
     landmarks:
       - empires_landmark_orchard
     allies:
-      - allies_allies_islandfolk
+      - allies_ally_islandfolk
 
   - name: Castle Wars
     sets:
@@ -384,7 +384,7 @@ kingdoms:
     events:
       - empires_event_triumph
     allies:
-      - allies_allies_trapperslodge
+      - allies_ally_trapperslodge
 
   - name: Love and Death
     sets:
@@ -402,7 +402,7 @@ kingdoms:
       - nocturne_idol
       - nocturne_necromancer
     allies:
-      - allies_allies_peacefulcult
+      - allies_ally_peacefulcult
 
   - name: Play It Again, Sam
     sets:
@@ -420,7 +420,7 @@ kingdoms:
       - nocturne_tormentor
       - nocturne_tracker
     allies:
-      - allies_allies_woodworkersguild
+      - allies_ally_woodworkersguild
 
   - name: Production Line
     sets:
@@ -440,7 +440,7 @@ kingdoms:
     projects:
       - renaissance_project_exploration
     allies:
-      - allies_allies_bandofnomads
+      - allies_ally_bandofnomads
 
   - name: Age of Scribes
     sets:
@@ -460,7 +460,7 @@ kingdoms:
     projects:
       - renaissance_project_sinisterplot
     allies:
-      - allies_allies_fellowshipofscribes
+      - allies_ally_fellowshipofscribes
 
   - name: Wise Owls
     sets:
@@ -480,7 +480,7 @@ kingdoms:
     ways:
       - menagerie_way_wayoftheowl
     allies:
-      - allies_allies_architectsguild
+      - allies_ally_architectsguild
 
   - name: Mountain Kings
     sets:
@@ -500,4 +500,4 @@ kingdoms:
     events:
       - menagerie_event_toil
     allies:
-      - allies_allies_mountainfolk
+      - allies_ally_mountainfolk

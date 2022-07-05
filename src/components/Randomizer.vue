@@ -5,6 +5,7 @@
       <SortableSupplyCards />
       <Addons />
       <Boons />
+      <AllySection />
       <Modifiers />
       <CopyButton
         :text="supplyCardsCopyText"
@@ -17,6 +18,7 @@
 
 <script lang="ts">
 import Addons from "./Addons.vue";
+import AllySection from "./AllySection.vue";
 import Boons from "./Boons.vue";
 import SortableSupplyCards from "./SortableSupplyCards.vue";
 import RandomizerSidebar from "./RandomizerSidebar.vue";
@@ -34,6 +36,7 @@ import CopyButton from "./CopyButton.vue";
 @Component({
   components: {
     Addons,
+    AllySection,
     Boons,
     Modifiers,
     RandomizerSidebar,
@@ -55,6 +58,7 @@ export default class Randomizer extends Vue {
       this.kingdom.projects,
       this.kingdom.ways,
       this.kingdom.boons,
+      this.kingdom.ally ? [this.kingdom.ally] : [],
     ).map((card) => this.$t(card.id)).join(", ");
   }
 

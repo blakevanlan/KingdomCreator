@@ -28,7 +28,6 @@ export interface Getters {
   canHaveLandmarks: boolean;
   canHaveProjects: boolean;
   canHaveWays: boolean;
-  canHaveAllies: boolean;
   canHaveAddons: boolean;
   addonSummary: string;
 }
@@ -98,20 +97,11 @@ export const randomizerStore = {
       }
       return false;
     },
-    canHaveAllies: (state: State) => {
-      for (let setId of state.settings.selectedSets) {
-        if (DominionSets.getSetById(setId).allies.length) {
-          return true;
-        }
-      }
-      return false;
-    },
     canHaveAddons: (state: State, getters: Getters) => {
       return getters.canHaveEvents
         || getters.canHaveLandmarks
         || getters.canHaveProjects
-        || getters.canHaveWays
-        || getters.canHaveAllies;
+        || getters.canHaveWays;
     }
   },
   mutations: {

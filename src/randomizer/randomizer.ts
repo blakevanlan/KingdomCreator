@@ -53,6 +53,7 @@ export class Randomizer {
     const supply = this.createSupplyWithRetries(randomizerOptions);
     const addons = this.getAddons(randomizerOptions.setIds);
     const boons = this.getRandomBoons(supply, []);
+    const ally = this.getRandomAlly(supply);
     const metadata = this.getMetadata(randomizerOptions.setIds);
     return new Kingdom(
       Date.now(),
@@ -61,8 +62,8 @@ export class Randomizer {
       addons.landmarks,
       addons.projects,
       addons.ways,
-      addons.allies,
       boons,
+      ally,
       metadata);
   }
 
@@ -246,6 +247,15 @@ export class Randomizer {
     const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
     const boons = Cards.getAllBoons(cards).filter(Cards.filterByExcludedIds(excludeIds));
     return selectRandomN(boons, 3 - excludeIds.length).concat(keepBoons);
+  }
+
+  static getRandomAlly(supply: Supply, skipAllyId: string | null = null): Ally | null {
+    if (supply.supplyCards.every((s) => !s.isLiaison)) {
+      return null;
+    }
+    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
+    const allies = Cards.getAllAllies(cards).filter(Cards.filterByExcludedIds(skipAllyId ? [skipAllyId] : []));
+    return selectRandomN(allies, 1)[0];
   }
 
   static getMetadata(setIds: SetId[]) {
