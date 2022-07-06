@@ -38,7 +38,12 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 import { SortOption } from "../settings/settings";
 import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
+/* gsap 2.1.3 
 import { TweenLite, Sine } from "gsap";
+*/
+/* gsap 3.10.4 */
+import { gsap, Sine } from "gsap";
+
 import { Selection } from "../stores/randomizer/selection";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 import GridLayout from "./GridLayout.vue";
@@ -69,7 +74,12 @@ export default class SortableSupplyCards extends Vue {
   supplyCards: SupplyCard[] = [];
   numberOfSupplyCardsLoading = 0;
   requiresSupplyCardSort = false;
+/* gsap 2.1.3
   activeAnimations: Set<TweenLite> = new Set();
+*/
+/* gsap 3.10.4 */
+  activeAnimations: Set<TweenLite> = new Set();
+
   resizeTimerId: number | null = null;
   replacingCard: SupplyCard | null = null;
 
@@ -189,7 +199,11 @@ export default class SortableSupplyCards extends Vue {
 
   private cancelActiveAnimations() {
     for (let animation of this.activeAnimations) {
+/* gsap 2.1.3
       animation.kill();
+*/
+/* gsap 3.10.4 */
+      animation.kill();	
     }
     this.activeAnimations.clear();
   }
@@ -205,12 +219,25 @@ export default class SortableSupplyCards extends Vue {
       const endCoord = this.getPositionForElementIndex(descriptor.newVisualIndex);
       const x = endCoord.x - startCoord.x;
       const y = endCoord.y - startCoord.y;
+/* gsap 2.1.3
       const tweenLite =
           TweenLite.to(element, ANIMATION_DURATION_SEC, {
             transform: `translate(${x}px,${y}px)`,
             ease: Sine.easeInOut,
             onComplete: () => this.activeAnimations.delete(tweenLite),
           });
+*/
+/* gsap 3.10.4 */
+      const tweenLite =
+           gsap.to(element, {duration: ANIMATION_DURATION_SEC,
+             transform: `translate(${x}px,${y}px)`,
+             ease: Sine.easeInOut,
+             onComplete: function() { 
+				this.activeAnimations.delete(tweenLite);
+				return;
+			 }
+             }
+		   ) as TweenLite;
       this.activeAnimations.add(tweenLite);
       newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
     }
