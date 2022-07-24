@@ -28,7 +28,8 @@ import {Ally} from "../dominion/ally";
 
 const SETS_WITH_DUPLICATES: {[index: string]: string} = {
   'baseset2': 'baseset',
-  'intrigue2': 'intrigue'
+  'intrigue2': 'intrigue',
+  'seaside2': 'seaside'
 };
 const MAX_RETRIES = 3;
 const NUM_CARDS_IN_KINGDOM = 10;
