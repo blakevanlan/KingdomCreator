@@ -180,6 +180,10 @@ kingdoms:
       - prosperity_talisman
       - prosperity_traderoute
       - prosperity_watchtower
+    boons:
+      - nocturne_boon_theswampsgift
+      - nocturne_boon_theriversgift
+      - nocturne_boon_theforestsgift
 
   - name: The Endless Fair
     sets:
