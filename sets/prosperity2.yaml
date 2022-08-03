@@ -1,0 +1,307 @@
+name: ProsperityII
+cards:
+  - name: Anvil
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Clerk
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+
+  - name: Investment
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Tiara
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Charlatan
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: false
+
+  - name: Collection
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Crystal Ball
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Magnate
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: War Chest
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Bank
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: City
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Bishop
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Grand Market
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isBuySupplier: true
+
+  - name: Watchtower
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: true
+    isDuration: false
+
+  - name: Expand
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: King's Court
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Hoard
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Peddler
+    cost:
+      treasure: 8
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Monument
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Forge
+    cost:
+      treasure: 7
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Rabble
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Mint
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Quarry
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Worker's Village
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Vault
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
