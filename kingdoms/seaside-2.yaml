@@ -109,73 +109,75 @@ kingdoms:
       - alchemy_philosophersstone
       - alchemy_vineyard
 
-  - name: Exploding Kingdom
-    sets:
-      - prosperity
-      - seaside2
-    supply:
-      - seaside2_fishingvillage
-      - seaside2_lookout
-      - seaside2_outpost
-      - seaside2_tactician
-      - seaside2_wharf
-      - prosperity_bishop
-      - prosperity_city
-      - prosperity_grandmarket
-      - prosperity_kingscourt
-      - prosperity_quarry
-    metadata:
-      colonies: true
+  # waiting on prosperity2
+  #- name: Exploding Kingdom
+  #  sets:
+  #    - prosperity2
+  #    - seaside2
+  #  supply:
+  #    - seaside2_fishingvillage
+  #    - seaside2_lookout
+  #    - seaside2_outpost
+  #    - seaside2_tactician
+  #    - seaside2_wharf
+  #    - prosperity2_bishop
+  #    - prosperity2_city
+  #    - prosperity2_grandmarket
+  #    - prosperity2_kingscourt
+  #    - prosperity2_quarry
+  #  metadata:
+  #    colonies: true
 
-  - name: Pirate Bay
-    sets:
-      - seaside2
-      - prosperity
-    supply:
-      - seaside2_astrolabe
-      - seaside2_corsair
-      - seaside2_monkey
-      - seaside2_nativevillage
-      - seaside2_treasury
-      - prosperity_charlatan
-      - prosperity_hoard
-      - prosperity_investment
-      - prosperity_magnate
-      - prosperity_mint
-    metadata:
-      colonies: true
+  #- name: Pirate Bay
+  #  sets:
+  #    - seaside2
+  #    - prosperity2
+  #  supply:
+  #    - seaside2_astrolabe
+  #    - seaside2_corsair
+  #    - seaside2_monkey
+  #    - seaside2_nativevillage
+  #    - seaside2_treasury
+  #    - prosperity2_charlatan
+  #    - prosperity2_hoard
+  #    - prosperity2_investment
+  #    - prosperity2_magnate
+  #    - prosperity2_mint
+  #  metadata:
+  #    colonies: true
 
-  - name: Travelers
-    sets:
-      - seaside2
-      - hinterlands
-    supply:
-      - seaside2_cutpurse
-      - seaside2_island
-      - seaside2_lookout
-      - seaside2_merchantship
-      - seaside2_warehouse
-      - hinterlands_cartographer
-      - hinterlands_crossroads
-      - hinterlands_farmland
-      - hinterlands_souk
-      - hinterlands_stables
+  # waiting on hinterlands2
+  #- name: Travelers
+  #  sets:
+  #    - seaside2
+  #    - hinterlands2
+  #  supply:
+  #    - seaside2_cutpurse
+  #    - seaside2_island
+  #    - seaside2_lookout
+  #    - seaside2_merchantship
+  #    - seaside2_warehouse
+  #    - hinterlands2_cartographer
+  #    - hinterlands2_crossroads
+  #    - hinterlands2_farmland
+  #    - hinterlands2_souk
+  #    - hinterlands2_stables
 
-  - name: Runners
-    sets:
-      - seaside2
-      - hinterlands
-    supply:
-      - seaside2_bazaar
-      - seaside2_blockade
-      - seaside2_caravan
-      - seaside2_smugglers
-      - seaside2_sailor
-      - hinterlands_berserker
-      - hinterlands_cauldron
-      - hinterlands_guarddog
-      - hinterlands_nomads
-      - hinterlands_wheelwright
+  #- name: Runners
+  #  sets:
+  #    - seaside2
+  #    - hinterlands2
+  #  supply:
+  #    - seaside2_bazaar
+  #    - seaside2_blockade
+  #    - seaside2_caravan
+  #    - seaside2_smugglers
+  #    - seaside2_sailor
+  #    - hinterlands2_berserker
+  #    - hinterlands2_cauldron
+  #    - hinterlands2_guarddog
+  #    - hinterlands2_nomads
+  #    - hinterlands2_wheelwright
 
   - name: Collector
     sets:
