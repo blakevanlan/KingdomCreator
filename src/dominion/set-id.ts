@@ -10,6 +10,7 @@ export enum SetId {
   GUILDS = "guilds",
   GUILDSCONUCOPIA = "guildscornucopia",
   HINTERLANDS = "hinterlands",
+  HINTERLANDS_2 = "hinterlands2",
   INTRIGUE = "intrigue",
   INTRIGUE_2 = "intrigue2",
   MENAGERIE = "menagerie",
