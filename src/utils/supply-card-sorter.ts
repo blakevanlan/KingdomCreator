@@ -1,14 +1,14 @@
 import { SupplyCard } from "../dominion/supply-card";
 import { SortOption } from "../settings/settings";
-import { I18n } from "../i18n/i18n";
+import { TranslateResult } from "vue-i18n";
 
 export class SupplyCardSorter {
   
-  static sort(supplyCards: SupplyCard[], sortOption: SortOption) {
-    return supplyCards.sort((a, b) => this.compare(a, b, sortOption));
+  static sort(supplyCards: SupplyCard[], sortOption: SortOption, translator: (id: string) => TranslateResult) {
+    return supplyCards.sort((a, b) => this.compare(a, b, sortOption, translator));
   }
 
-  private static compare(a: SupplyCard, b: SupplyCard, sortOption: SortOption) {
+  private static compare(a: SupplyCard, b: SupplyCard, sortOption: SortOption, translator: (id: string) => TranslateResult) {
     if (sortOption == SortOption.SET && a.setId != b.setId) {
       return a.setId < b.setId ? -1 : 1;
     }
@@ -18,7 +18,7 @@ export class SupplyCardSorter {
         return costComparison;
       }
     }
-    return I18n.instance.t(a.id) == I18n.instance.t(b.id) ? 0 : I18n.instance.t(a.id) < I18n.instance.t(b.id) ? -1 : 1;
+    return translator(a.id) == translator(b.id) ? 0 : translator(a.id) < translator(b.id) ? -1 : 1;
   }
 
   private static compareCosts(a: SupplyCard, b: SupplyCard) {

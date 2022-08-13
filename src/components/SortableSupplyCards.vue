@@ -150,7 +150,7 @@ export default class SortableSupplyCards extends Vue {
     }
     this.kingdomId = this.kingdom.id;
     const sortedSupplyCards =
-        SupplyCardSorter.sort(this.kingdom.supply.supplyCards.concat(), this.sortOption);
+        SupplyCardSorter.sort(this.kingdom.supply.supplyCards.concat(), this.sortOption, this.$t.bind(this));
     
     // Remap the sorted supply cards to where the elements currently reside.
     const mappedSupplyCards = [];
@@ -195,7 +195,7 @@ export default class SortableSupplyCards extends Vue {
   }
 
   private animateSupplyCardSort() {
-    const sortedCards = SupplyCardSorter.sort(this.supplyCards.concat(), this.sortOption);
+    const sortedCards = SupplyCardSorter.sort(this.supplyCards.concat(), this.sortOption, this.$t.bind(this));
     const descriptors = this.createMoveDescriptors(sortedCards);
     const newMapping: Map<number, number> = new Map();
 
