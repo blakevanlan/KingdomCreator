@@ -1,5 +1,6 @@
 import { SupplyCard } from "../dominion/supply-card";
 import { SortOption } from "../settings/settings";
+import { I18n } from "../i18n/i18n";
 
 export class SupplyCardSorter {
   
@@ -17,7 +18,7 @@ export class SupplyCardSorter {
         return costComparison;
       }
     }
-    return a.name == b.name ? 0 : a.name < b.name ? -1 : 1;
+    return I18n.instance.t(a.id) == I18n.instance.t(b.id) ? 0 : I18n.instance.t(a.id) < I18n.instance.t(b.id) ? -1 : 1;
   }
 
   private static compareCosts(a: SupplyCard, b: SupplyCard) {
