@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "serve-static": "http-server docs -p 8000"
+    "serve-static": "http-server docs -p 8080"
   },
   "dependencies": {
     "axios": "^0.19.2",
