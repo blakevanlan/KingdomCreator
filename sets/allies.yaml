@@ -278,7 +278,7 @@ cards:
     isDrawer: false
     isDuration: false
     isFate: false
-    isLiaison: false
+    isLiaison: true
     isMultiDrawer: false
     isNight: false
     isReaction: false
