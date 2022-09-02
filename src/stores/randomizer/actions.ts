@@ -297,9 +297,15 @@ function randomizeSelectedBoons(context: Context, supply: Supply) {
 }
 
 function randomizeSelectedAlly(context: Context, supply: Supply) {
+  if (supply.supplyCards.every((s) => !s.isLiaison)) {
+      return null;
+  }
   const selectedAlly = getSelectedAlly(context);
   if (!selectedAlly.length) {
     return getUnselectedAlly(context);
+    const unselectedAlly = getUnselectedAlly(context);
+    if (unselectedAlly !== null) return unselectedAlly
+    return Randomizer.getRandomAlly(supply)
   }
   EventTracker.trackEvent(EventType.RANDOMIZE_ALLY);
   return Randomizer.getRandomAlly(supply, selectedAlly[0].id);

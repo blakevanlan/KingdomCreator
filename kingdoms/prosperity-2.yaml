@@ -1,0 +1,159 @@
+kingdoms:
+  - name: Beginners
+    sets:
+      - prosperity
+    supply:
+      - prosperity_bank
+      - prosperity_countinghouse
+      - prosperity_expand
+      - prosperity_goons
+      - prosperity_monument
+      - prosperity_rabble
+      - prosperity_royalseal
+      - prosperity_venture
+      - prosperity_watchtower
+      - prosperity_workersvillage
+    metadata:
+      colonies: true
+
+  - name: Friendly Interactive
+    sets:
+      - prosperity
+    supply:
+      - prosperity_bishop
+      - prosperity_city
+      - prosperity_contraband
+      - prosperity_forge
+      - prosperity_hoard
+      - prosperity_peddler
+      - prosperity_royalseal
+      - prosperity_traderoute
+      - prosperity_vault
+      - prosperity_workersvillage
+    metadata:
+      colonies: true
+
+  - name: Big Actions
+    sets:
+      - prosperity
+    supply:
+      - prosperity_city
+      - prosperity_expand
+      - prosperity_grandmarket
+      - prosperity_kingscourt
+      - prosperity_loan
+      - prosperity_mint
+      - prosperity_quarry
+      - prosperity_rabble
+      - prosperity_talisman
+      - prosperity_vault
+    metadata:
+      colonies: true
+
+  - name: Biggest Money
+    sets:
+      - baseset
+      - prosperity
+    supply:
+      - baseset_laboratory
+      - baseset_mine
+      - baseset_moneylender
+      - baseset_adventurer
+      - baseset_spy
+      - prosperity_bank
+      - prosperity_grandmarket
+      - prosperity_mint
+      - prosperity_royalseal
+      - prosperity_venture
+    metadata:
+      colonies: true
+
+  - name: The King's Army
+    sets:
+      - baseset
+      - prosperity
+    supply:
+      - baseset_bureaucrat
+      - baseset_councilroom
+      - baseset_moat
+      - baseset_village
+      - baseset_spy
+      - prosperity_expand
+      - prosperity_goons
+      - prosperity_kingscourt
+      - prosperity_rabble
+      - prosperity_vault
+    metadata:
+      colonies: true
+
+  - name: The Good Life
+    sets:
+      - baseset
+      - prosperity
+    supply:
+      - baseset_bureaucrat
+      - baseset_cellar
+      - baseset_gardens
+      - baseset_village
+      - baseset_chancellor
+      - prosperity_contraband
+      - prosperity_countinghouse
+      - prosperity_hoard
+      - prosperity_monument
+      - prosperity_mountebank
+    metadata:
+      colonies: true
+
+  - name: Paths to Victory
+    sets:
+      - intrigue
+      - prosperity
+    supply:
+      - intrigue_baron
+      - intrigue_harem
+      - intrigue_pawn
+      - intrigue_shantytown
+      - intrigue_upgrade
+      - prosperity_bishop
+      - prosperity_countinghouse
+      - prosperity_goons
+      - prosperity_monument
+      - prosperity_peddler
+    metadata:
+      colonies: true
+
+  - name: All Along the Watchtower
+    sets:
+      - intrigue
+      - prosperity
+    supply:
+      - intrigue_bridge
+      - intrigue_miningvillage
+      - intrigue_pawn
+      - intrigue_torturer
+      - intrigue_greathall
+      - prosperity_hoard
+      - prosperity_talisman
+      - prosperity_traderoute
+      - prosperity_vault
+      - prosperity_watchtower
+    metadata:
+      colonies: true
+
+  - name: Lucky Seven
+    sets:
+      - intrigue
+      - prosperity
+    supply:
+      - intrigue_bridge
+      - intrigue_swindler
+      - intrigue_wishingwell
+      - intrigue_coppersmith
+      - intrigue_tribute
+      - prosperity_bank
+      - prosperity_expand
+      - prosperity_forge
+      - prosperity_kingscourt
+      - prosperity_vault
+    metadata:
+      colonies: true

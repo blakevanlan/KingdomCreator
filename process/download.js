@@ -4,7 +4,7 @@ const Fs = require("fs");
 const resize = require("./resize");
 
 const sets = Loader.loadSets()
-const cards = getCards(sets.allies);
+const cards = getCards(sets.prosperity2);
 
 getAllImages(cards);
 
@@ -20,7 +20,8 @@ async function getImage(card) {
     console.log(`Invalid URL: ${card.name}`);
     return;
   } 
-  const match = response.data.match(/Digital\.jpg\"\ssrc=\"(.+?.jpg)\"/);
+  // const match = response.data.match(/Digital\.jpg\"\ssrc=\"(.+.jpg)\"/);
+  const match = response.data.match(/class="fullImageLink" id="file"><a href="(\/images\/[^.]+Digital\.jpg)\"/);
   if (!match || match.length < 2) {
     console.log(`Unable to find URL: ${card.name}`);
     return;

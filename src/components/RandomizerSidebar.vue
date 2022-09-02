@@ -12,7 +12,11 @@
         <div class="set" v-for="set in sets" :key="set.setId">
           <label class="checkbox">
             <input type="checkbox" v-model="selectedSetIds" :id="set.setId" :value="set.setId">
-            <span>{{ $t(set.setId) }}</span>
+            <span>{{ $t(set.setId) }} 
+              <span v-if="FindMultipleVersionSets(set.setId).length !== 0"> -  1st
+                <input type="checkbox" v-model="selectedSetIds" :id="(FindMultipleVersionSets(set.setId))[0].idv2" :value="(FindMultipleVersionSets(set.setId))[0].idv2">2nd
+              </span>
+            </span>
           </label>
         </div>
       </div>
@@ -100,6 +104,7 @@
 <script lang="ts">
 import { UPDATE_SETTINGS } from "../stores/randomizer/mutation-types";
 import { DominionSets } from "../dominion/dominion-sets";
+import { MultipleVersionSets, HideMultipleVersionSets } from "../dominion/set-id";
 import { Getter, State } from "vuex-class";
 import { SetId } from "../dominion/set-id";
 import { Vue, Component } from "vue-property-decorator";
@@ -123,7 +128,7 @@ export default class RandomizerSidebar extends Vue {
       readonly randomizerSettings!: RandomizerSettings;
 
   get sets() {
-    return DominionSets.getAllSets();
+    return DominionSets.getAllSets().filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
   }
 
   get selectedSetIds() {
@@ -138,7 +143,10 @@ export default class RandomizerSidebar extends Vue {
       selectedSets: values.map(DominionSets.convertToSetId)
     } as SettingsParams);
   }
-
+  
+  FindMultipleVersionSets(setValue: string) {
+    return MultipleVersionSets.filter(set => {return (set.id===setValue)})
+  }
   get requireActionProvider() {
     return this.randomizerSettings.requireActionProvider;
   }
