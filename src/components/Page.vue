@@ -115,7 +115,8 @@ export default class Page extends Vue {
   }
 
   get languages() {
-    return Object.keys(Language).map(key => Language[key as keyof typeof Language]);
+    return Object.keys(Language).map(key => Language[key as keyof typeof Language])
+                      .sort((a: Language, b: Language) => (this.$t(a) > this.$t(b)) ? 1 : -1);
   }
 
   getMenuItemUrl(url: string) {
