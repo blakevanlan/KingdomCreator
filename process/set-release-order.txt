@@ -11,4 +11,6 @@ adventures
 empires
 nocturne
 renaissance
+menagerie
 allies
+plunder

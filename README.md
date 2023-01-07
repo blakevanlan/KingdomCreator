@@ -36,3 +36,40 @@ $ sudo docker run \
     --volume="$(pwd)/docs://usr/share/nginx/html:ro" \
     "kingdom_creator:latest"
 ```
+
+### To add a new set
+
+to get images from dominionstrategy.com
+
+add type if needed. You will need to code a bit
+run either from directory "./process" : 
+`node download.js`
+but you will need to create some directories
+or run it from kingdom_creator root directory : 
+`node process/download.js`
+Images will be created for english version.
+
+to build kingdom file related to an expansion use
+`coffee kigndom.coffee`
+with in file kingdom.coffee
+string variable set with kingdom list 
+strings = ["Introduction: Cartographer, Crossroads, Develop, Jack of all Trades, Margrave, Nomads, Oasis, Spice Merchant, Stables, Weaver"]
+
+
+to translate cards in process directory 
+Use `node extract-card-names-concat.js`
+to create `src\i18n\messages\cards.{lang}.json` with card name translation
+The source is 1 file for each expansion
+pattern is `./process/resources/cards_translations - {expansion}.csv`
+
+to translate cards in process directory 
+Use `node extract-card-names.js`
+to create `src\i18n\messages\cards.{lang}.json` with card name translation
+The source is 1 file for all the expansions
+patern is `./process/resources/cards_translations.csv`
+
+to translate set name in process directory 
+Use `node extract-set-names.js`
+to create `src\i18n\messages\sets.{lang}.json` with card name translation
+The source is 1 file for all the expansions
+patern is `./process/resources/sets_name.csv`

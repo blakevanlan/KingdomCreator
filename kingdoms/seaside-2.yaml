@@ -1,0 +1,468 @@
+kingdoms:
+  - name: High Seas (2nd)
+    sets:
+      - seaside2
+    supply:
+      - seaside2_bazaar
+      - seaside2_caravan
+      - seaside2_blockade
+      - seaside2_corsair
+      - seaside2_haven
+      - seaside2_island
+      - seaside2_lookout
+      - seaside2_pirate
+      - seaside2_warehouse
+      - seaside2_wharf
+
+  - name: Buried Treasure (2nd)
+    sets:
+      - seaside2
+    supply:
+      - seaside2_astrolabe
+      - seaside2_cutpurse
+      - seaside2_fishingvillage
+      - seaside2_lighthouse
+      - seaside2_outpost
+      - seaside2_monkey
+      - seaside2_tactician
+      - seaside2_treasuremap
+      - seaside2_sailor
+      - seaside2_seachart
+
+  - name: Reach for Tomorrow (2nd)
+    sets:
+      - baseset2
+      - seaside2
+    supply:
+      - baseset2_cellar
+      - baseset2_councilroom
+      - baseset2_village
+      - baseset2_artisan
+      - baseset2_vassal
+      - seaside2_cutpurse
+      - seaside2_monkey
+      - seaside2_lookout
+      - seaside2_seawitch
+      - seaside2_treasuremap
+
+  - name: Repetition (2nd)
+    sets:
+      - baseset2
+      - seaside2
+    supply:
+      - baseset2_festival
+      - baseset2_militia
+      - baseset2_workshop
+      - baseset2_harbinger
+      - baseset2_remodel
+      - seaside2_caravan
+      - seaside2_seachart
+      - seaside2_outpost
+      - seaside2_pirate
+      - seaside2_treasury
+
+  - name: A Star to Steer by (2nd)
+    sets:
+      - intrigue2
+      - seaside2
+    supply:
+      - intrigue2_courtier
+      - intrigue2_diplomat
+      - intrigue2_secretpassage
+      - intrigue2_swindler
+      - intrigue2_wishingwell
+      - seaside2_bazaar
+      - seaside2_lookout
+      - seaside2_monkey
+      - seaside2_tidepools
+      - seaside2_treasuremap
+ 
+  - name: Shore Patrol (2nd)
+    sets:
+      - intrigue2
+      - seaside2
+    supply:
+      - intrigue2_patrol
+      - intrigue2_pawn
+      - intrigue2_replace
+      - intrigue2_shantytown
+      - intrigue2_tradingpost
+      - seaside2_cutpurse
+      - seaside2_island
+      - seaside2_lighthouse
+      - seaside2_seachart
+      - seaside2_wharf
+ 
+  - name: Gummed Up (2nd)
+    sets:
+      - alchemy
+      - seaside2
+    supply:
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_herbalist
+      - alchemy_philosophersstone
+      - alchemy_vineyard
+      - seaside2_haven
+      - seaside2_sailor
+      - seaside2_seawitch
+      - seaside2_seachart
+      - seaside2_warehouse
+     
+  - name: Exploding Kingdom (2nd)
+    sets:
+      - prosperity2
+      - seaside2
+    supply:
+      - prosperity2_bishop
+      - prosperity2_city
+      - prosperity2_grandmarket
+      - prosperity2_kingscourt
+      - prosperity2_quarry
+      - seaside2_fishingvillage
+      - seaside2_lookout
+      - seaside2_outpost
+      - seaside2_tactician
+      - seaside2_wharf
+    metadata:
+      colonies: true
+      
+  - name: Pirate Bay (2nd)
+    sets:
+      - prosperity2
+      - seaside2
+    supply:
+      - prosperity2_charlatan
+      - prosperity2_hoard
+      - prosperity2_investment
+      - prosperity2_magnate
+      - prosperity2_mint
+      - seaside2_corsair
+      - seaside2_astrolabe
+      - seaside2_monkey
+      - seaside2_nativevillage
+      - seaside2_treasury
+    metadata:
+      colonies: true
+      
+  - name: Travelers (2nd)
+    sets:
+      - hinterlands2
+      - seaside2
+    supply:
+      - hinterlands2_cartographer
+      - hinterlands2_crossroads
+      - hinterlands2_farmland
+      - hinterlands2_souk
+      - hinterlands2_stables
+      - seaside2_cutpurse
+      - seaside2_island
+      - seaside2_lookout
+      - seaside2_merchantship
+      - seaside2_warehouse
+      
+  - name: Runners (2nd)
+    sets:
+      - hinterlands2
+      - seaside2
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_cauldron
+      - hinterlands2_guarddog
+      - hinterlands2_nomads
+      - hinterlands2_wheelwright
+      - seaside2_bazaar
+      - seaside2_blockade
+      - seaside2_caravan
+      - seaside2_smugglers
+      - seaside2_sailor
+ 
+  - name: Collector (2nd)
+    sets:
+      - cornucopia
+      - seaside2
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_fortuneteller
+      - cornucopia_harvest
+      - cornucopia_huntingparty 
+      - seaside2_blockade
+      - seaside2_fishingvillage
+      - seaside2_merchantship
+      - seaside2_smugglers
+      - seaside2_tidepools
+      
+  - name: Island Builder (2nd)
+    sets:
+      - guilds
+      - seaside2
+    supply:
+      - guilds_advisor
+      - guilds_baker
+      - guilds_merchantguild
+      - guilds_plaza
+      - guilds_stonemason
+      - seaside2_island
+      - seaside2_nativevillage
+      - seaside2_salvager
+      - seaside2_seachart
+      - seaside2_treasury
+ 
+  - name: Watery Graves (2nd)
+    sets:
+      - darkages
+      - seaside2
+    supply:
+      - darkages_count
+      - darkages_graverobber
+      - darkages_hermit
+      - darkages_rats
+      - darkages_scavenger
+      - seaside2_corsair
+      - seaside2_nativevillage
+      - seaside2_salvager
+      - seaside2_treasuremap
+      - seaside2_treasury
+    metadata:
+      shelters: true
+      
+  - name: Peasants (2nd)
+    sets:
+      - darkages
+      - seaside2
+    supply:
+      - darkages_armory
+      - darkages_bandofmisfits
+      - darkages_poorhouse
+      - darkages_forager
+      - darkages_vagrant
+      - seaside2_fishingvillage
+      - seaside2_haven
+      - seaside2_island
+      - seaside2_lighthouse
+      - seaside2_warehouse
+    metadata:
+      shelters: true
+
+  - name: Prince of Orange (2nd)
+    sets:
+      - adventures
+      - seaside2
+    supply: 
+      - adventures_amulet 
+      - adventures_dungeon 
+      - adventures_hauntedwoods 
+      - adventures_page 
+      - adventures_swamphag
+      - seaside2_astrolabe 
+      - seaside2_caravan 
+      - seaside2_merchantship 
+      - seaside2_fishingvillage
+      - seaside2_sailor
+    events:
+      - adventures_event_mission
+
+  - name: Gifts and Mathoms (2nd)
+    sets:
+      - adventures
+      - seaside2
+    supply: 
+      - adventures_bridgetroll
+      - adventures_caravanguard 
+      - adventures_hireling 
+      - adventures_lostcity 
+      - adventures_messenger
+      - seaside2_blockade      
+      - seaside2_haven 
+      - seaside2_sailor 
+      - seaside2_salvager 
+      - seaside2_smugglers
+    events:
+      - adventures_event_expedition 
+      - adventures_event_quest
+
+  - name: Boxed In
+    sets:
+      - empires
+      - seaside2
+    supply:
+      - empires_castles
+      - empires_chariotrace
+      - empires_encampmentplunder
+      - empires_enchantress
+      - empires_gladiatorfortune
+      - seaside2_salvager
+      - seaside2_smugglers
+      - seaside2_tactician
+      - seaside2_warehouse
+      - seaside2_wharf
+    events:
+      - empires_event_tax
+    landmarks:
+      - empires_landmark_wall
+
+  - name: King of the Sea (2nd)
+    sets:
+      - empires
+      - seaside2
+    supply:
+      - empires_archive
+      - empires_farmersmarket
+      - empires_overlord
+      - empires_temple
+      - empires_wildhunt
+      - seaside2_corsair
+      - seaside2_haven
+      - seaside2_nativevillage
+      - seaside2_pirate
+      - seaside2_seawitch
+    events:
+      - empires_event_delve
+    landmarks:
+      - empires_landmark_fountain
+
+  - name: The New Black (2nd)
+    sets:
+      - nocturne
+      - seaside2
+    supply:
+      - nocturne_cobbler
+      - nocturne_denofsin
+      - nocturne_ghosttown
+      - nocturne_raider
+      - nocturne_secretcave
+      - seaside2_caravan
+      - seaside2_corsair
+      - seaside2_merchantship
+      - seaside2_sailor
+      - seaside2_tactician
+
+  - name: Forbidden Isle (2nd)
+    sets:
+      - nocturne
+      - seaside2
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cemetery
+      - nocturne_idol
+      - nocturne_tracker
+      - nocturne_tragichero
+      - seaside2_bazaar
+      - seaside2_monkey
+      - seaside2_pirate
+      - seaside2_salvager
+      - seaside2_tidepools
+
+  - name: Free Shipping (2nd)
+    sets:
+      - renaissance
+      - seaside2
+    supply:
+      - renaissance_actingtroupe
+      - renaissance_cargoship
+      - renaissance_lackeys
+      - renaissance_research
+      - renaissance_spices
+      - seaside2_blockade
+      - seaside2_island
+      - seaside2_outpost
+      - seaside2_smugglers
+      - seaside2_wharf
+    projects:
+      - renaissance_project_innovation
+
+  - name: Digging for Treasure (2nd)
+    sets:
+      - renaissance
+      - seaside2
+    supply:
+      - renaissance_borderguard
+      - renaissance_flagbearer
+      - renaissance_inventor
+      - renaissance_sculptor
+      - renaissance_swashbuckler
+      - seaside2_caravan
+      - seaside2_nativevillage
+      - seaside2_salvager
+      - seaside2_astrolabe
+      - seaside2_treasuremap
+    projects:
+      - renaissance_project_croprotation
+      - renaissance_project_silos
+
+  - name: Innsmouth (2nd)
+    sets:
+      - menagerie
+      - seaside2
+    supply:
+      - menagerie_animalfair
+      - menagerie_barge
+      - menagerie_coven
+      - menagerie_fisherman
+      - menagerie_sheepdog
+      - seaside2_caravan
+      - seaside2_lighthouse
+      - seaside2_fishingvillage
+      - seaside2_tidepools
+      - seaside2_pirate
+    events:
+      - menagerie_event_invest
+    ways:
+      - menagerie_way_wayofthegoat
+
+  - name: Ruritania (2nd)
+    sets:
+      - menagerie
+      - seaside2
+    supply:
+      - menagerie_bountyhunter
+      - menagerie_cavalry
+      - menagerie_falconer
+      - menagerie_sleigh
+      - menagerie_villagegreen
+      - seaside2_astrolabe
+      - seaside2_outpost
+      - seaside2_tidepools
+      - seaside2_tactician
+      - seaside2_warehouse
+    events:
+      - menagerie_event_alliance
+    ways:
+      - menagerie_way_wayofthemonkey
+
+  - name: Forward Thinking (2nd)
+    sets:
+      - allies
+      - seaside2
+    supply:
+      - allies_sentinel
+      - allies_guildmaster
+      - allies_highwayman
+      - allies_odysseys
+      - allies_royalgalley
+      - seaside2_cutpurse
+      - seaside2_nativevillage
+      - seaside2_seawitch
+      - seaside2_tactician
+      - seaside2_warehouse
+    allies:
+      - allies_ally_cavedwellers
+      
+  - name: Treasure Hunt
+    sets:
+      - allies
+      - seaside2
+    supply:
+      - allies_emissary
+      - allies_forts
+      - allies_marquis
+      - allies_swap
+      - allies_town
+      - seaside2_haven
+      - seaside2_lookout
+      - seaside2_outpost
+      - seaside2_treasuremap
+      - seaside2_treasury
+    allies:
+      - allies_ally_markettowns

@@ -1,0 +1,159 @@
+name: Prosperity (2nd)
+cards:
+  - name: Anvil
+    cost:
+      treasure: 3
+    isTreasure: true
+    isTrashing: true
+    
+  - name: Clerk
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isReaction: true
+
+  - name: Investment
+    cost:
+      treasure: 4
+    isTreasure: true
+    isTrashing: true
+
+  - name: Tiara
+    cost:
+      treasure: 4
+    isTreasure: true
+    isBuySupplier: true
+
+  - name: Charlatan
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    
+  - name: Collection
+    cost:
+      treasure: 5
+    isTreasure: true
+    isBuySupplier: true
+
+  - name: Crystal Ball
+    cost:
+      treasure: 5
+    isTreasure: true
+    isTrashing: true
+    
+  - name: Magnate
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: War Chest
+    cost:
+      treasure: 5
+    isTreasure: true
+
+  - name: Bank
+    cost:
+      treasure: 7
+    isTreasure: true
+
+  - name: City
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Bishop
+    cost:
+      treasure: 4
+    isAction: true
+    isTrashing: true
+
+  - name: Grand Market
+    cost:
+      treasure: 6
+    isAction: true
+    isBuySupplier: true
+
+  - name: Watchtower
+    cost:
+      treasure: 3
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTrashing: true
+    isReaction: true
+
+  - name: Expand
+    cost:
+      treasure: 7
+    isAction: true
+    isTrashing: true
+
+  - name: King's Court
+    cost:
+      treasure: 7
+    isAction: true
+
+  - name: Hoard
+    cost:
+      treasure: 6
+    isTreasure: true
+
+  - name: Peddler
+    cost:
+      treasure: 8
+    isAction: true
+    isDrawer: true
+
+  - name: Monument
+    cost:
+      treasure: 4
+    isAction: true
+
+  - name: Forge
+    cost:
+      treasure: 7
+    isAction: true
+    isTrashing: true
+
+  - name: Rabble
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Mint
+    cost:
+      treasure: 5
+    isAction: true
+
+  - name: Quarry
+    cost:
+      treasure: 4
+    isTreasure: true
+
+
+  - name: Worker's Village
+    cost:
+      treasure: 4
+    isAction: true
+    isActionSupplier: true
+    isBuySupplier: true
+
+  - name: Vault
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    
