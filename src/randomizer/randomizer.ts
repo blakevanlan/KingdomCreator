@@ -27,8 +27,11 @@ import {Way} from "../dominion/way";
 import {Ally} from "../dominion/ally";
 
 const SETS_WITH_DUPLICATES: {[index: string]: string} = {
-  'baseset2': 'baseset',
-  'intrigue2': 'intrigue'
+  'baseset': 'baseset2',
+  'intrigue': 'intrigue2',
+  'seaside': 'seaside2',
+  'prosperity': 'prosperity2',
+  'hinterlands': 'hinterlands2'
 };
 const MAX_RETRIES = 3;
 const NUM_CARDS_IN_KINGDOM = 10;
@@ -71,7 +74,10 @@ export class Randomizer {
     try {
       return this.createSupplyWithRetries(randomizerOptions);
     } catch (error) {
-      console.log(`Failed to create supply: \n${error.toString()}`);
+      if (typeof error === 'object' && error !== null)
+        console.log(`Failed to create supply: \n${error.toString()}`);
+      else
+        console.log(`Failed to create supply: \n error is not an object`);
       return null;
     }
   }
@@ -82,7 +88,10 @@ export class Randomizer {
       try {
         return this.createSupply(randomizerOptions);
       } catch (error) {
-        console.log(`Error when trying to select cards: \n${error.toString()}`);
+         if (typeof error === 'object' && error !== null)
+            console.log(`Error when trying to select cards: \n${error.toString()}`);
+          else
+            console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
@@ -339,7 +348,10 @@ export class Randomizer {
       try {
         return supplyBuilder.createSupply(existingCards);
       } catch (error) {
-        console.log(`Error when trying to select cards: \n${error.toString()}`);
+          if (typeof error === 'object' && error !== null) 
+            console.log(`Error when trying to select cards: \n${error.toString()}`);
+          else
+            console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }

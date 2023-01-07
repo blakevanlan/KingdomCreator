@@ -164,6 +164,8 @@ kingdoms:
       - prosperity_loan
       - prosperity_royalseal
       - prosperity_venture
+    metadata:
+      colonies: true
 
   - name: Day at the Races
     sets:
@@ -180,6 +182,8 @@ kingdoms:
       - prosperity_talisman
       - prosperity_traderoute
       - prosperity_watchtower
+    metadata:
+      colonies: true
 
   - name: The Endless Fair
     sets:
@@ -266,6 +270,8 @@ kingdoms:
       - nocturne_necromancer
       - nocturne_skulk
       - nocturne_tormentor
+    metadata:
+      shelters: true
 
   - name: Rats and Bats
     sets:
@@ -282,6 +288,8 @@ kingdoms:
       - nocturne_sacredgrove
       - nocturne_tracker
       - nocturne_vampire
+    metadata:
+      shelters: true
 
   - name: Monster Mash
     sets:
