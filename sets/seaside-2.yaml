@@ -32,7 +32,7 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: false
-	
+
   - name: Blockade
     cost:
       treasure: 4
@@ -98,8 +98,7 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: true
-  
-  
+
   - name: Smugglers
     cost:
       treasure: 3
@@ -286,7 +285,7 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: true
-	
+
   - name: Merchant Ship
     cost:
       treasure: 5
