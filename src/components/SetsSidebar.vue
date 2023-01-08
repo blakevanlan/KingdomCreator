@@ -33,7 +33,7 @@ const SETS_TO_IGNORE = new Set([SetId.PROMOS]);
 export default class SetsSidebar extends Vue {
   get sets() {
     return DominionSets.getAllSets().filter((set) => !SETS_TO_IGNORE.has(set.setId))
-                                    .filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
+                  .filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
   }
 
   get selectedSetId() {

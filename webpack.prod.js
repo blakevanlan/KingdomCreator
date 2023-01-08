@@ -23,11 +23,11 @@ module.exports = merge(common(true), {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ["*", 
            "!favicon.ico", 
-		   "!CNAME", 
-		   "!rules", 
-		   "!rules.fr", 
-		   "!img", 
-		   "!ads.txt"]
+           "!CNAME", 
+           "!rules", 
+           "!rules.fr", 
+           "!img", 
+           "!ads.txt"]
     }),
   ]
 });
