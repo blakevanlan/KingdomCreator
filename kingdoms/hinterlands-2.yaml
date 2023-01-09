@@ -192,8 +192,6 @@ kingdoms:
       - hinterlands2_tunnel
       - hinterlands2_weaver
       - hinterlands2_witchshut
-    metadata:
-      colonies: true
 
   - name: Exchanges (2nd)
     sets:

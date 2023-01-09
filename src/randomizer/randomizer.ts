@@ -269,21 +269,27 @@ export class Randomizer {
 
   static getMetadata(setIds: SetId[]) {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
-    const useColonies = this.shouldUseSpecialtyCardFromSet(SetId.PROSPERITY, setsToUse);
-    const useShelters = this.shouldUseSpecialtyCardFromSet(SetId.DARK_AGES, setsToUse);
+    const useColonies = this.shouldUseSpecialtyCardFromSet([SetId.PROSPERITY, SetId.PROSPERITY_2], setsToUse) ;
+    const useShelters = this.shouldUseSpecialtyCardFromSet([SetId.DARK_AGES], setsToUse);
     return new KingdomMetadata(useColonies, useShelters);
   }
 
-  private static shouldUseSpecialtyCardFromSet(setId: SetId, setsBeingUsed: DominionSet[]) {
-    const index = setsBeingUsed.map((set) => set.setId).indexOf(setId);
-    if (index == -1) {
+  private static shouldUseSpecialtyCardFromSet(setIds: SetId[], setsBeingUsed: DominionSet[]) {
+    const indexes = setIds.map((setId) => setsBeingUsed.map((set) => set.setId).indexOf(setId));
+    if (indexes.every(element => element == -1)) {
       return false;
     }
-    const numberOfSpecialtySetCards = setsBeingUsed[index].supplyCards.length;
-    let numberOfCardsBeingUsed = 0;
-    for (let set of setsBeingUsed) {
-      numberOfCardsBeingUsed += set.supplyCards.length;
-    }
+    const numberOfSpecialtySetCards = this.removeDuplicateCards(
+      indexes
+        .filter(val => val !== -1)
+        .map( (index) => setsBeingUsed[index].supplyCards)
+        .reduce((partialSum, a) => partialSum.concat(a), [])
+      , []).length
+    const numberOfCardsBeingUsed = this.removeDuplicateCards(
+      setsBeingUsed
+        .map( (setBeingUsed) => setBeingUsed.supplyCards)
+        .reduce((partialSum, a) => partialSum.concat(a), [])
+      , []).length
     const randomIndex = getRandomInt(0, numberOfCardsBeingUsed);
     return randomIndex < numberOfSpecialtySetCards;
   }

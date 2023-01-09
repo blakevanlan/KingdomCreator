@@ -194,6 +194,8 @@ kingdoms:
       - empires_event_dominate
     landmarks:
       - empires_landmark_obelisk
+    metadata:
+      colonies: true
 
   - name: Gilded Gates
     sets:
@@ -213,6 +215,8 @@ kingdoms:
     landmarks:
       - empires_landmark_basilica
       - empires_landmark_palace
+    metadata:
+      colonies: true
 
   - name: Zookeepers
     sets:
@@ -311,6 +315,8 @@ kingdoms:
       - empires_event_advance
     landmarks:
       - empires_landmark_tomb
+    metadata:
+      shelters: true
 
   - name: Triumph of the Bandit King
     sets:
@@ -331,6 +337,8 @@ kingdoms:
       - empires_event_triumph
     landmarks:
       - empires_landmark_defiledshrine
+    metadata:
+      shelters: true
 
   - name: The Squire's Ritual
     sets:
@@ -351,6 +359,8 @@ kingdoms:
       - empires_event_ritual
     landmarks:
       - empires_landmark_museum
+    metadata:
+      shelters: true
 
   - name: Area Control
     sets:

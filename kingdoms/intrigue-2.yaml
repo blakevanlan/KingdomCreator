@@ -203,6 +203,8 @@ kingdoms:
       - prosperity_goons
       - prosperity_monument
       - prosperity_peddler
+    metadata:
+      colonies: true
 
   - name: All Along the Watchtower
     sets:
@@ -219,6 +221,8 @@ kingdoms:
       - prosperity_traderoute
       - prosperity_vault
       - prosperity_watchtower
+    metadata:
+      colonies: true
 
   - name: Lucky Seven
     sets:
@@ -235,6 +239,8 @@ kingdoms:
       - prosperity_forge
       - prosperity_kingscourt
       - prosperity_vault
+    metadata:
+      colonies: true
 
   - name: Last Laughs
     sets:
@@ -380,6 +386,8 @@ kingdoms:
       - intrigue2_nobles
       - intrigue2_secretpassage
       - intrigue2_wishingwell
+    metadata:
+      shelters: true
 
   - name: Invasion
     sets:
@@ -396,6 +404,8 @@ kingdoms:
       - intrigue2_swindler
       - intrigue2_torturer
       - intrigue2_upgrade
+    metadata:
+      shelters: true
 
   - name: Royalty Factory
     sets:
