@@ -14,6 +14,8 @@ kingdoms:
       - prosperity_hoard
       - prosperity_mint
       - prosperity_watchtower
+    metadata:
+      colonies: true
 
   - name: Treasure Trove
     sets:
@@ -30,6 +32,8 @@ kingdoms:
       - prosperity_royalseal
       - prosperity_traderoute
       - prosperity_venture
+    metadata:
+      colonies: true
 
   - name: Blue Harvest
     sets:

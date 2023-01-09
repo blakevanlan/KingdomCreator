@@ -79,7 +79,7 @@ kingdoms:
       - intrigue_greathall
       - intrigue_miningvillage
       - intrigue_tribute
-    baseCard: intrigue_wishingwell
+    bane: intrigue_wishingwell
 
   - name: Small Victories
     sets:

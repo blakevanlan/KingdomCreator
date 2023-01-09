@@ -48,6 +48,8 @@ kingdoms:
       - baseset_throneroom
       - baseset_witch
       - baseset_workshop
+    metadata:
+      shelters: true
 
   - name: Chivalry and Revelry
     sets:
@@ -64,6 +66,8 @@ kingdoms:
       - baseset_laboratory
       - baseset_library
       - baseset_remodel
+    metadata:
+      shelters: true
 
   - name: Prophecy
     sets:
@@ -80,6 +84,8 @@ kingdoms:
       - intrigue_greathall
       - intrigue_nobles
       - intrigue_wishingwell
+    metadata:
+      shelters: true
 
   - name: Invasion
     sets:
@@ -96,6 +102,8 @@ kingdoms:
       - intrigue_swindler
       - intrigue_torturer
       - intrigue_upgrade
+    metadata:
+      shelters: true
 
   - name: Watery Grave
     sets:
@@ -112,6 +120,8 @@ kingdoms:
       - seaside_salvager
       - seaside_treasuremap
       - seaside_treasury
+    metadata:
+      shelters: true
 
   - name: Peasants
     sets:
@@ -128,6 +138,8 @@ kingdoms:
       - seaside_island
       - seaside_lookout
       - seaside_warehouse
+    metadata:
+      shelters: true
 
   - name: Infestations
     sets:
@@ -144,6 +156,8 @@ kingdoms:
       - alchemy_scryingpool
       - alchemy_transmute
       - alchemy_vineyard
+    metadata:
+      shelters: true
 
   - name: Lamentations
     sets:
@@ -160,6 +174,8 @@ kingdoms:
       - alchemy_golem
       - alchemy_herbalist
       - alchemy_university
+    metadata:
+      shelters: true
 
   - name: One Man's Trash
     sets:
@@ -176,6 +192,9 @@ kingdoms:
       - prosperity_monument
       - prosperity_talisman
       - prosperity_venture
+    metadata:
+      colonies: true
+      shelters: true
 
   - name: Honor Among Thieves
     sets:
@@ -192,6 +211,9 @@ kingdoms:
       - prosperity_peddler
       - prosperity_quarry
       - prosperity_watchtower
+    metadata:
+      colonies: true
+      shelters: true
 
   - name: Dark Carnival
     sets:
@@ -208,6 +230,8 @@ kingdoms:
       - cornucopia_hamlet
       - cornucopia_hornofplenty
       - cornucopia_menagerie
+    metadata:
+      shelters: true
 
   - name: To the Victor
     sets:
@@ -224,6 +248,8 @@ kingdoms:
       - cornucopia_huntingparty
       - cornucopia_remake
       - cornucopia_tournament
+    metadata:
+      shelters: true
 
   - name: Far From Home
     sets:
@@ -240,6 +266,8 @@ kingdoms:
       - hinterlands_embassy
       - hinterlands_foolsgold
       - hinterlands_haggler
+    metadata:
+      shelters: true
 
   - name: Expeditions
     sets:
@@ -256,3 +284,5 @@ kingdoms:
       - hinterlands_highway
       - hinterlands_spicemerchant
       - hinterlands_tunnel
+    metadata:
+      shelters: true
