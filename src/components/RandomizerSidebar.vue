@@ -4,10 +4,10 @@
       v-if="!isCondensed"
       @click="handleRandomize"
     >
-      {{ randomizeButtonText }}
+      {{ $t(randomizeButtonText) }}
     </a>
     <div class="sidebar-content filters">
-      <div class="sidebar-content-title">Sets</div>
+      <div class="sidebar-content-title">{{ $t('sets') }}</div>
       <div class="sets">
         <div class="set" v-for="set in sets" :key="set.setId">
           <label class="checkbox">
@@ -21,74 +21,74 @@
         </div>
       </div>
       <div class="clear"></div>
-      <div class="sidebar-content-title">Options</div>
+      <div class="sidebar-content-title">{{ $t('options') }}</div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireActionProvider">
-          <span>Require +2 Action</span>
+          <span>{{ $t('require_action') }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireCardProvider">
-          <span>Require Drawer</span>
+          <span>{{ $t('require_drawer') }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireBuyProvider">
-          <span>Require Buy</span>
+          <span>{{  $t('require_buy') }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="allowAttacks">
-          <span>Allow Attacks</span>
+          <span>{{ $t('allow_attacks')  }}</span>
         </label>
         <div class="suboption">
           <label class="checkbox" :class="{disable: !allowAttacks}">
             <input type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
-            <span>Require Reaction</span>
+            <span>{{ $t('require_reaction') }}</span>
           </label>
         </div>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireTrashing">
-          <span>Require Trashing</span>
+          <span>{{ $t('require_trashing') }}</span>
         </label>
       </div>
       <div class="option" v-if="isAlchemySelected">
         <label class="checkbox">
           <input type="checkbox" v-model="isAlchemyRecommendationEnabled">
-          <span>3+ Alchemy Cards</span>
+          <span>{{ $t('alchemy_cards') }}</span>
         </label>
       </div>
       <div class="option" v-if="isDistributeCostAllowed">
         <label class="checkbox">
           <input type="checkbox" v-model="distributeCost">
-          <span>Distribute Cost</span>
+          <span>{{ $t('distribute_cost') }}</span>
         </label>
       </div>
       <div class="option" v-if="isPrioritizeSetAllowed">
         <label class="checkbox">
           <input type="checkbox" v-model="isPrioritizeSetEnabled">
-          <span>Prioritize Set</span>
+          <span>{{ $t('prioritize_set') }}</span>
         </label>
         <div class="suboption">
           <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
-            <option v-if="prioritizeSet == null" :value="null">Choose set...</option>
+            <option v-if="prioritizeSet == null" :value="null">{{ $t('choose_set') }}</option>
             <option v-for="setId in selectedSetIds" :value="setId" :key="setId">
-              {{ getSetName(setId) }}
+              {{ $t(setId) }}
             </option>
           </select>
         </div>
       </div>
-      <div class="sidebar-content-title">Sort</div>
+      <div class="sidebar-content-title">{{ $t('sort') }}</div>
       <div class="option" v-for="sortOption in sortOptions" :key="sortOption.value">
         <label class="checkbox">
           <input type="radio" name="sortOption" :value="sortOption.value" v-model="selectedSortOption">
-          <span>{{ sortOption.display }}</span>
+          <span>{{ $t(sortOption.display) }}</span>
         </label>
       </div>
       <a class="standard-button standard-button--is-primary standard-button--large condensed_randomize-button"
@@ -222,9 +222,9 @@ export default class RandomizerSidebar extends Vue {
 
   get sortOptions(): SortOptionParam[] {
     return [
-      {display: "Set", value: SortOption.SET},
-      {display: "Alphabetical", value: SortOption.ALPHABETICAL},
-      {display: "Cost", value: SortOption.COST},
+      {display: "set", value: SortOption.SET},
+      {display: "alphabetical", value: SortOption.ALPHABETICAL},
+      {display: "cost", value: SortOption.COST},
     ];
   }
 

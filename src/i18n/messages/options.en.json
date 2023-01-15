@@ -1,0 +1,19 @@
+{
+    "randomize": "Randomize!",
+    "replace": "Replace!",
+    "sets": "Sets",
+    "require_action": "Require +2 Action",
+    "require_drawer": "Require Drawer",
+    "require_buy": "Require Buy",
+    "allow_attacks": "Allow Attacks",
+    "require_reaction": "Require Reaction",
+    "require_trashing": "Require Trashing",
+    "alchemy_cards": "3+ Alchemy Cards",
+    "distribute_cost": "Distribute Cost",
+    "prioritize_set": "Prioritize Set",
+    "choose_set": "Choose set...",
+    "sort": "Sort",
+    "set": "Set",
+    "alphabetical": "Alphabetical",
+    "cost": "Cost"
+}

@@ -1,0 +1,20 @@
+{
+    "randomize": "Randomisieren!",
+    "replace": "Ersetzen!",
+    "sets": "Sets",
+    "options": "Optionen",
+    "require_action": "Mit +2 Aktionen",
+    "require_drawer": "Mit Kartenziehen",
+    "require_buy": "Mit Kauf",
+    "allow_attacks": "Attacken Erlauben",
+    "require_reaction": "Mit Reaktion",
+    "require_trashing": "Mit Entsorgung",
+    "alchemy_cards": "3+ Alchemie Karten",
+    "distribute_cost": "Kosten Verteilen",
+    "prioritize_set": "Priorisiere Set",
+    "choose_set": "Wähle Set...",
+    "sort": "Sortieren",
+    "set": "Nach Set",
+    "alphabetical": "Alphabetisch",
+    "cost": "Nach Kosten"
+}

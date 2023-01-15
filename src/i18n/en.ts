@@ -1,6 +1,7 @@
 import { DominionSets } from "../dominion/dominion-sets";
 import * as Common from "./messages/common.en.json";
 import * as Languages from "./messages/languages.en.json";
+import * as Options from "./messages/options.en.json";
 import * as PageIndex from "./messages/page-index.en.json";
 import * as PageRules from "./messages/page-rules.en.json";
 import * as PageSets from "./messages/page-sets.en.json";
@@ -28,6 +29,7 @@ export default {
   ...createSetMessages(),
   ...(Common as any).default,
   ...(Languages as any).default,
+  ...(Options as any).default,
   ...(PageIndex as any).default,
   ...(PageRules as any).default,
   ...(PageSets as any).default,
