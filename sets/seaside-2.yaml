@@ -1,0 +1,310 @@
+name: Seaside (2nd)
+cards:
+  - name: Astrolabe
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Monkey
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Sea Chart
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Blockade
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Sailor
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Tide Pools
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Corsair
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Pirate
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+    isDuration: true
+  
+  - name: Sea Witch
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Smugglers
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Salvager
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Haven
+    cost:
+      treasure: 2
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Native Village
+    cost:
+      treasure: 2
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+
+  - name: Tactician
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isActionSupplier: false
+    isBuySupplier: true
+
+  - name: Fishing Village
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isActionSupplier: true
+
+  - name: Island
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Wharf
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    isBuySupplier: true
+
+  - name: Bazaar
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: true
+
+  - name: Treasure Map
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Lookout
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+    isDuration: false
+
+  - name: Treasury
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Cutpurse
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Caravan
+    cost:
+      treasure: 4
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Warehouse
+    cost:
+      treasure: 3
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+
+  - name: Lighthouse
+    cost:
+      treasure: 2
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Merchant Ship
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+
+  - name: Outpost
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: true
+    

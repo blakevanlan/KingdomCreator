@@ -1,0 +1,472 @@
+kingdoms:
+  - name: Introduction (2nd)
+    sets:
+      - hinterlands2
+    supply:
+      - hinterlands2_cartographer
+      - hinterlands2_crossroads
+      - hinterlands2_develop
+      - hinterlands2_jackofalltrades
+      - hinterlands2_margrave
+      - hinterlands2_nomads
+      - hinterlands2_oasis
+      - hinterlands2_spicemerchant
+      - hinterlands2_stables
+      - hinterlands2_weaver
+
+  - name: Bargains (2nd)
+    sets:
+      - hinterlands2
+    supply:
+      - hinterlands2_bordervillage
+      - hinterlands2_cauldron
+      - hinterlands2_foolsgold
+      - hinterlands2_haggler
+      - hinterlands2_highway
+      - hinterlands2_scheme
+      - hinterlands2_souk
+      - hinterlands2_trader
+      - hinterlands2_trail
+      - hinterlands2_wheelwright
+
+  - name: Happy Trails
+    sets:
+      - baseset2
+      - hinterlands2
+    supply:
+      - baseset2_cellar
+      - baseset2_library
+      - baseset2_moneylender
+      - baseset2_throneroom
+      - baseset2_workshop
+      - hinterlands2_berserker
+      - hinterlands2_highway
+      - hinterlands2_nomads
+      - hinterlands2_oasis
+      - hinterlands2_trail
+
+  - name: Adventures Abroad (3rd)
+    sets:
+      - baseset2
+      - hinterlands2
+    supply:
+      - baseset2_festival
+      - baseset2_laboratory
+      - baseset2_remodel
+      - baseset2_sentry
+      - baseset2_vassal
+      - hinterlands2_crossroads
+      - hinterlands2_foolsgold
+      - hinterlands2_guarddog
+      - hinterlands2_souk
+      - hinterlands2_witchshut
+
+  - name: Money for Nothing (3rd)
+    sets:
+      - hinterlands2
+      - intrigue2
+    supply:
+      - hinterlands2_cartographer
+      - hinterlands2_jackofalltrades
+      - hinterlands2_tunnel
+      - hinterlands2_weaver
+      - hinterlands2_wheelwright
+      - intrigue2_patrol
+      - intrigue2_pawn
+      - intrigue2_replace
+      - intrigue2_shantytown
+      - intrigue2_torturer
+
+  - name: The Duke's Ball (3rd)
+    sets:
+      - hinterlands2
+      - intrigue2
+    supply:
+      - hinterlands2_guarddog
+      - hinterlands2_inn
+      - hinterlands2_scheme
+      - hinterlands2_trail
+      - hinterlands2_wheelwright
+      - intrigue2_conspirator
+      - intrigue2_duke
+      - intrigue2_harem
+      - intrigue2_masquerade
+      - intrigue2_upgrade
+
+  - name: Travelers (2nd)
+    sets:
+      - hinterlands2
+      - seaside2
+    supply:
+      - hinterlands2_cartographer
+      - hinterlands2_crossroads
+      - hinterlands2_farmland
+      - hinterlands2_souk
+      - hinterlands2_stables
+      - seaside2_cutpurse
+      - seaside2_island
+      - seaside2_lookout
+      - seaside2_merchantship
+      - seaside2_warehouse
+
+  - name: Runners
+    sets:
+      - hinterlands2
+      - seaside2
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_cauldron
+      - hinterlands2_guarddog
+      - hinterlands2_nomads
+      - hinterlands2_wheelwright
+      - seaside2_bazaar
+      - seaside2_blockade
+      - seaside2_caravan
+      - seaside2_sailor
+      - seaside2_smugglers
+
+  - name: Wine Country (2nd)
+    sets:
+      - alchemy
+      - hinterlands2
+    supply:
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_golem
+      - alchemy_university
+      - alchemy_vineyard
+      - hinterlands2_farmland
+      - hinterlands2_guarddog
+      - hinterlands2_highway
+      - hinterlands2_margrave
+      - hinterlands2_nomads
+
+  - name: Instant Gratification (2nd)
+    sets:
+      - hinterlands2
+      - prosperity2
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_cauldron
+      - hinterlands2_haggler
+      - hinterlands2_oasis
+      - hinterlands2_trail
+      - prosperity2_bishop
+      - prosperity2_expand
+      - prosperity2_hoard
+      - prosperity2_mint
+      - prosperity2_watchtower
+    metadata:
+      colonies: true
+
+  - name: Treasure Trove (2nd)
+    sets:
+      - hinterlands2
+      - prosperity2
+    supply:
+      - hinterlands2_cauldron
+      - hinterlands2_develop
+      - hinterlands2_foolsgold
+      - hinterlands2_guarddog
+      - hinterlands2_inn
+      - prosperity2_bank
+      - prosperity2_clerk
+      - prosperity2_crystalball
+      - prosperity2_monument
+      - prosperity2_tiara
+    metadata:
+      colonies: true
+
+  - name: Blue Harvest (2nd)
+    sets:
+      - cornucopia
+      - hinterlands2
+    supply:
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_tournament
+      - hinterlands2_foolsgold
+      - hinterlands2_trail
+      - hinterlands2_tunnel
+      - hinterlands2_weaver
+      - hinterlands2_witchshut
+
+  - name: Exchanges (2nd)
+    sets:
+      - guilds
+      - hinterlands2
+    supply:
+      - guilds_butcher
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_soothsayer
+      - guilds_stonemason
+      - hinterlands2_bordervillage
+      - hinterlands2_cauldron
+      - hinterlands2_develop
+      - hinterlands2_stables
+      - hinterlands2_trader
+
+  - name: Far From Home (2nd)
+    sets:
+      - darkages
+      - hinterlands2
+    supply:
+      - darkages_catacombs
+      - darkages_count
+      - darkages_feodum
+      - darkages_fortress
+      - darkages_wanderingminstrel
+      - hinterlands2_cartographer
+      - hinterlands2_develop
+      - hinterlands2_foolsgold
+      - hinterlands2_weaver
+      - hinterlands2_witchshut
+    metadata:
+      shelters: true
+
+  - name: Expeditions (2nd)
+    sets:
+      - darkages
+      - hinterlands2
+    supply:
+      - darkages_altar
+      - darkages_catacombs
+      - darkages_ironmonger
+      - darkages_poorhouse
+      - darkages_storeroom
+      - hinterlands2_highway
+      - hinterlands2_nomads
+      - hinterlands2_oasis
+      - hinterlands2_scheme
+      - hinterlands2_spicemerchant
+    metadata:
+      shelters: true
+
+  - name: Traders and Raiders (2nd)
+    sets:
+      - adventures
+      - hinterlands2
+    supply:
+      - adventures_hauntedwoods
+      - adventures_lostcity
+      - adventures_page
+      - adventures_port
+      - adventures_winemerchant
+      - hinterlands2_berserker
+      - hinterlands2_guarddog
+      - hinterlands2_haggler
+      - hinterlands2_spicemerchant
+      - hinterlands2_trader
+    events:
+      - adventures_event_raid
+
+  - name: Journeys (2nd)
+    sets:
+      - adventures
+      - hinterlands2
+    supply:
+      - adventures_bridgetroll
+      - adventures_distantlands
+      - adventures_giant
+      - adventures_guide
+      - adventures_ranger
+      - hinterlands2_cartographer
+      - hinterlands2_crossroads
+      - hinterlands2_highway
+      - hinterlands2_inn
+      - hinterlands2_trail
+    events:
+      - adventures_event_expedition
+      - adventures_event_inheritance
+
+  - name: Simple Plans (2nd)
+    sets:
+      - empires
+      - hinterlands2
+    supply:
+      - empires_catapultrocks
+      - empires_enchantress
+      - empires_forum
+      - empires_patricianemporium
+      - empires_villa
+      - hinterlands2_bordervillage
+      - hinterlands2_cauldron
+      - hinterlands2_haggler
+      - hinterlands2_stables
+      - hinterlands2_wheelwright
+    events:
+      - empires_event_donate
+    landmarks:
+      - empires_landmark_labyrinth
+
+  - name: Expansion (2nd)
+    sets:
+      - empires
+      - hinterlands2
+    supply:
+      - empires_castles
+      - empires_charm
+      - empires_encampmentplunder
+      - empires_engineer
+      - empires_legionary
+      - hinterlands2_farmland
+      - hinterlands2_oasis
+      - hinterlands2_spicemerchant
+      - hinterlands2_stables
+      - hinterlands2_tunnel
+    landmarks:
+      - empires_landmark_battlefield
+      - empires_landmark_fountain
+
+  - name: Search Party
+    sets:
+      - hinterlands2
+      - nocturne
+    supply:
+      - hinterlands2_cartographer
+      - hinterlands2_inn
+      - hinterlands2_oasis
+      - hinterlands2_scheme
+      - hinterlands2_souk
+      - nocturne_cobbler
+      - nocturne_conclave
+      - nocturne_druid
+      - nocturne_faithfulhound
+      - nocturne_werewolf
+    boons:
+      - nocturne_boon_themountainsgift
+      - nocturne_boon_theskysgift
+      - nocturne_boon_thesunsgift
+
+  - name: Counting Sheep
+    sets:
+      - hinterlands2
+      - nocturne
+    supply:
+      - hinterlands2_crossroads
+      - hinterlands2_farmland
+      - hinterlands2_oasis
+      - hinterlands2_tunnel
+      - hinterlands2_weaver
+      - nocturne_crypt
+      - nocturne_leprechaun
+      - nocturne_pooka
+      - nocturne_secretcave
+      - nocturne_shepherd
+
+  - name: Sweetened Deals
+    sets:
+      - hinterlands2
+      - renaissance
+    supply:
+      - hinterlands2_develop
+      - hinterlands2_guarddog
+      - hinterlands2_haggler
+      - hinterlands2_spicemerchant
+      - hinterlands2_witchshut
+      - renaissance_flagbearer
+      - renaissance_lackeys
+      - renaissance_mountainvillage
+      - renaissance_silkmerchant
+      - renaissance_spices
+    projects:
+      - renaissance_project_silos
+
+  - name: A Penny Saved
+    sets:
+      - hinterlands2
+      - renaissance
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_bordervillage
+      - hinterlands2_oasis
+      - hinterlands2_souk
+      - hinterlands2_trader
+      - renaissance_ducat
+      - renaissance_patron
+      - renaissance_scepter
+      - renaissance_seer
+      - renaissance_swashbuckler
+    projects:
+      - renaissance_project_barracks
+      - renaissance_project_guildhall
+
+  - name: Big Blue
+    sets:
+      - hinterlands2
+      - menagerie
+    supply:
+      - hinterlands2_trader
+      - hinterlands2_trail
+      - hinterlands2_tunnel
+      - hinterlands2_weaver
+      - hinterlands2_witchshut
+      - menagerie_blackcat
+      - menagerie_falconer
+      - menagerie_sheepdog
+      - menagerie_sleigh
+      - menagerie_villagegreen
+    events:
+      - menagerie_event_banish
+    ways:
+      - menagerie_way_wayoftheturtle
+
+  - name: Intersection
+    sets:
+      - hinterlands2
+      - menagerie
+    supply:
+      - hinterlands2_develop
+      - hinterlands2_farmland
+      - hinterlands2_nomads
+      - hinterlands2_stables
+      - hinterlands2_wheelwright
+      - menagerie_cardinal
+      - menagerie_hostelry
+      - menagerie_livery
+      - menagerie_mastermind
+      - menagerie_supplies
+    events:
+      - menagerie_event_gamble
+    ways:
+      - menagerie_way_wayofthemouse
+
+  - name: Longest Tunnel
+    sets:
+      - allies
+      - hinterlands2
+    supply:
+      - allies_bauble
+      - allies_capitalcity
+      - allies_carpenter
+      - allies_contract
+      - allies_innkeeper
+      - hinterlands2_haggler
+      - hinterlands2_jackofalltrades
+      - hinterlands2_margrave
+      - hinterlands2_trail
+      - hinterlands2_tunnel
+    allies:
+      - allies_ally_fellowshipofscribes
+
+  - name: Expertise
+    sets:
+      - allies
+      - hinterlands2
+    supply:
+      - allies_barbarian
+      - allies_highwayman
+      - allies_specialist
+      - allies_townsfolk
+      - allies_underling
+      - hinterlands2_bordervillage
+      - hinterlands2_crossroads
+      - hinterlands2_highway
+      - hinterlands2_inn
+      - hinterlands2_spicemerchant
+    allies:
+      - allies_ally_orderofmasons
+

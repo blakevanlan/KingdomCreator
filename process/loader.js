@@ -30,8 +30,8 @@ const convertToWayId = function(setId, name) {
    return setId + '_way_' + tokenize(name);
 };
 
-const convertToAlliesId = function(setId, name) {
-   return setId + '_allies_' + tokenize(name);
+const convertToAllyId = function(setId, name) {
+   return setId + '_ally_' + tokenize(name);
 };
 
 const loadFilesFromDirectory = function(directory) {
@@ -40,7 +40,8 @@ const loadFilesFromDirectory = function(directory) {
    for (let i = 0; i < files.length; i++) {
       const filename = path.join(directory, files[i]);
       const id = tokenize(path.basename(files[i], '.yaml'));
-      values[id] = yaml.safeLoad(fs.readFileSync(filename, 'utf8'));
+      values[id] = yaml.load(fs.readFileSync(filename, 'utf8'));
+
    }
    return values;
 };
@@ -106,7 +107,7 @@ const loadSets = function() {
       if (set.allies) {
          for (var i = 0; i < set.allies.length; i++) {
             var card = set.allies[i];
-            card.id = convertToAlliesId(setId, card.name);
+            card.id = convertToAllyId(setId, card.name);
             card.shortId = tokenize(card.name);
             card.setId = setId;
          }
@@ -127,6 +128,8 @@ module.exports = {
    convertToEventId: convertToEventId,
    convertToLandmarkId: convertToLandmarkId,
    convertToBoonId: convertToBoonId,
+   convertToWayId: convertToWayId,
+   convertToAllyId: convertToAllyId,
    loadSets: loadSets,
    loadKingdoms: loadKingdoms,
 };

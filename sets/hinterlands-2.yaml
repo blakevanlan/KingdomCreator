@@ -1,0 +1,265 @@
+name: Hinterlands (2nd)
+cards:
+  - name: Border Village
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isActionSupplier: true
+
+  - name: Fool's Gold
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: true
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+
+  - name: Trader
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+
+  - name: Highway
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Trail
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isReaction: true
+
+  - name: Weaver
+    cost:
+      treasure: 4
+    isAction: true
+    isReaction: true
+
+  - name: Berserker
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+
+  - name: Cauldron
+    cost:
+      treasure: 5
+    isAttack: true
+    isBuySupplier: true
+    isTreasure: true
+
+  - name: Spice Merchant
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Guard Dog
+    cost:
+      treasure: 3
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isReaction: true
+
+  - name: Cartographer
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Farmland
+    cost:
+      treasure: 6
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+
+  - name: Nomads
+    cost:
+      treasure: 4
+    isAction: true
+    isBuySupplier: true
+
+  - name: Margrave
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isBuySupplier: true
+
+  - name: Haggler
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Scheme
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Inn
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isActionSupplier: true
+
+  - name: Tunnel
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: false
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: true
+
+  - name: Crossroads
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isActionSupplier: true
+
+  - name: Develop
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false
+
+  - name: Oasis
+    cost:
+      treasure: 3
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Souk
+    cost:
+      treasure: 5
+    isBuySupplier: true
+    isAction: true
+
+  - name: Wheelwright
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+
+  - name: Witch's Hut
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+
+  - name: Stables
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+
+  - name: Jack of All Trades
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: true
+    isReaction: false

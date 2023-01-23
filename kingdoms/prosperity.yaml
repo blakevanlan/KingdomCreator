@@ -13,6 +13,8 @@ kingdoms:
       - prosperity_venture
       - prosperity_watchtower
       - prosperity_workersvillage
+    metadata:
+      colonies: true
 
   - name: Friendly Interactive
     sets:
@@ -28,6 +30,8 @@ kingdoms:
       - prosperity_traderoute
       - prosperity_vault
       - prosperity_workersvillage
+    metadata:
+      colonies: true
 
   - name: Big Actions
     sets:
@@ -43,6 +47,8 @@ kingdoms:
       - prosperity_rabble
       - prosperity_talisman
       - prosperity_vault
+    metadata:
+      colonies: true
 
   - name: Biggest Money
     sets:
@@ -59,6 +65,8 @@ kingdoms:
       - prosperity_mint
       - prosperity_royalseal
       - prosperity_venture
+    metadata:
+      colonies: true
 
   - name: The King's Army
     sets:
@@ -75,6 +83,8 @@ kingdoms:
       - prosperity_kingscourt
       - prosperity_rabble
       - prosperity_vault
+    metadata:
+      colonies: true
 
   - name: The Good Life
     sets:
@@ -91,6 +101,8 @@ kingdoms:
       - prosperity_hoard
       - prosperity_monument
       - prosperity_mountebank
+    metadata:
+      colonies: true
 
   - name: Paths to Victory
     sets:
@@ -107,6 +119,8 @@ kingdoms:
       - prosperity_goons
       - prosperity_monument
       - prosperity_peddler
+    metadata:
+      colonies: true
 
   - name: All Along the Watchtower
     sets:
@@ -123,6 +137,8 @@ kingdoms:
       - prosperity_traderoute
       - prosperity_vault
       - prosperity_watchtower
+    metadata:
+      colonies: true
 
   - name: Lucky Seven
     sets:
@@ -139,3 +155,5 @@ kingdoms:
       - prosperity_forge
       - prosperity_kingscourt
       - prosperity_vault
+    metadata:
+      colonies: true

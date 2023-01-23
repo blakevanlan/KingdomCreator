@@ -38,7 +38,7 @@ import { Vue, Component, Watch } from "vue-property-decorator";
 import { SortOption } from "../settings/settings";
 import { Kingdom } from "../randomizer/kingdom";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
-import { TweenLite, Sine } from "gsap";
+import { gsap, Sine } from "gsap";
 import { Selection } from "../stores/randomizer/selection";
 import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
 import GridLayout from "./GridLayout.vue";
@@ -82,7 +82,7 @@ export default class SortableSupplyCards extends Vue {
   }
 
   get supplyCardsWithBane() {
-    const cards = this.supplyCards.concat();
+    const cards =  SupplyCardSorter.sort(this.supplyCards.concat() as SupplyCard[], this.sortOption, this.$t.bind(this));
     if (this.kingdom.supply.baneCard) {
       cards.push(this.kingdom.supply.baneCard);
     }
@@ -189,7 +189,7 @@ export default class SortableSupplyCards extends Vue {
 
   private cancelActiveAnimations() {
     for (let animation of this.activeAnimations) {
-      animation.kill();
+      animation.kill();	
     }
     this.activeAnimations.clear();
   }
@@ -206,11 +206,16 @@ export default class SortableSupplyCards extends Vue {
       const x = endCoord.x - startCoord.x;
       const y = endCoord.y - startCoord.y;
       const tweenLite =
-          TweenLite.to(element, ANIMATION_DURATION_SEC, {
-            transform: `translate(${x}px,${y}px)`,
-            ease: Sine.easeInOut,
-            onComplete: () => this.activeAnimations.delete(tweenLite),
-          });
+           gsap.to(element, {duration: ANIMATION_DURATION_SEC,
+             transform: `translate(${x}px,${y}px)`,
+             ease: Sine.easeInOut,
+             onComplete: function() { 
+                tweenLite.kill
+                return;
+                }
+             }
+           ) as TweenLite;
+
       this.activeAnimations.add(tweenLite);
       newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
     }
