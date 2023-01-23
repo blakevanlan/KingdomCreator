@@ -1,0 +1,77 @@
+name: Plunder
+cards:
+  - name: Cage
+  - name: Grotto
+  - name: Jewelled Egg
+  - name: Search
+  - name: Shaman
+  - name: Secluded Shrine
+  - name: Siren
+  - name: Stowaway
+  - name: Taskmaster
+  - name: Abundance
+  - name: Cabin Boy
+  - name: Crucible
+  - name: Flagship
+  - name: Fortune Hunter
+  - name: Gondola
+  - name: Harbor Village
+  - name: Landing Party
+  - name: Mapmaker
+  - name: Maroon
+  - name: Rope
+  - name: Swamp Shacks
+  - name: Tools
+  - name: Buried Treasure
+  - name: Crew
+  - name: Cutthroat
+  - name: Enlarge
+  - name: Figurine
+  - name: First Mate
+  - name: Frigate
+  - name: Longship
+  - name: Mining Road
+  - name: Pendant
+  - name: Pickaxe
+  - name: Pilgrim
+  - name: Quartermaster
+  - name: Silver Mine
+  - name: Trickster
+  - name: Wealthy Village
+  - name: Sack Of Loot
+  - name: King's Cache
+  
+events:
+  - name: Bury
+  - name: Avoid
+  - name: Deliver
+  - name: Peril
+  - name: Rush
+  - name: Foray
+  - name: Launch
+  - name: Mirror
+  - name: Prepare
+  - name: Scounge
+  - name: Journey
+  - name: Maelstrom
+  - name: Looting
+  - name: Invasion
+  - name: Prosper
+
+Traits:
+  - name: Cheap
+  - name: Cursed
+  - name: Fated
+  - name: Fawning
+  - name: Friendly
+  - name: Hasty
+  - name: Inherited
+  - name: Inspiring
+  - name: Nearby
+  - name: Patient
+  - name: Pious
+  - name: Reckless
+  - name: Rich
+  - name: Shy
+  - name: Tireless
+  
