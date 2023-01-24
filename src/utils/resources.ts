@@ -4,7 +4,7 @@ const IMAGE_PREFEX = "/img/cards";
 const BOXES_IMAGE_PREFEX = "/img/boxes";
 const RULE_PDF_PREFEX = "/rules";
 const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
-const FR_no_images = new Set(["allies", "seaside2", "prosperity2", "hinterlands2"])
+const FR_no_images = new Set(["allies", "seaside2", "prosperity2", "hinterlands2", "plunder"])
 
 export function getCardImageUrl(cardId: string, language: Language) {
   let SetName = cardId.split('_',2);

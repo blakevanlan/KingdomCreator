@@ -15,6 +15,7 @@ export enum SetId {
   INTRIGUE_2 = "intrigue2",
   MENAGERIE = "menagerie",
   NOCTURNE = "nocturne",
+  PLUNDER = "plunder",
   PROMOS = "promos",
   PROSPERITY = "prosperity",
   PROSPERITY_2 = "prosperity2",

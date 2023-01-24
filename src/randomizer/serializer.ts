@@ -31,6 +31,9 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
   if (kingdom.ally) {
     result.ally = serializeCards([kingdom.ally]);
   }
+  if (kingdom.traits.length) {
+    result.traits = serializeCards(kingdom.traits)
+  }
   return result;
 }
 
@@ -50,7 +53,8 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
   const boonIds = parseCommaSeparatedValues(serializedKingdom.boons) || [];
   const wayIds = parseCommaSeparatedValues(serializedKingdom.ways) || [];
   const allyIds = parseCommaSeparatedValues(serializedKingdom.ally) || [];
-  
+  const traitIds = parseCommaSeparatedValues(serializedKingdom.traits) || [];
+
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
   let baneCard: SupplyCard | null = null;
   if (baneIds.length) {
@@ -65,6 +69,10 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
   const ways = 
       findByIds(wayIds, DominionSets.getWayById)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
+  const traits = 
+      findByIds(traitIds, DominionSets.getTraitById)
+          .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
+
   const allies = findByIds(allyIds, DominionSets.getAllyById).slice(0, 1);
   const boons = findByIds(boonIds, DominionSets.getBoonById).slice(0, 3);
   const supply = new Supply(supplyCards, baneCard, Replacements.empty());
@@ -77,6 +85,7 @@ export function deserializeKingdom(serializedKingdom: any): Kingdom | null {
     ways,
     boons,
     allies[0] || null,
+    traits,
     deserializeMetadata(serializedKingdom)
   );
 }
