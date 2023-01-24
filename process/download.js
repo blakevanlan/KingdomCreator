@@ -4,12 +4,18 @@ const Fs = require("fs");
 const resize = require("./resize");
 
 const sets = Loader.loadSets()
-const cards = getCards(sets.allies);
+const cards = getCards(sets.prosperity2);
+
 
 getAllImages(cards);
 
 async function getAllImages(cards) {
   for (let i = 0; i < cards.length; i++) {
+    if (!cards[i].id.startsWith("prosperity2_city")){
+      continue;
+    }
+
+    console.log(cards[i].id);
     await getImage(cards[i]);
   }
 }
@@ -19,8 +25,8 @@ async function getImage(card) {
   if (response.status != 200) {
     console.log(`Invalid URL: ${card.name}`);
     return;
-  } 
-  const match = response.data.match(/Digital\.jpg\"\ssrc=\"(.+?.jpg)\"/);
+  }
+  const match = response.data.match(/\.jpg\"\ssrc=\"(.+?.jpg)\"/);
   if (!match || match.length < 2) {
     console.log(`Unable to find URL: ${card.name}`);
     return;
@@ -43,7 +49,7 @@ async function getImage(card) {
 
 function createPageUrl(card) {
   const name = card.name.replace(/\s/g, "_");
-  return `http://wiki.dominionstrategy.com/index.php/File:${name}Digital.jpg`;
+  return `http://wiki.dominionstrategy.com/index.php/File:${name}.jpg`;
 }
 
 function getCards(set) {
@@ -65,6 +71,9 @@ function getCards(set) {
   }
   if (set.allies) {
     cards = cards.concat(set.allies);
+  }
+  if (set.traits) {
+    cards = cards.concat(set.traits);
   }
   return cards;
 }

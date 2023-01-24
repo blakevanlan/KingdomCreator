@@ -34,6 +34,10 @@ const convertToAllyId = function(setId, name) {
    return setId + '_ally_' + tokenize(name);
 };
 
+const convertToTraitId = function(setId, name) {
+   return setId + '_trait_' + tokenize(name);
+};
+
 const loadFilesFromDirectory = function(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
@@ -112,6 +116,14 @@ const loadSets = function() {
             card.setId = setId;
          }
       }
+      if (set.traits) {
+        for (var i = 0; i < set.traits.length; i++) {
+          var card = set.traits[i];
+          card.id = this.convertToTraitId(setId, card.name);
+          card.shortId = this.tokenize(card.name);
+          card.setId = setId;
+        }
+      }
    }
    return sets;
 };
@@ -130,6 +142,7 @@ module.exports = {
    convertToBoonId: convertToBoonId,
    convertToWayId: convertToWayId,
    convertToAllyId: convertToAllyId,
+   convertToTraitId: convertToTraitId,
    loadSets: loadSets,
    loadKingdoms: loadKingdoms,
 };
