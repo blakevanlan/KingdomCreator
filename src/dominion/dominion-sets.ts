@@ -147,7 +147,13 @@ export class DominionSets {
       const set = DominionSets.sets[setId as SetId] as DominionSet;
       const cardsFromSet: Card[] = 
           (set.supplyCards as Card[]).concat(
-            set.events, set.landmarks, set.projects, set.ways, set.boons, set.allies, set.traits);
+            set.events, 
+            set.landmarks, 
+            set.projects, 
+            set.ways, 
+            set.boons, 
+            set.allies, 
+            set.traits);
       for (let card of cardsFromSet) {
         cards[card.id] = card;
         if (!cards[card.shortId]) {

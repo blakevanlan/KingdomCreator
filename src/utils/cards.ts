@@ -59,7 +59,7 @@ export class Cards {
   }
 
   static getAllTraits(cards: Card[]): Trait[] {
-    return Cards.getCardsOfType<Ally>(cards, Trait);
+    return Cards.getCardsOfType<Trait>(cards, Trait);
   }
 
   static getAllBoons(cards: Card[]): Boon[] {
