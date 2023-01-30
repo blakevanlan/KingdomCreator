@@ -82,7 +82,8 @@ export default class SortableSupplyCards extends Vue {
   }
 
   get supplyCardsWithBane() {
-    const cards =  SupplyCardSorter.sort(this.supplyCards.concat() as SupplyCard[], this.sortOption, this.$t.bind(this));
+    //const cards =  SupplyCardSorter.sort(this.supplyCards.concat() as SupplyCard[], this.sortOption, this.$t.bind(this));
+    const cards = this.supplyCards.concat();
     if (this.kingdom.supply.baneCard) {
       cards.push(this.kingdom.supply.baneCard);
     }
