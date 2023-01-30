@@ -17,13 +17,21 @@ module.exports = merge(common(true), {
   },
   plugins: [
     new CleanWebpackPlugin({
+      verbose: true,
+      protectWebpackAssets: false,
       cleanOnceBeforeBuildPatterns: ["*", 
-           "!favicon.ico", 
-           "!CNAME", 
-           "!rules", 
-           "!rules.fr", 
-           "!img", 
-           "!ads.txt"]
+          "!favicon.ico", 
+          "!CNAME", 
+          "!rules", 
+          "!rules.fr", 
+          "!img", 
+          "!ads.txt"],
+      cleanAfterEveryBuildPatterns: [
+          "*.map", 
+          "*.LICENSE.txt", 
+          "*.ttf", 
+          "*.otf", 
+          "*.png"]
     }),
   ]
 });
