@@ -32,6 +32,10 @@ findCardByShortId = (shortId) ->
          for ally in set.allies
             if shortId == ally.shortId
                return ally
+      if set.traits
+         for trait in set.traits
+            if shortId == trait.shortId
+               return trait
 
    throw Error('Card not found: ' + shortId)
 
@@ -65,44 +69,49 @@ parseSupplyString = (supplyString) ->
 
 
 strings = [
-   "Decisions, Decisions: City-state • Bauble, Courier, Highwayman, Hunter, Innkeeper, Marquis, Merchant Camp, Modify, Royal Galley, Townsfolk",
-   "Foresight: Order of Astrologers • Augurs, Barbarian, Carpenter, Emissary, Galleria, Sentinel, Skirmisher, Specialist, Town, Underling",
-   "Allies for Beginners: Crafters' Guild • Broker, Capital City, Galleria, Odysseys, Sycophant • Gardens, Harbinger, Market, Remodel, Vassal",
-   "Warring Shopkeepers: League of Shopkeepers • Clashes, Emissary, Guildmaster, Royal Galley, Town • Bandit, Laboratory, Merchant, Moat, Moneylender",
-   "Dark Dealings: Circle of Witches • Broker, Contract, Courier, Hunter, Townsfolk • Courtier, Lurker, Nobles, Secret Passage, Steward",
-   "Pawns and Underlings: Plateau Shepherds • Innkeeper, Merchant Camp, Swap, Underling, Wizards • Baron, Conspirator, Patrol, Pawn, Replace",
+   "Flotsam: Abundance, Crucible, Hasty, First Mate, Fortune Hunter, Jewelled Egg, Landing Party, Mining Road, Secluded Shrine, Silver Mine, Wealthy Village"
+   "Jetsam: Prepare • Crew, Cutthroat, Gondola, Pious, Grotto, Longship, Pickaxe, Quartermaster, Search, Siren, Stowaway"
+
+   "Basic Looting: Frigate, Tireless, Harbor Village, Maroon, Pilgrim, Sack of Loot • Cellar, Market, Mine, Moat, Vassal"
+   "Voodoo: Maelstrom • Buried Treasure, First Mate, Flagship, Gondola, Shaman • Artisan, Bureaucrat, Cursed, Festival, Moneylender, Remodel "
+
+   "Breaking Eggs: Buried Treasure, Jewelled Egg, Mapmaker, Reckless, Maroon, Quartermaster • Courtier, Harem, Mining Village, Nobles, Replace"
+   "Landlubbers: Avoid • Cutthroat, Fortune Hunter, Pendant, Pilgrim, Wealthy Village • Friendly, Conspirator, Mill, Pawn, Secret Passage, Wishing Well"
+
+   "Wine-dark Seas: Cabin Boy, Cage, Enlarge, Cheap, Frigate, Rope • Astrolabe, Caravan, Fishing Village, Sailor, Sea Witch "
+   "Treasure Island: Launch • Abundance, Buried Treasure, Crew, Longship, Stowaway • Corsair, Island, Lookout, Sea Chart, Inherited, Treasure Map "
+
+   "Special Delivery: Deliver • Flagship, Jewelled Egg, Mining Road, Swamp Shacks, Tools, Trickster • Alchemist, Apothecary, Cursed, Golem, Transmute "
+
+   "Pretty Trinkets: Figurine, Jewelled Egg, King's Cache, Fated, Rope, Silver Mine • Bank, Crystal Ball, Investment, Tiara, War Chest "
+   "Buying Happiness: Looting • Cage, Mining Road, Pendant, Stowaway, Swamp Shacks • Anvil, Bishop, Clerk, Fawning, Magnate, Worker's Village "
+
+   "Of Heralds and Hunters: Cabin Boy, Flagship, Inspiring, Fortune Hunter, Pendant, Pickaxe • Doctor, Fairgrounds, Herald, Soothsayer, Stonemason "
+   "Through the Swamp: Journey • Cage, Patient, Pilgrim, Swamp Shacks, Taskmaster, Tools • Baker, Hamlet, Horn of Plenty, Menagerie, Merchant Guild "
+
+   "Desert Dreams: Enlarge, Grotto, Harbor Village, Mapmaker, Pendant • Haggler, Reckless, Nomads, Oasis, Souk, Weaver "
+   "Viking Schemes: Scrounge • Cabin Boy, Crew, Crucible, Frigate, Wealthy Village • Rich, Berserker, Cauldron, Fool's Gold, Scheme, Stables "
+
+   "Dad's Rats: First Mate, Maroon, Rope, Search, Shaman • Death Cart, Poor House, Inherited, Rats, Squire, Vagrant "
+   "Ravagers: Invasion • Cutthroat, Enlarge, Grotto, King's Cache, Trickster • Counterfeit, Tireless, Forager, Ironmonger, Pillage, Storeroom "
+
+   "Set Sail: Ferry • Figurine, First Mate, Fortune Hunter, Mapmaker, Search • Patient, Artificer, Distant Lands, Port, Ratcatcher, Treasure Trove "
+   "Rush Job: Rush • Quartermaster, Secluded Shrine, Stowaway, Swamp Shacks, Tools • Coin of the Realm, Gear, Haunted Woods, Hireling, Shy, Wine Merchant "
+
+   "City Builders: Museum • Abundance, Crucible, Frigate, Taskmaster, Tools • City Quarter, Farmers' Market, Groundskeeper, Nearby, Patrician/Emporium, Wild Hunt "
+   "Plenty: Prosper • Friendly, Figurine, Landing Party, Mining Road, Rope, Wealthy Village • Charm, Crown, Enchantress, Gladiator/Fortune, Sacrifice "
    
-   "Forward Thinking: Cave Dwellers • Guildmaster, Highwayman, Odysseys, Royal Galley, Sentinel • Cutpurse, Native Village, Smugglers, Tactician, Warehouse",
-   "Treasure Hunt: Market Towns • Emissary, Forts, Marquis, Swap, Town • Haven, Lookout, Outpost, Treasure Map, Treasury",
+   "Night of the Loot: Cabin Boy, Figurine, Pendant, Sack of Loot, Pious, Taskmaster • Blessed Village, Crypt, Faithful Hound, Tragic Hero, Werewolf "
+   "Skeleton Isle: Foray • Cutthroat, King's Cache, Longship, Pilgrim, Secluded Shrine • Devil's Workshop, Ghost Town, Hasty, Idol, Skulk, Tracker "
    
-   "Recursion: Coastal Haven • Barbarian, Galleria, Importer, Merchant Camp, Modify, Wizards • Alchemist, Apprentice, Golem, Scrying Pool",
+   "Circle of Life: Cathedral • Frigate, Jewelled Egg, Pickaxe, Search, Shaman • Acting Troupe, Patron, Experiment, Inspiring, Scholar, Swashbuckler "
+   "Mirror Masters: Mirror • Crucible, Gondola, Quartermaster, Taskmaster, Trickster • Border Guard, Cargo Ship, Flag Bearer, Seer, Fated, Spices "
    
-   "Inventing Mania: Family of Inventors • Augurs, Bauble, Capital City, Carpenter, Importer • Expand, King's Court, Quarry, Rabble, Talisman",
-   "Bank of Toadies: League of Bankers • Broker, Marquis, Odysseys, Sycophant, Town • Bank, City, Mint, Trade Route, Vault",
+   "Going Home: Way of the Squirrel • Gondola, Landing Party, Mapmaker, Secluded Shrine, Silver Mine • Barge, Cheap, Gatekeeper, Kiln, Snowy Village, Supplies "
+   "Going Big: Peril • Enlarge, Grotto, Harbor Village, Sack of Loot, Siren • Nearby, Animal Fair, Camel Train, Mastermind, Sanctuary, Sheepdog "
    
-   "Huge Collections: Woodworkers' Guild • Clashes, Contract, Forts, Galleria, Sentinel • Advisor, Fairgrounds, Hunting Party, Menagerie, Plaza",
-   "Forest Scouts: Forest Dwellers • Augurs, Emissary, Innkeeper, Royal Galley, Sentinel • Baker, Candlestick Maker, Farming Village, Jester, Journeyman",
-   
-   "Longest Tunnel: Fellowship of Scribes • Bauble, Capital City, Carpenter, Contract, Innkeeper • Farmland, Haggler, Jack of All Trades, Margrave, Tunnel",
-   "Expertise: Order of Masons • Barbarian, Highwayman, Specialist, Townsfolk, Underling • Border Village, Crossroads, Highway, Inn, Spice Merchant",
-   
-   "Grave Matters: Cave Dwellers • Barbarian, Broker, Contract, Highwayman, Wizards • Bandit Camp, Beggar, Forager, Graverobber, Poor House",
-   "Rat Traders: Desert Guides • Emissary, Importer, Skirmisher, Swap, Townsfolk • Count, Death Cart, Knights, Rats, Squire",
-   
-   "Adventures in Pickpocketing: Gang of Pickpockets, Mission • Augurs, Bauble, Innkeeper, Modify, Specialist • Artificer, Duplicate, Lost City, Miser, Treasure Trove",
-   "Future Perfect: Market Towns, Seaway • Forts, Marquis, Sentinel, Skirmisher, Sycophant • Caravan Guard, Gear, Haunted Woods, Port, Transmogrify",
-   
-   "Island Empire: Island Folk, Orchard • Contract, Forts, Specialist, Swap, Sycophant • City Quarter, Enchantress, Farmers' Market, SettlersBustling Village, Wild Hunt",
-   "Castle Wars: Trappers' Lodge, Triumph • Capital City, Carpenter, Clashes, Hunter, Importer • Castles, CatapultRocks, Charm, Crown, PatricianEmporium",
-   
-   "Love and Death: Peaceful Cult • Augurs, Bauble, Carpenter, Hunter, Sycophant • Conclave, Den of Sin, Faithful Hound, Idol, Necromancer",
-   "Play It Again, Sam: Woodworkers' Guild • Wizards, Swap, Royal Galley, Courier, Hunter • Blessed Village, Leprechaun, Skulk, Tormentor, Tracker",
-   
-   "Production Line: Band of Nomads, Exploration • Courier, Importer, Modify, Townsfolk, Wizards • Experiment, Mountain Village, Patron, Spices, Treasurer",
-   "Age of Scribes: Fellowship of Scribes, Sinister Plot • Capital City, Galleria, Odysseys, Specialist, Underling • Acting Troupe, Inventor, Old Witch, Research, Villain",
-   
-   "Wise Owls: Architects' Guild, Way of the Owl • Barbarian, Marquis, Merchant Camp, Town, Wizards • Animal Fair, Black Cat, Bounty Hunter, Hostelry, Hunting Lodge",
-   "Mountain Kings: Mountain Folk, Toil • Broker, Courier, Forts, Guildmaster, Skirmisher • Barge, Coven, Scrap, Snowy Village, Supplies",
+   "Shipmates: Cave Dwellers • Crew, Flagship, Harbor Village, Sack of Loot, Shaman • Broker, Forts, Innkeeper, Modify, Fawning, Sycophant "
+   "Buried and Sunk: Bury • Abundance, Buried Treasure, King's Cache, Landing Party, Maroon • Courier, Highwayman, Shy, Merchant Camp, Odysseys, Skirmisher,"
 ]
 
 for string in strings

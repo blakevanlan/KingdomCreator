@@ -1,0 +1,1041 @@
+name: Plunder
+cards:
+  - name: Cage
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Grotto
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+
+  - name: Jewelled Egg
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: true
+
+  - name: Search
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: true
+
+  - name: Shaman
+    cost:
+      treasure: 2
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Secluded Shrine
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Siren
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Stowaway
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: true
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Taskmaster
+    cost:
+      treasure: 3
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Abundance
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Cabin Boy
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Crucible
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: true
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Flagship
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Fortune Hunter
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Gondola
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Harbor Village
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Landing Party
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Mapmaker
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: true
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Maroon
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Rope
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: true
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Swamp Shacks
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Tools
+    cost:
+      treasure: 4
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Buried Treasure
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Crew
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Cutthroat
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: true
+      
+  - name: Enlarge
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: true
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Figurine
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: First Mate
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+
+  - name: Frigate
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Longship
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Mining Road
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Pendant
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Pickaxe
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: true
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: true
+      
+  - name: Pilgrim
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: true
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Quartermaster
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: true
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Silver Mine
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Trickster
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: true
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: true
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: false
+      
+  - name: Wealthy Village
+    cost:
+      treasure: 5
+      potion: 0
+      debt: 0
+    isAction: true
+    isActionSupplier: true
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: true
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: false
+    isVictory: false
+    isLootSupplier: true
+      
+  - name: Sack of Loot
+    cost:
+      treasure: 6
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: true
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: true
+
+  - name: King's Cache
+    cost:
+      treasure: 7
+      potion: 0
+      debt: 0
+    isAction: false
+    isActionSupplier: false
+    isArtifactSupplier: false
+    isAttack: false
+    isBuySupplier: false
+    isDoom: false
+    isDrawer: false
+    isDuration: false
+    isFate: false
+    isLiaison: false
+    isMultiDrawer: false
+    isNight: false
+    isReaction: false
+    isTerminal: false
+    isTrashing: false
+    isTreasure: true
+    isVictory: false
+    isLootSupplier: false
+  
+events:
+  - name: Bury
+    cost:
+      treasure: 1
+
+  - name: Avoid
+    cost:
+      treasure: 2
+
+  - name: Deliver
+    cost:
+      treasure: 2
+
+  - name: Peril
+    cost:
+      treasure: 2
+
+  - name: Rush
+    cost:
+      treasure: 2
+
+  - name: Foray
+    cost:
+      treasure: 3
+
+  - name: Launch
+    cost:
+      treasure: 3
+
+  - name: Mirror
+    cost:
+      treasure: 3
+
+  - name: Prepare
+    cost:
+      treasure: 3
+
+  - name: Scrounge
+    cost:
+      treasure: 3
+
+  - name: Journey
+    cost:
+      treasure: 4
+
+  - name: Maelstrom
+    cost:
+      treasure: 4
+
+  - name: Looting
+    cost:
+      treasure: 6
+
+  - name: Invasion
+    cost:
+      treasure: 10
+
+  - name: Prosper
+    cost:
+      treasure: 10
+
+traits:
+  - name: Cheap
+  - name: Cursed
+  - name: Fated
+  - name: Fawning
+  - name: Friendly
+  - name: Hasty
+  - name: Inherited
+  - name: Inspiring
+  - name: Nearby
+  - name: Patient
+  - name: Pious
+  - name: Reckless
+  - name: Rich
+  - name: Shy
+  - name: Tireless
+  

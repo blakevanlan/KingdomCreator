@@ -59,6 +59,7 @@ export default class Randomizer extends Vue {
       this.kingdom.ways,
       this.kingdom.boons,
       this.kingdom.ally ? [this.kingdom.ally] : [],
+      this.kingdom.traits,
     ).map((card) => this.$t(card.id)).join(", ");
   }
 

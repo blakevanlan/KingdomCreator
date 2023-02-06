@@ -1,0 +1,570 @@
+kingdoms:
+  - name: Flotsam
+    sets:
+      - plunder
+    supply:
+      - plunder_abundance
+      - plunder_crucible
+      - plunder_firstmate
+      - plunder_fortunehunter
+      - plunder_jewelledegg
+      - plunder_landingparty
+      - plunder_miningroad
+      - plunder_secludedshrine
+      - plunder_silvermine
+      - plunder_wealthyvillage
+    traits:
+      - plunder_trait_hasty
+
+  - name: Jetsam
+    sets:
+      - plunder
+    supply:
+      - plunder_crew
+      - plunder_cutthroat
+      - plunder_gondola
+      - plunder_grotto
+      - plunder_longship
+      - plunder_pickaxe
+      - plunder_quartermaster
+      - plunder_search
+      - plunder_siren
+      - plunder_stowaway
+    events:
+      - plunder_event_prepare
+    traits:
+      - plunder_trait_pious
+
+  - name: Basic Looting
+    sets:
+      - baseset2
+      - plunder
+    supply:
+      - baseset2_cellar
+      - baseset2_market
+      - baseset2_mine
+      - baseset2_moat
+      - baseset2_vassal
+      - plunder_frigate
+      - plunder_harborvillage
+      - plunder_maroon
+      - plunder_pilgrim
+      - plunder_sackofloot
+    traits:
+      - plunder_trait_tireless
+
+  - name: Voodoo
+    sets:
+      - baseset2
+      - plunder
+    supply:
+      - baseset2_artisan
+      - baseset2_bureaucrat
+      - baseset2_festival
+      - baseset2_moneylender
+      - baseset2_remodel
+      - plunder_buriedtreasure
+      - plunder_firstmate
+      - plunder_flagship
+      - plunder_gondola
+      - plunder_shaman
+    events:
+      - plunder_event_maelstrom
+    traits:
+      - plunder_trait_cursed
+
+  - name: Breaking Eggs
+    sets:
+      - intrigue2
+      - plunder
+    supply:
+      - intrigue2_courtier
+      - intrigue2_harem
+      - intrigue2_miningvillage
+      - intrigue2_nobles
+      - intrigue2_replace
+      - plunder_buriedtreasure
+      - plunder_jewelledegg
+      - plunder_mapmaker
+      - plunder_maroon
+      - plunder_quartermaster
+    traits:
+      - plunder_trait_reckless
+
+  - name: Landlubbers
+    sets:
+      - intrigue2
+      - plunder
+    supply:
+      - intrigue2_conspirator
+      - intrigue2_mill
+      - intrigue2_pawn
+      - intrigue2_secretpassage
+      - intrigue2_wishingwell
+      - plunder_cutthroat
+      - plunder_fortunehunter
+      - plunder_pendant
+      - plunder_pilgrim
+      - plunder_wealthyvillage
+    events:
+      - plunder_event_avoid
+    traits:
+      - plunder_trait_friendly
+
+  - name: Wine-dark Seas
+    sets:
+      - plunder
+      - seaside2
+    supply:
+      - plunder_cabinboy
+      - plunder_cage
+      - plunder_enlarge
+      - plunder_frigate
+      - plunder_rope
+      - seaside2_astrolabe
+      - seaside2_caravan
+      - seaside2_fishingvillage
+      - seaside2_sailor
+      - seaside2_seawitch
+    traits:
+      - plunder_trait_cheap
+
+  - name: Treasure Island
+    sets:
+      - plunder
+      - seaside2
+    supply:
+      - plunder_abundance
+      - plunder_buriedtreasure
+      - plunder_crew
+      - plunder_longship
+      - plunder_stowaway
+      - seaside2_corsair
+      - seaside2_island
+      - seaside2_lookout
+      - seaside2_seachart
+      - seaside2_treasuremap
+    events:
+      - plunder_event_launch
+    traits:
+      - plunder_trait_inherited
+
+  - name: Special Delivery
+    sets:
+      - alchemy
+      - plunder
+    supply:
+      - alchemy_alchemist
+      - alchemy_apothecary
+      - alchemy_golem
+      - alchemy_transmute
+      - plunder_flagship
+      - plunder_jewelledegg
+      - plunder_miningroad
+      - plunder_swampshacks
+      - plunder_tools
+      - plunder_trickster
+    events:
+      - plunder_event_deliver
+    traits:
+      - plunder_trait_cursed
+
+  - name: Pretty Trinkets
+    sets:
+      - plunder
+      - prosperity2
+    supply:
+      - plunder_figurine
+      - plunder_jewelledegg
+      - plunder_kingscache
+      - plunder_rope
+      - plunder_silvermine
+      - prosperity2_bank
+      - prosperity2_crystalball
+      - prosperity2_investment
+      - prosperity2_tiara
+      - prosperity2_warchest
+    traits:
+      - plunder_trait_fated
+    metadata:
+      colonies: true
+
+  - name: Buying Happiness
+    sets:
+      - plunder
+      - prosperity2
+    supply:
+      - plunder_cage
+      - plunder_miningroad
+      - plunder_pendant
+      - plunder_stowaway
+      - plunder_swampshacks
+      - prosperity2_anvil
+      - prosperity2_bishop
+      - prosperity2_clerk
+      - prosperity2_magnate
+      - prosperity2_workersvillage
+    events:
+      - plunder_event_looting
+    traits:
+      - plunder_trait_fawning
+    metadata:
+      colonies: true
+
+  - name: Of Heralds and Hunters
+    sets:
+      - cornucopia
+      - guilds
+      - plunder
+    supply:
+      - cornucopia_fairgrounds
+      - guilds_doctor
+      - guilds_herald
+      - guilds_soothsayer
+      - guilds_stonemason
+      - plunder_cabinboy
+      - plunder_flagship
+      - plunder_fortunehunter
+      - plunder_pendant
+      - plunder_pickaxe
+    traits:
+      - plunder_trait_inspiring
+
+  - name: Through the Swamp
+    sets:
+      - cornucopia
+      - guilds
+      - plunder
+    supply:
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_menagerie
+      - guilds_baker
+      - guilds_merchantguild
+      - plunder_cage
+      - plunder_pilgrim
+      - plunder_swampshacks
+      - plunder_taskmaster
+      - plunder_tools
+    events:
+      - plunder_event_journey
+    traits:
+      - plunder_trait_patient
+
+  - name: Desert Dreams
+    sets:
+      - hinterlands2
+      - plunder
+    supply:
+      - hinterlands2_haggler
+      - hinterlands2_nomads
+      - hinterlands2_oasis
+      - hinterlands2_souk
+      - hinterlands2_weaver
+      - plunder_enlarge
+      - plunder_grotto
+      - plunder_harborvillage
+      - plunder_mapmaker
+      - plunder_pendant
+    traits:
+      - plunder_trait_reckless
+
+  - name: Viking Schemes
+    sets:
+      - hinterlands2
+      - plunder
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_cauldron
+      - hinterlands2_foolsgold
+      - hinterlands2_scheme
+      - hinterlands2_stables
+      - plunder_cabinboy
+      - plunder_crew
+      - plunder_crucible
+      - plunder_frigate
+      - plunder_wealthyvillage
+    events:
+      - plunder_event_scrounge
+    traits:
+      - plunder_trait_rich
+
+  - name: Dad's Rats
+    sets:
+      - darkages
+      - plunder
+    supply:
+      - darkages_deathcart
+      - darkages_poorhouse
+      - darkages_rats
+      - darkages_squire
+      - darkages_vagrant
+      - plunder_firstmate
+      - plunder_maroon
+      - plunder_rope
+      - plunder_search
+      - plunder_shaman
+    traits:
+      - plunder_trait_inherited
+    metadata:
+      shelters: true
+
+  - name: Ravagers
+    sets:
+      - darkages
+      - plunder
+    supply:
+      - darkages_counterfeit
+      - darkages_forager
+      - darkages_ironmonger
+      - darkages_pillage
+      - darkages_storeroom
+      - plunder_cutthroat
+      - plunder_enlarge
+      - plunder_grotto
+      - plunder_kingscache
+      - plunder_trickster
+    events:
+      - plunder_event_invasion
+    traits:
+      - plunder_trait_tireless
+    metadata:
+      shelters: true
+
+  - name: Set Sail
+    sets:
+      - adventures
+      - plunder
+    supply:
+      - adventures_artificer
+      - adventures_distantlands
+      - adventures_port
+      - adventures_ratcatcher
+      - adventures_treasuretrove
+      - plunder_figurine
+      - plunder_firstmate
+      - plunder_fortunehunter
+      - plunder_mapmaker
+      - plunder_search
+    events:
+      - adventures_event_ferry
+    traits:
+      - plunder_trait_patient
+
+  - name: Rush Job
+    sets:
+      - adventures
+      - plunder
+    supply:
+      - adventures_coinoftherealm
+      - adventures_gear
+      - adventures_hauntedwoods
+      - adventures_hireling
+      - adventures_winemerchant
+      - plunder_quartermaster
+      - plunder_secludedshrine
+      - plunder_stowaway
+      - plunder_swampshacks
+      - plunder_tools
+    events:
+      - plunder_event_rush
+    traits:
+      - plunder_trait_shy
+
+  - name: City Builders
+    sets:
+      - empires
+      - plunder
+    supply:
+      - empires_cityquarter
+      - empires_farmersmarket
+      - empires_groundskeeper
+      - empires_patricianemporium
+      - empires_wildhunt
+      - plunder_abundance
+      - plunder_crucible
+      - plunder_frigate
+      - plunder_taskmaster
+      - plunder_tools
+    landmarks:
+      - empires_landmark_museum
+    traits:
+      - plunder_trait_nearby
+
+  - name: Plenty
+    sets:
+      - empires
+      - plunder
+    supply:
+      - empires_charm
+      - empires_crown
+      - empires_enchantress
+      - empires_gladiatorfortune
+      - empires_sacrifice
+      - plunder_figurine
+      - plunder_landingparty
+      - plunder_miningroad
+      - plunder_rope
+      - plunder_wealthyvillage
+    events:
+      - plunder_event_prosper
+    traits:
+      - plunder_trait_friendly
+
+  - name: Night of the Loot
+    sets:
+      - nocturne
+      - plunder
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_crypt
+      - nocturne_faithfulhound
+      - nocturne_tragichero
+      - nocturne_werewolf
+      - plunder_cabinboy
+      - plunder_figurine
+      - plunder_pendant
+      - plunder_sackofloot
+      - plunder_taskmaster
+    traits:
+      - plunder_trait_pious
+
+  - name: Skeleton Isle
+    sets:
+      - nocturne
+      - plunder
+    supply:
+      - nocturne_devilsworkshop
+      - nocturne_ghosttown
+      - nocturne_idol
+      - nocturne_skulk
+      - nocturne_tracker
+      - plunder_cutthroat
+      - plunder_kingscache
+      - plunder_longship
+      - plunder_pilgrim
+      - plunder_secludedshrine
+    events:
+      - plunder_event_foray
+    traits:
+      - plunder_trait_hasty
+
+  - name: Circle of Life
+    sets:
+      - plunder
+      - renaissance
+    supply:
+      - plunder_frigate
+      - plunder_jewelledegg
+      - plunder_pickaxe
+      - plunder_search
+      - plunder_shaman
+      - renaissance_actingtroupe
+      - renaissance_experiment
+      - renaissance_patron
+      - renaissance_scholar
+      - renaissance_swashbuckler
+    projects:
+      - renaissance_project_citadel
+    traits:
+      - plunder_trait_inspiring
+
+  - name: Mirror Masters
+    sets:
+      - plunder
+      - renaissance
+    supply:
+      - plunder_crucible
+      - plunder_gondola
+      - plunder_quartermaster
+      - plunder_taskmaster
+      - plunder_trickster
+      - renaissance_borderguard
+      - renaissance_cargoship
+      - renaissance_flagbearer
+      - renaissance_seer
+      - renaissance_spices
+    events:
+      - plunder_event_mirror
+    traits:
+      - plunder_trait_fated
+
+  - name: Going Home
+    sets:
+      - menagerie
+      - plunder
+    supply:
+      - menagerie_barge
+      - menagerie_gatekeeper
+      - menagerie_kiln
+      - menagerie_snowyvillage
+      - menagerie_supplies
+      - plunder_gondola
+      - plunder_landingparty
+      - plunder_mapmaker
+      - plunder_secludedshrine
+      - plunder_silvermine
+    ways:
+      - menagerie_way_wayofthesquirrel
+    traits:
+      - plunder_trait_cheap
+
+  - name: Going Big
+    sets:
+      - menagerie
+      - plunder
+    supply:
+      - menagerie_animalfair
+      - menagerie_cameltrain
+      - menagerie_mastermind
+      - menagerie_sanctuary
+      - menagerie_sheepdog
+      - plunder_enlarge
+      - plunder_grotto
+      - plunder_harborvillage
+      - plunder_sackofloot
+      - plunder_siren
+    events:
+      - plunder_event_peril
+    traits:
+      - plunder_trait_nearby
+
+  - name: Shipmates
+    sets:
+      - allies
+      - plunder
+    supply:
+      - allies_broker
+      - allies_forts
+      - allies_innkeeper
+      - allies_modify
+      - allies_sycophant
+      - plunder_crew
+      - plunder_flagship
+      - plunder_harborvillage
+      - plunder_sackofloot
+      - plunder_shaman
+    allies:
+      - allies_ally_cavedwellers
+    traits:
+      - plunder_trait_fawning
+
+  - name: Buried and Sunk
+    sets:
+      - allies
+      - plunder
+    supply:
+      - allies_courier
+      - allies_highwayman
+      - allies_merchantcamp
+      - allies_odysseys
+      - allies_skirmisher
+      - plunder_abundance
+      - plunder_buriedtreasure
+      - plunder_kingscache
+      - plunder_landingparty
+      - plunder_maroon
+    events:
+      - plunder_event_bury
+    traits:
+      - plunder_trait_shy
