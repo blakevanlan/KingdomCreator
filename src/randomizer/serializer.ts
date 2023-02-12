@@ -117,7 +117,7 @@ function deserializeMetadata(serializedKingdom: any): KingdomMetadata {
 
 function findByIds<T>(ids: string[], lookupFn: (id: string) => T): T[] {
   const results = [];
-  for (let id of ids) {
+  for (const id of ids) {
     try {
       results.push(lookupFn(id));
     } catch (e) {
@@ -127,8 +127,9 @@ function findByIds<T>(ids: string[], lookupFn: (id: string) => T): T[] {
   return results;
 } 
 
-function parseCommaSeparatedValues(value: string | null): string[] | null {
-  return value ? value.split(",") : null;
+function parseCommaSeparatedValues(value: any | null): string[] | null {
+  if (typeof value === "string" ) return value ? value.split(",") : null;
+  return null;
 }
 
 function parseBoolean(value: string | null): boolean {
