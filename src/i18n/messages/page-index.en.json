@@ -1,5 +1,27 @@
 {
   "index_page_subtitle": "Dominion card picker for desktop and mobile",
   "colonies_and_platinums": "Colonies & Platinums",
-  "shelters": "Shelters"
+  "shelters": "Shelters",
+  "3Plus_Alchemy_Cards": "3+ Alchemy Cards",
+  "Randomizer": "Randomizer",
+  "Recommended Kingdoms": "Recommended Kingdoms",
+  "Box content": "Box content",
+  "Rules": "Rules",
+  "Sets": "Sets",
+  "Require +2 Action": "Require +2 Action",
+  "Require Drawer": "Require Drawer",
+  "Require Buy": "Require Buy",
+  "Allow Attacks": "Allow Attacks",
+  "Require Reaction": "Require Reaction",
+  "Require Trashing": "Require Trashing",
+  "Distribute Cost": "Distribute Cost",
+  "Prioritize Set": "Prioritize Set  ",
+  "Set": "Set",
+  "Alphabetical": "Alphabetical",
+  "Cost": "Cost",
+  "Choose set": "Choose set...",
+  "Options": "Options",
+  "Replace": "Replace!",
+  "Randomize": "Randomize!",
+  "Sort": "Sort"
 }

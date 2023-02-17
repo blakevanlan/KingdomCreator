@@ -1,4 +1,3 @@
-import {Ally} from "./ally";
 import {Boon} from "./boon";
 import {Card} from "./card";
 import {DominionSet} from "./dominion-set";
@@ -8,6 +7,7 @@ import {Project} from "./project";
 import {SetId} from "./set-id";
 import {SupplyCard} from "./supply-card";
 import {Way} from "./way";
+import {Ally} from "./ally";
 import {Trait} from "./trait";
 
 declare global {

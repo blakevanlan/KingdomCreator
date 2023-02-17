@@ -77,15 +77,15 @@
 </template>	
 
 <script lang="ts">	
-import { Vue, Component, Watch } from "vue-property-decorator";	
-import { Settings } from "../settings/settings";	
-import { SetId } from "../dominion/set-id";	
-import { State } from "vuex-class";	
-import { DominionSets } from "../dominion/dominion-sets";	
-import { SupplyCard } from "../dominion/supply-card";	
-import { CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";	
-import { CardType } from "../dominion/card-type";	
-import { CostType } from "../dominion/cost-type"	
+import { Vue, Component, Watch } from "vue-property-decorator";
+import { Settings } from "../settings/settings";
+import { SetId } from "../dominion/set-id";
+import { State } from "vuex-class";
+import { DominionSets } from "../dominion/dominion-sets";
+import { SupplyCard } from "../dominion/supply-card";
+import { CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
+import { CardType } from "../dominion/card-type";
+import { CostType } from "../dominion/cost-type";
 import { RANDOMIZE_SUPPLY_CARD, RandomizeSupplyCardParams } from "../stores/randomizer/action-types";
 
 interface VisibleType<T> {	

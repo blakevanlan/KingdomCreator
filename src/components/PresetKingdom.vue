@@ -10,11 +10,11 @@
     <div class="preset-kingdom_metadata" v-if="hasMetadata">
       <div class="preset-kingdom_metadata_use-platinums-and-colonies"
           v-if="kingdom.metadata.useColonies">
-        Use Platinums/Colonies
+           {{ $t("Use Platinums/Colonies") }}
       </div>
       <div class="preset-kingdom_metadata_use-shelters"
           v-if="kingdom.metadata.useShelters">
-        Use Shelters
+          {{ $t("Use Shelters") }}
       </div>
     </div>
 
@@ -95,7 +95,7 @@ const TWO_COLUMN_ADDON_WIDTH = 525;
 export default class PresetKingdom extends Vue {
   @Prop() readonly kingdom!: DominionKingdom;
   @State(state => state.window.width) windowWidth!: number;
-  
+
   get sets() {
     return this.kingdom.setIds.map(DominionSets.getSetById);
   }

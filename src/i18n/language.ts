@@ -4,11 +4,12 @@ export enum Language {
   FRENCH = "fr",
   GERMAN = "de",
   SPANISH = "es",
+  POLISH ="pl"
 }
 
 export function getLanguage(value: string) {
   const [prefix] = value.split("-");
-  for (let key of Object.keys(Language)) {
+  for (const key of Object.keys(Language)) {
     if (Language[key as keyof typeof Language] == prefix) {
       return Language[key as keyof typeof Language];
     }
