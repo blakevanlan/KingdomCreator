@@ -16,7 +16,7 @@
         :is-vertical="false"
       >
       <template v-slot:default="slotProps">
-        <FlippingCard v-if="slotProps.item.addon != null"
+        <FlippingCard
           :on-card-back-click="function() { handleClick(slotProps.item) }"
           :card="slotProps.item.addon"
           :is-vertical="false"

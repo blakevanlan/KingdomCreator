@@ -52,10 +52,32 @@ export const actions = {
       const supply = Randomizer.createSupplySafe(options);
       if (supply) {
         EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
-        const kingdom = new Kingdom(
-            Date.now(), supply, initialKingdom.events, initialKingdom.landmarks,
-            initialKingdom.projects, initialKingdom.ways, initialKingdom.boons,
-            initialKingdom.ally, initialKingdom.traits, initialKingdom.metadata);
+        let kingdom
+        if ( initialKingdom.events.length + initialKingdom.landmarks.length +
+            initialKingdom.projects.length + initialKingdom.ways.length +
+            initialKingdom.traits.length == 0) {
+            const Tempkingdom = Randomizer.createKingdom(options);
+            let addonslength=0
+            const regeneratedEvents = initialKingdom.events.concat(Tempkingdom.events).slice(0, 2);
+            addonslength += regeneratedEvents.length
+            const regeneratedLandmarks = initialKingdom.landmarks.concat(Tempkingdom.landmarks).slice(0, Math.max(0, 2 - addonslength));
+            addonslength += regeneratedLandmarks.length
+            const regeneratedProjects = initialKingdom.projects.concat(Tempkingdom.projects).slice(0, Math.max(0, 2 - addonslength));
+            addonslength += regeneratedProjects.length
+            const regeneratedWays = initialKingdom.ways.concat(Tempkingdom.ways).slice(0, Math.max(0, 2 - addonslength));
+            addonslength += regeneratedWays.length
+            const regeneratedTraits = initialKingdom.traits.concat(Tempkingdom.traits).slice(0, Math.max(0, 2 - addonslength));
+            addonslength += regeneratedTraits.length
+            kingdom = new Kingdom(
+                Date.now(), supply, regeneratedEvents, regeneratedLandmarks,
+                regeneratedProjects, regeneratedWays, initialKingdom.boons,
+                initialKingdom.ally, regeneratedTraits, initialKingdom.metadata);
+        } else {
+            kingdom = new Kingdom(
+                Date.now(), supply, initialKingdom.events, initialKingdom.landmarks,
+                initialKingdom.projects, initialKingdom.ways, initialKingdom.boons,
+                initialKingdom.ally, initialKingdom.traits, initialKingdom.metadata);
+        }
         context.commit(CLEAR_SELECTION);
         context.commit(UPDATE_KINGDOM, kingdom);
         return;
