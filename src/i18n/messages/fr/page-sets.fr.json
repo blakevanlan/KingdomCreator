@@ -12,6 +12,13 @@
   "reset filter": "reset filter",
   "show Kingdoms list": "afficher la liste des noms de jeux",
   "hide Kingdoms list": "masquer la liste des noms de jeux",
+  "mykingdoms": "mykingdoms",
+  "All recommended sets": "All recommended sets",
+  "Personal sets": "Personal sets",
   "Sets": "Sets",
-  "Bane": "Fléau"
+  "Bane": "Fléau",
+  "Filter Games": "Filtrer les jeux",
+  "All Games": "tous les jeux",
+  "Played Games": "Déjà joués",
+  "Not played Games": "Pas encore joués"
 }

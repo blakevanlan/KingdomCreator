@@ -20,6 +20,7 @@ import * as Cards_Hinterlands from "./messages/fr/cards/cards.fr.hinterlands.jso
 import * as Cards_Intrigue from "./messages/fr/cards/cards.fr.intrigue.json";
 import * as Cards_Menagerie from "./messages/fr/cards/cards.fr.menagerie.json";
 import * as Cards_Nocturne from "./messages/fr/cards/cards.fr.nocturne.json";
+import * as Cards_Plunder from "./messages/fr/cards/cards.fr.plunder.json";
 import * as Cards_Promos from "./messages/fr/cards/cards.fr.promos.json";
 import * as Cards_Prosperity from "./messages/fr/cards/cards.fr.prosperity.json";
 import * as Cards_Renaissance from "./messages/fr/cards/cards.fr.renaissance.json";
@@ -49,6 +50,7 @@ export const messages = {
   ...(Cards_Intrigue as any).default,
   ...(Cards_Menagerie as any).default,
   ...(Cards_Nocturne as any).default,
+  ...(Cards_Plunder as any).default,
   ...(Cards_Promos as any).default,
   ...(Cards_Prosperity as any).default,
   ...(Cards_Renaissance as any).default,

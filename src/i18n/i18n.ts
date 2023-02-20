@@ -9,6 +9,7 @@ export class I18n {
   private static readonly instance = new VueI18n({
     locale: Language.ENGLISH,
     fallbackLocale: Language.ENGLISH,
+    silentTranslationWarn: true,
     messages: { en }
   });
   
