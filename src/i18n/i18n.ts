@@ -9,8 +9,10 @@ export class I18n {
   private static readonly instance = new VueI18n({
     locale: Language.ENGLISH,
     fallbackLocale: Language.ENGLISH,
+    silentTranslationWarn: true,
     messages: { en }
   });
+  
   private static readonly loaded = new Set([Language.ENGLISH]);
 
   static getInstance(): VueI18n {
@@ -19,7 +21,7 @@ export class I18n {
 
   static async setLanguage(language: Language): Promise<any> {
     this.instance.locale = language;
-    document.querySelector("html")!.setAttribute("lang", language);
+    document.querySelector("html")?.setAttribute("lang", language) ?? false
   }
 
   static async loadLanguage(language: Language): Promise<any> {

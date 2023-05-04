@@ -75,7 +75,7 @@ export default class Randomizer extends Vue {
   @Watch("kingdom")
   onKingdomChanged() {
     const query = {
-      ...this.$route.query,
+      //...this.$route.query,
       ...serializeKingdom(this.kingdom)
     };
     if (!this.isEqual(this.$route.query, query)) {

@@ -16,6 +16,9 @@
     <template v-if="addons.length >= 4" v-slot:four>
       {{ $t(addons[3]) }}
     </template>
+    <template v-if="addons.length >= 5" v-slot:five>
+      {{ $t(addons[4]) }}
+    </template>
   </i18n>
 </template>
 
@@ -28,13 +31,15 @@ export default class AddonTitle extends Vue {
   @Prop() readonly hasLandmarks!: boolean;
   @Prop() readonly hasProjects!: boolean;
   @Prop() readonly hasWays!: boolean;
+  @Prop() readonly hasTraits!: boolean;
 
   get addons() {
     const addons = [];
-    if (this.hasEvents) addons.push("addon_events");
+    if (this.hasEvents)    addons.push("addon_events");
     if (this.hasLandmarks) addons.push("addon_landmarks");
-    if (this.hasProjects) addons.push("addon_projects");
-    if (this.hasWays) addons.push("addon_ways");
+    if (this.hasProjects)  addons.push("addon_projects");
+    if (this.hasWays)      addons.push("addon_ways");
+    if (this.hasTraits)    addons.push("addon_traits");
     return addons;
   }
 

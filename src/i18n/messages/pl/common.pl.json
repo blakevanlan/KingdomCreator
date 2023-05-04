@@ -1,0 +1,13 @@
+{
+  "addon_description_format_2": "{one} & {two}",
+  "addon_description_format_3": "{one}, {two} & {three}",
+  "addon_description_format_4": "{one}, {two}, {three} & {four}",
+  "addon_description_format_5": "{one}, {two}, {three}, {four} & {five}",
+  "github_info": "Kod źródłowy znajduje się w repozytorium {source}. Propozycje zmian oraz uwagi można zgłaszać {issues}!",
+  "github_info_source": "Github",
+  "github_info_issues": "tu",
+  "disclaimers_and_credits": "Autorem gry Dominion jest Donald X. Vaccarino a wydawcą Rio Grande Games. Ta strona nie ma relacji z autorem ani wydawcą. Obrazy kart są dostarczone z {wiki}. Ikony dostarczył {smashicons} od {flaticon} na licencji {creativecommons}.",
+  "disclaimers_and_credits_wiki": "Dominion Strategy Wiki",
+  "disclaimers_and_credits_smashicons": "Smashicons",
+  "disclaimers_and_credits_creative_commons": "CC 3.0 BY"
+}

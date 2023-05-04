@@ -1,11 +1,12 @@
 <template>
-  <div class="addons" v-if="canHaveAddons">
+  <div class="addons" v-if="hasAddons">
     <div class="addons-header">
       <AddonTitle
         :has-events="canHaveEvents"
         :has-landmarks="canHaveLandmarks"
         :has-projects="canHaveProjects"
         :has-ways="canHaveWays"
+        :has-traits="canHaveTraits"
       />
     </div>
     <GridLayout
@@ -51,11 +52,12 @@ export default class Addons extends Vue {
   @State(state => state.randomizer.selection) readonly selection!: Selection;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
   @State(state => state.window.width) readonly windowWidth!: number;
-  @Getter("canHaveAddons") readonly canHaveAddons!: boolean;
+  @Getter("hasAddons") readonly hasAddons!: boolean;
   @Getter("canHaveEvents") readonly canHaveEvents!: string;
   @Getter("canHaveLandmarks") readonly canHaveLandmarks!: string;
   @Getter("canHaveProjects") readonly canHaveProjects!: string;
   @Getter("canHaveWays") readonly canHaveWays!: string;
+  @Getter("canHaveTraits") readonly canHaveTraits!: string;
   @Getter("addons") readonly addons!: Addon[];
   activeContainers: AddonContainer[] = Addons.fillWithEmptyAddonContainers([]);
 

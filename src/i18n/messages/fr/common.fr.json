@@ -1,0 +1,19 @@
+{
+  "addon_description_format_2": "{one} & {two}",
+  "addon_description_format_3": "{one}, {two} & {three}",
+  "addon_description_format_4": "{one}, {two}, {three} & {four}",
+  "addon_description_format_5": "{one}, {two}, {three}, {four} & {five}",
+  "addon_events": "Evénements",
+  "addon_landmarks": "Repères",
+  "addon_projects": "Projets",
+  "addon_ways": "Voies",
+  "addon_allies": "Alliés",
+  "addon_traits": "Comportement",
+  "github_info": "Le code source est disponible sur {source}. Pour une demande de fonctionnalité ou un problème, s’adresser {issues} !",
+  "github_info_source": "Github",
+  "github_info_issues": "ici",
+  "disclaimers_and_credits": "Dominion est un jeu de Donald X. Vaccarino, publié par Rio Grande Games. Ce site n’est affilié avec aucun des deux. Les visuels des cartes sont fournis par {wiki}. Les icones sont faits par {smashicons} de {flaticon}, sous licence {creativecommons}.",
+  "disclaimers_and_credits_wiki": "Dominion Strategy Wiki",
+  "disclaimers_and_credits_smashicons": "Smashicons",
+  "disclaimers_and_credits_creative_commons": "CC 3.0 BY"
+}

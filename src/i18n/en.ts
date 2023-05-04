@@ -7,7 +7,7 @@ import * as PageSets from "./messages/page-sets.en.json";
 
 function createCardMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};
-  for (let card of DominionSets.getAllCards()) {
+  for (const card of DominionSets.getAllCards()) {
     messages[card.id] = card.name;
   }
   return messages;
@@ -15,11 +15,13 @@ function createCardMessages(): {[index: string]: string} {
 
 function createSetMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};
-  for (let set of DominionSets.getAllSets()) {
+  for (const set of DominionSets.getAllSets()) {
     messages[set.setId] = set.name;
   }
-  // TODO: Remove once Menagerie is fully supported.
-  messages["menagerie"] = "Menagerie";
+    
+  // TODO: Remove once Menagerie & Allies is fully supported.
+  // messages["menagerie"] = "Menagerie";
+  // messages["allies"] = "Allies";
   return messages;
 }
 

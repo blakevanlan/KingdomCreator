@@ -55,7 +55,7 @@ export const randomizerStore = {
       return state.settings.selectedSets.indexOf(SetId.ALCHEMY) != -1;
     },
     randomizeButtonText: (state: State) => {
-      return state.selection.isEmpty() ? "Randomize!" : "Replace!";
+      return state.selection.isEmpty() ? "Randomize" : "Replace";
     },
     addons: (state: State) => {
       return (state.kingdom.events as Addon[]).concat(
@@ -67,16 +67,18 @@ export const randomizerStore = {
     hasAddons: (state: State, getters: Getters) => {
       return getters.addons.length > 0;
     },
-    canHaveEvents: (state: State, getters: Getters) => {
-      for (let setId of state.settings.selectedSets) {
+    canHaveEvents: (state: State) => {
+      if (state.kingdom.events.length >0 ) return true;
+      for (const setId of state.settings.selectedSets) {
         if (DominionSets.getSetById(setId).events.length) {
           return true;
         }
       }
       return false;
     },
-    canHaveLandmarks: (state: State, getters: Getters) => {
-      for (let setId of state.settings.selectedSets) {
+    canHaveLandmarks: (state: State) => {
+      if (state.kingdom.landmarks.length >0 ) return true;
+      for (const setId of state.settings.selectedSets) {
         if (DominionSets.getSetById(setId).landmarks.length) {
           return true;
         }
@@ -84,7 +86,8 @@ export const randomizerStore = {
       return false;
     },
     canHaveProjects: (state: State) => {
-      for (let setId of state.settings.selectedSets) {
+      if (state.kingdom.projects.length >0 ) return true;
+      for (const setId of state.settings.selectedSets) {
         if (DominionSets.getSetById(setId).projects.length) {
           return true;
         }
@@ -92,7 +95,8 @@ export const randomizerStore = {
       return false;
     },
     canHaveWays: (state: State) => {
-      for (let setId of state.settings.selectedSets) {
+      if (state.kingdom.ways.length >0 ) return true;
+      for (const setId of state.settings.selectedSets) {
         if (DominionSets.getSetById(setId).ways.length) {
           return true;
         }
@@ -100,7 +104,8 @@ export const randomizerStore = {
       return false;
     },
     canHaveTraits: (state: State) => {
-      for (let setId of state.settings.selectedSets) {
+      if (state.kingdom.traits.length >0 ) return true;
+      for (const setId of state.settings.selectedSets) {
         if (DominionSets.getSetById(setId).traits.length) {
           return true;
         }
