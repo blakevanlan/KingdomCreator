@@ -21,6 +21,7 @@ cards:
     isTreasure: false
     isTerminal: false
     isVictory: false
+
   - name: Sleigh
     cost:
       treasure: 2

@@ -5,7 +5,7 @@ cards:
       treasure: 3
     isTreasure: true
     isTrashing: true
-    
+
   - name: Clerk
     cost:
       treasure: 4
@@ -30,7 +30,7 @@ cards:
       treasure: 5
     isAttack: true
     isAction: true
-    
+
   - name: Collection
     cost:
       treasure: 5
@@ -42,7 +42,7 @@ cards:
       treasure: 5
     isTreasure: true
     isTrashing: true
-    
+
   - name: Magnate
     cost:
       treasure: 5
@@ -140,7 +140,6 @@ cards:
     cost:
       treasure: 4
     isTreasure: true
-
 
   - name: Worker's Village
     cost:

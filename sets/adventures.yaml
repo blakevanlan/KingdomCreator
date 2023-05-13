@@ -603,7 +603,7 @@ events:
 
   - name: Lost Arts
     cost:
-      treasure: 0
+      treasure: 6
       potion: 0
     isActionSupplier: true
     isBuySupplier: false

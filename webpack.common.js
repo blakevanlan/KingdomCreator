@@ -44,6 +44,7 @@ module.exports = function(isProduction) {
           exclude: /node_modules/,
           options: {
             appendTsSuffixTo: [/\.vue$/],
+            transpileOnly: true
           }
         },
         {

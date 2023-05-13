@@ -336,7 +336,6 @@ cards:
     isActionSupplier: false
     isAttack: false
     isBuySupplier: true
-    
     isDrawer: true
     isMultiDrawer: true
     isDuration: false
@@ -397,7 +396,7 @@ cards:
 events:
   - name: Triumph
     cost:
-      treasure: 5
+      treasure: 0
       potion: 0
       debt: 5
     isActionSupplier: false
@@ -408,7 +407,7 @@ events:
   
   - name: Annex
     cost:
-      treasure: 8
+      treasure: 0
       potion: 0
       debt: 8
     isActionSupplier: false
@@ -419,7 +418,7 @@ events:
 
   - name: Donate
     cost:
-      treasure: 8
+      treasure: 0
       potion: 0
       debt: 8
     isActionSupplier: false
