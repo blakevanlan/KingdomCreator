@@ -1,6 +1,7 @@
 {
   "adventures": "Abenteuer",
   "alchemy": "Die Alchemisten",
+  "allies":"Verbündete",
   "baseset2": "Dominion II",
   "baseset": "Dominion",
   "cornucopia": "Reiche Ernte",
@@ -16,7 +17,7 @@
   "promos": "Promos",
   "prosperity": "Blütezeit",
   "prosperity2add": "Blütezeit updatepack",
-  "prosperity2": "BlütezeitII",
+  "prosperity2": "Blütezeit II",
   "renaissance": "Renaissance",
   "seaside": "Seaside",
   "seaside2": "Seaside II"
