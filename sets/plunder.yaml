@@ -30,7 +30,7 @@ cards:
       potion: 0
       debt: 0
     isAction: true
-    isActionSupplier: true
+    isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
     isBuySupplier: false
@@ -47,7 +47,6 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-
 
   - name: Jewelled Egg
     cost:
@@ -103,7 +102,7 @@ cards:
       potion: 0
       debt: 0
     isAction: true
-    isActionSupplier: true
+    isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
     isBuySupplier: false
@@ -199,7 +198,7 @@ cards:
       potion: 0
       debt: 0
     isAction: true
-    isActionSupplier: true
+    isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
     isBuySupplier: false
@@ -240,14 +239,14 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Cabin Boy
     cost:
       treasure: 4
       potion: 0
       debt: 0
     isAction: true
-    isActionSupplier: true
+    isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
     isBuySupplier: false
@@ -552,7 +551,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Crew
     cost:
       treasure: 5
@@ -576,7 +575,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Cutthroat
     cost:
       treasure: 5
@@ -600,7 +599,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: true
-      
+
   - name: Enlarge
     cost:
       treasure: 5
@@ -624,7 +623,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Figurine
     cost:
       treasure: 5
@@ -648,7 +647,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-      
+
   - name: First Mate
     cost:
       treasure: 5
@@ -696,7 +695,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Longship
     cost:
       treasure: 5
@@ -720,14 +719,14 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Mining Road
     cost:
       treasure: 5
       potion: 0
       debt: 0
     isAction: true
-    isActionSupplier: true
+    isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
     isBuySupplier: true
@@ -744,7 +743,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Pendant
     cost:
       treasure: 5
@@ -768,7 +767,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Pickaxe
     cost:
       treasure: 5
@@ -792,7 +791,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: true
-      
+
   - name: Pilgrim
     cost:
       treasure: 5
@@ -816,7 +815,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Quartermaster
     cost:
       treasure: 5
@@ -840,7 +839,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Silver Mine
     cost:
       treasure: 5
@@ -864,7 +863,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Trickster
     cost:
       treasure: 5
@@ -888,7 +887,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: false
-      
+
   - name: Wealthy Village
     cost:
       treasure: 5
@@ -912,7 +911,7 @@ cards:
     isTreasure: false
     isVictory: false
     isLootSupplier: true
-      
+
   - name: Sack of Loot
     cost:
       treasure: 6
@@ -960,7 +959,7 @@ cards:
     isTreasure: true
     isVictory: false
     isLootSupplier: false
-  
+
 events:
   - name: Bury
     cost:
@@ -1038,4 +1037,3 @@ traits:
   - name: Rich
   - name: Shy
   - name: Tireless
-  
