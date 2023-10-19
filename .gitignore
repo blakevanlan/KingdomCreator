@@ -19,3 +19,7 @@ node_modules
 builtAssets
 download
 out
+
+/docs/*.js
+/docs/*.html
+/docs/*.css
