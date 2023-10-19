@@ -10,17 +10,13 @@ html
         rel="stylesheet", type="text/css")
     
     //- Cache busting the cheap way. Should use a hash instead.
-    script(src=htmlWebpackPlugin.options.isProduction ? "/dominion-content.js?" + Date.now() : "/dominion-content.js")
+    script(src=htmlWebpackPlugin.options.isProduction ? "dominion-content.js?" + Date.now() : "dominion-content.js")
 
     //- Ads
     script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-33669676-2")
     
     - if (htmlWebpackPlugin.options.isProduction)
       script.
-        if (window.location.hostname.indexOf("localhost") == -1
-            && window.location.protocol.indexOf("https") != 0) {
-          window.location.protocol = "https:";
-        }
         //- Google Analytics
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}

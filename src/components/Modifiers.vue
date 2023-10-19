@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slow-fade">
-      <div v-if="modifiers.length" class="modifiers-header">Additional</div> 
+      <div v-if="modifiers.length" class="modifiers-header">Additional</div>
     </transition>
     <transition name="slow-fade">
       <GridLayout
@@ -49,7 +49,7 @@ export default class Modifiers extends Vue {
   @State(state => state.randomizer.kingdom.metadata) readonly metadata!: Metadata;
   @State(state => state.window.width) readonly windowWidth!: number;
   @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
-  
+
   get numberOfColumns() {
     return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4;
   }
@@ -59,14 +59,14 @@ export default class Modifiers extends Vue {
     if (this.metadata.useColonies) {
       modifiers.push({
         name: this.$tc("colonies_and_platinums"),
-        imageUrl: "/img/cards/prosperity_coloniesplatinums.png",
+        imageUrl: "img/cards/prosperity_coloniesplatinums.png",
         className: "use-colonies"
       });
     }
     if (this.metadata.useShelters) {
       modifiers.push({
         name: this.$tc("shelters"),
-        imageUrl: "/img/cards/darkages_shelters.png",
+        imageUrl: "img/cards/darkages_shelters.png",
         className: "use-shelters"
       });
     }

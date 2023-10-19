@@ -14,7 +14,7 @@
       <header>
         <div class="title-container">
           <h1 class="title">
-            <a class="title_link" href="/index.html">Dominion Randomizer</a>
+            <a class="title_link" href="index.html">Dominion Randomizer</a>
           </h1>
           <h2 class="tagline">{{ subtitle }}</h2>
         </div>
@@ -98,9 +98,9 @@ class MenuItem {
 }
 
 const MENU_ITEMS = [
-  new MenuItem(MenuItemType.RANDOMIZER, "Randomizer", "/"),
-  new MenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets.html"),
-  new MenuItem(MenuItemType.RULES, "Rules", "/rules.html"),
+  new MenuItem(MenuItemType.RANDOMIZER, "Randomizer", "index.html"),
+  new MenuItem(MenuItemType.SETS, "Recommended Kingdoms", "sets.html"),
+  new MenuItem(MenuItemType.RULES, "Rules", "rules.html"),
 ];
 
 @Component
@@ -122,7 +122,7 @@ export default class Page extends Vue {
 
   getMenuItemUrl(url: string) {
     return this.language != Language.ENGLISH
-      ? `${url}?lang=${this.language}` 
+      ? `${url}?lang=${this.language}`
       : url;
   }
 
@@ -132,7 +132,7 @@ export default class Page extends Vue {
       query: {
         ...this.$route.query,
         lang: language
-      } 
+      }
     };
   }
 
