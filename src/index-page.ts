@@ -3,5 +3,4 @@ import { store } from "./stores/index-store";
 import { initialize } from "./setup";
 import { createRouter } from "./router";
 
-initialize(createRouter(["/", "/index.html"], Index), store);
-
+initialize(createRouter(["*"], Index), store);
