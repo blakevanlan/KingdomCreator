@@ -183,7 +183,7 @@ kingdoms:
       - prosperity_traderoute
       - prosperity_watchtower
     boons:
-      - nocturne_boon_theswampsgiftgift
+      - nocturne_boon_theswampsgift
       - nocturne_boon_theriversgift
       - nocturne_boon_theforestsgift
     metadata:
