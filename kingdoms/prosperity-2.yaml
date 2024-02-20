@@ -1,159 +1,538 @@
 kingdoms:
-  - name: Beginners
+  - name: Beginners (2nd)
     sets:
-      - prosperity
+      - prosperity2
     supply:
-      - prosperity_bank
-      - prosperity_countinghouse
-      - prosperity_expand
-      - prosperity_goons
-      - prosperity_monument
-      - prosperity_rabble
-      - prosperity_royalseal
-      - prosperity_venture
-      - prosperity_watchtower
-      - prosperity_workersvillage
+      - prosperity2_bank
+      - prosperity2_clerk
+      - prosperity2_crystalball
+      - prosperity2_expand
+      - prosperity2_magnate
+      - prosperity2_monument
+      - prosperity2_rabble
+      - prosperity2_tiara
+      - prosperity2_watchtower
+      - prosperity2_workersvillage
     metadata:
       colonies: true
 
-  - name: Friendly Interactive
+  - name: Friendly Interactive (2nd)
     sets:
-      - prosperity
+      - prosperity2
     supply:
-      - prosperity_bishop
-      - prosperity_city
-      - prosperity_contraband
-      - prosperity_forge
-      - prosperity_hoard
-      - prosperity_peddler
-      - prosperity_royalseal
-      - prosperity_traderoute
-      - prosperity_vault
-      - prosperity_workersvillage
+      - prosperity2_bishop
+      - prosperity2_city
+      - prosperity2_collection
+      - prosperity2_forge
+      - prosperity2_hoard
+      - prosperity2_peddler
+      - prosperity2_tiara
+      - prosperity2_vault
+      - prosperity2_warchest
+      - prosperity2_workersvillage
     metadata:
       colonies: true
 
-  - name: Big Actions
+  - name: Biggest Money (2nd)
     sets:
-      - prosperity
+      - baseset2
+      - prosperity2
     supply:
-      - prosperity_city
-      - prosperity_expand
-      - prosperity_grandmarket
-      - prosperity_kingscourt
-      - prosperity_loan
-      - prosperity_mint
-      - prosperity_quarry
-      - prosperity_rabble
-      - prosperity_talisman
-      - prosperity_vault
+      - baseset2_artisan
+      - baseset2_harbinger
+      - baseset2_laboratory
+      - baseset2_mine
+      - baseset2_moneylender
+      - prosperity2_bank
+      - prosperity2_crystalball
+      - prosperity2_grandmarket
+      - prosperity2_mint
+      - prosperity2_tiara
     metadata:
       colonies: true
 
-  - name: Biggest Money
+  - name: The King's Army (2nd)
     sets:
-      - baseset
-      - prosperity
+      - baseset2
+      - prosperity2
     supply:
-      - baseset_laboratory
-      - baseset_mine
-      - baseset_moneylender
-      - baseset_adventurer
-      - baseset_spy
-      - prosperity_bank
-      - prosperity_grandmarket
-      - prosperity_mint
-      - prosperity_royalseal
-      - prosperity_venture
+      - baseset2_bureaucrat
+      - baseset2_councilroom
+      - baseset2_merchant
+      - baseset2_moat
+      - baseset2_village
+      - prosperity2_collection
+      - prosperity2_expand
+      - prosperity2_kingscourt
+      - prosperity2_rabble
+      - prosperity2_vault
     metadata:
       colonies: true
 
-  - name: The King's Army
+  - name: Paths to Victory (2nd)
     sets:
-      - baseset
-      - prosperity
+      - intrigue2
+      - prosperity2
     supply:
-      - baseset_bureaucrat
-      - baseset_councilroom
-      - baseset_moat
-      - baseset_village
-      - baseset_spy
-      - prosperity_expand
-      - prosperity_goons
-      - prosperity_kingscourt
-      - prosperity_rabble
-      - prosperity_vault
+      - intrigue2_baron
+      - intrigue2_harem
+      - intrigue2_pawn
+      - intrigue2_shantytown
+      - intrigue2_upgrade
+      - prosperity2_bishop
+      - prosperity2_collection
+      - prosperity2_magnate
+      - prosperity2_monument
+      - prosperity2_peddler
     metadata:
       colonies: true
 
-  - name: The Good Life
+  - name: Lucky Seven (2nd)
     sets:
-      - baseset
-      - prosperity
+      - intrigue2
+      - prosperity2
     supply:
-      - baseset_bureaucrat
-      - baseset_cellar
-      - baseset_gardens
-      - baseset_village
-      - baseset_chancellor
-      - prosperity_contraband
-      - prosperity_countinghouse
-      - prosperity_hoard
-      - prosperity_monument
-      - prosperity_mountebank
+      - intrigue2_baron
+      - intrigue2_miningvillage
+      - intrigue2_patrol
+      - intrigue2_upgrade
+      - intrigue2_wishingwell
+      - prosperity2_bank
+      - prosperity2_expand
+      - prosperity2_forge
+      - prosperity2_kingscourt
+      - prosperity2_tiara
     metadata:
       colonies: true
 
-  - name: Paths to Victory
+  - name: Exploding Kingdom (2nd)
     sets:
-      - intrigue
-      - prosperity
+      - prosperity2
+      - seaside2
     supply:
-      - intrigue_baron
-      - intrigue_harem
-      - intrigue_pawn
-      - intrigue_shantytown
-      - intrigue_upgrade
-      - prosperity_bishop
-      - prosperity_countinghouse
-      - prosperity_goons
-      - prosperity_monument
-      - prosperity_peddler
+      - prosperity2_bishop
+      - prosperity2_city
+      - prosperity2_grandmarket
+      - prosperity2_kingscourt
+      - prosperity2_quarry
+      - seaside2_fishingvillage
+      - seaside2_lookout
+      - seaside2_outpost
+      - seaside2_tactician
+      - seaside2_wharf
+    metadata:
+      colonies: true
+      
+  - name: Pirate Bay (2nd)
+    sets:
+      - prosperity2
+      - seaside2
+    supply:
+      - prosperity2_charlatan
+      - prosperity2_hoard
+      - prosperity2_investment
+      - prosperity2_magnate
+      - prosperity2_mint
+      - seaside2_astrolabe
+      - seaside2_corsair
+      - seaside2_monkey
+      - seaside2_nativevillage
+      - seaside2_treasury
     metadata:
       colonies: true
 
-  - name: All Along the Watchtower
+  - name: Lower Learning
     sets:
-      - intrigue
-      - prosperity
+      - alchemy
+      - prosperity2
     supply:
-      - intrigue_bridge
-      - intrigue_miningvillage
-      - intrigue_pawn
-      - intrigue_torturer
-      - intrigue_greathall
-      - prosperity_hoard
-      - prosperity_talisman
-      - prosperity_traderoute
-      - prosperity_vault
-      - prosperity_watchtower
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_university
+      - alchemy_vineyard
+      - prosperity2_anvil
+      - prosperity2_bishop
+      - prosperity2_charlatan
+      - prosperity2_mint
+      - prosperity2_peddler
+      - prosperity2_workersvillage
     metadata:
       colonies: true
 
-  - name: Lucky Seven
+  - name: Detours (2nd)
     sets:
-      - intrigue
-      - prosperity
+      - cornucopia
+      - prosperity2
     supply:
-      - intrigue_bridge
-      - intrigue_swindler
-      - intrigue_wishingwell
-      - intrigue_coppersmith
-      - intrigue_tribute
-      - prosperity_bank
-      - prosperity_expand
-      - prosperity_forge
-      - prosperity_kingscourt
-      - prosperity_vault
+      - cornucopia_farmingvillage
+      - cornucopia_hornofplenty
+      - cornucopia_jester
+      - cornucopia_remake
+      - cornucopia_tournament
+      - prosperity2_clerk
+      - prosperity2_crystalball
+      - prosperity2_forge
+      - prosperity2_hoard
+      - prosperity2_magnate
     metadata:
       colonies: true
+
+  - name: Quarrymen (2nd)
+    sets:
+      - guilds
+      - prosperity2
+    supply:
+      - guilds_baker
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_merchantguild
+      - guilds_soothsayer
+      - prosperity2_charlatan
+      - prosperity2_city
+      - prosperity2_expand
+      - prosperity2_grandmarket
+      - prosperity2_quarry
+    metadata:
+      colonies: true
+
+  - name: Instant Gratification (2nd)
+    sets:
+      - hinterlands2
+      - prosperity2
+    supply:
+      - hinterlands2_berserker
+      - hinterlands2_cauldron
+      - hinterlands2_haggler
+      - hinterlands2_oasis
+      - hinterlands2_trail
+      - prosperity2_bishop
+      - prosperity2_expand
+      - prosperity2_hoard
+      - prosperity2_mint
+      - prosperity2_watchtower
+    metadata:
+      colonies: true
+
+  - name: Treasure Trove (2nd)
+    sets:
+      - hinterlands2
+      - prosperity2
+    supply:
+      - hinterlands2_cauldron
+      - hinterlands2_develop
+      - hinterlands2_foolsgold
+      - hinterlands2_guarddog
+      - hinterlands2_inn
+      - prosperity2_bank
+      - prosperity2_clerk
+      - prosperity2_crystalball
+      - prosperity2_monument
+      - prosperity2_tiara
+    metadata:
+      colonies: true
+
+  - name: One Man's Trash (2nd)
+    sets:
+      - darkages
+      - prosperity2
+    supply:
+      - darkages_counterfeit
+      - darkages_forager
+      - darkages_marketsquare
+      - darkages_pillage
+      - darkages_squire
+      - prosperity2_anvil
+      - prosperity2_city
+      - prosperity2_crystalball
+      - prosperity2_magnate
+      - prosperity2_warchest
+    metadata:
+      colonies: true
+      shelters: true
+
+  - name: Honor Among Thieves (2nd)
+    sets:
+      - darkages
+      - prosperity2
+    supply:
+      - darkages_banditcamp
+      - darkages_marauder
+      - darkages_procession
+      - darkages_rogue
+      - darkages_squire
+      - prosperity2_collection
+      - prosperity2_forge
+      - prosperity2_hoard
+      - prosperity2_quarry
+      - prosperity2_watchtower
+    metadata:
+      colonies: true
+      shelters: true
+
+  - name: Last Will and Monument (2nd)
+    sets:
+      - adventures
+      - prosperity2
+    supply: 
+      - adventures_coinoftherealm
+      - adventures_dungeon
+      - adventures_messenger
+      - adventures_port
+      - adventures_relic
+      - prosperity2_bishop
+      - prosperity2_collection
+      - prosperity2_magnate
+      - prosperity2_monument
+      - prosperity2_vault
+    events:
+      - adventures_event_inheritance 
+    metadata:
+      colonies: true
+
+  - name: Think Big (2nd)
+    sets:
+      - adventures
+      - prosperity2
+    supply:
+      - adventures_distantlands
+      - adventures_giant
+      - adventures_hireling
+      - adventures_miser
+      - adventures_storyteller
+      - prosperity2_expand
+      - prosperity2_hoard
+      - prosperity2_kingscourt
+      - prosperity2_peddler
+      - prosperity2_warchest
+    events:
+      - adventures_event_ball 
+      - adventures_event_ferry 
+    metadata:
+      colonies: true
+
+  - name: Big Time (2nd)
+    sets:
+      - empires
+      - prosperity2
+    supply:
+      - empires_capital
+      - empires_gladiatorfortune
+      - empires_patricianemporium
+      - empires_royalblacksmith
+      - empires_villa
+      - prosperity2_bank
+      - prosperity2_forge
+      - prosperity2_grandmarket
+      - prosperity2_investment
+      - prosperity2_tiara
+    events:
+      - empires_event_dominate
+    landmarks:
+      - empires_landmark_obelisk
+    metadata:
+      colonies: true
+
+  - name: Gilded Gates (2nd)
+    sets:
+      - empires
+      - prosperity2
+    supply:
+      - empires_chariotrace
+      - empires_cityquarter
+      - empires_encampmentplunder
+      - empires_groundskeeper
+      - empires_wildhunt
+      - prosperity2_anvil
+      - prosperity2_collection
+      - prosperity2_mint
+      - prosperity2_peddler
+      - prosperity2_warchest
+    landmarks:
+      - empires_landmark_basilica
+      - empires_landmark_palace
+    metadata:
+      colonies: true
+
+  - name: Treasures of the Night (2nd)
+    sets:
+      - nocturne
+      - prosperity2
+    supply:
+      - nocturne_crypt
+      - nocturne_guardian
+      - nocturne_nightwatchman
+      - nocturne_raider
+      - nocturne_vampire
+      - prosperity2_charlatan
+      - prosperity2_crystalball
+      - prosperity2_investment
+      - prosperity2_tiara
+      - prosperity2_warchest
+    metadata:
+      colonies: true
+
+  - name: Day at the Races (2nd)
+    sets:
+      - nocturne
+      - prosperity2
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cemetery
+      - nocturne_druid
+      - nocturne_tormentor
+      - nocturne_tragichero
+      - prosperity2_anvil
+      - prosperity2_bishop
+      - prosperity2_clerk
+      - prosperity2_peddler
+      - prosperity2_watchtower
+    boons:
+      - nocturne_boon_theswampsgift
+      - nocturne_boon_theriversgift
+      - nocturne_boon_theforestsgift
+    metadata:
+      colonies: true
+
+  - name: Dreamers of Dreams (2nd)
+    sets:
+      - prosperity2
+      - renaissance
+    supply:
+      - prosperity2_charlatan
+      - prosperity2_monument
+      - prosperity2_vault
+      - prosperity2_watchtower
+      - prosperity2_workersvillage
+      - renaissance_cargoship
+      - renaissance_oldwitch
+      - renaissance_priest
+      - renaissance_scepter
+      - renaissance_scholar
+    projects:
+      - renaissance_project_academy
+    metadata:
+      colonies: true
+
+  - name: Movers and Shakers (2nd)
+    sets:
+      - prosperity2
+      - renaissance
+    supply:
+      - prosperity2_bank
+      - prosperity2_city
+      - prosperity2_grandmarket
+      - prosperity2_investment
+      - prosperity2_rabble
+      - renaissance_hideout
+      - renaissance_patron
+      - renaissance_research
+      - renaissance_treasurer
+      - renaissance_villain
+    projects:
+      - renaissance_project_capitalism
+      - renaissance_project_citadel
+    metadata:
+      colonies: true
+
+  - name: Limited Time Offer (2nd)
+    sets:
+      - menagerie
+      - prosperity2
+    supply:
+      - menagerie_destrier
+      - menagerie_displace
+      - menagerie_fisherman
+      - menagerie_supplies
+      - menagerie_wayfarer
+      - prosperity2_anvil
+      - prosperity2_grandmarket
+      - prosperity2_mint
+      - prosperity2_peddler
+      - prosperity2_workersvillage
+    events:
+      - menagerie_event_desperation
+    ways:
+      - menagerie_way_wayofthefrog
+    metadata:
+      colonies: true
+
+  - name: Otter Chaos
+    sets:
+      - menagerie
+      - prosperity2
+    supply:
+      - menagerie_animalfair
+      - menagerie_cameltrain
+      - menagerie_huntinglodge
+      - menagerie_mastermind
+      - menagerie_paddock
+      - prosperity2_city
+      - prosperity2_clerk
+      - prosperity2_monument
+      - prosperity2_quarry
+      - prosperity2_warchest
+    events:
+      - menagerie_event_reap
+    ways:
+      - menagerie_way_wayoftheotter
+    metadata:
+      colonies: true
+
+  - name: Inventing Mania (2nd)
+    sets:
+      - allies
+      - prosperity2
+    supply:
+      - allies_augurs
+      - allies_bauble
+      - allies_capitalcity
+      - allies_carpenter
+      - allies_importer
+      - prosperity2_anvil
+      - prosperity2_expand
+      - prosperity2_kingscourt
+      - prosperity2_quarry
+      - prosperity2_rabble
+    allies:
+      - allies_ally_familyofinventors
+    metadata:
+      colonies: true
+
+  - name: Bank of Toadies (2nd)
+    sets:
+      - allies
+      - prosperity2
+    supply:
+      - allies_broker
+      - allies_marquis
+      - allies_odysseys
+      - allies_sycophant
+      - allies_town
+      - prosperity2_bank
+      - prosperity2_city
+      - prosperity2_clerk
+      - prosperity2_investment
+      - prosperity2_vault
+    allies:
+      - allies_ally_leagueofbankers
+    metadata:
+      colonies: true
+
+  - name:
+    sets:
+      - alchemy
+      - prosperity2
+    supply:
+      - alchemy_
+      - alchemy_
+      - alchemy_
+      - alchemy_
+      - alchemy_
+      - prosperity2_
+      - prosperity2_
+      - prosperity2_
+      - prosperity2_
+      - prosperity2_
+    metadata:
+      colonies: true
+
