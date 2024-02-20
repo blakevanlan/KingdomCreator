@@ -114,6 +114,8 @@ import { Vue, Component } from "vue-property-decorator";
 import { Settings, SettingsParams, SortOption } from "../settings/settings";
 import { RandomizerSettings, RandomizerSettingsParams } from "../settings/randomizer-settings";
 
+const SETS_TO_IGNORE = new Set([SetId.GUILDSCORNUCOPIA]);
+
 interface SortOptionParam {
   value: SortOption,
   display: string,
@@ -131,7 +133,10 @@ export default class RandomizerSidebar extends Vue {
       readonly randomizerSettings!: RandomizerSettings;
 
   get sets() {
-    return DominionSets.getAllSets().filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
+    return DominionSets
+      .getAllSets()
+      .filter(s => !SETS_TO_IGNORE.has(s.setId))
+      .filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
   }
 
   get selectedSetIds() {
