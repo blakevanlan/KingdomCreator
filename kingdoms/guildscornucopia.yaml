@@ -1,0 +1,712 @@
+kingdoms:
+  - name: Misfortune
+    sets:
+      - cornucopia
+      - guilds
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_fortuneteller
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - guilds_advisor
+      - guilds_candlestickmaker
+      - guilds_doctor
+      - guilds_soothsayer
+      - guilds_taxman
+
+  - name: Baking Contest
+    sets:
+      - cornucopia
+      - guilds
+    supply:
+      - cornucopia_farmingvillage
+      - cornucopia_harvest
+      - cornucopia_menagerie
+      - cornucopia_remake
+      - cornucopia_tournament
+      - guilds_baker
+      - guilds_herald
+      - guilds_journeyman
+      - guilds_masterpiece
+      - guilds_stonemason
+
+  - name: Bounty of the Hunt
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_militia
+      - baseset2_moneylender
+      - baseset2_smithy
+      - cornucopia_harvest
+      - cornucopia_hornofplenty
+      - cornucopia_huntingparty
+      - cornucopia_menagerie
+      - cornucopia_tournament
+
+  - name: Bad Omens
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_laboratory
+      - baseset2_merchant
+      - baseset2_poacher
+      - baseset2_throneroom
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_jester
+      - cornucopia_remake
+  
+  - name: The Jester's Workshop
+    sets:
+      - baseset2
+      - cornucopia
+    supply:
+      - baseset2_artisan
+      - baseset2_laboratory
+      - baseset2_market
+      - baseset2_remodel
+      - baseset2_workshop
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_youngwitch
+    bane: baseset2_merchant
+
+  - name: Arts & Crafts
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_laboratory
+      - baseset2_moneylender
+      - baseset2_workshop
+      - guilds_advisor
+      - guilds_baker
+      - guilds_journeyman
+      - guilds_merchantguild
+      - guilds_stonemason
+
+  - name: Clean Living
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_bandit
+      - baseset2_gardens
+      - baseset2_militia
+      - baseset2_moneylender
+      - baseset2_village
+      - guilds_baker
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_doctor
+      - guilds_soothsayer
+
+  - name: Gilding the Lily
+    sets:
+      - baseset2
+      - guilds
+    supply:
+      - baseset2_library
+      - baseset2_market
+      - baseset2_merchant
+      - baseset2_remodel
+      - baseset2_sentry
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_plaza
+      - guilds_taxman
+
+  - name: Last Laughs
+    sets:
+      - cornucopia
+      - intrigue2
+    supply:
+      - cornucopia_farmingvillage
+      - cornucopia_harvest
+      - cornucopia_horsetraders
+      - cornucopia_huntingparty
+      - cornucopia_jester
+      - intrigue2_minion
+      - intrigue2_nobles
+      - intrigue2_pawn
+      - intrigue2_steward
+      - intrigue2_swindler
+
+  - name: The Spice of Life
+    sets:
+      - cornucopia
+      - intrigue2
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_hornofplenty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - cornucopia_youngwitch
+      - intrigue2_courtier
+      - intrigue2_courtyard
+      - intrigue2_diplomat
+      - intrigue2_miningvillage
+      - intrigue2_replace
+    bane: intrigue2_wishingwell
+
+  - name: Small Victories
+    sets:
+      - cornucopia
+      - intrigue2
+    supply:
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_huntingparty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - intrigue2_conspirator
+      - intrigue2_duke
+      - intrigue2_harem
+      - intrigue2_pawn
+      - intrigue2_secretpassage
+
+  - name: Name That Card
+    sets:
+      - guilds
+      - intrigue2
+    supply:
+      - guilds_advisor
+      - guilds_baker
+      - guilds_doctor
+      - guilds_masterpiece
+      - guilds_plaza
+      - intrigue2_courtyard
+      - intrigue2_harem
+      - intrigue2_nobles
+      - intrigue2_replace
+      - intrigue2_wishingwell
+
+  - name: Tricks of the Trade
+    sets:
+      - guilds
+      - intrigue2
+    supply:
+      - guilds_butcher
+      - guilds_herald
+      - guilds_journeyman
+      - guilds_soothsayer
+      - guilds_stonemason
+      - intrigue2_conspirator
+      - intrigue2_masquerade
+      - intrigue2_mill
+      - intrigue2_nobles
+      - intrigue2_secretpassage
+
+  - name: Decisions, Decisions
+    sets:
+      - guilds
+      - intrigue2
+    supply:
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_masterpiece
+      - guilds_merchantguild
+      - guilds_taxman
+      - intrigue2_bridge
+      - intrigue2_duke
+      - intrigue2_miningvillage
+      - intrigue2_pawn
+      - intrigue2_upgrade
+
+  - name: Collector
+    sets:
+      - cornucopia
+      - seaside
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_fortuneteller
+      - cornucopia_harvest
+      - cornucopia_huntingparty
+      - seaside_embargo
+      - seaside_fishingvillage
+      - seaside_merchantship
+      - seaside_navigator
+      - seaside_smugglers
+
+  - name: Collider
+    sets:
+      - cornucopia
+      - seaside
+    supply:
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_menagerie
+      - cornucopia_tournament
+      - seaside_lighthouse
+      - seaside_salvager
+      - seaside_treasuremap
+      - seaside_treasury
+      - seaside_warehouse
+
+  - name: Ghosts & Taxes
+    sets:
+      - guilds
+      - seaside
+    supply:
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_soothsayer
+      - guilds_taxman
+      - seaside_cutpurse
+      - seaside_ghostship
+      - seaside_haven
+      - seaside_outpost
+      - seaside_smugglers
+
+  - name: Island Builder
+    sets:
+      - guilds
+      - seaside
+    supply:
+      - guilds_baker
+      - guilds_doctor
+      - guilds_merchantguild
+      - guilds_plaza
+      - guilds_stonemason
+      - seaside_island
+      - seaside_nativevillage
+      - seaside_salvager
+      - seaside_tactician
+      - seaside_treasury
+
+  - name: Clown College
+    sets:
+      - alchemy
+      - cornucopia
+    supply:
+      - alchemy_alchemist
+      - alchemy_familiar
+      - alchemy_golem
+      - alchemy_philosophersstone
+      - alchemy_university
+      - cornucopia_jester
+      - cornucopia_harvest
+      - cornucopia_horsetraders
+      - cornucopia_menagerie
+      - cornucopia_remake
+
+  - name: Wine & Dine
+    sets:
+      - alchemy
+      - cornucopia
+    supply:
+      - alchemy_apothecary
+      - alchemy_apprentice
+      - alchemy_scryingpool
+      - alchemy_transmute
+      - alchemy_vineyard
+      - cornucopia_fairgrounds
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_huntingparty
+      - cornucopia_youngwitch
+    bane: alchemy_herbalist
+
+  - name: Illuminati
+    sets:
+      - alchemy
+      - guilds
+    supply:
+      - alchemy_apprentice
+      - alchemy_golem
+      - alchemy_philosophersstone
+      - alchemy_scryingpool
+      - alchemy_university
+      - guilds_butcher
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_merchantguild
+      - guilds_stonemason
+
+  - name: Tonics & Toxins
+    sets:
+      - alchemy
+      - guilds
+    supply:
+      - alchemy_alchemist
+      - alchemy_familiar
+      - alchemy_herbalist
+      - alchemy_transmute
+      - alchemy_vineyard
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_doctor
+      - guilds_plaza
+      - guilds_soothsayer
+
+  - name: Detours
+    sets:
+      - cornucopia
+      - prosperity
+    supply:
+      - cornucopia_farmingvillage
+      - cornucopia_hornofplenty
+      - cornucopia_jester
+      - cornucopia_remake
+      - cornucopia_tournament
+      - prosperity_hoard
+      - prosperity_peddler
+      - prosperity_rabble
+      - prosperity_traderoute
+      - prosperity_venture
+    metadata:
+      colonies: true
+
+  - name: Quarrymen
+    sets:
+      - guilds
+      - prosperity
+    supply:
+      - guilds_baker
+      - guilds_merchantguild
+      - guilds_soothsayer
+      - guilds_stonemason
+      - guilds_taxman
+      - prosperity_city
+      - prosperity_expand
+      - prosperity_grandmarket
+      - prosperity_mountebank
+      - prosperity_quarry
+    metadata:
+      colonies: true
+
+  - name: Metal & Meat
+    sets:
+      - guilds
+      - prosperity
+    supply:
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_plaza
+      - guilds_stonemason
+      - guilds_taxman
+      - prosperity_forge
+      - prosperity_kingscourt
+      - prosperity_monument
+      - prosperity_venture
+      - prosperity_watchtower
+    metadata:
+      colonies: true
+
+  - name: Penny Pinching
+    sets:
+      - guilds
+      - prosperity
+    supply:
+      - guilds_advisor
+      - guilds_doctor
+      - guilds_herald
+      - guilds_journeyman
+      - guilds_merchantguild
+      - prosperity_bank
+      - prosperity_countinghouse
+      - prosperity_goons
+      - prosperity_peddler
+      - prosperity_royalseal
+    metadata:
+      colonies: true
+
+  - name: Blue Harvest
+    sets:
+      - cornucopia
+      - hinterlands
+    supply:
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_tournament
+      - hinterlands_foolsgold
+      - hinterlands_mandarin
+      - hinterlands_noblebrigand
+      - hinterlands_trader
+      - hinterlands_tunnel
+
+  - name: Traveling Circus
+    sets:
+      - cornucopia
+      - hinterlands
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_huntingparty
+      - cornucopia_jester
+      - cornucopia_menagerie
+      - hinterlands_bordervillage
+      - hinterlands_embassy
+      - hinterlands_foolsgold
+      - hinterlands_nomadcamp
+      - hinterlands_oasis
+
+  - name: Exchanges
+    sets:
+      - guilds
+      - hinterlands
+    supply:
+      - guilds_butcher
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_soothsayer
+      - guilds_stonemason
+      - hinterlands_bordervillage
+      - hinterlands_develop
+      - hinterlands_illgottengains
+      - hinterlands_stables
+      - hinterlands_trader
+
+  - name: Road to Riches
+    sets:
+      - guilds
+      - hinterlands
+    supply:
+      - guilds_advisor
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_journeyman
+      - guilds_merchantguild
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel
+
+  - name: Dark Carnival
+    sets:
+      - cornucopia
+      - darkages
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_menagerie
+      - darkages_bandofmisfits
+      - darkages_cultist
+      - darkages_fortress
+      - darkages_hermit
+      - darkages_junkdealer
+      - darkages_knights
+    metadata:
+      shelters: true
+
+  - name: To the Victor
+    sets:
+      - cornucopia
+      - darkages
+    supply:
+      - cornucopia_harvest
+      - cornucopia_huntingparty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - darkages_banditcamp
+      - darkages_counterfeit
+      - darkages_deathcart
+      - darkages_marauder
+      - darkages_pillage
+      - darkages_sage
+    metadata:
+      shelters: true
+
+  - name: Stoneground
+    sets:
+      - darkages
+      - guilds
+    supply:
+      - darkages_huntinggrounds
+      - darkages_ironmonger
+      - darkages_marauder
+      - darkages_procession
+      - darkages_rogue
+      - guilds_advisor
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_plaza
+      - guilds_stonemason
+    metadata:
+      shelters: true
+
+  - name: Class Struggle
+    sets:
+      - darkages
+      - guilds
+    supply:
+      - darkages_feodum
+      - darkages_fortress
+      - darkages_knights
+      - darkages_marketsquare
+      - darkages_poorhouse
+      - guilds_butcher
+      - guilds_doctor
+      - guilds_journeyman
+      - guilds_merchantguild
+      - guilds_taxman
+    metadata:
+      shelters: true
+
+  - name: The Hero's Return
+    sets:
+      - adventures
+      - cornucopia
+    supply: 
+      - adventures_artificer 
+      - adventures_miser 
+      - adventures_page 
+      - adventures_ranger 
+      - adventures_relic
+      - cornucopia_fairgrounds 
+      - cornucopia_farmingvillage 
+      - cornucopia_horsetraders 
+      - cornucopia_jester 
+      - cornucopia_menagerie
+    events:
+      - adventures_event_travellingfair 
+
+  - name: Seacraft and Witchcraft
+    sets:
+      - adventures
+      - cornucopia
+    supply:
+      - adventures_peasant 
+      - adventures_storyteller 
+      - adventures_swamphag 
+      - adventures_transmogrify 
+      - adventures_winemerchant 
+      - cornucopia_fortuneteller
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_tournament
+      - cornucopia_youngwitch
+    events:
+      - adventures_event_ferry 
+      - adventures_event_seaway 
+    bane: adventures_guide
+
+
+  - name: Spendthrift
+    sets:
+      - adventures
+      - guilds
+    supply:
+      - adventures_artificer
+      - adventures_gear
+      - adventures_magpie
+      - adventures_miser
+      - adventures_storyteller
+      - guilds_doctor
+      - guilds_masterpiece
+      - guilds_merchantguild
+      - guilds_soothsayer
+      - guilds_stonemason
+    events:
+      - adventures_event_lostarts
+
+  - name: Queen of Tan
+    sets:
+      - adventures
+      - guilds
+    supply:
+      - adventures_coinoftherealm
+      - adventures_duplicate
+      - adventures_guide
+      - adventures_ratcatcher
+      - adventures_royalcarriage
+      - guilds_advisor
+      - guilds_butcher
+      - guilds_candlestickmaker
+      - guilds_herald
+      - guilds_journeyman
+    events:
+      - adventures_event_pathfinding
+      - adventures_event_save
+
+  - name: Cash Flow
+    sets:
+      - empires
+      - guilds
+    supply:
+      - empires_castles
+      - empires_cityquarter
+      - empires_engineer
+      - empires_gladiatorfortune
+      - empires_royalblacksmith
+      - guilds_baker
+      - guilds_butcher
+      - guilds_doctor
+      - guilds_herald
+      - guilds_soothsayer
+    landmarks:
+      - empires_landmark_baths
+      - empires_landmark_mountainpass
+
+  - name: Simple Plans
+    sets:
+      - empires
+      - hinterlands
+    supply:
+      - empires_catapultrocks
+      - empires_forum
+      - empires_patricianemporium
+      - empires_temple
+      - empires_villa
+      - hinterlands_bordervillage
+      - hinterlands_develop
+      - hinterlands_haggler
+      - hinterlands_illgottengains
+      - hinterlands_stables
+    events:
+      - empires_event_donate
+    landmarks:
+      - empires_landmark_labyrinth
+
+  - name: The Endless Fair
+    sets:
+      - cornucopia
+      - guilds
+      - nocturne
+    supply:
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_fortuneteller
+      - guilds_baker
+      - guilds_merchantguild
+      - nocturne_devilsworkshop
+      - nocturne_exorcist
+      - nocturne_monastery
+      - nocturne_pixie
+      - nocturne_shepherd
+
+  - name: Happy Chaos
+    sets:
+      - nocturne
+      - cornucopia
+      - guilds
+    supply:
+      - cornucopia_harvest
+      - cornucopia_jester
+      - guilds_doctor
+      - guilds_herald
+      - guilds_masterpiece
+      - nocturne_blessedvillage
+      - nocturne_changeling
+      - nocturne_fool
+      - nocturne_faithfulhound
+      - nocturne_sacredgrove
