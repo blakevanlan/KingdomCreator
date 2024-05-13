@@ -96,8 +96,8 @@ export default class FlippingCard extends Vue {
 
   get backCardImageUrl() {
     return this.isVertical
-        ? "/img/cards/backside_blue.jpg"
-        : "/img/cards/backside_blue_horizontal.jpg";
+        ? "img/cards/backside_blue.jpg"
+        : "img/cards/backside_blue_horizontal.jpg";
   }
 
   @Watch("card")
