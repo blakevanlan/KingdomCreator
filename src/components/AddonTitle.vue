@@ -3,7 +3,7 @@
   <span v-else-if="addons.length == 1">
     {{ $t(addons[0]) }}
   </span>
-  <i18n v-else-if="addons.length >= 2" :path="addonFormat" tag="span">
+  <i18n-t scope="global" v-else-if="addons.length >= 2" :keypath="addonFormat" tag="span">
     <template v-slot:one>
       {{ $t(addons[0]) }}
     </template>
@@ -19,42 +19,73 @@
     <template v-if="addons.length >= 5" v-slot:five>
       {{ $t(addons[4]) }}
     </template>
-  </i18n>
+  </i18n-t>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent, computed } from "vue";
+import { useI18n } from "vue-i18n";
+import type { PropType } from "vue";
 
-@Component
-export default class AddonTitle extends Vue {
-  @Prop() readonly hasEvents!: boolean;
-  @Prop() readonly hasLandmarks!: boolean;
-  @Prop() readonly hasProjects!: boolean;
-  @Prop() readonly hasWays!: boolean;
-  @Prop() readonly hasTraits!: boolean;
+/* import Dominion Objects and type*/
+/* import store  */
+/* import Components */
 
-  get addons() {
-    const addons = [];
-    if (this.hasEvents)    addons.push("addon_events");
-    if (this.hasLandmarks) addons.push("addon_landmarks");
-    if (this.hasProjects)  addons.push("addon_projects");
-    if (this.hasWays)      addons.push("addon_ways");
-    if (this.hasTraits)    addons.push("addon_traits");
-    return addons;
-  }
+export default defineComponent({
+  name: "AddonTitle",
+  props: {
+    hasEvents: {
+      type: Boolean as PropType<Boolean>,
+      required: true,
+    },
+    hasLandmarks: {
+      type: Boolean as PropType<Boolean>,
+      required: true,
+    },
+    hasProjects: {
+      type: Boolean as PropType<Boolean>,
+      required: true,
+    },
+    hasWays: {
+      type: Boolean as PropType<Boolean>,
+      required: true,
+    },
+    hasTraits: {
+      type: Boolean as PropType<Boolean>,
+      required: true,
+    },
+  },
+  setup(props) {
+    const { t } = useI18n();
+    const addons = computed(() => {
+      const addons = [];
+      if (props.hasEvents) addons.push("addon_events");
+      if (props.hasLandmarks) addons.push("addon_landmarks");
+      if (props.hasProjects) addons.push("addon_projects");
+      if (props.hasWays) addons.push("addon_ways");
+      if (props.hasTraits) addons.push("addon_traits");
+      return addons;
+    });
 
-  get addonFormat() {
-    switch (this.addons.length) {
-      case 2:
-        return "addon_description_format_2";
-      case 3:
-        return "addon_description_format_3";
-      case 4:
-        return "addon_description_format_4";
-      case 5:
-        return "addon_description_format_5";
-    }
-    return null;
-  }
-}
+    const addonFormat = computed(() => {
+      switch (addons.value.length) {
+        case 2:
+          return "addon_description_format_2";
+        case 3:
+          return "addon_description_format_3";
+        case 4:
+          return "addon_description_format_4";
+        case 5:
+          return "addon_description_format_5";
+        default:
+          return "null";
+      }
+    });
+    return {
+      addons,
+      addonFormat
+    };
+  },
+})
 </script>

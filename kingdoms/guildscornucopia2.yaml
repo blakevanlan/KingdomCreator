@@ -1,0 +1,512 @@
+kingdoms:
+  - name: Misfortune
+    sets:
+      - guildscornucopia2
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_jester
+      - guildscornucopia2_advisor
+      - guildscornucopia2_candlestickmaker
+      - guildscornucopia2_merchantguild
+      - guildscornucopia2_soothsayer
+      - guildscornucopia2_carnival
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_infirmary
+
+  - name: Baking Contest
+    sets:
+      - guildscornucopia2
+    supply:
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_remake
+      - guildscornucopia2_baker
+      - guildscornucopia2_herald
+      - guildscornucopia2_stonemason
+      - guildscornucopia2_farrier
+      - guildscornucopia2_joust
+      - guildscornucopia2_shop
+
+  - name: Bounty of the Hunt
+    sets:
+      - baseset2
+      - guildscornucopia2
+    supply:
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_militia
+      - baseset2_moneylender
+      - baseset2_smithy
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_ferryman
+      - guildscornucopia2_joust
+    ferrymanGain : guildscornucopia2_farrier
+
+  - name: Gilding the Lily
+    sets:
+      - baseset2
+      - guildscornucopia2
+    supply:
+      - baseset2_library
+      - baseset2_market
+      - baseset2_remodel
+      - baseset2_merchant
+      - baseset2_sentry
+      - guildscornucopia2_remake
+      - guildscornucopia2_youngwitch
+      - guildscornucopia2_candlestickmaker
+      - guildscornucopia2_plaza
+      - guildscornucopia2_footpad
+    bane: baseset2_vassal
+
+  - name: The Spice of Life
+    sets:
+      - guildscornucopia2
+      - intrigue2
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_remake
+      - guildscornucopia2_youngwitch
+      - guildscornucopia2_joust
+      - intrigue2_courtyard
+      - intrigue2_miningvillage
+      - intrigue2_courtier
+      - intrigue2_diplomat
+      - intrigue2_replace
+    bane: intrigue2_wishingwell
+
+  - name: Tricks of the Trade
+    sets:
+      - guildscornucopia2
+      - intrigue2
+    supply:
+      - guildscornucopia2_butcher
+      - guildscornucopia2_herald
+      - guildscornucopia2_journeyman
+      - guildscornucopia2_soothsayer
+      - guildscornucopia2_stonemason
+      - intrigue2_conspirator
+      - intrigue2_masquerade
+      - intrigue2_nobles
+      - intrigue2_mill
+      - intrigue2_secretpassage
+
+  - name: Collecting
+    sets:
+      - guildscornucopia2
+      - seaside2
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_farrier
+      - guildscornucopia2_footpad
+      - seaside2_fishingvillage
+      - seaside2_smugglers
+      - seaside2_blockade
+      - seaside2_monkey
+      - seaside2_tidepools
+
+  - name: Island Builder
+    sets:
+      - guildscornucopia2
+      - seaside2
+    supply:
+      - guildscornucopia2_advisor
+      - guildscornucopia2_baker
+      - guildscornucopia2_merchantguild
+      - guildscornucopia2_plaza
+      - guildscornucopia2_stonemason
+      - seaside2_island
+      - seaside2_nativevillage
+      - seaside2_salvager
+      - seaside2_treasury
+      - seaside2_seachart
+
+  - name: Clown College
+    sets:
+      - alchemy
+      - guildscornucopia2
+    supply:
+      - alchemy_apothecary
+      - alchemy_familiar
+      - alchemy_golem
+      - alchemy_university
+      - guildscornucopia2_jester
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_candlestickmaker
+      - guildscornucopia2_herald
+      - guildscornucopia2_carnival
+      - guildscornucopia2_infirmary
+
+  - name: Detours
+    sets:
+      - guildscornucopia2
+      - prosperity2
+    supply:
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_jester
+      - guildscornucopia2_remake
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_joust
+      - prosperity2_forge
+      - prosperity2_hoard
+      - prosperity2_clerk
+      - prosperity2_crystalball
+      - prosperity2_magnate
+    metadata:
+      colonies: true
+
+  - name: Quarrymen
+    sets:
+      - guildscornucopia2
+      - prosperity2
+    supply:
+      - guildscornucopia2_baker
+      - guildscornucopia2_butcher
+      - guildscornucopia2_candlestickmaker
+      - guildscornucopia2_merchantguild
+      - guildscornucopia2_soothsayer
+      - prosperity2_city
+      - prosperity2_expand
+      - prosperity2_grandmarket
+      - prosperity2_quarry
+      - prosperity2_charlatan
+    metadata:
+      colonies: true
+
+  - name: Blue Harvest
+    sets:
+      - guildscornucopia2
+      - hinterlands2
+    supply:
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_farrier
+      - guildscornucopia2_ferryman
+      - guildscornucopia2_joust
+      - hinterlands2_foolsgold
+      - hinterlands2_tunnel
+      - hinterlands2_trail
+      - hinterlands2_weaver
+      - hinterlands2_witchshut
+    ferrymanGain: hinterlands2_guarddog
+
+  - name: Exchanges
+    sets:
+      - guildscornucopia2
+      - hinterlands2
+    supply:
+      - guildscornucopia2_youngwitch
+      - guildscornucopia2_butcher
+      - guildscornucopia2_herald
+      - guildscornucopia2_soothsayer
+      - guildscornucopia2_stonemason
+      - hinterlands2_bordervillage
+      - hinterlands2_develop
+      - hinterlands2_stables
+      - hinterlands2_trader
+      - hinterlands2_cauldron
+    bane: hinterlands2_oasis
+
+  - name: Dark Carnival
+    sets:
+      - darkages
+      - guildscornucopia2
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_menagerie
+      - darkages_cultist
+      - darkages_deathcart
+      - darkages_hermit
+      - darkages_junkdealer
+      - darkages_knights
+      - guildscornucopia2_ferryman
+    ferrymanGain: darkages_fortress
+    metadata:
+      shelters: true
+
+  - name: Stoneground
+    sets:
+      - darkages
+      - guildscornucopia2
+    supply:
+      - darkages_huntinggrounds
+      - darkages_ironmonger
+      - darkages_marauder
+      - darkages_procession
+      - darkages_rogue
+      - guildscornucopia2_advisor
+      - guildscornucopia2_plaza
+      - guildscornucopia2_stonemason
+      - guildscornucopia2_farrier
+      - guildscornucopia2_shop
+    metadata:
+      shelters: true
+
+  - name: The Hero's Return
+    sets:
+      - adventures
+      - guildscornucopia2
+    supply:
+      - adventures_artificer
+      - adventures_miser
+      - adventures_page
+      - adventures_ranger
+      - adventures_relic
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_carnival
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_footpad
+      - guildscornucopia2_shop
+    events:
+      - adventures_event_travellingfair
+
+  - name: Queen of Tan
+    sets:
+      - adventures
+      - guildscornucopia2
+    supply:
+      - adventures_duplicate
+      - adventures_guide
+      - adventures_ratcatcher
+      - adventures_royalcarriage
+      - adventures_transmogrify
+      - guildscornucopia2_youngwitch
+      - guildscornucopia2_advisor
+      - guildscornucopia2_herald
+      - guildscornucopia2_journeyman
+      - guildscornucopia2_merchantguild
+    bane: adventures_coinoftherealm
+    events:
+      - adventures_event_pathfinding
+      - adventures_event_save
+
+  - name: Zookeepers
+    sets:
+      - empires
+      - guildscornucopia2
+    supply:
+      - guildscornucopia2_jester
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_remake
+      - empires_groundskeeper
+      - empires_overlord
+      - empires_sacrifice
+      - empires_settlersbustlingvillage
+      - empires_wildhunt
+      - guildscornucopia2_ferryman
+      - guildscornucopia2_shop
+    ferrynamGain: empires_villa
+    events:
+      - empires_event_annex
+    landmarks:
+      - empires_landmark_colonnade
+
+  - name: Cash Flow
+    sets:
+      - empires
+      - guildscornucopia2
+    supply:
+      - empires_castles
+      - empires_cityquarter
+      - empires_engineer
+      - empires_gladiatorfortune
+      - empires_royalblacksmith
+      - guildscornucopia2_baker
+      - guildscornucopia2_herald
+      - guildscornucopia2_soothsayer
+      - guildscornucopia2_carnival
+      - guildscornucopia2_infirmary
+    landmarks:
+      - empires_landmark_baths
+      - empires_landmark_mountainpass
+
+  - name: The Endless Fair
+    sets:
+      - guildscornucopia2
+      - nocturne
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_baker
+      - guildscornucopia2_merchantguild
+      - guildscornucopia2_carnival
+      - guildscornucopia2_farmhands
+      - nocturne_devilsworkshop
+      - nocturne_exorcist
+      - nocturne_monastery
+      - nocturne_pixie
+      - nocturne_shepherd
+
+  - name: Happy Chaos
+    sets:
+      - guildscornucopia2
+      - nocturne
+    supply:
+      - guildscornucopia2_jester
+      - guildscornucopia2_youngwitch
+      - guildscornucopia2_carnival
+      - guildscornucopia2_infirmary
+      - guildscornucopia2_shop
+      - nocturne_blessedvillage
+      - nocturne_changeling
+      - nocturne_faithfulhound
+      - nocturne_sacredgrove
+      - nocturne_secretcave
+    bane: nocturne_leprechaun
+
+  - name: Combo Corner
+    sets:
+      - guildscornucopia2
+      - renaissance
+    supply:
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_jester
+      - guildscornucopia2_stonemason
+      - guildscornucopia2_farrier
+      - guildscornucopia2_ferryman
+      - renaissance_ducat
+      - renaissance_experiment
+      - renaissance_hideout
+      - renaissance_sculptor
+      - renaissance_seer
+    ferrymanGain: renaissance_mountainvillage
+    projects:
+      - renaissance_project_canal
+
+  - name: Filling the Coffers
+    sets:
+      - guildscornucopia2
+      - renaissance
+    supply:
+      - guildscornucopia2_baker
+      - guildscornucopia2_butcher
+      - guildscornucopia2_merchantguild
+      - guildscornucopia2_plaza
+      - guildscornucopia2_farrier
+      - renaissance_priest
+      - renaissance_recruiter
+      - renaissance_spices
+      - renaissance_swashbuckler
+      - renaissance_treasurer
+    projects:
+      - renaissance_project_citygate
+      - renaissance_project_starchart
+
+  - name: Living in Exile
+    sets:
+      - guildscornucopia2
+      - menagerie
+    supply:
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_journeyman
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_footpad
+      - guildscornucopia2_infirmary
+      - menagerie_gatekeeper
+      - menagerie_hostelry
+      - menagerie_livery
+      - menagerie_scrap
+      - menagerie_stockpile
+    events:
+      - menagerie_event_enclave
+
+  - name: Thrill of the Hunt
+    sets:
+      - guildscornucopia2
+      - menagerie
+    supply:
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_butcher
+      - guildscornucopia2_carnival
+      - guildscornucopia2_joust
+      - menagerie_blackcat
+      - menagerie_bountyhunter
+      - menagerie_cameltrain
+      - menagerie_mastermind
+      - menagerie_villagegreen
+    events:
+      - menagerie_event_pursue
+
+  - name: Huge Collections
+    sets:
+      - allies
+      - guildscornucopia2
+    supply:
+      - allies_clashes
+      - allies_contract
+      - allies_forts
+      - allies_galleria
+      - allies_sentinel
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_advisor
+      - guildscornucopia2_plaza
+      - guildscornucopia2_shop
+    allies:
+      - allies_ally_woodworkersguild
+
+  - name: Forest Scouts
+    sets:
+      - allies
+      - guildscornucopia2
+    supply:
+      - allies_augurs
+      - allies_emissary
+      - allies_innkeeper
+      - allies_royalgalley
+      - allies_sentinel
+      - guildscornucopia2_butcher
+      - guildscornucopia2_candlestickmaker
+      - guildscornucopia2_journeyman
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_footpad
+    allies:
+      - allies_ally_forestdwellers
+
+  - name: Of Heralds and Hunters
+    sets:
+      - guildscornucopia2
+      - plunder
+    supply:
+      - guildscornucopia2_fairgrounds
+      - guildscornucopia2_herald
+      - guildscornucopia2_soothsayer
+      - guildscornucopia2_stonemason
+      - guildscornucopia2_infirmary
+      - plunder_cabinboy
+      - plunder_flagship
+      - plunder_fortunehunter
+      - plunder_pendant
+      - plunder_pickaxe
+    traits:
+      - plunder_trait_inspiring->plunder_fortunehunter
+
+  - name: Through the Swamp
+    sets:
+      - guildscornucopia2
+      - plunder
+    supply:
+      - guildscornucopia2_hamlet
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_menagerie
+      - guildscornucopia2_baker
+      - guildscornucopia2_merchantguild
+      - plunder_cage
+      - plunder_pilgrim
+      - plunder_swampshacks
+      - plunder_taskmaster
+      - plunder_tools
+    events:
+      - plunder_event_journey
+    traits:
+      - plunder_trait_patient->plunder_pilgrim
+

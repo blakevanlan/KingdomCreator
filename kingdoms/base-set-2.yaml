@@ -1,5 +1,5 @@
 kingdoms:
-  - name: First Game
+  - name: First Game (2nd)
     sets:
       - baseset2
     supply:
@@ -14,7 +14,7 @@ kingdoms:
       - baseset2_village
       - baseset2_workshop
 
-  - name: Size Distortion
+  - name: Size Distortion (2nd)
     sets:
       - baseset2
     supply:
@@ -52,8 +52,8 @@ kingdoms:
       - baseset2_councilroom
       - baseset2_festival
       - baseset2_gardens
-      - baseset2_harbinger
       - baseset2_library
+      - baseset2_harbinger
       - baseset2_militia
       - baseset2_poacher
       - baseset2_smithy
@@ -89,7 +89,7 @@ kingdoms:
       - baseset2_throneroom
       - baseset2_vassal
 
-  - name: Underlings
+  - name: Underlings (2nd)
     sets:
       - baseset2
       - intrigue2
@@ -121,7 +121,7 @@ kingdoms:
       - intrigue2_patrol
       - intrigue2_shantytown
 
-  - name: Deconstruction
+  - name: Deconstruction (2nd)
     sets:
       - baseset2
       - intrigue2
@@ -137,7 +137,7 @@ kingdoms:
       - intrigue2_replace
       - intrigue2_swindler
 
-  - name: Reach for Tomorrow
+  - name: Reach for Tomorrow (2nd)
     sets:
       - baseset2
       - seaside
@@ -153,7 +153,7 @@ kingdoms:
       - seaside_seahag
       - seaside_treasuremap
 
-  - name: Repetition
+  - name: Repetition (2nd)
     sets:
       - baseset2
       - seaside
@@ -185,55 +185,55 @@ kingdoms:
       - seaside_salvager
       - seaside_smugglers
 
-  - name: Forbidden Arts
+  - name: Forbidden Arts (2nd)
     sets:
-      - alchemy
       - baseset2
+      - alchemy
     supply:
-      - alchemy_apprentice
-      - alchemy_familiar
-      - alchemy_possession
-      - alchemy_university
       - baseset2_bandit
       - baseset2_cellar
       - baseset2_councilroom
       - baseset2_gardens
       - baseset2_laboratory
       - baseset2_throneroom
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_possession
+      - alchemy_university
 
-  - name: Potion Mixers
+  - name: Potion Mixers (2nd)
     sets:
-      - alchemy
       - baseset2
+      - alchemy
     supply:
-      - alchemy_alchemist
-      - alchemy_apothecary
-      - alchemy_golem
-      - alchemy_herbalist
-      - alchemy_transmute
       - baseset2_cellar
       - baseset2_festival
       - baseset2_militia
       - baseset2_poacher
       - baseset2_smithy
-
-  - name: Chemistry Lesson
-    sets:
-      - alchemy
-      - baseset2
-    supply:
       - alchemy_alchemist
+      - alchemy_apothecary
       - alchemy_golem
-      - alchemy_philosophersstone
-      - alchemy_university
+      - alchemy_herbalist
+      - alchemy_transmute
+
+  - name: Chemistry Lesson (2nd)
+    sets:
+      - baseset2
+      - alchemy
+    supply:
       - baseset2_bureaucrat
       - baseset2_market
       - baseset2_moat
       - baseset2_remodel
       - baseset2_vassal
       - baseset2_witch
+      - alchemy_alchemist
+      - alchemy_golem
+      - alchemy_philosophersstone
+      - alchemy_university
 
-  - name: Biggest Money
+  - name: Biggest Money (2nd)
     sets:
       - baseset2
       - prosperity
@@ -249,7 +249,7 @@ kingdoms:
       - prosperity_royalseal
       - prosperity_venture
 
-  - name: The King’s Army
+  - name: The King’s Army (2nd)
     sets:
       - baseset2
       - prosperity
@@ -264,8 +264,10 @@ kingdoms:
       - prosperity_kingscourt
       - prosperity_rabble
       - prosperity_vault
+    metadata:
+      colonies: true
 
-  - name: The Good Life
+  - name: The Good Life (2nd)
     sets:
       - baseset2
       - prosperity
@@ -280,6 +282,8 @@ kingdoms:
       - prosperity_hoard
       - prosperity_monument
       - prosperity_mountebank
+    metadata:
+      colonies: true
 
   - name: Bounty of the Hunt
     sets:
@@ -297,7 +301,7 @@ kingdoms:
       - cornucopia_menagerie
       - cornucopia_tournament
 
-  - name: Bad Omens
+  - name: Bad Omens (2nd)
     sets:
       - baseset2
       - cornucopia
@@ -313,7 +317,7 @@ kingdoms:
       - cornucopia_jester
       - cornucopia_remake
 
-  - name: The Jester’s Workshop
+  - name: The Jester’s Workshop (2nd)
     sets:
       - baseset2
       - cornucopia
@@ -335,48 +339,48 @@ kingdoms:
       - baseset2
       - guilds
     supply:
-      - baseset2_cellar
-      - baseset2_festival
       - baseset2_laboratory
-      - baseset2_moneylender
+      - baseset2_cellar
       - baseset2_workshop
+      - baseset2_festival
+      - baseset2_moneylender
+      - guilds_stonemason
       - guilds_advisor
       - guilds_baker
       - guilds_journeyman
       - guilds_merchantguild
-      - guilds_stonemason
 
-  - name: Clean Living
+  - name: Clean Living (2nd)
     sets:
       - baseset2
       - guilds
     supply:
       - baseset2_bandit
-      - baseset2_gardens
       - baseset2_militia
       - baseset2_moneylender
+      - baseset2_gardens
       - baseset2_village
-      - guilds_baker
       - guilds_butcher
+      - guilds_baker
       - guilds_candlestickmaker
       - guilds_doctor
       - guilds_soothsayer
 
-  - name: Gilding the Lily
+  - name: Gilding the Lily (2nd)
     sets:
       - baseset2
       - guilds
     supply:
       - baseset2_library
-      - baseset2_market
       - baseset2_merchant
       - baseset2_remodel
+      - baseset2_market
       - baseset2_sentry
-      - guilds_candlestickmaker
-      - guilds_herald
-      - guilds_masterpiece
       - guilds_plaza
+      - guilds_masterpiece
+      - guilds_candlestickmaker
       - guilds_taxman
+      - guilds_herald
 
   - name: Highway Robbery
     sets:
@@ -394,7 +398,7 @@ kingdoms:
       - hinterlands_noblebrigand
       - hinterlands_oasis
 
-  - name: Adventures Abroad
+  - name: Adventures Abroad (2nd)
     sets:
       - baseset2
       - hinterlands
@@ -425,6 +429,8 @@ kingdoms:
       - darkages_mystic
       - darkages_poorhouse
       - darkages_wanderingminstrel
+    metadata:
+      shelters: true
 
   - name: Chivalry and Revelry
     sets:
@@ -441,40 +447,42 @@ kingdoms:
       - darkages_rats
       - darkages_scavenger
       - darkages_squire
+    metadata:
+      shelters: true
 
-  - name: Level Up
+  - name: Level Up (2nd)
     sets:
-      - adventures
       - baseset2
+      - adventures
     supply:
-      - adventures_dungeon
-      - adventures_gear
-      - adventures_guide
-      - adventures_lostcity
-      - adventures_miser
       - baseset2_market
       - baseset2_merchant
       - baseset2_militia
       - baseset2_throneroom
       - baseset2_workshop
+      - adventures_dungeon
+      - adventures_gear
+      - adventures_guide
+      - adventures_lostcity
+      - adventures_miser
     events:
       - adventures_event_training
 
-  - name: Son of Size Distortion
+  - name: Son of Size Distortion (2nd)
     sets:
-      - adventures
       - baseset2
+      - adventures
     supply:
-      - adventures_amulet
-      - adventures_duplicate
-      - adventures_giant
-      - adventures_messenger
-      - adventures_treasuretrove
       - baseset2_bandit
       - baseset2_bureaucrat
       - baseset2_gardens
       - baseset2_moneylender
       - baseset2_witch
+      - adventures_amulet
+      - adventures_duplicate
+      - adventures_giant
+      - adventures_messenger
+      - adventures_treasuretrove
     events:
       - adventures_event_bonfire
       - adventures_event_raid
@@ -494,10 +502,10 @@ kingdoms:
       - empires_legionary
       - empires_overlord
       - empires_temple
-    landmarks:
-      - empires_landmark_orchard
     events:
       - empires_event_windfall
+    landmarks:
+      - empires_landmark_orchard
 
   - name: Silver Bullets
     sets:
@@ -518,4 +526,3 @@ kingdoms:
       - empires_event_conquest
     landmarks:
       - empires_landmark_aqueduct
-

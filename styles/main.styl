@@ -3,7 +3,9 @@
 @require "transitions"
 @require "buttons"
 
-condensed-menu-open-height = 136px;
+nb-menu = 4
+condensed-menu-open-height = (10 + nb-menu*42)px;
+SizeDisplayedScreen=1300
 
 body
   margin: 0
@@ -50,10 +52,11 @@ body
   -webkit-transition: -webkit-transform 600ms
   transition: transform 600ms
   z-index: 1;
-
+/*
   &.show-condensed-menu
     -webkit-transform: translate(0, condensed-menu-open-height)
     transform: translate(0, condensed-menu-open-height)
+*/
 
 header
   display: flex
@@ -61,8 +64,9 @@ header
   flex-direction: row
   justify-content: space-between
   margin: 0 auto 12px auto
-  max-width: 1218px
+  max-width: (SizeDisplayedScreen +18)px
   position: relative
+  z-index: 5
 
 .title-container
   align-items: flex-start
@@ -111,13 +115,16 @@ header
 
 .condensed-menu-button
   position: absolute
-  top: 6px
+  top: 8px
   right: 12px
   height: 32px
   width: 32px
   background-size: contain
   background-image: url("data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU2IDU2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NiA1NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI2NHB4IiBoZWlnaHQ9IjY0cHgiPgo8Zz4KCTxwYXRoIGQ9Ik0yOCwwQzEyLjU2MSwwLDAsMTIuNTYxLDAsMjhzMTIuNTYxLDI4LDI4LDI4czI4LTEyLjU2MSwyOC0yOFM0My40MzksMCwyOCwweiBNMjgsNTRDMTMuNjYzLDU0LDIsNDIuMzM2LDIsMjggICBTMTMuNjYzLDIsMjgsMnMyNiwxMS42NjQsMjYsMjZTNDIuMzM3LDU0LDI4LDU0eiIgZmlsbD0iIzAyNzc5ZSIvPgoJPHBhdGggZD0iTTE1LDE3aDI2YzAuNTUzLDAsMS0wLjQ0OCwxLTFzLTAuNDQ3LTEtMS0xSDE1Yy0wLjU1MywwLTEsMC40NDgtMSwxUzE0LjQ0NywxNywxNSwxN3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwzMUgxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywzMSw0NSwzMXoiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00NSwyM0gxMWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgzNGMwLjU1MywwLDEtMC40NDgsMS0xUzQ1LjU1MywyMyw0NSwyM3oiIGZpbGw9IiMwMjc3OWUiLz4KCTxwYXRoIGQ9Ik00MSwzOUgxNWMtMC41NTMsMC0xLDAuNDQ4LTEsMXMwLjQ0NywxLDEsMWgyNmMwLjU1MywwLDEtMC40NDgsMS0xUzQxLjU1MywzOSw0MSwzOXoiIGZpbGw9IiMwMjc3OWUiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K")
   cursor: pointer
+  border: none
+  background-color:unset
+  outline-style: unset
 
 .clear
   clear: both
@@ -157,41 +164,41 @@ input[type=radio]
   top: -2px
 
 .content
-  max-width: 1200px
+  max-width: (SizeDisplayedScreen)px
   position: relative
   margin: 10px auto 15px auto
 
   .sidebar
     float: right
-    width: 245px
+    width: 258px
 
   .main
-    margin-right: 218px
+    margin-right: 255px
 
   .clearfix
     clear: both
 
 // Set colors
-.baseset, .baseset2
+.baseset, .baseset2, .baseset2add
   color: base-set-color !important
-.intrigue, .intrigue2
+.intrigue, .intrigue2, .intrigue2add
   color: intrigue-color !important
-.seaside, .seaside2
+.seaside, .seaside2, .seaside2add
   color: seaside-color !important
 .alchemy
   color: alchemy-color !important
-.prosperity, .prosperity2
+.prosperity, .prosperity2, .prosperity2add
   color: prosperity-color !important
 .cornucopia
   color: cornucopia-color !important
-.hinterlands, .hinterlands2
+.hinterlands, .hinterlands2, .hinterlands2add
   color: hinterlands-color !important
 .darkages
   color: darkages-color !important
+.guildscornucopia, .guildscornucopia2, .guildscornucopia2add
+  color: cornucopia-color !important
 .guilds
   color: guilds-color !important
-.guildscornucopia
-  color: cornucopia-color !important
 .adventures
   color: adventures-color !important
 .promos
@@ -210,7 +217,7 @@ input[type=radio]
   color: plunder-color !important
 
 // Move sidebar to the top
-@media (max-width: 750px)
+@media (max-width: (SizeDisplayedScreen/2)px)
   label.checkbox
     align-items: center
     display: flex
@@ -251,3 +258,47 @@ input[type=radio]
   label.checkbox
     font-size: 20px
     line-height: 25px
+
+
+
+
+.bane-color {
+  border: 8px solid curse-color   /* curse-color */;
+}
+.bane-color-text {
+  color: white;
+  background: curse-color        /* curse-color */;
+}
+
+.ferryman-color {
+  border: 8px solid cornucopia-color   /* curse-color */;
+}
+
+.ferryman-color-text {
+  color: white;
+  background: cornucopia-color        /* curse-color */;
+}
+
+.obelisk-color {
+  border: 8px solid landmark-color /* landmark-color */;
+}
+.obelisk-color-text {
+  color: black;
+  background: landmark-color       /* Landmark-color */;
+}
+
+.mouseway-color {
+  border: 8px solid mouseway-color /* mouseway-color */;
+}
+.mouseway-color-text {
+  color: black;
+  background: mouseway-color       /* mouseway-color */;
+}
+
+.trait-color {
+  border: 8px solid trait-color /* trait-color */;
+}
+.trait-color-text {
+  color: white;
+  background: trait-color      /* trait-color */;
+}

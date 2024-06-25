@@ -329,3 +329,53 @@ cards:
     isReaction: false
     isDuration: false
     isActionSupplier: true
+
+othercards:
+  - name: Copper2
+    orderstring: Copper 0
+    type: Basic Cards
+    isTreasure : true
+    cost:
+      treasure: 0
+    
+  - name: Silver2
+    type: Basic Cards
+    orderstring: Copper 1
+    isTreasure : true
+    cost:
+      treasure: 3
+    
+  - name: Gold2
+    type: Basic Cards
+    orderstring: Copper 2
+    isTreasure : true
+    cost:
+      treasure: 6
+    
+  - name: Estate2
+    type: Basic Cards
+    orderstring: Estate 1
+    isVictory: true
+    cost:
+      treasure: 2
+
+  - name: Duchy2
+    type: Basic Cards
+    orderstring: Estate 2
+    isVictory: true
+    cost:
+      treasure: 5
+
+  - name: Province2
+    type: Basic Cards
+    orderstring: Estate 3
+    isVictory: true
+    cost:
+      treasure: 8
+
+  - name: Curse2
+    type: Basic Cards
+    orderstring: Estate 9
+    cost:
+      treasure: 0
+    isTrashing: true

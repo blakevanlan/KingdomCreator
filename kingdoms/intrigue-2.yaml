@@ -21,8 +21,8 @@ kingdoms:
       - intrigue2_conspirator
       - intrigue2_ironworks
       - intrigue2_lurker
-      - intrigue2_miningvillage
       - intrigue2_pawn
+      - intrigue2_miningvillage
       - intrigue2_secretpassage
       - intrigue2_steward
       - intrigue2_swindler
@@ -44,69 +44,69 @@ kingdoms:
       - intrigue2_upgrade
       - intrigue2_wishingwell
 
-  - name: Underlings
+  - name: Underlings (2nd)
     sets:
-      - baseset2
       - intrigue2
+      - baseset2
     supply:
-      - baseset2_cellar
-      - baseset2_festival
-      - baseset2_library
-      - baseset2_sentry
-      - baseset2_vassal
       - intrigue2_courtier
       - intrigue2_diplomat
       - intrigue2_minion
       - intrigue2_nobles
       - intrigue2_pawn
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_library
+      - baseset2_sentry
+      - baseset2_vassal
 
-  - name: Grand Scheme
+  - name: Grand Scheme (2nd)
     sets:
-      - baseset2
       - intrigue2
+      - baseset2
     supply:
-      - baseset2_artisan
-      - baseset2_councilroom
-      - baseset2_market
-      - baseset2_militia
-      - baseset2_workshop
       - intrigue2_bridge
       - intrigue2_mill
       - intrigue2_miningvillage
       - intrigue2_patrol
       - intrigue2_shantytown
+      - baseset2_artisan
+      - baseset2_councilroom
+      - baseset2_market
+      - baseset2_militia
+      - baseset2_workshop
 
-  - name: Deconstruction
+  - name: Deconstruction (2nd)
     sets:
-      - baseset2
       - intrigue2
+      - baseset2
     supply:
-      - baseset2_bandit
-      - baseset2_mine
-      - baseset2_remodel
-      - baseset2_throneroom
-      - baseset2_village
       - intrigue2_diplomat
       - intrigue2_harem
       - intrigue2_lurker
       - intrigue2_replace
       - intrigue2_swindler
+      - baseset2_bandit
+      - baseset2_mine
+      - baseset2_remodel
+      - baseset2_throneroom
+      - baseset2_village
 
   - name: A Star to Steer By
     sets:
       - intrigue2
       - seaside
     supply:
-      - intrigue2_courtier
-      - intrigue2_diplomat
       - intrigue2_secretpassage
+      - intrigue2_diplomat
       - intrigue2_swindler
       - intrigue2_wishingwell
+      - intrigue2_courtier
+      - seaside_lookout
+      - seaside_treasuremap
       - seaside_ghostship
       - seaside_haven
-      - seaside_lookout
       - seaside_outpost
-      - seaside_treasuremap
 
   - name: Shore Patrol
     sets:
@@ -114,79 +114,79 @@ kingdoms:
       - seaside
     supply:
       - intrigue2_patrol
-      - intrigue2_pawn
       - intrigue2_replace
       - intrigue2_shantytown
       - intrigue2_tradingpost
-      - seaside_cutpurse
+      - intrigue2_pawn
       - seaside_island
+      - seaside_wharf
+      - seaside_cutpurse
       - seaside_lighthouse
       - seaside_warehouse
-      - seaside_wharf
 
   - name: Bridge Crossing
     sets:
       - intrigue2
       - seaside
     supply:
-      - intrigue2_bridge
-      - intrigue2_conspirator
-      - intrigue2_duke
       - intrigue2_lurker
       - intrigue2_nobles
-      - seaside_embargo
-      - seaside_nativevillage
+      - intrigue2_duke
+      - intrigue2_conspirator
+      - intrigue2_bridge
       - seaside_salvager
+      - seaside_embargo
       - seaside_smugglers
+      - seaside_nativevillage
       - seaside_treasury
 
-  - name: Servants
+  - name: Servants (2nd)
     sets:
-      - alchemy
       - intrigue2
+      - alchemy
     supply:
-      - alchemy_golem
-      - alchemy_possession
-      - alchemy_scryingpool
-      - alchemy_transmute
-      - alchemy_vineyard
       - intrigue2_conspirator
       - intrigue2_mill
       - intrigue2_minion
       - intrigue2_pawn
       - intrigue2_steward
+      - alchemy_golem
+      - alchemy_possession
+      - alchemy_scryingpool
+      - alchemy_transmute
+      - alchemy_vineyard
 
   - name: Secret Research
     sets:
-      - alchemy
       - intrigue2
+      - alchemy
     supply:
-      - alchemy_familiar
-      - alchemy_herbalist
-      - alchemy_philosophersstone
-      - alchemy_university
       - intrigue2_bridge
       - intrigue2_masquerade
       - intrigue2_minion
       - intrigue2_nobles
       - intrigue2_shantytown
       - intrigue2_torturer
+      - alchemy_familiar
+      - alchemy_herbalist
+      - alchemy_philosophersstone
+      - alchemy_university
 
-  - name: Pools, Tools, and Fools
+  - name: Pools, Tools, and Fools (2nd)
     sets:
-      - alchemy
       - intrigue2
+      - alchemy
     supply:
-      - alchemy_apothecary
-      - alchemy_apprentice
-      - alchemy_golem
-      - alchemy_scryingpool
       - intrigue2_baron
       - intrigue2_ironworks
       - intrigue2_lurker
       - intrigue2_nobles
       - intrigue2_tradingpost
       - intrigue2_wishingwell
+      - alchemy_apothecary
+      - alchemy_apprentice
+      - alchemy_golem
+      - alchemy_scryingpool
 
   - name: Paths to Victory
     sets:
@@ -206,7 +206,7 @@ kingdoms:
     metadata:
       colonies: true
 
-  - name: All Along the Watchtower
+  - name: All Along the Watchtower (2nd)
     sets:
       - intrigue2
       - prosperity
@@ -224,7 +224,7 @@ kingdoms:
     metadata:
       colonies: true
 
-  - name: Lucky Seven
+  - name: Lucky Seven (2nd)
     sets:
       - intrigue2
       - prosperity
@@ -244,121 +244,121 @@ kingdoms:
 
   - name: Last Laughs
     sets:
-      - cornucopia
       - intrigue2
+      - cornucopia
     supply:
-      - cornucopia_farmingvillage
-      - cornucopia_harvest
-      - cornucopia_horsetraders
-      - cornucopia_huntingparty
-      - cornucopia_jester
       - intrigue2_minion
       - intrigue2_nobles
       - intrigue2_pawn
       - intrigue2_steward
       - intrigue2_swindler
+      - cornucopia_farmingvillage
+      - cornucopia_harvest
+      - cornucopia_horsetraders
+      - cornucopia_huntingparty
+      - cornucopia_jester
 
-  - name: The Spice of Life
+  - name: The Spice of Life (2nd)
     sets:
-      - cornucopia
       - intrigue2
+      - cornucopia
     supply:
-      - cornucopia_fairgrounds
-      - cornucopia_hornofplenty
-      - cornucopia_remake
-      - cornucopia_tournament
-      - cornucopia_youngwitch
       - intrigue2_courtier
       - intrigue2_courtyard
       - intrigue2_diplomat
       - intrigue2_miningvillage
       - intrigue2_replace
+      - cornucopia_fairgrounds
+      - cornucopia_hornofplenty
+      - cornucopia_remake
+      - cornucopia_tournament
+      - cornucopia_youngwitch
     bane: intrigue2_wishingwell
 
-  - name: Small Victories
+  - name: Small Victories (2nd)
     sets:
-      - cornucopia
       - intrigue2
+      - cornucopia
     supply:
+      - intrigue2_conspirator
+      - intrigue2_duke
+      - intrigue2_harem
+      - intrigue2_pawn
+      - intrigue2_secretpassage
       - cornucopia_fortuneteller
       - cornucopia_hamlet
       - cornucopia_huntingparty
       - cornucopia_remake
       - cornucopia_tournament
-      - intrigue2_conspirator
-      - intrigue2_duke
-      - intrigue2_harem
-      - intrigue2_pawn
-      - intrigue2_secretpassage
 
-  - name: Name that Card
+  - name: Name that Card (2nd)
     sets:
-      - guilds
       - intrigue2
+      - guilds
     supply:
-      - guilds_advisor
-      - guilds_baker
-      - guilds_doctor
-      - guilds_masterpiece
-      - guilds_plaza
       - intrigue2_courtyard
       - intrigue2_harem
       - intrigue2_nobles
       - intrigue2_replace
       - intrigue2_wishingwell
+      - guilds_baker
+      - guilds_doctor
+      - guilds_plaza
+      - guilds_advisor
+      - guilds_masterpiece
 
-  - name: Tricks of the Trade
+  - name: Tricks of the Trade (2nd)
     sets:
-      - guilds
       - intrigue2
+      - guilds
     supply:
-      - guilds_butcher
-      - guilds_herald
-      - guilds_journeyman
-      - guilds_soothsayer
-      - guilds_stonemason
       - intrigue2_conspirator
       - intrigue2_masquerade
       - intrigue2_mill
       - intrigue2_nobles
       - intrigue2_secretpassage
+      - guilds_stonemason
+      - guilds_herald
+      - guilds_soothsayer
+      - guilds_journeyman
+      - guilds_butcher
 
   - name: Decisions, Decisions
     sets:
-      - guilds
       - intrigue2
+      - guilds
     supply:
-      - guilds_butcher
+      - intrigue2_bridge
+      - intrigue2_pawn
+      - intrigue2_miningvillage
+      - intrigue2_upgrade
+      - intrigue2_duke
+      - guilds_merchantguild
       - guilds_candlestickmaker
       - guilds_masterpiece
-      - guilds_merchantguild
       - guilds_taxman
-      - intrigue2_bridge
-      - intrigue2_duke
-      - intrigue2_miningvillage
-      - intrigue2_pawn
-      - intrigue2_upgrade
+      - guilds_butcher
 
-  - name: Money for Nothing
+  - name: Money for Nothing (2nd)
     sets:
-      - hinterlands
       - intrigue2
+      - hinterlands
     supply:
+      - intrigue2_replace
+      - intrigue2_patrol
+      - intrigue2_pawn
+      - intrigue2_shantytown
+      - intrigue2_torturer
       - hinterlands_cache
       - hinterlands_cartographer
       - hinterlands_jackofalltrades
       - hinterlands_silkroad
       - hinterlands_tunnel
-      - intrigue2_patrol
-      - intrigue2_pawn
-      - intrigue2_replace
-      - intrigue2_shantytown
-      - intrigue2_torturer
 
   - name: The Duke's Ball
     sets:
+      - intrigue
       - hinterlands
-      - intrigue2
     supply:
       - hinterlands_duchess
       - hinterlands_haggler
@@ -371,64 +371,64 @@ kingdoms:
       - intrigue2_masquerade
       - intrigue2_upgrade
 
-  - name: Prophecy
+  - name: Prophecy (2nd)
     sets:
-      - darkages
       - intrigue2
+      - darkages
     supply:
-      - darkages_armory
-      - darkages_ironmonger
-      - darkages_mystic
-      - darkages_rebuild
-      - darkages_vagrant
       - intrigue2_baron
       - intrigue2_conspirator
       - intrigue2_nobles
       - intrigue2_secretpassage
       - intrigue2_wishingwell
+      - darkages_armory
+      - darkages_ironmonger
+      - darkages_mystic
+      - darkages_rebuild
+      - darkages_vagrant
     metadata:
       shelters: true
 
-  - name: Invasion
+  - name: Invasion (2nd)
     sets:
-      - darkages
       - intrigue2
+      - darkages
     supply:
-      - darkages_beggar
-      - darkages_marauder
-      - darkages_rogue
-      - darkages_squire
-      - darkages_urchin
       - intrigue2_diplomat
       - intrigue2_harem
       - intrigue2_swindler
       - intrigue2_torturer
       - intrigue2_upgrade
+      - darkages_beggar
+      - darkages_marauder
+      - darkages_rogue
+      - darkages_squire
+      - darkages_urchin
     metadata:
       shelters: true
 
   - name: Royalty Factory
     sets:
-      - adventures
       - intrigue2
+      - adventures
     supply:
-      - adventures_bridgetroll
-      - adventures_duplicate
-      - adventures_page
-      - adventures_raze
-      - adventures_royalcarriage
       - intrigue2_conspirator
       - intrigue2_courtier
       - intrigue2_harem
       - intrigue2_nobles
       - intrigue2_swindler
+      - adventures_bridgetroll
+      - adventures_duplicate
+      - adventures_page
+      - adventures_raze
+      - adventures_royalcarriage
     events:
       - adventures_event_pilgrimage
 
   - name: Masters of Finance
     sets:
+      - intrigue
       - adventures
-      - intrigue2
     supply:
       - adventures_artificer
       - adventures_distantlands
@@ -446,8 +446,8 @@ kingdoms:
 
   - name: Delicious Torture
     sets:
+      - intrigue
       - empires
-      - intrigue2
     supply:
       - empires_castles
       - empires_crown
@@ -466,8 +466,8 @@ kingdoms:
 
   - name: Buddy System
     sets:
+      - intrigue
       - empires
-      - intrigue2
     supply:
       - empires_archive
       - empires_capital
@@ -483,4 +483,3 @@ kingdoms:
       - empires_event_salttheearth
     landmarks:
       - empires_landmark_wolfden
-

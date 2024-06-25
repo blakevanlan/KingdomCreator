@@ -1,24 +1,33 @@
 <template>
   <Page :subtitle="$t('rules_page_subtitle')" :selectedType="selectedType">
-    <div class="content main">
+    <div class="contentRules main">
       <Rulebooks />
     </div>
   </Page>
 </template>
 
 <script lang="ts">
-import { Component } from "vue-property-decorator";
-import Base from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
+import { defineComponent } from 'vue';
+import useBase from "./base";
+import Page from "../components/Page.vue";
 import Rulebooks from "../components/Rulebooks.vue";
+import { MenuItemType } from "../components/Page.vue";
 
-@Component({
+
+export default defineComponent({
+  name: "Rules", 
   components: {
     Page,
     Rulebooks
+  },
+  setup() {
+    useBase();
+    const selectedType = MenuItemType.RULES;
+
+  return {
+      selectedType,
+    };
   }
-})
-export default class Rules extends Base {
-  selectedType = MenuItemType.RULES
-}
+
+});
 </script>

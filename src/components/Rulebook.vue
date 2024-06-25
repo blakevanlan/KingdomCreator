@@ -10,8 +10,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent, computed } from "vue";
+
+/* import Dominion Objects and type*/
 import { getSetImageUrl, getRulebookUrl } from "../utils/resources";
+
+/* import store  */
+import { usei18nStore } from '../pinia/i18n-store';
+
+/* import Components */
 import TextOverlay from "./TextOverlay.vue";
 
 export interface RulebookInterface {
@@ -19,25 +27,36 @@ export interface RulebookInterface {
   name: string;
 }
 
-@Component({
+export default defineComponent({
+  name: "Rulebook",
   components: {
     TextOverlay,
-  }
-})
-export default class Rulebook extends Vue {
-  @Prop() readonly rulebook!: RulebookInterface;
+  },
+  props: {
+    rulebook: { type: Object as () => RulebookInterface,
+                required: true,
+    },
+  },
+  setup(props) {
+    const i18nStore = usei18nStore();
+    const lang = computed(() => {return i18nStore.language});
+    const imageUrl = computed(() => {
+      return getSetImageUrl(props.rulebook.id, lang.value);
+    });
 
-  get imageUrl() {
-    return getSetImageUrl(this.rulebook.id);
-  }
+    const rulebookUrl = computed(() => {
+      return getRulebookUrl(props.rulebook.id, lang.value);
+    });
 
-  get rulebookUrl() {
-    return getRulebookUrl(this.rulebook.id);
+    return {
+      imageUrl,
+      rulebookUrl,
+    };
   }
-}
+});
 </script>
 
-<style>
+ <style scoped>
 .rulebook {
   align-items: center;
   display: flex;
@@ -52,6 +71,7 @@ export default class Rulebook extends Vue {
   position: absolute;
   top: 0;
   width: 100%;
+  object-fit: contain;
 }
 
 .rulebook__overlay {

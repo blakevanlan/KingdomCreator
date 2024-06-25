@@ -1,4 +1,240 @@
 kingdoms:
+  - name: Introduction
+    sets:
+      - hinterlands
+    supply:
+      - hinterlands_cache
+      - hinterlands_crossroads
+      - hinterlands_develop
+      - hinterlands_haggler
+      - hinterlands_jackofalltrades
+      - hinterlands_margrave
+      - hinterlands_nomadcamp
+      - hinterlands_oasis
+      - hinterlands_spicemerchant
+      - hinterlands_stables
+
+  - name: Fair Trades
+    sets:
+      - hinterlands
+    supply:
+      - hinterlands_bordervillage
+      - hinterlands_cartographer
+      - hinterlands_develop
+      - hinterlands_duchess
+      - hinterlands_farmland
+      - hinterlands_illgottengains
+      - hinterlands_noblebrigand
+      - hinterlands_silkroad
+      - hinterlands_stables
+      - hinterlands_trader
+
+  - name: Bargains
+    sets:
+      - hinterlands
+    supply:
+      - hinterlands_bordervillage
+      - hinterlands_cache
+      - hinterlands_duchess
+      - hinterlands_foolsgold
+      - hinterlands_haggler
+      - hinterlands_highway
+      - hinterlands_nomadcamp
+      - hinterlands_scheme
+      - hinterlands_spicemerchant
+      - hinterlands_trader
+
+  - name: Gambits
+    sets:
+      - hinterlands
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_crossroads
+      - hinterlands_embassy
+      - hinterlands_inn
+      - hinterlands_jackofalltrades
+      - hinterlands_mandarin
+      - hinterlands_nomadcamp
+      - hinterlands_oasis
+      - hinterlands_oracle
+      - hinterlands_tunnel
+
+  - name: Adventures Abroad
+    sets:
+      - hinterlands
+      - baseset
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_foolsgold
+      - hinterlands_oracle
+      - hinterlands_spicemerchant
+      - baseset_adventurer
+      - baseset_chancellor
+      - baseset_festival
+      - baseset_laboratory
+      - baseset_remodel
+
+  - name: Highway Robbery
+    sets:
+      - hinterlands
+      - baseset
+    supply:
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_margrave
+      - hinterlands_noblebrigand
+      - hinterlands_oasis
+      - baseset_cellar
+      - baseset_library
+      - baseset_moneylender
+      - baseset_throneroom
+      - baseset_workshop
+
+  - name: Money for Nothing
+    sets:
+      - hinterlands
+      - intrigue
+    supply:
+      - hinterlands_cache
+      - hinterlands_cartographer
+      - hinterlands_jackofalltrades
+      - hinterlands_silkroad
+      - hinterlands_tunnel
+      - intrigue_coppersmith
+      - intrigue_greathall
+      - intrigue_pawn
+      - intrigue_shantytown
+      - intrigue_torturer
+
+  - name: The Duke's Ball
+    sets:
+      - hinterlands
+      - intrigue
+    supply:
+      - hinterlands_duchess
+      - hinterlands_haggler
+      - hinterlands_inn
+      - hinterlands_noblebrigand
+      - hinterlands_scheme
+      - intrigue_conspirator
+      - intrigue_duke
+      - intrigue_harem
+      - intrigue_masquerade
+      - intrigue_upgrade
+
+  - name: Adventures Abroad (2nd)
+    sets:
+      - hinterlands
+      - baseset2
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_foolsgold
+      - hinterlands_oracle
+      - hinterlands_spicemerchant
+      - baseset2_festival
+      - baseset2_laboratory
+      - baseset2_remodel
+      - baseset2_sentry
+      - baseset2_vassal
+
+  - name: Money for Nothing (2nd)
+    sets:
+      - hinterlands
+      - intrigue2
+    supply:
+      - hinterlands_cache
+      - hinterlands_cartographer
+      - hinterlands_jackofalltrades
+      - hinterlands_silkroad
+      - hinterlands_tunnel
+      - intrigue2_replace
+      - intrigue2_patrol
+      - intrigue2_pawn
+      - intrigue2_shantytown
+      - intrigue2_torturer
+
+  - name: The Duke's Ball (2nd)
+    sets:
+      - hinterlands
+      - intrigue2
+    supply:
+      - hinterlands_duchess
+      - hinterlands_haggler
+      - hinterlands_inn
+      - hinterlands_noblebrigand
+      - hinterlands_scheme
+      - intrigue2_conspirator
+      - intrigue2_duke
+      - intrigue2_harem
+      - intrigue2_masquerade
+      - intrigue2_upgrade
+
+  - name: Travelers
+    sets:
+      - hinterlands
+      - seaside
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_silkroad
+      - hinterlands_stables
+      - seaside_cutpurse
+      - seaside_island
+      - seaside_lookout
+      - seaside_merchantship
+      - seaside_warehouse
+
+  - name: Diplomacy
+    sets:
+      - hinterlands
+      - seaside
+    supply:
+      - hinterlands_embassy
+      - hinterlands_farmland
+      - hinterlands_illgottengains
+      - hinterlands_noblebrigand
+      - hinterlands_trader
+      - seaside_ambassador
+      - seaside_bazaar
+      - seaside_caravan
+      - seaside_embargo
+      - seaside_smugglers
+
+  - name: Schemes and Dreams
+    sets:
+      - hinterlands
+      - alchemy
+    supply:
+      - hinterlands_duchess
+      - hinterlands_foolsgold
+      - hinterlands_illgottengains
+      - hinterlands_jackofalltrades
+      - hinterlands_scheme
+      - alchemy_apothecary
+      - alchemy_apprentice
+      - alchemy_herbalist
+      - alchemy_philosophersstone
+      - alchemy_transmute
+
+  - name: Wine Country
+    sets:
+      - hinterlands
+      - alchemy
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_highway
+      - hinterlands_nomadcamp
+      - alchemy_apprentice
+      - alchemy_familiar
+      - alchemy_golem
+      - alchemy_university
+      - alchemy_vineyard
+
   - name: Instant Gratification
     sets:
       - hinterlands
@@ -37,64 +273,176 @@ kingdoms:
 
   - name: Blue Harvest
     sets:
-      - cornucopia
       - hinterlands
+      - cornucopia
     supply:
-      - cornucopia_hamlet
-      - cornucopia_hornofplenty
-      - cornucopia_horsetraders
-      - cornucopia_jester
-      - cornucopia_tournament
       - hinterlands_foolsgold
       - hinterlands_mandarin
       - hinterlands_noblebrigand
       - hinterlands_trader
       - hinterlands_tunnel
+      - cornucopia_hamlet
+      - cornucopia_hornofplenty
+      - cornucopia_horsetraders
+      - cornucopia_jester
+      - cornucopia_tournament
 
   - name: Traveling Circus
     sets:
-      - cornucopia
       - hinterlands
+      - cornucopia
     supply:
-      - cornucopia_fairgrounds
-      - cornucopia_farmingvillage
-      - cornucopia_huntingparty
-      - cornucopia_jester
-      - cornucopia_menagerie
       - hinterlands_bordervillage
       - hinterlands_embassy
       - hinterlands_foolsgold
       - hinterlands_nomadcamp
       - hinterlands_oasis
+      - cornucopia_fairgrounds
+      - cornucopia_farmingvillage
+      - cornucopia_huntingparty
+      - cornucopia_jester
+      - cornucopia_menagerie
 
   - name: Exchanges
     sets:
-      - guilds
       - hinterlands
+      - guilds
     supply:
-      - guilds_butcher
-      - guilds_herald
-      - guilds_masterpiece
-      - guilds_soothsayer
-      - guilds_stonemason
       - hinterlands_bordervillage
       - hinterlands_develop
       - hinterlands_illgottengains
       - hinterlands_stables
       - hinterlands_trader
+      - guilds_butcher
+      - guilds_herald
+      - guilds_masterpiece
+      - guilds_soothsayer
+      - guilds_stonemason
 
   - name: Road to Riches
     sets:
-      - guilds
       - hinterlands
+      - guilds
     supply:
-      - guilds_advisor
-      - guilds_baker
-      - guilds_candlestickmaker
-      - guilds_journeyman
-      - guilds_merchantguild
       - hinterlands_crossroads
       - hinterlands_farmland
       - hinterlands_highway
       - hinterlands_spicemerchant
       - hinterlands_tunnel
+      - guilds_advisor
+      - guilds_baker
+      - guilds_candlestickmaker
+      - guilds_journeyman
+      - guilds_merchantguild
+
+  - name: Far From Home
+    sets:
+      - hinterlands
+      - darkages
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_develop
+      - hinterlands_embassy
+      - hinterlands_foolsgold
+      - hinterlands_haggler
+      - darkages_beggar
+      - darkages_count
+      - darkages_feodum
+      - darkages_marauder
+      - darkages_wanderingminstrel
+    metadata:
+      shelters: true
+
+  - name: Expeditions
+    sets:
+      - hinterlands
+      - darkages
+    supply:
+      - hinterlands_crossroads
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel
+      - darkages_altar
+      - darkages_catacombs
+      - darkages_ironmonger
+      - darkages_poorhouse
+      - darkages_storeroom
+    metadata:
+      shelters: true
+
+  - name: Traders and Raiders
+    sets:
+      - hinterlands
+      - adventures
+    supply:
+      - hinterlands_develop
+      - hinterlands_farmland
+      - hinterlands_haggler
+      - hinterlands_spicemerchant
+      - hinterlands_trader
+      - adventures_hauntedwoods
+      - adventures_lostcity
+      - adventures_page
+      - adventures_port
+      - adventures_winemerchant
+    events:
+      - adventures_event_raid
+
+  - name: Journeys
+    sets:
+      - hinterlands
+      - adventures
+    supply:
+      - hinterlands_cartographer
+      - hinterlands_crossroads
+      - hinterlands_highway
+      - hinterlands_inn
+      - hinterlands_silkroad
+      - adventures_bridgetroll
+      - adventures_distantlands
+      - adventures_giant
+      - adventures_guide
+      - adventures_ranger
+    events:
+      - adventures_event_expedition
+      - adventures_event_inheritance
+
+  - name: Simple Plans
+    sets:
+      - hinterlands
+      - empires
+    supply:
+      - hinterlands_bordervillage
+      - hinterlands_develop
+      - hinterlands_haggler
+      - hinterlands_illgottengains
+      - hinterlands_stables
+      - empires_catapultrocks
+      - empires_forum
+      - empires_patricianemporium
+      - empires_temple
+      - empires_villa
+    events:
+      - empires_event_donate
+    landmarks:
+      - empires_landmark_labyrinth
+
+  - name: Expansion
+    sets:
+      - hinterlands
+      - empires
+    supply:
+      - hinterlands_cache
+      - hinterlands_farmland
+      - hinterlands_highway
+      - hinterlands_spicemerchant
+      - hinterlands_tunnel
+      - empires_castles
+      - empires_charm
+      - empires_encampmentplunder
+      - empires_engineer
+      - empires_legionary
+    landmarks:
+      - empires_landmark_battlefield
+      - empires_landmark_fountain

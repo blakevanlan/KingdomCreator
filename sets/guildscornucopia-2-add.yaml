@@ -1,0 +1,83 @@
+name: Guilds / Cornucopia - UpdatePack
+cards:
+  - name: Farrier
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isBuySupplier: true
+    isDrawer: true
+
+  - name: Shop
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+
+  - name: Infirmary
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isTrashing: true
+
+  - name: Farmhands
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isActionSupplier: true
+
+  - name: Carnival
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isTerminal: true
+
+  - name: Ferryman
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+
+  - name: Footpad
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isAttack: true
+    
+  - name: Joust
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isActionSupplier: true
+
+othercards:
+  - name: Coronet
+    type: Action - Treasure - Reward
+  - name: Courser
+    type: Action - Reward
+  - name: Demesne
+    type: Action - Victory - Reward
+  - name: Housecarl
+    type: Action - Reward
+  - name: Huge Turnip
+    type: Treasure - Reward
+  - name: Renown
+    type: Action - Reward
+
+
+
+
+
+

@@ -406,3 +406,76 @@ cards:
     isTrashing: false
     isReaction: false
     isActionSupplier: true
+
+othercards:
+  - name: Abandoned Mine
+    type: Ruins
+  - name: Ruined Library
+    type: Ruins
+  - name: Ruined Market
+    type: Ruins
+  - name: Ruined Village
+    type: Ruins
+  - name: Survivors
+    type: Ruins
+    
+  - name: Madman
+    type: Action - Non-Supply Cards
+  - name: Mercenary
+    type: Action- Attack - Non-Supply Cards
+  - name: Spoils
+    type: Treasure - Non-Supply Cards
+    
+  - name: Hovel
+    type: Reaction - Shelter
+    cost:
+      treasure: 1
+  - name: Necropolis
+    type: Action - Shelter
+    cost:
+      treasure: 1
+  - name: Overgrown Estate
+    type: Victory - Shelter
+    cost:
+      treasure: 1
+    
+  - name: Dame Anna
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Dame Josephine
+    type: Action - Attack - Victory - Knight
+    cost:
+      treasure: 5
+  - name: Dame Molly
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Dame Natalie
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Dame Sylvia
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Sir Bailey
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Sir Destry
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Sir Martin
+    type: Action - Attack - Knight
+    cost:
+      treasure: 4
+  - name: Sir Michael
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5
+  - name: Sir Vander
+    type: Action - Attack - Knight
+    cost:
+      treasure: 5

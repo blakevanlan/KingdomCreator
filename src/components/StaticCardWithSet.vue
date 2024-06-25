@@ -1,44 +1,77 @@
 <template>
   <StaticCard
-    :class="set.id"
+    :class="cardSet"
     :is-vertical="isVertical"
     :card-image-url="cardImageUrl"
   >
-    <CardOverlay :card="card" />
+    <CardOverlay :card="card" v-if="show_Overlay"/> 
   </StaticCard>
 </template>
 
 <script lang="ts">
-import { Card } from "../dominion/card";
+/* import Vue, typescript */
+import { defineComponent, computed, ref } from "vue";
+import type { PropType } from "vue";
+
+/* import Dominion Objects and type*/
+import type { Card } from "../dominion/card";
 import { SupplyCard } from "../dominion/supply-card";
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { State } from "vuex-class";
-import { getCardImageUrl } from "../utils/resources";
 import { DominionSets } from "../dominion/dominion-sets";
-import { Language } from "../i18n/language";
+
+import { getCardImageUrl } from "../utils/resources";
+
+/* import store  */
+import { usei18nStore } from "../pinia/i18n-store";
+
+/* import Components */
 import StaticCard from "./StaticCard.vue";
 import CardOverlay from "./CardOverlay.vue";
 
-@Component({
+export default defineComponent({
+  name: "StaticCardWithSet",
   components: {
     StaticCard,
-    CardOverlay,
-  }
-})
-export default class StaticCardWithSet extends Vue {
-  @Prop() readonly card!: Card;
-  @State(state => state.i18n.language) readonly language!: Language;
-  
-  get isVertical() {
-    return this.card instanceof SupplyCard;
-  }
+    CardOverlay
+  },
+  props: {
+    card: {
+      type: Object as PropType<Card>,
+      required: true,
+    },
+    showOverlay: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  setup(props) {
+    const i18nStore = usei18nStore();
+    const language = computed(() => i18nStore.language);
 
-  get cardImageUrl() {
-    return getCardImageUrl(this.card.id, this.language);
-  }
+    const show_Overlay = computed(() => {
+      if (!props.showOverlay) {
+        return false;
+      }
+      return true;
+    });
 
-  get set() {
-    return DominionSets.getSetById(this.card.setId).name;
-  }
-}
+    const isVertical = computed(() => {
+      return props.card instanceof SupplyCard;
+    });
+
+    const cardImageUrl = computed(() => {
+      return getCardImageUrl(props.card.id.replace("tohidesplitcard", ""), language.value);
+    });
+
+    const cardSet = computed(() => {
+      return DominionSets.getSetById(props.card.setId).name;
+    });
+
+    return {
+      show_Overlay,
+      isVertical,
+      cardImageUrl,
+      cardSet
+    };
+  },
+});
 </script>

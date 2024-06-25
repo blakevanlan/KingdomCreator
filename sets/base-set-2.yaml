@@ -1,4 +1,4 @@
-name: Dominion (2nd)
+name: Base Set (2nd)
 cards:  
   - name: Bureaucrat
     cost:
@@ -324,3 +324,54 @@ cards:
     isReaction: false
     isDuration: false
     isActionSupplier: false
+
+othercards:
+  - name: Copper_2nd
+    orderstring: Copper 0
+    type: Basic Cards
+    cost:
+      treasure: 0
+    isTreasure: true
+
+  - name: Silver_2nd
+    type: Basic Cards
+    orderstring: Copper 1
+    cost:
+      treasure: 3
+    isTreasure: true
+
+  - name: Gold_2nd
+    type: Basic Cards
+    orderstring: Copper 2
+    cost:
+      treasure: 6
+    isTreasure: true
+
+  - name: Estate_2nd
+    type: Basic Cards
+    orderstring: Estate 1
+    cost:
+      treasure: 2
+    isVictory: true
+
+  - name: Duchy_2nd
+    type: Basic Cards
+    orderstring: Estate 2
+    cost:
+      treasure: 5
+    isVictory: true
+
+  - name: Province_2nd
+    type: Basic Cards
+    orderstring: Estate 3
+    cost:
+      treasure: 8
+    isVictory: true
+
+  - name: Curse_2nd
+    type: Basic Cards
+    orderstring: Estate 9
+    cost:
+      treasure: 0
+    isTrashing: true
+

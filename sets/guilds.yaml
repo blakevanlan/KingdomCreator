@@ -149,3 +149,9 @@ cards:
     isVictory: false
     isTrashing: true
     isReaction: false
+
+othercards:
+  - name: Coffers_mat
+    type: Mat Horizontal
+  - name: CoinsTokens
+    type: Tokens

@@ -1,4 +1,4 @@
-import {CostType} from "./cost-type"
+import { CostType } from "./cost-type"
 
 export class Cost {
   constructor(

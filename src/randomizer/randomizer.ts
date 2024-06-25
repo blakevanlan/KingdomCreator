@@ -1,39 +1,46 @@
-import {Addon} from "../dominion/addon";
-import {CardSupplyBan} from "./card-supply-ban";
-import {CostSupplyBan} from "./cost-supply-ban";
-import {CostSupplyDivider} from "./cost-supply-divider";
-import {CardType} from "../dominion/card-type";
-import {Cards} from "../utils/cards";
-import {DominionSet} from "../dominion/dominion-set";
-import {DominionSets} from "../dominion/dominion-sets";
-import {Event} from "../dominion/event"
-import {Kingdom} from "./kingdom";
-import {Landmark} from "../dominion/landmark"
-import {Metadata as KingdomMetadata} from "./kingdom";
-import {Project} from "../dominion/project"
-import {RandomizerOptions} from "./randomizer-options";
-import {SetId} from "../dominion/set-id";
-import {SetSupplyBan} from "./set-supply-ban";
-import {SetSupplyDivider} from "./set-supply-divider";
-import {Supply} from "./supply";
-import {SupplyBuilder} from "./supply-builder";
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivisions} from "./supply-divisions";
-import {TypeSupplyBan} from "./type-supply-ban";
-import {TypeSupplyRequirement} from "./type-supply-requirement";
-import {getRandomInt, getRandomInts, selectRandomN} from "../utils/rand";
-import {Boon} from "../dominion/boon";
-import {Way} from "../dominion/way";
-import {Ally} from "../dominion/ally";
-import {Trait} from "../dominion/trait";
+import type { Addon, Addons } from "../dominion/addon";
+import { CardSupplyBan } from "./card-supply-ban";
+import { CostSupplyBan } from "./cost-supply-ban";
+import { CostSupplyDivider } from "./cost-supply-divider";
+import { CardType } from "../dominion/card-type";
+import { Cards } from "../utils/cards";
+import type { DominionSet } from "../dominion/dominion-set";
+import { DominionSets } from "../dominion/dominion-sets";
+import { Event } from "../dominion/event"
+import { Kingdom } from "./kingdom";
+import { Landmark } from "../dominion/landmark"
+import { Metadata as KingdomMetadata } from "./kingdom";
+import { Project } from "../dominion/project"
+import type { RandomizerOptions } from "./randomizer-options";
+import { SetId, New_SETS_WITH_DUPLICATES } from "../dominion/set-id";
+import { SetSupplyBan } from "./set-supply-ban";
+import { SetSupplyDivider } from "./set-supply-divider";
+import { Supply, Replacements } from "./supply";
+import { SupplyBuilder } from "./supply-builder";
+import type { SupplyCard } from "../dominion/supply-card";
+import { SupplyDivisions } from "./supply-divisions";
+import { TypeSupplyBan } from "./type-supply-ban";
+import { TypeSupplyRequirement } from "./type-supply-requirement";
+import { getRandomInt, getRandomInts, selectRandomN } from "../utils/rand";
+import type { Boon } from "../dominion/boon";
+import { Way } from "../dominion/way";
+import { Ally } from "../dominion/ally";
+import { Trait } from "../dominion/trait";
+import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from "./special-need-cards";
+import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from "./special-need-cards";
+import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from "./special-need-cards";
 
-const SETS_WITH_DUPLICATES: {[index: string]: string} = {
+const SETS_WITH_DUPLICATES: { [index: string]: string } = {
   'baseset': 'baseset2',
   'intrigue': 'intrigue2',
   'seaside': 'seaside2',
   'prosperity': 'prosperity2',
-  'hinterlands': 'hinterlands2'
+  'hinterlands': 'hinterlands2',
+  'guildscornucopia': 'guildscornucopia2',
+  'guilds': 'guildscornucopia',
+  'cornucopia': 'guildscornucopia',
 };
+
 const MAX_RETRIES = 3;
 const NUM_CARDS_IN_KINGDOM = 10;
 
@@ -58,18 +65,23 @@ export class Randomizer {
     const addons = this.getAddons(randomizerOptions.setIds);
     const boons = this.getRandomBoons(supply, []);
     const ally = this.getRandomAlly(supply);
+    const adjustedSupplyCards = this.adjustSupplyBasedOnAddons(supply, addons, 
+      new Kingdom(0, new Supply([], null, null, null, null, [], Replacements.empty()),
+          [], [], [], [], [], null, [], new KingdomMetadata(false, false)));
+    //console.log(adjustedSupplyCards)
     const metadata = this.getMetadata(randomizerOptions.setIds);
+    console.log("createKingdom", supply)
     return new Kingdom(
-      Date.now(),
-      supply,
-      addons.events,
-      addons.landmarks,
-      addons.projects,
-      addons.ways,
-      boons,
-      ally,
-      addons.traits,
-      metadata);
+      Date.now(),          /* id: number,  */
+      adjustedSupplyCards, /* supply: Supply, */
+      addons.events,       /* events: Event[], */
+      addons.landmarks,    /* landmarks: Landmark[], */
+      addons.projects,     /* projects: Project[], */
+      addons.ways,         /* ways: Way[], */
+      boons,               /* boons: Boon[], */
+      ally,                /* allies: Ally | null, */
+      addons.traits,       /* Traits: Trait */
+      metadata);           /* metadata: Metadata */
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
@@ -90,10 +102,10 @@ export class Randomizer {
       try {
         return this.createSupply(randomizerOptions);
       } catch (error) {
-         if (typeof error === 'object' && error !== null)
-            console.log(`Error when trying to select cards: \n${error.toString()}`);
-          else
-            console.log(`Error when trying to select cards: \n error is not an object`);
+        if (typeof error === 'object' && error !== null)
+          console.log(`Error when trying to select cards: \n${error.toString()}`);
+        else
+          console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
@@ -102,21 +114,35 @@ export class Randomizer {
 
   static createSupply(randomizerOptions: RandomizerOptions): Supply {
     const allSupplyCards =
-        Cards.getAllSupplyCards(Cards.getAllCardsFromSets(DominionSets.getAllSets()));
+      Cards.getAllSupplyCards(Cards.getAllCardsFromSets(DominionSets.getAllSets()));
     const allSupplyCardsToUse =
-        this.removeDuplicateCards(
-            allSupplyCards.filter(Cards.filterByIncludedSetIds(randomizerOptions.setIds)), []);
-    
+      this.removeDuplicateCards(
+        allSupplyCards.filter(Cards.filterByIncludedSetIds(randomizerOptions.setIds)), []);
     let supplyBuilder = new SupplyBuilder(allSupplyCardsToUse);
-
-    // Set the bane card if supplyed in the options and remove it from the pool of 
+    // Set the bane card, the ferryman card, the mouseway card 
+    //if supplyed in the options and remove it from the pool of 
     // available cards.
     if (randomizerOptions.baneCardId) {
       supplyBuilder.setBaneCard(
         DominionSets.getSupplyCardById(randomizerOptions.baneCardId));
       supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.baneCardId]));
     }
-
+    if (randomizerOptions.ferrymanCardId) {
+      supplyBuilder.setFerrymanCard(
+        DominionSets.getSupplyCardById(randomizerOptions.ferrymanCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.ferrymanCardId]));
+    }
+    if (randomizerOptions.mousewayCardId) {
+      supplyBuilder.setMousewayCard(
+        DominionSets.getSupplyCardById(randomizerOptions.mousewayCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.mousewayCardId]));
+    }
+    if (randomizerOptions.obeliskCardId) {
+      supplyBuilder.setObeliskCard(
+        DominionSets.getSupplyCardById(randomizerOptions.obeliskCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.obeliskCardId]));
+    }
+    
     // Configure bans.
     if (randomizerOptions.excludeCardIds.length) {
       supplyBuilder.addBan(new CardSupplyBan(randomizerOptions.excludeCardIds));
@@ -131,13 +157,13 @@ export class Randomizer {
     // Configure requirements.
     if (randomizerOptions.requireSingleCardOfType) {
       supplyBuilder.addRequirement(
-          new TypeSupplyRequirement(randomizerOptions.requireSingleCardOfType, true));
+        new TypeSupplyRequirement(randomizerOptions.requireSingleCardOfType, true));
     }
     if (randomizerOptions.requireActionProvider) {
       supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.ACTION_SUPPLIER, false));
     }
     if (randomizerOptions.requireCardProvider) {
-      supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.MULTI_DRAWER, false));         
+      supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.MULTI_DRAWER, false));
     }
     if (randomizerOptions.requireBuyProvider) {
       supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.BUY_SUPPLIER, false));
@@ -151,7 +177,7 @@ export class Randomizer {
 
     if (randomizerOptions.prioritizeSet && randomizerOptions.prioritizeSet != SetId.ALCHEMY) {
       supplyBuilder.addDivider(
-          new SetSupplyDivider(randomizerOptions.prioritizeSet, NUM_PRIORITIZED_SET));
+        new SetSupplyDivider(randomizerOptions.prioritizeSet, NUM_PRIORITIZED_SET));
       remainingCards -= NUM_PRIORITIZED_SET;
     }
 
@@ -168,32 +194,30 @@ export class Randomizer {
 
     let highCardsInKingdom = -1;
     if (randomizerOptions.distributeCost) {
-      highCardsInKingdom = 
-          getRandomInt(MIN_HIGH_CARDS_IN_KINGDOM, MAX_HIGH_CARDS_IN_KINGDOM);
+      highCardsInKingdom =
+        getRandomInt(MIN_HIGH_CARDS_IN_KINGDOM, MAX_HIGH_CARDS_IN_KINGDOM);
       supplyBuilder.addDivider(new CostSupplyDivider(HIGH_COST_CUT_OFF, highCardsInKingdom));
     }
 
     const existingCards =
-        randomizerOptions.includeCardIds.map((id) => DominionSets.getSupplyCardById(id));
+      randomizerOptions.includeCardIds.map((id) => DominionSets.getSupplyCardById(id));
     let supply = this.buildSupplyWithRetries(supplyBuilder, existingCards);
 
     // TODO: This is ugly and should ultimately be handled in the supply builder. Perhaps
     // include a rewinding or merging if the divisions become invalid?
     if (randomizerOptions.requireReactionIfAttacks) {
       const correctedSupplyBuilder =
-          this.correctSupplyBuilderForRequiredReaction(
-              supplyBuilder, existingCards, supply.supplyCards);
+        this.correctSupplyBuilderForRequiredReaction(
+          supplyBuilder, existingCards, supply.supplyCards);
       if (correctedSupplyBuilder) {
         supplyBuilder = correctedSupplyBuilder;
         supply = this.buildSupplyWithRetries(supplyBuilder, existingCards);
       }
     }
-    
     return supply;
   }
 
-  private static getAddons(setIds: SetId[]):
-      {events: Event[], landmarks: Landmark[], projects: Project[], ways: Way[], allies: Ally[], traits: Trait[]} {
+  private static getAddons(setIds: SetId[]): { events: Event[], landmarks: Landmark[], projects: Project[], ways: Way[], allies: Ally[], traits: Trait[] } {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
     const cards = Cards.getAllCardsFromSets(setsToUse);
     const selectedCards = this.selectRandomCards(cards, NUM_CARDS_IN_KINGDOM);
@@ -203,8 +227,7 @@ export class Randomizer {
     const selectedWays: Way[] = [];
     const selectedAllies: Ally[] = [];
     const selectedTraits: Trait[] = [];
-
-    for (let card of selectedCards) {
+    for (const card of selectedCards) {
       if (card instanceof Event) {
         selectedEvents.push(card);
       } else if (card instanceof Landmark) {
@@ -278,9 +301,74 @@ export class Randomizer {
 
   static getMetadata(setIds: SetId[]) {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
-    const useColonies = this.shouldUseSpecialtyCardFromSet([SetId.PROSPERITY, SetId.PROSPERITY_2], setsToUse) ;
+    const useColonies = this.shouldUseSpecialtyCardFromSet([SetId.PROSPERITY, SetId.PROSPERITY_2], setsToUse);
     const useShelters = this.shouldUseSpecialtyCardFromSet([SetId.DARK_AGES], setsToUse);
     return new KingdomMetadata(useColonies, useShelters);
+  }
+
+  static adjustSupplyBasedOnAddons(supply: Supply, Localaddons :Addons, oldkingdom: Kingdom) {
+    // to add obeliskCard
+    let calculatedObeliskCard = null;
+    if (Localaddons.landmarks.some(landmark => DominionSets.getLandmarkById(OBELISK_LANDMARK_ID).id === landmark.id)) {
+      if (!supply.obeliskCard) {
+        const onlyActionSupply = supply.supplyCards.filter(card => card.isOfType(OBELISK_CARDTYPE_REQUESTED));
+        calculatedObeliskCard = this.selectRandomCards(onlyActionSupply, 1)[0]
+      } else {
+        calculatedObeliskCard=supply.obeliskCard
+      }
+    }
+
+    // to add mouseWayCard
+    let calculatedmouseWayCard = null;
+    let localReplacements = supply.replacements;
+    if (Localaddons.ways.some(way => DominionSets.getWayById(MOUSE_WAY_ID).id === way.id)) {
+      if(!supply.mouseWay) {
+        const candidateCards = supply.replacements
+          .getReplacementsForId(supply.supplyCards[0].id)
+          .filter(card => {
+            return card.cost.debt == 0 &&
+              card.cost.potion == 0 &&
+              card.cost.treasure <= MOUSE_MAX_COST &&
+              card.cost.treasure >= MOUSE_MIN_COST;
+          });
+        const randomIndex = Math.floor(Math.random() * candidateCards.length);
+        if (candidateCards.length != 0) {
+          calculatedmouseWayCard = candidateCards[randomIndex];
+          localReplacements = new Replacements(Replacements.createReplacementByRemoveCards(supply.replacements.replacements, [calculatedmouseWayCard.id]));
+        }
+      } else {
+        calculatedmouseWayCard = supply.mouseWay
+      }
+    }
+
+    // to add traits Supply
+    let calculatedTraitsSupplyCard:SupplyCard[]= []
+    let onlyTraitsPossibleSupplies = supply.supplyCards.filter(card => card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || 
+          card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_2));
+    if (Localaddons.traits.length > 0) {
+      for (const trait of Localaddons.traits) {
+        const index = oldkingdom.traits.findIndex((oldtrait) => oldtrait.id === trait.id);
+        if (index>=0) {
+          calculatedTraitsSupplyCard.push(oldkingdom.supply.traitsSupply[index]);
+          onlyTraitsPossibleSupplies = onlyTraitsPossibleSupplies.filter((card) => card != oldkingdom.supply.traitsSupply[index]);
+        } else {
+          const randomTraitCard = this.selectRandomCards(onlyTraitsPossibleSupplies, 1)[0];
+          calculatedTraitsSupplyCard.push(randomTraitCard);
+          onlyTraitsPossibleSupplies = onlyTraitsPossibleSupplies.filter((card) => card != randomTraitCard);
+        }
+      }
+    }
+    const NewSupply = new Supply(
+      supply.supplyCards,     /* supply Cards */
+      supply.baneCard,        /* bane if needed */
+      supply.ferrymanCard,    /* ferryman carrd to add if needed */
+      calculatedObeliskCard,  /* obeliskCard if needed */
+      calculatedmouseWayCard, /* mouseWayCard if needed */
+      calculatedTraitsSupplyCard,   /* supply for traits */
+      localReplacements
+    )
+    //console.log(NewSupply)
+    return NewSupply
   }
 
   private static shouldUseSpecialtyCardFromSet(setIds: SetId[], setsBeingUsed: DominionSet[]) {
@@ -291,12 +379,12 @@ export class Randomizer {
     const numberOfSpecialtySetCards = this.removeDuplicateCards(
       indexes
         .filter(val => val !== -1)
-        .map( (index) => setsBeingUsed[index].supplyCards)
+        .map((index) => setsBeingUsed[index].supplyCards)
         .reduce((partialSum, a) => partialSum.concat(a), [])
       , []).length
     const numberOfCardsBeingUsed = this.removeDuplicateCards(
       setsBeingUsed
-        .map( (setBeingUsed) => setBeingUsed.supplyCards)
+        .map((setBeingUsed) => setBeingUsed.supplyCards)
         .reduce((partialSum, a) => partialSum.concat(a), [])
       , []).length
     const randomIndex = getRandomInt(0, numberOfCardsBeingUsed);
@@ -331,8 +419,8 @@ export class Randomizer {
   }
 
   private static correctSupplyBuilderForRequiredReaction(
-      supplyBuilder: SupplyBuilder, existingCards: SupplyCard[], selectedCards: SupplyCard[])
-      : SupplyBuilder | null {
+    supplyBuilder: SupplyBuilder, existingCards: SupplyCard[], selectedCards: SupplyCard[])
+    : SupplyBuilder | null {
     // Check if the selected cards either have no attacks or have a reaction.
     if (selectedCards.filter(Cards.filterByRequiredType(CardType.REACTION)).length) {
       return null;
@@ -345,7 +433,7 @@ export class Randomizer {
     supplyBuilder = supplyBuilder.clone();
     const divisions = supplyBuilder.createUnfilledDivisions(existingCards);
     const reactions = SupplyDivisions.getAvailableCardsOfType(divisions, CardType.REACTION);
-    
+
     if (reactions.length) {
       // Add a requirement for a reaction.
       supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.REACTION, false));
@@ -363,10 +451,10 @@ export class Randomizer {
       try {
         return supplyBuilder.createSupply(existingCards);
       } catch (error) {
-          if (typeof error === 'object' && error !== null) 
-            console.log(`Error when trying to select cards: \n${error.toString()}`);
-          else
-            console.log(`Error when trying to select cards: \n error is not an object`);
+        if (typeof error === 'object' && error !== null)
+          console.log(`Error when trying to select cards: \n${error.toString()}`);
+        else
+          console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
@@ -374,7 +462,7 @@ export class Randomizer {
   }
 
   private static getNumberOfAlchemyCardsToUse(
-      randomizerOptions: RandomizerOptions, remainingCards: number) {
+    randomizerOptions: RandomizerOptions, remainingCards: number) {
     let min = MIN_ALCHEMY_CARDS_IN_KINGDOM;
     let max = MAX_ALCHEMY_CARDS_IN_KINGDOM;
 
@@ -388,32 +476,31 @@ export class Randomizer {
   private static removeDuplicateCards(cards: SupplyCard[], requiredCardIds: string[]) {
     // Removes duplicate cards (cards appearing in multiple sets); keep setA's version.
     // Cards to keep = (A - [B required as A]) + (B - ([A as B] - B required))
-    const keys = Object.keys(SETS_WITH_DUPLICATES);
-    for (let key of keys) {
-      const setA = key as SetId;
-      const setB = SETS_WITH_DUPLICATES[key] as SetId;
+    for (const duplicateSets of New_SETS_WITH_DUPLICATES) {
+      const setA = duplicateSets.id
+      const setB = duplicateSets.idv2
       const setACards = cards.filter(Cards.filterByIncludedSetIds([setA]));
       const setBCards = cards.filter(Cards.filterByIncludedSetIds([setB]));
 
       // B to exclude = ([A as B] - B required))
       const setACardIdsAsSetB = this.replaceSetIdForCards(setACards, setB);
       const setBRequiredCards = setBCards.filter(Cards.filterByIncludedIds(requiredCardIds));
-      const setBCardIdsToExclude = 
-          this.removeIds(setACardIdsAsSetB, Cards.extractIds(setBRequiredCards));
+      const setBCardIdsToExclude =
+        this.removeIds(setACardIdsAsSetB, Cards.extractIds(setBRequiredCards));
 
       // B to include = (B - B to exclude)
-      const setBCardIdsToInclude = 
-          this.removeIds(Cards.extractIds(setBCards), setBCardIdsToExclude);
+      const setBCardIdsToInclude =
+        this.removeIds(Cards.extractIds(setBCards), setBCardIdsToExclude);
 
       // A to include = (A - [B required as A])
       const setBRequiredCardIdsAsSetA = this.replaceSetIdForCards(setBRequiredCards, setA);
-      const setACardIdsToInclude = 
-          this.removeIds(Cards.extractIds(setACards), setBRequiredCardIdsAsSetA);
+      const setACardIdsToInclude =
+        this.removeIds(Cards.extractIds(setACards), setBRequiredCardIdsAsSetA);
 
-      const setACardsToExclude = 
-          this.removeIds(Cards.extractIds(setACards), setACardIdsToInclude);
-      const setBCardsToExclude = 
-          this.removeIds(Cards.extractIds(setBCards), setBCardIdsToInclude);
+      const setACardsToExclude =
+        this.removeIds(Cards.extractIds(setACards), setACardIdsToInclude);
+      const setBCardsToExclude =
+        this.removeIds(Cards.extractIds(setBCards), setBCardIdsToInclude);
 
       cards = cards.filter(Cards.filterByExcludedIds(setACardsToExclude));
       cards = cards.filter(Cards.filterByExcludedIds(setBCardsToExclude));
@@ -427,7 +514,7 @@ export class Randomizer {
 
   private static replaceSetIdForCards(cards: SupplyCard[], newSetId: string) {
     const cardIds: string[] = [];
-    for (let card of cards) {
+    for (const card of cards) {
       cardIds.push(this.replaceSetIdInCardId(card.id, newSetId));
     }
     return cardIds;

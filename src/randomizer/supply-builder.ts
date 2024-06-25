@@ -1,19 +1,18 @@
 import {Cards} from "../utils/cards";
 import {SegmentedRange} from "../utils/segmented-range";
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyBan} from "./supply-ban";
-import {SupplyCorrection} from "./supply-correction";
-import {SupplyDivider} from "./supply-divider";
+import type {SupplyCard} from "../dominion/supply-card";
+import type {SupplyBan} from "./supply-ban";
+import type {SupplyCorrection} from "./supply-correction";
+import type {SupplyDivider} from "./supply-divider";
 import {SupplyDivision} from "./supply-division";
-import {SupplyRequirement} from "./supply-requirement";
+import type {SupplyRequirement} from "./supply-requirement";
 import {Supply, Replacements} from "./supply";
 import {getRandomInt, selectRandom} from "../utils/rand";
 import { SupplyDivisions } from "./supply-divisions";
+import { YOUNG_WITCH_IDS, BANE_MIN_COST, BANE_MAX_COST, MOUSE_WAY_ID, MOUSE_MAX_COST, MOUSE_MIN_COST, OBELISK_LANDMARK_ID } from "./special-need-cards";
+import { FERRYMAN_IDS, FERRYMAN_MIN_COST, FERRYMAN_MAX_COST } from "./special-need-cards";
 
 const NUM_CARDS_IN_KINGDOM = 10;
-const YOUNG_WITCH_ID = "cornucopia_youngwitch";
-const BANE_MIN_COST = 2;
-const BANE_MAX_COST = 3;
 
 export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];
@@ -21,6 +20,10 @@ export class SupplyBuilder {
   private bans: SupplyBan[] = [];
   private corrections: SupplyCorrection[] = [];
   private forceBaneCard: SupplyCard | null = null;
+  private forceFerrymanCard: SupplyCard | null = null;
+  private forceMousewayCard: SupplyCard | null = null;
+  private forceObeliskCard: SupplyCard | null = null;
+
   constructor(private readonly cards: SupplyCard[]) {
   }
 
@@ -44,13 +47,27 @@ export class SupplyBuilder {
     this.forceBaneCard = baneCard;
   }
 
+  setFerrymanCard(ferrymanCard: SupplyCard) {
+    this.forceFerrymanCard = ferrymanCard;
+  }
+
+  setMousewayCard(mousewayCard: SupplyCard) {
+    this.forceMousewayCard = mousewayCard;
+  }
+
+  setObeliskCard(obeliskCard: SupplyCard) {
+    this.forceObeliskCard = obeliskCard;
+  }
+
   createUnfilledDivisions(existingCards: SupplyCard[]): SupplyDivision[] {
     let division = new SupplyDivision(this.cards, [], [], NUM_CARDS_IN_KINGDOM, new Map());
     division = this.prepareDivisionForBanning(division, existingCards);
     division = SupplyDivisions.applyBans(division, this.bans);
     division = this.addExistingCardsAsAvailable(division, existingCards);
     let divisions = SupplyDivisions.applyDividers([division], this.dividers);
+
     divisions = this.applyExistingCards(divisions, existingCards);
+
     return divisions;
   }
 
@@ -59,8 +76,12 @@ export class SupplyBuilder {
     divisions = this.applyRequirements(divisions);
     divisions = SupplyDivisions.applyCorrections(divisions, this.corrections);
     divisions = SupplyDivisions.fillDivisions(divisions);
+
     const baneCard = this.selectBaneCard(divisions);
-    return this.gatherCardsIntoSupply(divisions, baneCard);
+    const ferrymanCard = this.selectFerrymanCard(divisions);
+    const mousewayCard = this.selectMousewayCard(divisions);
+    const obeliskCard = this.selectObeliskCard(divisions);
+    return this.gatherCardsIntoSupply(divisions, baneCard, ferrymanCard, mousewayCard, obeliskCard);
   }
 
   clone() {
@@ -81,7 +102,7 @@ export class SupplyBuilder {
   private applyRequirements(divisions: SupplyDivision[]): SupplyDivision[] {
     divisions = divisions.concat();
     const orderedRequirements = this.orderRequirementsForDivisions(divisions);
-    for (let requirement of orderedRequirements) {
+    for (const requirement of orderedRequirements) {
       if (requirement.isSatisfied(divisions)) {
         continue;
       }
@@ -94,7 +115,7 @@ export class SupplyBuilder {
       // Select a random division to lock in a required card.
       const divisionIndex = segmentedRange.getRandomSegmentIndex();
       const cards = requirement.getSatisfyingCardsFromDivisions([divisions[divisionIndex]]);
-      while (true) {
+      while (cards.length >0 ) {
         const randomIndex = getRandomInt(0, cards.length);
         const selectedCard = cards[randomIndex];
         cards.splice(randomIndex, 1);
@@ -119,7 +140,7 @@ export class SupplyBuilder {
     // Add the existing cards as available to allow divisions to be intelligently divided. 
     const availableCardIds = Cards.extractIds(division.availableCards);
     const cardsToAdd = [];
-    for (let card of existingCards) {
+    for (const card of existingCards) {
       if (availableCardIds.indexOf(card.id) == -1) {
         cardsToAdd.push(card);
       }
@@ -136,14 +157,14 @@ export class SupplyBuilder {
     divisions = divisions.concat();
 
     const cardsForNewDivision: SupplyCard[] = [];
-    for (let existingCard of existingCards) {
+    for (const existingCard of existingCards) {
       const divisionIndex = this.findIndexOfDivisionContainingCardId(divisions, existingCard.id);
       if (divisionIndex == -1) {
         // Collect cards that cannot be fit into a division and apply them afterwards.
         cardsForNewDivision.push(existingCard)
       } else {
         const division = divisions[divisionIndex];
-        divisions[divisionIndex] = division.createDivisionByLockingCard(existingCard.id);
+        divisions[divisionIndex] = division.createDivisionByLockingCard(existingCard.id,division.availableCards);
       }
     }
 
@@ -187,26 +208,87 @@ export class SupplyBuilder {
 
   private requiresBaneCard(divisions: SupplyDivision[]) {
     const supplyCards = SupplyDivisions.getLockedAndSelectedCards(divisions);
-    return supplyCards.some(s => s.id == YOUNG_WITCH_ID);
+    return supplyCards.some(s => YOUNG_WITCH_IDS.includes(s.id));
   }
 
-  private gatherCardsIntoSupply(divisions: SupplyDivision[], baneCard: SupplyCard | null) {
+  private selectFerrymanCard(divisions: SupplyDivision[]) {
+    if (!this.requiresFerrymanCard(divisions)) {
+      return null;
+    }
+    if (this.forceFerrymanCard) {
+      return this.forceFerrymanCard;
+    }
+    const availableCards = 
+      SupplyDivisions
+        .getAvailableCards(divisions)
+        .filter(card => {
+          return card.cost.debt == 0 &&
+            card.cost.potion == 0 &&
+            card.cost.treasure <= FERRYMAN_MAX_COST &&
+            card.cost.treasure >= FERRYMAN_MIN_COST;
+        });
+    if (!availableCards.length) {
+      return null;
+    }
+    return selectRandom(availableCards);
+  }
+  
+  private requiresFerrymanCard(divisions: SupplyDivision[]) {
+    const supplyCards = SupplyDivisions.getLockedAndSelectedCards(divisions);
+    return supplyCards.some(s => FERRYMAN_IDS.includes(s.id));
+  }
+
+  private selectMousewayCard(divisions: SupplyDivision[]) {
+    /*if (!this.requiresMousewayCard(divisions)) {
+      return null;
+    }*/
+    if (this.forceMousewayCard) {
+      return this.forceMousewayCard;
+    }
+    return null;
+  }
+  
+  private requiresMousewayCard(divisions: SupplyDivision[]) {
+    // should not be used because supplyCards do not contains ways
+    const supplyCards = SupplyDivisions.getLockedAndSelectedCards(divisions);
+    return supplyCards.some(s => MOUSE_WAY_ID == s.id);
+  }
+  
+  private selectObeliskCard(divisions: SupplyDivision[]) {
+    /*if (!this.requiresObeliskCard(divisions)) {
+      return null;
+    }*/
+    if (this.forceObeliskCard) {
+      return this.forceObeliskCard;
+    } 
+    return null; 
+  }
+  
+  private requiresObeliskCard(divisions: SupplyDivision[]) {
+    // should not be used because supplyCards do not contains ways
+    const supplyCards = SupplyDivisions.getLockedAndSelectedCards(divisions);
+    return supplyCards.some(s => OBELISK_LANDMARK_ID== s.id);
+  }
+
+  private gatherCardsIntoSupply(divisions: SupplyDivision[], 
+        baneCard: SupplyCard | null, ferrymanCard: SupplyCard | null, 
+        mousewayCard: SupplyCard | null, obeliskCard: SupplyCard | null) {
     const replacements: Map<string, SupplyCard[]> = new Map();
-    let cards: SupplyCard[] = [];
-    for (let division of divisions) {
-      for (let card of division.lockedAndSelectedCards) {
+    const cards: SupplyCard[] = [];
+    for (const division of divisions) {
+      for (const card of division.lockedAndSelectedCards) {
         cards.push(card);
         replacements.set(card.id, division.getReplacements(card.id));
       }
     }
-    return new Supply(cards, baneCard, new Replacements(replacements));
+    return new Supply(cards, baneCard, ferrymanCard, obeliskCard, mousewayCard, [], new Replacements(replacements));
   }
 
   private orderRequirementsForDivisions(divisions: SupplyDivision[]): SupplyRequirement[] {
     const satsifiedRequirements: SupplyRequirement[] = [];
     const requirementAndCountPairs: {requirement: SupplyRequirement, count: number}[] = [];
 
-    for (let requirement of this.requirements) {
+    for (const requirement of this.requirements) {
       if (requirement.isSatisfied(divisions)) {
         satsifiedRequirements.push(requirement);
         continue;
@@ -221,7 +303,7 @@ export class SupplyBuilder {
     requirementAndCountPairs.sort((a, b) => a.count - b.count);
 
     const ordered: SupplyRequirement[] = [];
-    for (let pair of requirementAndCountPairs) {
+    for (const pair of requirementAndCountPairs) {
       ordered.push(pair.requirement);
     }
     return satsifiedRequirements.concat(ordered);
@@ -230,7 +312,7 @@ export class SupplyBuilder {
   private getSegmentedRangeForRequirement(
       requirement: SupplyRequirement, divisions: SupplyDivision[]): SegmentedRange {
     const lengths: number[] = [];
-    for (let division of divisions) {
+    for (const division of divisions) {
       if (division.isFilled) {
         lengths.push(0);
       } else {
@@ -265,7 +347,7 @@ export class SupplyBuilder {
   }
 
   private allowLockedCard(divisions: SupplyDivision[], card: SupplyCard): boolean {
-    for (let correction of this.corrections) {
+    for (const correction of this.corrections) {
       if (!correction.allowLockedCard(divisions, card)) {
         return false;
       }

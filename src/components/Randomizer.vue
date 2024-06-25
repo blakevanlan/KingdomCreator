@@ -7,99 +7,123 @@
       <Boons />
       <AllySection />
       <Modifiers />
-      <CopyButton
-        :text="supplyCardsCopyText"
-        class="randomizer-copy-button"
-      />
+      <div style="margin-top: 4px;">
+        <CopyButton :text="supplyCardsCopyText" class="randomizer-copy-button" />
+        <FullScreenButton v-if="!isCondensed" :text="supplyCardsCopyText" class="randomizer-copy-button" />
+      </div>
     </div>
     <div class="clearfix"></div>
   </div>
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
+import { defineComponent, ref, computed } from 'vue';
+import { onBeforeMount, watch } from 'vue';
+import { useRoute, useRouter } from "vue-router";
+
+/* import Dominion Objects and type*/
+import type { Card } from "../dominion/card";
+
+/* import store  */
+import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useWindowStore } from "../pinia/window-store";
+import { usei18nStore } from '../pinia/i18n-store';
+import { deserializeKingdom, serializeKingdom } from "../randomizer/serializer";
+
+/* import Components */
 import Addons from "./Addons.vue";
 import AllySection from "./AllySection.vue";
 import Boons from "./Boons.vue";
-import SortableSupplyCards from "./SortableSupplyCards.vue";
-import RandomizerSidebar from "./RandomizerSidebar.vue";
-import { Getter, State } from "vuex-class";
-import { Vue, Component, Watch } from "vue-property-decorator";
-import { Settings} from "../settings/settings";
-import { RandomizerSettings } from "../settings/randomizer-settings";
-import { LOAD_INITIAL_KINGDOM, RANDOMIZE } from "../stores/randomizer/action-types";
-import { deserializeKingdom, serializeKingdom } from "../randomizer/serializer";
-import Modifiers from "./Modifiers.vue";
-import { Kingdom } from "../randomizer/kingdom";
-import { Card } from "../dominion/card";
 import CopyButton from "./CopyButton.vue";
+import FullScreenButton from "./FullScreenButton.vue";
+import Modifiers from "./Modifiers.vue";
+import RandomizerSidebar from "./RandomizerSidebar.vue";
+import SortableSupplyCards from "./SortableSupplyCards.vue";
 
-@Component({
+export default defineComponent({
+  name: "Randomizer",
   components: {
     Addons,
     AllySection,
     Boons,
+    CopyButton,
+    FullScreenButton,
     Modifiers,
     RandomizerSidebar,
     SortableSupplyCards,
-    CopyButton,
-  }
-})
-export default class Randomizer extends Vue {
-  @Getter("isCondensed") readonly isCondensed!: boolean;
-  @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
-  @State(state => state.randomizer.settings) readonly settings!: Settings;
-  @State(state => state.randomizer.settings.randomizerSettings)
-      readonly randomizerSettings!: RandomizerSettings;
+  },
+  setup() {
+    const randomizerStore = useRandomizerStore();
+    const windowStore = useWindowStore();
+    const i18nStore = usei18nStore();
+    const route = useRoute();
+    const router = useRouter();
+    const kingdom = computed(()=>{return randomizerStore.kingdom});
+    const settings = ref(randomizerStore.settings);
 
-  get supplyCardsCopyText() {
-    return (this.kingdom.supply.supplyCards as Card[]).concat(
-      this.kingdom.events,
-      this.kingdom.landmarks,
-      this.kingdom.projects,
-      this.kingdom.ways,
-      this.kingdom.boons,
-      this.kingdom.ally ? [this.kingdom.ally] : [],
-      this.kingdom.traits,
-    ).map((card) => this.$t(card.id)).join(", ");
-  }
+    const isCondensed = computed(() =>{ return windowStore.isCondensed});
+    // const randomizerSettings = randomizerStore.settings.randomizerSettings;
 
-  mounted() {
-    const kingdomFromUrl = deserializeKingdom(this.$route.query);
-    this.$store.dispatch(LOAD_INITIAL_KINGDOM, kingdomFromUrl);
-  }
-
-  handleRandomize() {
-    this.$store.dispatch(RANDOMIZE);
-  }
-
-  @Watch("kingdom")
-  onKingdomChanged() {
-    const query = {
-      //...this.$route.query,
-      ...serializeKingdom(this.kingdom)
-    };
-    if (!this.isEqual(this.$route.query, query)) {
-      this.$router.replace({query});
-    }
-  }
-
-  isEqual(a: any, b: any) {
-    const keysA = Object.keys(a);
-    const keysB = Object.keys(b);
-    if (keysA.length != keysB.length) {
-      return false;
-    }
-    for (let key of keysA) {
-      if (a[key] != b[key]) {
-        return false;
+    const onKingdomChanged= () => {
+      const query = {  lang: i18nStore.language,
+          ...serializeKingdom(kingdom.value)
+        }
+      if (!isEqual(route.query, query)) {
+        router.replace({ query })
       }
     }
-    return true;
+    watch(kingdom, onKingdomChanged)
+
+    const supplyCardsCopyText = computed(() => {
+      return (
+        (kingdom.value.supply.supplyCards as Card[]).concat(
+          kingdom.value.events,
+          kingdom.value.landmarks,
+          kingdom.value.projects,
+          kingdom.value.ways,
+          kingdom.value.boons,
+          kingdom.value.ally ? [kingdom.value.ally] : [],
+          kingdom.value.traits
+        ).map((card) => card.id).join(', ')
+      )
+    })
+
+    const handleRandomize = () => {
+      randomizerStore.RANDOMIZE()
+    }
+
+    const isEqual = (a: any, b: any) => {
+      const keysA = Object.keys(a)
+      const keysB = Object.keys(b)
+      if (keysA.length !== keysB.length) {
+        return false
+      }
+      for (const key of keysA) {
+        if (a[key] !== b[key]) {
+          return false
+        }
+      }
+      return true
+    }
+
+    onBeforeMount(() => {
+      const kingdomFromUrl = deserializeKingdom(route.query, settings.value.selectedSets)
+      randomizerStore.LOAD_INITIAL_KINGDOM(kingdomFromUrl)
+    })
+
+    return {
+      supplyCardsCopyText,
+      handleRandomize,
+      kingdom,
+      settings,
+      isCondensed
+    }
   }
-}
+});
 </script>
 
-<style>
+<style scoped>
 .randomizer-copy-button {
   margin-top: 4px;
 }

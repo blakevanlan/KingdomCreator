@@ -194,6 +194,7 @@ kingdoms:
       - empires_event_dominate
     landmarks:
       - empires_landmark_obelisk
+    obeliskActionCard: empires_patricianemporium
     metadata:
       colonies: true
 

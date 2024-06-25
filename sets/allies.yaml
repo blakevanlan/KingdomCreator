@@ -68,7 +68,8 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
-  
+    isCover: true
+
   - name: Augurs
     cost:
       treasure: 3
@@ -91,7 +92,8 @@ cards:
     isTrashing: true
     isTreasure: false
     isVictory: false
-  
+    isCover: true
+
   - name: Clashes
     cost:
       treasure: 3
@@ -114,7 +116,8 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: true
-  
+    isCover: true
+
   - name: Forts
     cost:
       treasure: 3
@@ -137,7 +140,8 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: true
-  
+    isCover: true
+
   - name: Importer
     cost:
       treasure: 3
@@ -160,7 +164,7 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
-  
+
   - name: Merchant Camp
     cost:
       treasure: 3
@@ -206,6 +210,7 @@ cards:
     isTrashing: false
     isTreasure: true
     isVictory: true
+    isCover: true
 
   - name: Sentinel
     cost:
@@ -275,7 +280,8 @@ cards:
     isTrashing: true
     isTreasure: false
     isVictory: false
-
+    isCover: true
+ 
   - name: Broker
     cost:
       treasure: 4
@@ -350,7 +356,7 @@ cards:
       treasure: 4
       potion: 0
       debt: 0
-    isAction: false
+    isAction: true
     isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
@@ -373,7 +379,7 @@ cards:
       treasure: 4
       potion: 0
       debt: 0
-    isAction: false
+    isAction: true
     isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
@@ -534,7 +540,7 @@ cards:
       treasure: 5
       potion: 0
       debt: 0
-    isAction: false
+    isAction: true
     isActionSupplier: false
     isArtifactSupplier: false
     isAttack: false
@@ -574,6 +580,7 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
+
 
   - name: Hunter
     cost:
@@ -643,7 +650,7 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
-    
+
   - name: Specialist
     cost:
       treasure: 5
@@ -712,13 +719,13 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
-    
+
 allies:
   - name: Architects' Guild
   - name: Band of Nomads
   - name: Cave Dwellers
   - name: Circle of Witches
-  - name: City-State
+  - name: City-state
   - name: Coastal Haven
   - name: Crafters' Guild
   - name: Desert Guides
@@ -737,3 +744,153 @@ allies:
   - name: Plateau Shepherds
   - name: Trappers' Lodge
   - name: Woodworkers' Guild
+  
+othercards:
+  - name: Augurs - to hide split card
+    type: Action - Augurs - Split Cards
+    orderstring: Augurs
+  - name: Herb Gatherer
+    type: Action - Augurs - Split Cards
+    orderstring: Augurs step 1
+    cost:
+      treasure: 3
+  - name: Acolyte
+    type: Action - Augurs - Split Cards
+    orderstring: Augurs step 2
+    cost:
+      treasure: 4   
+  - name: Sorceress
+    type: Action - Augurs - Split Cards
+    orderstring: Augurs step 3
+    cost:
+      treasure: 5
+  - name: Sibyl
+    type: Action - Augurs - Split Cards
+    orderstring: Augurs step 4
+    cost:
+      treasure: 6
+      
+  - name: Clashes - to hide split card
+    type: Action - Clashes - Split Cards
+    orderstring: Clashes
+  - name: Battle Plan
+    type: Action - Clashes - Split Cards
+    orderstring: Clashes step 1
+    cost:
+      treasure: 3
+  - name: Archer
+    type: Action - Attack - Clashes - Split Cards
+    orderstring: Clashes step 2
+    cost:
+      treasure: 4   
+  - name: Warlord
+    type: Action - Duration - Attack - Clashes - Split Cards
+    orderstring: Clashes step 3
+    cost:
+      treasure: 5
+  - name: Territory
+    type: Victory - Clashes - Split Cards
+    orderstring: Clashes step 4
+    cost:
+      treasure: 6 
+ 
+  - name: Forts - to hide split card
+    type: Action - Forts - Split Cards
+    orderstring: Forts
+  - name: Tent
+    type: Action - Forts - Split Cards
+    orderstring: Forts step 1
+    cost:
+      treasure: 3
+  - name: Garrison
+    type: Action - Duration - Forts - Split Cards
+    orderstring: Forts step 2
+    cost:
+      treasure: 4
+  - name: Hill Fort
+    type: Action - Forts - Split Cards
+    orderstring: Forts step 3
+    cost:
+      treasure: 5
+  - name: Stronghold
+    type: Action - Victory- Duration - Forts - Split Cards
+    orderstring: Forts step 4
+    cost:
+      treasure: 6
+
+  - name: Odysseys - to hide split card
+    type: Action - Odysseys - Split Cards
+    orderstring: Odysseys
+  - name: Old Map
+    type: Action - Odysseys - Split Cards
+    orderstring: Odysseys step 1
+    cost:
+      treasure: 4
+  - name: Voyage
+    type: Action - Duration - Odysseys - Split Cards
+    orderstring: Odysseys step 2
+    cost:
+      treasure: 4   
+  - name: Sunken Treasure
+    type: Treasure - Odysseys - Split Cards
+    orderstring: Odysseys step 3
+    cost:
+      treasure: 5
+  - name: Distant Shore
+    type: Action - Victory - Odysseys - Split Cards
+    orderstring: Odysseys step 4
+    cost:
+      treasure: 6 
+ 
+  - name: Townsfolk - to hide split card
+    type: Action - Townsfolk - Split Cards
+    orderstring: Townsfolk
+  - name: Town Crier
+    type: Action - Townsfolk - Split Cards
+    orderstring: Townsfolk step 1
+    cost:
+      treasure: 2
+  - name: Blacksmith
+    type: Action - Townsfolk - Split Cards
+    orderstring: Townsfolk step 2
+    cost:
+      treasure: 3   
+  - name: Miller
+    type: Action - Townsfolk - Split Cards
+    orderstring: Townsfolk step 3
+    cost:
+      treasure: 4
+  - name: Elder
+    type: Action - Townsfolk - Split Cards
+    orderstring: Townsfolk step 4
+    cost:
+      treasure: 5
+      
+  - name: Wizards - to hide split card
+    type: Action - Wizards - Split Cards
+    orderstring: Wizards
+  - name: Student
+    type: Action - Wizards - Liaison - Split Cards
+    orderstring: Wizards step 1
+    cost:
+      treasure: 3
+  - name: Conjurer
+    type: Action - Duration - Wizards - Split Cards
+    orderstring: Wizards step 2
+    cost:
+      treasure: 4   
+  - name: Sorcerer
+    type: Action - Attack - Wizards - Split Cards
+    orderstring: Wizards step 3
+    cost:
+      treasure: 5
+  - name: Lich
+    type: Action - Wizards - Split Cards
+    orderstring: Wizards step 4
+    cost:
+      treasure: 6
+      
+  - name: Favors_mat
+    type: Mat Horizontal
+  - name: CoinsTokens
+    type: Tokens

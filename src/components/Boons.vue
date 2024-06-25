@@ -1,22 +1,13 @@
 <template>
   <div>
     <transition name="slow-fade">
-      <div v-if="activeBoons.length" class="boons-header">Boons</div> 
+      <div v-if="activeBoons.length" class="boons-header">Boons</div>
     </transition>
     <transition name="slow-fade">
-      <GridLayout
-        v-if="activeBoons.length"
-        class="boons"
-        :class="{'boons--is-enlarged': isEnlarged}"
-        :items="activeBoons"
-        :number-of-columns="numberOfColumns"
-        :is-vertical="false"
-      >
+      <GridLayout v-if="activeBoons.length" class="boons" :class="{ 'boons--is-enlarged': isEnlarged }"
+        :items="activeBoons" :number-of-columns="numberOfColumns" :is-vertical="false">
         <template v-slot:default="slotProps">
-          <FlippingCard
-            :card="slotProps.item"
-            :is-vertical="false"
-          />
+          <FlippingCard :card="slotProps.item" :is-vertical="false" />
         </template>
       </GridLayout>
     </transition>
@@ -24,54 +15,71 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
+import { defineComponent, computed, ref, watch } from "vue";
+
+/* import Dominion Objects and type*/
+import type { Boon } from "../dominion/boon";
+import { Cards } from "../utils/cards";
+
+/* import store  */
+import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useWindowStore } from "../pinia/window-store";
+
+/* import Components */
 import GridLayout from "./GridLayout.vue";
 import FlippingCard from "./FlippingCard.vue";
-import { Boon } from "../dominion/boon";
-import { Cards } from "../utils/cards";
-import { Vue, Component, Watch } from "vue-property-decorator";
-import { State } from "vuex-class";
 
-@Component({
+export default defineComponent({
+  name: 'Boons',
   components: {
     GridLayout,
     FlippingCard
-  }
-})
-export default class Boons extends Vue {
-  @State(state => state.randomizer.kingdom.boons) readonly boons!: Boon[];
-  @State(state => state.window.width) readonly windowWidth!: number;
-  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
-  activeBoons: Boon[] = [];
-  
-  get numberOfColumns() {
-    return this.isEnlarged ? 1 : this.windowWidth > 525 ? 3 : 2;
-  }
-  
-  @Watch("boons")
-  handleBoonsChanged() {
-    if (!this.boons.length) {
-      this.activeBoons = [];
-      return;
-    }
-    const newBoons = Cards.difference(this.boons, this.activeBoons);
-    const removeIds = new Set(Cards.extractIds(Cards.difference(this.activeBoons, this.boons)));
-    let newBoonIndex = 0;
-    const newActiveBoons: Boon[] = [];
-    for (let i = 0; i < this.activeBoons.length; i++) {
-      if (removeIds.has(this.activeBoons[i].id)) {
-        if (newBoonIndex < newBoons.length) {
-          newActiveBoons.push(newBoons[newBoonIndex++]);
-        }
-      } else {
-        newActiveBoons.push(this.activeBoons[i]);
+  },
+  setup() {
+    const randomizerStore = useRandomizerStore();
+    const boons = ref(randomizerStore.kingdom.boons);
+    const windowStore = useWindowStore();
+    const windowWidth = ref(windowStore.width);
+    const isEnlarged = ref(windowStore.isEnlarged);
+    const activeBoons = ref([] as Boon[]);
+
+    const numberOfColumns = computed(() => {
+      return isEnlarged.value ? 1 : windowWidth.value > 525 ? 3 : 2;
+    });
+
+    function handleBoonsChanged() {
+      if (!boons.value.length) {
+        activeBoons.value = [];
+        return;
       }
+      const newBoons = Cards.difference(boons.value, activeBoons.value);
+      const removeIds = new Set(Cards.extractIds(Cards.difference(activeBoons.value, boons.value)));
+      let newBoonIndex = 0;
+      const newActiveBoons: Boon[] = [];
+      for (let i = 0; i < activeBoons.value.length; i++) {
+        if (removeIds.has(activeBoons.value[i].id)) {
+          if (newBoonIndex < newBoons.length) {
+            newActiveBoons.push(newBoons[newBoonIndex++]);
+          }
+        } else {
+          newActiveBoons.push(activeBoons.value[i]);
+        }
+      }
+      activeBoons.value = newActiveBoons.concat(newBoons.slice(newBoonIndex));
     }
-    this.activeBoons = newActiveBoons.concat(newBoons.slice(newBoonIndex));
+    watch(boons, handleBoonsChanged);
+
+    return {
+      numberOfColumns,
+      activeBoons,
+      isEnlarged,
+    }
   }
-}
+});
 </script>
 
-<style>
+<style scoped>
 .boons-header {
   margin: 10px 0 0;
   font-size: 20px;

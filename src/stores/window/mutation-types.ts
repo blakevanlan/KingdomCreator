@@ -1,2 +1,0 @@
-export const UPDATE_WINDOW_WIDTH = "UPDATE_WINDOW_WIDTH";
-export const SET_ENLARGED = "SET_ENLARGED";

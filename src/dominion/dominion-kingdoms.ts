@@ -1,5 +1,5 @@
 import {DominionKingdom} from "./dominion-kingdom"
-import {SetId} from "./set-id"
+import type {SetId} from "./set-id"
 
 interface DominionContentKingdoms {
   kingdoms: any[];
@@ -18,10 +18,29 @@ export class DominionKingdoms {
   private static createKingdoms() {
     const setIds = Object.keys(window.DominionKingdoms) as SetId[];
     const sets: {[key in SetId]?: DominionKingdom[]} = {};
-    for (let setId of setIds) {
+    for (const setId of setIds) {
       const kingdoms = window.DominionKingdoms[setId].kingdoms;
       sets[setId] = kingdoms.map((json: any) => DominionKingdom.fromJson(json));
     }
     return sets;
+  }
+
+  public static getAllKingdoms(): DominionKingdom[] {
+    let Kingdoms:DominionKingdom[]= []
+    const setIds = Object.keys(DominionKingdoms.kingdoms);
+    for (const setId of setIds) {
+      Kingdoms = Kingdoms.concat((DominionKingdoms.kingdoms[setId as SetId] as DominionKingdom[]))
+         .filter((kingdom, index, self) => index === self.findIndex((t) => (t.name === kingdom.name)))
+    }
+    return Kingdoms;
+  }
+
+  public static getAllSets(): SetId[] {
+    const setIds:SetId[] = (Object.keys(DominionKingdoms.kingdoms) as SetId[]).sort((n1,n2) => {
+      if (n1 > n2) { return 1; }
+      if (n1 < n2) { return -1;}
+      return 0;
+      });
+    return setIds;
   }
 }

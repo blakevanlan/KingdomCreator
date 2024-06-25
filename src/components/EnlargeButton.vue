@@ -8,23 +8,43 @@
 </template>
 
 <script lang="ts">
-import { SET_ENLARGED } from "../stores/window/mutation-types";
-import { Vue, Component } from "vue-property-decorator";
-import { Getter, State } from "vuex-class";
+/* import Vue, typescript */
+import { defineComponent, computed } from "vue";
 
-@Component
-export default class EnlargeButton extends Vue {
-  @Getter("isCondensed") readonly isCondensed!: boolean;
-  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
-  
-  handleClick() {
-    this.$store.commit(SET_ENLARGED, !this.isEnlarged);
-  }
-}
+/* import Dominion Objects and type*/
+/* import store  */
+import { useWindowStore } from '../pinia/window-store';
+
+/* import Components */
+
+export default defineComponent({
+  name: 'EnlargeButton',
+  setup() {
+    const windowStore = useWindowStore();
+    
+    const isCondensed = computed(() => {
+      return windowStore.isCondensed;
+    });
+    
+    const isEnlarged = computed(() => {
+      return windowStore.isEnlarged;
+    });
+    
+    const handleClick = () => {
+      windowStore.setEnlarged(!isEnlarged.value);
+    };
+    
+    return {
+      isCondensed,
+      isEnlarged,
+      handleClick,
+    };
+  },
+});
 </script>
 
 
-<style>
+<style scoped>
 .expand-view-button {
   position: fixed;
   right: 0;

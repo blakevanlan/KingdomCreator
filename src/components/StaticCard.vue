@@ -1,21 +1,42 @@
 <template>
   <div class="static-card" :class="{isVertical: isVertical}">
-    <img class="static-card__img" :src="cardImageUrl" :key="cardImageUrl" />
+    <img class="static-card__img" :src="cardImageUrl" :key="cardImageUrl" @error="incaseoferror"/>
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent } from "vue";
 
-@Component
-export default class StaticCard extends Vue {
-  @Prop() readonly cardImageUrl!: string | null;
-  @Prop() readonly isVertical!: boolean;
-}
+/* import Dominion Objects and type*/
+import { incaseofImgerror } from '../utils/resources';
+
+/* import store  */
+/* import Components */
+
+export default defineComponent({
+  props: {
+    cardImageUrl: {
+      type: String,
+      default: null,
+    },
+    isVertical: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup() {
+    const incaseoferror = (ev:any) => { incaseofImgerror(ev); };
+
+    return {
+      incaseoferror,
+    };
+  },
+});
 </script>
 
-<style>
+<style scoped>
 .static-card {
   align-items: center;
   display: flex;

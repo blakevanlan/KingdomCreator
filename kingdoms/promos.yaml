@@ -1,0 +1,55 @@
+kingdoms:
+  - name: Mad scientist
+    sets:
+      - baseset
+      - intrigue
+      - cornucopia
+      - prosperity
+      - alchemy
+    supply:
+      - intrigue_conspirator
+      - intrigue_duke
+      - intrigue_greathall
+      - baseset_market
+      - cornucopia_youngwitch
+      - cornucopia_tournament
+      - alchemy_alchemist
+      - alchemy_transmute
+      - alchemy_university
+      - alchemy_vineyard
+    bane: prosperity_traderoute
+
+  - name: Thief hidden in the fortress
+    sets:
+      - intrigue
+      - prosperity
+      - hinterlands
+      - darkages
+    supply:
+      - intrigue_nobles
+      - prosperity_rabble
+      - prosperity_grandmarket
+      - prosperity_hoard
+      - hinterlands_crossroads
+      - darkages_rogue
+      - darkages_fortress
+      - darkages_scavenger
+      - darkages_procession
+      - darkages_vagrant
+
+  - name: silk or silver
+    sets:
+      - intrigue
+      - hinterlands
+      - darkages
+    supply:
+      - intrigue_greathall
+      - intrigue_scout
+      - hinterlands_crossroads
+      - hinterlands_silkroad
+      - hinterlands_margrave
+      - hinterlands_farmland
+      - hinterlands_jackofalltrades
+      - hinterlands_trader
+      - hinterlands_tunnel
+      - darkages_feodum

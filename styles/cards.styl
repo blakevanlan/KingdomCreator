@@ -1,0 +1,606 @@
+/**************************************
+
+**************************************/
+
+@require "variables"
+@require "main"
+@require "sets"
+
+CDN_access = "https://71yeti.fr"
+
+CDN_access = ""
+CDN_access = "../docs"
+
+
+@font-face 
+  font-family TrajanPro-Bold;
+  src url(CDN_access/img/fonts/TrajanPro-Bold.otf) format("opentype")
+  
+@font-face 
+  font-family 'Times New Roman';
+  src url(CDN_access/img/fonts/times.ttf) format("truetype");
+@font-face 
+  font-family 'Times New Roman';
+  src url(CDN_access/img/fonts/timesbd.ttf) format("truetype");
+  font-weight bold;
+@font-face 
+  font-family 'Times New Roman';
+  src url(CDN_access/img/fonts/timesi.ttf) format("truetype");
+  font-style italic;
+@font-face 
+  font-family 'Times New Roman';
+  src url(CDN_access/img/fonts/timesbi.ttf) format("truetype");
+  font-weight bold;
+  font-style italic;
+
+@font-face 
+  font-family Monospaced;
+  src url(CDN_access/img/fonts/times.ttf) format("truetype");
+@font-face 
+  font-family Monospaced;
+  src url(CDN_access/img/fonts/timesbd.ttf) format("truetype");
+  font-weight bold;
+@font-face 
+  font-family Monospaced;
+  src url(CDN_access/img/fonts/timesi.ttf) format("truetype");
+  font-style italic;
+@font-face 
+  font-family  Monospaced;
+  src url(CDN_access/img/fonts/timesbi.ttf) format("truetype");
+  font-weight bold;
+  font-style italic;
+
+.card-rows {
+    display: flex;
+    flex-direction: column;
+    //flex-wrap: wrap;
+    line-height:1;
+    font-family: primary-font;
+}
+
+Coef_scale = 1.4
+
+.Coef_scale12 { 
+    top: 100px; 
+    //margin-bottom:50px;
+    }
+.contentCards {
+    max-width: 1255px; 
+}
+
+
+
+.contentCards {
+  z-index:-3;
+  }
+
+.cardMain {
+    position : absolute;
+}
+
+.v-for{
+    margin:1%;
+    align-content: space-evenly;
+    width: (Coef_scale*334.76)px;
+    height: (Coef_scale*536.76)px; 
+    transform: scale(Coef_scale);
+    transform-origin: top;
+}
+
+.v-for-landscape{
+    margin:1%;
+    margin-right: 250px;
+    width: 490px; 
+    height: (Coef_scale*294)px; 
+    transform: scale(Coef_scale);
+    transform-origin: top;
+}
+
+.full-card {
+    position: absolute;
+    height: 497px;
+    width: 310px;
+    overflow: initial;
+    /*border: 2px solid rgba(0,0,0,1); 
+    border: 6px solid rgba(0,0,0,1); */
+    /*border-radius: 16px; */
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transition: border .55s ease-out,left .15s ease-out;
+    /*box-shadow: 0 0 2px 2px rgba(0,0,0,.75);*/
+    -webkit-font-smoothing: antialiased;
+}
+
+.separator-card {
+  position: relative; /* Make the separator card positionable */
+  margin-left : 10px; /* Add a vertical margin to create space below the card */
+}
+
+.card-container {
+  display: flex; /* Allow side-by-side positioning */
+}
+
+.separator-card-landscape {
+  position: relative; /* Make the separator card positionable */
+  margin-left : 10px; /* Add a vertical margin to create space below the card */
+}
+
+.card-container-landscape {
+  display: flex; /* Allow side-by-side positioning */
+  flex-direction: row-reverse;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.card-theme-title-dark {
+    color: #000;
+}
+
+.card-theme-title-light {
+    color: #fff;
+}
+
+.full-card-template {
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+}
+.full-card-art {
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 85%;
+    height: 50%;
+    left: 4%;
+    min-width: 287px;
+    min-height: 374px;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+}
+.action-layer {
+    background-color: rgba(255,0,0,0);
+    width: 100%;
+    height: 100%;
+}
+.treasure-production-container{
+    position:absolute
+}
+.coin-production-left{
+    background:url(CDN_access/img/elements/coin.png) no-repeat;
+    position:absolute;
+    z-index:4;
+    left:-35px;
+    min-width:143px;
+    min-height:130px;
+    transform:scale(.4)
+}
+.coin-production-right{
+    background:url(CDN_access/img/elements/coin.png) no-repeat;
+    position:absolute;
+    z-index:4;
+    left:200px;
+    min-width:143px;
+    min-height:130px;
+    transform:scale(.4)
+}
+.coin-production-text-container{
+    position:absolute;
+    left:50%
+}
+.coin-production-text{
+    font-family:Monospaced;
+    position:relative;
+    left:-50%;
+    top:-3%;
+    font-size:6.6em;
+    font-weight:700;
+    overflow:hidden;
+    white-space:nowrap
+}
+.potion-production-left{
+    background:url(CDN_access/img/elements/potion.png) no-repeat;
+    position:absolute;
+    z-index:4;
+    left:-10px;
+    min-width:83px;
+    min-height:130px;
+    transform:scale(.4)
+}
+.potion-production-right{
+    background:url(CDN_access/img/elements/potion.png) no-repeat;
+    position:absolute;
+    z-index:4;
+    left:231px;
+    min-width:83px;
+    min-height:130px;
+    transform:scale(.4)
+}
+
+.full-card-name-container {
+    position: absolute;
+    z-index: 4;
+    top: 14px;
+    left: 50%;
+}
+.full-card-name {
+    position: relative;
+    left: -50%;
+    font-family: TrajanPro-Bold;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+}
+.full-card-text-container {
+    z-index: 100;
+    position: absolute;
+    left: 3%;
+    top: 263px;
+    min-width: 287px;
+    text-align: center;
+    min-height: 170px;
+}
+.card-text {
+    position: absolute;
+    width: 287px;
+    font-family: 'Times New Roman';
+    font-size: 30px;
+    white-space: pre;
+    color: #000;
+}
+
+.card-theme-text-light .card-text{
+    color:#fff
+}
+
+.card-text-coin-icon {
+    background: url(CDN_access/img/elements/coin.png) no-repeat;
+    position: absolute;
+    display: inline-block;
+    z-index: 4;
+    min-width: 143px;
+    min-height: 130px;
+    transform-origin: 0 0;
+}
+.card-text-coin-text-container {
+    position: absolute;
+    left: 50%;
+    transform-origin: 0 0;
+}
+.card-text-coin-text {
+    font-family: Monospaced;
+    position: relative;
+    left: -50%;
+    font-size: 110px;
+    transform-origin: 0 0;
+    font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card-text-potion-icon{
+    background:url(CDN_access/img/elements/potion.png) no-repeat;
+    position:absolute;
+    display:inline-block;
+    z-index:4;
+    min-width:83px;
+    min-height:130px;
+    transform-origin:0 0
+}
+.card-text-debt-icon{
+    background:url(CDN_access/img/elements/debt_130.png) no-repeat;
+    position:absolute;
+    display:inline-block;
+    z-index:4;
+    min-width:142px;
+    min-height:130px;
+    transform-origin:0 0
+}
+.card-text-debt-text-container{
+    position:absolute;
+    left:50%;
+}
+.card-text-debt-text{
+    font-family:Monospaced;
+    position:relative;
+    left:-50%;
+    font-size:90px;
+    color:#fff;
+    font-weight:700;
+    overflow:hidden;
+    white-space:nowrap
+}
+.card-text-vp-icon-container{
+    display:inline-block;
+    z-index:4;
+    transform-origin:0 0;
+    float:left;
+    position:absolute
+}
+.card-text-vp-icon{
+    background:url(CDN_access/img/elements/victory_130.png) no-repeat;
+    min-width:121px;
+    min-height:130px;
+    display:inline-block;
+    position:relative
+}
+.card-text-vp-text-container{
+    position:absolute
+}
+.card-text-vp-text{
+    font-family:Monospaced;
+    position:relative;
+    left:-95%;
+    top:18px;
+    font-size:110px;
+    font-weight:700;
+    overflow:hidden;
+    white-space:nowrap
+}
+.horizontal-line {
+    color: #000;
+    background-color: #000;
+    margin: 1em auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.bottom-bar-full {
+    position: absolute;
+    text-align: center;
+    width: 237.5%;
+    left: 2.5%;
+    z-index: 4;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: scale(.4);
+}
+.cost-container-full {
+    display: inline-block;
+    float: left;
+    color: #000;
+}
+.coin-cost-full {
+    background: url(CDN_access/img/elements/coin.png) no-repeat;
+    z-index: 4;
+    min-width: 143px;
+    min-height: 130px;
+    float: left;
+}
+.coin-cost-full-text {
+    position: relative;
+    font-family: Monospaced;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 4;
+    display: inline-block;
+    top: 6px;
+    font-size: 6em;
+    font-weight: 700;
+}
+.supetoile:after {
+    content: "\002605";
+    display: inline-block;
+    font-size: 45%
+}
+
+.potion-cost-full{
+    background:url(CDN_access/img/elements/potion.png) no-repeat;
+    min-width:83px;
+    min-height:130px;
+    float:right
+}
+.debt-cost-full{
+    background:url(CDN_access/img/elements/debt_130.png) no-repeat;
+    min-width:142px;
+    min-height:130px;
+    float:right
+}
+.debt-cost-full-text{
+    position:relative;
+    font-family:Monospaced;
+    overflow:hidden;
+    white-space:nowrap;
+    z-index:4;
+    display:inline-block;
+    top:6px;
+    font-size:6em;
+    font-weight:700;
+    color:#fff
+}
+.bottom-right-container-full {
+    display: inline-block;
+    float: right;
+}
+.expansion-icon-bottom-full {
+    background-repeat: no-repeat;
+    width: 68px;
+    height: 110px;
+    position: relative;
+    top: 30px;
+    display: inline-block;
+}
+.types-text-full {
+    position: relative;
+    font-family: TrajanPro-Bold;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 4;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.full-card-border {
+    background: rgba(0,0,0,1);
+    /* background: rgba(100,100,0,1); */
+    /*border-radius: 12px;*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.card-footer {
+    z-index:40;
+    position: absolute;
+    bottom: -1px;
+    padding: 0px 16px 4px 16px;
+    font-size: .6em;
+    font-family: 'Times New Roman';
+    color: white;
+}
+
+.landscape-card-footer {
+    padding: 0px 21px 6px 21px;
+    font-weight bold;
+    color: black;
+}
+
+.illustrator:not(:empty):before {
+    content: "Illustration: ";
+    left: 0px;
+}
+
+.copyright {
+    right: 0px;
+}
+.copyright:not(:empty):before {
+    content: "© " 
+}
+.copyright:not(:empty):after {
+    content: " Rio Grande Games"; 
+}
+
+.landscape-study-window {
+    position: absolute;
+    z-index: 10000;
+    background-color: rgba(0,0,0,0);
+}
+.landscape {
+    position: absolute;
+    height: 294px;
+    width: 471px;
+    overflow: hidden;
+    /*border: 2px solid rgba(0,0,0,1); /* border: 4px solid rgba(0,0,0,1); */
+    /*border-radius: 16px; */
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transition: border 10ms ease-in-out;
+    color: #000;
+}
+
+.landscape-template {
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -2px;
+    z-index: 2;
+}
+
+.landscape-art {
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 85%;
+    height: 50%;
+    top: 11%;
+    left: 2.5%;
+    min-width: 452px;
+    min-height: 177px;
+    z-index: 1;
+}
+.landscape-name-container {
+    position: absolute;
+    z-index: 4;
+    top: 8px;
+    left: 50%;
+}
+.landscape-name {
+    position: relative;
+    left: -50%;
+    font-family: TrajanPro-Bold;
+    line-height: 1.2;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.landscape-type-rotate {
+    position: absolute;
+    z-index: 40;
+    right: 0px;
+    font-family: TrajanPro-Bold;
+    line-height: 1.2;
+    /*overflow: hidden;*/
+    white-space: nowrap;
+    transform: rotate(45deg)
+}
+
+.landscape-cost-container-full {
+    position: absolute;
+    z-index: 3;
+    text-align: center;
+    transform: scale(.5);
+    transform-origin: 0 0;
+    top: 10px;
+    left: 7px;
+    color: #000;
+}
+.landscape-coin-cost-full {
+    background: url(CDN_access/img/elements/coin.png) no-repeat;
+    z-index: 4;
+    min-width: 143px;
+    min-height: 130px;
+    float: left;
+}
+.landscape-debt-cost-full {
+    background: url(CDN_access/img/elements/debt_130.png) no-repeat;
+    min-width: 142px;
+    min-height: 130px;
+    float: left;
+}
+.landscape-debt-cost-full-text {
+    position: relative;
+    font-family: Monospaced;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 4;
+    display: inline-block;
+    top: 6px;
+    left: -5px;
+    font-size: 6em;
+    font-weight: 700;
+    color: #fff;
+}
+.landscape-text-container {
+    z-index: 100;
+    position: absolute;
+    left: 3%;
+    top: 71.5%;
+    min-width: 442px;
+    text-align: center;
+    min-height: 68px;
+}
+.landscape-text {
+    position: absolute;
+    width: 442px;
+    font-family: 'Times New Roman';
+    font-size: 30px;
+    white-space: pre;
+}
+
+.landscape-bottom-right-container-expansion {
+    position: absolute;
+    right: -32px; 
+    bottom: -74px;
+    text-align: right;
+    z-index: 40;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: scale(.22);
+}

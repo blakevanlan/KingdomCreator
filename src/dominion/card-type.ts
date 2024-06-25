@@ -1,18 +1,37 @@
 export enum CardType {
+  // bsse game
   ACTION = "isAction",
   ACTION_SUPPLIER = "isActionSupplier",
+  TERMINAL = "isTerminal",
   ATTACK = "isAttack",
-  BUY_SUPPLIER = "isBuySupplier",
-  DRAWER = "isDrawer",
-  DOOM = "isDoom",
-  DURATION = "isDuration",
-  FATE = "isFate",
-  LIAISON = "isLiaison",
-  MULTI_DRAWER = "isMultiDrawer",
-  NIGHT = "isNight",
-  REACTION = "isReaction",
-  RESERVE = "isReserve",
-  TRASHING = "isTrashing",
   TREASURE = "isTreasure",
   VICTORY = "isVictory",
+  BUY_SUPPLIER = "isBuySupplier",
+  DRAWER = "isDrawer",
+  MULTI_DRAWER = "isMultiDrawer",
+  REACTION = "isReaction",
+  TRASHING = "isTrashing",
+
+  // Seaside
+  DURATION = "isDuration",
+
+// Adventures
+  RESERVE = "isReserve",
+  TRAVELLER = "isTraveller",
+
+  // Empires
+  GATHERING = "isGathering",
+
+  // Nocturne
+  FATE = "isFate",
+  DOOM = "isDoom",
+  NIGHT = "isNight",
+
+  // Renaissnce
+  ARTIFACT_SUPPLIER = "isArtifactSupplier",
+  VILLAGE_SUPPLIER = "isVillageSupplier",
+
+  // Allies
+  LIAISON = "isLiaison",
+  COVER = "isCover"
 }

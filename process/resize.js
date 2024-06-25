@@ -1,6 +1,6 @@
-sharp = require("sharp");
+import sharp from 'sharp'; 
 
-module.exports = function resize(filename, output) {
+function resize(filename, output) {
   const options =
     isHorizontal(filename)
       ? {
@@ -36,3 +36,5 @@ function isHorizontal(name) {
   }
   return false;
 }
+
+export default resize;

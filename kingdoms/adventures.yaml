@@ -145,6 +145,44 @@ kingdoms:
       - adventures_event_expedition 
       - adventures_event_quest
 
+  - name: Haste Potion
+    sets:
+      - adventures
+      - alchemy
+    supply: 
+      - adventures_magpie
+      - adventures_messenger
+      - adventures_port 
+      - adventures_royalcarriage
+      - adventures_treasuretrove
+      - alchemy_apprentice 
+      - alchemy_scryingpool 
+      - alchemy_transmute 
+      - alchemy_university 
+      - alchemy_vineyard
+    events:
+      - adventures_event_plan 
+
+  - name: Cursecatchers
+    sets:
+      - adventures
+      - alchemy
+    supply: 
+      - adventures_amulet
+      - adventures_bridgetroll
+      - adventures_caravanguard 
+      - adventures_peasant
+      - adventures_ratcatcher
+      - alchemy_apothecary
+      - alchemy_familiar
+      - alchemy_golem
+      - alchemy_herbalist
+      - alchemy_philosophersstone
+    events:
+      - adventures_event_save
+      - adventures_event_trade
+
+
   - name: Last Will and Monument
     sets:
       - adventures

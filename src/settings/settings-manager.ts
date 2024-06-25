@@ -1,9 +1,15 @@
 import {Settings} from "./settings"
-import * as Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 export function loadSettings(): Settings {
   try {
-    const options = Cookie.getJSON("options") || {};
+    const readOptions = Cookies.get("options");
+    let options
+    if (typeof readOptions === "string" || typeof readOptions ==="undefined" ) {
+      options = {};
+    } else {
+      options = JSON.parse(readOptions);
+    }
     return Settings.createFromObject(options);
   } catch (e) {
     console.error("Failed to load settings: ", e);
@@ -13,16 +19,18 @@ export function loadSettings(): Settings {
 
 export function saveSettings(settings: Settings) {
   if (location.hostname.indexOf("localhost") == -1) {
-    Cookie.set("options", settings, {
+    Cookies.set("options", 
+    JSON.stringify(settings), {
       expires: 365, 
-      sameSite: "none", 
+      sameSite: "none",
       secure: true
     });
   } else {
-    Cookie.set("options", settings, {
+  Cookies.set("options", 
+    JSON.stringify(settings), {
       expires: 365, 
-      sameSite: "strict", 
-      secure: false,
+      sameSite: "strict",
+      secure: false
     });
   }
 }

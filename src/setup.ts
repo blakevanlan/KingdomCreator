@@ -1,26 +1,36 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { UPDATE_WINDOW_WIDTH } from "./stores/window/mutation-types";
-import { Store } from "vuex";
-import { I18n } from "./i18n/i18n";
+import { createApp } from "vue";
+import { i18n } from "./i18n/i18n";
+import type { Router } from "vue-router";
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { useWindowStore } from "./pinia/window-store";
 
-export function initialize<S>(router: VueRouter, store: Store<S>) {
-  initializeWindowListener(store);
-  new Vue({
-    store,
-    router,
-    i18n: I18n.getInstance(),
-    template: "<router-view></router-view>"
-  }).$mount("#app");
-}
+import App from "./views/App.vue";
 
-function initializeWindowListener<S>(store: Store<S>) {
+export function initialize<S>(router: Router) {
+  /*const app = createApp({
+    template: `
+      <div id="app">
+        <router-view></router-view>
+      </div>
+    `
+  });*/
+  const app = createApp(App)
+  app.use(i18n);
+  app.use(router);
+  app.use(createPinia().use(piniaPluginPersistedstate));
+  initializeWindowListener();
+  app.mount('#app');
+};
+
+function initializeWindowListener () {
   window.addEventListener("resize", () => {
-    updateWindowSize(store);
+    updateWindowSize();
   });
-  updateWindowSize(store);
-}
+  updateWindowSize();   
+};
 
-function updateWindowSize<S>(store: Store<S>) {
-  store.commit(UPDATE_WINDOW_WIDTH, window.outerWidth);
-}
+function updateWindowSize () {
+  const WindowStore = useWindowStore();
+  WindowStore.updateWindowWidth(window.outerWidth);
+};

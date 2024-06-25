@@ -1,0 +1,58 @@
+name: Seaside - UpdatePack
+cards:
+  - name: Astrolabe
+    cost:
+      treasure: 3
+    isTreasure: true
+    isDuration: true
+
+  - name: Monkey
+    cost:
+      treasure: 3
+    isAction: true
+    isDuration: true
+
+  - name: Sea Chart
+    cost:
+      treasure: 3
+    isAction: true
+
+  - name: Blockade
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isDuration: true
+
+  - name: Sailor
+    cost:
+      treasure: 4
+    isAction: true
+    isDuration: true
+
+  - name: Tide Pools
+    cost:
+      treasure: 4
+    isAction: true
+    isDuration: true
+
+  - name: Corsair
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isDuration: true
+
+  - name: Pirate
+    cost:
+      treasure: 5
+    isAction: true
+    isReaction: true
+    isDuration: true
+
+  - name: Sea Witch
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isDuration: true

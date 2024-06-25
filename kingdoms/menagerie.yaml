@@ -288,7 +288,6 @@ kingdoms:
       - hinterlands
       - menagerie
     supply:
-      - hinterlands_crossroads
       - hinterlands_develop
       - hinterlands_farmland
       - hinterlands_haggler
@@ -299,6 +298,7 @@ kingdoms:
       - menagerie_livery
       - menagerie_mastermind
       - menagerie_supplies
+    wayofthemouseActionCard: hinterlands_crossroads
     events:
       - menagerie_event_gamble
     ways:

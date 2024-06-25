@@ -1,0 +1,101 @@
+name: Intrigue - UpdatePack
+cards:
+  - name: Lurker
+    cost:
+      treasure: 2
+      potion: 0
+    isAttack: false
+    isAction: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+
+  - name: Diplomat
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: true
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Mill
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isTreasure: false
+    isVictory: true
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Secret Passage
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Patrol
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Courtier
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: false
+    isAction: true
+    isDrawer: false
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false
+  
+  - name: Replace
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+    isDrawer: false
+    isTreasure: false
+    isVictory: false
+    isTrashing: false
+    isReaction: false
+    isDuration: false
+    isActionSupplier: false

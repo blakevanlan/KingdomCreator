@@ -1,5 +1,5 @@
-import {CardType} from "../dominion/card-type";
-import {CostType} from "../dominion/cost-type";
+import type {CardType} from "../dominion/card-type";
+import type {CostType} from "../dominion/cost-type";
 import {SetId} from "../dominion/set-id";
 
 export class RandomizerOptions {
@@ -18,6 +18,9 @@ export class RandomizerOptions {
     readonly distributeCost: boolean,
     readonly prioritizeSet: SetId | null,
     readonly baneCardId: string | null,
+    readonly ferrymanCardId: string | null,
+    readonly mousewayCardId: string | null,
+    readonly obeliskCardId: string | null,
     readonly useAlchemyRecommendation: boolean,) {
   }
 }
@@ -37,6 +40,9 @@ export class RandomizerOptionsBuilder {
   distributeCost: boolean = false;
   prioritizeSet: SetId | null = null;
   baneCardId: string | null = null;
+  ferrymanCardId: string | null = null;
+  mousewayCardId: string | null = null;
+  obeliskCardId: string | null = null;
   useAlchemyRecommendation = true;
 
   setSetIds(setIds: SetId[]) {
@@ -110,6 +116,21 @@ export class RandomizerOptionsBuilder {
     return this;
   }
 
+  setFerrymanCardId(ferrymanCardId: string | null) {
+    this.ferrymanCardId = ferrymanCardId;
+    return this;
+  }
+
+  setMousewayCardId(mousewayCardId: string | null) {
+    this.mousewayCardId = mousewayCardId;
+    return this;
+  }
+
+  setObeliskCardId(obeliskCardId: string | null) {
+    this.obeliskCardId = obeliskCardId;
+    return this;
+  }
+
   setUseAlchemyRecommendation(useAlchemyRecommendation: boolean) {
     this.useAlchemyRecommendation = useAlchemyRecommendation;
     return this;
@@ -131,6 +152,9 @@ export class RandomizerOptionsBuilder {
         this.distributeCost,
         this.prioritizeSet,
         this.baneCardId,
+        this.ferrymanCardId,
+        this.mousewayCardId,
+        this.obeliskCardId,
         this.useAlchemyRecommendation);
   }
 }

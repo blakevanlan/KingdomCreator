@@ -8,21 +8,34 @@
 
 
 <script lang="ts">
-import TextOverlay from "./TextOverlay";
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent } from "vue";
 
-@Component({
+/* import Dominion Objects and type*/
+/* import store  */
+/* import Components */
+import TextOverlay from './TextOverlay.vue';
+
+export default defineComponent({
+  name: 'CardTitleOverlay',
   components: {
     TextOverlay
-  }
+  },
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    titleClass: {
+      type: String,
+      default: null,
+    }
+  }, setup(){}
+
 })
-export default class CardTitleOverlay extends Vue {
-  @Prop() readonly title!: string;
-  @Prop() readonly titleClass!: string | null;
-}
 </script>
 
-<style>
+<style scoped>
 .card-title-overlay {
   margin-top: -13px;
 }

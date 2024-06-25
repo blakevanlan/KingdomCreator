@@ -1,4 +1,4 @@
-import {SetId} from "./set-id"
+import type {SetId} from "./set-id"
 
 export class DominionKingdom {
   constructor(
@@ -6,6 +6,9 @@ export class DominionKingdom {
     readonly setIds: SetId[],
     readonly supplyIds: string[],
     readonly baneCardId: string | null,
+    readonly ferrymanCardId : string | null,
+    readonly obeliskCardId: string | null,
+    readonly wayofthemouseCardId: string | null,
     readonly eventIds: string[],
     readonly landmarkIds: string[],
     readonly projectIds: string[],
@@ -13,6 +16,7 @@ export class DominionKingdom {
     readonly wayIds: string[],
     readonly allyIds: string[],
     readonly traitIds: string[],
+    readonly traitSupplyIds :string[],
     readonly metadata: Metadata) {
   }
 
@@ -22,6 +26,9 @@ export class DominionKingdom {
         json["sets"],
         json["supply"] || [],
         json["bane"] || null,
+        json["ferrymanGain"] || null,
+        json["obeliskActionCard"] || null,
+        json["wayofthemouseActionCard"] || null,
         json["events"] || [],
         json["landmarks"] || [],
         json["projects"] || [],
@@ -29,7 +36,8 @@ export class DominionKingdom {
         json["ways"] || [],
         json["allies"] || [],
         json["traits"] || [],
-        Metadata.fromJson(json["metadata"]));
+        json["traitSupplies"] || [],
+         Metadata.fromJson(json["metadata"]));
   }
 }
 

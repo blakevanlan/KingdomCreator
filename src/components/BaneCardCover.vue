@@ -1,46 +1,139 @@
-<template functional>
-  <div class="bane-card-cover">
-    <div class="bane-card-cover-text">
-      Bane
+<template>
+  <div :class="cardCover" class="card-cover">
+    <div :class="cardDiv" class="card-cover-div">
+      <div :class="cardCoverText" class="card-cover-text">
+        {{ $t(cardText) }}
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+/* import Vue, typescript */
 
-@Component
-export default class BaneCardCover extends Vue {
-}
+import { defineComponent, computed } from "vue";
+
+/* import Dominion Objects and type*/
+/* import store  */
+/* import Components */
+
+const ANIMATION_DURATION_SEC = 0.6;
+const WINDOW_RESIZE_DELAY_MSEC = 300;
+
+export default defineComponent({
+  name: "BaneCardCover",
+  props: {
+    isType: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props: { isType: string; }) {
+
+    const cardDiv = computed(() => {
+      return props.isType.toLowerCase().replace(/#.*/,"") + "-div"
+    });
+
+    const cardCover = computed(() => {
+      return props.isType.toLowerCase().replace(/#.*/,"") + "-color"
+    });
+
+    const cardCoverText = computed(() => {
+      return props.isType.toLowerCase().replace(/#.*/,"") + "-color-text"
+    });
+
+    const cardText = computed(() =>{
+      return props.isType.toLowerCase().replace("trait#","")
+    })
+
+    return {
+      cardCover,
+      cardDiv,
+      cardCoverText,
+      cardText,
+    }
+  }
+})
 </script>
 
-<style>
-.bane-card-cover {
+<style scoped>
+
+.card-cover {
   width: 100%;
   height: 100%;
   position: absolute;
   box-sizing: border-box;
-  border: 5px solid #b78eca /* curse-color */;
+  /* display: flex; */
 }
 
-.bane-card-cover-text {
-  transform: rotate(0.75turn);
-  color: white;
-  background: #b78eca /* curse-color */;
-  position: absolute;
-  bottom: 9px;
-  right: -17px;
-  padding: 6px 12px;
+.card-cover-div {
+  position:inherit;
+  display: flex;
+  transform: rotate(+0.75turn);
+  align-self: flex-end;
+  right: 0%;
+  flex-direction: column-reverse;
+  bottom:10%;
 }
+.bane-div{
+  bottom: 10%;
+}
+.ferryman-div{
+  bottom: 10%;
+}
+.obelisk-div{
+  bottom: 20%;
+}
+.mouseway-div{
+  bottom: 10%;
+}
+.trait-div{
+  bottom: 10%;
+}
+
+.card-cover-text {
+  position: absolute;
+  padding: 5px 10px;
+}
+
+
 
 @media (max-width: 600px) {
-  .bane-card-cover {
-    border-width: 3px;
+  .card-cover {
+    border-width: 4px;
   }
-    
-  .bane-card-cover-text {
-    font-size: 12px;
+  .card-cover-text {
+    font-size: 10px;
     right: -13px;
+  }
+  .card-cover-div {
+  bottom:30%;
+  }
+}
+
+@media (600px <= width <= 650px) {
+  .card-cover {
+    border-width: 5px;
+  }
+
+  .card-cover-text {
+    font-size: 11px;
+    right: -10px;
+  }
+
+  .card-cover-div {
+  bottom:30%;
+  }
+}
+
+@media (650px <= width <= 750px) {
+  .card-cover-text {
+    font-size: 10px;
+    right: -13px;
+  }
+
+  .card-cover-div {
+  bottom:30%;
   }
 }
 </style>

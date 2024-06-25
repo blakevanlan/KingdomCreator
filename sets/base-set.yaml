@@ -1,4 +1,4 @@
-name: Dominion
+name: Base Set
 cards:  
   - name: Adventurer
     cost:
@@ -293,3 +293,53 @@ cards:
     isVictory: false
     isTrashing: false
     isReaction: false
+
+othercards:
+  - name: Copper
+    orderstring: Copper 0
+    type: Basic Cards
+    cost:
+      treasure: 0
+    isTreasure: true
+
+  - name: Silver
+    type: Basic Cards
+    orderstring: Copper 1
+    cost:
+      treasure: 3
+    isTreasure: true
+
+  - name: Gold
+    type: Basic Cards
+    orderstring: Copper 2
+    cost:
+      treasure: 6
+    isTreasure: true
+    
+  - name: Estate
+    type: Basic Cards
+    orderstring: Estate 1
+    cost:
+      treasure: 2
+    isVictory: true
+
+  - name: Duchy
+    type: Basic Cards
+    orderstring: Estate 2
+    cost:
+      treasure: 5
+    isVictory: true
+
+  - name: Province
+    type: Basic Cards
+    orderstring: Estate 3
+    cost:
+      treasure: 8
+    isVictory: true
+
+  - name: Curse
+    type: Basic Cards
+    orderstring: Estate 9
+    cost:
+      treasure: 0
+    isTrashing: true

@@ -539,127 +539,145 @@ events:
 
 landmarks:
   - name: Aqueduct
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-  
   - name: Arena
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Bandit Fort
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Basilica
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Baths
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Battlefield
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Colonnade
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Defiled Shrine
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Fountain
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Keep
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Labyrinth
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Mountain Pass
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Museum
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Obelisk
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Orchard
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Palace
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Tomb
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Tower
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-  
   - name: Triumphal Arch
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Wall
-    cost:
-      treasure: 0
-      potion: 0
-      debt: 0
-
   - name: Wolf Den
+
+
+othercards:
+  - name: Castles - to hide split card
+    type: Victory - Castle
+    orderstring: Castles step 0
+  - name: Humble Castle
+    type: Treasure - Victory - Castle
+    orderstring: Castles step 1
     cost:
-      treasure: 0
-      potion: 0
-      debt: 0
+      treasure: 3
+  - name: Crumbling Castle
+    type: Action - Victory - Castle
+    orderstring: Castles step 2
+    cost:
+      treasure: 4
+  - name: Small Castle
+    type: Victory - Castle
+    orderstring: Castles step 3
+    cost:
+      treasure: 5
+  - name: Haunted Castle
+    type: Action - Victory - Castle
+    orderstring: Castles step 4
+    cost:
+      treasure: 6
+  - name: Opulent Castle
+    type: Victory - Castle
+    orderstring: Castles step 5
+    cost:
+      treasure: 7
+  - name:  Sprawling Castle
+    type: Victory - Castle
+    orderstring: Castles step 6
+    cost:
+      treasure: 8
+  - name: Grand Castle
+    type: Victory - Castle
+    orderstring: Castles step 7
+    cost:
+      treasure: 9
+  - name: King's Castle
+    type: Victory - Castle
+    orderstring: Castles step 8
+    cost:
+      treasure: 10
+
+  - name: Catapult / Rocks - to hide split card
+    type: Action - Split Cards
+    orderstring: Catapult / Rocks
+  - name: Catapult
+    type: Action - Attack - Split Cards
+    orderstring: Catapult / Rocks step 1
+    cost:
+      treasure: 3
+  - name: Rocks
+    type: Treasure - Split Cards
+    orderstring: Catapult / Rocks step 2
+    cost:
+      treasure: 4
+
+  - name: Encampment / Plunder - to hide split card
+    type: Action - Split Cards
+    orderstring: Encampment / Plunder
+  - name: Encampment
+    orderstring: Encampment / Plunder step 1
+    type: Action - Split Cards
+    cost:
+      treasure: 2
+  - name: Plunder
+    type: Treasure - Split Cards
+    orderstring: Encampment / Plunder step 2
+    cost:
+      treasure: 5
+
+  - name: Patrician / Emporium - to hide split card
+    type: Action - Split Cards
+    orderstring: Patrician / Emporium
+  - name: Patrician
+    type: Action - Split Cards
+    orderstring: Patrician / Emporium step 1
+    cost:
+      treasure: 2
+  - name: Emporium
+    type: Action - Split Cards
+    orderstring: Patrician / Emporium step 2
+    cost:
+      treasure: 5
+      
+  - name: Settlers / Bustling Village - to hide split card
+    type: Action - Split Cards
+    orderstring: Settlers / Bustling Village
+  - name: Settlers
+    type: Action - Split Cards
+    orderstring: Settlers / Bustling Village step 1
+    cost:
+      treasure: 2
+  - name: Bustling Village
+    type: Action - Split Cards
+    orderstring: Settlers / Bustling Village step 2
+    cost:
+      treasure: 5
+
+  - name: Gladiator / Fortune - to hide split card
+    type: Action - Split Cards
+    orderstring: Gladiator / Fortune
+  - name: Gladiator
+    type: Action - Split Cards
+    orderstring: Gladiator / Fortune step 1
+    cost:
+      treasure: 3
+  - name: Fortune
+    type: Treasure - Split Cards
+    orderstring: Gladiator / Fortune step 2
+    cost:
+      treasure: 8
+      debt: 8
+
+  - name: DebtTokens
+    type: Tokens 
+  - name: VPTokens
+    type: Tokens 

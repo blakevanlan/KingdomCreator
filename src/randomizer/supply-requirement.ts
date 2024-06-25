@@ -1,10 +1,10 @@
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivision} from "./supply-division";
+import type {SupplyCard} from "../dominion/supply-card";
+import type {SupplyDivision} from "./supply-division";
 
 export abstract class SupplyRequirement {
 
   isSatisfied(divisions: SupplyDivision[]): boolean {
-    for (let division of divisions) {
+    for (const division of divisions) {
       if (this.getSatisfyingCards(division.lockedAndSelectedCards).length) {
         return true;
       }
@@ -14,7 +14,7 @@ export abstract class SupplyRequirement {
 
   getSatisfyingCardsFromDivisions(divisions: SupplyDivision[]): SupplyCard[] {
     let satisfyingCards: SupplyCard[] = [];
-    for (let division of divisions) {
+    for (const division of divisions) {
       satisfyingCards =
           satisfyingCards.concat(this.getSatisfyingCards(division.availableCards));
     }

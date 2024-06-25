@@ -1,10 +1,12 @@
 import {DominionSets} from "../dominion/dominion-sets";
-import {RandomizerSettings, RandomizerSettingsParams} from "./randomizer-settings";
+import { RandomizerSettings } from "./randomizer-settings";
+import type { RandomizerSettingsParams } from "./randomizer-settings";
 import {SetId} from "../dominion/set-id";
 
 export enum SortOption {
   SET = "set",
   ALPHABETICAL = "alpha",
+  ORDERSTRING = "orderstring",
   COST = "cost",
 }
 
@@ -41,13 +43,13 @@ export class Settings implements SettingsParams {
   private static deserializeSets(data: any): SetId[] {
     const setsFromData: string | string[] = data.selectedSets || data.sets;
     if (!setsFromData) {
-      return [SetId.BASE_SET_2];
+      return [SetId.BASE_SET];
     }
     const stringSetIds: string[] = typeof setsFromData == "string"
         ? setsFromData.split(",")
         : setsFromData;
     const setIds: SetId[] = [];
-    for (let stringSetId of stringSetIds) {
+    for (const stringSetId of stringSetIds) {
       const setId = DominionSets.convertToSetIdSafe(stringSetId);
       if (setId) {
         setIds.push(setId);
@@ -59,14 +61,14 @@ export class Settings implements SettingsParams {
   private static deserailizeSort(data: any): SortOption {
     if (data.sortOption) {
       const keys = Object.keys(SortOption);
-      for (let key of keys) {
+      for (const key of keys) {
         if (data.sortOption == SortOption[key as keyof typeof SortOption]) {
           return data.sortOption as SortOption;
         }
       }
       return SortOption.SET;
     }
-    if (!!data.sortAlphabetically) {
+    if (data.sortAlphabetically) {
       return SortOption.ALPHABETICAL;
     }
     return SortOption.SET;

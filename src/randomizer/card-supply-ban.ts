@@ -1,6 +1,6 @@
 import {Cards} from "../utils/cards";
-import {SupplyBan} from "./supply-ban";
-import {SupplyCard} from "../dominion/supply-card";
+import type {SupplyBan} from "./supply-ban";
+import type {SupplyCard} from "../dominion/supply-card";
 
 export class CardSupplyBan implements SupplyBan {
   constructor(readonly cardIds: string[]) {

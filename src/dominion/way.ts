@@ -1,6 +1,6 @@
-import {Addon} from "./addon"
+import type {Addon} from "./addon"
 import {Cost} from "./cost"
-import {SetId} from "./set-id"
+import type {SetId} from "./set-id"
 
 export class Way implements Addon {
   constructor(
@@ -8,6 +8,7 @@ export class Way implements Addon {
     readonly shortId: string,
     readonly setId: SetId,
     readonly name: string,
+    readonly orderstring: string,
     readonly cost: Cost) {
   }
 
@@ -17,6 +18,7 @@ export class Way implements Addon {
       json["shortId"],
       json["setId"],
       json["name"],
+      json["orderstring"] || "",
       new Cost(0, 0, 0));
   }
 }

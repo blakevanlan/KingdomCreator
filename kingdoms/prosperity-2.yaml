@@ -518,21 +518,3 @@ kingdoms:
     metadata:
       colonies: true
 
-  - name:
-    sets:
-      - alchemy
-      - prosperity2
-    supply:
-      - alchemy_
-      - alchemy_
-      - alchemy_
-      - alchemy_
-      - alchemy_
-      - prosperity2_
-      - prosperity2_
-      - prosperity2_
-      - prosperity2_
-      - prosperity2_
-    metadata:
-      colonies: true
-

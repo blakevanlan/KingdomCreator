@@ -308,3 +308,51 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: false
+
+othercards:
+  - name: Platinum
+    type: Basic Cards
+    isTreasure: true
+    cost:
+      treasure: 9
+
+  - name: Platinum_2nd
+    type: Basic Cards
+    isTreasure: true
+    cost:
+      treasure: 9
+
+  - name: Colony
+    type: Basic Cards
+    isVictory: true
+    cost:
+      treasure: 11
+
+  - name: Colony_2nd
+    type: Basic Cards
+    isVictory: true
+    cost:
+      treasure: 11
+
+  - name: Trade_Route_Mat
+    type: Mat Square
+  - name: VP_Mat_1
+    type: Mat Square
+  - name: VP_Mat_2
+    type: Mat Square
+  - name: VP_Mat_3
+    type: Mat Square
+  - name: VP_Mat_4
+    type: Mat Square
+  - name: VP_Mat_5
+    type: Mat Square
+  - name: VP_Mat_6
+    type: Mat Square
+  - name: VP_Mat_7
+    type: Mat Square
+  - name: VP_Mat_8
+    type: Mat Square
+  - name: CoinsTokens
+    type: Tokens 
+  - name: VPTokens
+    type: Tokens 

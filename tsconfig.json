@@ -1,39 +1,31 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.vue", "plugins/*.ts"],
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "preserveConstEnums": true,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
+    //"importsNotUsedAsValues": "preserve",
+    "isolatedModules": true,
+    //"preserveValueImports": false,
     "resolveJsonModule": true,
-    "target": "es5",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-        "*" : ["types/*"]
+      "@/*": ["./src/*"]
     },
-    "types": [
-      "google.analytics",
-    ],
     "lib": [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015"
+      // Should target at least ES2016 in Vue 3
+      // Support for newer versions of language built-ins are
+      // left for the users to include, because that would require:
+      //   - either the project doesn't need to support older versions of browsers;
+      //   - or the project has properly included the necessary polyfills.
+      // "ES2016",
+      "DOM",
+      "DOM.Iterable",
+      "ES2020"
     ],
+    "types": ["node"]
   },
-  "include": [
-    "./src/**/*",
-  ],
-  "exclude": [
-    "node_modules"
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

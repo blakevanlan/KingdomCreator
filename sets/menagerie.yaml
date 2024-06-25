@@ -808,3 +808,9 @@ ways:
   - name: Way of the Squirrel
   - name: Way of the Turtle
   - name: Way of the Worm
+
+othercards:
+  - name: Horse
+    type: Action - Non-Supply Cards
+  - name: Exile_mat
+    type: Mat Horizontal

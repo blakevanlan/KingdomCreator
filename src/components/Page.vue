@@ -2,152 +2,218 @@
   <div>
     <div class="condensed-menu" v-if="isCondensed">
       <ul class="condensed-menu_items">
-        <li class="condensed-menu_item" v-for="menuItem in menuItems"
-          :class="{active: isMenuItemActive(menuItem)}"
-          :key="menuItem.url"
-        >
-          <a class="condensed-menu_item_link" :href="getMenuItemUrl(menuItem.url)">{{ menuItem.title }}</a>
+        <li class="condensed-menu_item" v-for="menuItem in getMenuItem(0, false)" :class="{ active: isMenuItemActive(menuItem) }"
+          :key="menuItem.url">
+          <RouterLink class="condensed-menu_item_link" :to="getMenuItemUrl(menuItem.url)">
+                {{ $t(menuItem.title) }}
+              </RouterLink>
         </li>
       </ul>
     </div>
-    <div class="page" :class="{'show-condensed-menu': shouldShowCondensedMenu}">
+    <a id="TopofThePage" />
+    <div class="page" :class="{ 'show-condensed-menu': shouldShowCondensedMenu }" :style="condensedMenuHeightStyle" >
       <header>
-        <div class="title-container">
+       <div class="title-container">
           <h1 class="title">
-            <a class="title_link" href="/index.html">Dominion Randomizer</a>
+            <a class="title_link" :href="getCurrentMenuItemUrl">Dominion Randomizer</a>
           </h1>
           <h2 class="tagline">{{ subtitle }}</h2>
-        </div>
+        </div> 
         <div class="condensed-menu-button" v-if="isCondensed" @click="handleMenuClick"></div>
         <div class="menu" v-if="!isCondensed">
           <ul class="menu_items">
-            <li class="menu_item" v-for="menuItem in menuItems"
-                :class="{active: isMenuItemActive(menuItem)}" :key="menuItem.title">
-              <a class="menu_item_link" :href="getMenuItemUrl(menuItem.url)">{{ menuItem.title }}</a>
+            <li class="menu_item" v-for="mymenuItem in getMenuItem(3, true)" :key="mymenuItem.title" :class="{ active: isMenuItemActive(mymenuItem) }">
+              <router-link class="menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
+                {{ $t(mymenuItem.title) }}
+              </router-link>
+            </li>
+            <li class="menuItemIcon">
+            <Menu as="div">
+            <MenuButton as="div" class="condensed-menu-button" v-if="!isCondensed"/>
+            <MenuItems as="div" class="popOverPanelWrapper">
+              <div class="extended-menu_item" v-for="mymenuItem in getMenuItem(3, false)" :key="mymenuItem.title">
+                    <MenuItem as="div">
+                    <router-link class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
+                      {{ $t(mymenuItem.title) }}
+                    </router-link>
+                  </MenuItem>
+                  </div>
+            </MenuItems>
+            </Menu>
             </li>
           </ul>
-        </div>
+        </div> 
       </header>
       <slot></slot>
       <footer>
         <div class="languages">
-          <template>
-            <span v-for="(language, index) in languages" :key="language">
-              <router-link :to="getLanguageLinkOptions(language)">
-                {{ $t(language) }}
-              </router-link>
-              <span v-if="index < languages.length - 1" :key="`${language}-bullet`">
-                &nbsp;&bull;&nbsp;
-              </span>
+          <span v-for="(language, index) in languages" :key="language">
+            <router-link :to="getLanguageLinkOptions(language)">
+              {{ $t(language) }}
+            </router-link>
+            <span v-if="index < languages.length - 1" :key="`${language}-bullet`">
+              &nbsp;&bull;&nbsp;
             </span>
-          </template>
+          </span>
         </div>
-
-        <i18n class="github-info" path="github_info" tag="div">
-          <template v-slot:source>
+        <i18n-t scope="global" class="github-info" keypath="github_info" tag="div">
+          <template #source>
             <a href="https://github.com/blakevanlan/KingdomCreator">{{
               $t("github_info_source")
             }}</a>
           </template>
-          <template v-slot:issues>
+          <template #issues>
             <a href="https://github.com/blakevanlan/KingdomCreator/issues">{{
               $t("github_info_issues")
             }}</a>
           </template>
-        </i18n>
-
-        <i18n class="disclaimers-and-credit" path="disclaimers_and_credits" tag="div">
-          <template v-slot:wiki>
+        </i18n-t>
+        <i18n-t scope="global" class="disclaimers-and-credit" keypath="disclaimers_and_credits" tag="div">
+          <template #wiki>
             <a href="http://wiki.dominionstrategy.com/index.php/Main_Page">{{
               $t("disclaimers_and_credits_wiki")
             }}</a>
           </template>
-          <template v-slot:smashicons>
+          <template #smashicons>
             <a href="https://www.flaticon.com/authors/smashicons" target="_blank">{{
               $t("disclaimers_and_credits_smashicons")
             }}</a>
           </template>
-          <template v-slot:flaticon>
+          <template #flaticon>
             <a href="https://www.flaticon.com/" target="_blank">www.flaticon.com</a>
           </template>
-          <template v-slot:creativecommons>
+          <template #creativecommons>
             <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">{{
               $t("disclaimers_and_credits_creative_commons")
             }}</a>
           </template>
-        </i18n>
+        </i18n-t>
       </footer>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Getter, State } from "vuex-class";
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent, computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRoute } from 'vue-router';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
+/* import Dominion Objects and type*/
+
+/* import store  */
+import { useWindowStore } from "../pinia/window-store";
+import { usei18nStore } from "../pinia/i18n-store";
 import { Language } from "../i18n/language";
+
+/* import Components */
 
 export enum MenuItemType {
   RANDOMIZER,
   SETS,
   RULES,
+  CARDS,
+  BOXES,
 }
 
-class MenuItem {
+class LocalMenuItem {
   constructor(readonly type: MenuItemType, readonly title: string, readonly url: string) {
   }
 }
 
-const MENU_ITEMS = [
-  new MenuItem(MenuItemType.RANDOMIZER, "Randomizer", "/"),
-  new MenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets.html"),
-  new MenuItem(MenuItemType.RULES, "Rules", "/rules.html"),
+let MENU_ITEMS = [
+  new LocalMenuItem(MenuItemType.RANDOMIZER, "Randomizer", "/index"),
+  new LocalMenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets"),
+  new LocalMenuItem(MenuItemType.RULES, "Rules", "/rules"),
+  new LocalMenuItem(MenuItemType.BOXES, "Box content", "/boxes"),
 ];
 
-@Component
-export default class Page extends Vue {
-  @Prop() readonly subtitle!: string;
-  @Prop() readonly selectedType!: MenuItemType;
-  @Getter("isCondensed") readonly isCondensed!: boolean;
-  @State(state => state.i18n.language) readonly language!: Language;
-  isCondensedMenuActive = false;
-  menuItems = MENU_ITEMS;
-
-  get shouldShowCondensedMenu() {
-    return this.isCondensed && this.isCondensedMenuActive;
-  }
-
-  get languages() {
-    return Object.keys(Language).map(key => Language[key as keyof typeof Language]);
-  }
-
-  getMenuItemUrl(url: string) {
-    return this.language != Language.ENGLISH
-      ? `${url}?lang=${this.language}` 
-      : url;
-  }
-
-  getLanguageLinkOptions(language: string) {
-    return {
-      params: this.$route.params,
-      query: {
-        ...this.$route.query,
-        lang: language
-      } 
-    };
-  }
-
-  handleMenuClick() {
-    this.isCondensedMenuActive = !this.isCondensedMenuActive;
-  }
-
-  isMenuItemActive(menuItem: MenuItem) {
-    return menuItem.type == this.selectedType;
-  }
+if (process.env.NODE_ENV == "development") {
+  MENU_ITEMS.push(new LocalMenuItem(MenuItemType.CARDS, "Cards", "/cards"));
 }
+
+export default defineComponent({
+  name: "Page",
+  props: {
+    subtitle: String,
+    selectedType: Number
+  },
+  components: {
+  //  Popover, PopoverButton, PopoverPanel,
+    Menu, MenuButton, MenuItems, MenuItem
+  },
+  setup(props) {
+    const route = useRoute();
+    const WindowStore = useWindowStore();
+    const i18nStore = usei18nStore();
+
+    const { t } = useI18n();
+    const language = computed(() => i18nStore.language);
+    const isCondensedMenuActive = ref(false);
+    const isCondensed = computed(() =>{ return WindowStore.isCondensed });
+    const shouldShowCondensedMenu = computed(()=> { return isCondensed.value && isCondensedMenuActive.value });
+    const languages = computed(() => { return Object.values(Language) });
+    const isMenuItemActive = (menuItem: LocalMenuItem) => menuItem.type === props.selectedType;
+    const condensedMenuHeightStyle = computed(()=> { 
+        const condensedMenuHeight= (10 + MENU_ITEMS.length * 42); 
+        const returnStr = " transform: translate(0, "+ condensedMenuHeight+"px); "
+        if (isCondensedMenuActive.value) return returnStr;
+        return ""
+      });
+
+    const getMenuItemUrl = (url: string) => {
+      return {
+          path: url,
+          query: {
+            ...route.query,
+            lang: language.value,
+          }
+        };
+      };
+
+    const getCurrentMenuItemUrl = computed(() =>{
+      return window.location.href 
+    });
+
+    const getMenuItem = ((nbEntry: number, FirstPart: boolean) => { 
+      return FirstPart ?  
+          MENU_ITEMS.slice(0, nbEntry):
+          MENU_ITEMS.slice(nbEntry,10);
+    });
+
+    const getLanguageLinkOptions = (language: string) => {
+      return {
+        params: route.params,
+        query: {
+          ...route.query,
+          lang: language,
+        }
+      };
+    };
+
+    const handleMenuClick = () => {
+      isCondensedMenuActive.value = !isCondensedMenuActive.value;
+    };
+
+    return {
+      isCondensed,
+      isCondensedMenuActive,
+      shouldShowCondensedMenu,
+      condensedMenuHeightStyle,
+      languages,
+      getMenuItem,
+      getMenuItemUrl,
+      getCurrentMenuItemUrl,
+      getLanguageLinkOptions,
+      handleMenuClick,
+      isMenuItemActive,
+    };
+  },
+});
 </script>
 
 <style scoped>
-
 footer {
   border-top: 1px #ddd solid;
   font-family: 'Alegreya Sans', sans-serif;
@@ -173,4 +239,64 @@ footer {
   margin: 0 auto;
 }
 
+.menuItemIcon {
+  display: block;
+  padding: 8px 20px ;
+  border: unset;
+/*  position: relative;*/
+  list-style: none;
+}
+
+.menu-layer {
+  background-color: rgba(113, 179, 200, 0.9); /* White background with some transparency */
+  z-index: 10; /* Sets the layer above other elements */
+  /* Adjust width as needed based on your menu content */
+  width: 200px; 
+  display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+
+.extended-menu_items {
+  list-style: none; /* Removes default bullet points */
+  position: relative;
+  display: flex;
+  padding: 12px 10px 8px 10px;
+  flex-direction: column;
+  margin: 0
+}
+
+.extended-menu_item {
+  /*margin-bottom: 5px; /* Spacing between menu items */
+  display: block;
+  padding: 4px 16px ;
+  flex: none;
+}
+
+.extended-menu_item_link {
+  color: #ddd;
+  display: inline-block;
+  font-size: 20px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  padding: 4px 0;
+  text-decoration: none;
+}
+
+.extended-menu_item.active .extended-menu_item_link {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.popOverPanelWrapper {
+  position: absolute;
+  background-color: rgba(113, 179, 200, 0.9); /* White background with some transparency */
+  top: 70%; /* Initial position below the button */
+  right: 0%; /* Align left edge with button */
+  z-index: 10;
+  outline-style: unset;
+}
 </style>

@@ -155,4 +155,35 @@ cards:
     isAction: true
     isDrawer: true
     isMultiDrawer: true
-    
+
+othercards:
+  - name: Platinum_2nd
+    type: Basic Cards
+    isTreasure: true
+    cost:
+      treasure: 9
+
+  - name: Colony_2nd
+    type: Basic Cards
+    isVictory: true
+    cost:
+      treasure: 11
+
+  - name: VP_Mat_1
+    type: Mat Square
+  - name: VP_Mat_2
+    type: Mat Square
+  - name: VP_Mat_3
+    type: Mat Square
+  - name: VP_Mat_4
+    type: Mat Square
+  - name: VP_Mat_5
+    type: Mat Square
+  - name: VP_Mat_6
+    type: Mat Square
+  - name: VP_Mat_7
+    type: Mat Square
+  - name: VP_Mat_8
+    type: Mat Square
+  - name: VPTokens
+    type: Tokens 

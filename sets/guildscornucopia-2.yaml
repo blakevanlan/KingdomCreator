@@ -1,0 +1,212 @@
+name: Guilds / Cornucopia (2nd)
+cards:
+  - name: Advisor
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Baker
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+
+  - name: Butcher
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isTrashing: true
+
+  - name: Candlestick Maker
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isBuySupplier: true
+
+  - name: Herald
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+
+  - name: Journeyman
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Merchant Guild
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isBuySupplier: true
+
+  - name: Plaza
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+
+  - name: Soothsayer
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+
+  - name: Stonemason
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isTrashing: true
+
+  - name: Young Witch
+    cost:
+      treasure: 4
+      potion: 0
+    isAttack: true
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Hamlet
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isBuySupplier: true
+    isActionSupplier: true
+
+  - name: Jester
+    cost:
+      treasure: 5
+      potion: 0
+    isAttack: true
+    isAction: true
+
+  - name: Fairgrounds
+    cost:
+      treasure: 6
+      potion: 0
+    isVictory: true
+
+  - name: Horn of Plenty
+    cost:
+      treasure: 5
+      potion: 0
+    isTreasure: true
+
+  - name: Hunting Party
+    cost:
+      treasure: 5
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Menagerie
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: Remake
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isTrashing: true
+
+  - name: Farrier
+    cost:
+      treasure: 2
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isBuySupplier: true
+    isDrawer: true
+
+  - name: Shop
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+
+  - name: Infirmary
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isTrashing: true
+
+  - name: Farmhands
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isActionSupplier: true
+
+  - name: Carnival
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+    isTerminal: true
+
+  - name: Ferryman
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isActionSupplier: true
+
+  - name: Footpad
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isAttack: true
+
+  - name: Joust
+    cost:
+      treasure: 3
+      potion: 0
+    isAction: true
+    isDrawer: true
+    isActionSupplier: true
+
+othercards:
+  - name: Coronet
+    type: Action - Treasure - Reward
+  - name: Courser
+    type: Action - Reward
+  - name: Demesne
+    type: Action - Victory - Reward
+  - name: Housecarl
+    type: Action - Reward
+  - name: Huge Turnip
+    type: Treasure - Reward
+  - name: Renown
+    type: Action - Reward
+  - name: Coffers_mat
+    type: Mat Horizontal
+  - name: CoinsTokens
+    type: Tokens
+  - name: Bane
+    type: Mat Horizontal

@@ -1,13 +1,28 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
-Vue.use(VueRouter);
-
-export function createRouter(paths: string[], component: typeof Vue) {
-  return new VueRouter({
-    mode: "history",
+export function AppCreateRouter(paths: string[], component: any) {
+  return createRouter({
+    history: createWebHistory(),
     routes: paths.map(
-      path => { return { name: path, path, component } }
+      path => { return { 
+                    path : path,
+                    component : component } }
     )
   });
+};
+
+interface RouteConfig {
+  paths: string[];
+  component: any;
+}
+
+export function AppCreateRouterMultiple(routes: RouteConfig[]) {
+  const router = createRouter({
+    history: createWebHistory(),
+    routes: routes.flatMap(route => route.paths.map(path => ({
+      path,
+      component: route.component
+    })))
+  });
+  return router;
 }

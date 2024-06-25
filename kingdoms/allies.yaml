@@ -3,34 +3,33 @@ kingdoms:
     sets:
       - allies
     supply:
-      - allies_bauble
-      - allies_courier
-      - allies_highwayman
-      - allies_hunter
-      - allies_innkeeper
-      - allies_marquis
-      - allies_merchantcamp
-      - allies_modify
-      - allies_royalgalley
       - allies_townsfolk
+      - allies_royalgalley
+      - allies_modify
+      - allies_merchantcamp
+      - allies_marquis
+      - allies_innkeeper
+      - allies_hunter
+      - allies_highwayman
+      - allies_courier
+      - allies_bauble
     allies:
       - allies_ally_citystate
-
 
   - name: Foresight
     sets:
       - allies
     supply:
-      - allies_augurs
-      - allies_barbarian
-      - allies_carpenter
-      - allies_emissary
-      - allies_galleria
-      - allies_sentinel
-      - allies_skirmisher
-      - allies_specialist
-      - allies_town
       - allies_underling
+      - allies_town
+      - allies_specialist
+      - allies_skirmisher
+      - allies_sentinel
+      - allies_galleria
+      - allies_emissary
+      - allies_carpenter
+      - allies_barbarian
+      - allies_augurs
     allies:
       - allies_ally_orderofastrologers
 
@@ -39,16 +38,16 @@ kingdoms:
       - allies
       - baseset2
     supply:
-      - allies_broker
-      - allies_capitalcity
-      - allies_galleria
-      - allies_odysseys
-      - allies_sycophant
-      - baseset2_gardens
-      - baseset2_harbinger
-      - baseset2_market
-      - baseset2_remodel
       - baseset2_vassal
+      - baseset2_remodel
+      - baseset2_market
+      - baseset2_harbinger
+      - baseset2_gardens
+      - allies_sycophant
+      - allies_odysseys
+      - allies_galleria
+      - allies_capitalcity
+      - allies_broker
     allies:
       - allies_ally_craftersguild
 
@@ -57,16 +56,16 @@ kingdoms:
       - allies
       - baseset2
     supply:
-      - allies_clashes
-      - allies_emissary
-      - allies_guildmaster
-      - allies_royalgalley
-      - allies_town
-      - baseset2_bandit
-      - baseset2_laboratory
-      - baseset2_merchant
-      - baseset2_moat
       - baseset2_moneylender
+      - baseset2_moat
+      - baseset2_merchant
+      - baseset2_laboratory
+      - baseset2_bandit
+      - allies_town
+      - allies_royalgalley
+      - allies_guildmaster
+      - allies_emissary
+      - allies_clashes
     allies:
       - allies_ally_leagueofshopkeepers
 
@@ -75,16 +74,16 @@ kingdoms:
       - allies
       - intrigue2
     supply:
-      - allies_broker
-      - allies_contract
-      - allies_courier
-      - allies_hunter
-      - allies_townsfolk
-      - intrigue2_courtier
-      - intrigue2_lurker
-      - intrigue2_nobles
-      - intrigue2_secretpassage
       - intrigue2_steward
+      - intrigue2_secretpassage
+      - intrigue2_nobles
+      - intrigue2_lurker
+      - intrigue2_courtier
+      - allies_townsfolk
+      - allies_hunter
+      - allies_courier
+      - allies_contract
+      - allies_broker
     allies:
       - allies_ally_circleofwitches
 
@@ -93,16 +92,16 @@ kingdoms:
       - allies
       - intrigue2
     supply:
-      - allies_innkeeper
-      - allies_merchantcamp
-      - allies_swap
-      - allies_underling
-      - allies_wizards
-      - intrigue2_baron
-      - intrigue2_conspirator
-      - intrigue2_patrol
-      - intrigue2_pawn
       - intrigue2_replace
+      - intrigue2_pawn
+      - intrigue2_patrol
+      - intrigue2_conspirator
+      - intrigue2_baron
+      - allies_wizards
+      - allies_underling
+      - allies_swap
+      - allies_merchantcamp
+      - allies_innkeeper
     allies:
       - allies_ally_plateaushepherds
 
@@ -111,16 +110,16 @@ kingdoms:
       - allies
       - seaside
     supply:
-      - allies_guildmaster
-      - allies_highwayman
-      - allies_odysseys
-      - allies_royalgalley
-      - allies_sentinel
-      - seaside_cutpurse
-      - seaside_nativevillage
-      - seaside_smugglers
-      - seaside_tactician
       - seaside_warehouse
+      - seaside_tactician
+      - seaside_smugglers
+      - seaside_nativevillage
+      - seaside_cutpurse
+      - allies_sentinel
+      - allies_royalgalley
+      - allies_odysseys
+      - allies_highwayman
+      - allies_guildmaster
     allies:
       - allies_ally_cavedwellers
 
@@ -129,16 +128,16 @@ kingdoms:
       - allies
       - seaside
     supply:
-      - allies_emissary
-      - allies_forts
-      - allies_marquis
-      - allies_swap
-      - allies_town
-      - seaside_haven
-      - seaside_lookout
-      - seaside_outpost
-      - seaside_treasuremap
       - seaside_treasury
+      - seaside_treasuremap
+      - seaside_outpost
+      - seaside_lookout
+      - seaside_haven
+      - allies_town
+      - allies_swap
+      - allies_marquis
+      - allies_forts
+      - allies_emissary
     allies:
       - allies_ally_markettowns
 
@@ -147,16 +146,16 @@ kingdoms:
       - alchemy
       - allies
     supply:
-      - alchemy_alchemist
-      - alchemy_apprentice
-      - alchemy_golem
-      - alchemy_scryingpool
-      - allies_barbarian
-      - allies_galleria
-      - allies_importer
-      - allies_merchantcamp
-      - allies_modify
       - allies_wizards
+      - allies_modify
+      - allies_merchantcamp
+      - allies_importer
+      - allies_galleria
+      - allies_barbarian
+      - alchemy_scryingpool
+      - alchemy_golem
+      - alchemy_apprentice
+      - alchemy_alchemist
     allies:
       - allies_ally_coastalhaven
 
@@ -165,16 +164,16 @@ kingdoms:
       - allies
       - prosperity
     supply:
-      - allies_augurs
-      - allies_bauble
-      - allies_capitalcity
-      - allies_carpenter
-      - allies_importer
-      - prosperity_expand
-      - prosperity_kingscourt
-      - prosperity_quarry
-      - prosperity_rabble
       - prosperity_talisman
+      - prosperity_rabble
+      - prosperity_quarry
+      - prosperity_kingscourt
+      - prosperity_expand
+      - allies_importer
+      - allies_carpenter
+      - allies_capitalcity
+      - allies_bauble
+      - allies_augurs
     allies:
       - allies_ally_familyofinventors
 
@@ -183,16 +182,16 @@ kingdoms:
       - allies
       - prosperity
     supply:
-      - allies_broker
-      - allies_marquis
-      - allies_odysseys
-      - allies_sycophant
-      - allies_town
-      - prosperity_bank
-      - prosperity_city
-      - prosperity_mint
-      - prosperity_traderoute
       - prosperity_vault
+      - prosperity_traderoute
+      - prosperity_mint
+      - prosperity_city
+      - prosperity_bank
+      - allies_town
+      - allies_sycophant
+      - allies_odysseys
+      - allies_marquis
+      - allies_broker
     allies:
       - allies_ally_leagueofbankers
 
@@ -202,16 +201,16 @@ kingdoms:
       - cornucopia
       - guilds
     supply:
-      - allies_clashes
-      - allies_contract
-      - allies_forts
-      - allies_galleria
-      - allies_sentinel
-      - cornucopia_fairgrounds
-      - cornucopia_huntingparty
-      - cornucopia_menagerie
-      - guilds_advisor
       - guilds_plaza
+      - guilds_advisor
+      - cornucopia_menagerie
+      - cornucopia_huntingparty
+      - cornucopia_fairgrounds
+      - allies_sentinel
+      - allies_galleria
+      - allies_forts
+      - allies_contract
+      - allies_clashes
     allies:
       - allies_ally_woodworkersguild
 
@@ -221,16 +220,16 @@ kingdoms:
       - cornucopia
       - guilds
     supply:
-      - allies_augurs
-      - allies_emissary
-      - allies_innkeeper
-      - allies_royalgalley
-      - allies_sentinel
-      - cornucopia_farmingvillage
-      - cornucopia_jester
-      - guilds_baker
-      - guilds_candlestickmaker
       - guilds_journeyman
+      - guilds_candlestickmaker
+      - guilds_baker
+      - cornucopia_jester
+      - cornucopia_farmingvillage
+      - allies_sentinel
+      - allies_royalgalley
+      - allies_innkeeper
+      - allies_emissary
+      - allies_augurs
     allies:
       - allies_ally_forestdwellers
 
@@ -239,16 +238,16 @@ kingdoms:
       - allies
       - hinterlands
     supply:
-      - allies_bauble
-      - allies_capitalcity
-      - allies_carpenter
-      - allies_contract
-      - allies_innkeeper
-      - hinterlands_farmland
-      - hinterlands_haggler
-      - hinterlands_jackofalltrades
-      - hinterlands_margrave
       - hinterlands_tunnel
+      - hinterlands_margrave
+      - hinterlands_jackofalltrades
+      - hinterlands_haggler
+      - hinterlands_farmland
+      - allies_innkeeper
+      - allies_contract
+      - allies_carpenter
+      - allies_capitalcity
+      - allies_bauble
     allies:
       - allies_ally_fellowshipofscribes
 
@@ -257,16 +256,16 @@ kingdoms:
       - allies
       - hinterlands
     supply:
-      - allies_barbarian
-      - allies_highwayman
-      - allies_specialist
-      - allies_townsfolk
-      - allies_underling
-      - hinterlands_bordervillage
-      - hinterlands_crossroads
-      - hinterlands_highway
-      - hinterlands_inn
       - hinterlands_spicemerchant
+      - hinterlands_inn
+      - hinterlands_highway
+      - hinterlands_crossroads
+      - hinterlands_bordervillage
+      - allies_underling
+      - allies_townsfolk
+      - allies_specialist
+      - allies_highwayman
+      - allies_barbarian
     allies:
       - allies_ally_orderofmasons
 
@@ -275,16 +274,16 @@ kingdoms:
       - allies
       - darkages
     supply:
-      - allies_barbarian
-      - allies_broker
-      - allies_contract
-      - allies_highwayman
-      - allies_wizards
-      - darkages_banditcamp
-      - darkages_beggar
-      - darkages_forager
-      - darkages_graverobber
       - darkages_poorhouse
+      - darkages_graverobber
+      - darkages_forager
+      - darkages_beggar
+      - darkages_banditcamp
+      - allies_wizards
+      - allies_highwayman
+      - allies_contract
+      - allies_broker
+      - allies_barbarian
     allies:
       - allies_ally_cavedwellers
 
@@ -293,16 +292,16 @@ kingdoms:
       - allies
       - darkages
     supply:
-      - allies_emissary
-      - allies_importer
-      - allies_skirmisher
-      - allies_swap
-      - allies_townsfolk
-      - darkages_count
-      - darkages_deathcart
-      - darkages_knights
-      - darkages_rats
       - darkages_squire
+      - darkages_rats
+      - darkages_knights
+      - darkages_deathcart
+      - darkages_count
+      - allies_townsfolk
+      - allies_swap
+      - allies_skirmisher
+      - allies_importer
+      - allies_emissary
     allies:
       - allies_ally_desertguides
 
@@ -311,16 +310,16 @@ kingdoms:
       - adventures
       - allies
     supply:
-      - adventures_artificer
-      - adventures_duplicate
-      - adventures_lostcity
-      - adventures_miser
-      - adventures_treasuretrove
-      - allies_augurs
-      - allies_bauble
-      - allies_innkeeper
-      - allies_modify
       - allies_specialist
+      - allies_modify
+      - allies_innkeeper
+      - allies_bauble
+      - allies_augurs
+      - adventures_treasuretrove
+      - adventures_miser
+      - adventures_lostcity
+      - adventures_duplicate
+      - adventures_artificer
     events:
       - adventures_event_mission
     allies:
@@ -331,16 +330,16 @@ kingdoms:
       - adventures
       - allies
     supply:
-      - adventures_caravanguard
-      - adventures_gear
-      - adventures_hauntedwoods
-      - adventures_port
-      - adventures_transmogrify
-      - allies_forts
-      - allies_marquis
-      - allies_sentinel
-      - allies_skirmisher
       - allies_sycophant
+      - allies_skirmisher
+      - allies_sentinel
+      - allies_marquis
+      - allies_forts
+      - adventures_transmogrify
+      - adventures_port
+      - adventures_hauntedwoods
+      - adventures_gear
+      - adventures_caravanguard
     events:
       - adventures_event_seaway
     allies:
@@ -351,16 +350,16 @@ kingdoms:
       - allies
       - empires
     supply:
-      - allies_contract
-      - allies_forts
-      - allies_specialist
-      - allies_swap
-      - allies_sycophant
-      - empires_cityquarter
-      - empires_enchantress
-      - empires_farmersmarket
-      - empires_settlersbustlingvillage
       - empires_wildhunt
+      - empires_settlersbustlingvillage
+      - empires_farmersmarket
+      - empires_enchantress
+      - empires_cityquarter
+      - allies_sycophant
+      - allies_swap
+      - allies_specialist
+      - allies_forts
+      - allies_contract
     landmarks:
       - empires_landmark_orchard
     allies:
@@ -371,16 +370,16 @@ kingdoms:
       - allies
       - empires
     supply:
-      - allies_capitalcity
-      - allies_carpenter
-      - allies_clashes
-      - allies_hunter
-      - allies_importer
-      - empires_castles
-      - empires_catapultrocks
-      - empires_charm
-      - empires_crown
       - empires_patricianemporium
+      - empires_crown
+      - empires_charm
+      - empires_catapultrocks
+      - empires_castles
+      - allies_importer
+      - allies_hunter
+      - allies_clashes
+      - allies_carpenter
+      - allies_capitalcity
     events:
       - empires_event_triumph
     allies:
@@ -391,16 +390,16 @@ kingdoms:
       - allies
       - nocturne
     supply:
-      - allies_augurs
-      - allies_bauble
-      - allies_carpenter
-      - allies_hunter
-      - allies_sycophant
-      - nocturne_conclave
-      - nocturne_denofsin
-      - nocturne_faithfulhound
-      - nocturne_idol
       - nocturne_necromancer
+      - nocturne_idol
+      - nocturne_faithfulhound
+      - nocturne_denofsin
+      - nocturne_conclave
+      - allies_sycophant
+      - allies_hunter
+      - allies_carpenter
+      - allies_bauble
+      - allies_augurs
     allies:
       - allies_ally_peacefulcult
 
@@ -409,16 +408,16 @@ kingdoms:
       - allies
       - nocturne
     supply:
-      - allies_courier
-      - allies_hunter
-      - allies_royalgalley
-      - allies_swap
-      - allies_wizards
-      - nocturne_blessedvillage
-      - nocturne_leprechaun
-      - nocturne_skulk
-      - nocturne_tormentor
       - nocturne_tracker
+      - nocturne_tormentor
+      - nocturne_skulk
+      - nocturne_leprechaun
+      - nocturne_blessedvillage
+      - allies_wizards
+      - allies_swap
+      - allies_royalgalley
+      - allies_hunter
+      - allies_courier
     allies:
       - allies_ally_woodworkersguild
 
@@ -427,16 +426,16 @@ kingdoms:
       - allies
       - renaissance
     supply:
-      - allies_courier
-      - allies_importer
-      - allies_modify
-      - allies_townsfolk
-      - allies_wizards
-      - renaissance_experiment
-      - renaissance_mountainvillage
-      - renaissance_patron
-      - renaissance_spices
       - renaissance_treasurer
+      - renaissance_spices
+      - renaissance_patron
+      - renaissance_mountainvillage
+      - renaissance_experiment
+      - allies_wizards
+      - allies_townsfolk
+      - allies_modify
+      - allies_importer
+      - allies_courier
     projects:
       - renaissance_project_exploration
     allies:
@@ -447,16 +446,16 @@ kingdoms:
       - allies
       - renaissance
     supply:
-      - allies_capitalcity
-      - allies_galleria
-      - allies_odysseys
-      - allies_specialist
-      - allies_underling
-      - renaissance_actingtroupe
-      - renaissance_inventor
-      - renaissance_oldwitch
-      - renaissance_research
       - renaissance_villain
+      - renaissance_research
+      - renaissance_oldwitch
+      - renaissance_inventor
+      - renaissance_actingtroupe
+      - allies_underling
+      - allies_specialist
+      - allies_odysseys
+      - allies_galleria
+      - allies_capitalcity
     projects:
       - renaissance_project_sinisterplot
     allies:
@@ -467,16 +466,16 @@ kingdoms:
       - allies
       - menagerie
     supply:
-      - allies_barbarian
-      - allies_marquis
-      - allies_merchantcamp
-      - allies_town
-      - allies_wizards
-      - menagerie_animalfair
-      - menagerie_blackcat
-      - menagerie_bountyhunter
-      - menagerie_hostelry
       - menagerie_huntinglodge
+      - menagerie_hostelry
+      - menagerie_bountyhunter
+      - menagerie_blackcat
+      - menagerie_animalfair
+      - allies_wizards
+      - allies_town
+      - allies_merchantcamp
+      - allies_marquis
+      - allies_barbarian
     ways:
       - menagerie_way_wayoftheowl
     allies:
@@ -487,17 +486,18 @@ kingdoms:
       - allies
       - menagerie
     supply:
-      - allies_broker
-      - allies_courier
-      - allies_forts
-      - allies_guildmaster
-      - allies_skirmisher
-      - menagerie_barge
-      - menagerie_coven
-      - menagerie_scrap
-      - menagerie_snowyvillage
       - menagerie_supplies
+      - menagerie_snowyvillage
+      - menagerie_scrap
+      - menagerie_coven
+      - menagerie_barge
+      - allies_skirmisher
+      - allies_guildmaster
+      - allies_forts
+      - allies_courier
+      - allies_broker
     events:
       - menagerie_event_toil
     allies:
       - allies_ally_mountainfolk
+

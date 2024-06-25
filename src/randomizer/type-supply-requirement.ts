@@ -1,7 +1,7 @@
-import {CardType} from "../dominion/card-type";
+import type {CardType} from "../dominion/card-type";
 import {Cards} from "../utils/cards";
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivision} from "./supply-division";
+import type {SupplyCard} from "../dominion/supply-card";
+import type {SupplyDivision} from "./supply-division";
 import {SupplyRequirement} from "./supply-requirement";
 
 export class TypeSupplyRequirement extends SupplyRequirement {

@@ -1,15 +1,10 @@
 <template>
   <div>
     <transition name="slow-fade">
-      <div v-if="ally" class="ally-header">Ally</div> 
+      <div v-if="ally" class="ally-header">Ally</div>
     </transition>
     <transition name="slow-fade">
-      <GridLayout
-        v-if="ally"
-        :items="[ally]"
-        :number-of-columns="numberOfColumns"
-        :is-vertical="false"
-      >
+      <GridLayout v-if="ally" :items="[ally]" :number-of-columns="numberOfColumns" :is-vertical="false">
         <template v-slot:default="slotProps">
           <FlippingCard :card="slotProps.item" :is-vertical="false" />
         </template>
@@ -19,30 +14,46 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
+import { defineComponent, computed, ref } from 'vue';
+
+/* import Dominion Objects and type*/
+/* import store  */
+import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useWindowStore } from "../pinia/window-store";
+
+/* import Components */
 import GridLayout from "./GridLayout.vue";
 import FlippingCard from "./FlippingCard.vue";
-import { Vue, Component } from "vue-property-decorator";
-import { State } from "vuex-class";
-import { Ally } from "../dominion/ally";
 
-@Component({
+export default defineComponent({
+  name: "AllySection",
   components: {
     GridLayout,
     FlippingCard
-  }
-})
-export default class AllySection extends Vue {
-  @State(state => state.randomizer.kingdom.ally) readonly ally!: Ally[];
-  @State(state => state.window.width) readonly windowWidth!: number;
-  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
+  },
+  setup() {
+    const randomizerStore = useRandomizerStore();
+    const windowStore = useWindowStore()
 
-  get numberOfColumns() {
-    return this.isEnlarged ? 1 : this.windowWidth > 525 ? 3 : 2;
+    const ally = computed(() => {return randomizerStore.kingdom.ally});
+    const windowWidth = computed(() => {return windowStore.width});
+    const isEnlarged = computed(() => {return windowStore.isEnlarged});
+
+    const numberOfColumns = computed(() =>{
+      // console.log("numberOfColumns",numberOfColumns)
+      return isEnlarged.value ? 1 : windowWidth.value > 525 ? 3 : 2;
+    });
+
+    return {
+      ally,
+      numberOfColumns
+    }
   }
-}
+  })
 </script>
 
-<style>
+<style scoped>
 .ally-header {
   margin: 10px 0 0;
   font-size: 20px;

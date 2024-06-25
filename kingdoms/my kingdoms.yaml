@@ -1,0 +1,90 @@
+kingdoms:
+  - name: Testing Code
+    sets:
+      - baseset
+      - intrigue
+      - cornucopia
+      - prosperity
+      - alchemy
+      - menagerie
+      - empires
+      - plunder
+      - hinterlands
+    supply:
+      - intrigue_conspirator
+      - intrigue_duke
+      - intrigue_greathall
+      - baseset_market
+      - cornucopia_youngwitch
+      - cornucopia_tournament
+      - alchemy_alchemist
+      - alchemy_transmute
+      - alchemy_university
+      - alchemy_vineyard
+    bane: prosperity_traderoute
+    obeliskActionCard: alchemy_alchemist
+    wayofthemouseActionCard: hinterlands_crossroads
+    ferrymanGain: prosperity_grandmarket
+    landmarks:
+      - empires_landmark_obelisk
+    ways: 
+      - menagerie_way_wayofthemouse
+    traits:
+      - plunder_trait_shy->alchemy_transmute
+    metadata:
+      colonies: true
+      shelters: true
+
+  - name: Mad scientist
+    sets:
+      - baseset
+      - intrigue
+      - cornucopia
+      - prosperity
+      - alchemy
+    supply:
+      - intrigue_conspirator
+      - intrigue_duke
+      - intrigue_greathall
+      - baseset_market
+      - cornucopia_youngwitch
+      - cornucopia_tournament
+      - alchemy_alchemist
+      - alchemy_transmute
+      - alchemy_university
+      - alchemy_vineyard
+
+  - name: Thief hidden in the fortress
+    sets:
+      - intrigue
+      - prosperity
+      - hinterlands
+      - darkages
+    supply:
+      - intrigue_nobles
+      - prosperity_rabble
+      - prosperity_grandmarket
+      - prosperity_hoard
+      - hinterlands_crossroads
+      - darkages_rogue
+      - darkages_fortress
+      - darkages_scavenger
+      - darkages_procession
+      - darkages_vagrant
+
+  - name: silk or silver
+    sets:
+      - intrigue
+      - hinterlands
+      - darkages
+    supply:
+      - intrigue_greathall
+      - intrigue_scout
+      - hinterlands_crossroads
+      - hinterlands_silkroad
+      - hinterlands_margrave
+      - hinterlands_farmland
+      - hinterlands_jackofalltrades
+      - hinterlands_trader
+      - hinterlands_tunnel
+      - darkages_feodum

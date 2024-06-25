@@ -1,9 +1,9 @@
 import {CardType} from "../dominion/card-type";
 import {Cards} from "../utils/cards";
 import {SegmentedRange} from "../utils/segmented-range";
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyCorrection} from "./supply-correction";
-import {SupplyDivision} from "./supply-division";
+import type {SupplyCard} from "../dominion/supply-card";
+import type {SupplyCorrection} from "./supply-correction";
+import type {SupplyDivision} from "./supply-division";
 import {SupplyDivisions} from "./supply-divisions";
 import {getRandomInt} from "../utils/rand";
 
@@ -36,7 +36,7 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
     const availableReactionsPerDivision =
         SupplyDivisions.getAvailableCardsOfTypePerDivision(divisions, CardType.REACTION);
     let totalReactions = 0;
-    for (let reactions of availableReactionsPerDivision) {
+    for (const reactions of availableReactionsPerDivision) {
       totalReactions += reactions.length;
     }
 
@@ -90,7 +90,7 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
 
   private removeAttacksFromAvailableCards(divisions: SupplyDivision[]) {
     const newDivisions: SupplyDivision[] = [];
-    for (let division of divisions) {
+    for (const division of divisions) {
       const attackCards =
           division.availableCards.filter(Cards.filterByRequiredType(CardType.ATTACK));
       newDivisions.push(
@@ -123,7 +123,7 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
     const availableCardsPerDivision =
         SupplyDivisions.getAvailableCardsOfTypePerDivision(newDivisions, cardType);
     const counts: number[] = [];
-    for (let cards of availableCardsPerDivision) {
+    for (const cards of availableCardsPerDivision) {
       counts.push(cards.length);
     }
     const segmentedRange = new SegmentedRange(0, counts);
@@ -141,7 +141,7 @@ export class ReactionSupplyCorrection implements SupplyCorrection {
   }
 
   private getDivisionContainingCard(divisions: SupplyDivision[], card: SupplyCard) {
-    for (let division of divisions) {
+    for (const division of divisions) {
       const allCards = division.lockedAndSelectedCards.concat(division.availableCards);
       if (allCards.filter(Cards.filterByIncludedIds([card.id])).length) {
         return division;

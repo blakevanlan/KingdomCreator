@@ -14,7 +14,7 @@ kingdoms:
       - plunder_silvermine
       - plunder_wealthyvillage
     traits:
-      - plunder_trait_hasty
+      - plunder_trait_hasty->plunder_firstmate
 
   - name: Jetsam
     sets:
@@ -33,7 +33,7 @@ kingdoms:
     events:
       - plunder_event_prepare
     traits:
-      - plunder_trait_pious
+      - plunder_trait_pious->plunder_siren
 
   - name: Basic Looting
     sets:
@@ -51,7 +51,7 @@ kingdoms:
       - plunder_pilgrim
       - plunder_sackofloot
     traits:
-      - plunder_trait_tireless
+      - plunder_trait_tireless->plunder_harborvillage
 
   - name: Voodoo
     sets:
@@ -71,7 +71,7 @@ kingdoms:
     events:
       - plunder_event_maelstrom
     traits:
-      - plunder_trait_cursed
+      - plunder_trait_cursed->baseset2_festival
 
   - name: Breaking Eggs
     sets:
@@ -89,7 +89,7 @@ kingdoms:
       - plunder_maroon
       - plunder_quartermaster
     traits:
-      - plunder_trait_reckless
+      - plunder_trait_reckless->plunder_maroon
 
   - name: Landlubbers
     sets:
@@ -109,7 +109,7 @@ kingdoms:
     events:
       - plunder_event_avoid
     traits:
-      - plunder_trait_friendly
+      - plunder_trait_friendly->intrigue2_conspirator
 
   - name: Wine-dark Seas
     sets:
@@ -127,7 +127,7 @@ kingdoms:
       - seaside2_sailor
       - seaside2_seawitch
     traits:
-      - plunder_trait_cheap
+      - plunder_trait_cheap->plunder_frigate
 
   - name: Treasure Island
     sets:
@@ -147,7 +147,7 @@ kingdoms:
     events:
       - plunder_event_launch
     traits:
-      - plunder_trait_inherited
+      - plunder_trait_inherited->seaside2_treasuremap
 
   - name: Special Delivery
     sets:
@@ -167,7 +167,7 @@ kingdoms:
     events:
       - plunder_event_deliver
     traits:
-      - plunder_trait_cursed
+      - plunder_trait_cursed->alchemy_golem
 
   - name: Pretty Trinkets
     sets:
@@ -185,7 +185,7 @@ kingdoms:
       - prosperity2_tiara
       - prosperity2_warchest
     traits:
-      - plunder_trait_fated
+      - plunder_trait_fated->plunder_rope
     metadata:
       colonies: true
 
@@ -207,7 +207,7 @@ kingdoms:
     events:
       - plunder_event_looting
     traits:
-      - plunder_trait_fawning
+      - plunder_trait_fawning->prosperity2_magnate
     metadata:
       colonies: true
 
@@ -228,7 +228,7 @@ kingdoms:
       - plunder_pendant
       - plunder_pickaxe
     traits:
-      - plunder_trait_inspiring
+      - plunder_trait_inspiring->plunder_fortunehunter
 
   - name: Through the Swamp
     sets:
@@ -249,7 +249,7 @@ kingdoms:
     events:
       - plunder_event_journey
     traits:
-      - plunder_trait_patient
+      - plunder_trait_patient->plunder_pilgrim
 
   - name: Desert Dreams
     sets:
@@ -267,7 +267,7 @@ kingdoms:
       - plunder_mapmaker
       - plunder_pendant
     traits:
-      - plunder_trait_reckless
+      - plunder_trait_reckless->hinterlands2_nomads
 
   - name: Viking Schemes
     sets:
@@ -287,7 +287,7 @@ kingdoms:
     events:
       - plunder_event_scrounge
     traits:
-      - plunder_trait_rich
+      - plunder_trait_rich->hinterlands2_berserker
 
   - name: Dad's Rats
     sets:
@@ -305,7 +305,7 @@ kingdoms:
       - plunder_search
       - plunder_shaman
     traits:
-      - plunder_trait_inherited
+      - plunder_trait_inherited->darkages_rats
     metadata:
       shelters: true
 
@@ -327,7 +327,7 @@ kingdoms:
     events:
       - plunder_event_invasion
     traits:
-      - plunder_trait_tireless
+      - plunder_trait_tireless->darkages_forager
     metadata:
       shelters: true
 
@@ -349,7 +349,7 @@ kingdoms:
     events:
       - adventures_event_ferry
     traits:
-      - plunder_trait_patient
+      - plunder_trait_patient->adventures_artificer
 
   - name: Rush Job
     sets:
@@ -369,7 +369,7 @@ kingdoms:
     events:
       - plunder_event_rush
     traits:
-      - plunder_trait_shy
+      - plunder_trait_shy->adventures_winemerchant
 
   - name: City Builders
     sets:
@@ -389,7 +389,7 @@ kingdoms:
     landmarks:
       - empires_landmark_museum
     traits:
-      - plunder_trait_nearby
+      - plunder_trait_nearby->empires_patricianemporium
 
   - name: Plenty
     sets:
@@ -409,7 +409,7 @@ kingdoms:
     events:
       - plunder_event_prosper
     traits:
-      - plunder_trait_friendly
+      - plunder_trait_friendly->plunder_figurine
 
   - name: Night of the Loot
     sets:
@@ -427,7 +427,7 @@ kingdoms:
       - plunder_sackofloot
       - plunder_taskmaster
     traits:
-      - plunder_trait_pious
+      - plunder_trait_pious->plunder_taskmaster
 
   - name: Skeleton Isle
     sets:
@@ -447,7 +447,7 @@ kingdoms:
     events:
       - plunder_event_foray
     traits:
-      - plunder_trait_hasty
+      - plunder_trait_hasty->nocturne_idol
 
   - name: Circle of Life
     sets:
@@ -467,7 +467,7 @@ kingdoms:
     projects:
       - renaissance_project_citadel
     traits:
-      - plunder_trait_inspiring
+      - plunder_trait_inspiring->renaissance_scholar
 
   - name: Mirror Masters
     sets:
@@ -487,7 +487,7 @@ kingdoms:
     events:
       - plunder_event_mirror
     traits:
-      - plunder_trait_fated
+      - plunder_trait_fated->renaissance_spices
 
   - name: Going Home
     sets:
@@ -507,7 +507,7 @@ kingdoms:
     ways:
       - menagerie_way_wayofthesquirrel
     traits:
-      - plunder_trait_cheap
+      - plunder_trait_cheap->menagerie_gatekeeper
 
   - name: Going Big
     sets:
@@ -527,7 +527,7 @@ kingdoms:
     events:
       - plunder_event_peril
     traits:
-      - plunder_trait_nearby
+      - plunder_trait_nearby->menagerie_animalfair
 
   - name: Shipmates
     sets:
@@ -547,7 +547,7 @@ kingdoms:
     allies:
       - allies_ally_cavedwellers
     traits:
-      - plunder_trait_fawning
+      - plunder_trait_fawning->allies_sycophant
 
   - name: Buried and Sunk
     sets:
@@ -567,4 +567,4 @@ kingdoms:
     events:
       - plunder_event_bury
     traits:
-      - plunder_trait_shy
+      - plunder_trait_shy->allies_merchantcamp

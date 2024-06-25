@@ -708,3 +708,78 @@ events:
     isDrawer: false
     isReaction: false
     isTrashing: false
+
+othercards:
+  - name: Page
+    type: Action - Travellers Page
+    orderstring: Traveller Page step 1
+    cost:
+      treasure: 2
+  - name: Treasure Hunter
+    type: Action - Travellers Page
+    orderstring: Traveller Page step 2
+    cost:
+      treasure: 3
+  - name: Warrior
+    type: Action - Attack - Travellers Page
+    orderstring: Traveller Page step 3
+    cost:
+      treasure: 4
+  - name: Hero
+    type: Action - Travellers Page
+    orderstring: Traveller Page step 4
+    cost:
+      treasure: 5
+  - name: Champion
+    type: Action - Duration - Travellers Page
+    orderstring: Traveller Page step 5
+    cost:
+      treasure: 6
+
+  - name: Peasant
+    type: Action - Attack - Travellers Peasant
+    orderstring: Traveller Peasant step 1
+    cost:
+      treasure: 2
+  - name: Soldier
+    type: Action - Attack - Travellers Peasant
+    orderstring: Traveller Peasant step 2
+    cost:
+      treasure: 3
+  - name: Fugitive
+    type: Action - Travellers Peasant
+    orderstring: Traveller Peasant step 3
+    cost:
+      treasure: 4
+  - name: Disciple
+    type: Action - Travellers Peasant
+    orderstring: Traveller Peasant step 4
+    cost:
+      treasure: 5
+  - name: Teacher
+    type: Action - Reserve - Travellers Peasant
+    orderstring: Traveller Peasant step 5
+    cost:
+      treasure: 6
+  - name: Tavern_mat
+    type: Mat Horizontal
+  - name: Action_token
+    type: advToken
+  - name: Buy_token
+    type: advToken
+  - name: Card_token
+    type: advToken
+  - name: Estate_token
+    type: advToken
+  - name: Journey_token
+    type: advToken
+  - name: MinusCard_token
+    type: advToken
+  - name: MinusCoin_token
+    type: advToken
+  - name: MinusCost_token
+    type: advToken
+  - name: PlusCoin_token
+    type: advToken
+  - name: Trashing_token
+    type: advToken

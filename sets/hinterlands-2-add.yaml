@@ -1,0 +1,61 @@
+name: Hinterlands - UpdatePack
+cards:
+  - name: Trail
+    cost:
+      treasure: 4
+      potion: 0
+    isAction: true
+    isReaction: true
+
+  - name: Weaver
+    cost:
+      treasure: 4
+    isAction: true
+    isReaction: true
+
+  - name: Berserker
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+
+  - name: Cauldron
+    cost:
+      treasure: 5
+    isAttack: true
+    isBuySupplier: true
+    isTreasure: true
+
+  - name: Guard Dog
+    cost:
+      treasure: 3
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+    isReaction: true
+
+  - name: Nomads
+    cost:
+      treasure: 4
+    isAction: true
+    isBuySupplier: true
+
+  - name: Souk
+    cost:
+      treasure: 5
+    isBuySupplier: true
+    isAction: true
+
+  - name: Wheelwright
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+
+  - name: Witch's Hut
+    cost:
+      treasure: 5
+    isAttack: false
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true

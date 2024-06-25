@@ -1,27 +1,24 @@
 <template>
   <div>
-    <GridLayout
-      :items="supplyCardsWithBane"
-      :number-of-columns="numberOfColumns"
-      :is-vertical="true"
-      class="sortable-supply-cards"
-      :class="{'kingdom-supply--is-enlarged': isEnlarged}"
-    >
+    <GridLayout :items="supplyCardsWithBaneFerrymanMouseWay" :number-of-columns="numberOfColumns" :is-vertical="true"
+      class="sortable-supply-cards" :class="{ 'kingdom-supply--is-enlarged': isEnlarged }">
       <template v-slot:default="slotProps">
-        <FlippingCard :card="slotProps.item" :is-vertical="true"
-          @front-visible="handleSupplyCardFrontVisible"
-          @flipping-to-back="handleSupplyCardFlippingToBack"
-        >
+        <FlippingCard :card="slotProps.item" :is-vertical="true" @front-visible="handleSupplyCardFrontVisible"
+          @flipping-to-back="handleSupplyCardFlippingToBack">
           <template v-slot:highlight-content>
-            <div 
-              v-if="!isBane(slotProps.item)"
+            <div v-if="!isBaneCard(slotProps.item)"
               class="standard-button standard-button--is-primary standard-button--light-border"
-              @click.stop="handleSpecify(slotProps.item)"
-            >
+              @click.stop="handleSpecify(slotProps.item)">
               Specify
             </div>
           </template>
-          <BaneCardCover v-if="isBane(slotProps.item)" />
+          <!--<BaneCardCover v-if="isBane(slotProps.item)" />-->
+          <BaneCardCover isType="Bane" v-if="isBaneCard(slotProps.item)" />
+          <BaneCardCover isType="Ferryman" v-if="isFerrymanCard(slotProps.item)" />
+          <BaneCardCover isType="Obelisk" v-if="isObeliskCard(slotProps.item)" />
+          <BaneCardCover isType="MouseWay" v-if="isMouseWayCard(slotProps.item)" />
+          <BaneCardCover :is-type="traitsTitle(0)" v-if="isTraitsCard(slotProps.item, 0)" />
+          <BaneCardCover :is-type="traitsTitle(1)" v-if="isTraitsCard(slotProps.item, 1)" />
         </FlippingCard>
       </template>
     </GridLayout>
@@ -29,18 +26,25 @@
 </template>
 
 <script lang="ts">
-import FlippingCard from "./FlippingCard.vue";
-import BaneCardCover from "./BaneCardCover.vue";
-import { Coordinate } from "../utils/coordinate";
-import { SupplyCard } from "../dominion/supply-card";
-import { State } from "vuex-class";
-import { Vue, Component, Watch } from "vue-property-decorator";
-import { SortOption } from "../settings/settings";
-import { Kingdom } from "../randomizer/kingdom";
+/* import Vue, typescript */
+import { defineComponent, ref, computed, onMounted, watch, nextTick } from 'vue';
+import { useI18n } from "vue-i18n";
+import gsap, { Sine } from "gsap";
+
+/* import Dominion Objects and type*/
+import type { SupplyCard } from "../dominion/supply-card";
+
+import type { Coordinate } from "../utils/coordinate";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
-import { gsap, Sine } from "gsap";
-import { Selection } from "../stores/randomizer/selection";
-import { UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD } from "../stores/randomizer/mutation-types";
+
+/* imoprt store  */
+import { usei18nStore } from "../pinia/i18n-store";
+import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useWindowStore } from "../pinia/window-store";
+
+/* import Components */
+import BaneCardCover from "./BaneCardCover.vue";
+import FlippingCard from "./FlippingCard.vue";
 import GridLayout from "./GridLayout.vue";
 
 interface MoveDescriptor {
@@ -51,240 +55,324 @@ interface MoveDescriptor {
 const ANIMATION_DURATION_SEC = 0.6;
 const WINDOW_RESIZE_DELAY_MSEC = 300;
 
-@Component({
+
+export default defineComponent({
+  name: 'SortableSupplyCards',
   components: {
     GridLayout,
     FlippingCard,
     BaneCardCover,
-  }
-})
-export default class SortableSupplyCards extends Vue {
-  @State(state => state.randomizer.kingdom) readonly kingdom!: Kingdom;
-  @State(state => state.randomizer.settings.sortOption) readonly sortOption!: SortOption;
-  @State(state => state.window.width) readonly windowWidth!: number;
-  @State(state => state.window.isEnlarged) readonly isEnlarged!: boolean;
-  @State(state => state.randomizer.selection) readonly selection!: Selection;
-  elementIndexMapping = new Map<number, number>();
-  kingdomId: number = 0;
-  supplyCards: SupplyCard[] = [];
-  numberOfSupplyCardsLoading = 0;
-  requiresSupplyCardSort = false;
-  activeAnimations: Set<TweenLite> = new Set();
-  resizeTimerId: number | null = null;
-  replacingCard: SupplyCard | null = null;
+  },
+  setup() {
+    const { t } = useI18n()
+    const windowStore = useWindowStore();
+    const randomizerStore = useRandomizerStore();
+    const i18nStore = usei18nStore();
 
-  mounted() {
-    this.updateActiveSupplyCards();
-  }
+    const kingdom = computed(() => randomizerStore.kingdom);
+    const sortOption = computed(() => randomizerStore.settings.sortOption);
+    const selection = computed(() => randomizerStore.selection);
+    const HasFullScreenRequested = computed(() => randomizerStore.isFullScreen);
+    const language = computed(() => i18nStore.language);
+    const windowWidth = computed(() => windowStore.width);
+    const isEnlarged = computed(() => windowStore.isEnlarged);
 
-  get numberOfColumns() {
-    return this.isEnlarged ? 2 : this.windowWidth > 450 ? 5 : 4
-  }
 
-  get supplyCardsWithBane() {
-    //const cards =  SupplyCardSorter.sort(this.supplyCards.concat() as SupplyCard[], this.sortOption, this.$t.bind(this));
-    const cards = this.supplyCards.concat();
-    if (this.kingdom.supply.baneCard) {
-      cards.push(this.kingdom.supply.baneCard);
+    let elementIndexMapping = new Map<number, number>();
+    let kingdomId: number = -1;
+    const supplyCards = ref<SupplyCard[]>([])
+
+    let numberOfSupplyCardsLoading = 0;
+    let requiresSupplyCardSort = false;
+    let activeAnimations: Set<any> = new Set();
+    let resizeTimerId: ReturnType<typeof setTimeout> | null = null;
+    let replacingCard: SupplyCard | null = null;
+
+    onMounted(() => {
+      supplyCards.value = kingdom.value.supply.supplyCards;
+      updateActiveSupplyCards();
+    });
+
+    const numberOfColumns = computed(() => {
+      return isEnlarged.value ? 2 : windowWidth.value > 450 ? 5 : 4;
+    });
+
+    const supplyCardsWithBaneFerrymanMouseWay = computed(() => {
+      //const cards =  SupplyCardSorter.sort(this.supplyCards.concat() as SupplyCard[], this.sortOption, this.$t.bind(this));
+      const cards = supplyCards.value.concat();
+      if (kingdom.value.supply.baneCard) {
+        cards.push(kingdom.value.supply.baneCard);
+      }
+      if (kingdom.value.supply.ferrymanCard) {
+        cards.push(kingdom.value.supply.ferrymanCard);
+      }
+      if (kingdom.value.supply.mouseWay) {
+        cards.push(kingdom.value.supply.mouseWay);
+      }
+      return cards;
+    });
+
+    const handleKingdomChanged = () => {
+      updateActiveSupplyCards();
     }
-    return cards;
-  }
+    watch(kingdom, handleKingdomChanged)
 
-  @Watch("kingdom")
-  handleKingdomChanged() {
-    this.updateActiveSupplyCards();
-  }
-
-  @Watch("sortOption")
-  handleSortOptionChanged() {
-    this.requiresSupplyCardSort = true;
-    this.attemptToAnimateSupplyCardSort();
-  }
-
-  @Watch("windowWidth")
-  handleWindowWidthChanged() {
-    this.cancelActiveAnimations();
-    this.resetCardPositions();
-
-    // Schedule a reset to happen again after the user finishes resizing the window to catch
-    // any cases where the reset happened before the elements were fully positioned.
-    if (this.resizeTimerId) {
-      clearTimeout(this.resizeTimerId);
+    const handleSortOptionChanged = () => {
+      requiresSupplyCardSort = true;
+      attemptToAnimateSupplyCardSort();
     }
-    this.resizeTimerId = setTimeout(() => this.resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
-  }
+    watch(sortOption, handleSortOptionChanged)
 
-  @Watch("numberOfColumns")
-  handleNumberOfColumnsChanged() {
-    this.$nextTick(() => this.resetCardPositions());
-  }
-
-  isBane(supplyCard: SupplyCard) {
-    return this.kingdom.supply.baneCard &&
-      this.kingdom.supply.baneCard.id == supplyCard.id;
-  }
-
-  handleSpecify(supplyCard: SupplyCard) {
-    this.$store.commit(UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD, supplyCard);
-  }
-
-  handleSupplyCardFlippingToBack(supplyCard: SupplyCard) {
-    this.numberOfSupplyCardsLoading += 1;
-  }
-
-  handleSupplyCardFrontVisible(supplyCard: SupplyCard) {
-    this.numberOfSupplyCardsLoading -= 1;
-    this.attemptToAnimateSupplyCardSort();
-  }
-
-  handleReplace(supplyCard: SupplyCard) {
-    this.replacingCard = supplyCard;
-  }
-
-  private updateActiveSupplyCards() {
-    if (!this.kingdom) {
-      return;
+    const handlelanguagenChanged = () => {
+      requiresSupplyCardSort = true;
+      attemptToAnimateSupplyCardSort();
     }
-    if (this.kingdomId == this.kingdom.id) {
-      this.updateSupplyCards();
-      return;
+    watch(language, handlelanguagenChanged)
+
+    const handleHasFullScreenRequested = () => {
+      cancelActiveAnimations();
+      resetCardPositions();
     }
-    this.kingdomId = this.kingdom.id;
-    const sortedSupplyCards =
-        SupplyCardSorter.sort(this.kingdom.supply.supplyCards.concat(), this.sortOption, this.$t.bind(this));
-    
-    // Remap the sorted supply cards to where the elements currently reside.
-    const mappedSupplyCards = [];
-    for (let i = 0; i < sortedSupplyCards.length; i++) {
-      mappedSupplyCards[this.getElementIndex(i)] = sortedSupplyCards[i];
+    watch(HasFullScreenRequested, handleHasFullScreenRequested)
+
+    const handleWindowWidthChanged = () => {
+      cancelActiveAnimations();
+      resetCardPositions();
+      // Schedule a reset to happen again after the user finishes resizing the window to catch
+      // any cases where the reset happened before the elements were fully positioned.
+      if (resizeTimerId) {
+        clearTimeout(resizeTimerId);
+      }
+      resizeTimerId = setTimeout(() => resetCardPositions(), WINDOW_RESIZE_DELAY_MSEC)
     }
-    this.supplyCards = mappedSupplyCards;
-  }
+    watch(windowWidth, handleWindowWidthChanged)
 
-  private updateSupplyCards() {
-    this.requiresSupplyCardSort = true;
-    this.supplyCards = SortableSupplyCards.replaceSupplyCards(
-        this.supplyCards, this.kingdom.supply.supplyCards);
-  }
-
-  private attemptToAnimateSupplyCardSort() {
-    if (this.numberOfSupplyCardsLoading > 0 || !this.requiresSupplyCardSort) {
-      return;
+    const handleNumberOfColumnsChanged = () => {
+      nextTick(() => resetCardPositions());
     }
-    this.requiresSupplyCardSort = false;
-    this.cancelActiveAnimations();
-    this.animateSupplyCardSort();
-  }
+    watch(numberOfColumns, handleNumberOfColumnsChanged)
 
-  private resetCardPositions() {
-    for (let visualIndex = 0; visualIndex < this.supplyCards.length; visualIndex++) {
-      const elementIndex = this.getElementIndex(visualIndex);
-      const element = this.getSupplyCardElement(elementIndex);
-      const startCoord = this.getPositionForElementIndex(elementIndex);
-      const endCoord = this.getPositionForElementIndex(visualIndex);
-      const x = endCoord.x - startCoord.x;
-      const y = endCoord.y - startCoord.y;
-      element.style.transform = `translate(${x}px,${y}px)`;
+    const isBaneCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.baneCard &&
+        kingdom.value.supply.baneCard.id == supplyCard.id;
     }
-  }
-
-  private cancelActiveAnimations() {
-    for (let animation of this.activeAnimations) {
-      animation.kill();	
+    const isFerrymanCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.ferrymanCard &&
+        kingdom.value.supply.ferrymanCard.id == supplyCard.id;
+    };
+    const isObeliskCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.obeliskCard &&
+        kingdom.value.supply.obeliskCard.id == supplyCard.id;
     }
-    this.activeAnimations.clear();
-  }
-
-  private animateSupplyCardSort() {
-    const sortedCards = SupplyCardSorter.sort(this.supplyCards.concat(), this.sortOption, this.$t.bind(this));
-    const descriptors = this.createMoveDescriptors(sortedCards);
-    const newMapping: Map<number, number> = new Map();
-
-    for (let descriptor of descriptors) {
-      const element = this.getSupplyCardElement(descriptor.elementIndex);
-      const startCoord = this.getPositionForElementIndex(descriptor.elementIndex);
-      const endCoord = this.getPositionForElementIndex(descriptor.newVisualIndex);
-      const x = endCoord.x - startCoord.x;
-      const y = endCoord.y - startCoord.y;
-      const tweenLite =
-           gsap.to(element, {duration: ANIMATION_DURATION_SEC,
-             transform: `translate(${x}px,${y}px)`,
-             ease: Sine.easeInOut,
-             onComplete: function() { 
-                tweenLite.kill
-                return;
-                }
-             }
-           ) as TweenLite;
-
-      this.activeAnimations.add(tweenLite);
-      newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
+    const isMouseWayCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.mouseWay &&
+        kingdom.value.supply.mouseWay.id == supplyCard.id;
     }
-    this.elementIndexMapping = newMapping;
-  }
 
-  private createMoveDescriptors(sortedSupplyCards: SupplyCard[]) {
-    const cardIds = this.supplyCards.map((card) => card.id);
-    const descriptors: MoveDescriptor[] = [];
-    for (let newVisualIndex = 0; newVisualIndex < sortedSupplyCards.length; newVisualIndex++) {
-      descriptors.push({
-        newVisualIndex: newVisualIndex,
-        elementIndex: cardIds.indexOf(sortedSupplyCards[newVisualIndex].id),
-      });
+    const isTraitsCard = (supplyCard: SupplyCard, index: number) => {
+      return kingdom.value.supply.traitsSupply[index]  &&
+      kingdom.value.supply.traitsSupply[index].id == supplyCard.id;
     }
-    return descriptors;
-  }
 
-  private getPositionForElementIndex(index: number): Coordinate {
-    const container = this.getSupplyCardContainers()[index];
-    return {x: container.offsetLeft, y: container.offsetTop};
-  }
+    const traitsTitle = (index: number) => {
+      return "trait#"+ kingdom.value.traits[index].id;
+    }
 
-  private getSupplyCardElement(index: number) {
-    return this.getSupplyCardContainers()[index].firstChild! as HTMLElement;
-  }
+    const handleSpecify = (supplyCard: SupplyCard) => {
+      randomizerStore.UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD(supplyCard);
+    }
+    const handleSupplyCardFlippingToBack = (supplyCard: SupplyCard) => {
+      numberOfSupplyCardsLoading += 1;
+    }
 
-  private getSupplyCardContainers() {
-    return this.$el.querySelectorAll(".grid-layout_item") as NodeListOf<HTMLElement>;
-  }
+    const handleSupplyCardFrontVisible = (supplyCard: SupplyCard) => {
+      numberOfSupplyCardsLoading -= 1;
+      attemptToAnimateSupplyCardSort();
+    }
 
-  private getElementIndex(visualIndex: number) {
-    return this.elementIndexMapping.has(visualIndex) 
-        ? this.elementIndexMapping.get(visualIndex)!
-        : visualIndex;
-  }
+    const handleReplace = (supplyCard: SupplyCard) => {
+      replacingCard = supplyCard;
+    }
 
-  private static replaceSupplyCards(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
-    const supplyCards: SupplyCard[] = [];
-    const supplyCardsToAdd = SortableSupplyCards.getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
-    const oldIds = SortableSupplyCards.getOldIds(oldSupplyCards, newSupplyCards);
-    let supplyCardsToAddIndex = 0;
-    for (let i = 0; i < oldSupplyCards.length; i++) {
-      const supplyCard = oldSupplyCards[i];
-      if (oldIds.has(supplyCard.id)) {
-        supplyCards.push(supplyCardsToAdd[supplyCardsToAddIndex]);
-        supplyCardsToAddIndex += 1;
-      } else {
-        supplyCards.push(supplyCard);
+    const updateActiveSupplyCards = () => {
+      if (!kingdom.value) {
+        return;
+      }
+      if (kingdomId == kingdom.value.id && kingdomId != 0) {
+        updateSupplyCards();
+        return;
+      }
+      kingdomId = kingdom.value.id;
+      const sortedSupplyCards =
+        SupplyCardSorter.sort(kingdom.value.supply.supplyCards.concat(), sortOption.value, t);
+
+      // Remap the sorted supply cards to where the elements currently reside.
+      const mappedSupplyCards = [];
+      for (let i = 0; i < sortedSupplyCards.length; i++) {
+        mappedSupplyCards[getElementIndex(i)] = sortedSupplyCards[i];
+      }
+      supplyCards.value = mappedSupplyCards;
+    }
+
+    const updateSupplyCards = () => {
+      requiresSupplyCardSort = true;
+      supplyCards.value = replaceSupplyCards(
+        supplyCards.value, kingdom.value.supply.supplyCards);
+    }
+
+    const attemptToAnimateSupplyCardSort = () => {
+      if (numberOfSupplyCardsLoading > 0 || !requiresSupplyCardSort) {
+        return;
+      }
+      requiresSupplyCardSort = false;
+      cancelActiveAnimations();
+      animateSupplyCardSort();
+    }
+
+    const resetCardPositions = () => {
+      for (let visualIndex = 0; visualIndex < supplyCards.value.length; visualIndex++) {
+        const elementIndex = getElementIndex(visualIndex);
+        const element = getSupplyCardElement(elementIndex);
+        const startCoord = getPositionForElementIndex(elementIndex);
+        const endCoord = getPositionForElementIndex(visualIndex);
+        const x = endCoord.x - startCoord.x;
+        const y = endCoord.y - startCoord.y;
+        // element.style.transform = `translate(${x}px,${y}px)`;
+        const activeAnimation =
+          gsap.to(element, {
+            duration: ANIMATION_DURATION_SEC,
+            // transform: `translate(${x}px,${y}px)`,
+            x: x, // just use x/y instead of transform because they're faster and more clear
+            y: y, // transform because they're faster and more clear
+            ease: Sine.easeInOut,
+            onComplete: function () {
+              activeAnimation.kill
+              return;
+            }
+          });
       }
     }
-    return supplyCards;
-  }
 
-  private static getSupplyCardsToAdd(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
-    const existingIds = new Set(oldSupplyCards.map((card) => card.id));
-    return newSupplyCards.filter((card) => !existingIds.has(card.id));
-  }
+    const cancelActiveAnimations = () => {
+      for (const animation of activeAnimations) {
+        animation.kill();
+      }
+      activeAnimations.clear();
+    }
 
-  private static getOldIds(oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) {
-    const newIds = new Set(newSupplyCards.map((card) => card.id));
-    return new Set(oldSupplyCards.filter((card) => !newIds.has(card.id)).map((card) => card.id));
+
+    const animateSupplyCardSort = () => {
+      const sortedCards = SupplyCardSorter.sort(supplyCards.value.concat(), sortOption.value, t);
+      const descriptors = createMoveDescriptors(sortedCards);
+      const newMapping: Map<number, number> = new Map();
+
+      for (let descriptor of descriptors) {
+        const element = getSupplyCardElement(descriptor.elementIndex);
+        const startCoord = getPositionForElementIndex(descriptor.elementIndex);
+        const endCoord = getPositionForElementIndex(descriptor.newVisualIndex);
+        const x = endCoord.x - startCoord.x;
+        const y = endCoord.y - startCoord.y;
+        let activeAnimation =
+          gsap.to(element, {
+            duration: ANIMATION_DURATION_SEC,
+            // transform: `translate(${x}px,${y}px)`,
+            x: x, // just use x/y instead of transform because they're faster and more clear
+            y: y, // transform because they're faster and more clear
+            ease: Sine.easeInOut,
+            onComplete: function () {
+              activeAnimation.kill
+              return;
+            }
+          });
+
+        activeAnimations.add(activeAnimation);
+        newMapping.set(descriptor.newVisualIndex, descriptor.elementIndex);
+        
+      }
+      elementIndexMapping = newMapping;
+    }
+
+    const createMoveDescriptors = (sortedSupplyCards: SupplyCard[]) => {
+      const cardIds = supplyCards.value.map((card) => card.id);
+      const descriptors: MoveDescriptor[] = [];
+      for (let newVisualIndex = 0; newVisualIndex < sortedSupplyCards.length; newVisualIndex++) {
+        descriptors.push({
+          newVisualIndex: newVisualIndex,
+          elementIndex: cardIds.indexOf(sortedSupplyCards[newVisualIndex].id),
+        });
+      }
+      return descriptors;
+    }
+
+    const getPositionForElementIndex = (index: number): Coordinate => {
+      const container = getSupplyCardContainers()[index];
+      return { x: container.offsetLeft, y: container.offsetTop };
+    }
+
+    const getSupplyCardElement = (index: number) => {
+      return getSupplyCardContainers()[index].firstElementChild! as HTMLElement;
+    }
+
+    const getSupplyCardContainers = () => {
+      return document.querySelectorAll(".grid-layout_item") as NodeListOf<HTMLElement>;
+    }
+
+    const getElementIndex = (visualIndex: number) => {
+      return elementIndexMapping.has(visualIndex)
+        ? elementIndexMapping.get(visualIndex)!
+        : visualIndex;
+    }
+
+    const replaceSupplyCards = (oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) => {
+      const supplyCards: SupplyCard[] = [];
+      const supplyCardsToAdd = getSupplyCardsToAdd(oldSupplyCards, newSupplyCards);
+      const oldIds = getOldIds(oldSupplyCards, newSupplyCards);
+      let supplyCardsToAddIndex = 0;
+      for (let i = 0; i < oldSupplyCards.length; i++) {
+        const supplyCard = oldSupplyCards[i];
+        if (oldIds.has(supplyCard.id)) {
+          supplyCards.push(supplyCardsToAdd[supplyCardsToAddIndex]);
+          supplyCardsToAddIndex += 1;
+        } else {
+          supplyCards.push(supplyCard);
+        }
+      }
+      return supplyCards;
+    }
+
+    const getSupplyCardsToAdd = (oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) => {
+      const existingIds = new Set(oldSupplyCards.map((card) => card.id));
+      return newSupplyCards.filter((card) => !existingIds.has(card.id));
+    }
+
+    const getOldIds = (oldSupplyCards: SupplyCard[], newSupplyCards: SupplyCard[]) => {
+      const newIds = new Set(newSupplyCards.map((card) => card.id));
+      return new Set(oldSupplyCards.filter((card) => !newIds.has(card.id)).map((card) => card.id));
+    }
+    return {
+      supplyCardsWithBaneFerrymanMouseWay,
+      numberOfColumns,
+      isEnlarged,
+      handleSupplyCardFrontVisible,
+      handleSupplyCardFlippingToBack,
+      isBaneCard,
+      isFerrymanCard,
+      isObeliskCard,
+      isMouseWayCard,
+      isTraitsCard,
+      traitsTitle,
+      handleSpecify
+    }
   }
-}
+})
 </script>
 
-<style>
+<style scoped>
 .kingdom-supply--is-enlarged .card-set-description .card-description {
   font-size: 16px !important;
+}
+
+.sortable-supply-card-copy-button {
+  margin-top: 0px;
 }
 </style>

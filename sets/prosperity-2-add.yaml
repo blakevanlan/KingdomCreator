@@ -1,0 +1,56 @@
+name: Prosperity - UpdatePack
+cards:
+  - name: Anvil
+    cost:
+      treasure: 3
+    isTreasure: true
+    isTrashing: true
+    
+  - name: Clerk
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isReaction: true
+
+  - name: Investment
+    cost:
+      treasure: 4
+    isTreasure: true
+    isTrashing: true
+
+  - name: Tiara
+    cost:
+      treasure: 4
+    isTreasure: true
+    isBuySupplier: true
+
+  - name: Charlatan
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    
+  - name: Collection
+    cost:
+      treasure: 5
+    isTreasure: true
+    isBuySupplier: true
+
+  - name: Crystal Ball
+    cost:
+      treasure: 5
+    isTreasure: true
+    isTrashing: true
+    
+  - name: Magnate
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+    isMultiDrawer: true
+
+  - name: War Chest
+    cost:
+      treasure: 5
+    isTreasure: true

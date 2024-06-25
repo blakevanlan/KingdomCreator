@@ -1,5 +1,5 @@
-import {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivision} from "./supply-division";
+import type {SupplyCard} from "../dominion/supply-card";
+import type {SupplyDivision} from "./supply-division";
 
 export interface SupplyCorrection {
   isSatisfied(divisions: SupplyDivision[]): boolean;

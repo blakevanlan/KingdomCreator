@@ -7,29 +7,55 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+/* import Vue, typescript */
+import { defineComponent, computed ,watch} from "vue";
+import type { PropType } from "vue";
+
+/* import Dominion Objects and type*/
+/* import store  */
+/* import Components */
 
 export enum Shape {
   CARD = "grid-layout_item--card",
   SQUARE = "grid-layout_item--square",
+  SMALLSQUARE = "grid-layout_item--smallsquare",
 }
 
-@Component
-export default class GridLayout extends Vue {
-  @Prop() readonly items!: any[];
-  @Prop() readonly numberOfColumns!: number;
-  @Prop() readonly isVertical!: boolean;
-  @Prop({ default: Shape.CARD }) readonly shape!: Shape;
-
-  get columnClasses() {
-    const columnClasses = ["", "one-column", "two-columns", "three-columns", "four-columns", "five-columns"];
-    const directionClass = this.isVertical ? "grid-layout--vertical" : "grid-layout--horizontal";
-    return [columnClasses[this.numberOfColumns], directionClass];
+export default defineComponent({
+  name: "GridLayout",
+  props: {
+    items: {
+      type: Array as PropType<any[]>,
+      required: true,
+    },
+    numberOfColumns: {
+      type: Number,
+      required: true,
+    },
+    isVertical: {
+      type: Boolean,
+      default: false,
+    },
+    shape: {
+      type: String as PropType<Shape>,
+      default: Shape.CARD,
+    },
+  },
+  setup(props){
+    let columnClasses = computed(() => {
+      const columnClasses = ["", "one-column", "two-columns", "three-columns", "four-columns", "five-columns"];
+      const directionClass = props.isVertical ? "grid-layout--vertical" : "grid-layout--horizontal";
+      return [columnClasses[props.numberOfColumns], directionClass];
+    });
+  
+    return {
+      columnClasses
+    };
   }
-}
+});
 </script>
 
-<style>
+<style scoped>
 .grid-layout {
   display: flex;
   flex-direction: row;
@@ -93,6 +119,18 @@ export default class GridLayout extends Vue {
   margin: 0 0.1% 4px 0.1%;
 }
 
+.five-columns .grid-layout_item--square {
+  flex-basis: 19.5%;;
+  padding-bottom: 19.5%;; /* 19.5 * (500 / 500) */
+  margin: 0.25%;
+}
+
+.four-columns .grid-layout_item--square {
+  flex-basis: 24.2%;
+  padding-bottom: 24.2%; /* 24.2 * (500 / 500) */
+  margin: 0.4%;
+}
+
 .three-columns .grid-layout_item--square {
   flex-basis: 31.73333%;
   padding-bottom: 31.73333%; /* 31.73333 * (500 / 500) */
@@ -110,6 +148,13 @@ export default class GridLayout extends Vue {
   flex-basis: 95%;
   padding-bottom: 95%;; /* 49.25 * (500 / 500) */
   margin: 2%;
+}
+
+.three-columns .grid-layout_item--smallsquare {
+  flex-basis: 12.5%;
+  padding-bottom: 12.5%; /* 19.5 * (500 / 500) */
+  margin: 0.25%;
+  
 }
 
 </style>

@@ -1,25 +1,37 @@
 <template>
   <div class="sidebar">
     <a class="standard-button standard-button--is-primary standard-button--large desktop_randomize-button"
-      v-if="!isCondensed"
-      @click="handleRandomize"
-    >
+      v-if="!isCondensed" @click="handleRandomize">
       {{ $t(randomizeButtonText) }}
     </a>
     <div class="sidebar-content filters">
-      <div class="sidebar-content-title">{{$t("Sets")}}</div>
+      <div class="sidebar-content-title">
+        <span>{{ $t("Sets") }}</span>
+        <div class="sidebar-content-option">
+        <label class="checkbox sidebar-content-option">
+            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
+            @change="handleSetOrderTypeChange('alpha')" />
+            <span>{{ $t("Alphabetical") }}</span>
+        </label> 
+        <label class="checkbox sidebar-content-option" style="margin-left:10px;">
+            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
+            @change="handleSetOrderTypeChange('date')" />
+            <span>{{ $t("Date") }}</span>
+        </label>
+        </div>
+      </div>
       <div class="sets">
-        <div class="set" v-for="set in sets" :key="set.setId">
+        <div class="set" v-for="setId in setIds" :key="setId">
           <label class="checkbox">
-            <input type="checkbox" v-model="selectedSetIds" :id="set.setId" :value="set.setId">
-            <span>{{ $t(set.setId) }} <span v-if="FindMultipleVersionSets(set.setId).length !== 0"> - 1st</span></span>
+            <input type="checkbox" v-model="selectedSetIds" :id="setId" :value="setId">
+            <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
           </label>
-          <span v-if="FindMultipleVersionSets(set.setId).length !== 0">
-              <label class="checkbox suboption-set">
-                <input type="checkbox" v-model="selectedSetIds" 
-                     :id="(FindMultipleVersionSets(set.setId))[0].idv2" :value="(FindMultipleVersionSets(set.setId))[0].idv2">
-                <span>2nd</span>
-              </label>
+          <span v-if="FindMultipleVersionSets(setId).length !== 0">
+            <label class="checkbox suboption-set">
+              <input type="checkbox" v-model="selectedSetIds" :id="(FindMultipleVersionSets(setId))[0].idv2"
+                :value="(FindMultipleVersionSets(setId))[0].idv2">
+              <span>2nd</span>
+            </label>
           </span>
         </div>
       </div>
@@ -28,37 +40,37 @@
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireActionProvider">
-          <span>{{$t("Require +2 Action")}}</span>
+          <span>{{ $t("Require +2 Action") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireCardProvider">
-          <span>{{$t("Require Drawer")}}</span>
+          <span>{{ $t("Require Drawer") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireBuyProvider">
-          <span>{{$t("Require Buy")}}</span>
+          <span>{{ $t("Require Buy") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="allowAttacks">
-          <span>{{$t("Allow Attacks")}}</span>
+          <span>{{ $t("Allow Attacks") }}</span>
         </label>
         <div class="suboption">
-          <label class="checkbox" :class="{disable: !allowAttacks}">
+          <label class="checkbox" :class="{ disable: !allowAttacks }">
             <input type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
-            <span>{{$t("Require Reaction")}}</span>
+            <span>{{ $t("Require Reaction") }}</span>
           </label>
         </div>
       </div>
       <div class="option">
         <label class="checkbox">
           <input type="checkbox" v-model="requireTrashing">
-          <span>{{$t("Require Trashing")}}</span>
+          <span>{{ $t("Require Trashing") }}</span>
         </label>
       </div>
       <div class="option" v-if="isAlchemySelected">
@@ -70,16 +82,16 @@
       <div class="option" v-if="isDistributeCostAllowed">
         <label class="checkbox">
           <input type="checkbox" v-model="distributeCost">
-          <span>{{$t("Distribute Cost")}}</span>
+          <span>{{ $t("Distribute Cost") }}</span>
         </label>
       </div>
       <div class="option" v-if="isPrioritizeSetAllowed">
         <label class="checkbox">
           <input type="checkbox" v-model="isPrioritizeSetEnabled">
-          <span>{{$t("Prioritize Set")}}</span>
+          <span>{{ $t("Prioritize Set") }}</span>
         </label>
         <div class="suboption">
-          <select :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
+          <select aria-label="prioritizeSet" :disabled="!isPrioritizeSetEnabled" v-model="prioritizeSet">
             <option v-if="prioritizeSet == null" :value="null">{{ $t("Choose set") }}</option>
             <option v-for="setId in selectedSetIds" :value="setId" :key="setId">
               {{ getSetName(setId) }}
@@ -95,9 +107,7 @@
         </label>
       </div>
       <a class="standard-button standard-button--is-primary standard-button--large condensed_randomize-button"
-        v-if="isCondensed"
-        @click="handleRandomize"
-      >
+        v-if="isCondensed" @click="handleRandomize">
         {{ $t(randomizeButtonText) }}
       </a>
     </div>
@@ -105,167 +115,185 @@
 </template>
 
 <script lang="ts">
-import { UPDATE_SETTINGS } from "../stores/randomizer/mutation-types";
+/* import Vue, typescript */
+import { defineComponent, ref, computed, watch } from "vue";
+import { useI18n } from 'vue-i18n'
+
+/* import Dominion Objects and type*/
 import { DominionSets } from "../dominion/dominion-sets";
-import { MultipleVersionSets, HideMultipleVersionSets } from "../dominion/set-id";
-import { Getter, State } from "vuex-class";
-import { SetId } from "../dominion/set-id";
-import { Vue, Component } from "vue-property-decorator";
-import { Settings, SettingsParams, SortOption } from "../settings/settings";
-import { RandomizerSettings, RandomizerSettingsParams } from "../settings/randomizer-settings";
+import { MultipleVersionSets, HideMultipleVersionSets, Sets_To_Ignore_Regroup } from "../dominion/set-id";
+import type { SetId } from "../dominion/set-id";
+import { Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
 
-const SETS_TO_IGNORE = new Set([SetId.GUILDSCORNUCOPIA]);
+/* imoprt store  */
+import { useWindowStore } from "../pinia/window-store";
+import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useSetsStore } from '../pinia/sets-store';
 
-interface SortOptionParam {
-  value: SortOption,
-  display: string,
-}
+import type { SettingsParams } from "../settings/settings";
+import { SortOption } from "../settings/settings";
+import type { RandomizerSettingsParams, RandomizerSettingsParamsBoolean } from "../settings/randomizer-settings";
 
-@Component
-export default class RandomizerSidebar extends Vue {
-  @Getter("isCondensed") readonly isCondensed!: boolean;
-  @Getter("isDistributeCostAllowed") readonly isDistributeCostAllowed!: boolean;
-  @Getter("isPrioritizeSetAllowed") readonly isPrioritizeSetAllowed!: boolean;
-  @Getter("isAlchemySelected") readonly isAlchemySelected!: boolean;
-  @Getter("randomizeButtonText") readonly randomizeButtonText!: string;
-  @State(state => state.randomizer.settings) readonly settings!: Settings;
-  @State(state => state.randomizer.settings.randomizerSettings)
-      readonly randomizerSettings!: RandomizerSettings;
+/* import Components */
 
-  get sets() {
-    return DominionSets
-      .getAllSets()
-      .filter(s => !SETS_TO_IGNORE.has(s.setId))
-      .filter(set => {return (HideMultipleVersionSets.indexOf(set.setId) == -1)});
-  }
+export default defineComponent({
+  name: "RandomizerSidebar",
+  components: {
+  },
+  setup(props, { emit }) {
+    const { t } = useI18n();
+    const randomizerStore = useRandomizerStore()
+    const setsStore = useSetsStore()
+    const windowStore = useWindowStore()
+    const isCondensed = computed(() => { return windowStore.isCondensed });
+    const isDistributeCostAllowed = computed(() => { return randomizerStore.isDistributeCostAllowed });
+    const isPrioritizeSetAllowed = computed(() => { return randomizerStore.isPrioritizeSetAllowed });
+    const isAlchemySelected = computed(() => { return randomizerStore.isAlchemySelected });
+    const randomizeButtonText = computed(() => { return randomizerStore.randomizeButtonText });
+    const settings = computed(() => { return randomizerStore.settings });
+    const randomizerSettings = computed(() => { return randomizerStore.settings.randomizerSettings });
+    const setsOrderType = ref(setsStore.setsOrderType)
 
-  get selectedSetIds() {
-    return this.settings.selectedSets.concat().sort();
-  }
-  set selectedSetIds(values: string[]) {
-    // Clear the prioritized set if it's no longer selected.
-    if (!values.some(x => x == this.prioritizeSet)) {
-      this.updateRandomizerSettings({prioritizeSet: null});
+    const setIds = computed(() => { 
+        const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
+            .filter(setId => { return (HideMultipleVersionSets.indexOf(setId) == -1) })
+        const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
+            ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
+            : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))
+        return sortedSets;
+      }
+      );
+
+    const selectedSetIds = ref(settings.value.selectedSets);
+    watch(selectedSetIds, (values: string[]) => {
+      // Clear the prioritized set if it's no longer selected.
+      if (!values.some(x => x == prioritizeSet.value)) {
+        updateRandomizerSettings({ prioritizeSet: null });
+      }
+      randomizerStore.UPDATE_SETTINGS({
+        selectedSets: values.map(DominionSets.convertToSetId)
+      } as SettingsParams);
+    })
+
+    const FindMultipleVersionSets = (setValue: string) => {
+      return MultipleVersionSets.filter(set => { return (set.id === setValue) })
     }
-    this.$store.commit(UPDATE_SETTINGS, {
-      selectedSets: values.map(DominionSets.convertToSetId)
-    } as SettingsParams);
-  }
-  
-  FindMultipleVersionSets(setValue: string) {
-    return MultipleVersionSets.filter(set => {return (set.id===setValue)})
-  }
 
-  get requireActionProvider() {
-    return this.randomizerSettings.requireActionProvider;
-  }
-  set requireActionProvider(value: boolean) {
-    this.updateRandomizerSettings({requireActionProvider: value});
-  }
+    type SettingsObject = {
+      [key: string]: boolean;
+    }
 
-  get requireCardProvider() {
-    return this.randomizerSettings.requireCardProvider;
-  }
-  set requireCardProvider(value: boolean) {
-    this.updateRandomizerSettings({requireCardProvider: value});
-  }
-  
-  get requireBuyProvider() {
-    return this.randomizerSettings.requireBuyProvider;
-  }
-  set requireBuyProvider(value: boolean) {
-    this.updateRandomizerSettings({requireBuyProvider: value});
-  }
+    function createComputedSettingsObject(property: keyof RandomizerSettingsParamsBoolean) {
+      return computed<boolean>({
+        // Calcul de la propriété
+        get: (): boolean => randomizerSettings.value[property],
+        // Mise à jour de la propriété
+        set: (value: boolean) => {
+          const updateObject: SettingsObject = {};
+          updateObject[property] = value;
+          updateRandomizerSettings(updateObject);
+        }
+      });
+    }
 
-  get allowAttacks() {
-    return this.randomizerSettings.allowAttacks;
-  }
-  set allowAttacks(value: boolean) {
-    this.updateRandomizerSettings({allowAttacks: value});
-  }
-  
-  get requireReaction() {
-    return this.randomizerSettings.requireReaction;
-  }
-  set requireReaction(value: boolean) {
-    this.updateRandomizerSettings({requireReaction: value});
-  }
+    const requireActionProvider = createComputedSettingsObject('requireActionProvider');
+    const requireCardProvider = createComputedSettingsObject('requireCardProvider');
+    const requireBuyProvider = createComputedSettingsObject('requireBuyProvider');
+    const allowAttacks = createComputedSettingsObject('allowAttacks');
+    const requireReaction = createComputedSettingsObject('requireReaction');
+    const requireTrashing = createComputedSettingsObject('requireTrashing');
+    const distributeCost = createComputedSettingsObject('distributeCost');
 
-  get requireTrashing() {
-    return this.randomizerSettings.requireTrashing;
-  }
-  set requireTrashing(value: boolean) {
-    this.updateRandomizerSettings({requireTrashing: value});
-  }
+    // const prioritizeSet = createComputedSettingsObject('prioritizeSet');
 
-  get distributeCost() {
-    return this.randomizerSettings.distributeCost;
-  }
-  set distributeCost(value: boolean) {
-    this.updateRandomizerSettings({distributeCost: value});
-  }
+    const isAlchemyRecommendationEnabled = createComputedSettingsObject('isAlchemyRecommendationEnabled');
 
-  get isPrioritizeSetEnabled() {
-    return this.randomizerSettings.prioritizeSet != null;
-  }
-  set isPrioritizeSetEnabled(value: boolean) {
-    const setId = value && this.selectedSetIds.length
-        ? DominionSets.convertToSetId(this.selectedSetIds.concat().sort()[0])
-        : null;
-    this.updateRandomizerSettings({prioritizeSet: setId});
-  }
-
-  get prioritizeSet() {
-    return this.randomizerSettings.prioritizeSet;
-  }
-  set prioritizeSet(value: SetId | null) {
-    this.updateRandomizerSettings({prioritizeSet: value});
-  }
-
-  get isAlchemyRecommendationEnabled() {
-    return this.randomizerSettings.isAlchemyRecommendationEnabled;
-  }
-  set isAlchemyRecommendationEnabled(value: boolean) {
-    this.updateRandomizerSettings({isAlchemyRecommendationEnabled: value});
-  }
-
-  get sortOptions(): SortOptionParam[] {
-    return [
-      {display: "Set", value: SortOption.SET},
-      {display: "Alphabetical", value: SortOption.ALPHABETICAL},
-      {display: "Cost", value: SortOption.COST},
+    const sortOptions = [
+      { display: "Set", value: SortOption.SET },
+      { display: "Alphabetical", value: SortOption.ALPHABETICAL },
+      { display: "Cost", value: SortOption.COST },
     ];
-  }
 
-  get selectedSortOption() {
-    return this.settings.sortOption;
-  }
-  set selectedSortOption(sortOption: SortOption) {
-    this.$store.commit(UPDATE_SETTINGS, {sortOption: sortOption} as SettingsParams);
-  }
+    const selectedSortOption = computed({
+      get: () => settings.value.sortOption,
+      set: (sortOption: SortOption) => {
+        randomizerStore.UPDATE_SETTINGS({ sortOption: sortOption } as SettingsParams);
+      }
+    })
 
-  getSetName(setId: SetId) {
-    return DominionSets.getSetById(setId).name;
-  }
+    const prioritizeSet = computed({
+      get: () => randomizerSettings.value.prioritizeSet,
+      set: (value: SetId | null) => { updateRandomizerSettings({ prioritizeSet: value }) }
+    })
 
-  handleRandomize() {
-    this.$emit("randomize")
-  }
+    const isPrioritizeSetEnabled = computed({
+      get: () => { return randomizerSettings.value.prioritizeSet != null },
+      set: (value: boolean) => {
+        const setId = value && selectedSetIds.value.length
+          ? DominionSets.convertToSetId((selectedSetIds.value).concat().sort()[0])
+          : null;
+        updateRandomizerSettings({ prioritizeSet: setId });
+      }
+    })
 
-  private updateRandomizerSettings(params: RandomizerSettingsParams) {
-    this.$store.commit(UPDATE_SETTINGS, {
-      randomizerSettings: params
-    } as SettingsParams);
+    const getSetName = (setId: SetId) => {
+      return DominionSets.getSetById(setId).name;
+    }
+
+    const handleRandomize = () => {
+      emit("randomize")
+    }
+
+    const handleSetOrderTypeChange = (value: string) => {
+      setsStore.updateSetsOrderType(value);
+    };
+
+    const updateRandomizerSettings = (params: RandomizerSettingsParams) => {
+      randomizerStore.UPDATE_SETTINGS({
+        randomizerSettings: params
+      } as SettingsParams);
+    }
+
+    return {
+      randomizeButtonText,
+      handleRandomize,
+      handleSetOrderTypeChange,
+      isCondensed,
+      setIds,
+      selectedSetIds,
+      setsOrderType,
+      FindMultipleVersionSets,
+      requireActionProvider,
+      requireBuyProvider,
+      requireCardProvider,
+      requireReaction,
+      requireTrashing,
+      allowAttacks,
+      prioritizeSet,
+      isPrioritizeSetAllowed,
+      isPrioritizeSetEnabled,
+      selectedSortOption,
+      sortOptions,
+      distributeCost,
+      isDistributeCostAllowed,
+      isAlchemySelected,
+      isAlchemyRecommendationEnabled,
+      getSetName,
+      updateRandomizerSettings,
+
+    }
   }
-}
+})
 </script>
 
-<style>
+<style scoped>
 .desktop_randomize-button,
 .condensed_randomize-button {
   display: block;
   margin: 2px;
 }
+
 .condensed_randomize-button {
   margin-top: 12px;
 }

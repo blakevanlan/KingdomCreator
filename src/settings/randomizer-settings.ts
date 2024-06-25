@@ -1,5 +1,5 @@
 import {DominionSets} from "../dominion/dominion-sets";
-import {SetId} from "../dominion/set-id";
+import type {SetId} from "../dominion/set-id";
 
 export interface RandomizerSettingsParams {
   requireActionProvider?: boolean;
@@ -10,6 +10,17 @@ export interface RandomizerSettingsParams {
   requireTrashing?: boolean;
   distributeCost?: boolean;
   prioritizeSet?: SetId | null;
+  isAlchemyRecommendationEnabled?: boolean;
+}
+
+export interface RandomizerSettingsParamsBoolean {
+  requireActionProvider?: boolean;
+  requireCardProvider?: boolean;
+  requireBuyProvider?: boolean;
+  allowAttacks?: boolean;
+  requireReaction?: boolean;
+  requireTrashing?: boolean;
+  distributeCost?: boolean;
   isAlchemyRecommendationEnabled?: boolean;
 }
 

@@ -307,4 +307,9 @@ cards:
     isTrashing: false
     isReaction: false
     isDuration: true
-    
+
+othercards:
+  - name: Island_mat
+    type: Mat Vertical
+  - name: Native_Village_mat
+    type: Mat Vertical

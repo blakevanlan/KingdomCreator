@@ -647,3 +647,95 @@ boons:
   - name: The Sun's Gift
   - name: The Swamp's Gift
   - name: The Wind's Gift
+
+othercards:
+  - name: Haunted Mirror
+    type: Heirloom - Treasure
+  - name: Magic Lamp
+    type: Heirloom - Treasure
+  - name: Goat
+    type: Heirloom - Treasure
+    cost:
+      treasure: 2
+  - name: Pasture
+    type: Heirloom - Treasure - Victory
+    cost:
+      treasure: 2
+  - name: Pouch
+    type: Heirloom - Treasure
+    cost:
+      treasure: 2
+  - name: Cursed Gold
+    type: Heirloom - Treasure
+    cost:
+      treasure: 4
+  - name: Lucky Coin
+    type: Heirloom - Treasure
+    cost:
+      treasure: 4
+
+
+  - name: Will-o'-Wisp
+    type: Action - Spirit - Non-Supply Cards
+  - name: Wish
+    type: Action - Non-Supply Cards
+  - name: Bat
+    type: Night - Non-Supply Cards
+    cost:
+      treasure: 2
+  - name: Imp
+    type: Action - Spirit - Non-Supply Cards
+    cost:
+      treasure: 2
+  - name: Zombie Apprentice
+    type: Action - Zombie - Non-Supply Cards
+    cost:
+      treasure: 3
+  - name: Zombie Mason
+    type: Action - Zombie - Non-Supply Cards
+    cost:
+      treasure: 3
+  - name: Zombie Spy
+    type: Action - Zombie - Non-Supply Cards
+    cost:
+      treasure: 3
+  - name: Ghost
+    type: Night - Duration - Spirit - Non-Supply Cards
+    cost:
+      treasure: 4
+
+  - name: Bad Omens
+    type: Hexes
+  - name: Delusion
+    type: Hexes
+  - name: Envy
+    type: Hexes
+  - name: Famine
+    type: Hexes
+  - name: Fear
+    type: Hexes
+  - name: Greed
+    type: Hexes
+  - name: Haunting
+    type: Hexes
+  - name: Locusts
+    type: Hexes
+  - name: Misery
+    type: Hexes
+  - name: Plague
+    type: Hexes
+  - name: Poverty
+    type: Hexes
+  - name: War
+    type: Hexes
+
+  - name: Deluded
+    type: States
+  - name: Envious
+    type: States
+  - name: Miserable
+    type: States
+  - name: Twice Miserable
+    type: States
+  - name: Lost in the Woods
+    type: States
