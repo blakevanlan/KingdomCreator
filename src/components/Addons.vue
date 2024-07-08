@@ -55,7 +55,7 @@ export default defineComponent({
     const canHaveLandmarks = computed(() => randomizerStore.canHaveLandmarks);
     const canHaveProjects = computed(() => randomizerStore.canHaveProjects);
     const canHaveWays = computed(() => randomizerStore.canHaveWays);
-    const canHaveTraits = computed(() => randomizerStore.canHaveWays);
+    const canHaveTraits = computed(() => randomizerStore.canHaveTraits);
     const activeContainers = ref<AddonContainer[]>([]);
 
     const numberOfColumns = computed(() => {

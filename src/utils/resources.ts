@@ -6,7 +6,8 @@ import { DominionSets } from "../dominion/dominion-sets";
 const IMAGE_PREFEX = "/img/cards";
 const BOXES_IMAGE_PREFEX = "/img/boxes";
 const RULE_PDF_PREFEX = "/rules";
-const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
+//const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
+const PNG_SET_IMAGES = new Set(["undefined"]);
 
 export function getCardImageUrl(cardId: string, language: Language) {
   const SetName = cardId.split('_', 2);
@@ -73,6 +74,7 @@ export function getSetImageUrl(setId: string, language: Locale) {
   const ext = PNG_SET_IMAGES.has(setId) ? "png" : "jpg";
   switch (language) {
     case Language.FRENCH:
+    case Language.GERMAN:
       return `${BOXES_IMAGE_PREFEX}.${language}/${setId}.${ext}`;
     default:
       return `${BOXES_IMAGE_PREFEX}/${setId}.${ext}`;
@@ -82,6 +84,7 @@ export function getSetImageUrl(setId: string, language: Locale) {
 export function getRulebookUrl(setId: string, language: Locale) {
   switch (language) {
     case Language.FRENCH:
+    case Language.GERMAN:
       return `${RULE_PDF_PREFEX}.${language}/${setId}.pdf`;
     default:
       return `${RULE_PDF_PREFEX}/${setId}.pdf`;

@@ -11,7 +11,6 @@ import { DominionSets } from "../dominion/dominion-sets";
 import type { SupplyCard } from "../dominion/supply-card";
 import type { Addon } from "../dominion/addon";
 import type { Selection } from "./selection";
-import { isObjectBindingPattern } from "typescript";
 
 export const MIN_SETS_FOR_PRIORITIZE_OPTION = 3;
 export const MIN_CARDS_FOR_DISTRIBUTE_COST = 24;
@@ -25,8 +24,8 @@ export interface randomizerStoreState {
 }
 
 export function randomizeSelectedCards(context: randomizerStoreState): Supply | null {
-  console.log("randomizeSelectedCards")
-  console.log(context)
+  //console.log("randomizeSelectedCards")
+  //console.log(context)
   const excludeCardIds = getSelectedSupplyCards(context).map((card) => card.id);
   const isBaneSelected = isBaneCardSelected(context);
   const isFerrymanSelected = isFerrymanCardSelected(context);

@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
-import { fileURLToPath, URL } from 'node:url'
-import fs from 'fs';
 import path from 'path';
+import packageJson from './package.json';
+
+
+//import VueDevTools from 'vite-plugin-vue-devtools'
+//import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 import vue from '@vitejs/plugin-vue';
-import VueDevTools from 'vite-plugin-vue-devtools'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import rollupDel from 'rollup-plugin-delete';
 
 import { DominionContentGenerate, HandleLocaleGenerateAndMerge } from './plugins/vite-dominion-content';
@@ -17,21 +18,31 @@ export default defineConfig( ({ mode}) => {
 //console.log(process.argv)
   if (mode === "production" || mode === "development") {
    // mergeJSONLanguageFiles();
-    DominionContentGenerate();
-    const sourceFile = './styles/normalize-v8.css';
+    DominionContentGenerate('docs');
+/*     const sourceFile = './styles/normalize-v8.css';
     const destinationFile = './docs/normalize.css';
     fs.copyFile(sourceFile, destinationFile, () => {
       console.log(`Le fichier a été copié avec succès de ${sourceFile} vers ${destinationFile}`);
-    })
+    }) */
     let ArgGenLocale = "Merge"
     if (process.argv.slice(3)[0] == "Gen") {
         ArgGenLocale = "Gen&Merge"
     }
-    HandleLocaleGenerateAndMerge(ArgGenLocale)
+    HandleLocaleGenerateAndMerge(ArgGenLocale, 'docs')
   }
 
   return {
     appType: 'spa',
+    publicDir: 'false',
+    /*
+    Do not use publicDir feature to avoid duplcation of all image and pdf files.
+    */
+    define: {
+      'Pkgejson_Version': JSON.stringify(packageJson.version),
+      'Pkgejson_Name': JSON.stringify(packageJson.name),
+      'Pkgejson_URL': JSON.stringify(packageJson.repository.url),
+      'Pkgejson_Date': JSON.stringify(new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'numeric' }))
+    },
     plugins: [
       vue(),
       //VueDevTools(),
@@ -46,20 +57,20 @@ export default defineConfig( ({ mode}) => {
         targets: ['docs/*',
           '!docs/rules',
           '!docs/rules.fr',
+          '!docs/rules.de',
           '!docs/img',
           '!docs/favicon.ico',
           '!docs/dominion-content.js',
-          '!docs/normalize.css',
           '!docs/locales',
           '!docs/locales/??.json',
           '!docs/CNAME',
           '!docs/ads.txt'],
         verbose: false
-      }),
-      viteStaticCopy({
-        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/' },
-            { src: 'docs/normalize.css', dest: 'assets/' } ]
-      }),
+      }), 
+      // viteStaticCopy({
+      //   targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/' },
+      //       /*{ src: 'docs/normalize.css', dest: 'assets/' } */ ]
+      // }),
     ],
     optimizeDeps: {
       include: ['vue', 'vue-i18n']
@@ -76,6 +87,7 @@ export default defineConfig( ({ mode}) => {
     build: {
       minify: false,
       outDir: 'docs',
+      // to avoid having an empty docs directory 
       emptyOutDir: false,
       sourcemap: false,
       chunkSizeWarningLimit: 2000,
@@ -88,9 +100,13 @@ export default defineConfig( ({ mode}) => {
       },
     },
     server: {
-      open: 'index.html',
+      open: '/',
       proxy: {
-        '/dominion-content': {
+        '^/$': {
+          target: 'http://localhost:' + devServerPort,
+          rewrite: (path) => '/index.html',
+        },
+        '/dominion-content.js': {
           target: 'http://localhost:' + devServerPort,
           rewrite: (path) => path.replace(/^\/dominion-content.js/, '/docs/dominion-content.js'),
         },
@@ -106,9 +122,9 @@ export default defineConfig( ({ mode}) => {
           target: 'http://localhost:' + devServerPort,
           rewrite: (path) => path.replace(/^\/img/, '/docs/img'),
         },
-        '/rules/': {
+        '/rules': {
           target: 'http://localhost:' + devServerPort,
-          rewrite: (path) => path.replace(/^\/rules/, '/docs/rules/'),
+          rewrite: (path) => path.replace(/^\/rules/, '/docs/rules'),
         },
         '/locales': {
           target: 'http://localhost:' + devServerPort,
@@ -118,22 +134,7 @@ export default defineConfig( ({ mode}) => {
           target: 'http://localhost:' + devServerPort,
           // rewrite: (path) => path.replace(/^\/?/, '/docs/index.html?'),
           rewrite: (path) => path.replace(/^\/?/, '/index.html?'),
-          configure: (proxy, _options) => {
-            proxy.on('error', (err, _req, _res) => {
-              console.log('proxy error', err);
-            });
-            proxy.on('proxyReq', (proxyReq, req, _res) => {
-              console.log('Sending Request to the Target:', req.method, req.url);
-            });
-            proxy.on('proxyRes', (proxyRes, req, _res) => {
-              console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
-            });
-          }
         },
-        '^/$': {
-          target: 'http://localhost:' + devServerPort,
-          rewrite: (path) => '/index.html?',
-        }
       },
     },
     preview: {

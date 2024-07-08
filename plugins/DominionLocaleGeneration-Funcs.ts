@@ -6,7 +6,7 @@ import { spawnSync } from 'child_process';
 const languages = ['fr', 'de', 'es', 'nl', 'pl']; // Liste des langues à fusionner
 const ProjectBaseDir = process.cwd();
 const languageSourceDir = 'src/i18n/locales'
-const languageDestDir = 'docs/locales'
+const languageDestDir = '/locales'
 
 // for function Convert_to_CSV
 const MessagesFileDir = 'process/resources'
@@ -54,7 +54,7 @@ function copyDirectory(sourcePath: string, destPath: string): void {
 }
 
 // Fonction pour merger des JSON dans un seul fichier JSON
-export function mergeJSONLanguageFiles() {
+export function mergeJSONLanguageFiles(destdir:string) {
   console.log("Merging locale Messages")
   for (const lang of languages) {
     // Chemins vers les répertoires contenant les fichiers JSON à fusionner
@@ -63,8 +63,8 @@ export function mergeJSONLanguageFiles() {
     //console.log(messagesDir)
 
     // Chemin vers le fichier de sortie
-    const outputFile = path.join(ProjectBaseDir, languageDestDir, `${lang}.json`);
-    testExistAndCreateDir(path.join(ProjectBaseDir, languageDestDir));
+    const outputFile = path.join(ProjectBaseDir, destdir, languageDestDir, `${lang}.json`);
+    testExistAndCreateDir(path.join(ProjectBaseDir, destdir, languageDestDir));
 
     // Fusionne tous les fichiers JSON dans le répertoire messagesDir
     const messagesFiles = fs.readdirSync(messagesDir)

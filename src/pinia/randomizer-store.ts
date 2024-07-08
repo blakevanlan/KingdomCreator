@@ -233,14 +233,14 @@ export const useRandomizerStore = defineStore(
         return;
       }
       const selectedCards = rA.getSelectedSupplyCards(this);
-      console.log("randomizing simple selectedCards", selectedCards)
-      console.log(this.kingdom.supply)
+      //console.log("randomizing simple selectedCards", selectedCards)
+      //console.log(this.kingdom.supply)
       const oldSupply = this.kingdom.supply;
       const newSupply = selectedCards.length
         ? rA.randomizeSelectedCards(this) || oldSupply
         : oldSupply;
-      console.log("newsupply", newSupply)
-      console.log(oldSupply)
+      //console.log("newsupply", newSupply)
+      //console.log(oldSupply)
       //if (oldSupply.mouseWay) newSupply.mouseWay= oldSupply.mouseWay
       const isAddonSelected =
       rA.getSelectedEvents(this).length ||
@@ -250,7 +250,7 @@ export const useRandomizerStore = defineStore(
       rA.getSelectedTraits(this).length;
 
       const newAddons = isAddonSelected ? rA.randomizeSelectedAddons(this) : null;
-      console.log("randomizing simple newAddons", newAddons)
+      //console.log("randomizing simple newAddons", newAddons)
 
       const newEvents = newAddons
         ? Cards.getAllEvents(newAddons).concat(rA.getUnselectedEvents(this))
@@ -274,11 +274,10 @@ export const useRandomizerStore = defineStore(
             projects: newProjects, ways: newWays, 
             allies: [], traits: newTraits 
           } as unknown as Addons;
-      console.log("at end", newSupply, this.kingdom, addonsForAdjustement)
+      //console.log("at end", newSupply, this.kingdom, addonsForAdjustement)
       const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(newSupply, 
             addonsForAdjustement, this.kingdom );
       console.log("RANDOMIZE end", adjustedSupplyCards)
-      console.log("Randomize done 4")
       EventTracker.trackEvent(EventType.RANDOMIZE);
       const kingdom = new Kingdom(
         this.kingdom.id, adjustedSupplyCards, newEvents, newLandmarks, newProjects,
@@ -308,7 +307,7 @@ export const useRandomizerStore = defineStore(
       try {
         EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM);
         const kingdom = Randomizer.createKingdom(options);
-        //console.log("RANDOMIZE_FULL_KINGDOM", kingdom)
+        console.log("RANDOMIZE_FULL_KINGDOM", kingdom)
         this.CLEAR_SELECTION();
         this.UPDATE_KINGDOM(kingdom);
       } catch (e) {
@@ -357,7 +356,7 @@ export const useRandomizerStore = defineStore(
           .setRequireTrashing(randomizerSettings.requireTrashing)
           .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
       }
-console.log("before Randomizer.createSupplySafe(optionsBuilder.build());")
+
       const supply = Randomizer.createSupplySafe(optionsBuilder.build());
       if (supply) {
         const oldKingdom = this.kingdom;

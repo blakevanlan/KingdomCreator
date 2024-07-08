@@ -68,9 +68,7 @@ export class Randomizer {
     const adjustedSupplyCards = this.adjustSupplyBasedOnAddons(supply, addons, 
       new Kingdom(0, new Supply([], null, null, null, null, [], Replacements.empty()),
           [], [], [], [], [], null, [], new KingdomMetadata(false, false)));
-    //console.log(adjustedSupplyCards)
     const metadata = this.getMetadata(randomizerOptions.setIds);
-    console.log("createKingdom", supply)
     return new Kingdom(
       Date.now(),          /* id: number,  */
       adjustedSupplyCards, /* supply: Supply, */
@@ -367,7 +365,6 @@ export class Randomizer {
       calculatedTraitsSupplyCard,   /* supply for traits */
       localReplacements
     )
-    //console.log(NewSupply)
     return NewSupply
   }
 

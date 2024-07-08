@@ -2,6 +2,7 @@
   "adventures": "Abenteuer",
   "alchemy": "Die Alchemisten",
   "allies": "Verbündete",
+  "baseset2add": "Dominion Updatepack",
   "baseset2": "Dominion II",
   "baseset": "Dominion",
   "cornucopia": "Reiche Ernte",
@@ -10,8 +11,11 @@
   "guilds": "Die Gilden",
   "guildscornucopia": "Die Gilden / Reiche Ernte",
   "guildscornucopia2": "Die Gilden / Reiche Ernte II",
+  "guildscornucopia2add": "Die Gilden / Reiche Ernte Updatepack",
   "hinterlands": "Hinterland",
   "hinterlands2": "Hinterland II",
+  "hinterlands2add": "Hinterland Updatepack",
+  "intrigue2add": "Die Intrige Updatepack",
   "intrigue2": "Die Intrige II",
   "intrigue": "Die Intrige",
   "menagerie": "Menagerie",
@@ -22,5 +26,7 @@
   "prosperity2": "Blütezeit II",
   "renaissance": "Renaissance",
   "seaside": "Seaside",
-  "seaside2": "Seaside II"
+  "seaside2": "Seaside II",
+  "seaside2add": "Seaside Updatepack",
+  "plunder": "Plünderer"
 }

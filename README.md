@@ -6,23 +6,82 @@ Originately hosted at https://71yeti.fr.
 It is a kingdom randomizer, or card picker, for Dominion.
 As I became a maintainer for Kingdom Creator, https://www.dominionrandomizer.com might be at the same level.
 
-Feel free to make any improvements you see fit and send me a pull request!
+Feel free to propose any improvements you see fit and send me a pull request!
 
 ## Development
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
-This is a static site served through GitHub Pages. Check the `/docs` directory in `master` to see the source currently being served at https://71yeti.fr
-
+##### Rendering
+This is a static site.
+https://www.dominionrandomizer.com : served through GitHub Pages and deployed at each commit. Check the `/docs` directory in **master** to see the source currently being served.
+https://71yeti.fr: served at through my personal site. Check the `/docs` directory in **master** to see the source served.
 
 ##### Commands
-`npm run dev` - Run the development server with hot reloading at `localhost:8080`
+ npm run Gen  - build translation file locate at src/i18n/locales/messages/{lang} based on the translation maintained in 
+                Run the development server with hot reloading 
+`npm run dev` - Run the development server with hot reloading 
 
 `npm run build` - Builds the static site and outputs the assets in `/docs`
 
 `npm run preview` - Serves the build assets from `/docs` in case you want to check the built version
 
-#### Docker Container
+## Updates based on Dominion Expansion evolutions
+Following new updates on http://wiki.dominionstrategy.com some adjustements need to be made.
 
+### To add a new set
+#### build set file
+The first step is to create the "setname".yaml file based on models located at `/sets`
+Remember that entries with false are nonmandatory.
+Add all cards to allow correct box content display
+
+#### get images
+To get images from dominionstrategy.com
+ - Add a type if needed. You will need to code a bit.
+   This might occur in file `./process/get_ CardImage_linkForAtrwork_Illustrator.js`
+   in function: getCards()
+   and in file `./process/resize.js`
+   in function: isHorizontal()
+
+You will be guided thru the type of info, the set and cards selection.
+
+to execute `cd process` run `node get_ CardImage_linkForAtrwork_Illustrator.js`
+Images will be created for english version at `process/processed/docs/img/cards/setname`
+You will need to move them to `/public/img/cards/setname`
+
+#### add translations
+if the file `process\ressources\Pages.xlsx` add all the netries for the cards to translate.
+
+The Cards translation generation is included in `npm run Gen` command
+
+The translataion source is Pages.xlsx for all the expansions.
+it generates a csv file: `./resources/pages.csv` in `process` folder
+It will create for each language defined at line 2 of page.csv, files in 
+`./src/i18n/messages/${lang}` for dominionrandomizer pages and
+a file per set in `./src/i18n/messages/${lang}/cards` with card name translation for this set.
+
+The feature can be use standalone with `cd process` and run `node Build-translation-pages.js`
+the generated files will be located in `/process/processed/src/i18n/messages/${lang}` for dominionrandomizer pages and
+a file per set in `/process/processed/src/i18n/messages/${lang}/cards` with card name translation for this set.
+
+#### Build kingdoms
+To build kingdom file related to an expansion use
+`cd process` run `node GenerateKigndom.js`
+with in file GenerateKigndom.js
+add the string variable contaning the kingdom list 
+example : 
+```
+Kingdoms["alchemy"] = [
+  "Forbidden Arts: Apprentice, Familiar, Possession, University, Cellar, Council Room, Gardens, Laboratory, Thief, Throne Room",
+  ...
+  "Pools, Tools, and Fools: Apothecary, Apprentice, Golem, Scrying Pool, Baron, Coppersmith, Ironworks, Nobles, Trading Post,  Wishing Well",
+];
+strings = ["Introduction: Cartographer, Crossroads, Develop, Jack of all Trades, Margrave, Nomads, Oasis, Spice Merchant, Stables, Weaver"]
+```
+
+
+### Old features - stil uselful ?
+
+##### Docker Container - This was possible with webpack serving. It should still be working.
 Dominion Randomizer can also be served from a Docker container with the
 following commands:
 
@@ -40,72 +99,12 @@ $ sudo docker run \
     --name="kingdom_creator" \
     --publish="9999:80" \
     --volume="$(pwd)/docs://usr/share/nginx/html:ro" \
-    "kingdom_creator:latest"
+    "kingdom_creator:latest" 
 ```
-
-###### To add a new set
-
-to get images from dominionstrategy.com
- - Add a type if needed. You will need to code a bit.
-   This might occur in file `./process/download.js`
-
-you need to set in `download.js` the type of image card or ste you want to get
-this is here in term of code
-
-    //processAllSets();  // to process all known sets
-    //getAllImages(getCards(sets.plunder)); // to process 1 set 
-    getImage(sets.plunder.cards.filter(card => card.name == "Cage")[0]) // to process 1 card
-
-to execute 
-    `cd process`
-run `node download.js`
-Images will be created for english version.
-
-to build kingdom file related to an expansion use
-`coffee kigndom.coffee`
-with in file kingdom.coffee
-string variable set with kingdom list 
-strings = ["Introduction: Cartographer, Crossroads, Develop, Jack of all Trades, Margrave, Nomads, Oasis, Spice Merchant, Stables, Weaver"]
-
-###### Cards translation generation
-functionnality included in `npm run Gen`
-== Active ==
-to generate new translation files in process directory 
-`cd process`
-Use `node Build-translation-pages.js`
-The source is 1 file for all the expansions
-patern is `./resources/pages.csv` in `process` folder
-It will create for each language defined at line 2 of page.csv, files in 
-`./processed/src/i18n/messages/${lang}` for dominionrandomizer pages and
-a file per set in `./processed/src/i18n/messages/${lang}/cards` with card name translation for this set.
-
-To use copy folder form `./processed` to root directory
-
-== Deprecated ==
-to translate cards in process directory 
-Use `node extract-card-names.js`
-to create `src\i18n\messages\cards.${lang}.json` with card name translation
-The source is 1 file for all the expansions
-patern is `./process/resources/cards_translations.csv`
-
-== Deprecated ==
-to translate cards in process directory 
-Use `node extract-card-names-concat.js`
-to create `src\i18n\messages\cards.${lang}.json` with card name translation
-The source is 1 file for each expansion
-pattern is `./process/resources/cards_translations - ${expansion}.csv`
-
-== Deprecated ==
-to translate set name in process directory 
-Use `node extract-set-names.js`
-to create `src\i18n\messages\sets.{lang}.json` with card name translation
-The source is 1 file for all the expansions
-patern is `./process/resources/sets_name.csv`
 
 
 ### Personnal full set-up
 
-# Install globally to execute .coffee files anywhere:
-npm install --global coffeescript
-# npm-check-updates upgrades your package.json dependencies to the latest versions, ignoring specified versions.
-npm install -global npm-check-updates
+##### npm-check-updates 
+to upgrades your package.json dependencies to the latest versions, ignoring specified versions.
+`npm install -global npm-check-updates`

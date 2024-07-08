@@ -24,16 +24,17 @@
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
-    "vue": "^3.4.29",
+    "vue": "^3.4.31",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
+    "@inquirer/prompts": "^5.1.2",
     "@intlify/unplugin-vue-i18n": "^4.0.0",
     "@types/google.analytics": "^0.0.46",
     "@types/js-cookie": "^3.0.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.14.7",
+    "@types/node": "^20.14.10",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/tsconfig": "^0.5.1",
     "axios": "^1.7.2",
@@ -43,11 +44,11 @@
     "sharp": "^0.33.4",
     "stylus": "^0.63.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2",
-    "vite": "^5.3.1",
-    "vite-plugin-static-copy": "^1.0.5",
-    "vite-plugin-vue-devtools": "^7.3.3",
-    "vue-tsc": "^2.0.21",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
+    "vite-plugin-static-copy": "^1.0.6",
+    "vite-plugin-vue-devtools": "^7.3.5",
+    "vue-tsc": "^2.0.26",
     "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
   }
 }

@@ -171,7 +171,8 @@ export default defineComponent({
       // console.log(Cards_list.filter(card =>
       //   props.set.otherCards.some(function (item) { return ((setName == item.setId) && (item.shortId == card.id)); })));
       let LocalTemp_CardsList: DigitalCard[] = Cards_list;
-      if (setName == getCardSetById(Work_Card)) {
+
+      if ( Work_Card.id !="" && setName == getCardSetById(Work_Card)) {
         LocalTemp_CardsList = Cards_list.filter(card => card.id == Work_Card.id)
         return LocalTemp_CardsList;
       }

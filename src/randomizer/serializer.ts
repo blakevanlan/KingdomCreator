@@ -158,12 +158,19 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   if (mouseWayCardIds.length) {
     mouseWayCard = findByIds(mouseWayCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
   }
-  const traits = 
-      findByIds(traitIds, DominionSets.getTraitById, "trait_", selectedSets)
+
+  const traits =  /* transform pious(masterpiece) => pious */
+      findByIds(traitIds.map((traitId) => traitId.replace(/\(.*\)/,''))
+        , DominionSets.getTraitById, "trait_", selectedSets)
           .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
+  const traitssupplyIds = traitIds.map((traitId) => { const match = traitId.match(/\((.*?)\)/);
+      return match ? match[1] : ''; });
+
+  const traitSupplyCards = /* transform pious(masterpiece) => masterpiece */
+      findByIds(traitssupplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, 2);
   const allies = findByIds(allyIds, DominionSets.getAllyById, "ally_", selectedSets).slice(0, 1);
   const boons = findByIds(boonIds, DominionSets.getBoonById, "boon_", selectedSets).slice(0, 3);
-  const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, [], Replacements.empty());
+  const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, traitSupplyCards, Replacements.empty());
 
   return new Kingdom(
                Date.now(),                                /* id: number,  */

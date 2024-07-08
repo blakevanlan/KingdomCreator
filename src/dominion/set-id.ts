@@ -41,7 +41,7 @@ export const Set_To_Ignore_Kingdoms =
 export const Sets_To_Ignore_Regroup = 
     new Set();
 
-export const Set_To_Ignore_Rules =
+const Set_To_Ignore_Rules_EN =
     new Set([ SetId.PROMOS,
               SetId.BASE_SET_2_ADD,
               SetId.INTRIGUE_2_ADD,
@@ -52,7 +52,7 @@ export const Set_To_Ignore_Rules =
               SetId.PERSONAL,
 ]);
 
-export const Set_To_Ignore_Rules_FR =
+const Set_To_Ignore_Rules_FR =
     new Set([ SetId.PROMOS,
               SetId.BASE_SET_2, 
               SetId.INTRIGUE_2,
@@ -68,6 +68,18 @@ export const Set_To_Ignore_Rules_FR =
               SetId.ALLIES,
               SetId.PLUNDER,
 ]);
+
+const Set_To_Ignore_Rules_DE =
+    new Set([ SetId.PROMOS,
+        SetId.GUILDSCORNUCOPIA,          
+        SetId.GUILDSCORNUCOPIA_2
+]);
+
+export const Set_To_Ignore_Rules = {
+    'en': Set_To_Ignore_Rules_EN,
+    'fr': Set_To_Ignore_Rules_FR,
+    'de': Set_To_Ignore_Rules_DE
+    };
 
 export interface VersionOfSet {
     readonly id: SetId,

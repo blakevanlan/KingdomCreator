@@ -58,14 +58,10 @@
         </div>
         <i18n-t scope="global" class="github-info" keypath="github_info" tag="div">
           <template #source>
-            <a href="https://github.com/blakevanlan/KingdomCreator">{{
-              $t("github_info_source")
-            }}</a>
+            <a :title="PackageDate + ' Release: ' + PackageVersion" :href="PackageURL">{{ $t("github_info_source") }}</a>
           </template>
           <template #issues>
-            <a href="https://github.com/blakevanlan/KingdomCreator/issues">{{
-              $t("github_info_issues")
-            }}</a>
+            <a :href="PackageURL +'issues'">{{ $t("github_info_issues") }}</a>
           </template>
         </i18n-t>
         <i18n-t scope="global" class="disclaimers-and-credit" keypath="disclaimers_and_credits" tag="div">
@@ -133,6 +129,7 @@ if (process.env.NODE_ENV == "development") {
   MENU_ITEMS.push(new LocalMenuItem(MenuItemType.CARDS, "Cards", "/cards"));
 }
 
+
 export default defineComponent({
   name: "Page",
   props: {
@@ -144,6 +141,9 @@ export default defineComponent({
     Menu, MenuButton, MenuItems, MenuItem
   },
   setup(props) {
+    const PackageVersion = Pkgejson_Version;
+    const PackageURL = Pkgejson_URL;
+    const PackageDate = Pkgejson_Date;
     const route = useRoute();
     const WindowStore = useWindowStore();
     const i18nStore = usei18nStore();
@@ -208,12 +208,17 @@ export default defineComponent({
       getLanguageLinkOptions,
       handleMenuClick,
       isMenuItemActive,
+      PackageVersion,
+      PackageURL,
+      PackageDate
     };
   },
 });
 </script>
 
 <style scoped>
+
+
 footer {
   border-top: 1px #ddd solid;
   font-family: 'Alegreya Sans', sans-serif;
@@ -299,4 +304,7 @@ footer {
   z-index: 10;
   outline-style: unset;
 }
+
+ 
+
 </style>
