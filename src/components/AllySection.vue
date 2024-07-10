@@ -36,9 +36,9 @@ export default defineComponent({
     const randomizerStore = useRandomizerStore();
     const windowStore = useWindowStore()
 
-    const ally = computed(() => {return randomizerStore.kingdom.ally});
-    const windowWidth = computed(() => {return windowStore.width});
-    const isEnlarged = computed(() => {return windowStore.isEnlarged});
+    const ally = computed(() => randomizerStore.kingdom.ally);
+    const windowWidth = computed(() => windowStore.width);
+    const isEnlarged = computed(() => windowStore.isEnlarged);
 
     const numberOfColumns = computed(() =>{
       // console.log("numberOfColumns",numberOfColumns)

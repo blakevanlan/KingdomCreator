@@ -8,6 +8,19 @@ As I became a maintainer for Kingdom Creator, https://www.dominionrandomizer.com
 
 Feel free to propose any improvements you see fit and send me a pull request!
 
+### Changelog
+2024/07/10 - 6.1.0
+New release
+  Fixing enlargde display for Addons, Boons, Allies
+
+2024/07/08 - 6.1.0
+New release
+  Fixing boon display
+
+2024/07/04 - 6.1.0
+New release
+  add German rules and box
+  add menu for new set tools
 ## Development
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 

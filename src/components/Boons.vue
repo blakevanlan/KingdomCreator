@@ -38,10 +38,10 @@ export default defineComponent({
   },
   setup() {
     const randomizerStore = useRandomizerStore();
-    const boons = computed(() => {return randomizerStore.kingdom.boons});
+    const boons = computed(() => randomizerStore.kingdom.boons);
     const windowStore = useWindowStore();
-    const windowWidth = ref(windowStore.width);
-    const isEnlarged = ref(windowStore.isEnlarged);
+    const isEnlarged = computed(() => windowStore.isEnlarged);
+    const windowWidth = computed(() => windowStore.width);
     const activeBoons = ref([] as Boon[]);
 
     const numberOfColumns = computed(() => {

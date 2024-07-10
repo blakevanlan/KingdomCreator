@@ -47,8 +47,8 @@ export default defineComponent({
     const windowStore = useWindowStore();
     const randomizerStore = useRandomizerStore();
 
-    const isEnlarged = ref(windowStore.isEnlarged);
-    const windowWidth = ref(windowStore.width);
+    const isEnlarged = computed(() => windowStore.isEnlarged);
+    const windowWidth = computed(() => windowStore.width);
     const addons = computed(() => randomizerStore.addons);
     const hasAddons = computed(() => randomizerStore.hasAddons);
     const canHaveEvents = computed(() => randomizerStore.canHaveEvents);
