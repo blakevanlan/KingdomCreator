@@ -49,7 +49,7 @@ export default defineComponent({
     const windowStore = useWindowStore();
     const randomizerStore = useRandomizerStore();
 
-    const metadata = ref(randomizerStore.kingdom.metadata);
+    const metadata = computed(() =>(randomizerStore.kingdom.metadata));
     const windowWidth = ref(windowStore.width);
     const isEnlarged = ref(windowStore.isEnlarged);
 
