@@ -1,13 +1,13 @@
 {
-  "author": "Gilles Gros",
-  "name": "kingdom-creator-blake",
+  "author": "Blake VanLandingham",
+  "name": "kingdom-creator",
   "license": "MIT",
   "version": "6.3.0",
   "private": true,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gillesgros/KingdomCreator-Blake"
+    "url": "https://github.com/blakevanlan/KingdomCreator"
   },
   "scripts": {
     "Gen": "vite -- Gen (to generate locale from XLSX to CSV, then build translation and vite)",

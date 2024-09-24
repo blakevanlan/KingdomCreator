@@ -65,10 +65,10 @@ function getRange(setid:string) {
 'Nocturne': [ 'A1229:C1328', 'A1364:C1409' ],
 'Renaissance': [ 'A1460:C1535' ],
 'Promo': [ 'A1610:C1652' ],
-'Ménagerie': [ 'A1655:C1748' ],
+'Menagerie': [ 'A1655:C1748' ],
 'Allies': [ 'A1949:C2114' ],
 'Plunder': [ 'A2183:C2348' ],
-'Guildscornucopia': [ 'A2438:C2450' ],
+'Guildscornucopia': [ 'A2438:C2480' ],
 
     // ... ajoutez les autres paires ici
     'setid10': ['range10']
