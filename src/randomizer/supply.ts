@@ -1,5 +1,6 @@
 import type {SupplyCard} from "../dominion/supply-card";
 import { Cards } from "../utils/cards";
+import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
 
 export class Supply {
   constructor(
@@ -10,7 +11,7 @@ export class Supply {
       readonly mouseWay: SupplyCard | null,
       readonly traitsSupply: SupplyCard[],
       readonly replacements: Replacements) {
-    if (supplyCards.length > 10) {
+    if (supplyCards.length > NUM_CARDS_IN_KINGDOM()) {
       throw new Error("Unable to create supply with more than 10 cards.");
     }
   }

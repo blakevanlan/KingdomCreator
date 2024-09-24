@@ -294,7 +294,7 @@ cards:
     isTrashing: false
     isReaction: false
 
-  - name: Jack of All Trades
+  - name: Jack of all Trades
     cost:
       treasure: 4
       potion: 0

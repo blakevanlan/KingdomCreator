@@ -5,6 +5,7 @@ import * as PageIndex from "./messages/en/page-index.en.json";
 import * as PageRules from "./messages/en/page-rules.en.json";
 import * as PageBoxes from "./messages/en/page-boxes.en.json";
 import * as PageSets from "./messages/en/page-sets.en.json";
+import * as PageSettings from "./messages/en/page-settings.en.json";
 
 function createCardMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};
@@ -31,6 +32,7 @@ export default {
   ...(PageIndex as any).default,
   ...(PageRules as any).default,
   ...(PageBoxes as any).default,
-  ...(PageSets as any).default
+  ...(PageSets as any).default,
+  ...(PageSettings as any).default
 };
 

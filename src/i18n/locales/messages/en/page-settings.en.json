@@ -1,0 +1,19 @@
+{
+  "settings_page_subtitle": "Customize your game experience",
+  "settings_subtitle_desksize": "Adjust settings for kingdom size, add-ons, and individual card types.",
+  "settings_subtitle_owned_sets": "Reduce display to only onwed sets",
+  "settings_subtitle_constraint": "Remove cards from randomizer selection",
+  "settings_page_subtitle2": "Customize your game experience by adjusting settings for kingdom size, add-ons, and individual card types.",
+  "Owned sets Settings": "Owned sets Settings",
+  "Desk Size Setting": "Desk Size Settings",
+  "Use Custom Configuration for DeckSize": "Use Custom Configuration for DeckSize",
+  "Use Custom Configuration for Set Display": "Use Custom Configuration for Set Display",
+  "NB of kingdom for the Game": "NB of kingdom for the Game",
+  "Addons": "Addons",
+  "Force Addons usage": "Force Addons usage",
+  "Events": "Events",
+  "Landmarks": "Landmarks",
+  "Ways": "Ways",
+  "Traits": "Traits",
+  "Projects": "Projects"
+}

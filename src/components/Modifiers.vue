@@ -49,7 +49,7 @@ export default defineComponent({
     const windowStore = useWindowStore();
     const randomizerStore = useRandomizerStore();
 
-    const metadata = computed(() =>(randomizerStore.kingdom.metadata));
+    const metadata = computed(() => randomizerStore.kingdom.metadata);
     const windowWidth = ref(windowStore.width);
     const isEnlarged = ref(windowStore.isEnlarged);
 
@@ -62,14 +62,14 @@ export default defineComponent({
       if (metadata.value.useColonies) {
         modifiers.push({
           name: t("colonies_and_platinums"),
-          imageUrl: "/img/cards/prosperity_coloniesplatinums.png",
+          imageUrl: "./img/cards/prosperity_coloniesplatinums.png",
           className: "use-colonies"
         });
       }
       if (metadata.value.useShelters) {
         modifiers.push({
           name: t("shelters"),
-          imageUrl: "/img/cards/darkages_shelters.png",
+          imageUrl: "./img/cards/darkages_shelters.png",
           className: "use-shelters"
         });
       }

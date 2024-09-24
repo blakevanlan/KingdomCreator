@@ -31,6 +31,7 @@ import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
 import type { Card } from '../dominion/card';
+import { ImgNotInFR } from '../dominion/set-id.ts'
 
 /* import store  */
 import { usei18nStore } from "../pinia/i18n-store";
@@ -55,9 +56,12 @@ export default defineComponent({
   setup(props) {
     const i18nStore = usei18nStore();
 
-    const language = computed(() =>i18nStore.language);
-    const hasCardName = computed(() => !LANGUAGES_WITH_TRANSLATED_CARDS.has(language.value));
-
+    const language = computed(() => i18nStore.language);
+    const hasCardName = computed(() => {
+      return !LANGUAGES_WITH_TRANSLATED_CARDS.has(language.value) ||
+          (language.value === Language.FRENCH && ImgNotInFR.includes(props.card.setId));
+    });
+  
     return {
       // language,
       hasCardName,

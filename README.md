@@ -1,15 +1,18 @@
-## Vite-KingdomCreator-New
+## KingdomCreator
 ###### based on Dominion Randomizer (aka Kingdom Creator) from Blakevanlan
 ###### reworked by gillesgros
 
-Originately hosted at https://71yeti.fr.
+Hosted at https://www.dominionrandomizer.com 
 It is a kingdom randomizer, or card picker, for Dominion.
-As I became a maintainer for Kingdom Creator, https://www.dominionrandomizer.com might be at the same level.
 
 Feel free to propose any improvements you see fit and send me a pull request!
 
 ### Changelog
-2024/07/10 - 6.1.0
+2024/09/23 - 6.3.0
+New Release
+  Fix & Feat (see Changelog.md)
+  
+2024/07/10 - 6.2.0
 New release
   Fixing enlargde display for Addons, Boons, Allies
 
@@ -27,10 +30,11 @@ it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 ##### Rendering
 This is a static site.
 https://www.dominionrandomizer.com : served through GitHub Pages and deployed at each commit. Check the `/docs` directory in **master** to see the source currently being served.
-https://71yeti.fr: served at through my personal site. Check the `/docs` directory in **master** to see the source served.
+
 
 ##### Commands
- npm run Gen  - build translation file locate at src/i18n/locales/messages/{lang} based on the translation maintained in 
+`npm run Gen` - build translation file locate at src/i18n/locales/messages/{lang}
+                based on the translation maintained in `/process/ressources`
                 Run the development server with hot reloading 
 `npm run dev` - Run the development server with hot reloading 
 
@@ -40,6 +44,7 @@ https://71yeti.fr: served at through my personal site. Check the `/docs` directo
 
 ## Updates based on Dominion Expansion evolutions
 Following new updates on http://wiki.dominionstrategy.com some adjustements need to be made.
+Work in Progress can be seen at https://71yeti.fr served at through a personal site.
 
 ### To add a new set
 #### build set file
@@ -49,20 +54,20 @@ Add all cards to allow correct box content display
 
 #### get images
 To get images from dominionstrategy.com
- - Add a type if needed. You will need to code a bit.
-   This might occur in file `./process/get_ CardImage_linkForAtrwork_Illustrator.js`
-   in function: getCards()
-   and in file `./process/resize.js`
-   in function: isHorizontal()
+> - Add a type if needed. You will need to code a bit.
+>   This might occur in file `./process/Get_CardImage_linkForAtrwork_Illustrator.js`
+>   in function: `getCards()
+>   and in file `./process/resize.js`
+>   in function: `isHorizontal()`
 
 You will be guided thru the type of info, the set and cards selection.
 
-to execute `cd process` run `node get_ CardImage_linkForAtrwork_Illustrator.js`
+to execute `cd process` run `node Get_CardImage_linkForAtrwork_Illustrator.js`
 Images will be created for english version at `process/processed/docs/img/cards/setname`
-You will need to move them to `/public/img/cards/setname`
+You will need to move them to `/docs/img/cards/setname`
 
 #### add translations
-if the file `process\ressources\Pages.xlsx` add all the netries for the cards to translate.
+if the file `process\ressources\Pages.xlsx` add all the entries for the cards to translate.
 
 The Cards translation generation is included in `npm run Gen` command
 
@@ -92,31 +97,7 @@ strings = ["Introduction: Cartographer, Crossroads, Develop, Jack of all Trades,
 ```
 
 
-### Old features - stil uselful ?
-
-##### Docker Container - This was possible with webpack serving. It should still be working.
-Dominion Randomizer can also be served from a Docker container with the
-following commands:
-
-```shell
-# Build the site
-$ npm run build
-
-# Build the Docker image
-$ sudo docker build --tag "kingdom_creator:latest" .
-
-# Start a container from the built image. This will be published on local port
-# 9999, but that can be changed as needed.
-$ sudo docker run \
-    --detach \
-    --name="kingdom_creator" \
-    --publish="9999:80" \
-    --volume="$(pwd)/docs://usr/share/nginx/html:ro" \
-    "kingdom_creator:latest" 
-```
-
-
-### Personnal full set-up
+### Usefull Personnal full set-up
 
 ##### npm-check-updates 
 to upgrades your package.json dependencies to the latest versions, ignoring specified versions.

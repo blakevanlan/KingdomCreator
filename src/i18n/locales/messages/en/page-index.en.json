@@ -4,6 +4,7 @@
   "shelters": "Shelters",
   "3Plus_Alchemy_Cards": "3+ Alchemy Cards",
   "Randomizer": "Randomizer",
+  "alertRandomizeNoSets": "No Set selected! \n\nSelect at least 1 set for randomize to work.",
   "Recommended Kingdoms": "Recommended Kingdoms",
   "Box content": "Box content",
   "Rules": "Rules",
@@ -23,5 +24,8 @@
   "Options": "Options",
   "Replace": "Replace!",
   "Randomize": "Randomize!",
-  "Sort": "Sort"
+  "Sort": "Sort",
+  "Ally": "Ally",
+  "1st": "1st",
+  "2nd": "2nd"
 }

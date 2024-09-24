@@ -1,11 +1,20 @@
-import type {Card} from "./card"
-import type {Cost} from "./cost"
-import type {Event} from "./event"
+import type { Card } from "./card"
+import type { Cost } from "./cost"
+import type { Event } from "./event"
 import type { Landmark } from "./landmark";
 import type { Project } from "./project";
 import type { Way } from "./way";
 import type { Ally } from "./ally";
 import type { Trait } from "./trait";
+
+export enum Addons_TYPE {
+  EVENT = 'Event',
+  LANDMARK = 'Landmark',
+  PROJECT = 'Project',
+  WAY = 'Way',
+  ALLY = 'Ally',
+  TRAIT = 'Trait'
+}
 
 export interface Addon extends Card {
   readonly name: string;

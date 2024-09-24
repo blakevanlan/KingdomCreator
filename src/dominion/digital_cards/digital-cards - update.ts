@@ -1,64 +1,73 @@
 import type { DigitalCard } from "./digital-cards-type"
 
 
-export const Work_Card:DigitalCard = {  id: "", frenchName: "",  artwork:"",
-text_html: '<div class="card-text" style="top:05px;">\
-<div style="position:relative; top:10px;"><div style="line-height:20px;">\
-<div style="display:inline;"><div style="display:inline; font-size:22px; font-weight:bold;">+6 Cartes</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:22px; font-weight:bold;">+2 Actions</div></div><br>\
+export let Work_Card:DigitalCard = {  id: "vilgglage", frenchName: "",  artwork:"",
+    
+text_html: '<div class="card-text" style="top:10px;">\
+<div style="position:relative; top:12px;"><div style="line-height:19px;">\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Dévoilez une carte de votre main.</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Pour chacun de ses types (Action,</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Attaque, etc.), choisissez : </div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">\
+<div style="display: inline; font-weight: bold;">+1 Action</div> ; ou <div style="display: inline; font-weight: bold;">+1 Achat</div> ; </div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">ou +      ; ou recevez un Or. </div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Les choix doivent être différents.</div></div><br>\
 </div></div>\
-<div style="position:relative; top:15px;"><div style="line-height:16px;">\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Sautez un tour.</div></div><br>\
-</div></div>\
-<div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div>\
-<div style="position:relative; top:1px;"><div style="line-height:16px;">\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous écartez cette carte,</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">défaussez-la et recevez</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">une carte moins cher du Rebut.</div></div><br>\
-</div></div>\
-</div>'};
-
-
+<div class="card-text-coin-icon" style="transform:scale(0.18); top:110px; display: inline;left:75px;"><div class="card-text-coin-text-container" style="display:inline;"><div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div></div>'
+};
 /*
-<div class="card-text" style="top:05px;">\
-<div style="position:relative; top:05px;"><div style="line-height:20px;">\
+
+
+Recevez une carte coûtant jusqu'à [4],//
+en la mettant de côté. Au début de votre//
+prochain tour, prenez-là en main//<div class="card-text" style="top:20px;"><div style="position:relative; top:15px;"><div style="line-height:14px;"><div style="display:inline;"><div style="display:inline; font-size:28px;"><div style="display: inline; font-weight: bold;">+1 Action</div></div></div><br></div></div><div style="position:relative; top:25px;"><div style="line-height:14px;"><div style="display:inline;"><div style="display:inline; font-size:16px;">Une fois durant ce tour, quand vous</div></div><br><div style="display:inline;"><div style="display:inline; font-size:16px;">recevez une carte Durée, vous pouvez</div></div><br><div style="display:inline;"><div style="display:inline; font-size:16px;"> la jouer. Au début de votre prochain tour,</div></div><br><div style="display:inline;"><div style="display:inline; font-size:16px;">+     et vous pouvez écarter.</div></div><br><div style="display:inline;"><div style="display:inline; font-size:16px;">une carte de votre main.</div></div><br></div></div><div class="card-text-coin-icon" style="transform:scale(0.13); top:98px; display: inline;left:65px;"><div class="card-text-coin-text-container" style="display:inline;"><div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div></div>
+Tant qu'elle est mise de côté,//
+quand un autre joueur en reçoit//
+un exemplaire durant leur tour,//
+il reçoit une Malédiction.
+*/
+/*
+1 ligne
+<div style="display:inline;"><div style="display:inline; font-size:18px;">......</div></div><br>\
+
+---
 <div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div>\
 
-<div style="position:relative; top:05px;"><div style="line-height:16px;">\
-<div style="display:inline;"><div style="display:inline; font-size:22px; font-weight:bold;">
-
-<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.22); top:33px;left:143px;"><div class="card-text-vp-text-container">\
-<div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div>\
-
-FrenchCardTexts[CardNames.STUDENT] = "|+1 Action|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Vous pouvez tourner les Magiciens.</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Écartez une carte de votre main.</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Si c'est un Trésor, |+1 Faveur|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">et placez cette carte sur votre pioche.";
-FrenchCardTexts[CardNames.CONJURER] = "Recevez une carte coûtant</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">jusqu'à [4]. Au début de</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">votre prochain tour,</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">prenez ceci en main.";
-FrenchCardTexts[CardNames.SORCERER] = "|+1 Carte|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">|+1 Action|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Tous vos adversaires nomment une</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">carte, puis dévoilent la carte du haut</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">de leur pioche. En cas d'erreur,</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">ils reçoivent une Malédiction.";
-FrenchCardTexts[CardNames.LICH] = "|+6 Cartes|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">|+2 Actions|</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Sautez un tour.</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">---</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous écartez cette carte,</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">défaussez-la et recevez</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18px;">une carte moins cher du Rebut.
+|+3 Cartes|
+<div style="display:inline;"><div style="display:inline; font-size:22px; font-weight:bold;">+3 Cartes</div></div><br>\
 
 
-<div class="card-text-coin-icon" style="transform:scale(0.22); top:53px; display: inline;left:220px;"><div class="card-text-coin-text-container" style="display:inline;">\
+
+<div style="display:inline;"><div style="display:inline; font-size:18px;">Maintenant et au d\xE9but de</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">votre prochain tour :</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">jouez une carte Action</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">non-Dur\xE9e, non-Ordre depuis</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">la r\xE9serve co\xFBtant jusqu'\xE0 [4],</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">en la laissant dans la r\xE9serve.
+
+<div class="card-text" style="top:47px;">\
+<div style="position:relative; top:10px;"><div style="line-height:20px;">\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">Vaut         pour chaque 10 cartes</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">que vous avez</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">(arrondi à l\'unité inférieure).</div></div><br>\
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:68px;">\
+<div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>\
+
+<div class="card-text" style="top:29px;">\
+<div style="position:relative; top:8px;"><div style="line-height:21px;">\
+<div style="display:inline;"><div style="display:inline; font-size:21px;">Vous pouvez écarter une carte</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:21px;">Trésor de votre main pour choisir</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:21px;">
+    <div style="display: inline; font-weight: bold;">+2 Cartes</div> et <div style="display: inline; font-weight: bold;">+1 Action</div>;</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:21px;">ou<div style="display: inline; font-weight: bold;"> +</div>      et<div style="display: inline; font-weight: bold;"> +1 Achat</div>.</div></div><br>\
+</div></div>\
+<div class="card-text-coin-icon" style="transform:scale(0.2); top:82px; display: inline;left:93px;">\
+<div class="card-text-coin-text-container" style="display:inline;">\
 <div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div>\
-<div class="card-text-coin-icon" style="transform:scale(0.15); top:119px; display: inline;left:159px;"><div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div>\
-<div class="card-text-coin-icon" style="transform:scale(0.15); top:119px; display: inline;left:159px;"><div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">4</div></div></div>\
+</div>'
+
+
 
 */

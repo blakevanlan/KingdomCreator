@@ -46,6 +46,10 @@ export class SupplyCard implements Card {
     // Allies
     readonly isLiaison: boolean,
     readonly isCover: boolean,
+
+    // Promos
+    readonly isCommand: boolean
+
     ) {
   }
 
@@ -109,6 +113,10 @@ export class SupplyCard implements Card {
       case CardType.COVER:
         return this.isCover;
 
+  // Promps
+      case CardType.COMMAND:
+        return this.isCommand;
+      
       default:
         throw new Error(`Unknown card type: ${cardType}`);
     }
@@ -157,6 +165,10 @@ export class SupplyCard implements Card {
   // Allies
       json["isLiaison"] || false,
       json["isCover"] || false,
+
+  // Promos
+  json["isCommand"] || false,
+
     )
   }
 }

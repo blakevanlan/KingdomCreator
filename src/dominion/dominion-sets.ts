@@ -10,7 +10,6 @@ import {Way} from "./way";
 import {Ally} from "./ally";
 import {Trait} from "./trait";
 import type { CardType } from "./card-type";
-import { isConstructorDeclaration } from "typescript";
 import type { OtherCard } from "./other-card";
 
 declare global {

@@ -15,7 +15,7 @@
       <header>
        <div class="title-container">
           <h1 class="title">
-            <a class="title_link" :href="getCurrentMenuItemUrl">Dominion Randomizer</a>
+            <router-link class="title_link" :to="getCurrentMenuItemUrl">Dominion Randomizer</router-link>
           </h1>
           <h2 class="tagline">{{ subtitle }}</h2>
         </div> 
@@ -31,13 +31,11 @@
             <Menu as="div">
             <MenuButton as="div" class="condensed-menu-button" v-if="!isCondensed"/>
             <MenuItems as="div" class="popOverPanelWrapper">
-              <div class="extended-menu_item" v-for="mymenuItem in getMenuItem(3, false)" :key="mymenuItem.title">
-                    <MenuItem as="div">
-                    <router-link class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
-                      {{ $t(mymenuItem.title) }}
-                    </router-link>
-                  </MenuItem>
-                  </div>
+            <router-link v-for="mymenuItem in getMenuItem(3, false)" :key="mymenuItem.title" class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
+              <div class="extended-menu_item" :key="mymenuItem.title">
+                      <MenuItem as="div"> {{ $t(mymenuItem.title) }} </MenuItem>
+              </div>
+            </router-link>
             </MenuItems>
             </Menu>
             </li>
@@ -111,6 +109,7 @@ export enum MenuItemType {
   RULES,
   CARDS,
   BOXES,
+  SETTINGS
 }
 
 class LocalMenuItem {
@@ -121,8 +120,9 @@ class LocalMenuItem {
 let MENU_ITEMS = [
   new LocalMenuItem(MenuItemType.RANDOMIZER, "Randomizer", "/index"),
   new LocalMenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets"),
-  new LocalMenuItem(MenuItemType.RULES, "Rules", "/rules"),
+  new LocalMenuItem(MenuItemType.RULES, "Rules", "/rulebooks"),
   new LocalMenuItem(MenuItemType.BOXES, "Box content", "/boxes"),
+  new LocalMenuItem(MenuItemType.SETTINGS, "Settings", "/settings")
 ];
 
 if (process.env.NODE_ENV == "development") {
@@ -147,6 +147,8 @@ export default defineComponent({
     const route = useRoute();
     const WindowStore = useWindowStore();
     const i18nStore = usei18nStore();
+
+   
 
     const { t } = useI18n();
     const language = computed(() => i18nStore.language);
@@ -173,10 +175,28 @@ export default defineComponent({
       };
 
     const getCurrentMenuItemUrl = computed(() =>{
-      return window.location.href 
+      return {
+          path: '/',
+          query: {...route.query }
+        };      
     });
 
     const getMenuItem = ((nbEntry: number, FirstPart: boolean) => { 
+      /* allow nb entry larger than 2 if 
+       * Border 20
+       * Title Main : 385
+       * Randomizer menu : 125
+       * Recommended kigndom menu : 220
+       * Rules : 75
+       * Menu button : 80
+       * Ajustement : 75
+       */
+      // forcing only 2 menu
+      if (WindowStore.width < (20 + 385 +  125 + 220 + 75 + 80 + 75)) {
+        return FirstPart ?  
+          MENU_ITEMS.slice(0, 2):
+          MENU_ITEMS.slice(2,10);
+      }
       return FirstPart ?  
           MENU_ITEMS.slice(0, nbEntry):
           MENU_ITEMS.slice(nbEntry,10);
@@ -210,15 +230,13 @@ export default defineComponent({
       isMenuItemActive,
       PackageVersion,
       PackageURL,
-      PackageDate
+      PackageDate,
     };
   },
 });
 </script>
 
 <style scoped>
-
-
 footer {
   border-top: 1px #ddd solid;
   font-family: 'Alegreya Sans', sans-serif;
@@ -303,6 +321,8 @@ footer {
   right: 0%; /* Align left edge with button */
   z-index: 10;
   outline-style: unset;
+  display:flex;
+  flex-direction: column;
 }
 
  

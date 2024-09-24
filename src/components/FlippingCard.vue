@@ -90,7 +90,7 @@ export default defineComponent({
       return cardState.value == CardState.FRONT_VISIBLE && activeCard.value && (selection.value.contains(activeCard.value.id))
     });
     const frontCardImageUrl = computed(() => activeCard.value ? getCardImageUrl(activeCard.value.id, language.value) : "");
-    const backCardImageUrl = props.isVertical ? "/img/cards/backside_blue.jpg" : "/img/cards/backside_blue_horizontal.jpg";
+    const backCardImageUrl = props.isVertical ? "./img/cards/backside_blue.jpg" : "./img/cards/backside_blue_horizontal.jpg";
 
 
 

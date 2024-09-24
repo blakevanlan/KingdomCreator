@@ -3,9 +3,9 @@ import { Language } from "../i18n/language";
 import { MultipleVersionSets, ImgNotInFR } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 
-const IMAGE_PREFEX = "/img/cards";
-const BOXES_IMAGE_PREFEX = "/img/boxes";
-const RULE_PDF_PREFEX = "/rules";
+const IMAGE_PREFEX = "./img/cards";
+const BOXES_IMAGE_PREFEX = "./img/boxes";
+const RULE_PDF_PREFEX = "./rules";
 //const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
 const PNG_SET_IMAGES = new Set(["undefined"]);
 

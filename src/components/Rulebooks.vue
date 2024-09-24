@@ -32,7 +32,7 @@ import { Language } from "../i18n/language";
 import { usei18nStore } from '../pinia/i18n-store';
 import { useSetsStore } from '../pinia/sets-store';
 import { useWindowStore } from "../pinia/window-store";
-
+import { useSettingsStore } from "../pinia/settings-store";
 
 /* import Components */
 import GridLayout, { Shape } from "./GridLayout.vue";
@@ -49,7 +49,8 @@ export default defineComponent({
     const { t } = useI18n();
     const i18nStore = usei18nStore();
     const WindowStore = useWindowStore();
-    const setsStore = useSetsStore()
+    const setsStore = useSetsStore();
+    const settingsStore = useSettingsStore();
     const WinSize = computed(() =>{ return WindowStore.width });
     const language = computed(() => {return i18nStore.language});
     const setsOrderType = ref(setsStore.setsOrderType)
@@ -61,8 +62,11 @@ export default defineComponent({
       return 4
     }) 
 
-    const rulebooks = computed(() => { 
+    const rulebooks = computed(() => {  
         const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => {if (settingsStore.isUsingOnlyOwnedsets){
+                    return settingsStore.ownedSets.indexOf(setId as never) != -1
+                  } else { return true; }})
             .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
             .filter(setid => !Set_To_Ignore_Rules[Language.ENGLISH].has(setid))
        //     .filter(setId => { return (HideMultipleVersionSets.indexOf(setId) == -1) })

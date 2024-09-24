@@ -179,7 +179,7 @@ cards:
     isTreasure: false
     isVictory: false
 
-  - name: Farmers Market
+  - name: Farmers' Market
     cost:
       treasure: 3
       potion: 0

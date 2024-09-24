@@ -7,6 +7,8 @@ import { Supply, Replacements} from "../randomizer/supply";
 import { Landmark } from "../dominion/landmark";
 import { Way } from "../dominion/way";
 import { Trait } from "../dominion/trait";
+import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+
 
 export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
   const result: {[index: string]: string} = {
@@ -131,8 +133,7 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   const allyIds = parseCommaSeparatedValues(serializedKingdom.ally) || [];
   const traitIds = parseCommaSeparatedValues(serializedKingdom.traits) || [];
   
-  const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, 10);
-  //const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById).slice(0, 10);
+  const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, NUM_CARDS_IN_KINGDOM());
   let baneCard: SupplyCard | null = null;
   if (baneIds.length) {
      baneCard = findByIds(baneIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
@@ -141,19 +142,22 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   if (ferrymanIds.length) {
      ferrymanCard = findByIds(ferrymanIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
   }
-  const events = findByIds(eventIds, DominionSets.getEventById, "event_", selectedSets).slice(0, 2);
-  const landmarks =
-      findByIds(landmarkIds, DominionSets.getLandmarkById, "landmark_", selectedSets).slice(0, Math.max(0, 2 - events.length));
+  const events = 
+      findByIds(eventIds, DominionSets.getEventById, "event_", selectedSets)
+          //.slice(0, 2);
+  const landmarks = 
+      findByIds(landmarkIds, DominionSets.getLandmarkById, "landmark_", selectedSets)
+          //.slice(0, Math.max(0, 2 - events.length));
   let obeliskCard: SupplyCard | null = null;
   if (obeliskCardIds.length) {
     obeliskCard = findByIds(obeliskCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
  }
   const projects = 
       findByIds(projectIds, DominionSets.getProjectById, "project_", selectedSets)
-          .slice(0, Math.max(0, 2 - events.length - landmarks.length));
+          //.slice(0, Math.max(0, 2 - events.length - landmarks.length));
   const ways = 
       findByIds(wayIds, DominionSets.getWayById, "way_", selectedSets)
-          .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
+          //.slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
   let mouseWayCard: SupplyCard | null = null;
   if (mouseWayCardIds.length) {
     mouseWayCard = findByIds(mouseWayCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
@@ -162,12 +166,13 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   const traits =  /* transform pious(masterpiece) => pious */
       findByIds(traitIds.map((traitId) => traitId.replace(/\(.*\)/,''))
         , DominionSets.getTraitById, "trait_", selectedSets)
-          .slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
+          //.slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
   const traitssupplyIds = traitIds.map((traitId) => { const match = traitId.match(/\((.*?)\)/);
       return match ? match[1] : ''; });
 
   const traitSupplyCards = /* transform pious(masterpiece) => masterpiece */
-      findByIds(traitssupplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, 2);
+      findByIds(traitssupplyIds, DominionSets.getSupplyCardById, "", selectedSets)
+          //.slice(0, 2);
   const allies = findByIds(allyIds, DominionSets.getAllyById, "ally_", selectedSets).slice(0, 1);
   const boons = findByIds(boonIds, DominionSets.getBoonById, "boon_", selectedSets).slice(0, 3);
   const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, traitSupplyCards, Replacements.empty());

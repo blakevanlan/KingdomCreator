@@ -24,13 +24,13 @@
         <div class="set" v-for="setId in setIds" :key="setId">
           <label class="checkbox">
             <input type="checkbox" v-model="selectedSetIds" :id="setId" :value="setId">
-            <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
+            <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
           </label>
           <span v-if="FindMultipleVersionSets(setId).length !== 0">
             <label class="checkbox suboption-set">
               <input type="checkbox" v-model="selectedSetIds" :id="(FindMultipleVersionSets(setId))[0].idv2"
                 :value="(FindMultipleVersionSets(setId))[0].idv2">
-              <span>2nd</span>
+              <span>{{ $t("2nd") }}</span>
             </label>
           </span>
         </div>
@@ -129,6 +129,8 @@ import { Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
 import { useWindowStore } from "../pinia/window-store";
 import { useRandomizerStore } from "../pinia/randomizer-store";
 import { useSetsStore } from '../pinia/sets-store';
+import { useSettingsStore } from '../pinia/settings-store';
+
 
 import type { SettingsParams } from "../settings/settings";
 import { SortOption } from "../settings/settings";
@@ -145,6 +147,7 @@ export default defineComponent({
     const randomizerStore = useRandomizerStore()
     const setsStore = useSetsStore()
     const windowStore = useWindowStore()
+    const settingsStore = useSettingsStore()
     const isCondensed = computed(() => { return windowStore.isCondensed });
     const isDistributeCostAllowed = computed(() => { return randomizerStore.isDistributeCostAllowed });
     const isPrioritizeSetAllowed = computed(() => { return randomizerStore.isPrioritizeSetAllowed });
@@ -154,16 +157,22 @@ export default defineComponent({
     const randomizerSettings = computed(() => { return randomizerStore.settings.randomizerSettings });
     const setsOrderType = ref(setsStore.setsOrderType)
 
+
     const setIds = computed(() => { 
         const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => {
+              if (settingsStore.isUsingOnlyOwnedsets){
+                return settingsStore.ownedSets.indexOf(setId as never) != -1
+              } else {
+                return (HideMultipleVersionSets.indexOf(setId) == -1);
+                }
+              })
             .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
-            .filter(setId => { return (HideMultipleVersionSets.indexOf(setId) == -1) })
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))
         return sortedSets;
-      }
-      );
+      });
 
     const selectedSetIds = ref(settings.value.selectedSets);
     watch(selectedSetIds, (values: string[]) => {
@@ -177,8 +186,15 @@ export default defineComponent({
     })
 
     const FindMultipleVersionSets = (setValue: string) => {
-      return MultipleVersionSets.filter(set => { return (set.id === setValue) })
-    }
+      if (settingsStore.isUsingOnlyOwnedsets){
+        const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => { return settingsStore.ownedSets.indexOf(setId as never) != -1 })
+        return MultipleVersionSets.filter(set => { return (set.id === setValue) })
+                .filter(set => AllSetIdsToConsider.some(setid => setid===set.idv2))
+      } else {
+        return MultipleVersionSets.filter(set => { return (set.id === setValue) })
+      }
+    };
 
     type SettingsObject = {
       [key: string]: boolean;
@@ -242,7 +258,11 @@ export default defineComponent({
     }
 
     const handleRandomize = () => {
-      emit("randomize")
+      if (selectedSetIds.value.length === 0) {
+        alert(t("alertRandomizeNoSets"))
+      } else {
+        emit("randomize")
+      }
     }
 
     const handleSetOrderTypeChange = (value: string) => {

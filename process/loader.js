@@ -6,136 +6,76 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const tokenize = (str) => str.replace(/[\s'-\/]/g, '').toLowerCase();
-const convertToCardId = (setId, name) => setId + '_' + tokenize(name);
-const convertToEventId = (setId, name) => setId + '_event_' + tokenize(name);
-const convertToLandmarkId = (setId, name) => setId + '_landmark_' + tokenize(name);
-const convertToProjectId = (setId, name) => setId + '_project_' + tokenize(name);
-const convertToBoonId = (setId, name) => setId + '_boon_' + tokenize(name);
-const convertToWayId = (setId, name) => setId + '_way_' + tokenize(name);
-const convertToAllyId = (setId, name) => setId + '_ally_' + tokenize(name);
-const convertToTraitId = (setId, name) => setId + '_trait_' + tokenize(name);
-
-const loadFilesFromDirectory = function(directory) {
+function loadFilesFromDirectory(directory) {
    const values = {};
    const files = fs.readdirSync(directory);
    for (const filename of files) {
-      //if (filename.includes("2-add")) continue;
       const filePath = path.join(directory, filename);
-      const id = tokenize(path.basename(filePath, '.yaml'));
+      const stat = fs.statSync(filePath);
+      if (!stat.isFile()) {
+         console.warn(`Skipping non-file: ${filePath}`);
+         continue;
+      }
+      if (!filePath.endsWith('.yaml')) {
+         console.warn(`Skipping non-YAML file: ${filePath}`);
+         continue;
+      }
+      const id = tokenize(path.basename(filename, '.yaml'));
       values[id] = yaml.load(fs.readFileSync(filePath, 'utf8'));
-    }
+   }
    return values;
-};
+}
 
-const loadSets = function() {
+export function loadSets() {
    const sets = loadFilesFromDirectory(path.join(__dirname, '../sets'));
-
    // Add the id for each set.
-   for (const setId in sets) {
+   for (let setId in sets) {
       sets[setId].id = setId;
+      // Create an id for each card.
+      let set = sets[setId];
+      const cardTypes = {
+         cards: 'supply', events: 'event', landmarks: 'landmark', projects: 'project',
+         boons: 'boon', ways: 'way', allies: 'ally', traits: 'trait', prophecies: 'prophecy', othercards: 'other'
+      };
+      
+      for (const cardType in set) {
+         if (cardTypes[cardType]) {
+            for (let i = 0; i < set[cardType].length; i++) {
+               let card = set[cardType][i];
+               card.id = convertToCardId(setId, card.name, cardTypes[cardType]=='other' ? card.type : cardTypes[cardType]);
+               card.shortId = tokenize(card.name);
+               card.setId = setId;
+               card.cardType = transform(cardType);
+            }
+         }
+      }
    }
 
-   // Create an id for each card.
-   for (const setId in sets) {
-      const set = sets[setId];
-      for (let i = 0; i < set.cards.length; i++) {
-        const card = set.cards[i];
-        card.id = convertToCardId(setId, card.name);
-        card.shortId = tokenize(card.name);
-        card.setId = setId;
-        card.cardType = "0 // supplies"; // Assuming default card type
-      }
-      if (set.events) {
-         for (let i = 0; i < set.events.length; i++) {
-            const card = set.events[i];
-            card.id = convertToEventId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="1 // events"
-         }
-      }
-      if (set.landmarks) {
-         for (let i = 0; i < set.landmarks.length; i++) {
-            const card = set.landmarks[i];
-            card.id = convertToLandmarkId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="2 // landmarks"
-         }
-      }
-      if (set.projects) {
-         for (let i = 0; i < set.projects.length; i++) {
-            const card = set.projects[i];
-            card.id = convertToProjectId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="3 // projects"
-         }
-      }
-      if (set.boons) {
-         for (let i = 0; i < set.boons.length; i++) {
-            const card = set.boons[i];
-            card.id = convertToBoonId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="4 // boons"
-         }
-      }
-      if (set.ways) {
-         for (let i = 0; i < set.ways.length; i++) {
-            const card = set.ways[i];
-            card.id = convertToWayId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="5 // ways"
-         }
-      }
-      if (set.allies) {
-         for (let i = 0; i < set.allies.length; i++) {
-            const card = set.allies[i];
-            card.id = convertToAllyId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="6 // allies"
-         }
-      }
-      if (set.traits) {
-         for (let i = 0; i < set.traits.length; i++) {
-            const card = set.traits[i];
-            card.id = convertToTraitId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-            card.cardType="7 // traits"
-         }
-      }
-      if (set.othercards) {
-         for (let i = 0; i < set.othercards.length; i++) {
-            const card = set.othercards[i];
-            card.id = convertToCardId(setId, card.name);
-            card.shortId = tokenize(card.name);
-            card.setId = setId;
-         }
-      }
-   }
    return sets;
-};
+}
 
-const loadKingdoms = function() {
-   const kingdoms = loadFilesFromDirectory(path.join(__dirname, '../kingdoms'));
-   return kingdoms
-};
+function convertToCardId(setId, name, type) {
+   let convert = ""
+   switch (type) {
+      case 'supply':
+         convert = `${setId}_${tokenize(name)}`
+         break;
+      case 'other':
+         convert = `${setId}_${type}_${tokenize(name)}`
+         break;
+      default:
+         convert = `${setId}_${type}_${tokenize(name)}`
+   }
+   return convert;
+}
 
+export function tokenize(str) {
+   return str.replace(/[\s'-\/]/g, '').toLowerCase();
+}
 
-export default  {
-   tokenize,
-   convertToCardId,
-   convertToEventId,
-   convertToLandmarkId,
-   convertToBoonId,
-   convertToWayId,
-   convertToAllyId,
-   convertToTraitId,
-   loadSets,
-   loadKingdoms
-};
+function transform(cardType) {
+   const LocalCardTypes = {
+      cards: '00 // supplies', events: '01 // event', landmarks: '02 // landmark', projects: '03 // project',
+      boons: '04 // boon', ways: '05 // way', allies: '06 // ally', traits: '07 // trait', prophecies: '08 // prophecy', othercards: '20 // other'}
+      return LocalCardTypes[cardType];
+}

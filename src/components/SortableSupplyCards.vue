@@ -17,8 +17,7 @@
           <BaneCardCover isType="Ferryman" v-if="isFerrymanCard(slotProps.item)" />
           <BaneCardCover isType="Obelisk" v-if="isObeliskCard(slotProps.item)" />
           <BaneCardCover isType="MouseWay" v-if="isMouseWayCard(slotProps.item)" />
-          <BaneCardCover :is-type="traitsTitle(0)" v-if="isTraitsCard(slotProps.item, 0)" />
-          <BaneCardCover :is-type="traitsTitle(1)" v-if="isTraitsCard(slotProps.item, 1)" />
+          <BaneCardCover :is-type="traitsTitle(slotProps.item)" v-if="isTraitsCard(slotProps.item)" />
         </FlippingCard>
       </template>
     </GridLayout>
@@ -169,12 +168,14 @@ export default defineComponent({
         kingdom.value.supply.mouseWay.id == supplyCard.id;
     }
 
-    const isTraitsCard = (supplyCard: SupplyCard, index: number) => {
+    const isTraitsCard = (supplyCard: SupplyCard) => {
+      const index = kingdom.value.supply.traitsSupply.indexOf(supplyCard)
       return kingdom.value.supply.traitsSupply[index]  &&
       kingdom.value.supply.traitsSupply[index].id == supplyCard.id;
     }
 
-    const traitsTitle = (index: number) => {
+    const traitsTitle = (supplyCard: SupplyCard) => {
+      const index = kingdom.value.supply.traitsSupply.indexOf(supplyCard)
       return "trait#"+ kingdom.value.traits[index].id;
     }
 
@@ -259,7 +260,6 @@ export default defineComponent({
       }
       activeAnimations.clear();
     }
-
 
     const animateSupplyCardSort = () => {
       const sortedCards = SupplyCardSorter.sort(supplyCards.value.concat(), sortOption.value, t);

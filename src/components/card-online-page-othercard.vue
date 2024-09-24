@@ -1,5 +1,5 @@
 <template>
-  <div class="content Coef_scale12 card-rows ">
+  <div class="ListofcontentCard Coef_scale12 card-rows ">
     <div v-for="Card in Cards" :key="Card.id" :class="getClassCard(Card)">
       <div class="card-container">
       <div class="full-card unselectable" style="z-index:0; cursor:default;
@@ -127,6 +127,7 @@ export default defineComponent({
     }
     
     const getHost= () => {
+      return "";
       return window.location.protocol + "//" + window.location.host;
     }
 
@@ -134,7 +135,11 @@ export default defineComponent({
       return "v-for card-theme-title-dark card-theme-text-dark";
     }
     const getCardArtwork = (cardArtwork:String) => {
-        return cardArtwork.replace(BASEURL,'');
+      return cardArtwork
+              .replace('%', '%25')
+              .replace('http://wiki','https://wiki')
+              .replace(BASEURL,'')
+              .replace("https://wiki.dominionstrategy.com/", "http://localhost:5173/img/artworks/");
     }
 
     const getCardTypeById= (currentCard: DigitalCard): DisplayableCardType => {
