@@ -28,6 +28,8 @@
   "rules_page_description": "A continuación se encuentran los libros de reglas (en inglés) publicados con cada juego de Dominion. Los libros de reglas conienen las descripciones de las cartas de reino y como interactúan con otras cartas de reino.",
   "sets_page_subtitle": "Ideas de Partidas",
   "sets_page_description": "Se puede jugar a Dominion con cualquier grupo de 10 cartas de Reino, pero estos grupos están pensados para resaltar ciertas combinaciones interesantes de cartas y estrategias de juego.",
+  "settings_page_subtitle": "Personaliza tu experiencia de juego ajustando la configuración del tamaño del reino, los complementos y los tipos de cartas individuales.",
+  "settings_page_subtitle2": "Personaliza tu experiencia de juego ajustando la configuración del tamaño del reino, los complementos y los tipos de cartas individuales.",
   "adventures": "Aventuras",
   "alchemy": "Alquimia",
   "baseset2": "Dominion 2ª Ed.",
