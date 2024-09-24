@@ -7,6 +7,7 @@
   "addon_landmarks": "Landmarke",
   "addon_projects": "Projekte",
   "addon_ways": "Wege",
+  "addon_allies": "Verbündete",
   "github_info": "Quellcode ist auf {source}. Funktionsanfragen und Beschwerden bitte {issues}!",
   "github_info_source": "Github",
   "github_info_issues": "hier",

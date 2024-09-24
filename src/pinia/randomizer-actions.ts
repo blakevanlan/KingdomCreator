@@ -11,6 +11,8 @@ import { DominionSets } from "../dominion/dominion-sets";
 import type { SupplyCard } from "../dominion/supply-card";
 import type { Addon } from "../dominion/addon";
 import type { Selection } from "./selection";
+import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE, USING_CUTOM_DESKSIZE } from "../settings/Settings-value";
+import { Addons_TYPE } from "../dominion/addon";
 
 export const MIN_SETS_FOR_PRIORITIZE_OPTION = 3;
 export const MIN_CARDS_FOR_DISTRIBUTE_COST = 24;
@@ -79,13 +81,87 @@ export function randomizeSelectedAddons(context: randomizerStoreState) {
       + getSelectedTraits(context).length;
   const addonIds = getAddons(context).map((addon) => addon.id);
   EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
-  return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, newAddonsCount);
+  if (!USING_CUTOM_DESKSIZE()) {
+    return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, newAddonsCount);
+  } else {
+    const kingdom = context.kingdom;
+    const selectedEvents: Addon[] = [];
+    const selectedLandmarks: Addon[] = [];
+    const selectedProjects: Addon[] = [];
+    const selectedWays: Addon[] = [];
+    const selectedAllies: Addon[] = [];
+    const selectedTraits: Addon[] = [];
+    const nbEvents = kingdom.events.length - getSelectedEvents(context).length
+    const nbLandmarks = kingdom.landmarks.length - getSelectedLandmarks(context).length
+    const nbProjects = kingdom.projects.length - getSelectedProjects(context).length
+    const nbWays = kingdom.ways.length - getSelectedWays(context).length
+    const nbTraits = kingdom.traits.length - getSelectedTraits(context).length
+
+    const complementarySelectedCards = Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, NUM_CARDS_IN_KINGDOM());
+
+    for (const card of complementarySelectedCards) {
+      if (card.constructor.name == Addons_TYPE.EVENT) {
+        if (selectedEvents.length + nbEvents < MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT)) 
+          selectedEvents.push(card);
+      } else if (card.constructor.name == Addons_TYPE.LANDMARK) {
+        if (selectedLandmarks.length + nbLandmarks < MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK)) 
+          selectedLandmarks.push(card);
+      }  else if (card.constructor.name == Addons_TYPE.PROJECT) {
+        if (selectedProjects.length + nbProjects < MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT)) 
+          selectedProjects.push(card);
+      } else if (card.constructor.name == Addons_TYPE.WAY) {
+        if (selectedWays.length + nbWays < MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY)) 
+          selectedWays.push(card);
+      } else if (card.constructor.name == Addons_TYPE.TRAIT) {
+        if (selectedTraits.length + nbTraits < MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT)) 
+          selectedTraits.push(card)
+      }
+      if (selectedEvents.length + selectedLandmarks.length + selectedProjects.length
+        + selectedWays.length + selectedTraits.length == newAddonsCount)
+        break;
+    }
+    return selectedEvents.concat(selectedLandmarks, selectedProjects, selectedWays, selectedAllies, selectedTraits);
+  }
 }
 
-export function randomizeUndefinedAddon(context: randomizerStoreState) {
+export function randomizeUndefinedAddon(context: randomizerStoreState) :Addon[] {
   const addonIds = getAddons(context).map((addon) => addon.id);
   EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
-  return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, 1);
+  if (!USING_CUTOM_DESKSIZE()) {
+    return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, 1);
+  } else {
+    const kingdom = context.kingdom;
+    const selectedEvents: Addon[] = [];
+    const selectedLandmarks: Addon[] = [];
+    const selectedProjects: Addon[] = [];
+    const selectedWays: Addon[] = [];
+    const selectedAllies: Addon[] = [];
+    const selectedTraits: Addon[] = [];
+    const complementarySelectedCards = Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, NUM_CARDS_IN_KINGDOM());
+
+    for (const card of complementarySelectedCards) {
+      if (card.constructor.name == Addons_TYPE.EVENT) {
+        if (selectedEvents.length + kingdom.events.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT)) 
+          selectedEvents.push(card);
+      } else if (card.constructor.name == Addons_TYPE.LANDMARK) {
+        if (selectedLandmarks.length + kingdom.landmarks.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK)) 
+          selectedLandmarks.push(card);
+      }  else if (card.constructor.name == Addons_TYPE.PROJECT) {
+        if (selectedProjects.length + kingdom.projects.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT)) 
+          selectedProjects.push(card);
+      } else if (card.constructor.name == Addons_TYPE.WAY) {
+        if (selectedWays.length + kingdom.ways.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY)) 
+          selectedWays.push(card);
+      } else if (card.constructor.name == Addons_TYPE.TRAIT) {
+        if (selectedTraits.length + kingdom.traits.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT)) 
+          selectedTraits.push(card)
+      }
+      if (selectedEvents.length + selectedLandmarks.length + selectedProjects.length
+        + selectedWays.length + selectedTraits.length == 1 )
+        break;
+    }
+    return selectedEvents.concat(selectedLandmarks, selectedProjects, selectedWays, selectedAllies, selectedTraits);
+  }
 }
 
 export function randomizeSelectedBoons(context: randomizerStoreState, supply: Supply) {

@@ -155,7 +155,7 @@ cards:
     isReaction: false
 
 othercards:
-  - name: Bag of Gold
+  - name: Bag Of Gold
     type: Action - Prize
   - name: Diadem
     type: Treasure - Prize

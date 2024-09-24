@@ -1,54 +1,65 @@
 {
-  "author": "Blake VanLandingham",
-  "name": "kingdom-creator",
+  "author": "Gilles Gros",
+  "name": "kingdom-creator-blake",
   "license": "MIT",
-  "version": "6.1.0",
+  "version": "6.3.0",
   "private": true,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/blakevanlan/KingdomCreator"
+    "url": "https://github.com/gillesgros/KingdomCreator-Blake"
   },
   "scripts": {
-    "Gen": "vite -- Gen (to generate locale from XLSX to CSV, then build translation and vite",
-    "dev": "vite --",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "Gen": "vite -- Gen (to generate locale from XLSX to CSV, then build translation and vite)",
+    "dev": "vite",
+    "cbuild": "run-p type-check \"build {@}\" --",
     "preview": "vite preview",
-    "build-only": "vite build --",
+    "build": "vite build",
     "type-check": "vue-tsc --noEmit",
     "get-tsconfig": "tsc --showConfig"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.7.22",
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.1.5",
     "gsap": "^3.12.5",
     "js-cookie": "^3.0.5",
-    "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
-    "vue": "^3.4.31",
-    "vue-i18n": "^9.13.1",
-    "vue-router": "^4.4.0"
+    "pinia": "^2.2.2",
+    "pinia-plugin-persistedstate": "^4.0.2",
+    "vue": "^3.5.8",
+    "vue-i18n": "^10.0.3",
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
-    "@inquirer/prompts": "^5.1.2",
-    "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@types/google.analytics": "^0.0.46",
+    "@inquirer/checkbox": "^3.0.1",
+    "@inquirer/select": "^3.0.1",
+    "@intlify/unplugin-vue-i18n": "^5.2.0",
+    "@kineticcafe/rollup-plugin-delete": "^3.0.1",
+    "@types/file-saver": "^2.0.7",
     "@types/js-cookie": "^3.0.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.14.10",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@types/node": "^22.6.1",
+    "@vitejs/plugin-legacy": "^5.4.2",
+    "@vitejs/plugin-vue": "^5.1.4",
     "@vue/tsconfig": "^0.5.1",
-    "axios": "^1.7.2",
+    "axios": "^1.7.7",
+    "file-saver": "^2.0.5",
+    "html-to-image": "^1.11.11",
+    "html2canvas": "^1.4.1",
     "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
-    "rollup-plugin-delete": "^2.0.0",
-    "sharp": "^0.33.4",
+    "sharp": "^0.33.5",
     "stylus": "^0.63.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.3",
+    "terser": "^5.33.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.7",
     "vite-plugin-static-copy": "^1.0.6",
-    "vite-plugin-vue-devtools": "^7.3.5",
-    "vue-tsc": "^2.0.26",
+    "vite-plugin-vue-devtools": "^7.4.6",
+    "vue-tsc": "^2.1.6",
     "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
+  },
+  "overrides": {
+    "stylus": {
+      "glob": "^10.4.5"
+    }
   }
 }

@@ -1,7 +1,9 @@
 import fs from "fs";
-import Loader from "./loader.js";
+import path from 'path'
+//import Loader from "./loader.js";
+import { loadSets }  from './loader.js'; // read <set>.yaml
 
-const sets = Loader.loadSets(); // Assuming loadSets is async function
+const sets = loadSets(); // Assuming loadSets is async function
 let TRANSLATION_CSV = "./resources/pages.csv"
 const PROCESSED = "processed"
 let PROCESSING_DIR = `./${PROCESSED}/src/i18n/locales/messages`
@@ -12,7 +14,7 @@ function getProcessingDir(argv) {
     console.warn("Ignoring extra arguments. Only the first argument is used for output directory.");
   }
   const processingDirArg = argv[0];
-  console.log("processingDirArg", processingDirArg)
+  //console.log("processingDirArg", processingDirArg)
   return processingDirArg ? PROCESSING_DIR.replace(PROCESSED, processingDirArg) : PROCESSING_DIR;
 }
 
@@ -121,9 +123,9 @@ function GenerateTranslation() {
   let languages = [];
   let lang = "";
   let filename = "";
-  console.log(lines[start_line]);
+  //console.log(lines[start_line]);
   if (lines[start_line].includes("sep=")) {
-    console.log("sep found");
+    //console.log("sep found");
     separator = (lines[start_line].split("="))[1];
     start_line += 1;
   }
@@ -156,7 +158,7 @@ function GenerateTranslation() {
         }
       }
       const filenamesplitted = (resultPages[i]).split('.')
-      console.log( filenamesplitted )
+      //console.log( filenamesplitted )
       for (let j = 2; j < languages.length; j++) {
         if (languages[j] != "") {
           lang = languages[j]
@@ -168,12 +170,18 @@ function GenerateTranslation() {
               Add2ndEditions(filenamesplitted[1],names[languages[j]]);
 
 
-              TestAndCreateDir(`${PROCESSING_DIR}/${lang}/cards`)
-              filename = `${PROCESSING_DIR}/${lang}/cards/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
-            } else filename = `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
-          } else filename = `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.json`
-          console.log(filename)
-          fs.writeFileSync(filename, JSON.stringify(names[languages[j]], null, 2));
+              TestAndCreateDir(path.join(PROCESSING_DIR, lang, 'cards'))
+              filename = path.join(PROCESSING_DIR, lang, 'cards', filenamesplitted[0]+'.'+languages[j]+ '.'+ filenamesplitted[1]+ '.json') 
+                  //`${PROCESSING_DIR}/${lang}/cards/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
+            } else filename = path.join(PROCESSING_DIR, lang, filenamesplitted[0]+'.'+languages[j]+ '.'+ filenamesplitted[1]+ '.json') 
+                // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
+          } else filename = path.join(PROCESSING_DIR, lang, filenamesplitted[0]+'.'+languages[j]+  '.json') 
+              // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.json`
+          //console.log(filename)
+  
+          fs.writeFileSync(filename, 
+              JSON.stringify(names[languages[j]], null, 2)
+                  .replace(/\\\\n/g, '\\n'));
         }
       }
     }
@@ -185,5 +193,5 @@ function GenerateTranslation() {
 const argv = process.argv.slice(2); // Get arguments excluding script name and potentially the output directory
 PROCESSING_DIR = getProcessingDir(argv);
 
-usage()
+//usage()
 GenerateTranslation()

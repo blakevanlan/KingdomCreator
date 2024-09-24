@@ -1,6 +1,6 @@
-import Loader from "./loader.js";
+import { loadSets, tokenize }  from './loader.js'; // read <set>.yaml
 import fs from 'fs';
-const sets = Loader.loadSets();
+const sets = loadSets();
 const PROCESSED = "processed"
 let PROCESSING_DIR = `./${PROCESSED}/kingdoms`
 
@@ -261,7 +261,7 @@ function parseSupplyString(supplyString) {
   const cards = [];
   for (const cardName of cardNames) {
     // Call Loader.tokenize (assuming it exists) and store the result
-    const tokenized = Loader.tokenize(cardName);
+    const tokenized = tokenize(cardName);
     if (tokenized) {
       cards.push(findCardByShortId(tokenized));
     }

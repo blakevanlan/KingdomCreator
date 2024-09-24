@@ -1,6 +1,6 @@
 <template>
   <!-- for the Landscape cards -->
-  <div class="content Coef_scale12 card-rows ">
+  <div class="ListofcontentCard Coef_scale12 card-rows">
     <div v-for="Card in Cards" :key="Card.id" :class="getClassCard(Card)">
       <div class="card-container-landscape">
       <div class="landscape unselectable" style="left:0px; top:0px; z-index:0;transform: scale(1); cursor:">
@@ -8,7 +8,7 @@
           :style='"background-image: url(" + getHost() + "/img/Templates-card-type/" + getCardTypeById(Card).png + ".png);"'>
         </div>
         <!-- type of card -->
-        <div class="landscape-art" :style='"background-size: 452px 177px; background-image: url(" + Card.artwork + ")"'>
+        <div class="landscape-art" :style='"background-size: 452px 177px; background-image: url(" + getCardArtwork(Card.artwork) + ")"'>
           <div class="action-layer"></div>
         </div>
         <!--Card name -->
@@ -101,6 +101,8 @@ interface DisplayableCardType {
   readonly style: string
 }
 
+const BASEURL= /http:\/\/localhost:8080/
+
 export default defineComponent({
   name: "CardOnlinePageLandscapeComponent",
   props: {
@@ -114,7 +116,7 @@ export default defineComponent({
     const windowStore = useWindowStore();
 
     const Cards = computed(() => {
-      return Cards_list.filter(card =>
+      const filteredCards = Cards_list.filter(card =>
         props.set.supplyCards.some(function (item) { return item.shortId == card.id; }))
         .concat(
           Cards_list.filter(card =>
@@ -138,11 +140,14 @@ export default defineComponent({
           Cards_list.filter(card =>
             props.set.allies.some(function (item) { return item.shortId == card.id; }))
         )
+        const uniqueCards = new Set(filteredCards);
+      console.log(uniqueCards)
+      return Array.from(uniqueCards) 
     });
 
     const cardImageUrl = (card: DigitalCard) => {
       const cardType = DominionSets.getCardById(card.id);
-      console.log(getCardImageUrl(getCardSetById(card) + "_" + cardType.constructor.name + "_" + card.id, "en" as any))
+      //console.log(getCardImageUrl(getCardSetById(card) + "_" + cardType.constructor.name + "_" + card.id, "en" as any))
       return getCardImageUrl(getCardSetById(card) + "_" + cardType.constructor.name + "_" + card.id, "en" as any);
     }
 
@@ -152,6 +157,8 @@ export default defineComponent({
     }
 
     const getHost= () => {
+      return ""
+      // for github and more
       return window.location.protocol + "//" + window.location.host;
     }
 
@@ -381,6 +388,15 @@ export default defineComponent({
       }
       return (Year_set.find(elt => elt.id == CardSetid))!.year;
     }
+
+    const getCardArtwork = (cardArtwork:string) => {
+        return cardArtwork
+              .replace('%', '%25')
+              .replace('http://wiki','https://wiki')
+              .replace(BASEURL,'')
+              .replace("https://wiki.dominionstrategy.com/", "http://localhost:5173/img/artworks/");
+    }
+
     return {
       Cards,
       getClassCard,
@@ -394,6 +410,7 @@ export default defineComponent({
       ExpansionillustratorOffset,
       getCardIllustrator,
       getCardSetYear,
+      getCardArtwork,
       cardImageUrl,
       incaseoferror
     }

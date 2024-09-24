@@ -23,6 +23,7 @@ export const Year_set:YearOfSet[]=[
 { id: "menagerie",              year: 2020, order:160 },
 { id: "allies",                 year: 2021, order:170 },
 { id: "plunder",                year: 2023, order:180 },
+{ id: "risingsun",              year: 2024, order:190 },
 
 { id: "seaside2",               year: 2022, order:42 },
 { id: "seaside2add",            year: 2022, order:43 },
@@ -38,7 +39,8 @@ export const Year_set:YearOfSet[]=[
 { id: "stash",                  year: 2010, order:0 },
 { id: "walledvillage",          year: 2011, order:0 },
 { id: "governor",               year: 2011, order:0 },
-{ id: "prince",                 year: 2014, order:0 },
+{ id: "princeold",              year: 2014, order:0 },
+{ id: "prince",                 year: 2022, order:0 },
 { id: "summon",                 year: 2015, order:0 },
 { id: "sauna",                  year: 2016, order:0 },
 { id: "avanto",                 year: 2016, order:0 },

@@ -20,6 +20,8 @@ import { defineComponent, computed, ref, onMounted, watch } from "vue";
 
 /* import Dominion Objects and type*/
 import type { Addon } from "../dominion/addon";
+import { MAX_ADDONS_IN_KINGDOM } from "../settings/Settings-value";
+
 
 /* import store  */
 import { useWindowStore } from "../pinia/window-store";
@@ -33,8 +35,6 @@ import FlippingCard from "./FlippingCard.vue";
 interface AddonContainer {
   addon: Addon | null,
 }
-
-const NUMBER_OF_ADDONS = 2;
 
 export default defineComponent({
   name: 'Addons',
@@ -120,7 +120,7 @@ export default defineComponent({
     }
 
     const fillWithEmptyAddonContainers = (list: AddonContainer[]) => {
-      for (let i = list.length; i < NUMBER_OF_ADDONS; i++) {
+      for (let i = list.length; i < MAX_ADDONS_IN_KINGDOM(); i++) {
         list.push({ addon: null });
       }
       return list;

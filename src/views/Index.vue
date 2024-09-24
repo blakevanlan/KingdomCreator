@@ -11,8 +11,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import useBase from "./base";
-import Page from "../components/Page.vue";
-import { MenuItemType } from "../components/Page.vue";
+import Page, { MenuItemType } from "../components/Page.vue";
 
 import EnlargeButton from "../components/EnlargeButton.vue";
 import Randomizer from "../components/Randomizer.vue";

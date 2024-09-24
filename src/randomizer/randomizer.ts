@@ -1,4 +1,5 @@
 import type { Addon, Addons } from "../dominion/addon";
+import { Addons_TYPE } from "../dominion/addon";
 import { CardSupplyBan } from "./card-supply-ban";
 import { CostSupplyBan } from "./cost-supply-ban";
 import { CostSupplyDivider } from "./cost-supply-divider";
@@ -12,7 +13,7 @@ import { Landmark } from "../dominion/landmark"
 import { Metadata as KingdomMetadata } from "./kingdom";
 import { Project } from "../dominion/project"
 import type { RandomizerOptions } from "./randomizer-options";
-import { SetId, New_SETS_WITH_DUPLICATES } from "../dominion/set-id";
+import { SetId, SETS_WITH_DUPLICATES } from "../dominion/set-id";
 import { SetSupplyBan } from "./set-supply-ban";
 import { SetSupplyDivider } from "./set-supply-divider";
 import { Supply, Replacements } from "./supply";
@@ -30,19 +31,9 @@ import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from "./special-need-
 import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from "./special-need-cards";
 import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from "./special-need-cards";
 
-const SETS_WITH_DUPLICATES: { [index: string]: string } = {
-  'baseset': 'baseset2',
-  'intrigue': 'intrigue2',
-  'seaside': 'seaside2',
-  'prosperity': 'prosperity2',
-  'hinterlands': 'hinterlands2',
-  'guildscornucopia': 'guildscornucopia2',
-  'guilds': 'guildscornucopia',
-  'cornucopia': 'guildscornucopia',
-};
+import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE } from "../settings/Settings-value";
 
 const MAX_RETRIES = 3;
-const NUM_CARDS_IN_KINGDOM = 10;
 
 // Alchemy constants.
 const MIN_ALCHEMY_CARDS_IN_KINGDOM = 3;
@@ -53,8 +44,6 @@ const HIGH_COST_CUT_OFF = 5;
 const MIN_HIGH_CARDS_IN_KINGDOM = 3;
 const MAX_HIGH_CARDS_IN_KINGDOM = 5;
 
-// Addon constants.
-const MAX_ADDONS_IN_KINGDOM = 2;
 
 // Prioritize set constants.
 const NUM_PRIORITIZED_SET = 5;
@@ -86,8 +75,10 @@ export class Randomizer {
     try {
       return this.createSupplyWithRetries(randomizerOptions);
     } catch (error) {
-      if (typeof error === 'object' && error !== null)
+      if (typeof error === 'object' && error !== null) {
         console.log(`Failed to create supply: \n${error.toString()}`);
+        alert(`Failed to create supply: \n${error.toString()}`)
+      }
       else
         console.log(`Failed to create supply: \n error is not an object`);
       return null;
@@ -171,7 +162,7 @@ export class Randomizer {
     }
 
     // Configure dividers.
-    let remainingCards = NUM_CARDS_IN_KINGDOM;
+    let remainingCards = NUM_CARDS_IN_KINGDOM();
 
     if (randomizerOptions.prioritizeSet && randomizerOptions.prioritizeSet != SetId.ALCHEMY) {
       supplyBuilder.addDivider(
@@ -218,35 +209,37 @@ export class Randomizer {
   private static getAddons(setIds: SetId[]): { events: Event[], landmarks: Landmark[], projects: Project[], ways: Way[], allies: Ally[], traits: Trait[] } {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
     const cards = Cards.getAllCardsFromSets(setsToUse);
-    const selectedCards = this.selectRandomCards(cards, NUM_CARDS_IN_KINGDOM);
+    const selectedCards = FORCE_ADDONS_USE() ? 
+        this.selectRandomCards(cards.filter(card => (card instanceof Event)||(card instanceof Landmark)||
+        (card instanceof Project)||(card instanceof Way)||(card instanceof Trait)), NUM_CARDS_IN_KINGDOM())
+        : this.selectRandomCards(cards, 2*NUM_CARDS_IN_KINGDOM());
     const selectedEvents: Event[] = [];
     const selectedLandmarks: Landmark[] = [];
     const selectedProjects: Project[] = [];
     const selectedWays: Way[] = [];
     const selectedAllies: Ally[] = [];
     const selectedTraits: Trait[] = [];
+
     for (const card of selectedCards) {
       if (card instanceof Event) {
-        selectedEvents.push(card);
+        if (selectedEvents.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT)) selectedEvents.push(card);
       } else if (card instanceof Landmark) {
-        selectedLandmarks.push(card);
+        if (selectedLandmarks.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK)) selectedLandmarks.push(card);
       } else if (card instanceof Project) {
-        selectedProjects.push(card);
+        if (selectedProjects.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT)) selectedProjects.push(card);
       } else if (card instanceof Way) {
-        selectedWays.push(card);
-      } else if (card instanceof Ally) {
-        selectedAllies.push(card);
+        if (selectedWays.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY)) selectedWays.push(card);
       } else if (card instanceof Trait) {
-        selectedTraits.push(card)
+        if (selectedTraits.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT)) selectedTraits.push(card)
       }
       // Stop once the maximum number of addons has been reached.
       const addonCount = selectedEvents.length
         + selectedLandmarks.length
         + selectedProjects.length
         + selectedWays.length
-        + selectedAllies.length
+        //  + selectedAllies.length
         + selectedTraits.length;
-      if (addonCount >= MAX_ADDONS_IN_KINGDOM) {
+      if (addonCount >= MAX_ADDONS_IN_KINGDOM()) {
         break;
       }
     }
@@ -341,14 +334,22 @@ export class Randomizer {
 
     // to add traits Supply
     let calculatedTraitsSupplyCard:SupplyCard[]= []
-    let onlyTraitsPossibleSupplies = supply.supplyCards.filter(card => card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || 
-          card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_2));
+    let onlyTraitsPossibleSupplies = supply.supplyCards
+        .filter(card => card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_2))
+        .filter(card => { return !oldkingdom.supply.traitsSupply.some(trait => trait.id === card.id)});
+        // remove supply for already mapped for trait
     if (Localaddons.traits.length > 0) {
       for (const trait of Localaddons.traits) {
         const index = oldkingdom.traits.findIndex((oldtrait) => oldtrait.id === trait.id);
         if (index>=0) {
-          calculatedTraitsSupplyCard.push(oldkingdom.supply.traitsSupply[index]);
-          onlyTraitsPossibleSupplies = onlyTraitsPossibleSupplies.filter((card) => card != oldkingdom.supply.traitsSupply[index]);
+          // trait unchanged
+          if (supply.supplyCards.some(card => card.id === oldkingdom.supply.traitsSupply[index].id)) {
+            calculatedTraitsSupplyCard.push(oldkingdom.supply.traitsSupply[index]);
+          } else {
+            const randomTraitCard = this.selectRandomCards(onlyTraitsPossibleSupplies, 1)[0];
+            calculatedTraitsSupplyCard.push(randomTraitCard);
+            onlyTraitsPossibleSupplies = onlyTraitsPossibleSupplies.filter((card) => card != randomTraitCard);
+            }
         } else {
           const randomTraitCard = this.selectRandomCards(onlyTraitsPossibleSupplies, 1)[0];
           calculatedTraitsSupplyCard.push(randomTraitCard);
@@ -473,7 +474,7 @@ export class Randomizer {
   private static removeDuplicateCards(cards: SupplyCard[], requiredCardIds: string[]) {
     // Removes duplicate cards (cards appearing in multiple sets); keep setA's version.
     // Cards to keep = (A - [B required as A]) + (B - ([A as B] - B required))
-    for (const duplicateSets of New_SETS_WITH_DUPLICATES) {
+    for (const duplicateSets of SETS_WITH_DUPLICATES) {
       const setA = duplicateSets.id
       const setB = duplicateSets.idv2
       const setACards = cards.filter(Cards.filterByIncludedSetIds([setA]));

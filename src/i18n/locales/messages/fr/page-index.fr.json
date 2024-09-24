@@ -4,6 +4,7 @@
   "shelters": "Refuges",
   "3Plus_Alchemy_Cards": "3+ Cartes Alchimie",
   "Randomizer": "jeux au hasard",
+  "alertRandomizeNoSets": "Aucun Set sélectionné ! \n\nChoississez au moins 1 set pour obtenir un résultat.",
   "Recommended Kingdoms": "jeux définis",
   "Box content": "contenu des boites",
   "Rules": "Régles",
@@ -23,5 +24,8 @@
   "Options": "Options",
   "Replace": "Replace!",
   "Randomize": "Randomize!",
-  "Sort": "Tri"
+  "Sort": "Tri",
+  "Ally": "Allié",
+  "1st": "1st",
+  "2nd": "2nd"
 }

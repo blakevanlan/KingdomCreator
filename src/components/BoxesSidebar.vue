@@ -63,6 +63,7 @@ import { SortOption } from "../settings/settings";
 
 /* import store  */
 import { useSetsStore } from '../pinia/sets-store';
+import { useSettingsStore } from "../pinia/settings-store";
 
 /* import Components */
 
@@ -76,6 +77,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const setsStore = useSetsStore()
+    const settingsStore = useSettingsStore()
     const selectedBoxesSetId = ref(setsStore.selectedBoxesSetId)
     const sortBoxesSet = ref(setsStore.sortBoxesSet);
     const setsOrderType = ref(setsStore.setsOrderType)
@@ -84,9 +86,15 @@ export default defineComponent({
 
 
     const sets = computed(() => { 
-        const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+      const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => {
+              if (settingsStore.isUsingOnlyOwnedsets){
+                return settingsStore.ownedSets.indexOf(setId as never) != -1
+              } else {
+                return (HideMultipleVersionSets.indexOf(setId) == -1);
+                }
+              })
             .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
-            .filter(setId => { return (HideMultipleVersionSets.indexOf(setId) == -1) })
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))
@@ -108,9 +116,14 @@ export default defineComponent({
     };
 
     const findMultipleVersionSets = (setValue: string) => {
-      return MultipleVersionSets.filter(set => {
-        return (set.id === setValue)
-      });
+      if (settingsStore.isUsingOnlyOwnedsets){
+        const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+            .filter(setId => { return settingsStore.ownedSets.indexOf(setId as never) != -1 })
+        return MultipleVersionSets.filter(set => { return (set.id === setValue) })
+                .filter(set => AllSetIdsToConsider.some(setid => setid===set.idv2))
+      } else {
+        return MultipleVersionSets.filter(set => { return (set.id === setValue) })
+      }
     };
 
     return {

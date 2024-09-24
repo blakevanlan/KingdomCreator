@@ -8,7 +8,7 @@
   "addon_projects": "Projets",
   "addon_ways": "Voies",
   "addon_allies": "Alliés",
-  "addon_traits": "Comportement",
+  "addon_traits": "Comportements",
   "github_info": "Le code source est disponible sur {source}. Pour une demande de fonctionnalité ou un problème, s’adresser {issues} !",
   "github_info_source": "Github",
   "github_info_issues": "ici",

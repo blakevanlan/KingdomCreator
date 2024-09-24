@@ -72,7 +72,7 @@ export const OtherCards_list:DigitalCard[]= [
   text_html: '<div class="card-text" style="top:2px;"></div>'
   },  
 {   id: "duchy_2nd",
-  artwork: "http://wiki.dominionstrategy.com//images/3/30/DuchyArt.jpg",
+  artwork: "http://wiki.dominionstrategy.com/images/3/30/DuchyArt.jpg",
   frenchName: "Duché",
   text_html: '<div class="card-text" style="top:2px;"></div>'
   },  
@@ -93,9 +93,13 @@ export const OtherCards_list:DigitalCard[]= [
   text_html: '<div class="card-text" style="top:2px;"></div>'
   },
 {   id: "curse_2nd",
-  artwork: "http://localhost:8080/img/artworks/curse_2ndArt.jpg",
+  artwork: "https://wiki.dominionstrategy.com/images/1/11/CurseArt.jpg",
   frenchName: "Malédiction",
-  text_html: '<div class="card-text" style="top:2px;"></div>'
+  text_html: '<div class="card-text" style="top:05px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.9); top:40px;left:125px;">\
+<div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">-1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>\
+</div>'
 },
 /* intrigue */
 

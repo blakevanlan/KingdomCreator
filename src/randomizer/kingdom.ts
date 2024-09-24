@@ -8,6 +8,7 @@ import type { Trait } from "../dominion/trait";
 import { Supply } from "../randomizer/supply";
 import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID } from "./special-need-cards";
 import { DominionSets } from "../dominion/dominion-sets";
+import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
 
 export class Kingdom {
   constructor(
@@ -38,7 +39,7 @@ export class Kingdom {
   }
 
   public isKingdomValid() {
-    if (this.supply.supplyCards.length != 10) return false;
+    if (this.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) return false;
     if (this.supply.supplyCards.some(card => YOUNG_WITCH_IDS.includes(card.id))) {
       if (this.supply.baneCard == null) return false;
     } else {

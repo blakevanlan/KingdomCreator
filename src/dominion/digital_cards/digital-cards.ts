@@ -1,11 +1,11 @@
 import type { DigitalCard } from "./digital-cards-type"
 let Temp_CardsList:DigitalCard[] = [];
 
-import { Cards_list_Baseset, Cards_list_Baseset2 } from "./digital-cards - Baseset"
-Temp_CardsList = Temp_CardsList.concat(Cards_list_Baseset, Cards_list_Baseset2);
+import { Cards_list_Baseset } from "./digital-cards - Baseset"
+Temp_CardsList = Temp_CardsList.concat(Cards_list_Baseset);
 
-import { Cards_list_Intrigue, Cards_list_Intrigue2 } from "./digital-cards - Intrigue"
-Temp_CardsList = Temp_CardsList.concat(Cards_list_Intrigue, Cards_list_Intrigue2);
+import { Cards_list_Intrigue } from "./digital-cards - Intrigue"
+Temp_CardsList = Temp_CardsList.concat(Cards_list_Intrigue);
 
 import { Cards_list_Seaside } from "./digital-cards - Seaside"
 Temp_CardsList = Temp_CardsList.concat(Cards_list_Seaside);
@@ -24,9 +24,6 @@ Temp_CardsList = Temp_CardsList.concat(Cards_list_Hinterlands);
 
 import { Cards_list_Darkages } from "./digital-cards - Darkages"
 Temp_CardsList = Temp_CardsList.concat(Cards_list_Darkages);
-
-import { Cards_list_Guilds } from "./digital-cards - Guilds"
-Temp_CardsList = Temp_CardsList.concat(Cards_list_Guilds);
 
 import { Cards_list_Adventures } from "./digital-cards - Adventures"
 Temp_CardsList = Temp_CardsList.concat(Cards_list_Adventures);
@@ -48,5 +45,11 @@ Temp_CardsList = Temp_CardsList.concat(Cards_list_Menagerie);
 
 import { Cards_list_Allies } from "./digital-cards - Allies"
 Temp_CardsList = Temp_CardsList.concat(Cards_list_Allies);
+
+import { Cards_list_Guilds } from "./digital-cards - Guilds"
+Temp_CardsList = Temp_CardsList.concat(Cards_list_Guilds);
+
+import { Cards_list_Guildscornucopia } from "./digital-cards - Guildscornucopia"
+Temp_CardsList = Temp_CardsList.concat(Cards_list_Guildscornucopia);
 
 export const Cards_list:DigitalCard[]= Temp_CardsList

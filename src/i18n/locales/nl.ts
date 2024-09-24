@@ -6,6 +6,7 @@ import * as PageIndex from "./messages/nl/page-index.nl.json";
 import * as PageRules from "./messages/nl/page-rules.nl.json";
 import * as PageSets from "./messages/nl/page-sets.nl.json";
 import * as PageBoxes from "./messages/nl/page-boxes.nl.json";
+import * as PageSettings from "./messages/nl/page-settings.nl.json";
 
 //import * as Cards from "./messages/nl/cards.nl.json";
 
@@ -36,6 +37,7 @@ export default {
   ...(PageRules as any).default,
   ...(PageSets as any).default,
   ...(PageBoxes as any).default,
+  ...(PageSettings as any).default,
 /*
   ...(Cards as any).default,
 */

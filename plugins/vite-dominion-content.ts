@@ -3,12 +3,12 @@ import path from 'path';
 
 import { loadSets, loadKingdoms } from './DominionContent-LoadFunc';
 import { mergeJSONLanguageFiles, Convert_to_CSV } from './DominionLocaleGeneration-Funcs'
-
+import { Generate_Digitalcard } from './Dominion-Generate-Digital_cards'
 const ProjectBaseDir = process.cwd();
 
 //  `DominionContentGeneration` is responsible for generating the Dominion content files.
 export async function DominionContentGenerate(destdir:string) {
-  //console.log('in DominionContentGenerate generating docs/dominion-content.js')
+
   const contentString = "window.DominionSets=" + JSON.stringify(loadSets()) +
     ";window.DominionKingdoms=" + JSON.stringify(loadKingdoms()) + ";";
   fs.writeFileSync(path.join(ProjectBaseDir, destdir + '/dominion-content.js'), 
@@ -17,6 +17,7 @@ export async function DominionContentGenerate(destdir:string) {
 
 export function HandleLocaleGenerateAndMerge(type: string, destdir: string) {
   if (type == "Gen&Merge") {
+    Generate_Digitalcard()
     Convert_to_CSV()
     mergeJSONLanguageFiles(destdir)
   }

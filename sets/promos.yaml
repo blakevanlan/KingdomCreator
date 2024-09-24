@@ -85,7 +85,7 @@ cards:
     isTreasure: true
     isVictory: false
 
-  - name: Prince
+  - name: Princeold
     cost:
       treasure: 8
       potion: 0
@@ -116,6 +116,7 @@ cards:
     isTrashing: false
     isTreasure: false
     isVictory: false
+    isCommand: true
 
   - name: Dismantle
     cost:
@@ -172,6 +173,15 @@ cards:
       potion: 0
     isBuySupplier: true
     isVictory: true
+
+  - name: Prince
+    cost:
+      treasure: 8
+      potion: 0
+    isAction: true
+    isDuration: true
+    isCommand: true
+
 
 events:
   - name: Summon

@@ -33,5 +33,8 @@ export enum CardType {
 
   // Allies
   LIAISON = "isLiaison",
-  COVER = "isCover"
+  COVER = "isCover",
+
+  // Promos
+  COMMAND = "isCommand"
 }

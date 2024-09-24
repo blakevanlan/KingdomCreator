@@ -19,10 +19,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import useBase from "./base";
-import Page from "../components/Page.vue";
-import { MenuItemType } from "../components/Page.vue";
+import Page, { MenuItemType } from "../components/Page.vue";
 import EnlargeButton from "../components/EnlargeButton.vue";
-import PresetBoxcontent from "../components/PresetBoxcontent.vue";
+import PresetBoxcontent from "../components/Boxes-PresetBoxcontent.vue";
 import BoxesSidebar from "../components/BoxesSidebar.vue";
 
 

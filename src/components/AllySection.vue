@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slow-fade">
-      <div v-if="ally" class="ally-header">Ally</div>
+      <div v-if="ally" class="ally-header">{{ $t("Ally") }}</div>
     </transition>
     <transition name="slow-fade">
       <GridLayout v-if="ally" :items="[ally]" :number-of-columns="numberOfColumns" :is-vertical="false">
