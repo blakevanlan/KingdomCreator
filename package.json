@@ -2,7 +2,7 @@
   "author": "Blake VanLandingham",
   "name": "kingdom-creator",
   "license": "MIT",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "private": true,
   "type": "module",
   "repository": {

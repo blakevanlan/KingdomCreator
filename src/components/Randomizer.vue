@@ -21,6 +21,7 @@
 import { defineComponent, ref, computed } from 'vue';
 import { onBeforeMount, watch } from 'vue';
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 /* import Dominion Objects and type*/
 import type { Card } from "../dominion/card";
@@ -57,6 +58,7 @@ export default defineComponent({
     const randomizerStore = useRandomizerStore();
     const windowStore = useWindowStore();
     const i18nStore = usei18nStore();
+    const { t } = useI18n();
     const route = useRoute();
     const router = useRouter();
     const kingdom = computed(()=>{return randomizerStore.kingdom});
@@ -85,7 +87,7 @@ export default defineComponent({
           kingdom.value.boons,
           kingdom.value.ally ? [kingdom.value.ally] : [],
           kingdom.value.traits
-        ).map((card) => card.id).join(', ')
+        ).map((card) => t(card.id)).join(', ')
       )
     })
 
