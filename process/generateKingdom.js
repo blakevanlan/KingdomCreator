@@ -222,6 +222,11 @@ function findCardByShortId(shortId) {
         if (trait.shortId === shortId) return trait;
       }
     }
+    if (currentSet.prophecies) {
+      for (const prophecies of currentSet.prophecies) {
+        if (prophecy.shortId === shortId) return prophecy;
+      }
+    }
   }
   // Throw an error if no card is found
   throw new Error("Card not found: " + shortId);
@@ -298,6 +303,7 @@ function GenerateKingdom(listOfKingdoms) {
       boons: [],
       allies: [],
       traits: [],
+      prophecies: [],
     };
 
     const cardIds = [...kingdom.cards]
@@ -316,7 +322,7 @@ function GenerateKingdom(listOfKingdoms) {
       });
 
     for (const cardId of cardIds) {
-      const categoryRegex = /(supplies|events|landmarks|projects|boons|allies|traits)/; // Regex for category names
+      const categoryRegex = /(supplies|events|landmarks|projects|boons|allies|traits|prophecies)/; // Regex for category names
       const categoryMatch = cardId.type.match(categoryRegex); // Check for category match
       //console.log(cardId.type, categoryMatch)
       if (categoryMatch) {
@@ -344,10 +350,15 @@ function GenerateKingdom(listOfKingdoms) {
       myFileWriter.write(string + '\n');
       console.log ("============================================> More than 10 supplies : need to look at ", kingdom.name)
     }
-    if (cardCategories.traits.length > 8) {
+    if (cardCategories.traits.length > 0) {
       myFileWriter.write("============================================> need to look at " +kingdom.name + '\n');
       myFileWriter.write(string + '\n');
       console.log ("============================================> trait presence :  need to look at ", kingdom.name)
+    }
+    if (cardCategories.prophecies.length > 0) {
+      myFileWriter.write("============================================> need to look at " +kingdom.name + '\n');
+      myFileWriter.write(string + '\n');
+      console.log ("============================================> prophecy presence :  need to look at ", kingdom.name)
     }
     myFileWriter.write('\n');
 

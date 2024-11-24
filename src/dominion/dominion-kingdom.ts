@@ -17,6 +17,7 @@ export class DominionKingdom {
     readonly allyIds: string[],
     readonly traitIds: string[],
     readonly traitSupplyIds :string[],
+    readonly prophecyIds: string[],
     readonly metadata: Metadata) {
   }
 
@@ -37,6 +38,7 @@ export class DominionKingdom {
         json["allies"] || [],
         json["traits"] || [],
         json["traitSupplies"] || [],
+        json["prophecies"] || [],
          Metadata.fromJson(json["metadata"]));
   }
 }

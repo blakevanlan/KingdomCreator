@@ -22,7 +22,7 @@
         <div class="condensed-menu-button" v-if="isCondensed" @click="handleMenuClick"></div>
         <div class="menu" v-if="!isCondensed">
           <ul class="menu_items">
-            <li class="menu_item" v-for="mymenuItem in getMenuItem(3, true)" :key="mymenuItem.title" :class="{ active: isMenuItemActive(mymenuItem) }">
+            <li class="menu_item" v-for="mymenuItem in getMenuItem(5, true)" :key="mymenuItem.title" :class="{ active: isMenuItemActive(mymenuItem) }">
               <router-link class="menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
                 {{ $t(mymenuItem.title) }}
               </router-link>
@@ -31,7 +31,7 @@
             <Menu as="div">
             <MenuButton as="div" class="condensed-menu-button" v-if="!isCondensed"/>
             <MenuItems as="div" class="popOverPanelWrapper">
-            <router-link v-for="mymenuItem in getMenuItem(3, false)" :key="mymenuItem.title" class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
+            <router-link v-for="mymenuItem in getMenuItem(5, false)" :key="mymenuItem.title" class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
               <div class="extended-menu_item" :key="mymenuItem.title">
                       <MenuItem as="div"> {{ $t(mymenuItem.title) }} </MenuItem>
               </div>

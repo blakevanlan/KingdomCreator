@@ -199,9 +199,8 @@ export class SupplyBuilder {
             card.cost.treasure <= BANE_MAX_COST &&
             card.cost.treasure >= BANE_MIN_COST;
         });
-    if (!availableCards.length) {
-      return null;
-    }
+    if (!availableCards.length)
+      throw new Error(`Unable to satisfy requirement: set BaneCard.`);
     return selectRandom(availableCards);
   }
 
@@ -226,9 +225,8 @@ export class SupplyBuilder {
             card.cost.treasure <= FERRYMAN_MAX_COST &&
             card.cost.treasure >= FERRYMAN_MIN_COST;
         });
-    if (!availableCards.length) {
-      return null;
-    }
+    if (!availableCards.length)
+      throw new Error(`Unable to satisfy requirement: set FerrymanCard.`);
     return selectRandom(availableCards);
   }
   

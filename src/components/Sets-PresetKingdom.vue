@@ -56,6 +56,7 @@
           :has-ways="kingdom.wayIds.length > 0"
           :has-allies="kingdom.allyIds.length > 0"
           :has-traits="kingdom.traitIds.length > 0"
+          :has-prophecies="kingdom.prophecyIds.length > 0"
         />
       </div>
       <GridLayout
@@ -149,7 +150,8 @@ export default defineComponent({
 
     const addonIds = computed(() => {
       return props.kingdom.eventIds.concat(
-        props.kingdom.landmarkIds, props.kingdom.projectIds, props.kingdom.wayIds, props.kingdom.allyIds, props.kingdom.traitIds);
+        props.kingdom.landmarkIds, props.kingdom.projectIds, props.kingdom.wayIds, 
+        props.kingdom.allyIds, props.kingdom.traitIds, props.kingdom.prophecyIds);
     });
 
     const hasMetadata = computed(() => {

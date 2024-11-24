@@ -26,6 +26,7 @@ export enum SetId {
   PROSPERITY_2 = "prosperity2",
   PROSPERITY_2_ADD = "prosperity2add",
   RENAISSANCE = "renaissance",
+  RISING_SUN = "risingsun",
   SEASIDE = "seaside",
   SEASIDE_2 = "seaside2",
   SEASIDE_2_ADD = "seaside2add",
@@ -67,12 +68,14 @@ const Set_To_Ignore_Rules_FR =
               SetId.MENAGERIE,
               SetId.ALLIES,
               SetId.PLUNDER,
+              SetId.RISING_SUN
 ]);
 
 const Set_To_Ignore_Rules_DE =
     new Set([ SetId.PROMOS,
         SetId.GUILDSCORNUCOPIA,          
-        SetId.GUILDSCORNUCOPIA_2
+        SetId.GUILDSCORNUCOPIA_2,
+        SetId.RISING_SUN
 ]);
 
 export const Set_To_Ignore_Rules = {
@@ -112,7 +115,5 @@ export const SETS_WITH_DUPLICATES: VersionOfSet[]= MultipleVersionSets.concat([
     { id: SetId.CORNUCOPIA,             idv2: SetId.GUILDSCORNUCOPIA_2 }
 ]);
 
-export const ImgNotInFR = [ SetId.PLUNDER ] 
-
-
+export const ImgNotInFR = [ SetId.PLUNDER ]
 

@@ -30,13 +30,15 @@ export function loadSets() {
     sets[setId].id = setId;
     // Create an id for each card.
     let set = sets[setId];
-    const cardTypes: { [key: string]: string } = { cards: 'cards', events: 'event', landmarks: 'landmark', projects: 'project', 
-                        boons: 'boon', ways: 'way', allies: 'ally', traits: 'trait', othercards: 'other'};
+    const cardTypes: { [key: string]: string } = { 
+        cards: 'cards', events: 'event', landmarks: 'landmark', projects: 'project', 
+        boons: 'boon', ways: 'way', allies: 'ally', traits: 'trait', prophecies: 'prophecy', 
+        othercards: 'other'};
     for (const cardType in set) {
       if (cardTypes[cardType]) {
         for (let i = 0; i < set[cardType].length; i++) {
           let card = set[cardType][i];
-          card.id = convertToCardId(setId, card.name, cardTypes[cardType]);
+          card.id = convertToCardId(setId, card.name, cardTypes[cardType], card.type);
           card.shortId = tokenize(card.name);
           card.setId = setId;
         }
@@ -75,15 +77,29 @@ function identifyTraitSuppliesForKingdoms(kingdomsSets:any) {
   });
 }
 
-function convertToCardId(setId:string, name:string, type:string) {
+function convertToCardId(setId:string, name:string, cardtype:string, type:string) {
   let convert = ""
-  switch (type) {
+
+  switch (cardtype) {
     case '':
     case 'cards' :
       convert = `${setId}_${tokenize(name)}`
       break;
+    case 'other' : 
+      switch (type) {
+        case 'advToken' : 
+        case 'Tokens' :
+        case 'Mat Horizontal' :
+        case 'Mat Vertical' :
+        case 'Mat Square' :
+          convert = `${setId}_${cardtype}_${name.replace(/[\s'-\/]/g, '')}`
+          break;
+        default: 
+          convert = `${setId}_${tokenize(name)}`
+      }
+      break
     default:
-      convert = `${setId}_${type}_${tokenize(name)}`
+      convert = `${setId}_${cardtype}_${tokenize(name)}`
   }
   return convert;
 }

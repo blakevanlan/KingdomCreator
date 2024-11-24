@@ -5,10 +5,12 @@ import type { Project } from "../dominion/project";
 import type { Way } from "../dominion/way";
 import type { Ally } from "../dominion/ally";
 import type { Trait } from "../dominion/trait";
+import type { Prophecy } from "../dominion/prophecy";
 import { Supply } from "../randomizer/supply";
 import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID } from "./special-need-cards";
 import { DominionSets } from "../dominion/dominion-sets";
 import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import { initializeExcludedCardIds } from "./randomizer-options";
 
 export class Kingdom {
   constructor(
@@ -20,6 +22,7 @@ export class Kingdom {
     readonly ways: Way[],
     readonly boons: Boon[],
     readonly ally: Ally | null,
+    readonly prophecy: Prophecy | null,
     readonly traits: Trait[],
     readonly metadata: Metadata) {
   }
@@ -33,13 +36,18 @@ export class Kingdom {
       [],               /* projects: Project[], */
       [],               /* ways: Way[], */
       [],               /* boons: Boon[], */
-      null,             /* allies: Ally|null, */
+      null,             /* ally: Ally|null, */
+      null,             /* prophecy: Prophecy|null*/
       [],               /* traits: Trait[]*/
       new Metadata(false, false));   /* metadata: Metadata */
   }
 
   public isKingdomValid() {
     if (this.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) return false;
+    // test if cards are only allowed cards
+    //console.log(initializeExcludedCardIds(setIds, []);
+
+    // test if addons are only allowed cards
     if (this.supply.supplyCards.some(card => YOUNG_WITCH_IDS.includes(card.id))) {
       if (this.supply.baneCard == null) return false;
     } else {

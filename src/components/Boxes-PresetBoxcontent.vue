@@ -29,6 +29,9 @@
       <!-- generic slot : Traits -->
       <GenericLayout :items="getCards(set.traits.concat(getOtherCards(set, 'Traits') as any []))" :title="$t('Traits')"
         :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+      <!-- generic slot : Prophecies -->
+      <GenericLayout :items="getCards(set.prophecies.concat(getOtherCards(set, 'Prophecies') as any []))" :title="$t('Prophecies')"
+        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
 
       <!-- otherCards : Basic Supply Cards, Ruins, Shelters, Non-Supply, Travellers, Artefacts, Hexes, -->
       <GenericLayout v-for="card in GetOtherCardTypes('vertical')" :key="card.cardType"
@@ -98,6 +101,8 @@ const OTHER_CARD_TYPES: genericCardTypes[] = [
   { cardType: "Prize", title: "Non-Supply Cards" },
   { cardType: "Heirloom", title: "Non-Supply Cards - Heirlooms" }, /*nocturne */
   { cardType: "Loot", title: "Loot Cards" },
+  { cardType: "version", title: "Multiples versions of Cards" },
+
 ];
 
 const OTHER_CARD_TYPES_HORIZONTAL: genericCardTypes[] = [
@@ -149,8 +154,11 @@ export default defineComponent({
       return Shape.SQUARE
     };
 
-    const getCards = (cardIds: any[], origine = "unset") => {
-      return SupplyCardSorter.sort(cardIds as SupplyCard[], setsStore.sortBoxesSet, t);
+    const getCards = (cardIds: any[], origine = SortOption.SET) => {
+      if (origine == SortOption.SET) 
+        return SupplyCardSorter.sort(cardIds as SupplyCard[], setsStore.sortBoxesSet, t);
+      else 
+        return SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t);
     };
 
     const getOtherCards = (usingSet: DominionSet, typeRequested: string) => {
@@ -168,6 +176,7 @@ export default defineComponent({
       if (typeRequested == 'squareMat') return OTHER_CARD_TYPES_MAT_SQUARE;
       return OTHER_CARD_TYPES;
     };
+
     const challenge_sortBoxesSet = (mycard_type: string) => {
       if (mycard_type == "Travellers Page" || mycard_type == "Travellers Peasant") return SortOption.COST;
       if (mycard_type == "Split Cards") return SortOption.ORDERSTRING;

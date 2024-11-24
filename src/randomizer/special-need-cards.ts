@@ -20,3 +20,6 @@ export const MOUSE_MAX_COST = 3;
     // Trait requested
 export const TRAITS_CARDTYPE_POSSIBILITY_1= CardType.ACTION
 export const TRAITS_CARDTYPE_POSSIBILITY_2 = CardType.TREASURE
+  // druid
+export const DRUID_ID = "nocturne_druid"
+export const BOONS_NB_FROM_DRUID = 3

@@ -1,0 +1,244 @@
+name: Rising Sun
+cards:
+  - name: Artist
+    cost:
+      debt: 8
+    isAction: true
+    isDrawer: true
+
+  - name: Daimyo
+    cost:
+      debt: 6
+    isAction: true
+    isCommand : true
+    isDrawer: true
+
+  - name: Mountain Shrine
+    cost:
+      debt: 5
+    isAction: true
+    isOmen: true
+    isTrashing: true
+    isTerminal: true
+
+  - name: Fishmonger
+    cost:
+      treasure: 2
+    isAction: true
+    isShadow: true
+    isBuySupplier: true
+
+  - name: Snake Witch
+    cost:
+      treasure: 2
+    isAttack: true
+    isAction: true
+    isDrawer: true
+
+  - name: Aristocrat
+    cost:
+      treasure: 3
+    isAction: true
+    isActionSupplier: true
+    isBuySupplier: true
+    isMultiDrawer: true
+
+  - name: Craftsman
+    cost:
+      treasure: 3
+    isAction: true
+    isTerminal: false
+
+  - name: Riverboat
+    cost:
+      treasure: 3
+    isDuration: true
+    isAction: true
+    isTerminal: true 
+
+  - name: Root Cellar
+    cost:
+      treasure: 3
+    isAction: true
+    isMultiDrawer: true
+
+  - name: Alley
+    cost:
+      treasure: 4
+    isShadow: true
+    isAction: true
+    isDrawer: true
+    isTrashing: true
+
+  - name: Change
+    cost:
+      treasure: 4
+    isAction: true
+    isTrashing: true
+    isTerminal: true
+
+  - name: Ninja
+    cost:
+      treasure: 4
+    isAttack: true
+    isAction: true
+    isDrawer: true
+    isShadow: true
+
+  - name: Poet
+    cost:
+      treasure: 4
+    isOmen: true
+    isAction: true
+    isDrawer: false
+
+  - name: River Shrine
+    cost:
+      treasure: 4
+    isOmen: true
+    isAction: true
+    isTrashing: true
+
+  - name: Rustic Village
+    cost:
+      treasure: 4
+    isOmen: true
+    isAction: true
+    isMultiDrawer: true
+    isActionSupplier: true
+
+  - name: Gold Mine
+    cost:
+      treasure: 5
+    isAction: true
+    isDrawer: true
+    isBuySupplier: true
+
+  - name: Imperial Envoy
+    cost:
+      treasure: 5
+    isAction: true
+    isMultiDrawer: true
+    isBuySupplier: true
+    isTerminal: true
+
+  - name: Kitsune
+    cost:
+      treasure: 5
+    isAttack: true
+    isAction: true
+    isOmen: false
+    isActionSupplier: false
+
+  - name: Litter
+    cost:
+      treasure: 5
+    isAction: true
+    isMultiDrawer: true
+    isActionSupplier: true
+
+  - name: Rice Broker
+    cost:
+      treasure: 5
+    isAction: true
+    isMultiDrawer: true
+    isTrashing: true
+
+  - name: Ronin
+    cost:
+      treasure: 5
+    IsShadow: true
+    isAction: true
+    isMultiDrawer: true
+    isTerminal: true
+
+  - name: Tanuki
+    cost:
+      treasure: 5
+    isShadow: true
+    isAction: true
+    isTrashing: true
+    isTerminal: true
+ 
+  - name: Tea House
+    cost:
+      treasure: 5
+    IsOmen: true
+    isAction: true
+    isDrawer: true
+   
+  - name: Samurai
+    cost:
+      treasure: 6
+    isAttack: true
+    isAction: true
+    isDuration: true
+
+  - name: Rice
+    cost:
+      treasure: 7
+    isTreasure: true
+    isBuySupplier: false
+
+events:
+  - name: Continue
+    cost:
+      debt: 8
+    isActionSupplier: true
+    isBuySupplier: true
+  
+  - name: Amass
+    cost:
+      treasure: 2
+
+  - name: Asceticism
+    cost:
+      treasure: 2
+    isTrashing: true
+  
+  - name: Credit
+    cost:
+      treasure: 2
+
+  - name: Foresight
+    cost:
+      treasure: 2
+
+  - name: Kintsugi
+    cost:
+      treasure: 3
+    isTrashing: true
+
+  - name: Practice
+    cost:
+      treasure: 3
+
+  - name: Sea Trade
+    cost:
+      treasure: 4
+    isTrashing: true
+
+  - name: Receive Tribute
+    cost:
+      treasure: 5
+
+  - name: Gather
+    cost:
+      treasure: 3
+
+prophecies:
+  - name: Approaching Army
+  - name: Biding Time
+  - name: Bureaucracy
+  - name: Divine Wind
+  - name: Enlightenment
+  - name: Flourishing Trade
+  - name: Good Harvest
+  - name: Great Leader
+  - name: Growth
+  - name: Harsh Winter
+  - name: Kind Emperor
+  - name: Panic
+  - name: Progress
+  - name: Rapid Expansion
+  - name: Sickness

@@ -1,6 +1,7 @@
 import type {CardType} from "../dominion/card-type";
 import type {CostType} from "../dominion/cost-type";
 import {SetId} from "../dominion/set-id";
+import { useSettingsStore } from '../pinia/settings-store';
 
 export class RandomizerOptions {
   constructor(
@@ -22,7 +23,24 @@ export class RandomizerOptions {
     readonly mousewayCardId: string | null,
     readonly obeliskCardId: string | null,
     readonly useAlchemyRecommendation: boolean,) {
+    this.excludeCardIds = initializeExcludedCardIds(setIds, excludeCardIds);
   }
+}
+
+export const initializeExcludedCardIds = (setIds: SetId[], initialExcludedCardIds: string[]): string[] => {
+  const settingsStore = useSettingsStore();
+  const useConstraints = settingsStore.useConstraintOnRandomization;
+  if (!useConstraints) {
+    return initialExcludedCardIds;
+  }
+  const excludedFromSettings = setIds.reduce((acc, setId) => {
+    const setConstraints = settingsStore.getSetConstraints(setId);
+    if (setConstraints && setConstraints.isSelected && setConstraints.excludedCards) {
+      acc.push(...setConstraints.excludedCards);
+    }
+    return acc;
+  }, [] as string[]);
+  return [...new Set([...initialExcludedCardIds, ...excludedFromSettings])];
 }
 
 export class RandomizerOptionsBuilder {
@@ -56,7 +74,7 @@ export class RandomizerOptionsBuilder {
   }
 
   setExcludeCardIds(excludeCardIds: string[]) {
-    this.excludeCardIds = excludeCardIds;
+    this.excludeCardIds = initializeExcludedCardIds(this.setIds, excludeCardIds);
     return this;
   }
 
@@ -84,7 +102,6 @@ export class RandomizerOptionsBuilder {
     this.requireCardProvider = requireCardProvider;
     return this;
   }
-
 
   setRequireBuyProvider(requireBuyProvider: boolean) {
     this.requireBuyProvider = requireBuyProvider;

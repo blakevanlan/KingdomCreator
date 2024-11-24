@@ -3,6 +3,7 @@ export interface SelectionParams {
   selectedAddonIds?: string[];
   selectedBoonIds?: string[];
   selectedAllyId?: string | null;
+  selectedProphecyId?: string | null;
 }
 
 export class Selection implements SelectionParams {
@@ -11,6 +12,7 @@ export class Selection implements SelectionParams {
     readonly selectedAddonIds: string[],
     readonly selectedBoonIds: string[],
     readonly selectedAllyId?: string | null,
+    readonly selectedProphecyId?: string | null,
   ) {
   }
 
@@ -19,7 +21,8 @@ export class Selection implements SelectionParams {
       this.selectedSupplyIds.length == 0 &&
       this.selectedAddonIds.length == 0 &&
       this.selectedBoonIds.length == 0 &&
-      this.selectedAllyId == null,
+      this.selectedAllyId == null &&
+      this.selectedProphecyId == null,
     ) 
   }
 
@@ -27,7 +30,8 @@ export class Selection implements SelectionParams {
     return this.selectedSupplyIds.indexOf(id) != -1 ||
         this.selectedAddonIds.indexOf(id) != -1 ||
         this.selectedBoonIds.indexOf(id) != -1 ||
-        this.selectedAllyId == id;
+        this.selectedAllyId == id ||
+        this.selectedProphecyId == id
   }
 
   withParams(params: SelectionParams) {
@@ -35,10 +39,11 @@ export class Selection implements SelectionParams {
         params.selectedSupplyIds !== undefined ? params.selectedSupplyIds : this.selectedSupplyIds,
         params.selectedAddonIds !== undefined ? params.selectedAddonIds : this.selectedAddonIds,
         params.selectedBoonIds !== undefined ? params.selectedBoonIds : this.selectedBoonIds,
-        params.selectedAllyId !== undefined ? params.selectedAllyId : this.selectedAllyId);
+        params.selectedAllyId !== undefined ? params.selectedAllyId : this.selectedAllyId,
+        params.selectedProphecyId !== undefined ? params.selectedProphecyId : this.selectedProphecyId);
   }
 
   static empty() {
-    return new Selection([], [], [], null);
+    return new Selection([], [], [], null, null);
   }
 }

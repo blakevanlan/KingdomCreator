@@ -7,6 +7,7 @@ import { Supply, Replacements} from "../randomizer/supply";
 import { Landmark } from "../dominion/landmark";
 import { Way } from "../dominion/way";
 import { Trait } from "../dominion/trait";
+import { Prophecy } from "../dominion/prophecy";
 import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
 
 
@@ -73,6 +74,9 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
   if (kingdom.ally) {
     result.ally = serializeCards([kingdom.ally]);
   }
+  if (kingdom.prophecy) {
+    result.prophecy= serializeCards([kingdom.prophecy]);
+  }
   if (kingdom.traits.length) {
     const traitToSerialize=[...kingdom.traits]
     for (const index in traitToSerialize)
@@ -94,9 +98,8 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
     // orderstring = trait.orderstring
     // cost = trait.cost
     // ajouter traitToSerialize dans result.traits
-
   }
-  
+
   /*
       lang=en&
       supply=coven,youngwitch,gatekeeper,ferryman,huntinglodge,livery,mastermind,paddock,stockpile,supplies
@@ -131,6 +134,7 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   // const wayIds = parseCommaSeparatedValues(serializedKingdom.ways) || [];
   const [mouseWayCardIds, wayIds] = extractStringParenthesis(parseCommaSeparatedValues(serializedKingdom.ways) || [])
   const allyIds = parseCommaSeparatedValues(serializedKingdom.ally) || [];
+  const prophecyIds = parseCommaSeparatedValues(serializedKingdom.prophecy) || [];
   const traitIds = parseCommaSeparatedValues(serializedKingdom.traits) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, NUM_CARDS_IN_KINGDOM());
@@ -154,10 +158,8 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
  }
   const projects = 
       findByIds(projectIds, DominionSets.getProjectById, "project_", selectedSets)
-          //.slice(0, Math.max(0, 2 - events.length - landmarks.length));
   const ways = 
       findByIds(wayIds, DominionSets.getWayById, "way_", selectedSets)
-          //.slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length));
   let mouseWayCard: SupplyCard | null = null;
   if (mouseWayCardIds.length) {
     mouseWayCard = findByIds(mouseWayCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
@@ -166,14 +168,14 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   const traits =  /* transform pious(masterpiece) => pious */
       findByIds(traitIds.map((traitId) => traitId.replace(/\(.*\)/,''))
         , DominionSets.getTraitById, "trait_", selectedSets)
-          //.slice(0, Math.max(0, 2 - events.length - landmarks.length - projects.length - ways.length));
   const traitssupplyIds = traitIds.map((traitId) => { const match = traitId.match(/\((.*?)\)/);
       return match ? match[1] : ''; });
 
   const traitSupplyCards = /* transform pious(masterpiece) => masterpiece */
       findByIds(traitssupplyIds, DominionSets.getSupplyCardById, "", selectedSets)
-          //.slice(0, 2);
+
   const allies = findByIds(allyIds, DominionSets.getAllyById, "ally_", selectedSets).slice(0, 1);
+  const prophecies = findByIds(prophecyIds, DominionSets.getProphecyById, "prophecy_", selectedSets).slice(0, 1);
   const boons = findByIds(boonIds, DominionSets.getBoonById, "boon_", selectedSets).slice(0, 3);
   const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, traitSupplyCards, Replacements.empty());
 
@@ -185,7 +187,8 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
                projects,                                  /* projects: Project[], */
                ways,                                      /* ways: Way[], */
                boons,                                     /* boons: Boon[], */
-               allies[0] || null,                         /* allies: Ally | null */
+               allies[0] || null,                         /* ally: Ally | null */
+               prophecies[0] || null,                     /* prophecy: Prophecy| null */
                traits,                                    /* traits: Trait[] */
        deserializeMetadata(serializedKingdom)
   );
@@ -218,15 +221,26 @@ function deserializeMetadata(serializedKingdom: any): KingdomMetadata {
 
 function findByIds<T>(ids: string[], lookupFn: (id: string) => T, ext?: string, filteredSet?: string[])  : T[] {
   const results = [];
+  let launch2ndRequest= true
   if (typeof filteredSet !== 'undefined' ) {
     for (const id of ids) {
       try {
+        launch2ndRequest=true
         for (const set of filteredSet) {
           try {
             results.push(lookupFn(set+'_'+ ext + id));
+            launch2ndRequest=false
             break;
           } catch (e) {
             // Silently catch failed lookups of 'set'_'id'
+          }
+        }
+        // this is to handle multiple version of sets
+        if (launch2ndRequest) {
+          try {
+            results.push(lookupFn(id));
+          } catch (e) {
+            // Silently catch failed lookups.
           }
         }
       } catch (e) {

@@ -35,6 +35,9 @@ export enum CardType {
   LIAISON = "isLiaison",
   COVER = "isCover",
 
+  // Rising sun
+  OMEN = "isOmen",
+
   // Promos
   COMMAND = "isCommand"
 }

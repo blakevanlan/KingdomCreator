@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "noEmit": false,
+    "allowImportingTsExtensions": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]
