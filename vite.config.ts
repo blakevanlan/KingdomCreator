@@ -29,10 +29,12 @@ export default defineConfig( ({ mode}) => {
     }
     HandleLocaleGenerateAndMerge(ArgGenLocale, 'docs')
   }
+  let baseDir = './'
+  if (mode === 'production')  baseDir = '/KingdomCreator-Blake/'
 
   return {
     appType: 'spa',
-    base: './',
+    base: baseDir,
     publicDir: false, //  Do not use publicDir feature to avoid duplcation of all image and pdf files.
     /*
     Do not use publicDir feature to avoid duplcation of all image and pdf files.
