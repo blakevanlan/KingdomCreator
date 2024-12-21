@@ -2,7 +2,7 @@
   <div class="addons" v-if="hasAddons">
     <div class="addons-header">
       <AddonTitle :has-events="canHaveEvents" :has-landmarks="canHaveLandmarks" :has-projects="canHaveProjects"
-        :has-ways="canHaveWays" :has-traits="canHaveTraits" />
+        :has-ways="canHaveWays" :has-traits="canHaveTraits"/>
     </div>
     <GridLayout :class="{ 'addon--is-enlarged': isEnlarged }" :items="activeContainers"
       :number-of-columns="numberOfColumns" :is-vertical="false">

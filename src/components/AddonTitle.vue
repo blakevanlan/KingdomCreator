@@ -73,9 +73,8 @@ export default defineComponent({
       if (props.hasProjects) addons.push("addon_projects");
       if (props.hasWays) addons.push("addon_ways");
       if (props.hasTraits) addons.push("addon_traits");
-      if (props.hasAlly || false) addons.push("addon_ally");
+      if (props.hasAlly) addons.push("addon_ally");
       if (props.hasProphecy) addons.push("addon_prophecy");
-
       return addons;
     });
 

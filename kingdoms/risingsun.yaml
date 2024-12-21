@@ -1,0 +1,635 @@
+kingdoms:
+  - name: Heading East
+    sets:
+      - risingsun
+    supply:
+      - risingsun_alley
+      - risingsun_artist
+      - risingsun_craftsman
+      - risingsun_fishmonger
+      - risingsun_litter
+      - risingsun_rice
+      - risingsun_rivershrine
+      - risingsun_rusticvillage
+      - risingsun_samurai
+      - risingsun_teahouse
+    prophecies:
+      - risingsun_prophecy_progress
+
+  - name: Dawn of an Era
+    sets:
+      - risingsun
+    supply:
+      - risingsun_aristocrat
+      - risingsun_change
+      - risingsun_daimyo
+      - risingsun_goldmine
+      - risingsun_imperialenvoy
+      - risingsun_kitsune
+      - risingsun_mountainshrine
+      - risingsun_ninja
+      - risingsun_ricebroker
+      - risingsun_ronin
+    events:
+      - risingsun_event_practice
+    prophecies:
+      - risingsun_prophecy_kindemperor
+
+  - name: Spring Forward
+    sets:
+      - baseset2
+      - risingsun
+    supply:
+      - baseset2_smithy
+      - baseset2_throneroom
+      - baseset2_workshop
+      - baseset2_artisan
+      - baseset2_harbinger
+      - risingsun_goldmine
+      - risingsun_mountainshrine
+      - risingsun_riverboat
+      - risingsun_rootcellar
+      - risingsun_tanuki
+    riverboatActionCard: baseset2_market
+    prophecies:
+      - risingsun_prophecy_rapidexpansion
+
+  - name: Money to Burn
+    sets:
+      - baseset2
+      - risingsun
+    supply:
+      - baseset2_bureaucrat
+      - baseset2_cellar
+      - baseset2_festival
+      - baseset2_merchant
+      - baseset2_poacher
+      - risingsun_change
+      - risingsun_craftsman
+      - risingsun_poet
+      - risingsun_ronin
+      - risingsun_snakewitch
+    events:
+      - risingsun_event_gather
+    prophecies:
+      - risingsun_prophecy_panic
+
+  - name: Solving the Puzzle
+    sets:
+      - intrigue2
+      - risingsun
+    supply:
+      - intrigue2_conspirator
+      - intrigue2_ironworks
+      - intrigue2_wishingwell
+      - intrigue2_courtier
+      - intrigue2_lurker
+      - risingsun_artist
+      - risingsun_goldmine
+      - risingsun_mountainshrine
+      - risingsun_riverboat
+      - risingsun_ronin
+    riverboatActionCard: intrigue2_upgrade
+    prophecies:
+      - risingsun_prophecy_enlightenment
+
+  - name: Cold Calculation
+    sets:
+      - intrigue2
+      - risingsun
+    supply:
+      - intrigue2_baron
+      - intrigue2_duke
+      - intrigue2_shantytown
+      - intrigue2_diplomat
+      - intrigue2_secretpassage
+      - risingsun_craftsman
+      - risingsun_ninja
+      - risingsun_snakewitch
+      - risingsun_tanuki
+      - risingsun_teahouse
+    events:
+      - risingsun_event_amass
+    prophecies:
+      - risingsun_prophecy_harshwinter
+
+  - name: Invasion Fleet
+    sets:
+      - risingsun
+      - seaside2
+    supply:
+      - risingsun_kitsune
+      - risingsun_ninja
+      - risingsun_ricebroker
+      - risingsun_riverboat
+      - risingsun_alley
+      - seaside2_outpost
+      - seaside2_salvager
+      - seaside2_treasuremap
+      - seaside2_blockade
+      - seaside2_seachart
+    riverboatActionCard: seaside2_bazaar
+    approachingArmy : seaside2_corsair
+    prophecies:
+      - risingsun_prophecy_approachingarmy
+
+  - name: Island People
+    sets:
+      - risingsun
+      - seaside2
+    supply:
+      - risingsun_craftsman
+      - risingsun_imperialenvoy
+      - risingsun_rice
+      - risingsun_rivershrine
+      - risingsun_snakewitch
+      - seaside2_caravan
+      - seaside2_haven
+      - seaside2_pirate
+      - seaside2_seawitch
+      - seaside2_tidepools
+    events:
+      - risingsun_event_kintsugi
+    prophecies:
+      - risingsun_prophecy_greatleader
+
+  - name: Fast Track
+    sets:
+      - alchemy
+      - risingsun
+    supply:
+      - alchemy_alchemist
+      - alchemy_golem
+      - alchemy_university
+      - alchemy_vineyard
+      - risingsun_fishmonger
+      - risingsun_imperialenvoy
+      - risingsun_riverboat
+      - risingsun_rootcellar
+      - risingsun_rusticvillage
+      - risingsun_samurai
+    riverboatActionCard: alchemy_apprentice
+    prophecies:
+      - risingsun_prophecy_progress
+
+  - name: Lazy Mischief
+    sets:
+      - alchemy
+      - risingsun
+    supply:
+      - alchemy_apothecary
+      - alchemy_familiar
+      - alchemy_herbalist
+      - alchemy_transmute
+      - risingsun_alley
+      - risingsun_aristocrat
+      - risingsun_change
+      - risingsun_kitsune
+      - risingsun_litter
+      - risingsun_ninja
+    events:
+      - risingsun_event_receivetribute
+    prophecies:
+      - risingsun_prophecy_bidingtime
+
+  - name: River Trade
+    sets:
+      - prosperity2
+      - risingsun
+    supply:
+      - prosperity2_grandmarket
+      - prosperity2_anvil
+      - prosperity2_collection
+      - prosperity2_crystalball
+      - prosperity2_warchest
+      - risingsun_craftsman
+      - risingsun_litter
+      - risingsun_riverboat
+      - risingsun_rivershrine
+      - risingsun_rootcellar
+    riverboatActionCard: prosperity2_city
+    prophecies:
+      - risingsun_prophecy_flourishingtrade
+    metadata:
+      colonies: true
+
+  - name: Autumn Harvest
+    sets:
+      - prosperity2
+      - risingsun
+    supply:
+      - prosperity2_bank
+      - prosperity2_quarry
+      - prosperity2_watchtower
+      - prosperity2_investment
+      - prosperity2_magnate
+      - risingsun_aristocrat
+      - risingsun_change
+      - risingsun_imperialenvoy
+      - risingsun_ninja
+      - risingsun_rusticvillage
+    events:
+      - risingsun_event_continue
+    prophecies:
+      - risingsun_prophecy_goodharvest
+    metadata:
+      colonies: true
+
+  - name: Winter Solstice
+    sets:
+      - guildscornucopia2
+      - risingsun
+    supply:
+      - guildscornucopia2_huntingparty
+      - guildscornucopia2_jester
+      - guildscornucopia2_advisor
+      - guildscornucopia2_baker
+      - guildscornucopia2_farrier
+      - risingsun_change
+      - risingsun_daimyo
+      - risingsun_goldmine
+      - risingsun_snakewitch
+      - risingsun_teahouse
+    prophecies:
+      - risingsun_prophecy_harshwinter
+
+  - name: From the Shadows
+    sets:
+      - guildscornucopia2
+      - risingsun
+    supply:
+      - guildscornucopia2_hornofplenty
+      - guildscornucopia2_carnival
+      - guildscornucopia2_farmhands
+      - guildscornucopia2_infirmary
+      - guildscornucopia2_shop
+      - risingsun_alley
+      - risingsun_artist
+      - risingsun_fishmonger
+      - risingsun_poet
+      - risingsun_tanuki
+    events:
+      - risingsun_event_gather
+    prophecies:
+      - risingsun_prophecy_rapidexpansion
+
+  - name: Swift Hands
+    sets:
+      - hinterlands2
+      - risingsun
+    supply:
+      - hinterlands2_haggler
+      - hinterlands2_oasis
+      - hinterlands2_scheme
+      - hinterlands2_cauldron
+      - hinterlands2_weaver
+      - risingsun_alley
+      - risingsun_ronin
+      - risingsun_rusticvillage
+      - risingsun_samurai
+      - risingsun_snakewitch
+    prophecies:
+      - risingsun_prophecy_progress
+
+  - name: aperwork
+    sets:
+      - hinterlands2
+      - risingsun
+    supply:
+      - hinterlands2_bordervillage
+      - hinterlands2_crossroads
+      - hinterlands2_spicemerchant
+      - hinterlands2_tunnel
+      - hinterlands2_wheelwright
+      - risingsun_craftsman
+      - risingsun_imperialenvoy
+      - risingsun_riverboat
+      - risingsun_rivershrine
+      - risingsun_tanuki
+    riverboatActionCard: hinterlands2_witchshut
+    events:
+      - risingsun_event_foresight
+    prophecies:
+      - risingsun_prophecy_bureaucracy
+
+  - name: Pandemic
+    sets:
+      - darkages
+      - risingsun
+    supply:
+      - darkages_catacombs
+      - darkages_procession
+      - darkages_rogue
+      - darkages_scavenger
+      - darkages_vagrant
+      - risingsun_aristocrat
+      - risingsun_fishmonger
+      - risingsun_litter
+      - risingsun_mountainshrine
+      - risingsun_ricebroker
+    prophecies:
+      - risingsun_prophecy_sickness
+    metadata:
+      shelters: true
+
+  - name: Distant Hordes
+    sets:
+      - darkages
+      - risingsun
+    supply:
+      - darkages_armory
+      - darkages_forager
+      - darkages_hermit
+      - darkages_huntinggrounds
+      - darkages_squire
+      - risingsun_poet
+      - risingsun_rice
+      - risingsun_ronin
+      - risingsun_samurai
+      - risingsun_snakewitch 
+    approachingArmy : darkages_knights
+    events:
+      - risingsun_event_asceticism
+    prophecies:
+      - risingsun_prophecy_approachingarmy
+    metadata:
+      shelters: true
+
+  - name: Wanderers
+    sets:
+      - adventures
+      - risingsun
+    supply:
+      - adventures_amulet
+      - adventures_caravanguard
+      - adventures_guide
+      - adventures_hireling
+      - adventures_miser
+      - risingsun_imperialenvoy
+      - risingsun_litter
+      - risingsun_poet
+      - risingsun_ronin
+      - risingsun_tanuki
+    events:
+      - adventures_event_ball
+    prophecies:
+      - risingsun_prophecy_flourishingtrade
+
+  - name: Hero's Journey
+    sets:
+      - adventures
+      - risingsun
+    supply:
+      - adventures_artificer
+      - adventures_distantlands
+      - adventures_dungeon
+      - adventures_duplicate
+      - adventures_page
+      - risingsun_aristocrat
+      - risingsun_artist
+      - risingsun_kitsune
+      - risingsun_rootcellar
+      - risingsun_samurai
+    events:
+      - risingsun_event_kintsugi
+    prophecies:
+      - risingsun_prophecy_bidingtime
+
+  - name: Summer Castles
+    sets:
+      - empires
+      - risingsun
+    supply:
+      - empires_capital
+      - empires_castles
+      - empires_cityquarter
+      - empires_forum
+      - empires_patricianemporium
+      - risingsun_aristocrat
+      - risingsun_change
+      - risingsun_rice
+      - risingsun_rivershrine
+      - risingsun_snakewitch
+    landmarks:
+      - empires_landmark_museum
+    prophecies:
+      - risingsun_prophecy_kindemperor
+
+  - name: Swept Clean
+    sets:
+      - empires
+      - risingsun
+    supply:
+      - empires_chariotrace
+      - empires_charm
+      - empires_crown
+      - empires_overlord
+      - empires_temple
+      - risingsun_artist
+      - risingsun_kitsune
+      - risingsun_mountainshrine
+      - risingsun_ricebroker
+      - risingsun_rootcellar
+    events:
+      - risingsun_event_seatrade
+    prophecies:
+      - risingsun_prophecy_divinewind
+
+  - name: Priceless Rice
+    sets:
+      - nocturne
+      - risingsun
+    supply:
+      - nocturne_blessedvillage
+      - nocturne_cursedvillage
+      - nocturne_devilsworkshop
+      - nocturne_faithfulhound
+      - nocturne_shepherd
+      - risingsun_alley
+      - risingsun_daimyo
+      - risingsun_rice
+      - risingsun_samurai
+      - risingsun_teahouse
+    prophecies:
+      - risingsun_prophecy_growth
+
+  - name: Dark Corners
+    sets:
+      - nocturne
+      - risingsun
+    supply:
+      - nocturne_changeling
+      - nocturne_conclave
+      - nocturne_sacredgrove
+      - nocturne_skulk
+      - nocturne_werewolf
+      - risingsun_artist
+      - risingsun_goldmine
+      - risingsun_litter
+      - risingsun_rivershrine
+      - risingsun_tanuki
+    events:
+      - risingsun_event_amass
+    prophecies:
+      - risingsun_prophecy_sickness
+
+  - name: Mountain of Money
+    sets:
+      - renaissance
+      - risingsun
+    supply:
+      - renaissance_ducat
+      - renaissance_experiment
+      - renaissance_hideout
+      - renaissance_scholar
+      - renaissance_treasurer
+      - risingsun_alley
+      - risingsun_goldmine
+      - risingsun_kitsune
+      - risingsun_ricebroker
+      - risingsun_riverboat
+    riverboatActionCard: renaissance_seer
+    projects:
+      - renaissance_project_guildhall
+    prophecies:
+      - risingsun_prophecy_bureaucracy
+
+  - name: Fresh Start
+    sets:
+      - renaissance
+      - risingsun
+    supply:
+      - renaissance_borderguard
+      - renaissance_cargoship
+      - renaissance_inventor
+      - renaissance_patron
+      - renaissance_sculptor
+      - risingsun_change
+      - risingsun_daimyo
+      - risingsun_ninja
+      - risingsun_poet
+      - risingsun_teahouse
+    events:
+      - risingsun_event_receivetribute
+    prophecies:
+      - risingsun_prophecy_divinewind
+
+  - name: Become the Ox
+    sets:
+      - menagerie
+      - risingsun
+    supply:
+      - menagerie_animalfair
+      - menagerie_cameltrain
+      - menagerie_destrier
+      - menagerie_livery
+      - menagerie_wayfarer
+      - risingsun_aristocrat
+      - risingsun_artist
+      - risingsun_fishmonger
+      - risingsun_poet
+      - risingsun_samurai
+    prophecies:
+      - risingsun_prophecy_enlightenment
+
+  - name: Alternatives
+    sets:
+      - menagerie
+      - risingsun
+    supply:
+      - menagerie_bountyhunter
+      - menagerie_coven
+      - menagerie_paddock
+      - menagerie_sleigh
+      - menagerie_supplies
+      - risingsun_alley
+      - risingsun_craftsman
+      - risingsun_daimyo
+      - risingsun_ronin
+      - risingsun_rusticvillage
+    events:
+      - risingsun_event_seatrade
+    prophecies:
+      - risingsun_prophecy_panic
+
+  - name: Expert Traders
+    sets:
+      - allies
+      - risingsun
+    supply:
+      - allies_augurs
+      - allies_contract
+      - allies_courier
+      - allies_hunter
+      - allies_swap
+      - risingsun_daimyo
+      - risingsun_fishmonger
+      - risingsun_ricebroker
+      - risingsun_riverboat
+      - risingsun_rusticvillage
+    riverboatActionCard: allies_barbarian
+    allies:
+      - allies_ally_craftersguild
+    prophecies:
+      - risingsun_prophecy_enlightenment
+
+  - name: Feverish Crafting
+    sets:
+      - allies
+      - risingsun
+    supply:
+      - allies_capitalcity
+      - allies_clashes
+      - allies_innkeeper
+      - allies_marquis
+      - allies_skirmisher
+      - risingsun_aristocrat
+      - risingsun_craftsman
+      - risingsun_fishmonger
+      - risingsun_snakewitch
+      - risingsun_teahouse
+    events:
+      - risingsun_event_credit
+    prophecies:
+      - risingsun_prophecy_rapidexpansion
+
+  - name: Buried in Booty
+    sets:
+      - plunder
+      - risingsun
+    supply:
+      - plunder_firstmate
+      - plunder_flagship
+      - plunder_kingscache
+      - plunder_pendant
+      - plunder_taskmaster
+      - risingsun_goldmine
+      - risingsun_ninja
+      - risingsun_poet
+      - risingsun_ricebroker
+      - risingsun_tanuki
+    events:
+      - plunder_event_prosper
+    prophecies:
+      - risingsun_prophecy_growth
+
+  - name: Shiny Things
+    sets:
+      - plunder
+      - risingsun
+    supply:
+      - plunder_cabinboy
+      - plunder_cutthroat
+      - plunder_jewelledegg
+      - plunder_pilgrim
+      - plunder_tools
+      - risingsun_daimyo
+      - risingsun_litter
+      - risingsun_rice
+      - risingsun_rivershrine
+      - risingsun_rootcellar
+    events:
+      - risingsun_event_credit
+    prophecies:
+      - risingsun_prophecy_goodharvest
+

@@ -12,6 +12,19 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+2024/12/21 - 6.4.2
+Dev deploy on github pages
+  Feat - RisingSun: handle riverboat Action card Request
+  Feat - RisingSun: kingdoms
+  Feat - RisingSun: Add ApprochingArmy supply selection
+  Feat - Recommended kingdoms: Add a link to start building a randomized deck based on it
+  Feat - Usage of Dominion Randomizer made accessible : https://suivi.71yeti.fr/
+
+2024/12/01 - 6.4.1
+Dev deploy on github pages
+  Feat - RisingSun: handle riverboat Action card Request
+  Feat - Add kingdom for Rising Sun
+
 2024/10/21 - 6.4.0
 Dev deploy on github pages
   Feat - include RisingSun and prophecies

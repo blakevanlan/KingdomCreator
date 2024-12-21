@@ -75,8 +75,8 @@ export function tokenize(str) {
 
 function transform(cardType) {
    const LocalCardTypes = {
-      cards: '0 // supplies', events: '1 // event', landmarks: '2 // landmark', projects: '3 // project',
-      boons: '4 // boon', ways: '5 // way', allies: '6 // ally', traits: '7 // trait', 
-      prophecies: '8 // prophecy', othercards: '9 // other'}
+      cards: '0 // supplies', events: '1 // events', landmarks: '2 // landmarks', projects: '3 // projects',
+      boons: '4 // boons', ways: '5 // ways', allies: '6 // allies', traits: '7 // traits', 
+      prophecies: '8 // prophecies', othercards: '9 // others'}
       return LocalCardTypes[cardType];
 }

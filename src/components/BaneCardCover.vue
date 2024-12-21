@@ -90,6 +90,9 @@ export default defineComponent({
 .trait-div{
   bottom: 10%;
 }
+.riverboat-div{
+  bottom: 10%;
+}
 
 .card-cover-text {
   position: absolute;

@@ -55,5 +55,11 @@
   "Prophecy_needs_Omen": "Une Prophétie nécéssite au moins un présage (Omen)",
   "DRUID_needs_boons": "Druide nécéssite des aubaines (boons)",
   "NB_of_Boons": "3 aubaines (boons sont nécessaires au Druide",
-  "boons_for_DRUID": "les aubaines nécessitent le Druide"
+  "boons_for_DRUID": "les aubaines nécessitent le Druide",
+  "RB_needs_riverboatcard": "Bateau fluvial nécessite une carte riverboat",
+  "riverboat_Cardtype": "La carte riverboat doit être de type Action et n'est pas de type Durée",
+  "Riverboatcard_needs_RB": "La présence d'une carte riveboat nécessite un Bateau fluvial",
+  "APA_needs_aApproachingarmycard": "le prophétie armée en approche nécessite une carte armée en approche",
+  "approachingarmycard_Cardtype": "La carte armée en approche doit être de type Attaque",
+  "approachingarmy_needs_APA": "La présence d'une carte armée en approche nécessite la prophétie Armée en approche"
 }

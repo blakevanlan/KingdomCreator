@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélecteur de logs</title>
+</head>
+<body>
+    <h1>Sélectionnez une source pour afficher les logs</h1>
+    <form method="get" action="server.php">
+        <label for="source">Source :</label>
+        <select name="source" id="source">
+            <!-- Les options seront injectées dynamiquement -->
+        </select>
+        <button type="submit">Afficher les logs</button>
+    </form>
+
+    <script>
+        // Charger les sources dynamiquement
+        fetch('server.php?listSources=true')
+            .then(response => response.json())
+            .then(sources => {
+                const select = document.getElementById('source');
+                sources.forEach(source => {
+                    const option = document.createElement('option');
+                    option.value = source;
+                    option.textContent = source;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erreur lors du chargement des sources :', error));
+    </script>
+</body>
+</html>

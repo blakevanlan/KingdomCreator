@@ -7,10 +7,9 @@ import type { Ally } from "../dominion/ally";
 import type { Trait } from "../dominion/trait";
 import type { Prophecy } from "../dominion/prophecy";
 import { Supply } from "../randomizer/supply";
-import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID } from "./special-need-cards";
+import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID, RIVERBOAT_IDS, APPROACHINGARMY_ID } from "./special-need-cards";
 import { DominionSets } from "../dominion/dominion-sets";
 import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
-import { initializeExcludedCardIds } from "./randomizer-options";
 
 export class Kingdom {
   constructor(
@@ -30,7 +29,7 @@ export class Kingdom {
   static empty() {
     return new Kingdom(
       0,                /* id: number,  */
-      Supply.empty(),   /* supply: Supply, containing baneCard, ferrymanCard, obeliskCard, mouseWay, Traits[] */
+      Supply.empty(),   /* supply: Supply, containing baneCard, ferrymanCard, obeliskCard, mouseWay, riverboat, Traits[] */
       [],               /* events: Event[], */
       [],               /* landmarks: Landmark[], */
       [],               /* projects: Project[], */
@@ -43,7 +42,7 @@ export class Kingdom {
   }
 
   public isKingdomValid() {
-    if (this.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) return false;
+        if (this.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) return false;
     // test if cards are only allowed cards
     //console.log(initializeExcludedCardIds(setIds, []);
 
@@ -67,6 +66,16 @@ export class Kingdom {
       if (this.supply.mouseWay == null) return false;
     } else {
       if (this.supply.mouseWay != null) return false;
+    }
+    if (this.supply.supplyCards.some(card => RIVERBOAT_IDS.includes(card.id))) {
+      if (this.supply.riverboatCard == null) return false;
+    } else {
+      if (this.supply.riverboatCard != null) return false;
+    }
+    if (this.prophecy == DominionSets.getLandmarkById(APPROACHINGARMY_ID)) {
+      if (this.supply.approachingArmyCard == null) return false;
+    } else {
+      if (this.supply.approachingArmyCard != null) return false;
     }
     if (this.traits.length >0 ) {
       if (this.supply.traitsSupply.length != this.traits.length) return false;

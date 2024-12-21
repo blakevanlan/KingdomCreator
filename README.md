@@ -8,12 +8,23 @@ It is a kingdom randomizer, or card picker, for Dominion.
 Feel free to propose any improvements you see fit and send me a pull request!
 
 ### Changelog
+2024/12/21 - 6.4.2
+Dev deploy on github pages
+  Feat - RisingSun: finalizing
+  Feat - Recommended kingdoms: Add a link to start building a randomized deck based on it
+  Fix & Feat (see [Changelog.md](./Changelog.md))
+  Feat - Usage of Dominion Randomizer made accessible : https://suivi.71yeti.fr/
+
+2024/12/01 - 6.4.1
+  Feat - Rising Sun
+  Fix & Feat (see [Changelog.md](./Changelog.md))
+
 2024/10/21 - 6.4.0
 Dev deploy on github pages
   Feat - include RisingSun and prophecies
   Feat - add option to exclude cards from randomization
   Fix & Feat (see [Changelog.md](./Changelog.md))
-  
+
 2024/09/24 - 6.3.1
 New Release
   Fix blakevanlan/KingdomCreator # 169 - Bug: Copy does not work anymore like it used to
@@ -21,7 +32,7 @@ New Release
 2024/09/23 - 6.3.0
 New Release
   Fix & Feat (see [Changelog.md](./Changelog.md))
-  
+
 2024/07/10 - 6.2.0
 New release
   Fixing enlargde display for Addons, Boons, Allies

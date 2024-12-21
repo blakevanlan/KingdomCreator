@@ -9,6 +9,7 @@ import { Way } from "../dominion/way";
 import { Trait } from "../dominion/trait";
 import { Prophecy } from "../dominion/prophecy";
 import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import { OBELISK_LANDMARK_ID, APPROACHINGARMY_ID, MOUSE_WAY_ID } from "./special-need-cards";
 
 
 export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
@@ -22,6 +23,9 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
   if (kingdom.supply.ferrymanCard) {
     result.ferryman = serializeCards([kingdom.supply.ferrymanCard]);
   } 
+  if (kingdom.supply.riverboatCard) {
+    result.riverboat = serializeCards([kingdom.supply.riverboatCard]);
+  } 
   if (kingdom.events.length) {
     result.events = serializeCards(kingdom.events);
   }
@@ -30,7 +34,7 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
       const landmarkToSerialize=[...kingdom.landmarks]
       for (const index in landmarkToSerialize)
       {
-        if (landmarkToSerialize[index].id == "empires_landmark_obelisk") {
+        if (landmarkToSerialize[index].id == OBELISK_LANDMARK_ID) {
           landmarkToSerialize[index] = new Landmark(
                 landmarkToSerialize[index].id, 
                 landmarkToSerialize[index].shortId+"("+kingdom.supply.obeliskCard.shortId+")",
@@ -56,7 +60,7 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
       const wayToSerialize=[...kingdom.ways]
       for (const index in wayToSerialize)
       {
-        if (wayToSerialize[index].id == "menagerie_way_wayofthemouse") {
+        if (wayToSerialize[index].id == MOUSE_WAY_ID) {
           wayToSerialize[index] = new Way(
             wayToSerialize[index].id, 
             wayToSerialize[index].shortId+"("+kingdom.supply.mouseWay.shortId+")",
@@ -75,7 +79,24 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
     result.ally = serializeCards([kingdom.ally]);
   }
   if (kingdom.prophecy) {
-    result.prophecy= serializeCards([kingdom.prophecy]);
+    if (kingdom.supply.approachingArmyCard) {
+      const prophecyToSerialize=[kingdom.prophecy]
+      for (const index in prophecyToSerialize)
+      {
+        if (prophecyToSerialize[index].id == APPROACHINGARMY_ID) {
+          prophecyToSerialize[index] = new Prophecy(
+            prophecyToSerialize[index].id, 
+            prophecyToSerialize[index].shortId+"("+kingdom.supply.approachingArmyCard.shortId+")",
+            prophecyToSerialize[index].setId,
+            prophecyToSerialize[index].name,
+            prophecyToSerialize[index].orderstring,
+            prophecyToSerialize[index].cost)
+        }
+      }
+      result.prophecy = serializeCards(prophecyToSerialize);
+    } else {
+      result.prophecy = serializeCards([kingdom.prophecy]);
+    }
   }
   if (kingdom.traits.length) {
     const traitToSerialize=[...kingdom.traits]
@@ -105,12 +126,14 @@ export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {
       supply=coven,youngwitch,gatekeeper,ferryman,huntinglodge,livery,mastermind,paddock,stockpile,supplies
       &bane=hamlet
       &ferryman=village
+      &riverboat=alley
       &events=populate
       &landmarks=obelisk(coven)
       //&obeliskCard=coven
       &ways=wayofthemouse(menagerie)
       //&mouseWayCard=menagerie
       &traits=poor(gatekeeper),rich(livery)
+      &prophecies=approachingArmy(samurai)
   */
   return result;
 }
@@ -126,6 +149,7 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
 
   const baneIds = parseCommaSeparatedValues(serializedKingdom.bane) || [];
   const ferrymanIds = parseCommaSeparatedValues(serializedKingdom.ferryman) || [];
+  const riverboatIds = parseCommaSeparatedValues(serializedKingdom.riverboat) || [];
   const eventIds = parseCommaSeparatedValues(serializedKingdom.events) || [];
   // const  landmarkIds = parseCommaSeparatedValues(serializedKingdom.landmarks) || [];
   const [obeliskCardIds, landmarkIds] = extractStringParenthesis(parseCommaSeparatedValues(serializedKingdom.landmarks) || [])
@@ -134,7 +158,7 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   // const wayIds = parseCommaSeparatedValues(serializedKingdom.ways) || [];
   const [mouseWayCardIds, wayIds] = extractStringParenthesis(parseCommaSeparatedValues(serializedKingdom.ways) || [])
   const allyIds = parseCommaSeparatedValues(serializedKingdom.ally) || [];
-  const prophecyIds = parseCommaSeparatedValues(serializedKingdom.prophecy) || [];
+  const [approachingArmyCardIds, prophecyIds] = extractStringParenthesis(parseCommaSeparatedValues(serializedKingdom.prophecy) || []);
   const traitIds = parseCommaSeparatedValues(serializedKingdom.traits) || [];
   
   const supplyCards = findByIds(supplyIds, DominionSets.getSupplyCardById, "", selectedSets).slice(0, NUM_CARDS_IN_KINGDOM());
@@ -164,7 +188,14 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   if (mouseWayCardIds.length) {
     mouseWayCard = findByIds(mouseWayCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
   }
-
+  let riverboatCard: SupplyCard | null = null;
+  if (riverboatIds.length) {
+    riverboatCard = findByIds(riverboatIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
+  }
+  let approachingArmyCard: SupplyCard | null = null;
+  if (approachingArmyCardIds.length) {
+    approachingArmyCard = findByIds(approachingArmyCardIds, DominionSets.getSupplyCardById, "", selectedSets)[0] || null;
+ }
   const traits =  /* transform pious(masterpiece) => pious */
       findByIds(traitIds.map((traitId) => traitId.replace(/\(.*\)/,''))
         , DominionSets.getTraitById, "trait_", selectedSets)
@@ -177,7 +208,7 @@ export function deserializeKingdom(serializedKingdom: any, selectedSets: string[
   const allies = findByIds(allyIds, DominionSets.getAllyById, "ally_", selectedSets).slice(0, 1);
   const prophecies = findByIds(prophecyIds, DominionSets.getProphecyById, "prophecy_", selectedSets).slice(0, 1);
   const boons = findByIds(boonIds, DominionSets.getBoonById, "boon_", selectedSets).slice(0, 3);
-  const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, traitSupplyCards, Replacements.empty());
+  const supply = new Supply(supplyCards, baneCard, ferrymanCard, obeliskCard, mouseWayCard, riverboatCard, approachingArmyCard, traitSupplyCards, Replacements.empty());
 
   return new Kingdom(
                Date.now(),                                /* id: number,  */

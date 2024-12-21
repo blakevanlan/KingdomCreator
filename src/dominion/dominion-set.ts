@@ -21,8 +21,8 @@ export class DominionSet {
     readonly boons: Boon[],
     readonly ways: Way[],
     readonly allies: Ally[],
-    readonly prophecies: Prophecy[],
     readonly traits: Trait[],
+    readonly prophecies: Prophecy[],
     readonly otherCards: OtherCard[]) {
   }
 

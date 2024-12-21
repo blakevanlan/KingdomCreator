@@ -55,5 +55,11 @@
   "Prophecy_needs_Omen": "A Prophecy needs at least one Omen",
   "DRUID_needs_boons": "Druid needs boons",
   "NB_of_Boons": "3 boons are required for Druid",
-  "boons_for_DRUID": "Boons are for Druid"
+  "boons_for_DRUID": "Boons are for Druid",
+  "RB_needs_riverboatcard": "Riverboat requires a riverboat carry card",
+  "riverboat_Cardtype": "the riverboat carry card must have be type Action and is a non-Duration card ",
+  "Riverboatcard_needs_RB": "The presence of a riverboat carry card requires a Riverboat",
+  "APA_needs_aApproachingarmycard": "Approaching Army Prophecy requires an approaching army card",
+  "approachingarmycard_Cardtype": "the approachiong army card must have be type Attack",
+  "approachingarmy_needs_APA": "The presence of a riverboat carry card requires a Riverboat"
 }

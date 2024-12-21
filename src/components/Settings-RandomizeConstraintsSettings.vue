@@ -85,16 +85,22 @@ import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption, ListboxLabel } from '@headlessui/vue';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid';
 import { useI18n } from 'vue-i18n'
+import type { TranslateResult } from 'vue-i18n';
+
 
 /* import Dominion Objects and type*/
 import { DominionSets } from "../dominion/dominion-sets";
 import type { Card } from "../dominion/card";
+import type { SupplyCard } from "../dominion/supply-card";
 import { MultipleVersionSets, HideMultipleVersionSets, Sets_To_Ignore_Regroup } from "../dominion/set-id";
 import type { SetId } from "../dominion/set-id";
 import { Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
 import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+
 /* imoprt store  */
 import { useSettingsStore } from "../pinia/settings-store";
+import { SortOption } from "../settings/settings";
+import { SupplyCardSorter } from "../utils/supply-card-sorter";
 
 
 export default defineComponent({
@@ -135,11 +141,23 @@ export default defineComponent({
 
     const getCardsForSet = (setid: SetId) => {
       const Set = DominionSets.getSetById(setid)
-      return (Set.supplyCards as Card[]).concat(Set.events,
-        Set.landmarks, Set.projects,
-        Set.boons, Set.ways,
-        Set.allies, Set.traits,
-        Set.prophecies);
+      SupplyCardSorter.sort(Set.supplyCards as SupplyCard[], SortOption.ALPHABETICAL, t);
+
+      Set.supplyCards.sort((a, b) => compare(a, b, t));
+
+      return (Set.supplyCards.sort((a, b) => compare(a, b, t)) as Card[])
+        .concat((Set.events as Card[]).sort((a, b) => compare(a, b, t)),
+            (Set.landmarks as Card[]).sort((a, b) => compare(a, b, t)), 
+            (Set.projects as Card[]).sort((a, b) => compare(a, b, t)),
+            (Set.boons as Card[]).sort((a, b) => compare(a, b, t)), 
+            (Set.ways as Card[]).sort((a, b) => compare(a, b, t)),
+            (Set.allies as Card[]).sort((a, b) => compare(a, b, t)),
+            (Set.traits as Card[]).sort((a, b) => compare(a, b, t)),
+            (Set.prophecies as Card[]).sort((a, b) => compare(a, b, t)));
+    }
+
+    const compare = (a: Card, b: Card, translator: (key: string) => TranslateResult) => {
+      return translator(a.id) === translator(b.id) ? 0 : translator(a.id) < translator(b.id) ? -1 : 1;
     }
 
     const selectedCards = ref<{ [setId: string]: string[] }>({});

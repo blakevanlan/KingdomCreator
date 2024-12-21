@@ -1,7 +1,12 @@
 {
     "terminal.integrated.env.windows": {
-        "PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;C:\\Users\\grosg\\AppData\\Local\\Programs\\PortableGit\\cmd;${execPath}\\..\\..\\PortableGit;C:\\Users\\grosg\\Documents\\Personnel\\# Portable App\\node-v22-win-x64;"
-        
+        // node v22 + PortableGit ; Sacem AppData\\Local\\Programs\\PortableGit + Documents\\Personnel\\# Portable App
+        "PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;C:\\Users\\grosg\\AppData\\Local\\Programs\\PortableGit\\cmd;C:\\Users\\grosg\\Documents\\Personnel\\# Portable App\\node-v22-win-x64;"
+
+        //"PATH": "${env:PATH};"
+
+        // node v22 + PortableGit  près de VsCode
+        // ${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd
         //"PATH": "${env:PATH};C:\\Liberkey\\PortableApps\\node-v22-win-x64;C:\\Liberkey\\PortableApps\\PortableGit;"
         
         //C:\\Users\\grosg\\Documents\\Personnel\\# Portable App\\node-v22-win-x64;

@@ -26,14 +26,14 @@ export interface randomizerStoreState {
 }
 
 export function randomizeSelectedCards(context: randomizerStoreState): Supply | null {
-  //console.log("randomizeSelectedCards")
-  //console.log(context)
   const excludeCardIds = getSelectedSupplyCards(context).map((card) => card.id);
   const isBaneSelected = isBaneCardSelected(context);
   const isFerrymanSelected = isFerrymanCardSelected(context);
   const isMousewaySelected = isMousewayCardSelected(context);
   const isObeliskSelected = isObeliskCardSelected(context);
-  // handle special case where bane, ferryman, obeliskCard, mousewayCard is selected
+  const isRiverboatSelected = isRiverboatCardSelected(context);
+  const isApproachingArmySelected = isApproachingArmyCardSelected(context);
+  // handle special case where bane, ferryman, obeliskCard, mousewayCard, riverboatCard, approachingArmy is selected
   if (isBaneSelected) {
     excludeCardIds.push(context.kingdom.supply.baneCard?.id ?? "");
   }
@@ -45,6 +45,12 @@ export function randomizeSelectedCards(context: randomizerStoreState): Supply | 
   }
   if (isObeliskSelected) {
     excludeCardIds.push(context.kingdom.supply.obeliskCard?.id ?? "");
+  }
+  if (isRiverboatSelected) {
+    excludeCardIds.push(context.kingdom.supply.riverboatCard?.id ?? "");
+  }
+  if (isApproachingArmySelected) {
+    excludeCardIds.push(context.kingdom.supply.approachingArmyCard?.id ?? "");
   }
   const optionsBuilder = createRandomizerOptionsBuilder(context)
       .setSetIds(getSelectedSetIds(context))
@@ -64,11 +70,17 @@ export function randomizeSelectedCards(context: randomizerStoreState): Supply | 
   if (!isObeliskSelected && context.kingdom.supply.obeliskCard) {
     optionsBuilder.setObeliskCardId(context.kingdom.supply.obeliskCard?.id ?? false)
   }
+  if (!isRiverboatSelected && context.kingdom.supply.riverboatCard) {
+    optionsBuilder.setRiverboatCardId(context.kingdom.supply.riverboatCard?.id ?? false)
+  }
+  if (!isApproachingArmySelected && context.kingdom.supply.approachingArmyCard) {
+    optionsBuilder.setApproachingArmyCardId(context.kingdom.supply.approachingArmyCard?.id ?? false)
+  }
   const supply = Randomizer.createSupplySafe(optionsBuilder.build());
   if (supply) {
-    EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE);
+    EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE_SUPPLY);
   } else {
-    EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE);
+    EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY);
   }
   return supply;
 }
@@ -178,14 +190,11 @@ export function randomizeSelectedBoons(context: randomizerStoreState, supply: Su
 }
 
 export function randomizeSelectedAlly(context: randomizerStoreState, supply: Supply) {
-  if (supply.supplyCards.every((s) => !s.isLiaison)) {
-      return null;
-  }
+  if (supply.supplyCards.every((s) => !s.isLiaison)) return null;
   const selectedAlly = getSelectedAlly(context);
   if (!selectedAlly.length) {
-    const unselectedAlly = getUnselectedAlly(context);
-    if (unselectedAlly !== null) return unselectedAlly
-    return Randomizer.getRandomAlly(supply)
+    if (!context.kingdom.ally) return Randomizer.getRandomAlly(supply)
+    return context.kingdom.ally
   }
   console.log('RANDOMIZE_ALLY')
   EventTracker.trackEvent(EventType.RANDOMIZE_ALLY);
@@ -193,14 +202,12 @@ export function randomizeSelectedAlly(context: randomizerStoreState, supply: Sup
 }
 
 export function randomizeSelectedProphecy(context: randomizerStoreState, supply: Supply) {
-  if (supply.supplyCards.every((s) => !s.isOmen)) {
-      return null;
-  }
+  if (supply.supplyCards.every((s) => !s.isOmen)) return null;
   const selectedProphecy = getSelectedProphecy(context);
   if (!selectedProphecy.length) {
-    const unselectedProphecy = getUnselectedProphecy(context);
-    if (unselectedProphecy !== null) return unselectedProphecy
-    return Randomizer.getRandomProphecy(supply)
+    // Prophecy not selected
+    if (!context.kingdom.prophecy) return Randomizer.getRandomProphecy(supply)
+    return context.kingdom.prophecy
   }
   console.log('RANDOMIZE_PROPHECY')
   EventTracker.trackEvent(EventType.RANDOMIZE_PROPHECY);
@@ -249,7 +256,6 @@ export function getCardsToExclude(context: randomizerStoreState) {
 
 export function getAddons(context: randomizerStoreState) {
   const kingdom = context.kingdom;
-  console.log("getAddons from RActions")
   return (kingdom.events as Addon[])
       .concat(
         kingdom.landmarks as Addon[], 
@@ -375,4 +381,16 @@ export function isObeliskCardSelected(context: randomizerStoreState) {
   const selection = context.selection;
   const obeliskCard = context.kingdom.supply.obeliskCard;
   return Boolean(obeliskCard && selection.contains(obeliskCard.id));
+}
+
+export function isRiverboatCardSelected(context: randomizerStoreState) {
+  const selection = context.selection;
+  const riverboatCard = context.kingdom.supply.riverboatCard;
+  return Boolean(riverboatCard && selection.contains(riverboatCard.id));
+}
+
+export function isApproachingArmyCardSelected(context: randomizerStoreState) {
+  const selection = context.selection;
+  const approachingArmyCard = context.kingdom.supply.approachingArmyCard;
+  return Boolean(approachingArmyCard && selection.contains(approachingArmyCard.id));
 }
