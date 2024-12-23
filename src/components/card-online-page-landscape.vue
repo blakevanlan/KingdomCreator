@@ -141,7 +141,6 @@ export default defineComponent({
             props.set.allies.some(function (item) { return item.shortId == card.id; }))
         )
         const uniqueCards = new Set(filteredCards);
-      console.log(uniqueCards)
       return Array.from(uniqueCards) 
     });
 

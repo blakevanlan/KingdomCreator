@@ -6,7 +6,7 @@
         <!-- <card-online-editor-component :set="set" v-if="true" /> -->
         <card-online-page-component :set="set" v-if="true" />
         <card-online-page-landscape-component :set="set" v-if="true" />
-        <card-online-page-othercard-component :set="set" v-if="false" />
+        <card-online-page-othercard-component :set="set" v-if="true" />
       </div>
     </div>
   </Page>

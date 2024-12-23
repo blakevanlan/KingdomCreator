@@ -42,6 +42,7 @@
         <BaneCardCover isType="Ferryman" v-if="isFerrymanCard(slotProps.item)" />
         <BaneCardCover isType="Obelisk" v-if="isObeliskCard(slotProps.item)" />
         <BaneCardCover isType="MouseWay" v-if="isMouseWayCard(slotProps.item)" />
+        <BaneCardCover isType="Riverboat" v-if="isRiverboatCard(slotProps.item)" />
         <BaneCardCover :is-type="traitsTitle(0)" v-if="isTraitsCard(slotProps.item, 0)" />
         <BaneCardCover :is-type="traitsTitle(1)" v-if="isTraitsCard(slotProps.item, 1)" />
       </template>
@@ -54,8 +55,9 @@
           :has-landmarks="kingdom.landmarkIds.length > 0"
           :has-projects="kingdom.projectIds.length > 0"
           :has-ways="kingdom.wayIds.length > 0"
-          :has-allies="kingdom.allyIds.length > 0"
+          :has-ally="kingdom.allyIds.length > 0"
           :has-traits="kingdom.traitIds.length > 0"
+          :has-prophecy="kingdom.prophecyIds.length > 0"
         />
       </div>
       <GridLayout
@@ -85,6 +87,10 @@
       :text="copyText"
       class="preset-kingdom-copy-button"
     />
+    <RandomizeLinkButton
+      :kingdom="kingdom"
+      class="preset-kingdom-copy-button"
+    />
   </div>
 </template>
 
@@ -111,6 +117,7 @@ import GridLayout from "./GridLayout.vue";
 import StaticCardWithSet from "./StaticCardWithSet.vue";
 import BaneCardCover from "./BaneCardCover.vue";
 import CopyButton from "./CopyButton.vue";
+import RandomizeLinkButton from './RandomizeLinkButton.vue';
 
 const FOUR_COLUMN_SUPPLY_CARD_WIDTH = 450;
 const TWO_COLUMN_ADDON_WIDTH = 525;
@@ -122,7 +129,8 @@ export default defineComponent({
     GridLayout,
     StaticCardWithSet,
     BaneCardCover,
-    CopyButton
+    CopyButton,
+    RandomizeLinkButton
   },
   props: {
     kingdom: {
@@ -149,7 +157,8 @@ export default defineComponent({
 
     const addonIds = computed(() => {
       return props.kingdom.eventIds.concat(
-        props.kingdom.landmarkIds, props.kingdom.projectIds, props.kingdom.wayIds, props.kingdom.allyIds, props.kingdom.traitIds);
+        props.kingdom.landmarkIds, props.kingdom.projectIds, props.kingdom.wayIds, 
+        props.kingdom.allyIds, props.kingdom.traitIds, props.kingdom.prophecyIds);
     });
 
     const hasMetadata = computed(() => {
@@ -172,6 +181,12 @@ export default defineComponent({
       if (props.kingdom.wayofthemouseCardId) {
         Cards.push(getCards([props.kingdom.wayofthemouseCardId])[0]);
       }
+      if (props.kingdom.riverboatActionCardId) {
+        Cards.push(getCards([props.kingdom.riverboatActionCardId])[0]);
+      }
+      if (props.kingdom.approachingArmyCardId) {
+        Cards.push(getCards([props.kingdom.approachingArmyCardId])[0]);
+      }
       return Cards;
     };
 
@@ -183,12 +198,10 @@ export default defineComponent({
       return props.kingdom.baneCardId &&
         props.kingdom.baneCardId == supplyCard.id;
     };
-
     const isFerrymanCard = (supplyCard: SupplyCard) => {
       return props.kingdom.ferrymanCardId &&
         props.kingdom.ferrymanCardId == supplyCard.id;
     };
-
     const isObeliskCard = (supplyCard: SupplyCard) => {
       return props.kingdom.obeliskCardId &&
         props.kingdom.obeliskCardId == supplyCard.id;
@@ -197,6 +210,10 @@ export default defineComponent({
       return props.kingdom.wayofthemouseCardId &&
         props.kingdom.wayofthemouseCardId == supplyCard.id;
     };
+    const isRiverboatCard = (supplyCard: SupplyCard) => {
+      return props.kingdom.riverboatActionCardId &&
+        props.kingdom.riverboatActionCardId == supplyCard.id;
+    };
     const isTraitsCard = (supplyCard: SupplyCard, index: number) => {
       return props.kingdom.traitSupplyIds[index]  &&
         props.kingdom.traitSupplyIds[index] == supplyCard.id;
@@ -204,8 +221,6 @@ export default defineComponent({
     const traitsTitle = (index: number) => {
       return "trait#"+ props.kingdom.traitIds[index];
     };
-
-
 
     const isPlayFavImg = (kingdomName: string) => {
       let PlayedGames = setsStore.playedGames;
@@ -268,6 +283,7 @@ export default defineComponent({
       isFerrymanCard,
       isObeliskCard,
       isMouseWayCard,
+      isRiverboatCard,
       isTraitsCard,
       traitsTitle,
       isPlayFavImg,

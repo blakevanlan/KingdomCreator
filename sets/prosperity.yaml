@@ -316,19 +316,7 @@ othercards:
     cost:
       treasure: 9
 
-  - name: Platinum_2nd
-    type: Basic Cards
-    isTreasure: true
-    cost:
-      treasure: 9
-
   - name: Colony
-    type: Basic Cards
-    isVictory: true
-    cost:
-      treasure: 11
-
-  - name: Colony_2nd
     type: Basic Cards
     isVictory: true
     cost:

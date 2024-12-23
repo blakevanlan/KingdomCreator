@@ -6,7 +6,7 @@
         <FlippingCard :card="slotProps.item" :is-vertical="true" @front-visible="handleSupplyCardFrontVisible"
           @flipping-to-back="handleSupplyCardFlippingToBack">
           <template v-slot:highlight-content>
-            <div v-if="!isBaneCard(slotProps.item)"
+            <div v-if="!(isSpecialCard(slotProps.item))"
               class="standard-button standard-button--is-primary standard-button--light-border"
               @click.stop="handleSpecify(slotProps.item)">
               Specify
@@ -17,6 +17,7 @@
           <BaneCardCover isType="Ferryman" v-if="isFerrymanCard(slotProps.item)" />
           <BaneCardCover isType="Obelisk" v-if="isObeliskCard(slotProps.item)" />
           <BaneCardCover isType="MouseWay" v-if="isMouseWayCard(slotProps.item)" />
+          <BaneCardCover isType="Riverboat" v-if="isRiverboatCard(slotProps.item)" />
           <BaneCardCover :is-type="traitsTitle(slotProps.item)" v-if="isTraitsCard(slotProps.item)" />
         </FlippingCard>
       </template>
@@ -108,6 +109,12 @@ export default defineComponent({
       if (kingdom.value.supply.mouseWay) {
         cards.push(kingdom.value.supply.mouseWay);
       }
+      if (kingdom.value.supply.riverboatCard) {
+        cards.push(kingdom.value.supply.riverboatCard);
+      }
+      if (kingdom.value.supply.approachingArmyCard) {
+        cards.push(kingdom.value.supply.approachingArmyCard);
+      }
       return cards;
     });
 
@@ -150,7 +157,11 @@ export default defineComponent({
       nextTick(() => resetCardPositions());
     }
     watch(numberOfColumns, handleNumberOfColumnsChanged)
-
+    const isSpecialCard = (supplyCard: SupplyCard) => {
+      return isBaneCard(supplyCard) || isFerrymanCard (supplyCard) || 
+          isObeliskCard (supplyCard) || isMouseWayCard (supplyCard) || 
+          isRiverboatCard (supplyCard) || isApproachingArmyCard (supplyCard)
+    }
     const isBaneCard = (supplyCard: SupplyCard) => {
       return kingdom.value.supply.baneCard &&
         kingdom.value.supply.baneCard.id == supplyCard.id;
@@ -167,30 +178,33 @@ export default defineComponent({
       return kingdom.value.supply.mouseWay &&
         kingdom.value.supply.mouseWay.id == supplyCard.id;
     }
-
+    const isRiverboatCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.riverboatCard &&
+        kingdom.value.supply.riverboatCard.id == supplyCard.id;
+    }
+    const isApproachingArmyCard = (supplyCard: SupplyCard) => {
+      return kingdom.value.supply.approachingArmyCard &&
+        kingdom.value.supply.approachingArmyCard.id == supplyCard.id;
+    }
     const isTraitsCard = (supplyCard: SupplyCard) => {
       const index = kingdom.value.supply.traitsSupply.indexOf(supplyCard)
       return kingdom.value.supply.traitsSupply[index]  &&
       kingdom.value.supply.traitsSupply[index].id == supplyCard.id;
     }
-
     const traitsTitle = (supplyCard: SupplyCard) => {
       const index = kingdom.value.supply.traitsSupply.indexOf(supplyCard)
       return "trait#"+ kingdom.value.traits[index].id;
     }
-
     const handleSpecify = (supplyCard: SupplyCard) => {
       randomizerStore.UPDATE_SPECIFYING_REPLACEMENT_SUPPLY_CARD(supplyCard);
     }
     const handleSupplyCardFlippingToBack = (supplyCard: SupplyCard) => {
       numberOfSupplyCardsLoading += 1;
     }
-
     const handleSupplyCardFrontVisible = (supplyCard: SupplyCard) => {
       numberOfSupplyCardsLoading -= 1;
       attemptToAnimateSupplyCardSort();
     }
-
     const handleReplace = (supplyCard: SupplyCard) => {
       replacingCard = supplyCard;
     }
@@ -355,10 +369,13 @@ export default defineComponent({
       isEnlarged,
       handleSupplyCardFrontVisible,
       handleSupplyCardFlippingToBack,
+      isSpecialCard,
       isBaneCard,
       isFerrymanCard,
       isObeliskCard,
       isMouseWayCard,
+      isRiverboatCard,
+      isApproachingArmyCard,
       isTraitsCard,
       traitsTitle,
       handleSpecify

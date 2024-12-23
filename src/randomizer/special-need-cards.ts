@@ -20,3 +20,13 @@ export const MOUSE_MAX_COST = 3;
     // Trait requested
 export const TRAITS_CARDTYPE_POSSIBILITY_1= CardType.ACTION
 export const TRAITS_CARDTYPE_POSSIBILITY_2 = CardType.TREASURE
+  // druid
+export const DRUID_ID = "nocturne_druid"
+export const BOONS_NB_FROM_DRUID = 3
+  // riverboat 
+export const RIVERBOAT_IDS = ["risingsun_riverboat"]
+export const RIVERBOAT_CARDTYPE_REQUESTED = CardType.ACTION
+export const RIVERBOAT_CARDTYPE_NOTREQUESTED = CardType.DURATION
+  // ApproachingArmy
+export const APPROACHINGARMY_ID = "risingsun_prophecy_approachingarmy"
+export const APPROACHINGARMY_CARDTYPE_REQUESTED = CardType.ATTACK

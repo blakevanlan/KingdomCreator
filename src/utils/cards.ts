@@ -11,6 +11,7 @@ import {SupplyCard} from "../dominion/supply-card";
 import {Way} from "../dominion/way";
 import {Ally} from "../dominion/ally";
 import {Trait} from "../dominion/trait";
+import {Prophecy} from "../dominion/prophecy";
 
 export class Cards {
 
@@ -31,6 +32,7 @@ export class Cards {
         (set.boons as Card[]),
         (set.allies as Card[]), 
         (set.traits as Card[]), 
+        (set.prophecies as Card[]), 
         );
   }
 
@@ -60,6 +62,10 @@ export class Cards {
 
   static getAllTraits(cards: Card[]): Trait[] {
     return Cards.getCardsOfType<Trait>(cards, Trait);
+  }
+
+  static getAllProphecies(cards: Card[]): Prophecy[] {
+    return Cards.getCardsOfType<Prophecy>(cards, Prophecy);
   }
 
   static getAllBoons(cards: Card[]): Boon[] {

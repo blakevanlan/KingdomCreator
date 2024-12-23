@@ -6,6 +6,7 @@ import type { Project } from "./project";
 import type { Way } from "./way";
 import type { Ally } from "./ally";
 import type { Trait } from "./trait";
+import type { Prophecy } from "./prophecy";
 
 export enum Addons_TYPE {
   EVENT = 'Event',
@@ -13,7 +14,8 @@ export enum Addons_TYPE {
   PROJECT = 'Project',
   WAY = 'Way',
   ALLY = 'Ally',
-  TRAIT = 'Trait'
+  TRAIT = 'Trait',
+  PROPHECY = 'Prophecy'
 }
 
 export interface Addon extends Card {
@@ -27,5 +29,6 @@ export interface Addons
   projects: Project[], 
   ways: Way[], 
   allies: Ally[], 
-  traits: Trait[]
+  traits: Trait[],
+  prophecies: Prophecy[]
 }

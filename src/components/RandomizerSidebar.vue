@@ -161,13 +161,11 @@ export default defineComponent({
     const setIds = computed(() => { 
         const AllSetIdsToConsider = DominionSets.getAllSetsIds()
             .filter(setId => {
-              if (settingsStore.isUsingOnlyOwnedsets){
+              if (settingsStore.isUsingOnlyOwnedsets)
                 return settingsStore.ownedSets.indexOf(setId as never) != -1
-              } else {
-                return (HideMultipleVersionSets.indexOf(setId) == -1);
-                }
+              return true;
               })
-            .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
+            .filter(setId => !HideMultipleVersionSets.includes(setId) && !Sets_To_Ignore_Regroup.has(setId))
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))

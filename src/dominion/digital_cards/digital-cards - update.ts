@@ -1,19 +1,54 @@
 import type { DigitalCard } from "./digital-cards-type"
 
 
-export let Work_Card:DigitalCard = {  id: "vilgglage", frenchName: "",  artwork:"",
+export let Work_Card:DigitalCard = {  id: "souk", frenchName: "",  artwork:"",
     
-text_html: '<div class="card-text" style="top:10px;">\
-<div style="position:relative; top:12px;"><div style="line-height:19px;">\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Dévoilez une carte de votre main.</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Pour chacun de ses types (Action,</div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Attaque, etc.), choisissez : </div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">\
-<div style="display: inline; font-weight: bold;">+1 Action</div> ; ou <div style="display: inline; font-weight: bold;">+1 Achat</div> ; </div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">ou +      ; ou recevez un Or. </div></div><br>\
-<div style="display:inline;"><div style="display:inline; font-size:18.5px;">Les choix doivent être différents.</div></div><br>\
+text_html: '<div class="card-text" style="top:20px;">\
+<div style="position:relative; top:-10px;"><div style="line-height:20px;">\
+<div style="display:inline;"><div style="display:inline; font-weight: bold; font-size:24px;">+1 Achat</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-weight: bold; font-size:24px;">+    </div></div><br>\
+</div>\
+<div style="line-height:18px;"><div style="display:inline;">\
+<div style="display:inline; font-size:18px;">-       par carte en main. (Vous ne</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">pouvez pas aller en-dessous de     .)</div></div><br>\
 </div></div>\
-<div class="card-text-coin-icon" style="transform:scale(0.18); top:110px; display: inline;left:75px;"><div class="card-text-coin-text-container" style="display:inline;"><div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div></div>'
+<div class="horizontal-line" style="width:200px;height: 2px;margin-top:0px;"></div>\
+<div style="position:relative; top:5px;"><div style="line-height: 16px;">\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous recevez cette carte, écartez</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:18px;">jusqu\'à 2 cartes de votre main.</div></div><br>\
+</div></div>\
+<div class="card-text-coin-icon" style="transform: scale(0.18);top: 30px;display: inline;left: 140px;">\
+<div class="card-text-coin-text-container" style="display:inline;">\
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">7</div>\
+</div></div>\
+<div class="card-text-coin-icon" style="transform: scale(0.13);top: 55px;display: inline;left: 20px;">\
+<div class="card-text-coin-text-container" style="display:inline;">\
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div>\
+</div></div>\
+<div class="card-text-coin-icon" style="transform: scale(0.13);top: 72px;display: inline;left: 203px;">\
+<div class="card-text-coin-text-container" style="display:inline;">\
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">0</div>\
+</div></div>\
+</div>'
+
+
+
+
+/*
+'<div class="card-text" style="top:30px;">\
+<div style="position:relative; top:10px;"><div style="font-weight: bold;">\
+<div style="line-height:20px;"><div style="display:inline;"><div style="display:inline; font-size:28px;">+1 Achat</div></div><br>\
+</div></div></div>\
+<div style="position:relative; top:20px;"><div style="line-height:20px;">\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">Vous pouvez défausser un</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">Domaine pour +      . Si vous ne</div></div><br>\
+<div style="display:inline;"><div style="display:inline; font-size:20px;">le faites pas, recevez un Domaine.</div></div><br>\
+</div></div>\
+<div class="card-text-coin-icon" style="transform:scale(0.19); top:65px; display: inline;left:148px;">\
+<div class="card-text-coin-text-container" style="display:inline;">\
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">4</div></div></div>\
+</div>'*/
+
 };
 /*
 

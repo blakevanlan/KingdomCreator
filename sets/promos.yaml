@@ -85,37 +85,12 @@ cards:
     isTreasure: true
     isVictory: false
 
-  - name: Princeold
-    cost:
-      treasure: 8
-      potion: 0
-    isAction: true
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDuration: false
-    isDrawer: false
-    isReaction: false
-    isReserve: false
-    isTrashing: false
-    isTreasure: false
-    isVictory: false
-
   - name: Captain
     cost:
       treasure: 6
       potion: 0
     isAction: true
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
     isDuration: true
-    isDrawer: false
-    isReaction: false
-    isReserve: false
-    isTrashing: false
-    isTreasure: false
-    isVictory: false
     isCommand: true
 
   - name: Dismantle
@@ -123,17 +98,7 @@ cards:
       treasure: 4
       potion: 0
     isAction: true
-    isActionSupplier: false
-    isAttack: false
-    isBuySupplier: false
-    isDuration: false
-    isDrawer: false
-    isReaction: false
-    isReserve: false
     isTrashing: true
-    isTreasure: false
-    isVictory: false
-
 
   - name: Church
     cost:
@@ -141,15 +106,9 @@ cards:
       potion: 0
     isAction: true
     isActionSupplier: true
-    isAttack: false
-    isBuySupplier: false
     isDuration: true
     isDrawer: true
-    isReaction: false
-    isReserve: false
-    isTrashing: false
-    isTraveller: false
-    isVictory: false
+
 
   - name: Sauna / Avanto
     cost:
@@ -208,5 +167,3 @@ othercards:
     orderstring: Sauna / Avanto step 2
     cost:
       treasure: 5
-
-

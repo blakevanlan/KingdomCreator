@@ -125,10 +125,13 @@ export default defineComponent({
 
     const kingdomsets = computed(() => { 
         const AllSetIdsToConsider = DominionKingdoms.getAllSets()
-            .filter(setId => {if (settingsStore.isUsingOnlyOwnedsets){
+            .filter(setId => {
+              if (settingsStore.isUsingOnlyOwnedsets){
                   return settingsStore.ownedSets.indexOf(setId as never) != -1
-                } else { return (HideMultipleVersionSets.indexOf(setId) == -1) }})
-            .filter(setId => !((Set_To_Ignore_Kingdoms).has(setId)))
+                } 
+              return true;
+            })
+            .filter(setId => !HideMultipleVersionSets.includes(setId) && !Set_To_Ignore_Kingdoms.has(setId))
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||1000) - (Year_set.find(set => set.id === b)?.order ||1000))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))

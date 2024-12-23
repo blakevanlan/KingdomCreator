@@ -123,7 +123,7 @@ export default defineComponent({
       }
       const ownedIdsSet = new Set(ownedSetIds.value);
       const filteredSelectedIds = randomizerStore.settings.selectedSets.filter((sid) => ownedIdsSet.has(sid) === true);
-      console.log("calculated", filteredSelectedIds);
+
       randomizerStore.UPDATE_SETTINGS({
           selectedSets: filteredSelectedIds.map(DominionSets.convertToSetId)
         } as SettingsParams);

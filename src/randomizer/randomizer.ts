@@ -5,7 +5,7 @@ import { CostSupplyBan } from "./cost-supply-ban";
 import { CostSupplyDivider } from "./cost-supply-divider";
 import { CardType } from "../dominion/card-type";
 import { Cards } from "../utils/cards";
-import type { DominionSet } from "../dominion/dominion-set";
+import { DominionSet } from "../dominion/dominion-set";
 import { DominionSets } from "../dominion/dominion-sets";
 import { Event } from "../dominion/event"
 import { Kingdom } from "./kingdom";
@@ -13,6 +13,7 @@ import { Landmark } from "../dominion/landmark"
 import { Metadata as KingdomMetadata } from "./kingdom";
 import { Project } from "../dominion/project"
 import type { RandomizerOptions } from "./randomizer-options";
+import { initializeExcludedCardIds } from './randomizer-options'
 import { SetId, SETS_WITH_DUPLICATES } from "../dominion/set-id";
 import { SetSupplyBan } from "./set-supply-ban";
 import { SetSupplyDivider } from "./set-supply-divider";
@@ -27,11 +28,18 @@ import type { Boon } from "../dominion/boon";
 import { Way } from "../dominion/way";
 import { Ally } from "../dominion/ally";
 import { Trait } from "../dominion/trait";
+import { Prophecy } from "../dominion/prophecy";
+import { DRUID_ID, BOONS_NB_FROM_DRUID } from "./special-need-cards";
+import { APPROACHINGARMY_ID, APPROACHINGARMY_CARDTYPE_REQUESTED } from "./special-need-cards";
 import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from "./special-need-cards";
 import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from "./special-need-cards";
 import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from "./special-need-cards";
-
 import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE } from "../settings/Settings-value";
+
+import { EventTracker, EventType } from "../analytics/follow-activity";
+
+import { getActivePinia } from 'pinia'; // Import Pinia
+import { useRandomizerStore } from '../pinia/randomizer-store';
 
 const MAX_RETRIES = 3;
 
@@ -48,15 +56,22 @@ const MAX_HIGH_CARDS_IN_KINGDOM = 5;
 // Prioritize set constants.
 const NUM_PRIORITIZED_SET = 5;
 
+let SavedSetIds :SetId[] = [];
+let ExcludedCardIds : string[] = [];
+
 export class Randomizer {
   static createKingdom(randomizerOptions: RandomizerOptions): Kingdom {
     const supply = this.createSupplyWithRetries(randomizerOptions);
+    this.storeSetToUse(randomizerOptions.setIds)
     const addons = this.getAddons(randomizerOptions.setIds);
     const boons = this.getRandomBoons(supply, []);
     const ally = this.getRandomAlly(supply);
+    if (ally) addons.allies.push(ally)
+    const prophecy = this.getRandomProphecy(supply);
+    if (prophecy) addons.prophecies.push(prophecy)
     const adjustedSupplyCards = this.adjustSupplyBasedOnAddons(supply, addons, 
-      new Kingdom(0, new Supply([], null, null, null, null, [], Replacements.empty()),
-          [], [], [], [], [], null, [], new KingdomMetadata(false, false)));
+      new Kingdom(0, new Supply([], null, null, null, null, null, null, [], Replacements.empty()),
+          [], [], [], [], [], null, null, [], new KingdomMetadata(false, false)));
     const metadata = this.getMetadata(randomizerOptions.setIds);
     return new Kingdom(
       Date.now(),          /* id: number,  */
@@ -66,9 +81,30 @@ export class Randomizer {
       addons.projects,     /* projects: Project[], */
       addons.ways,         /* ways: Way[], */
       boons,               /* boons: Boon[], */
-      ally,                /* allies: Ally | null, */
+      ally,                /* ally: Ally | null, */
+      prophecy,            /* prophecy: Propehcy | null, */
       addons.traits,       /* Traits: Trait */
       metadata);           /* metadata: Metadata */
+  }
+
+  static storeSetToUse(sets : SetId []) {
+    SavedSetIds = sets;
+    ExcludedCardIds = initializeExcludedCardIds(SavedSetIds, []);
+  }
+  static excludedCardIds() : string[] {
+    return ExcludedCardIds
+  }
+  static setsToUse() : DominionSet[] {
+    if(!SavedSetIds.length) {
+      const activePinia = getActivePinia();
+      if (activePinia) {
+        // Pinia store is initialized
+        const randomizerStore = useRandomizerStore();
+        this.storeSetToUse(randomizerStore.settings.selectedSets)
+      } else
+        this.storeSetToUse(DominionSets.getAllSetsIds())
+    }
+    return Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), SavedSetIds);
   }
 
   static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
@@ -77,6 +113,7 @@ export class Randomizer {
     } catch (error) {
       if (typeof error === 'object' && error !== null) {
         console.log(`Failed to create supply: \n${error.toString()}`);
+        EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY, { message: error.toString() });
         alert(`Failed to create supply: \n${error.toString()}`)
       }
       else
@@ -87,18 +124,24 @@ export class Randomizer {
 
   static createSupplyWithRetries(randomizerOptions: RandomizerOptions): Supply {
     let retries = MAX_RETRIES;
+    let localError:string [] = []
     while (retries > 0) {
       try {
         return this.createSupply(randomizerOptions);
       } catch (error) {
-        if (typeof error === 'object' && error !== null)
-          console.log(`Error when trying to select cards: \n${error.toString()}`);
+        if (typeof error === 'object' && error !== null) {
+          //console.log(`Error when trying to select cards: \n${error.toString()}`);
+          if (!localError.includes(error.toString()))
+            localError.push(error.toString())
+        }
         else
           console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
-    throw new Error("Failed to select cards that satisfied all requirements.");
+    if (localError.length) 
+      throw new Error(`Failed to create Supply that satisfied all requirements: \n${localError.join("\n")}`);
+    throw new Error("Failed to create Supply that satisfied all requirements.");
   }
 
   static createSupply(randomizerOptions: RandomizerOptions): Supply {
@@ -108,7 +151,7 @@ export class Randomizer {
       this.removeDuplicateCards(
         allSupplyCards.filter(Cards.filterByIncludedSetIds(randomizerOptions.setIds)), []);
     let supplyBuilder = new SupplyBuilder(allSupplyCardsToUse);
-    // Set the bane card, the ferryman card, the mouseway card 
+    // Set the bane card, the ferryman card, the mouseway card , the riverboat card
     //if supplyed in the options and remove it from the pool of 
     // available cards.
     if (randomizerOptions.baneCardId) {
@@ -131,7 +174,17 @@ export class Randomizer {
         DominionSets.getSupplyCardById(randomizerOptions.obeliskCardId));
       supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.obeliskCardId]));
     }
-    
+    if (randomizerOptions.riverboatCardId) {
+      supplyBuilder.setRiverboatCard(
+        DominionSets.getSupplyCardById(randomizerOptions.riverboatCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.riverboatCardId]));
+    }
+    if (randomizerOptions.approachingArmyCardId) {
+      supplyBuilder.setApproachningArmyCard(
+        DominionSets.getSupplyCardById(randomizerOptions.approachingArmyCardId));
+      supplyBuilder.addBan(new CardSupplyBan([randomizerOptions.approachingArmyCardId]));
+    }
+
     // Configure bans.
     if (randomizerOptions.excludeCardIds.length) {
       supplyBuilder.addBan(new CardSupplyBan(randomizerOptions.excludeCardIds));
@@ -206,9 +259,13 @@ export class Randomizer {
     return supply;
   }
 
-  private static getAddons(setIds: SetId[]): { events: Event[], landmarks: Landmark[], projects: Project[], ways: Way[], allies: Ally[], traits: Trait[] } {
+  private static getAddons(setIds: SetId[]): { events: Event[], landmarks: Landmark[], projects: Project[],
+         ways: Way[], allies: Ally[], prophecies: Prophecy[], traits: Trait[]  } {
     const setsToUse = Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), setIds);
-    const cards = Cards.getAllCardsFromSets(setsToUse);
+    // ajout des exclusions/
+    const excludedCardIds = initializeExcludedCardIds(setIds, []);
+    const cards = Cards.getAllCardsFromSets(setsToUse)
+        .filter(card => !excludedCardIds.includes(card.id)); 
     const selectedCards = FORCE_ADDONS_USE() ? 
         this.selectRandomCards(cards.filter(card => (card instanceof Event)||(card instanceof Landmark)||
         (card instanceof Project)||(card instanceof Way)||(card instanceof Trait)), NUM_CARDS_IN_KINGDOM())
@@ -219,6 +276,7 @@ export class Randomizer {
     const selectedWays: Way[] = [];
     const selectedAllies: Ally[] = [];
     const selectedTraits: Trait[] = [];
+    const selectedProphecies: Prophecy[] = [];
 
     for (const card of selectedCards) {
       if (card instanceof Event) {
@@ -231,7 +289,7 @@ export class Randomizer {
         if (selectedWays.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY)) selectedWays.push(card);
       } else if (card instanceof Trait) {
         if (selectedTraits.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT)) selectedTraits.push(card)
-      }
+      } 
       // Stop once the maximum number of addons has been reached.
       const addonCount = selectedEvents.length
         + selectedLandmarks.length
@@ -249,7 +307,8 @@ export class Randomizer {
       projects: selectedProjects,
       ways: selectedWays,
       allies: selectedAllies,
-      traits: selectedTraits
+      prophecies: selectedProphecies,
+      traits: selectedTraits,
     };
   }
 
@@ -267,27 +326,40 @@ export class Randomizer {
     const ways = Cards.getAllWays(cards) as Addon[];
     const allies = Cards.getAllAllies(cards) as Addon[];
     const traits = Cards.getAllTraits(cards) as Addon[];
+    const prophecies = Cards.getAllProphecies(cards) as Addon[];
 
-    return events.concat(landmarks, projects, ways, allies, traits);
+    return events.concat(landmarks, projects, ways, allies, prophecies, traits);
   }
 
   static getRandomBoons(supply: Supply, keepBoons: Boon[]) {
-    if (!supply.supplyCards.some((s) => s.id == "nocturne_druid")) {
+    if (!supply.supplyCards.some((s) => s.id == DRUID_ID)) {
       return [];
     }
     const excludeIds = Cards.extractIds(keepBoons);
-    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
+    const cards = Cards.getAllCardsFromSets(this.setsToUse())
+        .filter(card => !this.excludedCardIds().includes(card.id)); 
     const boons = Cards.getAllBoons(cards).filter(Cards.filterByExcludedIds(excludeIds));
-    return selectRandomN(boons, 3 - excludeIds.length).concat(keepBoons);
+    return selectRandomN(boons, BOONS_NB_FROM_DRUID - excludeIds.length).concat(keepBoons);
   }
 
   static getRandomAlly(supply: Supply, skipAllyId: string | null = null): Ally | null {
     if (supply.supplyCards.every((s) => !s.isLiaison)) {
       return null;
     }
-    const cards = Cards.getAllCardsFromSets(DominionSets.getAllSets());
+    const cards = Cards.getAllCardsFromSets(this.setsToUse())
+        .filter(card => !this.excludedCardIds().includes(card.id)); 
     const allies = Cards.getAllAllies(cards).filter(Cards.filterByExcludedIds(skipAllyId ? [skipAllyId] : []));
     return selectRandomN(allies, 1)[0];
+  }
+
+  static getRandomProphecy(supply: Supply, skipProphecyId: string | null = null): Prophecy | null {
+    if (supply.supplyCards.every((s) => !s.isOmen)) { 
+      return null;
+    }
+    const cards = Cards.getAllCardsFromSets(this.setsToUse())
+        .filter(card => !this.excludedCardIds().includes(card.id)); 
+    const prophecies = Cards.getAllProphecies(cards).filter(Cards.filterByExcludedIds(skipProphecyId ? [skipProphecyId] : []));
+    return selectRandomN(prophecies, 1)[0];
   }
 
   static getMetadata(setIds: SetId[]) {
@@ -357,13 +429,33 @@ export class Randomizer {
         }
       }
     }
+
+    // add ATTACK if approachingArmy prophecy is included
+    let calculateApproachingArmyCard = null;
+    if (Localaddons.prophecies.some(prophecy => DominionSets.getProphecyById(APPROACHINGARMY_ID).id === prophecy.id)) {     
+      if (!supply.approachingArmyCard) {
+        const candidateCards = [...new Set(Array.from(supply.replacements.replacements.values()).flatMap(cards => cards))]
+            .filter(card => !supply.supplyCards.some(supplyCard => supplyCard.id === card.id) 
+                    && card.id != supply.baneCard?.id 
+                    && card.id != supply.riverboatCard?.id )
+            .filter(card => card.isOfType(APPROACHINGARMY_CARDTYPE_REQUESTED))
+        // console.log(candidateCards)
+        // ugly by definition if No APPROACHINGARMY_CARDTYPE_REQUESTED present
+        const randomIndex = Math.floor(Math.random() * candidateCards.length);
+        calculateApproachingArmyCard  = candidateCards[randomIndex]
+      } else 
+        calculateApproachingArmyCard = supply.approachingArmyCard;
+    }
+    
     const NewSupply = new Supply(
-      supply.supplyCards,     /* supply Cards */
-      supply.baneCard,        /* bane if needed */
-      supply.ferrymanCard,    /* ferryman carrd to add if needed */
-      calculatedObeliskCard,  /* obeliskCard if needed */
-      calculatedmouseWayCard, /* mouseWayCard if needed */
-      calculatedTraitsSupplyCard,   /* supply for traits */
+      supply.supplyCards,             /* supply Cards */
+      supply.baneCard,                /* bane if needed */
+      supply.ferrymanCard,            /* ferryman carrd to add if needed */
+      calculatedObeliskCard,          /* obeliskCard if needed */
+      calculatedmouseWayCard,         /* mouseWayCard if needed */
+      supply.riverboatCard,           /* riverboatCard if needed */
+      calculateApproachingArmyCard,     /* approachingArmyCard if needed */
+      calculatedTraitsSupplyCard,     /* supply for traits */
       localReplacements
     )
     return NewSupply
@@ -445,18 +537,23 @@ export class Randomizer {
 
   private static buildSupplyWithRetries(supplyBuilder: SupplyBuilder, existingCards: SupplyCard[]) {
     let retries = MAX_RETRIES;
+    let localError:string [] = []
     while (retries > 0) {
       try {
         return supplyBuilder.createSupply(existingCards);
       } catch (error) {
-        if (typeof error === 'object' && error !== null)
-          console.log(`Error when trying to select cards: \n${error.toString()}`);
-        else
+        if (typeof error === 'object' && error !== null) {
+          //console.log(`Error when trying to select cards: \n${error.toString()}`);
+          if (!localError.includes(error.toString()))
+            localError.push(error.toString())
+        } else
           console.log(`Error when trying to select cards: \n error is not an object`);
         retries -= 1;
       }
     }
-    throw new Error("Failed to select cards that satisfied all requirements.");
+    if (localError.length)
+      throw new Error(`Failed to build Supply that satisfied all requirements: \n${localError.join("\n")}`);
+    throw new Error("Failed to build Supply that satisfied all requirements.");
   }
 
   private static getNumberOfAlchemyCardsToUse(

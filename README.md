@@ -8,6 +8,13 @@ It is a kingdom randomizer, or card picker, for Dominion.
 Feel free to propose any improvements you see fit and send me a pull request!
 
 ### Changelog
+2024/12/23 - 6.4.2
+New Release
+  Feat - RisingSun : handle prophecies, riverboat and approaching army
+  Feat - add option to exclude cards from randomization
+  Feat - Recommended kingdoms: Add a link to start building a randomized deck based on it
+  Fix & Feat (see [Changelog.md](./Changelog.md))
+
 2024/09/24 - 6.3.1
 New Release
   Fix (see [Changelog.md](./Changelog.md))

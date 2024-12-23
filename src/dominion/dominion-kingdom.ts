@@ -9,6 +9,8 @@ export class DominionKingdom {
     readonly ferrymanCardId : string | null,
     readonly obeliskCardId: string | null,
     readonly wayofthemouseCardId: string | null,
+    readonly riverboatActionCardId: string | null,
+    readonly approachingArmyCardId: string | null,
     readonly eventIds: string[],
     readonly landmarkIds: string[],
     readonly projectIds: string[],
@@ -17,6 +19,7 @@ export class DominionKingdom {
     readonly allyIds: string[],
     readonly traitIds: string[],
     readonly traitSupplyIds :string[],
+    readonly prophecyIds: string[],
     readonly metadata: Metadata) {
   }
 
@@ -29,6 +32,8 @@ export class DominionKingdom {
         json["ferrymanGain"] || null,
         json["obeliskActionCard"] || null,
         json["wayofthemouseActionCard"] || null,
+        json["riverboatActionCard"] || null,
+        json["approachingArmy"] || null,
         json["events"] || [],
         json["landmarks"] || [],
         json["projects"] || [],
@@ -37,6 +42,7 @@ export class DominionKingdom {
         json["allies"] || [],
         json["traits"] || [],
         json["traitSupplies"] || [],
+        json["prophecies"] || [],
          Metadata.fromJson(json["metadata"]));
   }
 }

@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-  <pre :v-if="CardsToDisplay.length < 2" class="content Coef_scale12 card-rows" style="white-space: pre-wrap; font-family:Arial, Helvetica, sans-serif">
+  <pre v-if="CardsToDisplay.length == 1" class="content Coef_scale12 card-rows" style="white-space: pre-wrap; font-family:Arial, Helvetica, sans-serif">
     {{ CardsToDisplay[0].text_html }}
   </pre>
 </template>
@@ -235,7 +235,6 @@ export default defineComponent({
             props.set.allies.some(function (item) { return item.shortId == card.id; }))
         )
       const uniqueCards = new Set(filteredCards);
-      console.log(uniqueCards)
       return Array.from(uniqueCards)  
     })
 

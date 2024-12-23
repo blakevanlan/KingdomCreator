@@ -47,6 +47,9 @@ export class SupplyCard implements Card {
     readonly isLiaison: boolean,
     readonly isCover: boolean,
 
+    // Rising sun
+    readonly isOmen: boolean,
+
     // Promos
     readonly isCommand: boolean
 
@@ -166,8 +169,11 @@ export class SupplyCard implements Card {
       json["isLiaison"] || false,
       json["isCover"] || false,
 
+  // Allies
+      json["isOmen"] || false,
+      
   // Promos
-  json["isCommand"] || false,
+      json["isCommand"] || false,
 
     )
   }

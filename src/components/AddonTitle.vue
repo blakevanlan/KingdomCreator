@@ -37,24 +37,32 @@ export default defineComponent({
   props: {
     hasEvents: {
       type: Boolean as PropType<Boolean>,
-      required: true,
+      default:false
     },
     hasLandmarks: {
       type: Boolean as PropType<Boolean>,
-      required: true,
+        default:false
     },
     hasProjects: {
       type: Boolean as PropType<Boolean>,
-      required: true,
+        default:false
     },
     hasWays: {
       type: Boolean as PropType<Boolean>,
-      required: true,
+        default:false
     },
     hasTraits: {
       type: Boolean as PropType<Boolean>,
-      required: true,
+        default:false
     },
+    hasAlly: {
+      type: Boolean as PropType<Boolean> | null,
+        default:false
+    },
+    hasProphecy: {
+      type: Boolean as PropType<Boolean>,
+        default:false
+    }
   },
   setup(props) {
     const { t } = useI18n();
@@ -65,6 +73,8 @@ export default defineComponent({
       if (props.hasProjects) addons.push("addon_projects");
       if (props.hasWays) addons.push("addon_ways");
       if (props.hasTraits) addons.push("addon_traits");
+      if (props.hasAlly) addons.push("addon_ally");
+      if (props.hasProphecy) addons.push("addon_prophecy");
       return addons;
     });
 

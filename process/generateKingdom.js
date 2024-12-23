@@ -158,11 +158,61 @@ Kingdoms["alchemy"] = [
   "Secret Research: Familiar, Herbalist, Philosopher's Stone, University, Bridge, Masquerade, Minion, Nobles, Shanty Town,  Torturer",
   "Pools, Tools, and Fools: Apothecary, Apprentice, Golem, Scrying Pool, Baron, Coppersmith, Ironworks, Nobles, Trading Post,  Wishing Well",
 ];
+Kingdoms["risingsun"] = [
+"Heading East: Progress • Alley, Artist, Craftsman, Fishmonger, Litter, Rice, River Shrine, Rustic Village, Samurai, Tea House",
+"Dawn of an Era: Kind Emperor, Practice • Aristocrat, Change, Daimyo, Gold Mine, Imperial Envoy, Kitsune, Mountain Shrine, Ninja, Rice Broker, Ronin", 
+
+"Spring Forward: Rapid Expansion • Gold Mine, Mountain Shrine, Riverboat (Market), Root Cellar, Tanuki • Artisan, Harbinger, Smithy, Throne Room, Workshop",
+"Money to Burn: Panic, Gather • Change, Craftsman, Poet, Ronin, Snake Witch • Bureaucrat, Cellar, Festival, Merchant, Poacher",
+
+"Solving the Puzzle: Enlightenment • Artist, Gold Mine, Mountain Shrine, Riverboat (Upgrade), Ronin • Conspirator, Courtier, Ironworks, Lurker, Wishing Well",
+"Cold Calculation: Harsh Winter, Amass • Craftsman, Ninja, Snake Witch, Tea House, Tanuki • Baron, Diplomat, Duke, Secret Passage, Shanty Town",
+
+"Invasion Fleet: Approaching Army • Alley, Kitsune, Ninja, Rice Broker, Riverboat (Bazaar) • Blockade, Corsair, Outpost, Salvager, Sea Chart, Treasure Map",
+"Island People: Great Leader, Kintsugi • Craftsman, Imperial Envoy, Rice, River Shrine, Snake Witch • Caravan, Haven, Pirate, Sea Witch, Tide Pools ",
+
+"Fast Track: Progress • Fishmonger, Imperial Envoy, Riverboat (Apprentice), Root Cellar, Rustic Village, Samurai • Alchemist, Golem, University, Vineyard ",
+"Lazy Mischief: Biding Time, Receive Tribute • Alley, Aristocrat, Change, Kitsune, Litter, Ninja • Apothecary, Familiar, Herbalist, Transmute ",
+
+"River Trade: Flourishing Trade • Craftsman, Litter, River Shrine, Riverboat (City), Root Cellar • Anvil, Collection, Crystal Ball, Grand Market, War Chest ",
+"Autumn Harvest: Good Harvest, Continue • Aristocrat, Change, Imperial Envoy, Ninja, Rustic Village • Bank, Investment, Magnate, Quarry, Watchtower ",
+
+"Winter Solstice: Harsh Winter • Change, Daimyo, Gold Mine, Snake Witch, Tea House • Advisor, Baker, Farrier, Hunting Party, Jester ",
+"From the Shadows: Rapid Expansion, Gather • Alley, Artist, Fishmonger, Poet, Tanuki • Carnival, Farmhands, Horn of Plenty, Infirmary, Shop",
+
+"Swift Hands: Progress • Alley, Ronin, Rustic Village, Samurai, Snake Witch • Cauldron, Haggler, Oasis, Scheme, Weaver ",
+"aperwork: Bureaucracy, Foresight • Craftsman, Imperial Envoy, River Shrine, Riverboat (Witch's Hut), Tanuki • Border Village, Crossroads, Spice Merchant, Tunnel, Wheelwright ",
+
+"Pandemic: Sickness • Aristocrat, Fishmonger, Litter, Mountain Shrine, Rice Broker • Catacombs, Procession, Rogue, Scavenger, Vagrant ",
+"Distant Hordes: Approaching Army, Asceticism • Poet, Rice, Ronin, Samurai, Snake Witch • Armory, Forager, Hermit, Hunting Grounds, Knights, Squire ",
+
+"Wanderers: Flourishing Trade, Ball • Imperial Envoy, Litter, Poet, Ronin, Tanuki • Amulet, Caravan Guard, Guide, Hireling, Miser ",
+"Hero's Journey: Biding Time, Kintsugi • Aristocrat, Artist, Kitsune, Root Cellar, Samurai • Artificer, Distant Lands, Dungeon, Duplicate, Page", 
+
+"Summer Castles: Kind Emperor, Museum • Aristocrat, Change, Rice, River Shrine, Snake Witch • Capital, Castles, City Quarter, Forum, Patrician/Emporium ",
+"Swept Clean: Divine Wind, Sea Trade • Artist, Kitsune, Mountain Shrine, Rice Broker, Root Cellar • Chariot Race, Charm, Crown, Overlord, Temple ",
+
+"Priceless Rice: Growth • Alley, Daimyo, Rice, Samurai, Tea House • Blessed Village, Cursed Village, Devil's Workshop, Faithful Hound, Shepherd ",
+"Dark Corners: Sickness, Amass • Artist, Gold Mine, Litter, River Shrine, Tanuki • Changeling, Conclave, Sacred Grove, Skulk, Werewolf ",
+
+"Mountain of Money: Bureaucracy, Guildhall • Alley, Gold Mine, Kitsune, Rice Broker, Riverboat (Seer) • Ducat, Experiment, Hideout, Scholar, Treasurer ",
+"Fresh Start: Divine Wind, Receive Tribute • Change, Daimyo, Ninja, Poet, Tea House • Border Guard, Cargo Ship, Inventor, Patron, Sculptor ",
+
+"Become the Ox: Enlightenment, Way of the Ox • Aristocrat, Artist, Fishmonger, Poet, Samurai • Animal Fair, Camel Train, Destrier, Livery, Wayfarer ",
+"Alternatives: Panic, Sea Trade • Alley, Craftsman, Daimyo, Ronin, Rustic Village • Bounty Hunter, Coven, Paddock, Sleigh, Supplies ",
+
+"Expert Traders: Enlightenment, Crafter's Guild • Daimyo, Fishmonger, Rice Broker, Riverboat (Barbarian), Rustic Village • Augurs, Contract, Courier, Hunter, Swap ",
+"Feverish Crafting: Rapid Expansion, Credit • Aristocrat, Craftsman, Fishmonger, Snake Witch, Tea House • Capital City, Clashes, Innkeeper, Marquis, Skirmisher  ",
+
+"Buried in Booty: Growth, Prosper • Gold Mine, Ninja, Poet, Rice Broker, Tanuki • First Mate, Flagship, King's Cache, Pendant, Taskmaster ",
+"Shiny Things: Good Harvest, Credit • Daimyo, Litter, Rice, River Shrine, Root Cellar • Cabin Boy, Cutthroat, Jewelled Egg, Pilgrim, Tools "
+
+];
 
 //==============================================================
 const argv = process.argv.slice(2); // Get arguments excluding script name and potentially the output directory
 PROCESSING_DIR = getProcessingDir(argv);
-GenerateKingdom("guildscornucopia2");
+GenerateKingdom("risingsun");
 
 function TestAndCreateDir(Path) {
   if (!fs.existsSync(Path)) fs.mkdirSync(Path, { recursive: true });
@@ -220,6 +270,11 @@ function findCardByShortId(shortId) {
     if (currentSet.traits) {
       for (const trait of currentSet.traits) {
         if (trait.shortId === shortId) return trait;
+      }
+    }
+    if (currentSet.prophecies) {
+      for (const prophecy of currentSet.prophecies) {
+        if (prophecy.shortId === shortId) return prophecy;
       }
     }
   }
@@ -298,6 +353,7 @@ function GenerateKingdom(listOfKingdoms) {
       boons: [],
       allies: [],
       traits: [],
+      prophecies: [],
     };
 
     const cardIds = [...kingdom.cards]
@@ -316,7 +372,7 @@ function GenerateKingdom(listOfKingdoms) {
       });
 
     for (const cardId of cardIds) {
-      const categoryRegex = /(supplies|events|landmarks|projects|boons|allies|traits)/; // Regex for category names
+      const categoryRegex = /(supplies|events|landmarks|projects|boons|allies|traits|prophecies)/; // Regex for category names
       const categoryMatch = cardId.type.match(categoryRegex); // Check for category match
       //console.log(cardId.type, categoryMatch)
       if (categoryMatch) {
@@ -344,11 +400,16 @@ function GenerateKingdom(listOfKingdoms) {
       myFileWriter.write(string + '\n');
       console.log ("============================================> More than 10 supplies : need to look at ", kingdom.name)
     }
-    if (cardCategories.traits.length > 8) {
+    if (cardCategories.traits.length > 0) {
       myFileWriter.write("============================================> need to look at " +kingdom.name + '\n');
       myFileWriter.write(string + '\n');
       console.log ("============================================> trait presence :  need to look at ", kingdom.name)
     }
+    /* if (cardCategories.prophecies.length > 0) {
+      myFileWriter.write("============================================> need to look at " +kingdom.name + '\n');
+      myFileWriter.write(string + '\n');
+      console.log ("============================================> prophecy presence :  need to look at ", kingdom.name)
+    } */
     myFileWriter.write('\n');
 
     //console.log(cardIds);

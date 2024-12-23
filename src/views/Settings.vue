@@ -3,9 +3,7 @@
     <div class="content main settings">
       <DeskSizeSettings />
       <OwnedExpansionsSettings />
-      <div v-if="buildType === 'development'">
-        <RandomizeConstraintsSettings  />
-      </div>
+      <RandomizeConstraintsSettings />
     </div>
   </Page>
 </template>
