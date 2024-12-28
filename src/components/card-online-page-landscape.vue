@@ -151,7 +151,7 @@ export default defineComponent({
     }
 
     const incaseoferror = (ev: any) => {
-      console.log(ev)
+      //console.log(ev)
       incaseofImgerror(ev);
     }
 

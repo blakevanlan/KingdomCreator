@@ -95,6 +95,7 @@ export class Randomizer {
     return ExcludedCardIds
   }
   static setsToUse() : DominionSet[] {
+    console.log("SavedSetIds", SavedSetIds, SavedSetIds.length)
     if(!SavedSetIds.length) {
       const activePinia = getActivePinia();
       if (activePinia) {

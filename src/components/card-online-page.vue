@@ -627,7 +627,7 @@ export default defineComponent({
       }
 
       for (const card of CardsToProcess) {
-        console.log(card)
+        //console.log(card)
         //saveCardImagehtml2canvas(card.id)
         saveCardImagehtmltoimage(card.id)
       }
@@ -658,8 +658,8 @@ export default defineComponent({
     const saveCardImagehtmltoimage = async (cardid:string) => {
         try {
           const cardElement = document.getElementById(cardid);
-          console.log(cardElement)
-          console.log(cardid)
+          //console.log(cardElement)
+          //console.log(cardid)
           if (cardElement) {
             htmlToImage.toJpeg(cardElement, { quality: 1 })
               .then(function (dataUrl) {

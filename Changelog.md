@@ -12,6 +12,11 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+2024/12/28 - 6.4.3
+  Fix : Correcting wrong image names for other
+  Fix : Usage of Dominion Randomizer - error filter fix
+  Fix : Usage of Dominion Randomizer - Download all data
+
 2024/12/22 - 6.4.2
   Feat - RisingSun: kingdoms
   Feat - RisingSun: Add ApprochingArmy supply selection

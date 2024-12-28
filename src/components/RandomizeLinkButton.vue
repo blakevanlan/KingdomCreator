@@ -69,6 +69,7 @@ export default defineComponent({
           props.kingdom.prophecyIds.map(Id => DominionSets.getProphecyById(Id))[0],
           props.kingdom.traitIds.map(Id => DominionSets.getTraitById(Id)),
           props.kingdom.metadata)
+console.log(serializeKingdom(redirectedKingdom))
 
       const newquery = {  
           ...serializeKingdom(redirectedKingdom)
