@@ -432,7 +432,11 @@ export const Cards_list_Darkages: DigitalCard[] = [
 </div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:12px;"></div><div style="position:relative; top:5px;"><div style="line-height:18px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous écartez cette carte,</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">recevez 3 Argents.</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:1px;left:75px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:1px;left:75px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "rebuild",  frenchName: "Reconstruction",  artwork: "http://wiki.dominionstrategy.com/images/4/4d/RebuildArt.jpg",
     		text_html: '\
@@ -551,7 +555,11 @@ export const Cards_list_Darkages: DigitalCard[] = [
     	},	
     	{	id: "overgrownestate",  frenchName: "Domaine luxuriant",  artwork: "http://wiki.dominionstrategy.com/images/7/71/Overgrown_EstateArt.jpg",
     		text_html: '\
-<div class="card-text" style="top:55px;"><div style="position: relative; left:-15px;top:-30px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:-10px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">0</div></div><div class="card-text-vp-icon"></div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:30px;"></div><div style="position:relative; top:23px;"><div style="line-height:19px;">\
+<div class="card-text" style="top:55px;"><div style="position: relative; left:-15px;top:-30px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:-10px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">0</div></div>\
+<div class="card-text-vp-icon"></div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:30px;"></div><div style="position:relative; top:23px;"><div style="line-height:19px;">\
 <div style="display:inline;"><div style="display:inline; font-size:19px;">Quand vous écartez cette carte, </div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:19px;"><div style="display: inline; font-weight: bold;">+1 Carte</div>.</div></div><br>\
 </div></div></div>'
@@ -600,7 +608,11 @@ export const Cards_list_Darkages: DigitalCard[] = [
 <div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.17); top:30px; display: inline;left:245px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">6</div></div></div><div class="horizontal-line" style="width:200px; height:2px;margin-top:-5px;"></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.47); top:100px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">6</div></div></div><div class="horizontal-line" style="width:200px; height:2px;margin-top:-5px;"></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.47); top:100px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "damemolly",  frenchName: "Dame Molly",  artwork: "http://wiki.dominionstrategy.com/images/5/5a/Dame_MollyArt.jpg",
     		text_html: '\

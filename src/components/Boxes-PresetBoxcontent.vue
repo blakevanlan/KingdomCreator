@@ -7,53 +7,53 @@
 
       <!-- Supply Cards -->
       <GenericLayout :items="getCards(set.supplyCards.concat(getOtherCards(set, 'Normal Supply Cards') as any []))" :title="$t('Kingdoms Cards')" 
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForSupplyCards" :is-vertical="true" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForSupplyCards" :is-vertical="true" />
       <!-- generic slot : Events -->
       <GenericLayout :items="getCards(set.events.concat(getOtherCards(set, 'Events') as any []))" :title="$t('Events')" 
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Landmarks -->
       <GenericLayout :items="getCards(set.landmarks.concat(getOtherCards(set, 'Landmarks') as any []))" :title="$t('Landmarks')" 
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Projects -->
       <GenericLayout :items="getCards(set.projects.concat(getOtherCards(set, 'Projects') as any []))" :title="$t('Projects')" 
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Ways -->
       <GenericLayout :items="getCards(set.ways.concat(getOtherCards(set, 'Ways') as any []))" :title="$t('Ways')"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Boons -->
       <GenericLayout :items="getCards(set.boons.concat(getOtherCards(set, 'Boons') as any []))" :title="$t('Boons')"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Allies -->
       <GenericLayout :items="getCards(set.allies.concat(getOtherCards(set, 'Allies') as any []))" :title="$t('Allies')"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Traits -->
       <GenericLayout :items="getCards(set.traits.concat(getOtherCards(set, 'Traits') as any []))" :title="$t('Traits')"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
       <!-- generic slot : Prophecies -->
       <GenericLayout :items="getCards(set.prophecies.concat(getOtherCards(set, 'Prophecies') as any []))" :title="$t('Prophecies')"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
 
       <!-- otherCards : Basic Supply Cards, Ruins, Shelters, Non-Supply, Travellers, Artefacts, Hexes, -->
       <GenericLayout v-for="card in GetOtherCardTypes('vertical')" :key="card.cardType"
         :items="getCards(getOtherCards(set, card.cardType), challenge_sortBoxesSet(card.cardType))" :title="$t(card.title)"
-        :shape="Shape.CARD" :showOverlay="false" :generic-nb-columns="numberOfColumnsForSupplyCards"
+        :shape="Shape.CARD" :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForSupplyCards"
         :is-vertical="true" />
 
       <GenericLayout v-for="card in GetOtherCardTypes('horizontal')" :key="card.cardType"
         :items="getCards(getOtherCards(set, card.cardType))" :title="$t(card.title)" :shape="Shape.CARD"
-        :showOverlay="false" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
+        :showOverlay="OverlayCheck" :generic-nb-columns="numberOfColumnsForAddons" :is-vertical="false" />
 
       <GenericLayout v-for="card in GetOtherCardTypes('verticalMat')" :key="card.cardType"
         :items="getCards(getOtherCards(set, card.cardType))" :title="$t(card.title)" :shape="Shape.CARD"
-        :showOverlay="false" :generic-nb-columns=3 :is-vertical="true" />
+        :showOverlay="OverlayCheck" :generic-nb-columns=3 :is-vertical="true" />
 
       <GenericLayout v-for="card in GetOtherCardTypes('horizontalMat')" :key="card.cardType"
         :items="getCards(getOtherCards(set, card.cardType))" :title="$t(card.title)" :shape="Shape.CARD"
-        :showOverlay="false" :generic-nb-columns=2 :is-vertical="false" />
+        :showOverlay="OverlayCheck" :generic-nb-columns=2 :is-vertical="false" />
 
       <GenericLayout v-for="card in GetOtherCardTypes('squareMat')" :key="card.cardType"
         :items="getCards(getOtherCards(set, card.cardType))" :title="$t(card.title)"
-        :shape="getshapeofmat(card.cardType)" :showOverlay="false" :generic-nb-columns=3 :is-vertical="false" />
+        :shape="getshapeofmat(card.cardType)" :showOverlay="OverlayCheck" :generic-nb-columns=3 :is-vertical="false" />
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@ import type { DominionSet } from "../dominion/dominion-set";
 import { DominionSets } from "../dominion/dominion-sets";
 import type { SupplyCard } from "../dominion/supply-card";
 import { SupplyCardSorter } from "../utils/supply-card-sorter";
+import { ShowOverlayOptions } from '../utils/resources';  
 
 /* import store  */
 import { useWindowStore } from '../pinia/window-store';
@@ -154,10 +155,11 @@ export default defineComponent({
       return Shape.SQUARE
     };
 
-    const getCards = (cardIds: any[], origine = SortOption.SET) => {
+    const getCards = (cardIds: any[], origine = SortOption.ALPHABETICAL) => {
       if (origine == SortOption.SET) 
         return SupplyCardSorter.sort(cardIds as SupplyCard[], setsStore.sortBoxesSet, t);
       else 
+      console.log("cardIds", cardIds, "origine", origine, SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t))
         return SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t);
     };
 
@@ -183,6 +185,7 @@ export default defineComponent({
       if (mycard_type == "Castle") return SortOption.COST;
       return setsStore.sortBoxesSet;
     };
+    const OverlayCheck = ShowOverlayOptions.CHECK;
 
     return {
       Shape,
@@ -195,6 +198,7 @@ export default defineComponent({
       // OtherCardTypes,
       GetOtherCardTypes,
       challenge_sortBoxesSet,
+      OverlayCheck
     };
   },
 });

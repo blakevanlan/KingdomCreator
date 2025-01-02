@@ -40,7 +40,7 @@ import { FERRYMAN_IDS, FERRYMAN_MIN_COST, FERRYMAN_MAX_COST } from "../randomize
 import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from "../randomizer/special-need-cards";
 import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from "../randomizer/special-need-cards";
 import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from "../randomizer/special-need-cards";
-import { RIVERBOAT_IDS, RIVERBOAT_CARDTYPE_REQUESTED, RIVERBOAT_CARDTYPE_NOTREQUESTED } from "../randomizer/special-need-cards";
+import { RIVERBOAT_IDS, RIVERBOAT_CARDTYPE_REQUESTED, RIVERBOAT_CARDTYPE_NOTREQUESTED, RIVERBOAT_COST } from "../randomizer/special-need-cards";
 import { APPROACHINGARMY_ID, APPROACHINGARMY_CARDTYPE_REQUESTED } from "../randomizer/special-need-cards";
 
 /* import store  */
@@ -203,7 +203,9 @@ export default defineComponent({
         } else {
           if (!kingdom.value.supply.riverboatCard.isOfType(RIVERBOAT_CARDTYPE_REQUESTED) || 
                 kingdom.value.supply.riverboatCard.isOfType(RIVERBOAT_CARDTYPE_NOTREQUESTED))
-          invalidSpecialCardRules.push(t("riverboat_Cardtype"));
+            invalidSpecialCardRules.push(t("riverboat_Cardtype"));
+          else if (kingdom.value.supply.riverboatCard.cost.treasure != RIVERBOAT_COST)
+            invalidSpecialCardRules.push(t("Riverboat_Cost", {COST: RIVERBOAT_COST}));
         }
       } else {
         if (kingdom.value.supply.riverboatCard)

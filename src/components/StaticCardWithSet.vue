@@ -17,7 +17,9 @@ import type { PropType } from "vue";
 import type { Card } from "../dominion/card";
 import { SupplyCard } from "../dominion/supply-card";
 import { DominionSets } from "../dominion/dominion-sets";
-
+import { ShowOverlayOptions } from "../utils/resources";
+import { ImgNotInFR, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
+import { Language } from '../i18n/language';
 import { getCardImageUrl } from "../utils/resources";
 
 /* import store  */
@@ -26,6 +28,7 @@ import { usei18nStore } from "../pinia/i18n-store";
 /* import Components */
 import StaticCard from "./StaticCard.vue";
 import CardOverlay from "./CardOverlay.vue";
+
 
 export default defineComponent({
   name: "StaticCardWithSet",
@@ -39,8 +42,8 @@ export default defineComponent({
       required: true,
     },
     showOverlay: {
-      type: Boolean,
-      default: true,
+      type: Object as PropType<ShowOverlayOptions>,
+      default: ShowOverlayOptions.TRUE,
     },
   },
   setup(props) {
@@ -48,10 +51,16 @@ export default defineComponent({
     const language = computed(() => i18nStore.language);
 
     const show_Overlay = computed(() => {
-      if (!props.showOverlay) {
-        return false;
+      switch (props.showOverlay) {
+        case ShowOverlayOptions.TRUE:
+          return true;
+        case ShowOverlayOptions.FALSE:
+          return false;
+        case ShowOverlayOptions.CHECK:
+          return !LANGUAGES_WITH_TRANSLATED_CARDS.has(language.value) ||
+            (language.value === Language.FRENCH && ImgNotInFR.includes(props.card.setId));
       }
-      return true;
+
     });
 
     const isVertical = computed(() => {

@@ -77,10 +77,18 @@ export const Cards_list_Prosperity: DigitalCard[] = [
 </div></div><div style="position:relative; top:0px;"><div style="line-height:18px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;"> inférieurement). Tous vos adversaires</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">peuvent écarter une carte de leur main.</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.23); top:32px;left:143px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div>\
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.23); top:32px;left:143px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.25); top:-2px; display: inline;left:130px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:85px;left:46px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div>\
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:85px;left:46px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.18); top:85px; display: inline;left:91px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
 <div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div></div>'
@@ -115,7 +123,11 @@ export const Cards_list_Prosperity: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.26); top:23px; display: inline;left:132px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.19); top:140px;left:237px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-47px;"></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.19); top:140px;left:237px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-47px;"></div></div>'
     	},	
     	{	id: "watchtower",  frenchName: "Mirador",  artwork: "http://wiki.dominionstrategy.com/images/e/e1/WatchtowerArt.jpg",
     		text_html: '\
@@ -163,7 +175,11 @@ export const Cards_list_Prosperity: DigitalCard[] = [
 <div class="card-text" style="top:55px;"><div style="position:relative; top:0px;"><div style="font-weight: bold;"><div style="line-height:30px;">\
 <div style="display:inline;"><div style="display:inline; font-size:28px;">+      </div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:28px;">+      </div></div><br>\
-</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.22); top:33px;left:143px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div>\
+</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.22); top:33px;left:143px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.25); top:-2px; display: inline;left:130px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
 <div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div></div>'
@@ -367,7 +383,11 @@ export const Cards_list_Prosperity: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.18); top:40px; display: inline;left:140px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:90px; left:100px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:90px; left:100px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
   /* t */	},	
   /* t */	{	id: "tiara",  frenchName: "Couronne de Mariée",  artwork: "http://wiki.dominionstrategy.com/images/b/b6/TiaraArt.jpg",
   /* t */		text_html: '\
@@ -407,7 +427,11 @@ export const Cards_list_Prosperity: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.35); top:5px; display: inline;left:120px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:103px;left:220px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:103px;left:220px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
   /* t */	},	
   /* t */	{	id: "crystalball",  frenchName: "Boule de Cristal",  artwork: "http://wiki.dominionstrategy.com/images/3/38/Crystal_BallArt.jpg",
   /* t */		text_html: '\

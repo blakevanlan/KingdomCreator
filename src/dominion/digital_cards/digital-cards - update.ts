@@ -1,7 +1,7 @@
 import type { DigitalCard } from "./digital-cards-type"
 
 
-export let Work_Card:DigitalCard = {  id: "souk", frenchName: "",  artwork:"",
+export let Work_Card:DigitalCard = {  id: "amumlet", frenchName: "",  artwork:"",
     
 text_html: '<div class="card-text" style="top:20px;">\
 <div style="position:relative; top:-10px;"><div style="line-height:20px;">\

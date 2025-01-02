@@ -167,7 +167,11 @@ export const Cards_list_Promo: DigitalCard[] = [
 <div class="card-text" style="top:05px;"><div style="position:relative; top:10px;"><div style="line-height:20px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">Vaut         pour chaque</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">3 cartes Victoire que vous avez.</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:110px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div><div style="position:relative; top:1px;"><div style="line-height:20px;">\
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:110px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div><div style="position:relative; top:1px;"><div style="line-height:20px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous recevez ceci, <div style="display: inline; font-size:20px; font-weight: bold;">+1 Achat</div>,</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">défaussez-la et recevez<et défaussez autant de cartes/div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">que souhaité pour <div style="display: inline; font-size:20px; font-weight: bold;">+</div>       chacune.</div></div><br>\

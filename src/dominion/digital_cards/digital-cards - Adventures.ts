@@ -76,7 +76,15 @@ export const Cards_list_Adventures: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:21px;">Cette carte vaut         si elle est</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:21px;">sur votre plateau Taverne à la fin</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:21px;">de la partie (        sinon).</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:74px;left:167px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">4</div></div><div class="card-text-vp-icon"></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.19); top:120px;left:161px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">0</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:74px;left:167px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">4</div></div>\
+<div class="card-text-vp-icon"></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.19); top:120px;left:161px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">0</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "dungeon",  frenchName: "Donjon",  artwork: "http://wiki.dominionstrategy.com/images/4/4b/DungeonArt.jpg",
     		text_html: '\

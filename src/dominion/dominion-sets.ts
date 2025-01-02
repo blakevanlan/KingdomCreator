@@ -11,7 +11,7 @@ import {Ally} from "./ally";
 import {Trait} from "./trait";
 import {Prophecy} from "./prophecy";
 import type { CardType } from "./card-type";
-import type { OtherCard } from "./other-card";
+import { OtherCard } from "./other-card";
 
 declare global {
   interface Window { DominionSets: any; }
@@ -176,6 +176,27 @@ export class DominionSets {
     }
     return card;
   }
+
+  public static isLandscape(cardId: string): boolean {
+
+    const landscapeOtherCards = ["Hexes", "States"];
+
+      const card = DominionSets.getCardById(cardId);
+      if (card instanceof Event) return true
+      if (card instanceof Landmark) return true
+      if (card instanceof Project) return true
+      if (card instanceof Boon) return true
+      if (card instanceof Way) return true
+      if (card instanceof Ally) return true
+      if (card instanceof Trait) return true
+      if (card instanceof Prophecy) return true
+      if (card instanceof OtherCard) {
+        if (landscapeOtherCards.includes(card.type)) return true
+      }
+      return false;
+
+  }
+
   private static createSets() {
     const setIds = Object.keys(window.DominionSets) as SetId[];
     const sets: {[key in SetId]?: DominionSet} = {};

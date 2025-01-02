@@ -142,7 +142,11 @@ export const Cards_list_Alchemy: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:23px;">Vaut        pour chaque lot de</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:23px;">3 cartes Action que vous avez</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:23px;">(arrondi inférieurement).</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.21); top:11px;left:73px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.21); top:11px;left:73px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
 
 ];

@@ -88,7 +88,11 @@ export const Cards_list_Baseset: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Vaut         pour chaque</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">10 cartes que vous avez</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">(arrondi à l\'unité inférieure).</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:105px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:105px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "laboratory",  frenchName: "Laboratoire",  artwork: "http://wiki.dominionstrategy.com/images/6/60/LaboratoryArt.jpg",
     		text_html: '\

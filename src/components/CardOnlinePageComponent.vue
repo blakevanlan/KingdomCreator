@@ -1,9 +1,9 @@
 <template>
-  <button @click="saveCardsImage">Save Card Image</button>
+  <button style=" width: fit-content;" @click="saveCardsImage">Save Card Image</button>
   <div class="ListofcontentCard Coef_scale12 card-rows">
-    <div v-for="Card in CardsToDisplay" :key="Card.id" :class="getClassCard(Card)">
-      <div class="card-container">
-      <div class="full-card unselectable" style="z-index:0; cursor:default;
+    <div v-for="Card in CardsToDisplay" :key="Card.id" :class="getClassCard(Card)" style="display: flex;">
+      <div class="card-container" style="z-index:1; position: relative;"> 
+        <div class="full-card unselectable" style="z-index:0; cursor:default;
            transform: scale(1); transition:none; position: sticky;" :id="Card.id">
         <!-- is a card -->
         <!-- type of card -->
@@ -38,8 +38,9 @@
             :style='"font-size:" + getCardNameFontSize(Card).fontsize + "em;"'>
             {{ Card.frenchName }}</div>
         </div>
-        <!--Card Text -->
-        <div class="full-card-text-container" v-html="Card.text_html"></div>
+        <!--Card Text need to change -->
+        <div v-if="Displayfirst('v-html')" class="full-card-text-container" v-html="Card.text_html"></div>
+        <CardTextContainer v-else :card='Card' />
         <!--Card Bottom bar -->
         <div class="bottom-bar-full" style="width:239.75%;bottom:-70px;">
           <div class="cost-container-full">
@@ -69,11 +70,81 @@
           <div class="card-footer illustrator">{{ getCardIllustrator(Card).illustrator }}</div>
           <div class="card-footer copyright">{{ getCardSetYear(Card) }}</div>
         </div>
+        </div>
       </div>
-      <div class="separator-card" style="z-index:0;">
-           <img class="full-card static-card__img" style="z-index:0; width:310px;" :src="cardImageUrl(Card)" :key="cardImageUrl(Card)" @error="incaseoferror" />
+      <div class="separator-card" style="z-index:0;"></div>
+      <div class="card-container" style="z-index:1; position: relative;"> 
+        <div class="full-card unselectable" style="z-index:0; cursor:default;
+           transform: scale(1); transition:none; position: sticky;" :id="Card.id">
+        <!-- is a card -->
+        <!-- type of card -->
+        <div class="full-card-template"
+          :style='"background-image: url(" + getHost() + "./img/Templates-card-type/" + getCardTypeById(Card).png + ".png);"'>
+        </div>
+        <!-- Card Image -->
+        <div class="full-card-art"
+          :style='"background-size: 287px 209px; background-image: url(" + getCardArtwork(Card.artwork) + "); top:10%;"'>
+          <div class="action-layer none-layer"> </div>
+        </div>
+
+        <div v-if="getisTreasureCard(Card)" class="treasure-production-container">
+          <div class="coin-production-container">
+            <div class="coin-production-left" style="top:-32px;">
+              <div class="coin-production-text-container">
+                <div class="coin-production-text" style="top:12px;" :style="fontsizefortune(Card)">{{
+                  getValueforTreasureCard(Card) }}</div>
+              </div>
+            </div>
+            <div class="coin-production-right" style="top:-32px;">
+              <div class="coin-production-text-container">
+                <div class="coin-production-text" style="top:12px;" :style="fontsizefortune(Card)">{{
+                  getValueforTreasureCard(Card) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Card name -->
+        <div class="full-card-name-container unselectable " :style='"top:" + getCardNameFontSize(Card).top + "px;"'>
+          <div class="full-card-name card-name unselectable"
+            :style='"font-size:" + getCardNameFontSize(Card).fontsize + "em;"'>
+            {{ Card.frenchName }}</div>
+        </div>
+        <!--Card Text need to change -->
+        <div v-if="!Displayfirst('v-html')" class="full-card-text-container" v-html="Card.text_html"></div>
+        <CardTextContainer v-else :card='Card' />
+        <!--Card Bottom bar -->
+        <div class="bottom-bar-full" style="width:239.75%;bottom:-70px;">
+          <div class="cost-container-full">
+            <div class="coin-cost-full"
+              v-if="getCardCost(Card).treasure > 0 || (getCardCost(Card).potion + getCardCost(Card).debt == 0)">
+              <div class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}<sup
+                  v-if="DoNeedSub(Card)" class="supetoile" /></div>
+
+            </div>
+            <div class="potion-cost-full" v-if="getCardCost(Card).potion > 0">
+            </div>
+            <div class="debt-cost-full" v-if="getCardCost(Card).debt > 0">
+              <div class="debt-cost-full-text unselectable" style="top:12px;">{{ getCardCost(Card).debt }}</div>
+            </div>
+          </div>
+          <div class="bottom-right-container-full">
+            <div class="expansion-icon-bottom-full"
+              :style='"background-image: url(" + getHost() + "./img/Templates-set/" + getCardSetById(Card) + "-small.png);"'>
+            </div>
+          </div>
+
+          <div class="types-text-full unselectable" :style="getCardTypeFontSize(Card)">
+            {{ getCardTypeById(Card).label }}
+          </div>
+        </div>
+        <div class="full-card-border">
+          <div class="card-footer illustrator">{{ getCardIllustrator(Card).illustrator }}</div>
+          <div class="card-footer copyright">{{ getCardSetYear(Card) }}</div>
+        </div>
+        </div>
       </div>
-      </div>
+      <div class="separator-card" style="z-index:0;"></div>
+      <img class="full-card static-card__img" style="z-index:0; position:relative; width:310px;" :src="cardImageUrl(Card)" :key="cardImageUrl(Card)" @error="incaseoferror" />
     </div>
   </div>
   <pre v-if="CardsToDisplay.length == 1" class="content Coef_scale12 card-rows" style="white-space: pre-wrap; font-family:Arial, Helvetica, sans-serif">
@@ -96,7 +167,6 @@ import { SupplyCardSorter } from "../utils/supply-card-sorter";
 import { getCardImageUrl } from "../utils/resources";
 import { incaseofImgerror } from "../utils/resources";
 
-
 import { DominionSets } from "../dominion/dominion-sets";
 import type { SupplyCard } from "../dominion/supply-card";
 import type { OtherCard } from "../dominion/other-card";
@@ -108,12 +178,12 @@ import { DominionSet } from "../dominion/dominion-set";
 import type { DigitalCard } from "../dominion/digital_cards/digital-cards-type"
 import { Cards_list } from "../dominion/digital_cards/digital-cards"
 import { Work_Card } from "../dominion/digital_cards/digital-cards - update"
-
 import type { IllustratorCard } from "../dominion/digital_cards/digital-cards-type"
 import { Cards_list_Illustrator, Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
 
 /* import store  */
 /* import Components */
+import CardTextContainer from "./CardTextContainer.vue";
 
 const QuestionMarkValue =
   new Set(["bank", "philosophersstone", "scepter", "bauble"
@@ -160,6 +230,9 @@ const BASEURL= /http:\/\/localhost:8080/
 
 export default defineComponent({
   name: "CardOnlinePageComponent",
+  components:{
+    CardTextContainer
+  },
   props: {
     set: {
       type: DominionSet,
@@ -674,6 +747,10 @@ export default defineComponent({
         }
     }; 
 
+    const Displayfirst = (text:string) => {
+      if (text === "v-html") return true
+      return false
+    };
 
     return {
       CardsToDisplay,
@@ -693,7 +770,8 @@ export default defineComponent({
       cardImageUrl,
       incaseoferror,
       getCardArtwork,
-      saveCardsImage
+      saveCardsImage,
+      Displayfirst
     }
   }
 });

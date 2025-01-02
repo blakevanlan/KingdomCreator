@@ -67,6 +67,7 @@
 import { defineComponent, computed } from 'vue';
 import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n'
+import saveAs  from 'file-saver';
 
 /* import Dominion Objects and type*/
 import { DominionSets } from "../dominion/dominion-sets";
@@ -86,9 +87,8 @@ import type { IllustratorCard } from "../dominion/digital_cards/digital-cards-ty
 import { Cards_list_Illustrator, Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
 
 /* import store  */
-import { useWindowStore } from '../pinia/window-store';
-
 /* import Components */
+import CardTextContainer from "./CardTextContainer.vue";
 
 export const QuestionMarkVaue =
   new Set(["bank",
@@ -105,6 +105,9 @@ const BASEURL= /http:\/\/localhost:8080/
 
 export default defineComponent({
   name: "CardOnlinePageLandscapeComponent",
+  components:{
+    CardTextContainer
+  },
   props: {
     set: {
       type: Object as PropType<DominionSet>,
@@ -113,7 +116,6 @@ export default defineComponent({
   },
   setup(props) {
     const { t } = useI18n();
-    const windowStore = useWindowStore();
 
     const Cards = computed(() => {
       const filteredCards = Cards_list.filter(card =>
@@ -146,7 +148,6 @@ export default defineComponent({
 
     const cardImageUrl = (card: DigitalCard) => {
       const cardType = DominionSets.getCardById(card.id);
-      //console.log(getCardImageUrl(getCardSetById(card) + "_" + cardType.constructor.name + "_" + card.id, "en" as any))
       return getCardImageUrl(getCardSetById(card) + "_" + cardType.constructor.name + "_" + card.id, "en" as any);
     }
 
@@ -157,7 +158,6 @@ export default defineComponent({
 
     const getHost= () => {
       return ""
-      // for github and more
       return window.location.protocol + "//" + window.location.host;
     }
 

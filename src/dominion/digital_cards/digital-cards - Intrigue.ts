@@ -7,7 +7,11 @@ export const Cards_list_Intrigue: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Choisissez : <div style="display: inline; font-weight: bold;">+3 Cartes</div> ou</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;"><div style="display: inline; font-weight: bold;">+2 Actions</div>.</div></div><br>\
 </div></div><div style="position:relative; top:0px;">\
-<div style="display:inline;"><div style="position: relative; left:0px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:10px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div></div><br>\
+<div style="display:inline;"><div style="position: relative; left:0px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:10px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div></div><br>\
 </div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-35px;"></div></div>'
     	},	
     	{	id: "conspirator",  frenchName: "Conspirateur",  artwork: "http://wiki.dominionstrategy.com/images/2/26/ConspiratorArt.jpg",
@@ -109,7 +113,11 @@ export const Cards_list_Intrigue: DigitalCard[] = [
 <div class="card-text" style="top:55px;"><div style="position:relative; top:undefinedpx;"><div style="line-height:20px;">\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Vaut         pour chaque Duché</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">que vous avez.</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:1px;left:78px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:1px;left:78px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "baron",  frenchName: "Baron",  artwork: "http://wiki.dominionstrategy.com/images/d/dc/BaronArt.jpg",
     		text_html: '\
@@ -225,7 +233,11 @@ export const Cards_list_Intrigue: DigitalCard[] = [
 <div class="card-text-coin-icon" style="transform:scale(0.55); top:10px; display: inline;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
 <div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div></div></div><br>\
-<div style="display:inline;"><div style="position: relative; left:0px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:70px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div></div><br>\
+<div style="display:inline;"><div style="position: relative; left:0px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:70px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div></div><br>\
 </div><div class="horizontal-line" style="width:200px; height:3px;margin-top:90px;"></div>'
   /* t */	},	
     	{	id: "minion",  frenchName: "Larbin",  artwork: "http://wiki.dominionstrategy.com/images/7/70/MinionArt.jpg",
@@ -295,7 +307,11 @@ export const Cards_list_Intrigue: DigitalCard[] = [
 <div class="card-text" style="top:47px;"><div style="position:relative; top:-32px;"><div style="font-weight: bold;"><div style="line-height:26px;">\
 <div style="display:inline;"><div style="display:inline; font-size:28px;">+1 Carte</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:28px;">+1 Action</div></div><br>\
-</div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-18px;"></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:55px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-18px;"></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:55px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "shantytown",  frenchName: "Taudis",  artwork: "http://wiki.dominionstrategy.com/images/3/36/Shanty_TownArt.jpg",
     		text_html: '\
@@ -352,7 +368,11 @@ export const Cards_list_Intrigue: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.16); top:26px; display: inline;left:252px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-18px;"></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:65px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-18px;"></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.5); top:65px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "courtier",  frenchName: "Courtisan",  artwork: "http://wiki.dominionstrategy.com/images/b/b5/CourtierArt.jpg",
     		text_html: '\

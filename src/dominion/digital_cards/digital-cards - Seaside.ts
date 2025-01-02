@@ -157,7 +157,11 @@ export const Cards_list_Seaside: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Placez cette carte et une carte de</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">votre main sur votre plateau Île.</div></div><br>\
 </div></div><div style="position:relative; top:0px;">\
-<div style="display:inline;"><div style="position: relative; left:0px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:5px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div></div><br>\
+<div style="display:inline;"><div style="position: relative; left:0px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:5px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div></div><br>\
 </div><div class="horizontal-line" style="width:200px; height:3px;margin-top:-37px;"></div></div>'
     	},	
     	{	id: "wharf",  frenchName: "Quai",  artwork: "http://wiki.dominionstrategy.com/images/1/16/WharfArt.jpg",

@@ -176,7 +176,11 @@ export const Cards_list_Nocturne: DigitalCard[] = [
     	},	
     	{	id: "cemetery",  frenchName: "Cimetière",  artwork: "http://wiki.dominionstrategy.com/images/a/a7/CemeteryArt.jpg",
     		text_html: '\
-<div class="card-text" style="top:47px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-35px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:5px;"><div style="line-height:18px;">\
+<div class="card-text" style="top:47px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-35px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:5px;"><div style="line-height:18px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">Quand vous recevez cette carte,</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">écartez jusqu\'à 4 cartes de votre main.</div></div><br>\
 </div></div><div class="card-text" style="position:absolute; top:108px;"><div style="line-height:19px;">\
@@ -443,7 +447,11 @@ export const Cards_list_Nocturne: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.53); top:-35px; display: inline;left:110px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:64px;left:106px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:64px;left:106px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "pouch",  frenchName: "Pochette",  artwork: "http://wiki.dominionstrategy.com/images/5/52/PouchArt.jpg",
     		text_html: '\

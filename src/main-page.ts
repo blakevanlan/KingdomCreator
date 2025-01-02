@@ -12,6 +12,7 @@ import '../styles/index.styl';
 import '../styles/sets.styl';
 import '../styles/rules.styl';
 import '../styles/cards.styl';
+import '../styles/newCards.styl'
 import '../styles/settings.styl';
 
 

@@ -1,0 +1,15 @@
+type FrenchCardTextsType = {[key: string]: string;};
+export const FrenchCardTexts: FrenchCardTextsType = {}
+FrenchCardTexts["ADVISOR"]= "|+1 Action|////D\xE9voilez les 3 premi\xE8re cartes//de votre pioche. Le joueur \xE0 votre//gauche en choisit une.//D\xE9faussez-la et prenez en main//le reste.";
+FrenchCardTexts["BAKER"]= "|+1 Carte|//|+1 Action|//|+1 Coffres|//---//Mise en place : pour tous les joueurs,//|+1 Coffres|.";
+FrenchCardTexts["BUTCHER"]= "|+2 Coffres|////Vous pouvez \xE9carter une carte//de votre main pour recevoir//une carte co\xFBtant jusqu'\xE0 [1]//de plus par Coffres d\xE9pens\xE9.";
+FrenchCardTexts["CANDLESTICKMAKER"]= "|+1 Action|//|+1 Achat|//|+1 Coffres|";
+FrenchCardTexts["DOCTOR"]= "Nommez une carte. D\xE9voilez les 3//premi\xE8res cartes de votre pioche. \xC9cartez//celles dont le nom correspond, et remettez//les autres sur votre pioche.//---//Surpaiement : pour chaque [] surpay\xE9,//consultez la carte du haut de votre pioche;//\xE9cartez-la, d\xE9faussez-la, ou replacez-la.";
+FrenchCardTexts["HERALD"]= "|+1 Carte|//|+1 Action|//---//D\xE9voilez la carte du haut de votre//pioche. Si c'est une Action, jouez-la.////Surpaiement : pour chaque []//surpay\xE9, consultez votre d\xE9fausse et//placez-en une carte sur votre pioche.";
+FrenchCardTexts["JOURNEYMAN"]= "Nommez une carte. D\xE9voilez des//cartes de votre pioche jusqu'\xE0//d\xE9voiler 3 cartes dont le nom//ne correspond pas. Prenez-les//en main et d\xE9faussez le reste.";
+FrenchCardTexts["MASTERPIECE"]= "[!1]//---//Surpaiement : Pour chaque [1]//surpay\xE9, recevez un Argent.";
+FrenchCardTexts["MERCHANTGUILD"]= "|+1 Achat|//|+[1]|////A ce tour, \xE0 la fin de//votre phase Achat, |+1 Coffres|//par carte re\xE7ue durant cette phase";
+FrenchCardTexts["PLAZA"]= "|+1 Carte|//|+2 Actions|////Vous pouvez d\xE9fausser une carte//Tr\xE9sor pour |+1 Coffres|";
+FrenchCardTexts["SOOTHSAYER"]= "Recevez un Or.//Tous vos adversaires re\xE7oivent//une Mal\xE9diction, et dans ce cas,//piochent une carte.";
+FrenchCardTexts["STONEMASON"]= "\xC9cartez une carte de votre main.//Recevez 2 cartes de co\xFBt inf\xE9rieur.//---//Surpaiement : recevez 2 cartes//Action co\xFBtant chacune//exactement le montant surpay\xE9.";
+FrenchCardTexts["TAXMAN"]= "Vous pouvez \xE9carter une carte//Tr\xE9sor de votre main. Tous vos//adversaires ayant au moins 5 cartes//en main en d\xE9faussent un exemplaire//(\xE0 d\xE9faut, d\xE9voilent leur main).//Recevez sur votre pioche une carte//Tr\xE9sor co\xFBtant jusqu'\xE0 [3] de plus.";

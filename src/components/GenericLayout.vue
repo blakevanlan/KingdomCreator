@@ -25,6 +25,8 @@ import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
+import { ShowOverlayOptions } from "../utils/resources.ts";
+
 /* import store  */
 /* import Components */
 import GridLayout , { Shape }from "./GridLayout.vue";
@@ -54,7 +56,7 @@ export default defineComponent({
       default: Shape.CARD,
     },
     showOverlay: {
-      type: Boolean,
+      type: Object as PropType<ShowOverlayOptions>,
       required: true
     },
     title: {

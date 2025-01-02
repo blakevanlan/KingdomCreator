@@ -217,7 +217,11 @@ export const Cards_list_Allies: DigitalCard[] = [
 </div></div><div class="horizontal-line" style="width:200px; height:3px; margin-top:35px;"></div><div style="position:relative; top:15px;"><div style="line-height:14px;">\
 <div style="display:inline;"><div style="display:inline; font-size:16px;">Quand vous recevez cette carte, recevez</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:16px;"> un Or par pile vide de la Réserve.</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.15); top:18px;left:92px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.15); top:18px;left:92px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "forts",  frenchName: "Fortifications",  artwork: "http://wiki.dominionstrategy.com/images/1/13/FortsArt.jpg",
     		text_html: '\
@@ -283,7 +287,11 @@ export const Cards_list_Allies: DigitalCard[] = [
 </div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:25px;"></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.15); top:13px; display: inline;left:181px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.42); top:100px;left:140px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">3</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.42); top:100px;left:140px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "importer",  frenchName: "importateur",  artwork: "http://wiki.dominionstrategy.com/images/f/f7/ImporterArt.jpg",
     		text_html: '\
@@ -366,7 +374,11 @@ export const Cards_list_Allies: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:22px; font-weight:bold;">+1 Action</div></div><br>\
 </div></div><div style="position:relative; top:15px;"><div style="line-height:16px;">\
 <div style="display:inline;"><div style="display:inline; font-size:18px;">Recevez un Domaine.</div></div><br>\
-</div></div><div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.42); top:100px;left:140px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div><div class="horizontal-line" style="width:200px; height:3px; margin-top:25px;"></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.42); top:100px;left:140px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "sentinel",  frenchName: "Guetteur",  artwork: "http://wiki.dominionstrategy.com/images/1/1c/SentinelArt.jpg",
     		text_html: '\

@@ -1,3 +1,5 @@
+import { Language } from '../i18n/language';
+
 export enum SetId {
   ADVENTURES = "adventures",
   ALCHEMY = "alchemy",
@@ -115,5 +117,7 @@ export const SETS_WITH_DUPLICATES: VersionOfSet[]= MultipleVersionSets.concat([
     { id: SetId.CORNUCOPIA,             idv2: SetId.GUILDSCORNUCOPIA_2 }
 ]);
 
-export const ImgNotInFR = [ SetId.PLUNDER ]
+export const ImgNotInFR = [ SetId.PLUNDER, SetId.RISING_SUN ];
+export const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH]);
+
 

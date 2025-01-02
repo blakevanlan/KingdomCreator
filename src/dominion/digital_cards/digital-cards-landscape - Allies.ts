@@ -140,7 +140,11 @@ export const Cards_list_Allies: DigitalCard[] = [
 <div class="landscape-text" style="left:-2%; top:-22px;"><div style="position:relative; top:0px;">  <div style="line-height:18px;">  \
 <div style="display:inline;"><div style="display:inline; font-size:17px;">Pour le décompte, appairez vos <div style="display:inline; font-weight:bold;">Faveurs</div> avez les</div></div><br>  \
 <div style="display:inline;"><div style="display:inline; font-size:17px;">cartes coûtant      que vous avez, pour        par paire.</div></div><br>  </div></div>  <div class="card-text-coin-icon" style="transform:scale(0.15); top:58px; display: inline;left:148px;">  <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.15); top:58px;left:320px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div>  </div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">2</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.15); top:58px;left:320px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div>  </div>'
   /* landscape */	},	
   /* landscape */	{	id: "trapperslodge",  frenchName: "Cabane de Trappeurs",  artwork: "http://wiki.dominionstrategy.com/images/9/9d/Trappers%27_LodgeArt.jpg",
   /* landscape */		text_html: '\

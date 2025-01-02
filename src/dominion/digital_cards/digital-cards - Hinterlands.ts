@@ -63,7 +63,11 @@ export const Cards_list_Hinterlands: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Vaut        pour chaque 4 cartes</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Victoire que vous avez</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">(arrondi inférieurement).</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:75px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.2); top:10px;left:75px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
   /* t */	{	id: "illgottengains",  frenchName: "Argent noir",  artwork: "http://wiki.dominionstrategy.com/images/e/ee/IllGotten_GainsArt.jpg",
   /* t */		text_html: '\
@@ -140,7 +144,11 @@ export const Cards_list_Hinterlands: DigitalCard[] = [
     	},	
     	{	id: "farmland",  frenchName: "Terre agricole",  artwork: "http://wiki.dominionstrategy.com/images/d/dd/FarmlandArt.jpg",
     		text_html: '\
-<div class="card-text" style="top:29px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-30px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:5px;"><div style="line-height:20px;">\
+<div class="card-text" style="top:29px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-30px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:5px;"><div style="line-height:20px;">\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">Lorsque vous achetez cette carte,</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">écartez une carte de votre main et</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:20px;">recevez une carte coûtant</div></div><br>\
@@ -220,7 +228,11 @@ export const Cards_list_Hinterlands: DigitalCard[] = [
     	},	
     	{	id: "tunnel",  frenchName: "Tunnel",  artwork: "http://wiki.dominionstrategy.com/images/a/ad/TunnelArt.jpg",
     		text_html: '\
-<div class="card-text" style="top:47px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-35px;left:130px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:6px;"><div style="line-height:18px;">\
+<div class="card-text" style="top:47px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:-35px;left:130px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div><div class="horizontal-line" style="width:200px; height:3px;margin-top:40px;"></div><div style="position:relative; top:6px;"><div style="line-height:18px;">\
 <div style="display:inline;"><div style="display:inline; font-size:17px;">Quand vous défaussez cette carte en</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:17px;">dehors de la phase Ajustement, vous</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:17px;">pouvez la dévoiler pour recevoir un Or.</div></div><br>\

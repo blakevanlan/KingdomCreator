@@ -10,7 +10,7 @@ export class SupplyCardSorter {
 
   private static compare(a: SupplyCard, b: SupplyCard, sortOption: SortOption, translator: (key: string) => TranslateResult) {
     if (sortOption === SortOption.SET && a.setId !== b.setId) {
-      return a.setId < b.setId ? -1 : 1;
+      return translator(a.setId).localeCompare(translator(b.setId), undefined, { sensitivity: 'base' });
     }
     if (sortOption === SortOption.COST) {
       const costComparison = SupplyCardSorter.compareCosts(a, b);
@@ -19,9 +19,9 @@ export class SupplyCardSorter {
       }
     }
     if (sortOption === SortOption.ORDERSTRING) {
-      return a.orderstring === b.orderstring ? 0 : a.orderstring < b.orderstring ? -1 : 1;
+      return translator(a.orderstring).localeCompare(translator(b.orderstring), undefined, { sensitivity: 'base' });
     }
-    return translator(a.id) === translator(b.id) ? 0 : translator(a.id) < translator(b.id) ? -1 : 1;
+    return translator(a.id).localeCompare(translator(b.id), undefined, { sensitivity: 'base' });
   }
 
   private static compareCosts(a: SupplyCard, b: SupplyCard) {

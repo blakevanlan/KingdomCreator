@@ -1,0 +1,133 @@
+ .fontbold { font-weight: bold; }
+ .fontitalics { font-style: italic; }
+
+
+.text-layer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+    //color: blanchedalmond;
+    //background-color: chocolate;
+}
+
+.card-stack-layer {
+    position: absolute
+}
+
+.card-text-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    //border: solid;
+}
+
+.card-text-line {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap
+}
+
+.card-text-line.separator-line {
+    background-color: #000;
+    width: 80%
+}
+
+.card-text-line.heirloom-line {
+    bottom: -18%;
+    position: absolute;
+    width: 80%
+}
+
+.card-text-block {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: .1em;
+    margin-right: .1em
+}
+
+.card-text-block.no-left-margin {
+    margin-left: -0.0em
+}
+
+.card-text-block.no-right-margin {
+    margin-right: -0.0em
+}
+
+.cost-container {
+    display: flex
+}
+
+.victory-container {
+    display: flex
+}
+
+.coin-cost {
+    align-items: center;
+    aspect-ratio: 1.5/1;
+    background-image: url(../img/elements/coin.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #000;
+    display: flex;
+    font-family: Minion-Bold;
+    font-weight: 700;
+    height: 1.15em;
+    justify-content: center;
+    letter-spacing: -.1em;
+    //margin-top: -.05em;
+    padding-bottom: .1em;
+    text-indent: -.1em
+}
+
+.potion-cost {
+    aspect-ratio: 3/4;
+    background-image: url(../img/elements/potion.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 1em
+}
+
+.debt-cost {
+    align-items: center;
+    aspect-ratio: 1/1;
+    background-image: url(../img/elements/debt_130.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: #fff;
+    display: flex;
+    font-family: Minion-Bold;
+    font-weight: 700;
+    height: 1.1em;
+    justify-content: center;
+    letter-spacing: -.1em;
+    margin-top: -.1em;
+    padding-bottom: .1em;
+    text-indent: -.1em
+}
+
+.victory-amount {
+    display: flex;
+    font-family: Minion-Bold;
+    height: 1em;
+    justify-content: center
+}
+
+.victory-shield {
+    align-items: center;
+    aspect-ratio: 1/1;
+    background-image: url(../img/elements/victory_150.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 1em
+}

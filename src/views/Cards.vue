@@ -2,11 +2,11 @@
   <Page :subtitle="$t('sets_page_subtitle')" :selectedType="selectedType">
     <div class="content">
       <BoxesSidebar />
-      <div class="main cardMain">
+      <div class="main">
         <!-- <card-online-editor-component :set="set" v-if="true" /> -->
-        <card-online-page-component :set="set" v-if="true" />
-        <card-online-page-landscape-component :set="set" v-if="true" />
-        <card-online-page-othercard-component :set="set" v-if="true" />
+        <CardOnlinePageComponent :set="set" v-if="true" />
+        <CardOnlinePageLandscapeComponent :set="set" v-if="true" />
+        <CardOnlinePageOthercardComponent :set="set" v-if="false" />
       </div>
     </div>
   </Page>
@@ -19,9 +19,9 @@ import Page, { MenuItemType } from "../components/Page.vue";
 
 
 // import CardOnlineEditorComponent from "../components/card-online-editor.vue";
-import CardOnlinePageComponent from "../components/card-online-page.vue";
-import CardOnlinePageLandscapeComponent from "../components/card-online-page-landscape.vue";
-import CardOnlinePageOthercardComponent from "../components/card-online-page-othercard.vue";
+import CardOnlinePageComponent from "../components/CardOnlinePageComponent.vue";
+import CardOnlinePageLandscapeComponent from "../components/CardOnlinePageLandscapeComponent.vue";
+import CardOnlinePageOthercardComponent from "../components/CardOnlinePageOthercardComponent.vue";
 import BoxesSidebar from "../components/BoxesSidebar.vue";
 import { DominionSets } from "../dominion/dominion-sets";
 import type { DominionSet } from "../dominion/dominion-set";
@@ -33,9 +33,9 @@ export default defineComponent({
     Page,
     BoxesSidebar,
     // "card-online-editor-component": CardOnlineEditorComponent,
-    "card-online-page-component": CardOnlinePageComponent,
-    "card-online-page-landscape-component": CardOnlinePageLandscapeComponent,
-    "card-online-page-othercard-component": CardOnlinePageOthercardComponent
+    CardOnlinePageComponent,
+    CardOnlinePageLandscapeComponent,
+    CardOnlinePageOthercardComponent
   },
   setup() {
     const setsStore = useSetsStore();

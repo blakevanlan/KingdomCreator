@@ -31,7 +31,7 @@ import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
 import type { Card } from '../dominion/card';
-import { ImgNotInFR } from '../dominion/set-id.ts'
+import { ImgNotInFR, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
 
 /* import store  */
 import { usei18nStore } from "../pinia/i18n-store";
@@ -39,8 +39,6 @@ import { Language } from '../i18n/language';
 
 /* import Components */
 import TextOverlay from './TextOverlay.vue';
-
-const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH]);
 
 export default defineComponent({
   name: "CardOverlay",

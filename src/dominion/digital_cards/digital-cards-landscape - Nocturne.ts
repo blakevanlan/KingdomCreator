@@ -138,7 +138,11 @@ export const Cards_list_Nocturne: DigitalCard[] = [
 </div></div>\
 <div class="card-text-coin-icon" style="transform:scale(0.53); top:-35px; display: inline;left:110px;">\
 <div class="card-text-coin-text-container" style="display:inline;">\
-<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:64px;left:106px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">1</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">1</div></div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.18); top:64px;left:106px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">1</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
     	{	id: "pouch",  frenchName: "Pochette",  artwork: "http://wiki.dominionstrategy.com/images/5/52/PouchArt.jpg",
     		text_html: '\
@@ -372,11 +376,19 @@ export const Cards_list_Nocturne: DigitalCard[] = [
   /* landscape */	},	
   /* landscape */	{	id: "miserable",  frenchName: "En détresse",  artwork: "http://wiki.dominionstrategy.com/images/c/ce/MiseryArt.jpg",
   /* landscape */		text_html: '\
-<div class="landscape-text" style="top:2px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:0px;left:200px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">-2</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="landscape-text" style="top:2px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:0px;left:200px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">-2</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
   /* landscape */	},	
   /* landscape */	{	id: "twicemiserable",  frenchName: "En grande détresse",  artwork: "http://wiki.dominionstrategy.com/images/c/ce/MiseryArt.jpg",
   /* landscape */		text_html: '\
-<div class="landscape-text" style="top:2px;"><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:0px;left:200px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">-4</div></div><div class="card-text-vp-icon"></div></div></div>'
+<div class="landscape-text" style="top:2px;">\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.55); top:0px;left:200px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">-4</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
   /* landscape */	},	
   /* landscape */	{	id: "lostinthewoods",  frenchName: "Perdu dans les bois",  artwork: "http://wiki.dominionstrategy.com/images/f/fb/Lost_in_the_WoodsArt.jpg",
   /* landscape */		text_html: '\

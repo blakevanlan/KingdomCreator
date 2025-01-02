@@ -9,6 +9,12 @@ const RULE_PDF_PREFEX = "./rules";
 //const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
 const PNG_SET_IMAGES = new Set(["undefined"]);
 
+export enum ShowOverlayOptions {
+    TRUE = "true",
+    CHECK = "check",
+    FALSE = "false"
+  }
+
 export function getCardImageUrl(cardId: string, language: Language) {
   const SetName = cardId.split('_', 2);
   const lastletter = SetName[0].slice(SetName[0].length - 1, SetName[0].length)

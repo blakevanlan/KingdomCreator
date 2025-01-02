@@ -16,43 +16,31 @@ enum Orientation {
 
 // Fonction pour convertir le fichier xlsx de messages traduit en CSV
 function Generate_Digitalcard_for_set (setid:string) {
-  console.log("Starting Generation of Digital Card", setid)
-  const inputfile = path.join(ArtworkFileDir, ArtworkFileName)
-  const outputfile = path.join(DigitalCardDir, DigitalCardFileName + setid +'.ts')
-  const outputLandscapeFile = path.join(DigitalCardDir, DigitalCardLandscapeFileName + setid +'.ts')
-
+  console.log("Starting Generation of Digital Card", setid);
+  const inputfile = path.join(ArtworkFileDir, ArtworkFileName);
+  const outputfile = path.join(DigitalCardDir, DigitalCardFileName + setid +'.ts');
+  const outputLandscapeFile = path.join(DigitalCardDir, DigitalCardLandscapeFileName + setid +'.ts');
   XLSX.set_fs(fs);
 
-  // Charger le fichier Excel source
-  const workbook = XLSX.readFile(inputfile);
-    // Sélectionner la feuille "Digital_cards"
-  const worksheet = workbook.Sheets['digital_cards'];
-    // Définir la plage à copier (A1:C250)
-  const ranges = getRange(setid, Orientation.PORTRAIT);
+  const workbook = XLSX.readFile(inputfile);  // Charger le fichier Excel source
+  const worksheet = workbook.Sheets['digital_cards'];    // Sélectionner la feuille "Digital_cards"
+  const ranges = getRange(setid, Orientation.PORTRAIT);     // Définir la plage à copier (A1:C250)
   let allData: any[] = [];
-  
   ranges.forEach(range => {
     const mydata = XLSX.utils.sheet_to_json(worksheet, { range });
-    // Concaténer les données de toutes les plages
-    allData = allData.concat(mydata);
+    allData = allData.concat(mydata);    // Concaténer les données de toutes les plages
   });
-
   // Convertir les données en une chaîne de caractères, chaque ligne étant séparée par des retours à la ligne
   //const textData = mydata.map(row => Object.values(row as string ).join('\t')).join('\n');
-
   const textData = `import type { DigitalCard } from "./digital-cards-type";
 
 export const Cards_list_${setid}: DigitalCard[] = [
 ${allData.map(row => Object.values(row as string).join('\t')).join('\n')}
 
 ];`;
-  
-  // Écrire les données dans le fichier texte
-  fs.writeFileSync(outputfile, textData);
-
+  fs.writeFileSync(outputfile, textData);  // Écrire les données dans le fichier texte
   const rangesLandscape = getRange(setid, Orientation.LANDSCAPE);
   allData = [];
-
   if (rangesLandscape.length != 0) {
     rangesLandscape.forEach(range => {
       const mydata = XLSX.utils.sheet_to_json(worksheet, { range });
@@ -99,6 +87,7 @@ function getRange(setid:string, type: Orientation) {
                 'Allies': [ 'A1949:C2114' ],
                 'Plunder': [ 'A2183:C2348' ],
                 'Guildscornucopia': [ 'A2438:C2480' ],
+                'RisingSun': [ 'A2480:C2555', 'A2555:C2630' ],		
             // ... ajoutez les autres paires ici
               'setid10': ['range10']};
     break;

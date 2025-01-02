@@ -12,6 +12,13 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+2025/01/02 - 6.4.4
+  Fix : improper order for accentuated chararters (French)
+  Fix : add rising sun no French images
+  Feat : add translation for no card image translated
+  Fix blakevanlan/KingdomCreator # 181 - Bug: Riverboat pile selects cards that don't cost $5
+  Feat : rework of Card generation
+
 2024/12/28 - 6.4.3
   Fix : Correcting wrong image names for other
   Fix : Usage of Dominion Randomizer - error filter fix

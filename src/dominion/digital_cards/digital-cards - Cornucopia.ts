@@ -116,7 +116,11 @@ export const Cards_list_Cornucopia: DigitalCard[] = [
 <div style="display:inline;"><div style="display:inline; font-size:19px;">Vaut         pour chaque 5 cartes de</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:19px;">noms différents que vous avez</div></div><br>\
 <div style="display:inline;"><div style="display:inline; font-size:19px;">(arrondi inférieurement).</div></div><br>\
-</div></div><div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.21); top:10px;left:66px;"><div class="card-text-vp-text-container"><div class="card-text-vp-text" style="top:8px;">2</div></div><div class="card-text-vp-icon"></div></div></div>'
+</div></div>\
+<div class="card-text-vp-icon-container" style="display:inline; transform:scale(0.21); top:10px;left:66px;">\
+<div class="card-text-vp-text-container">\
+<div class="card-text-vp-text" style="top:8px;">2</div></div>\
+<div class="card-text-vp-icon"></div></div></div>'
     	},	
   /* t */	{	id: "hornofplenty",  frenchName: "Corne d'abondance",  artwork: "http://wiki.dominionstrategy.com/images/8/8f/Horn_of_PlentyArt.jpg",
   /* t */		text_html: '\
