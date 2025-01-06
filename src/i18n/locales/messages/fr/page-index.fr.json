@@ -59,7 +59,6 @@
   "RB_needs_riverboatcard": "Bateau fluvial nécessite une carte riverboat",
   "riverboat_Cardtype": "La carte riverboat doit être de type Action et n'est pas de type Durée",
   "Riverboatcard_needs_RB": "La présence d'une carte riveboat nécessite un Bateau fluvial",
-  "Riverboat_Cost": "La carte riverboat doit avoir un coût de {COST}",
   "APA_needs_aApproachingarmycard": "le prophétie armée en approche nécessite une carte armée en approche",
   "approachingarmycard_Cardtype": "La carte armée en approche doit être de type Attaque",
   "approachingarmy_needs_APA": "La présence d'une carte armée en approche nécessite la prophétie Armée en approche"

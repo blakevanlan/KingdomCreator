@@ -3,7 +3,7 @@ import path from 'path';
 import XLSX from 'xlsx';
 import { spawnSync } from 'child_process';
 
-const languages = ['fr', 'de', 'es', 'nl', 'pl']; // Liste des langues à fusionner
+const languages = ['fr', 'de', 'es', 'nl', 'pl', 'it']; // Liste des langues à fusionner
 const ProjectBaseDir = process.cwd();
 const languageSourceDir = 'src/i18n/locales'
 const languageDestDir = '/locales'

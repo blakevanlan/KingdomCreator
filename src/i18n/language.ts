@@ -4,7 +4,8 @@ export enum Language {
   FRENCH = "fr",
   GERMAN = "de",
   SPANISH = "es",
-  POLISH ="pl"
+  POLISH ="pl",
+  ITALIAN = "it"
 }
 
 export const defaultLanguage = Language.ENGLISH;
