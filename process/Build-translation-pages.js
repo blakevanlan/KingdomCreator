@@ -4,7 +4,7 @@ import path from 'path'
 import { loadSets }  from './loader.js'; // read <set>.yaml
 
 const sets = loadSets(); // Assuming loadSets is async function
-let TRANSLATION_CSV = "./resources/pages.csv"
+let TRANSLATION_CSV = "./resources/Pages.csv"
 const PROCESSED = "processed"
 let PROCESSING_DIR = `./${PROCESSED}/src/i18n/locales/messages`
 

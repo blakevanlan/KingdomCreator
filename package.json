@@ -10,7 +10,7 @@
     "url": "https://github.com/blakevanlan/KingdomCreator"
   },
   "scripts": {
-    "Gen": "vite -- Gen (to generate locale from XLSX to CSV, then build translation and vite)",
+    "Gen": "vite -- Gen",
     "dev": "vite",
     "cbuild": "run-p type-check \"build {@}\" --",
     "preview": "vite preview",
