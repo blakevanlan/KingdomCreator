@@ -91,7 +91,7 @@ export default defineComponent({
           kingdom.value.ally ? [kingdom.value.ally] : [],
           kingdom.value.prophecy ? [kingdom.value.prophecy] : [],
           kingdom.value.traits,
-        ).map((card) => card.id).join(', ')
+        ).map((card) => t(card.id)).join(', ')
       )
     })
 
