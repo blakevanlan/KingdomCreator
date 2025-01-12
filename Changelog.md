@@ -12,6 +12,9 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+2025/01/12 - 6.4.5
+  Fix : Regression - blakevanlan/KingdomCreator # 169 - Bug: Copy does not work anymore like it used to
+
 2025/01/02 - 6.4.4
   Fix : improper order for accentuated chararters (French)
   Fix : add rising sun no French images

@@ -30,14 +30,14 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@inquirer/checkbox": "^4.0.4",
-    "@inquirer/select": "^4.0.4",
-    "@intlify/unplugin-vue-i18n": "^6.0.2",
+    "@inquirer/checkbox": "^4.0.5",
+    "@inquirer/select": "^4.0.5",
+    "@intlify/unplugin-vue-i18n": "^6.0.3",
     "@kineticcafe/rollup-plugin-delete": "^3.0.1",
     "@types/file-saver": "^2.0.7",
     "@types/js-cookie": "^3.0.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.5",
     "@vitejs/plugin-legacy": "^6.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
@@ -50,10 +50,10 @@
     "sharp": "^0.33.5",
     "stylus": "^0.64.0",
     "terser": "^5.37.0",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.6",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
     "vite-plugin-static-copy": "^2.2.0",
-    "vite-plugin-vue-devtools": "^7.6.8",
+    "vite-plugin-vue-devtools": "^7.7.0",
     "vue-tsc": "^2.2.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
   }
