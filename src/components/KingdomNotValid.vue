@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasInvalidCards" class="tagline">
-    <p>{{ $t("warning") }} {{  $t("Constraint_violated") }}</p>
+    <p>{{ $t("Warning") }} {{  $t("Constraint_violated") }}</p>
     <ul v-if="invalidCardsFromNonSelectedSets.length > 0">
       {{ $t("Cards_not_in_sets") }}
       <li v-for="card in invalidCardsFromNonSelectedSets" :key="card.id">
