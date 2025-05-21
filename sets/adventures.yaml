@@ -737,7 +737,7 @@ othercards:
       treasure: 6
 
   - name: Peasant
-    type: Action - Attack - Travellers Peasant
+    type: Action - Travellers Peasant
     orderstring: Traveller Peasant step 1
     cost:
       treasure: 2

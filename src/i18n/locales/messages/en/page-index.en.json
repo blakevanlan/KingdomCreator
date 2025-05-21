@@ -29,7 +29,7 @@
   "1st": "1st",
   "2nd": "2nd",
   "Warning": "Warning:",
-  "Constraint_violated": "kingdom not folowing setting constraints",
+  "Constraint_violated": "kingdom not following setting constraints",
   "Cards_not_in_sets": "Card not present in selected sets",
   "Cards_excluded": "Excluded card according to settings",
   "Card_rule_problem": "Card rule problem",

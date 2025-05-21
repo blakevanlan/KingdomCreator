@@ -27,7 +27,7 @@ export enum CardType {
   DOOM = "isDoom",
   NIGHT = "isNight",
 
-  // Renaissnce
+  // Renaissance
   ARTIFACT_SUPPLIER = "isArtifactSupplier",
   VILLAGE_SUPPLIER = "isVillageSupplier",
 
@@ -37,6 +37,7 @@ export enum CardType {
 
   // Rising sun
   OMEN = "isOmen",
+  SHADOW = "isShadow",
 
   // Promos
   COMMAND = "isCommand"

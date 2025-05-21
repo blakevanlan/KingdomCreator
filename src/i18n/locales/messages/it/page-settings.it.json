@@ -1,0 +1,17 @@
+{
+  "settings_page_subtitle": "Personalizza la tua esperienza di gioco",
+  "settings_subtitle_desksize": "Cambia le impostazioni per la dimensione del Regno, aggiunte e I tipi individuali di carte.",
+  "settings_subtitle_owned_sets": "Mostra solo i set posseduti",
+  "settings_subtitle_constraint": "Rimuovi le carte dal selettore casuale",
+  "settings_page_subtitle2": "Personalizza la tua esperienza di gioco cambiando la dimensione del Regno, aggiunte e I tipi individuali di carte.",
+  "Owned sets Settings": "Impostazioni dei Set in possesso",
+  "Desk Size Setting": "Impostazioni della grandezza del mazzo",
+  "Use Custom Configuration for DeckSize": "Usa impostazioni personalizzate per le dimensioni del deck",
+  "Use Custom Configuration for Set Display": "Usa impostazioni personalizzate per mostrare i Set",
+  "NB of kingdom for the Game": "NR di regni per il gioco",
+  "Addons": "Aggiunte",
+  "Force Addons usage": "Forza l’uso di aggiunte",
+  "Events": "Eventi",
+  "Traits": "Caratteristiche",
+  "cards_removed": "carta rimossa|carte rimosse"
+}

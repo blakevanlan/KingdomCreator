@@ -5,6 +5,7 @@ const HORIZONTAL = 'horizontal';
 const VERTICAL = 'vertical'
 
 async function resize(inputFilename, imageType, outputFilename, imageId='') {
+  console.log("resize", inputFilename, imageType, outputFilename, imageId)
   let imageSharp = sharp(inputFilename);
 
   // Obtenir les dimensions de l'image
@@ -17,7 +18,7 @@ async function resize(inputFilename, imageType, outputFilename, imageId='') {
     CardImage: { horizontal: [473, 296], vertical: [296, 473] },
     CardArtwork: { horizontal: [452, 177], vertical: [287, 209] }
   };
-  const Options = { //option for resize 
+  let Options = { //option for resize 
     CardImage: { fit: 'contain', 
         background: { r: 0, g: 0, b: 0, alpha: 1 },
         quality : 100
@@ -38,7 +39,7 @@ async function resize(inputFilename, imageType, outputFilename, imageId='') {
     newWidth = Math.floor(
           height * Ratios[imageType][isIimageDirection][0]/
           Ratios[imageType][isIimageDirection][1])
-    extractLeftOffset= Math.floor((width - newWidth+1)/2)
+    extractLeftOffset= Math.floor((width - newWidth+1)/2)    
   } else {
     newWidth= width
     newHeight = Math.floor(
@@ -46,21 +47,23 @@ async function resize(inputFilename, imageType, outputFilename, imageId='') {
           Ratios[imageType][isIimageDirection][0])
     extractTopOffset = Math.floor((height - newHeight+1)/2)
   }
-
-  const mergedOptions = {
+  let mergedOptions
+  if (inputFilename.includes('Tanuki'))
+  {
+    mergedOptions = {
+      position: 'top',
+      height: newHeight,
+      width: newWidth,
+      ...Options[imageType]
+    }
+  } else {
+    mergedOptions = {
       height: newHeight,
       width: newWidth,
       ...Options[imageType]
     };
+  }
   await imageSharp.resize(mergedOptions).toFile(outputFilename);
- 
-  return ; 
-  const resizedBuffer = await sharp(inputFilename).extract(
-        { left: extractLeftOffset,  top: extractTopOffset, 
-          width: newWidth, height: newHeight })
-      .toFile(outputFilename.replace('Art.','ArtExtract.'));
-
-  return
 }
 
 function isHorizontal(name) {
@@ -86,3 +89,5 @@ function isHorizontal(name) {
 }
 
 export default resize;
+
+

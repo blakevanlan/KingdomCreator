@@ -42,7 +42,7 @@ export default defineComponent({
       required: true,
     },
     showOverlay: {
-      type: Object as PropType<ShowOverlayOptions>,
+      type: String as PropType<ShowOverlayOptions>,
       default: ShowOverlayOptions.TRUE,
     },
   },

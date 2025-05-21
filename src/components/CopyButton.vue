@@ -1,6 +1,6 @@
 <template>
   <button :aria-label="$t('copyButton')" class="copy-button" :class="{ 'copy-button--has-copied': hasCopied }" @click="handleClick()">
-    <input :aria-label="$t('copyButton')" ref="textInput" class="copy-button__input" type="text" :value="text" readonly />
+    <input name="copybutton" :aria-label="$t('copyButton')" ref="textInput" class="copy-button__input" type="text" :value="text" readonly />
     <div class="copy-button__icon">
       <svg height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path

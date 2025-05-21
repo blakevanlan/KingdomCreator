@@ -229,6 +229,7 @@ export class DominionSets {
   }
 }
 
+/*
 function mergeSets(set1: DominionSet, set2: DominionSet): DominionSet {
   const mergedSet: DominionSet = {
     ...set1, 
@@ -317,4 +318,5 @@ function mergeSets(set1: DominionSet, set2: DominionSet): DominionSet {
   };
   return mergedSet;
 }
+  */
 

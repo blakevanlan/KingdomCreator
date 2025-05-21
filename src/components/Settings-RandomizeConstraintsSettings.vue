@@ -85,7 +85,6 @@ import { SwitchGroup, Switch, SwitchLabel } from "@headlessui/vue";
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption, ListboxLabel } from '@headlessui/vue';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid';
 import { useI18n } from 'vue-i18n'
-import type { TranslateResult } from 'vue-i18n';
 
 
 /* import Dominion Objects and type*/
@@ -156,7 +155,7 @@ export default defineComponent({
             (Set.prophecies as Card[]).sort((a, b) => compare(a, b, t)));
     }
 
-    const compare = (a: Card, b: Card, translator: (key: string) => TranslateResult) => {
+    const compare = (a: Card, b: Card, translator: (key: string) => string) => {
       return translator(a.id) === translator(b.id) ? 0 : translator(a.id) < translator(b.id) ? -1 : 1;
     }
 

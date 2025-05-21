@@ -9,12 +9,12 @@
         <span>{{ $t("Sets") }}</span>
         <div class="sidebar-content-option">
         <label class="checkbox sidebar-content-option">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
+            <input id="alpha" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
             @change="handleSetOrderTypeChange('alpha')" />
             <span>{{ $t("Alphabetical") }}</span>
         </label> 
         <label class="checkbox sidebar-content-option" style="margin-left:10px;">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
+            <input id="date" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
             @change="handleSetOrderTypeChange('date')" />
             <span>{{ $t("Date") }}</span>
         </label>
@@ -23,12 +23,12 @@
       <div class="sets">
         <div class="set" v-for="setId in setIds" :key="setId">
           <label class="checkbox">
-            <input type="checkbox" v-model="selectedSetIds" :id="setId" :value="setId">
+            <input :id="setId" type="checkbox" v-model="selectedSetIds"  :value="setId">
             <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
           </label>
           <span v-if="FindMultipleVersionSets(setId).length !== 0">
             <label class="checkbox suboption-set">
-              <input type="checkbox" v-model="selectedSetIds" :id="(FindMultipleVersionSets(setId))[0].idv2"
+              <input :id="(FindMultipleVersionSets(setId))[0].idv2" type="checkbox" v-model="selectedSetIds" 
                 :value="(FindMultipleVersionSets(setId))[0].idv2">
               <span>{{ $t("2nd") }}</span>
             </label>
@@ -39,55 +39,55 @@
       <div class="sidebar-content-title">{{ $t("Options") }}</div>
       <div class="option">
         <label class="checkbox">
-          <input type="checkbox" v-model="requireActionProvider">
+          <input id="requireActionProvider" type="checkbox" v-model="requireActionProvider">
           <span>{{ $t("Require +2 Action") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
-          <input type="checkbox" v-model="requireCardProvider">
+          <input id="requireCardProvider" type="checkbox" v-model="requireCardProvider">
           <span>{{ $t("Require Drawer") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
-          <input type="checkbox" v-model="requireBuyProvider">
+          <input id="requireBuyProvider" type="checkbox" v-model="requireBuyProvider">
           <span>{{ $t("Require Buy") }}</span>
         </label>
       </div>
       <div class="option">
         <label class="checkbox">
-          <input type="checkbox" v-model="allowAttacks">
+          <input id="allowAttacks" type="checkbox" v-model="allowAttacks">
           <span>{{ $t("Allow Attacks") }}</span>
         </label>
         <div class="suboption">
           <label class="checkbox" :class="{ disable: !allowAttacks }">
-            <input type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
+            <input id="requireReaction" type="checkbox" v-model="requireReaction" :disabled="!allowAttacks">
             <span>{{ $t("Require Reaction") }}</span>
           </label>
         </div>
       </div>
       <div class="option">
         <label class="checkbox">
-          <input type="checkbox" v-model="requireTrashing">
+          <input id="requireTrashing" type="checkbox" v-model="requireTrashing">
           <span>{{ $t("Require Trashing") }}</span>
         </label>
       </div>
       <div class="option" v-if="isAlchemySelected">
         <label class="checkbox">
-          <input type="checkbox" v-model="isAlchemyRecommendationEnabled">
+          <input id="isAlchemyRecommendationEnabled" type="checkbox" v-model="isAlchemyRecommendationEnabled">
           <span>{{ $t("3Plus_Alchemy_Cards") }}</span>
         </label>
       </div>
       <div class="option" v-if="isDistributeCostAllowed">
         <label class="checkbox">
-          <input type="checkbox" v-model="distributeCost">
+          <input id="distributeCost" type="checkbox" v-model="distributeCost">
           <span>{{ $t("Distribute Cost") }}</span>
         </label>
       </div>
       <div class="option" v-if="isPrioritizeSetAllowed">
         <label class="checkbox">
-          <input type="checkbox" v-model="isPrioritizeSetEnabled">
+          <input id="isPrioritizeSetEnabled" type="checkbox" v-model="isPrioritizeSetEnabled">
           <span>{{ $t("Prioritize Set") }}</span>
         </label>
         <div class="suboption">

@@ -1,7 +1,7 @@
 import type {Card} from "./card"
 import {CardType} from "./card-type"
 import {Cost} from "./cost"
-import type {SetId} from "./set-id"
+import {SetId} from "./set-id"
 
 export class SupplyCard implements Card {
   constructor(
@@ -49,16 +49,16 @@ export class SupplyCard implements Card {
 
     // Rising sun
     readonly isOmen: boolean,
+    readonly isShadow: boolean,
 
     // Promos
     readonly isCommand: boolean
-
-    ) {
-  }
+    ) { }
 
   public isOfType(cardType: CardType) {
     switch (cardType) {
-  // bsae Game
+
+  // Base Game
       case CardType.ACTION:
         return this.isAction;
       case CardType.ACTION_SUPPLIER:
@@ -116,6 +116,11 @@ export class SupplyCard implements Card {
       case CardType.COVER:
         return this.isCover;
 
+  // Rising Sun
+    case CardType.OMEN:
+      return this.isOmen;
+    case CardType.SHADOW:
+      return this.isShadow;
   // Promps
       case CardType.COMMAND:
         return this.isCommand;
@@ -123,6 +128,58 @@ export class SupplyCard implements Card {
       default:
         throw new Error(`Unknown card type: ${cardType}`);
     }
+  }
+
+  public static from(data: Partial<SupplyCard>):SupplyCard {
+    return new SupplyCard(
+      data.id ?? "",
+      data.shortId ?? "",
+      data.setId ?? SetId.TO_FORCE_RELOAD,
+      data.name ?? "",
+      data.orderstring ?? "",
+      data.cost ?? new Cost(0,0,0), // ou une valeur par défaut
+
+  // Base Game
+      data.isAction ?? false,
+      data.isActionSupplier ?? false,
+      data.isTerminal ?? false,
+      data.isAttack ?? false,
+      data.isTreasure ?? false,
+      data.isVictory ?? false,
+      data.isBuySupplier ?? false,
+      data.isDrawer ?? false,
+      data.isMultiDrawer ?? false,
+      data.isReaction ?? false,
+      data.isTrashing ?? false,
+
+  // Seaside
+      data.isDuration ?? false,
+  
+  // Adventure
+      data.isReserve ?? false,
+      data.isTraveller ?? false,
+      data.isGathering ?? false,
+  
+  // Nocturne
+      data.isFate ?? false,
+      data.isDoom ?? false,
+      data.isNight ?? false,
+  
+  // Renaissance
+      data.isArtifactSupplier ?? false,
+      data.isVillageSupplier ?? false,
+  
+  // Allies
+      data.isLiaison ?? false,
+      data.isCover ?? false,
+  
+  // Rising Sun
+      data.isOmen ?? false,
+      data.isShadow ?? false,
+  
+  // Promo
+      data.isCommand ?? false
+    );
   }
 
   public static fromJson(json: any) {
@@ -171,6 +228,7 @@ export class SupplyCard implements Card {
 
   // Allies
       json["isOmen"] || false,
+      json["isShadow"] || false,
       
   // Promos
       json["isCommand"] || false,

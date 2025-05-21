@@ -12,6 +12,13 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+2025/05/20 - 6.4.7  
+  Fix - blakevanlan/KingdomCreator #190 - Bug: Issue: Link to issue page broken
+  Fix - blakevanlan/KingdomCreator #191 - Issue: Reaction cards (set Patron reaction:true)
+  Fix - blakevanlan/KingdomCreator PR # 189 - fix: Fix string key
+  Fix - blakevanlan/KingdomCreator PR # 188 - fix(build): Fix build on Linux systems
+  Feat - blakevanlan/KingdomCreator PR # 187 - feat: Add Italian translation
+
 2025/01/12 - 6.4.5
   Fix : Regression - blakevanlan/KingdomCreator # 169 - Bug: Copy does not work anymore like it used to
 

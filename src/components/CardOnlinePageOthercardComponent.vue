@@ -89,7 +89,7 @@ import { getCardImageUrl } from "../utils/resources";
 import { incaseofImgerror } from "../utils/resources";
 
 import type { DigitalCard } from "../dominion/digital_cards/digital-cards-type"
-import { OtherCards_list } from "../dominion/digital_cards/digital-cards-othercards"
+import { OtherCards_list } from "../dominion/digital_cards/Manual/digital-cards-othercards"
 
 /* import store  */
 /* import Components */

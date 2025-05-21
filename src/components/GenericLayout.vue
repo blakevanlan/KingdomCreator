@@ -56,7 +56,7 @@ export default defineComponent({
       default: Shape.CARD,
     },
     showOverlay: {
-      type: Object as PropType<ShowOverlayOptions>,
+      type: String as PropType<ShowOverlayOptions>,
       required: true
     },
     title: {

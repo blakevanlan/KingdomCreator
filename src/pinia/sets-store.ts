@@ -18,7 +18,8 @@ export interface State {
 };
 
 export const useSetsStore = defineStore(
-  'setsStore', {
+  'setsStore', 
+  {
   state: () => ({
     setsOrderType: 'alpha',
     selectedSetId: SetId.BASE_SET,

@@ -1,0 +1,85 @@
+type FrenchCardTextsType = {[key: string]: string;};
+export const FrenchCardTexts: FrenchCardTextsType = {}
+FrenchCardTexts["ENGINEER"]= "Recevez une carte co\xFBtant//jusqu'\xE0 [4]. Vous pouvez//\xE9carter cette carte.//Dans ce cas, recevez une//carte co\xFBtant jusqu'\xE0 [4].";
+FrenchCardTexts["CITYQUARTER"]= "|+2 Actions|//////D\xE9voilez votre main. |+1 Carte|//par carte Action d\xE9voil\xE9e.";
+FrenchCardTexts["OVERLORD"]= "Jouez une carte Action//non-Ordre de la r\xE9serve//co\xFBtant jusqu'\xE0 [5], en//la laissant dans la r\xE9serve.";
+FrenchCardTexts["ROYALBLACKSMITH"]= "|+5 Cartes|//////D\xE9voilez votre main ;//d\xE9faussez les Cuivres.";
+
+FrenchCardTexts["ENCAMPMENT"]= "|+2 Cartes|//|+2 Actions|//////Vous pouvez d\xE9voiler un Or ou un//Saccage de votre main. Si vous ne//le faites pas, mettez cette carte de//c\xF4t\xE9 et retournez-la sur sa pile au//d\xE9but de la phase d'Ajustement.";
+FrenchCardTexts["PLUNDER"]= "[!2]//|+{1}|";
+
+FrenchCardTexts["PATRICIAN"]= "|+1 Carte|//|+1 Action|////D\xE9voilez la carte du haut de votre//pioche. Si elle co\xFBte [5] ou plus,//prenez-la en main.";
+FrenchCardTexts["EMPORIUM"]= "|+1 Carte|//|+1 Action|//|+[1]|//---//Lorsque vous recevez cette carte,//si avez au moins 5 cartes Action//en jeu, {+2}.";
+
+FrenchCardTexts["SETTLERS"]= "|+1 Carte|//|+1 Action|////Vous pouvez d\xE9voiler//un Cuivre de votre d\xE9fausse//et le prendre en main.";
+FrenchCardTexts["BUSTLINGVILLAGE"]= "|+1 Carte|//|+3 Actions|////Vous pouvez d\xE9voiler//un Colons de votre d\xE9fausse//et le prendre en main.";
+FrenchCardTexts["CASTLES"]= "Triez la pile des Ch\xE2teaux par,//co\xFBt, en pla\xE7ant les Ch\xE2teaux//les plus chers en-dessous. Pour une//partie \xE0 2 joueurs, n'utilisez qu'un//exemplaire de chaque Ch\xE2teau.//Seule la carte du haut de la pile//peut \xEAtre re\xE7ue ou achet\xE9e.";
+
+FrenchCardTexts["CATAPULT"]= "|+[1]|////\xC9cartez une carte de votre main. Si//elle co\xFBte [3] ou plus, tous vos//adversaires re\xE7oivent une//Mal\xE9diction. Si c'est une carte Tr\xE9sor,//tous vos adversaires d\xE9faussent//jusqu'\xE0 avoir 3 cartes en main.";
+FrenchCardTexts["ROCKS"]= "[!1]//---//Lorsque vous recevez ou \xE9cartez cette//carte, recevez un Argent ; si c'est votre//phase Achat, placez-le sur votre pioche,//sinon prenez-le en main.";
+FrenchCardTexts["CHARIOTRACE"]= "|+1 Action|////D\xE9voilez la carte du haut de votre//pioche et prenez-la en main. Le//joueur \xE0 votre gauche d\xE9voile la//carte du haut de sa pioche. Si votre//carte co\xFBte plus, +[1] et {+1}.";
+FrenchCardTexts["ENCHANTRESS"]= "Jusqu'\xE0 votre prochain tour, la//premi\xE8re fois qu'un adversaire//joue une carte Action \xE0 son tour,//il a |+1 Carte| et |+1 Action| au//lieu de suivre ses instructions.//////Au d\xE9but de votre prochain tour,//|+2 Cartes|";
+FrenchCardTexts["FARMERSMARKET"]= "|+1 Achat|////S'il y a {4} ou plus sur la pile//des March\xE9s Agricoles, prenez-les//et \xE9cartez cette carte. Sinon,//ajoutez {1} \xE0 la pile, puis//+[1] par {1} sur la pile.";
+
+FrenchCardTexts["GLADIATOR"]= "|+[2]|////D\xE9voilez une carte de votre main.//Le joueur \xE0 votre gauche peut en//d\xE9voiler un exemplaire de sa main.//S'il ne le fait pas, +[1] et \xE9cartez//un Gladiateur de la r\xE9serve.";
+FrenchCardTexts["FORTUNE"]= "|+1 Achat|////Doublez votre [] si vous ne l'avez//pas d\xE9j\xE0 fait ce tour-ci.//---//Lorsque vous recevez cette carte,//recevez un Or par Gladiateur en jeu.";
+FrenchCardTexts["SACRIFICE"]= "\xC9cartez une carte de votre main.//Si c'est une carte...////Action, |+2 Cartes, +2 Actions|//Tr\xE9sor, |+|[2]//Victoire,|+|{2}";
+FrenchCardTexts["TEMPLE"]= "|+{1}|////\xC9cartez entre 1 et 3 cartes de noms//diff\xE9rents de votre main.//Ajoutez {1} \xE0 la pile des Temples.//---//Lorsque vous recevez cette carte//prenez les {} de la pile des Temples.";
+FrenchCardTexts["VILLA"]= "|+2 Actions|//|+1 Achat|//|+[1]|//---//Quand vous recevez cette carte,//prenez-la en main, |+1 Action|, et//si c'est votre phase Achat,//retournez \xE0 la phase Action.//";
+FrenchCardTexts["ARCHIVE"]= "|+1 Action|////Mettez de c\xF4t\xE9 face cach\xE9e les 3 pre-//mi\xE8res cartes de votre pioche (vous//pouvez les consulter). Maintenant//et au d\xE9but de vos deux prochains//tours, prenez-en une en main.";
+FrenchCardTexts["CAPITAL"]= "[!6]////|+1 Achat|//---//Lorsque vous d\xE9faussez cette carte//de votre zone de jeu, prenez [D6],//puis vous pouvez rembourser [D].";
+FrenchCardTexts["CHARM"]= "Choisissez : |+1 Achat| et +[2];//ou la prochaine fois que vous//recevez une carte \xE0 ce tour,//vous pouvez aussi recevoir une//carte diff\xE9rente de m\xEAme co\xFBt.";
+FrenchCardTexts["CROWN"]= "Si c'est votre phase Action,//vous pouvez jouer deux fois//une carte Action de votre main.//Si c'est votre phase Achat//vous pouvez jouer deux fois//une carte Tr\xE9sor de votre main.";
+FrenchCardTexts["FORUM"]= "|+3 Cartes|//|+1 Action|//D\xE9faussez 2 cartes.//---//Quand vous recevez cette carte,//|+1 Achat.|";
+FrenchCardTexts["GROUNDSKEEPER"]= "|+1 Carte|//|+1 Action|//---//\xC0 ce tour, quand vous recevez//une carte Victoire, {+1}.";
+FrenchCardTexts["LEGIONARY"]= "|+[3]|////Vous pouvez d\xE9voiler un Or de//votre main. Dans ce cas, tous//vos adversaires d\xE9faussent jusqu'\xE0//avoir 2 cartes en main, puis//piochent une carte.";
+FrenchCardTexts["WILDHUNT"]= "Choisissez : |+3 Cartes| et//ajoutez {1} \xE0 la pile des//Chasses Fantastiques ; ou//recevez un Domaine, et dans//ce cas prenez les {} de la pile.";
+FrenchCardTexts["TRIUMPH"]= "Recevez un Domaine. Dans ce cas,//|+|{1} par carte que vous avez re\xE7ue \xE0 ce tour.";
+FrenchCardTexts["ANNEX"]= "Consultez votre d\xE9fausse. M\xE9langez-la toute, sauf//au plus 5 cartes, avec votre pioche. Recevez un Duch\xE9.";
+FrenchCardTexts["DONATE"]= "Au d\xE9but de votre prochain tour, d'abord, prenez en main votre pioche// et votre d\xE9fausse, \xE9cartez en autant de cartes que souhait\xE9,// m\xE9langez les autres dans votre pioche puis piochez 5 cartes.";
+FrenchCardTexts["ADVANCE"]= "Vous pouvez \xE9carter une carte Action de votre main.//Dans ce cas, recevez une carte Action co\xFBtant jusqu'\xE0 [6].";
+FrenchCardTexts["DELVE"]= "|+1 Achat|//Recevez un Argent.";
+FrenchCardTexts["TAX"]= "Ajoutez [2D] \xE0 une pile de la r\xE9serve.//---//Mise en place : ajoutez [1D] \xE0 chaque pile de la r\xE9serve. Quand un joueur//re\xE7oit une carte pendant sa phase Achat, il prend les [D] de sa pile.";
+FrenchCardTexts["BANQUET"]= "Recevez 2 Cuivres et une carte non-Victoire//co\xFBtant jusqu'\xE0 [5].";
+FrenchCardTexts["RITUAL"]= "Recevez une Mal\xE9diction. Dans ce cas, \xE9cartez//une carte de votre main. |+|{1} par [1] de son co\xFBt.";
+FrenchCardTexts["SALTTHEEARTH"]= "{+1}//\xC9cartez une carte Victoire de la r\xE9serve.";
+FrenchCardTexts["WEDDING"]= "{+1}//Recevez un Or.";
+FrenchCardTexts["WINDFALL"]= "Si votre pioche et votre d\xE9fausse sont vides, recevez 3 Ors.";
+FrenchCardTexts["CONQUEST"]= "Recevez 2 Argents.//{+1} par Argent que vous avez re\xE7u \xE0 ce tour.";
+FrenchCardTexts["DOMINATE"]= "Recevez une Province. Dans ce cas, {+9}.";
+FrenchCardTexts["AQUEDUCT"]= "Lorsque vous recevez un Tr\xE9sor, d\xE9placez {1} de sa pile vers ici.//Lorsque vous recevez une carte Victoire, prenez les {} d'ici.//---//Mise en place : placez {8} sur les piles des Argents et des Ors.";
+FrenchCardTexts["ARENA"]= "Au d\xE9but de votre phase Achat, vous pouvez d\xE9fausser//une carte Action. Dans ce cas, prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["BANDITFORT"]= "Pour le d\xE9compte, {-2} pour chaque Argent//et chaque Or que vous avez.";
+FrenchCardTexts["BASILICA"]= "Lorsque vous recevez une carte, si vous avez//[2] ou plus, prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["BATHS"]= "Si vous terminez votre tour sans avoir re\xE7u une seule carte,//prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["BATTLEFIELD"]= "Lorsque vous recevez une carte Victoire, prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["COLONNADE"]= "Lorsque vous recevez une carte Action dont vous avez//un exemplaire en jeu, prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["DEFILEDSHRINE"]= "Quand vous recevez une Action, d\xE9placez {1} de sa pile vers ici.//Quand vous recevez une Mal\xE9diction pendant votre phase Achat, prenez les {} d'ici.//---//Mise en place : placez {2} sur chaque pile de carte Action// non-Collecte de la r\xE9serve.";
+FrenchCardTexts["FOUNTAIN"]= "Pour le d\xE9compte, {15} si vous avez au moins 10 Cuivres.";
+FrenchCardTexts["KEEP"]= "Pour le d\xE9compte, {5} par carte Tr\xE9sor de nom diff\xE9rent//dont avez au moins autant d'exemplaires//que chacun de vos adversaires.";
+FrenchCardTexts["LABYRINTH"]= "Lorsque vous recevez une deuxi\xE8me carte \xE0 l'un de vos tours,//prenez {2} d'ici.//---//Mise en place : placez ici {6} par joueur.";
+FrenchCardTexts["MOUNTAINPASS"]= "Quand vous \xEAtes le premier joueur \xE0 recevoir une Province,//chaque joueur ench\xE9rit une fois jusqu'\xE0 [40D] en terminant par vous.//Le meilleur ench\xE9risseur prend {8} et les [D] de son ench\xE8re.";
+FrenchCardTexts["MUSEUM"]= "Pour le d\xE9compte, {2} par carte de nom diff\xE9rent//que vous avez.";
+FrenchCardTexts["OBELISK"]= "Pour le d\xE9compte, {2} par carte de la pile choisie que vous avez.//---//Mise en place : choisissez au hasard//une pile de cartes Action de la r\xE9serve.";
+FrenchCardTexts["ORCHARD"]= "Pour le d\xE9compte, {4} par carte Action de nom diff\xE9rent//dont vous avez au moins 3 exemplaires.";
+FrenchCardTexts["PALACE"]= "Pour le d\xE9compte, {3} par lot de//Cuivre - Argent - Or que vous avez.";
+FrenchCardTexts["TOMB"]= "Lorsque vous \xE9cartez une carte, |+|{1}.";
+FrenchCardTexts["TOWER"]= "Pour le d\xE9compte, {1} par carte non-Victoire//dont la pile de la r\xE9serve est vide que vous avez.";
+FrenchCardTexts["TRIUMPHALARCH"]= "Pour le d\xE9compte, {3} par exemplaire de la deuxi\xE8me//carte Action la plus fr\xE9quente parmi vos cartes.";
+FrenchCardTexts["WALL"]= "Pour le d\xE9compte, {-1} par carte, hormis//les 15 premi\xE8res.";
+FrenchCardTexts["WOLFDEN"]= "Pour le d\xE9compte, {-3} par carte dont vous avez//exactement un exemplaire.";
+FrenchCardTexts["HUMBLECASTLE"]= "[!1]//---//Vaut {1} par Ch\xE2teau//que vous avez.";
+FrenchCardTexts["CRUMBLINGCASTLE"]= "{!1}////---////Lorsque vous recevez ou \xE9cartez cette//carte, +{1} et recevez un Argent.";
+FrenchCardTexts["SMALLCASTLE"]= "\xC9cartez cette carte ou//un Ch\xE2teau de votre main.//Dans ces cas, recevez un Ch\xE2teau.//---//{!2}";
+FrenchCardTexts["HAUNTEDCASTLE"]= "{!2}//---//Lorsque vous recevez cette carte//pendant votre tour, recevez un Or et//tous vos adversaires ayant au moins//5 cartes en main placent 2 cartes//de leur main sur leur pioche.";
+FrenchCardTexts["OPULENTCASTLE"]= "D\xE9faussez autant de cartes//Victoire que souhait\xE9, d\xE9voil\xE9es.//+[!2] par carte d\xE9fauss\xE9e.//---//{!3}";
+FrenchCardTexts["SPRAWLINGCASTLE"]= "{!4}//---//Lorsque vous recevez cette carte,//recevez un Duch\xE9 ou 3 Domaines.";
+FrenchCardTexts["GRANDCASTLE"]= "{!5}//---//Lorsque vous recevez cette carte,//d\xE9voilez votre main. +{1} par carte//Victoire en main et/ou en jeu.";
+FrenchCardTexts["KINGSCASTLE"]= "Vaut {2} par Ch\xE2teau//que vous avez.";
+
+
+FrenchCardTexts["ENCAMPMENTPLUNDER"]= "Cette pile démarre la partie avec//5 cartes |Camp| au dessus,//puis 5 cartes |Saccage|.//Seule la carte du dessus de la pile//peut être achetée ou reçue.";
+FrenchCardTexts["PATRICIANEMPORIUM"]= "Cette pile démarre la partie avec//5 cartes |Patricien| au dessus,//puis 5 cartes |Emporium|.//Seule la carte du dessus de la pile//peut être achetée ou reçue.";
+FrenchCardTexts["SETTLERSBUSTLINGVILLAGE"]= "Cette pile démarre la partie avec//5 cartes |Colons| au dessus, puis//5 cartes |Village en effervescence|.//Seule la carte du dessus de la pile//peut être achetée ou reçue.";
+FrenchCardTexts["CATAPULTROCKS"]= "Cette pile démarre la partie avec//5 cartes |Catapulte| au dessus,//puis 5 cartes |Rocher|.//Seule la carte du dessus de la pile//peut être achetée ou reçue.";
+FrenchCardTexts["GLADIATORFORTUNE"]= "Cette pile démarre la partie avec//5 cartes |Galdiateur| au dessus,//puis 5 cartes |Fortune|.//Seule la carte du dessus de la pile//peut être achetée ou reçue.";

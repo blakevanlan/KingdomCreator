@@ -12,7 +12,7 @@
 }
 
 .card-stack-layer {
-    position: absolute
+    position: absolute;
 }
 
 .card-text-container {
@@ -20,28 +20,38 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    line-height: 1;
-    min-height: 100%;
-    min-width: 100%;
-    position: absolute;
-    //border: solid;
+    //line-height: 1;
+    //position: absolute;
+
+  //border: 1px solid yelllow;
+  overflow: hidden;
+}
+
+.portaitCard {
+    width: 267px;
+    height: 170px;
+}
+
+.landscapeCard {
+    width: 440px;
+    height: 66px;
 }
 
 .card-text-line {
     display: flex;
     justify-content: center;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .card-text-line.separator-line {
     background-color: #000;
-    width: 80%
+    width: 80%;
 }
 
 .card-text-line.heirloom-line {
     bottom: -18%;
     position: absolute;
-    width: 80%
+    width: 80%;
 }
 
 .card-text-block {
@@ -49,23 +59,25 @@
     display: flex;
     justify-content: center;
     margin-left: .1em;
-    margin-right: .1em
+    margin-right: .1em;
 }
 
 .card-text-block.no-left-margin {
-    margin-left: -0.0em
+    margin-left: -0.0em;
 }
 
 .card-text-block.no-right-margin {
-    margin-right: -0.0em
+    margin-right: -0.0em;
 }
 
 .cost-container {
     display: flex
+    margin-left: -0.1em;
+    //margin-right: -0.1em;
 }
 
 .victory-container {
-    display: flex
+    display: flex;
 }
 
 .coin-cost {
@@ -84,7 +96,7 @@
     letter-spacing: -.1em;
     //margin-top: -.05em;
     padding-bottom: .1em;
-    text-indent: -.1em
+    text-indent: -.1em;
 }
 
 .potion-cost {
@@ -93,7 +105,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 1em
+    height: 1.25em;
 }
 
 .debt-cost {
@@ -112,14 +124,16 @@
     letter-spacing: -.1em;
     margin-top: -.1em;
     padding-bottom: .1em;
-    text-indent: -.1em
+    text-indent: -.1em;
 }
 
 .victory-amount {
     display: flex;
     font-family: Minion-Bold;
+    font-weight: bold;
     height: 1em;
-    justify-content: center
+    justify-content: center;
+    align-items: center;
 }
 
 .victory-shield {
@@ -129,5 +143,15 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 1em
+    height: 1em;
+}
+
+.sun-icon {
+    align-items: center;
+    aspect-ratio: 1/1;
+    background-image: url(../img/elements/rsun.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 1em 
 }

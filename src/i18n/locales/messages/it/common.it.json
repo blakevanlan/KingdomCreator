@@ -1,0 +1,15 @@
+{
+  "addon_description_format_2": "{one} & {two}",
+  "addon_description_format_3": "{one}, {two} & {three}",
+  "addon_description_format_4": "{one}, {two}, {three} & {four}",
+  "addon_description_format_5": "{one}, {two}, {three}, {four} & {five}",
+  "addon_events": "Eventi",
+  "addon_traits": "Caratteristiche",
+  "github_info": "Il codice sorgente è disponibile su {source}. Per richiedere funzionalità o segnalare problemi su {issues}!",
+  "github_info_source": "Github",
+  "github_info_issues": "qui",
+  "disclaimers_and_credits": "Dominion è stato creato da Donald X. Vaccarino and pubblicato da Rio Grande Games. Questo sito non ha alcuna affialiazione con due citate. Le immagini delle carte sono fornite dalla {wiki}. Le icono sono realizzate {smashicons} da {flaticon} ed è sotto licenza {creativecommons}.",
+  "disclaimers_and_credits_wiki": "Dominion Strategy Wiki",
+  "disclaimers_and_credits_smashicons": "Smashicons",
+  "disclaimers_and_credits_creative_commons": "CC 3.0 BY"
+}

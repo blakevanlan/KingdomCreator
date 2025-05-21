@@ -1,5 +1,6 @@
 <template>
   <button style=" width: fit-content;" @click="saveCardsImage">Save Card Image</button>
+  <div >{{ CardsToDisplay.length  }}</div>
   <div class="ListofcontentCard Coef_scale12 card-rows">
     <div v-for="Card in CardsToDisplay" :key="Card.id" :class="getClassCard(Card)" style="display: flex;">
       <div class="card-container" style="z-index:1; position: relative;"> 
@@ -40,14 +41,15 @@
         </div>
         <!--Card Text need to change -->
         <div v-if="Displayfirst('v-html')" class="full-card-text-container" v-html="Card.text_html"></div>
-        <CardTextContainer v-else :card='Card' />
+        <CardTextContainer v-else :card='Card' direction="portrait"/>
         <!--Card Bottom bar -->
         <div class="bottom-bar-full" style="width:239.75%;bottom:-70px;">
           <div class="cost-container-full">
             <div class="coin-cost-full"
               v-if="getCardCost(Card).treasure > 0 || (getCardCost(Card).potion + getCardCost(Card).debt == 0)">
-              <div class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}<sup
+              <div v-if="DoNeedSub(Card)" class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}<sup
                   v-if="DoNeedSub(Card)" class="supetoile" /></div>
+              <div v-else class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}</div>
 
             </div>
             <div class="potion-cost-full" v-if="getCardCost(Card).potion > 0">
@@ -72,8 +74,10 @@
         </div>
         </div>
       </div>
+      <div v-if="Displayfirst('v-html')">old</div>
+      <div v-else >New</div>
       <div class="separator-card" style="z-index:0;"></div>
-      <div class="card-container" style="z-index:1; position: relative;"> 
+      <div class="card-container" :class="getClassCard(Card)" style="z-index:1; position: relative;"> 
         <div class="full-card unselectable" style="z-index:0; cursor:default;
            transform: scale(1); transition:none; position: sticky;" :id="Card.id">
         <!-- is a card -->
@@ -87,7 +91,7 @@
           <div class="action-layer none-layer"> </div>
         </div>
 
-        <div v-if="getisTreasureCard(Card)" class="treasure-production-container">
+        <div v-if="getisTreasureCard(Card)&& getValueforTreasureCard(Card)!=''" class="treasure-production-container">
           <div class="coin-production-container">
             <div class="coin-production-left" style="top:-32px;">
               <div class="coin-production-text-container">
@@ -111,14 +115,17 @@
         </div>
         <!--Card Text need to change -->
         <div v-if="!Displayfirst('v-html')" class="full-card-text-container" v-html="Card.text_html"></div>
-        <CardTextContainer v-else :card='Card' />
+        <CardTextContainer v-else :card='Card' direction="portrait" />
         <!--Card Bottom bar -->
         <div class="bottom-bar-full" style="width:239.75%;bottom:-70px;">
           <div class="cost-container-full">
             <div class="coin-cost-full"
               v-if="getCardCost(Card).treasure > 0 || (getCardCost(Card).potion + getCardCost(Card).debt == 0)">
-              <div class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}<sup
-                  v-if="DoNeedSub(Card)" class="supetoile" /></div>
+              <div v-if="DoNeedSub(Card)" class="coin-cost-full-text" style="top:12px; position:unset;  margin-left: 10px;">
+                {{ getCardCost(Card).treasure }}
+                <sup v-if="DoNeedSub(Card)" :class="supEtoileorPlus(Card)" />
+              </div>
+              <div v-else class="coin-cost-full-text" style="top:12px;">{{ getCardCost(Card).treasure }}</div>
 
             </div>
             <div class="potion-cost-full" v-if="getCardCost(Card).potion > 0">
@@ -154,7 +161,7 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed, nextTick } from 'vue';
+import { defineComponent, computed } from 'vue';
 import html2canvas from 'html2canvas';
 import * as htmlToImage from 'html-to-image';
 
@@ -177,16 +184,19 @@ import { DominionSet } from "../dominion/dominion-set";
 
 import type { DigitalCard } from "../dominion/digital_cards/digital-cards-type"
 import { Cards_list } from "../dominion/digital_cards/digital-cards"
-import { Work_Card } from "../dominion/digital_cards/digital-cards - update"
+import { Work_Card } from "../dominion/digital_cards/Manual/digital-cards - update"
 import type { IllustratorCard } from "../dominion/digital_cards/digital-cards-type"
 import { Cards_list_Illustrator, Year_set } from "../dominion/digital_cards/digital-cards-Illustrator"
+import { FrenchCardTexts } from "../dominion/digital_cards/Dominion.games.ts";
 
 /* import store  */
 /* import Components */
 import CardTextContainer from "./CardTextContainer.vue";
 
 const QuestionMarkValue =
-  new Set(["bank", "philosophersstone", "scepter", "bauble"
+  new Set(["bank", "philosophersstone", "scepter", "bauble",
+    "crucible", "figurine", "gondola", "pendant", "amphora", "orb", 
+    "charm", "foolsgold", "rice"
   ]);
 
 const TreasureWithNoGain =
@@ -199,13 +209,28 @@ const IsLooter =
 
 const IsZeroStar =
   new Set([
+    //prosperity
     "peddler",
-    "spoils", "madman", "mercenary",
+    // Darkages
+    "spoils", "madman", "mercenary", 
+    //Guilds
     "masterpiece", "stonemason", "doctor", "herald",
+    //nocturne
     "willopwisp", "wish", "bat", "imp", "ghost",
+    //adventure
     "treasurehunter", "warrior", "hero", "champion",
     "soldier", "fugitive", "disciple", "teacher",
+    //menagerie
     "fisherman", "destrier", "wayfarer", "animalfair",
+    //guildscornucopia2add
+    "infirmary", "courser", "demesne", "housecarl", "hugeturnip", "renown"
+  ]);
+
+const IsPlusStar = 
+  new Set([
+    "masterpiece", "stonemason", "doctor", "herald",
+    //guildscornucopia2add
+    "infirmary"
   ]);
 
 const NeedHeirloom =
@@ -306,7 +331,20 @@ export default defineComponent({
         ).concat(
           Cards_list.filter(card =>
             props.set.allies.some(function (item) { return item.shortId == card.id; }))
+        ).concat(
+          Cards_list.filter(card =>
+            props.set.traits.some(function (item) { return item.shortId == card.id; }))
+        ).concat(
+          Cards_list.filter(card =>
+            props.set.prophecies.some(function (item) { return item.shortId == card.id; }))
         )
+
+        const typefilteredCards = filteredCards.filter(card => {
+        const supplycard = DominionSets.getCardById(card.id) as SupplyCard
+
+        return supplycard.shortId == 'druid';
+        })   
+        //console.log(filteredCards, typefilteredCards)
       const uniqueCards = new Set(filteredCards);
       return Array.from(uniqueCards)  
     })
@@ -377,10 +415,20 @@ export default defineComponent({
         if (card.isOfType(CardType.FATE)) { extension = " - Destin"; }
         if (card.isOfType(CardType.DOOM)) { extension = " - Fatalité"; }
         if (card.isOfType(CardType.LIAISON)) { extension = " - Liaison"; }
+        if (card.isOfType(CardType.SHADOW)) { extension = " - Shadow"; extension = " - Ombre";}
+        if (card.isOfType(CardType.OMEN)) { extension = " - Omen"; extension = " - Signe";}
         if (card.isOfType(CardType.COMMAND)) { extension = " - Ordre"; }
+
         if (card.isOfType(CardType.COVER)) {
-          extension = " - " + t(card.id)
-          return { png: "action", label: "Action" + extension };
+          switch (card.shortId) {
+            case "clashes":   { extension = " - Affrontement"; break; }
+            case "townsfolk": { extension = " - Citoyen"; break; }
+            case "augurs":    { extension = " - Augure"; break; }
+            case "odysseys":  { extension = " - Odyssée"; break; }
+            case "forts":     { extension = " - Fortification"; break}
+            case "wizards":   { extension = " - Magicien" + extension ; break;}
+          }
+          return { png: "action", label: "Action" + extension }; 
         }
 
         if (card.isOfType(CardType.NIGHT)) {
@@ -402,7 +450,7 @@ export default defineComponent({
           if (card.isOfType(CardType.TRAVELLER)) { return { png: "action-traveller", label: "Action - Itinérant" + extension }; }
           if (card.isOfType(CardType.DURATION)) {
             if (card.isOfType(CardType.REACTION)) { return { png: "action-duration-reaction", label: "Action - Durée - Réaction" + extension }; }
-            if (card.isOfType(CardType.ATTACK)) { return { png: "action-duration", label: "Action - Durée - Attaque" + extension }; }
+            if (card.isOfType(CardType.ATTACK)) { return { png: "action-duration", label: "Action - Attaque - Durée" + extension }; }
             if (NeedHeirloompng) { return { png: "action-duration-heirloom", label: "Action - Durée" + extension }; }
             return { png: "action-duration", label: "Action - Durée" + extension };
           }
@@ -444,6 +492,7 @@ export default defineComponent({
         let extension
         extension = "";
         if (card.type.includes("Prize")) { extension = " - Prix"; }
+        if (card.type.includes("Reward")) { extension = " - Récompense"; }
         if (card.type.includes("Heirloom")) { extension = " - Patrimoine"; }
         if (card.type.includes("Spirit")) { extension = " - Esprit"; }
         if (card.type.includes("Zombie")) { extension = " - Zombie"; }
@@ -479,6 +528,7 @@ export default defineComponent({
           if (card.type.includes(CardType.DURATION.slice(2))) {
             if (card.type.includes(CardType.REACTION.slice(2))) { return { png: "action-duration-reaction", label: "Action - Durée - Réaction" + extension }; }
             if (card.type.includes(CardType.VICTORY.slice(2))) { return { png: "action-duration-victory", label: "Action - Victoire - Durée" + extension }; }
+            if (card.type.includes(CardType.ATTACK.slice(2))) { return { png: "action-duration", label: "Action - Durée - Attaque"+ extension }; }
             return { png: "action-duration", label: "Action - Durée" + extension };
           }
           if (card.type.includes(CardType.RESERVE.slice(2))) {
@@ -537,6 +587,26 @@ export default defineComponent({
       return false;
     }
 
+    const supEtoileorPlus = (currentCard: DigitalCard) => {
+      let card;
+      card = DominionSets.getCardById(currentCard.id);
+      //console.log(card)
+      if (card.constructor.name == "SupplyCard") {
+        if (IsPlusStar.has(currentCard.id)) 
+          return "supplus";
+        if (IsZeroStar.has(currentCard.id)) 
+          return "supetoile";
+      }
+      if (card.constructor.name == "OtherCard") {
+        card = card as OtherCard;
+        if (card.type.includes("Prize"))
+          return "supetoile";
+        if (IsZeroStar.has(currentCard.id))
+          return "supetoile";
+      }
+      return ""
+    }
+
     const getisTreasureCard = (currentCard: DigitalCard) => {
       if (TreasureWithNoGain.has(currentCard.id)) { return false; }
       let card
@@ -547,13 +617,18 @@ export default defineComponent({
     }
 
     const getValueforTreasureCard = (currentCard: DigitalCard) => {
-      let pattern = '<div class="card-text-coin-text" style="color: black; display:inline; top:8px;">';
+      const cardText = FrenchCardTexts[currentCard.id.toUpperCase()]
+      if (!cardText) {
+        //console.log(currentCard.id.toUpperCase(), cardText)
+        return "";
+      }
+      const pattern = /\[!(.*?)\]/
       if (currentCard.id == "fortune") { return "x2"; }
-      if (currentCard.id == "ducat" || currentCard.id == "sunkentreasure") { return 0; }
+      if (currentCard.id == "ducat" || currentCard.id == "sunkentreasure") { return "0"; }
       if (QuestionMarkValue.has(currentCard.id)) { return "?"; }
-      let valuePosition = currentCard.text_html.indexOf(pattern)
-      if (valuePosition == -1) { return "?"; }
-      return currentCard.text_html.charAt(currentCard.text_html.indexOf(pattern) + pattern.length);
+      const match = cardText.match(pattern);
+      if (match) return match[1]
+      return "";
     }
 
     const fontsizefortune = (currentCard: DigitalCard) => {
@@ -620,8 +695,10 @@ export default defineComponent({
       if (typeOfCard.length >= 35) { return "font-size: 1.43em;  top:50px;"; } /* Action - Attaque - Chevalier - Vitoire*/
       if (typeOfCard.length >= 28) { return "font-size: 1.75em;  top:50px;"; } /* Action - Attaque - Chevalier */
       if (typeOfCard.length >= 26) { return "font-size: 2em;     top:45px;"; } /* Action - Attaque - Pillard */
+      if (typeOfCard.length >= 24) { return "font-size: 2.1em;   top:40px;"; } /* Action - Attaque - Shadow */
       if (typeOfCard.length >= 22) { return "font-size: 2.2em;   top:40px;"; } /* Action - Attaque - Prix */
       if (typeOfCard.length >= 21) { return "font-size: 2.4em;   top:38px;"; } /* Action - Attaque - Prix */
+      if (typeOfCard.length >= 19) { return "font-size: 2.6em;   top:38px;"; } /* Action - Récompense */      
       if (typeOfCard.length >= 16) { return "font-size: 2.8em;   top:35px;"; } /* Action - Attaque */
       if (typeOfCard.length >= 13) { return "font-size: 3.125em; top:30px;"; } /* Action - Prix */ /*Action - Durée */
       return "font-size: 4.2em;   top:20px;";   /* Nuit - Attaque - Durée */
@@ -763,6 +840,7 @@ export default defineComponent({
       getCardNameFontSize,
       getCardCost,
       DoNeedSub,
+      supEtoileorPlus,
       getCardSetById,
       getCardTypeFontSize,
       getCardIllustrator,

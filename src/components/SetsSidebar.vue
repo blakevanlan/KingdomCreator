@@ -5,12 +5,12 @@
         <span>{{ $t("Sets") }}</span>
         <div class="sidebar-content-option">
         <label class="checkbox sidebar-content-option">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
+            <input id="alpha" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
             @change="handleSetOrderTypeChange('alpha')" />
             <span>{{ $t("Alphabetical") }}</span>
         </label> 
         <label class="checkbox sidebar-content-option" style="margin-left:10px;">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
+            <input id="date" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
             @change="handleSetOrderTypeChange('date')" />
             <span>{{ $t("Date") }}</span>
         </label>
@@ -19,13 +19,13 @@
       <div class="sets">
         <div class="set" v-for="set in kingdomsets" :key="set">
           <label class="checkbox">
-            <input type="radio" v-model="selectedSetId" id="selectedSet" :value="set"
+            <input type="radio" v-model="selectedSetId" :id="set" :value="set"
               @change="handleSelectionChange(set)" />
               <span>{{ $t(set) }} <span v-if="findMultipleVersionSets(set).length !== 0"> - 1st</span></span>
           </label>
           <span v-if="findMultipleVersionSets(set).length !== 0">
             <label class="checkbox suboption-set">
-              <input type="radio" v-model="selectedSetId" id="selectedSet"
+              <input type="radio" v-model="selectedSetId" :id="set"
                 :value="findMultipleVersionSets(set)[0].idv2" 
                 @change="handleSelectionChange(findMultipleVersionSets(set)[0].idv2)" />
               <span>2nd</span>
@@ -38,7 +38,7 @@
       <div class="sets">
         <div class="set">
           <label class="checkbox">
-            <input type="radio" v-model="selectedSetId" id="selectedSet" :value="valueForSetId_All"
+            <input type="radio" v-model="selectedSetId" id="valueForSetId_All" :value="valueForSetId_All"
               @change="handleSelectionChange(valueForSetId_All)"/>
             <span>All recommended sets</span>
           </label>
@@ -67,7 +67,7 @@
       <div class="sidebar-content-title">{{ $t("Filter Games") }}</div>
       <div class="option" v-for="filterOption in filterOptions" :key="filterOption.value">
         <label class="checkbox">
-          <input type="radio" id="filterOption" :value="filterOption.value" v-model="selectedFilterOption"
+          <input type="radio" :id="filterOption.value" :value="filterOption.value" v-model="selectedFilterOption"
           @change="handleFilterOptionChange(filterOption.value)"/>
           <span>{{ $t(filterOption.display) }}</span>
         </label>

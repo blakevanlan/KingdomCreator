@@ -127,7 +127,7 @@ cards:
       treasure: 5
     isAttack: true
     isAction: true
-    isOmen: false
+    isOmen: true
     isActionSupplier: false
 
   - name: Litter
@@ -147,7 +147,7 @@ cards:
   - name: Ronin
     cost:
       treasure: 5
-    IsShadow: true
+    isShadow: true
     isAction: true
     isMultiDrawer: true
     isTerminal: true
@@ -163,7 +163,7 @@ cards:
   - name: Tea House
     cost:
       treasure: 5
-    IsOmen: true
+    isOmen: true
     isAction: true
     isDrawer: true
    

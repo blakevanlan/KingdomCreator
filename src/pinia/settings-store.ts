@@ -29,7 +29,8 @@ export interface SettingsState {
 };
 
 export const useSettingsStore = defineStore(
-  'settingsStore', {
+  'settingsStore', 
+  {
   state: () => ({
     isUsingCustomDesksize: false, 
     KingdomNb: 10,

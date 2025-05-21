@@ -1,6 +1,6 @@
-import { isRef, nextTick } from 'vue';
+import { nextTick } from 'vue';
 import { createI18n } from 'vue-i18n'
-import type { Composer, VueI18n, I18nMode, I18n } from 'vue-i18n'
+import type { Composer, I18n } from 'vue-i18n'
 
 import en from "./locales/en";
 import { Language, defaultLanguage } from "./language";
@@ -17,38 +17,18 @@ export const i18n = createI18n({
 
 setI18nLanguage(i18n as I18n, defaultLanguage);
 
-function isComposer(
-  instance: VueI18n | Composer,
-  mode: I18nMode
-): instance is Composer {
-  return mode === 'composition' && isRef(instance.locale)
-}
-
 export function getLocale(i18n: I18n): string {
-  if (isComposer(i18n.global, i18n.mode)) {
-    return i18n.global.locale.value
-  } else {
-    return i18n.global.locale
-  }
+  return (i18n.global as Composer).locale.value
 }
-
 export function setLocale(i18n: I18n, locale: Language): void {
   if (!i18n.global.availableLocales.includes(locale)) {
     loadLocaleMessages(i18n, locale)
   }
-  if (isComposer(i18n.global, i18n.mode)) {
-    i18n.global.locale.value = locale
-  } else {
-    i18n.global.locale = locale
-  }
+  (i18n.global as Composer).locale.value= locale
 }
 
 export function getAvailabletLocale(i18n: I18n): string[] {
-  if (isComposer(i18n.global, i18n.mode)) {
-    return i18n.global.availableLocales
-  } else {
-    return i18n.global.availableLocales
-  }
+  return (i18n.global as Composer).availableLocales
 }
 
 export function setI18nLanguage(i18n: I18n, locale: Language): void {

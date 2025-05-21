@@ -1,0 +1,15 @@
+type FrenchCardTextsType = {[key: string]: string;};
+export const FrenchCardTexts: FrenchCardTextsType = {}
+FrenchCardTexts["ALCHEMIST"]= "|+2 Cartes|//|+1 Action|//---//Au d\xE9but de votre phase//Ajustement, si vous avez une//Potion en jeu, vous pouvez placer//cette carte sur votre pioche.";
+FrenchCardTexts["APOTHECARY"]= "|+1 Carte|//|+1 Action|////D\xE9voilez les 4 premi\xE8res cartes de//votre pioche. Prenez en main les//Cuivres et les Potions. Replacez le//reste dans l'ordre de votre choix.";
+FrenchCardTexts["APPRENTICE"]= "|+1 Action|////\xC9cartez une carte de votre main.//|+1 Carte| par [] de son co\xFBt.//|+2 Cartes| si [P] dans son co\xFBt.";
+FrenchCardTexts["FAMILIAR"]= "|+1 Carte|//|+1 Action|////Tous vos adversaires re\xE7oivent//une Mal\xE9diction.";
+FrenchCardTexts["GOLEM"]= "D\xE9voilez des cartes de votre//pioche jusqu'\xE0 d\xE9voiler 2 cartes//Action autre que des Golems.//D\xE9faussez les autres cartes, puis//jouez les cartes Action dans// l'ordre de votre choix.";
+FrenchCardTexts["HERBALIST"]= "|+1 Achat|//|+[1]|//---//Une fois \xE0 ce tour, quand vous//d\xE9faussez un Tr\xE9sor de votre//zone de jeu, vous pouvez//le placer sur votre pioche.//";
+FrenchCardTexts["PHILOSOPHERSSTONE"]= "Comptez le nombre de cartes de//votre pioche et de votre d\xE9fausse.//+[1] par tranche de 5 cartes//au total (arrondi inf\xE9rieurement).";
+FrenchCardTexts["POSSESSION"]= "Le joueur \xE0 votre gauche joue un tour//suppl\xE9mentaire apr\xE8s celui-ci, pendant//lequel vous voyez ses cartes et prenez//les d\xE9cisions pour lui. Vous recevez \xE0//sa place les cartes et jetons [D] qu'il//aurait re\xE7us ; ses cartes \xE9cart\xE9es sont//mises de c\xF4t\xE9 et plac\xE9es dans sa//d\xE9fausse \xE0 la fin de son tour.";
+FrenchCardTexts["SCRYINGPOOL"]= "|+1 Action|////Tous les joueurs (y compris vous)//d\xE9voilent la carte du haut de leur//pioche et la d\xE9faussent ou la replacent//(votre choix). Ensuite, d\xE9voilez des//cartes de votre pioche jusqu'\xE0 d\xE9voiler//une carte qui n'est pas une Action.//Prenez en main les cartes d\xE9voil\xE9es.";
+FrenchCardTexts["TRANSMUTE"]= "\xC9cartez une carte de votre main.//Si c'est une carte...//Action, recevez un Duch\xE9//Tr\xE9sor, recevez une Transmutation//Victoire, recevez un Or";
+FrenchCardTexts["UNIVERSITY"]= "|+2 Actions|////Vous pouvez recevoir une carte//Action co\xFBtant jusqu'\xE0 [5].";
+FrenchCardTexts["VINEYARD"]= "Vaut {1} pour chaque lot de//3 cartes Action que vous avez//(arrondi inf\xE9rieurement).";
+FrenchCardTexts["POTION"]= "";

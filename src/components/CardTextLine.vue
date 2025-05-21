@@ -6,12 +6,15 @@
     <div class="card-text-line separator-line" style="height: 0.16em; margin: 0.4em 0px 0.24em; background-color: black;"
     ></div>
   </template>
+  <template v-else-if="isSingleLine">
+    <CardTextBlock :cardId="cardId" :block="blocks[0]" :blockIndex="0" :blocks="blocks"/>
+  </template> 
   <template v-else> 
-    <span class="card-text-line" :style="singleBoldStyle">
+    <div class="card-text-line" :style="singleBoldStyle">
       <template v-for="(block, index) in blocks" :key="index">
-        <CardTextBlock :block="block" :blockIndex="index" :blocks="blocks"/>
+        <CardTextBlock :cardId="cardId" :block="block" :blockIndex="index" :blocks="blocks"/>
       </template>
-    </span>
+    </div>
   </template>
 </template>
 
@@ -25,6 +28,10 @@ export default defineComponent({
     CardTextBlock,
   },
   props: {
+    cardId: {
+      type: String,
+      required: true,
+    },
     line: {
       type: String,
       required: true,
@@ -37,22 +44,27 @@ export default defineComponent({
   setup(props) {
     const blocks = computed(() => props.getBlocks(props.line));
     const isEmptyLine = computed(() => props.line.trim() === '');
-    const hasOnlySeparator = computed(() =>
-      blocks.value.length === 1 && blocks.value[0].type === 'separator'
-    );
+    const hasOnlySeparator = computed(() => blocks.value.length === 1 && blocks.value[0].type === 'separator' );
+    const isSingleLine = computed(() => {
+      return (blocks.value.length === 1 && 
+                (blocks.value[0].type === 'bigshield_singleline' || 
+                 blocks.value[0].type === 'bigcoin_singleline'   ||
+                 blocks.value[0].type === 'bigcoin_singleline_noPlus' ))
+    });
+
     // Vérifie si une ligne contient un seul bloc de type bold
     const singleBoldStyle = computed(() => {
-      if (blocks.value.length === 1 && blocks.value[0].type === 'bold') {
-        return {
-          fontSize: '1.3em',
-        };
-      }
+      if (blocks.value.length === 1 && 
+            (blocks.value[0].type === 'bold' || blocks.value[0].type === 'verybold'))
+        return { fontSize: '1.3em' };
+      if (blocks.value.length === 1 && blocks.value[0].type === 'bigcoin') return { fontSize: '2em' };
       return null;
     });
 
     return {
       blocks,
       isEmptyLine,
+      isSingleLine,
       hasOnlySeparator,
       singleBoldStyle
     };

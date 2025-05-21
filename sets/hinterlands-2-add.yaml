@@ -55,7 +55,7 @@ cards:
   - name: Witch's Hut
     cost:
       treasure: 5
-    isAttack: false
+    isAttack: true
     isAction: true
     isDrawer: true
     isMultiDrawer: true

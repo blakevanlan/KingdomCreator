@@ -105,9 +105,13 @@ Coef_scale = 1
 }
 
 .v-for-landscape{
+    display:flex;
+    flex-direction: row
+    //flex-wrap: wrap;
     margin:1%;
-    margin-right: 250px;
-    width: 490px; 
+    align-content: space-evenly;
+    //margin-right: 250px;
+    //width: 490px; 
     height: (Coef_scale*294)px; 
     transform: scale(Coef_scale);
     transform-origin: top;
@@ -147,7 +151,9 @@ Coef_scale = 1
 
 .card-container-landscape {
   display: flex; /* Allow side-by-side positioning */
-  flex-direction: row-reverse;
+  //flex-direction: row-reverse;
+  flex:1 1 auto;
+  
 }
 
 .unselectable {
@@ -264,11 +270,12 @@ Coef_scale = 1
 .full-card-text-container {
     z-index: 100;
     position: absolute;
-    left: 22px;
-    top: 265px;
-    width: 265px;
+    left: 18px;
+    top: 270px;
+    width: 272px;
+    height: 170px;
     text-align: center;
-    min-height: 170px;
+    //border: 1px solid black;
 }
 .card-text {
     position: absolute;
@@ -280,6 +287,11 @@ Coef_scale = 1
 }
 
 .card-theme-text-light .card-text{
+    color:#fff
+}
+
+
+.card-theme-text-light .full-card-text-container {
     color:#fff
 }
 
@@ -406,10 +418,31 @@ Coef_scale = 1
     font-size: 6em;
     font-weight: 700;
 }
+
+.supetoile{
+  //line-height: 0;
+  font-size: 0.8em; /* Réduire la taille de l'étoile */
+  margin-left: -30px; 
+}
+
 .supetoile:after {
     content: "\002605";
+    vertical-align: super;
     display: inline-block;
-    font-size: 45%
+    font-size: 0.4em;
+    //margin-top: 10px;
+}
+
+.supplus{
+  margin-left: -30px; 
+}
+
+.supplus:after {
+    content: "+";
+    vertical-align: super;
+    display: inline-block;
+    font-size: 0.6em;
+    margin-top: -5px;
 }
 
 .potion-cost-full{
@@ -504,7 +537,7 @@ Coef_scale = 1
     background-color: rgba(0,0,0,0);
 }
 .landscape {
-    position: absolute;
+    //position: absolute;
     height: 294px;
     width: 471px;
     overflow: hidden;

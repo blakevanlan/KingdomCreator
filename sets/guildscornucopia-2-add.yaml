@@ -26,7 +26,7 @@ cards:
 
   - name: Farmhands
     cost:
-      treasure: 3
+      treasure: 4
       potion: 0
     isAction: true
     isDrawer: true
@@ -34,7 +34,7 @@ cards:
 
   - name: Carnival
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isActionSupplier: true
@@ -42,21 +42,21 @@ cards:
 
   - name: Ferryman
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isActionSupplier: true
 
   - name: Footpad
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isAttack: true
     
   - name: Joust
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isDrawer: true

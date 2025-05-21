@@ -1,6 +1,6 @@
 <template>
   <button :aria-label="$t('fullscreenButton')" class="fullscreen-button" :class="{ 'fullscreen-button--has-copied': isFullScreen }" @click="handleClick">
-    <input :aria-label="$t('fullscreenButton')" ref="textInputfull" class="fullscreen-button__input" type="text" :value="textfull" readonly />
+    <input name="gofullscreen" :aria-label="$t('fullscreenButton')" ref="textInputfull" class="fullscreen-button__input" type="text" :value="textfull" readonly />
     <div class="fullscreen-button__icon">
       <svg v-if="isFullScreen" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M15 2h2v5h7v2h-9v-7zm9 13v2h-7v5h-2v-7h9zm-15 7h-2v-5h-7v-2h9v7zm-9-13v-2h7v-5h2v7h-9z" />

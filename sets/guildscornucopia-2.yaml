@@ -155,7 +155,7 @@ cards:
 
   - name: Farmhands
     cost:
-      treasure: 3
+      treasure: 4
       potion: 0
     isAction: true
     isDrawer: true
@@ -163,7 +163,7 @@ cards:
 
   - name: Carnival
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isActionSupplier: true

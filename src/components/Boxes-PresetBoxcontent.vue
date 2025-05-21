@@ -159,7 +159,7 @@ export default defineComponent({
       if (origine == SortOption.SET) 
         return SupplyCardSorter.sort(cardIds as SupplyCard[], setsStore.sortBoxesSet, t);
       else 
-      console.log("cardIds", cardIds, "origine", origine, SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t))
+      //console.log("cardIds", cardIds, "origine", origine, SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t))
         return SupplyCardSorter.sort(cardIds as SupplyCard[], origine, t);
     };
 

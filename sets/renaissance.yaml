@@ -267,7 +267,7 @@ cards:
     isFate: false
     isMultiDrawer: false
     isNight: false
-    isReaction: false
+    isReaction: true
     isTrashing: false
     isTreasure: false
     isTerminal: true

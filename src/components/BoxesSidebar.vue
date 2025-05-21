@@ -5,12 +5,12 @@
         <span>{{ $t("Sets content") }}</span>
         <div class="sidebar-content-option">
         <label class="checkbox sidebar-content-option">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
+            <input id="alpha" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'alpha'"
             @change="handleSetOrderTypeChange('alpha')" />
             <span>{{ $t("Alphabetical") }}</span>
         </label> 
         <label class="checkbox sidebar-content-option" style="margin-left:10px;">
-            <input type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
+            <input id="date" type="radio" style="margin-left:5px;" v-model="setsOrderType" :value="'date'"
             @change="handleSetOrderTypeChange('date')" />
             <span>{{ $t("Date") }}</span>
         </label>      

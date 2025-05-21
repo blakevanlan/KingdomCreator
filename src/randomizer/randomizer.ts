@@ -408,7 +408,7 @@ export class Randomizer {
     // to add traits Supply
     let calculatedTraitsSupplyCard:SupplyCard[]= []
     let onlyTraitsPossibleSupplies = supply.supplyCards
-        .filter(card => card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || card.isOfType(TRAITS_CARDTYPE_POSSIBILITY_2))
+        .filter(card => (card as SupplyCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || (card as SupplyCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_2))
         .filter(card => { return !oldkingdom.supply.traitsSupply.some(trait => trait.id === card.id)});
         // remove supply for already mapped for trait
     if (Localaddons.traits.length > 0) {

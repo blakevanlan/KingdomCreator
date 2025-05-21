@@ -53,6 +53,7 @@ cards:
     isMultiDrawer: true
     isTerminal: true
     isTrashing: true
+    isDuration: true
 
   - name: Stowaway
     cost:
@@ -96,6 +97,7 @@ cards:
     isAction: true
     isDuration: true
     isTerminal: true
+    isCommand: true
 
   - name: Fortune Hunter
     cost:
