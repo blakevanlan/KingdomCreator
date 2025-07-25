@@ -1,0 +1,22 @@
+{
+  "Search Cards": "Search Cards",
+  "search_cards_page_subtitle": "Search Cards thru expansions",
+  "search_page_description": "Through this page, you can search for cards matching different criteria.\nEnter the criteria: part of the card name, the set(s) that can be matched, the card type (or criterion), and the cost criterion (or criterion).",
+  "SearchFilters": "Search Filters",
+  "CardName_Partial": "Card Name (partial)",
+  "SetsFilter": "Set(s)",
+  "TypesFilter": "Type(s)",
+  "CostsFilter": "Cost(s)",
+  "SetsSelected": "Set Selected|Set Selected|Sets Selected",
+  "AnySet": "Any Sets",
+  "AllSetsSelected": "All Sets Selected",
+  "AnyCost": "Any Cost",
+  "AllCostsSelected": "All Costs Selected",
+  "CostsSelected": "Cost selected|Cost selected|Costs selected",
+  "AnyType": "Any Type",
+  "AllTypesSelected": "All Types Selected",
+  "TypesSelected": "Type selected|Type selected|Types selected",
+  "Coins": "Coin|Coin|Coins",
+  "Potion": "Potion",
+  "Debt": "Debt Token|Debt Token|Debt Tokens"
+}

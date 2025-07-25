@@ -1,30 +1,25 @@
 import fs from "fs";
-import path from 'path'
-//import Loader from "./loader.js";
-import { loadSets }  from './loader.js'; // read <set>.yaml
+import path from "path";
+import { parse } from "csv-parse/sync";
+import { loadSets } from "./loader.js";
 
-const sets = loadSets(); // Assuming loadSets is async function
-let TRANSLATION_CSV = "./resources/Pages.csv"
-const PROCESSED = "processed"
-let PROCESSING_DIR = `./${PROCESSED}/src/i18n/locales/messages`
+const sets = loadSets();
+let TRANSLATION_CSV = "./resources/Pages.csv";
+const PROCESSED = "processed";
+let PROCESSING_DIR = `./${PROCESSED}/src/i18n/locales/messages`;
 
 function getProcessingDir(argv) {
-  // Check if an argument is provided for the output directory
   if (argv.length > 2) {
     console.warn("Ignoring extra arguments. Only the first argument is used for output directory.");
   }
   const processingDirArg = argv[0];
-  //console.log("processingDirArg", processingDirArg)
   return processingDirArg ? PROCESSING_DIR.replace(PROCESSED, processingDirArg) : PROCESSING_DIR;
-}
-
-function transformName(name) {
-  return name.toLowerCase().replace(/'/g, "");
 }
 
 function TestAndCreateDir(Path) {
   if (!fs.existsSync(Path)) fs.mkdirSync(Path, { recursive: true });
 }
+
 // Read text file "UTF8" containing format
 //sep=	
 //PageName	id	en	nl	de	fr	es	pl it
@@ -46,7 +41,6 @@ function TestAndCreateDir(Path) {
   'cards.renaissance', 'cards.menagerie',
   'cards.allies'     , 'cards.plunder',
 */
-
 function usage() {
   console.log("")
   console.log("")
@@ -104,10 +98,9 @@ function Add2ndEditions(processedSet, translated) {
     if ((processedSet + "2") == setId) {
       for (let cardnum in set.cards) {
         if (set.cards[cardnum].id in translated) {
-          //console.log("found", set.cards[cardnum].id)
+          // found
         } else {
-          //console.log("not found", set.cards[cardnum].id.replace("2_", "_"))
-          translated[set.cards[cardnum].id] = translated[set.cards[cardnum].id.replace("2_", "_")]
+          translated[set.cards[cardnum].id] = translated[set.cards[cardnum].id.replace("2_", "_")];
         }
       }
     }
@@ -116,82 +109,81 @@ function Add2ndEditions(processedSet, translated) {
 
 function GenerateTranslation() {
   const csv = fs.readFileSync(TRANSLATION_CSV, "utf8");
-  const lines = csv.replace(/"/g, "").split(/\r?\n/);
-  const names = {};
   let separator = ";";
   let start_line = 0;
-  let languages = [];
-  let lang = "";
-  let filename = "";
-  //console.log(lines[start_line]);
+  let lines = csv.split(/\r?\n/);
   if (lines[start_line].includes("sep=")) {
-    //console.log("sep found");
-    separator = (lines[start_line].split("="))[1];
+    separator = lines[start_line].split("=")[1];
     start_line += 1;
   }
-  languages = lines[start_line].split(separator);
-
-  for (let i = start_line + 1; i < lines.length; i++) {
-    const Line_splittted = lines[i].split(separator);
-    names[Line_splittted[0]] = {}
+  // Use csv-parse to parse the CSV
+  const records = parse(csv, {
+    delimiter: separator,
+    skip_empty_lines: true,
+    from_line: start_line + 1,
+    columns: false,
+    relax_column_count: true,
+  });
+  const languages = lines[start_line].split(separator);
+  const names = {};
+  for (const record of records) {
+    if (record[0]) names[record[0]] = {};
   }
   const resultPages = Object.keys(names);
-
   TestAndCreateDir(PROCESSING_DIR);
-
   for (let i = 0; i < resultPages.length; i++) {
     const page = resultPages[i];
     if (page != "") {
       for (let n = 2; n < languages.length; n++) {
         if (languages[n] != "") names[languages[n]] = {};
       }
+        // Fill names with translations
 
-      for (let i = 1; i < lines.length; i++) {
-        const Line_splittted = lines[i].split(separator);
-        if (Line_splittted[0] == page) {
-          //    names[Line_splittted[0]][Line_splittted[1]]=[]
-          for (let j = 2; j < Line_splittted.length; j++) {
-            //names[languages[j]][Line_splittted[1]]= Line_splittted[2]
-            if (Line_splittted[j] != '') names[languages[j]][Line_splittted[1]] = Line_splittted[j]
-            //console.log(Line_splittted[1])
+      for (const record of records) {
+        if (record[0] == page) {
+          for (let j = 2; j < record.length; j++) {
+            if (record[j] != "") names[languages[j]][record[1]] = record[j];
+            //console.log(record[1])
           }
         }
       }
-      const filenamesplitted = (resultPages[i]).split('.')
+      const filenamesplitted = (resultPages[i]).split('.');
       //console.log( filenamesplitted )
       for (let j = 2; j < languages.length; j++) {
         if (languages[j] != "") {
-          lang = languages[j]
-          if (lang == "en" && resultPages[i] == "sets") continue
-          // if (lang=="en") lang =""
-          TestAndCreateDir(`${PROCESSING_DIR}/${lang}`)
+          let lang = languages[j];
+          if (lang == "en" && resultPages[i] == "sets") continue;
+
+          TestAndCreateDir(`${PROCESSING_DIR}/${lang}`);
+          let filename = "";
           if (filenamesplitted.length > 1) {
             if (filenamesplitted[0] == "cards") {
-              Add2ndEditions(filenamesplitted[1],names[languages[j]]);
-
-
-              TestAndCreateDir(path.join(PROCESSING_DIR, lang, 'cards'))
-              filename = path.join(PROCESSING_DIR, lang, 'cards', filenamesplitted[0]+'.'+languages[j]+ '.'+ filenamesplitted[1]+ '.json') 
-                  //`${PROCESSING_DIR}/${lang}/cards/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
-            } else filename = path.join(PROCESSING_DIR, lang, filenamesplitted[0]+'.'+languages[j]+ '.'+ filenamesplitted[1]+ '.json') 
-                // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
-          } else filename = path.join(PROCESSING_DIR, lang, filenamesplitted[0]+'.'+languages[j]+  '.json') 
-              // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.json`
-          //console.log(filename)
-  
-          fs.writeFileSync(filename, 
-              JSON.stringify(names[languages[j]], null, 2)
-                  .replace(/\\\\n/g, '\\n'));
+              Add2ndEditions(filenamesplitted[1], names[languages[j]]);
+              TestAndCreateDir(path.join(PROCESSING_DIR, lang, 'cards'));
+              filename = path.join(PROCESSING_DIR, lang, 'cards', `${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`);
+                    //`${PROCESSING_DIR}/${lang}/cards/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`
+            } else {
+              filename = path.join(PROCESSING_DIR, lang, `${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`);
+                    // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.${filenamesplitted[1]}.json`       
+            }
+          } else {
+            filename = path.join(PROCESSING_DIR, lang, `${filenamesplitted[0]}.${languages[j]}.json`);
+                    // `${PROCESSING_DIR}/${lang}/${filenamesplitted[0]}.${languages[j]}.json`
+          }
+          fs.writeFileSync(
+            filename,
+            JSON.stringify(names[languages[j]], null, 2).replace(/\\\\n/g, '\\n')
+          );
         }
       }
     }
-
   }
 }
 
 //==============================================================
-const argv = process.argv.slice(2); // Get arguments excluding script name and potentially the output directory
+// Get arguments excluding script name and potentially the output directory
+const argv = process.argv.slice(2);
 PROCESSING_DIR = getProcessingDir(argv);
 
 //usage()
-GenerateTranslation()
+GenerateTranslation();

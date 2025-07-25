@@ -34,7 +34,6 @@ import { useSettingsStore } from '../pinia/settings-store';
 
 /* import Components */
 import PresetKingdom from "./Sets-PresetKingdom.vue";
-import type { Kingdom } from '@/randomizer/kingdom';
 
 export default defineComponent({
   name: 'PresetKingdomList',

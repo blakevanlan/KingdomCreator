@@ -140,7 +140,7 @@ cards:
     isVictory: false
     isTrashing: false
     isReaction: false
-    isBuySupplier: true
+    isBuySupplier: false
     isActionSupplier: true
 
   - name: Remake

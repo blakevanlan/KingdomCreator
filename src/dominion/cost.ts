@@ -8,6 +8,12 @@ export class Cost {
   }
 
   getType(): CostType {
+    if (this.potion > 0) {
+      return CostType.WITH_POTION;
+    }
+    if (this.debt > 0) {
+      return CostType.WITH_DEBT;
+    }
     const costs: CostType[] = [
       CostType.TREASURE_2_OR_LESS,
       CostType.TREASURE_2_OR_LESS,

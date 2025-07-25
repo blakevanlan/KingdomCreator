@@ -1,5 +1,8 @@
 <template>
   <div class="sidebar">
+    <a class="standard-button standard-button--is-primary standard-button--large desktop_randomize-button masking-button">
+      {{ "placeHolder" }}
+    </a>    
     <div class="sidebar-content">
       <div class="sidebar-content-title">
         <span>{{ $t("Sets content") }}</span>
@@ -140,3 +143,24 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.desktop_randomize-button,
+.condensed_randomize-button {
+  display: block;
+  margin: 2px;
+}
+
+.condensed_randomize-button {
+  margin-top: 12px;
+}
+
+.masking-button {
+  background: unset;
+  border-color: unset;
+  box-shadow: unset;
+  color:#ffffff;
+  pointer-events: none;
+  cursor: default;
+}
+</style>

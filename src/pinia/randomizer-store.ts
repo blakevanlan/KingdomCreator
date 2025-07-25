@@ -17,7 +17,6 @@ import { SetId } from "../dominion/set-id";
 import { CostType } from "../dominion/cost-type";
 import { Boon } from "../dominion/boon";
 import { Ally } from "../dominion/ally";
-import { Prophecy } from "../dominion/prophecy";
 import { Randomizer } from "../randomizer/randomizer";
 
 import { EventTracker } from "../analytics/follow-activity";
@@ -188,7 +187,7 @@ export const useRandomizerStore = defineStore(
         let addonsForAdjustement ={ 
           events: initialKingdom.events, landmarks: initialKingdom.landmarks, 
           projects: initialKingdom.projects, ways: initialKingdom.ways, 
-          allies: [], prophecy: [], traits: initialKingdom.traits
+          allies: [], prophecies: [], traits: initialKingdom.traits
         } as unknown as Addons;
         if (supply) {
           EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);

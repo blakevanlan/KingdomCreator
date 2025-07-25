@@ -144,6 +144,7 @@ export function randomizeUndefinedAddon(context: randomizerStoreState) :Addon[] 
   addonIds.push(...getAddons(context).map((addon) => addon.id));
   EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
   if (!USING_CUTOM_DESKSIZE()) {
+    // return 1 new addon bescause standard rules are not generating problems
     return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, 1);
   } else {
     const kingdom = context.kingdom;
@@ -155,7 +156,7 @@ export function randomizeUndefinedAddon(context: randomizerStoreState) :Addon[] 
     const selectedTraits: Addon[] = [];
     const selectedProphecies: Addon[] = [];
     const complementarySelectedCards = Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, NUM_CARDS_IN_KINGDOM());
-
+console.log("randomizeUndefinedAddon:", complementarySelectedCards)
     for (const card of complementarySelectedCards) {
       if (card.constructor.name == Addons_TYPE.EVENT) {
         if (selectedEvents.length + kingdom.events.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT)) 
@@ -230,6 +231,7 @@ export function createRandomizerOptionsBuilder(context: randomizerStoreState) {
   const randomizerSettings = context.settings.randomizerSettings;
   return new RandomizerOptionsBuilder()
       .setRequireActionProvider(randomizerSettings.requireActionProvider)
+      .setRequireCardProvider(randomizerSettings.requireCardProvider)
       .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
       .setRequireTrashing(randomizerSettings.requireTrashing)
       .setRequireReactionIfAttacks(randomizerSettings.requireReaction)

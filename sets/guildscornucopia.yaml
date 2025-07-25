@@ -176,7 +176,6 @@ cards:
       treasure: 4
       potion: 0
     isAction: true
-    isBuySupplier: true
     isActionSupplier: true
 
   - name: Remake

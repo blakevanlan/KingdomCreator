@@ -2,11 +2,11 @@
   <div>
     <div class="condensed-menu" v-if="isCondensed">
       <ul class="condensed-menu_items">
-        <li class="condensed-menu_item" v-for="menuItem in getMenuItem(0, false)" :class="{ active: isMenuItemActive(menuItem) }"
+        <li class="condensed-menu_item" v-for="menuItem in getMenuItem(false)" :class="{ active: isMenuItemActive(menuItem) }"
           :key="menuItem.url">
           <RouterLink class="condensed-menu_item_link" :to="getMenuItemUrl(menuItem.url)">
                 {{ $t(menuItem.title) }}
-              </RouterLink>
+          </RouterLink>
         </li>
       </ul>
     </div>
@@ -22,16 +22,16 @@
         <div class="condensed-menu-button" v-if="isCondensed" @click="handleMenuClick"></div>
         <div class="menu" v-if="!isCondensed">
           <ul class="menu_items">
-            <li class="menu_item" v-for="mymenuItem in getMenuItem(4, true)" :key="mymenuItem.title" :class="{ active: isMenuItemActive(mymenuItem) }">
+            <li class="menu_item" v-for="mymenuItem in getMenuItem(true)" :key="mymenuItem.title" :class="{ active: isMenuItemActive(mymenuItem) }">
               <router-link class="menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
                 {{ $t(mymenuItem.title) }}
               </router-link>
             </li>
-            <li class="menuItemIcon">
+            <li class="menuItemIcon" v-if="!allItemsVisible">
             <Menu as="div">
             <MenuButton as="div" class="condensed-menu-button" v-if="!isCondensed"/>
             <MenuItems as="div" class="popOverPanelWrapper">
-            <router-link v-for="mymenuItem in getMenuItem(4, false)" :key="mymenuItem.title" class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
+            <router-link v-for="mymenuItem in getMenuItem(false)" :key="mymenuItem.title" class="extended-menu_item_link" :to="getMenuItemUrl(mymenuItem.url)">
               <div class="extended-menu_item" :key="mymenuItem.title">
                       <MenuItem as="div"> {{ $t(mymenuItem.title) }} </MenuItem>
               </div>
@@ -89,7 +89,7 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed, ref, onMounted, onUnmounted} from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from 'vue-router';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
@@ -108,6 +108,7 @@ export enum MenuItemType {
   SETS,
   RULES,
   CARDS,
+  SEARCHCARDS,
   BOXES,
   SETTINGS
 }
@@ -122,8 +123,10 @@ let MENU_ITEMS = [
   new LocalMenuItem(MenuItemType.SETS, "Recommended Kingdoms", "/sets"),
   new LocalMenuItem(MenuItemType.RULES, "Rules", "/rulebooks"),
   new LocalMenuItem(MenuItemType.BOXES, "Box content", "/boxes"),
+  new LocalMenuItem(MenuItemType.SEARCHCARDS, "Search Cards", "/searchcards"),
   new LocalMenuItem(MenuItemType.SETTINGS, "Settings", "/settings")
 ];
+
 
 if (process.env.NODE_ENV == "development") {
   MENU_ITEMS.push(new LocalMenuItem(MenuItemType.CARDS, "Cards", "/cards"));
@@ -147,8 +150,6 @@ export default defineComponent({
     const route = useRoute();
     const WindowStore = useWindowStore();
     const i18nStore = usei18nStore();
-
-   
 
     const { t } = useI18n();
     const language = computed(() => i18nStore.language);
@@ -181,25 +182,50 @@ export default defineComponent({
         };      
     });
 
-    const getMenuItem = ((nbEntry: number, FirstPart: boolean) => { 
-      /* allow nb entry larger than 2 if 
-       * Border 20
-       * Title Main : 385
-       * Randomizer menu : 125
-       * Recommended kigndom menu : 220
-       * Rules : 75
-       * Menu button : 80
-       * Ajustement : 75
-       */
-      // forcing only 2 menu
-      if (WindowStore.width < (20 + 385 +  125 + 220 + 75 + 80 + 75)) {
-        return FirstPart ?  
-          MENU_ITEMS.slice(0, 2):
-          MENU_ITEMS.slice(2,10);
-      }
-      return FirstPart ?  
-          MENU_ITEMS.slice(0, nbEntry):
-          MENU_ITEMS.slice(nbEntry,10);
+    const menuItems = ref<{ condensed: LocalMenuItem[]; extended: LocalMenuItem[] }>({ condensed: [], extended: [] });
+
+    const getMenuItem = ((FirstPart: boolean) => {
+      if (isCondensedMenuActive.value) return MENU_ITEMS;
+      return FirstPart ? menuItems.value.condensed : menuItems.value.extended;
+    });
+
+    let recalculateMenuItems: () => void;
+
+    onMounted(() => {
+      recalculateMenuItems = () => {
+        menuItems.value.condensed = MENU_ITEMS.slice(0, calculateMaxItems(true));
+        menuItems.value.extended = MENU_ITEMS.slice(calculateMaxItems(true), MENU_ITEMS.length);
+      };
+
+      const calculateMaxItems = (FirstPart: boolean) => {
+        const totalWidth = document.querySelector('header')?.getBoundingClientRect().width || WindowStore.width;
+        const baseWidth = document.querySelector('.title-container')?.getBoundingClientRect().width || 0;
+
+        let currentWidth = baseWidth;
+        let maxItems = 0;
+
+        for (let i = 0; i < MENU_ITEMS.length; i++) {
+          const menuItem = MENU_ITEMS[i];
+          const translatedTitle = t(menuItem.title);
+          const itemWidth = translatedTitle.length * 6 + 90;
+
+          if (currentWidth + itemWidth > totalWidth) {
+            break;
+          }
+
+          currentWidth += itemWidth;
+          maxItems++;
+        }
+
+        return maxItems;
+      };
+
+      window.addEventListener("resize", recalculateMenuItems);
+      recalculateMenuItems();
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("resize", recalculateMenuItems);
     });
 
     const getLanguageLinkOptions = (language: string) => {
@@ -216,6 +242,10 @@ export default defineComponent({
       isCondensedMenuActive.value = !isCondensedMenuActive.value;
     };
 
+    const allItemsVisible = computed(() => {
+      return menuItems.value.condensed.length === MENU_ITEMS.length;
+    });
+
     return {
       isCondensed,
       isCondensedMenuActive,
@@ -231,6 +261,7 @@ export default defineComponent({
       PackageVersion,
       PackageURL,
       PackageDate,
+      allItemsVisible,
     };
   },
 });

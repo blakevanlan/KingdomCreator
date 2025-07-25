@@ -7,10 +7,10 @@
       <div class="modal-container" v-if="specifying" @keydown.esc="handleEscapeKey">
         <div class="modal" tabindex="0" ref="modal">
           <div class="modal__title">
-            Replace {{ specifying.name }}
+            {{ $t("ReplaceModal") }} {{ specifying_names }}
           </div>
           <div class="modal__subtitle">
-            Customize the replacement card
+            {{ $t('Customize the replacement card') }}
           </div>
           <div class="modal__body">
             <div class="modal__body__section">
@@ -42,7 +42,7 @@
                     <span>Any Type</span>
                   </label>
                 </div>
-                <div v-for="visibleType in visibleTypes" :key="visibleType.type" class="modal__body__section__option">
+                <div v-for="visibleType in filteredVisibleTypes" :key="visibleType.type" class="modal__body__section__option">
                   <label class="checkbox">
                     <input type="radio" id="selectedType" :value="visibleType.type" v-model="selectedType" />
                     <span>{{ visibleType.name }}</span>
@@ -56,6 +56,11 @@
             <div class="modal__body__section modal__body__section--cost">
               <div class="modal__body__section__title">Cost</div>
               <div class="modal__body__section__options">
+                <div class="modal__body__section__option">
+                  <div class="standard-button standard-button--is-small" @click="toggleSelectAllCosts">
+                    {{ allCostsSelected ? 'Deselect All' : 'Select All' }}
+                  </div>
+                </div>
                 <div v-for="visibleCost in visibleCosts" :key="visibleCost.type" class="modal__body__section__option">
                   <label class="checkbox">
                     <input type="checkbox" id="selectedCost" :value="visibleCost.type" v-model="selectedCosts" />
@@ -64,6 +69,7 @@
                 </div>
               </div>
             </div>
+
           </div>
 
           <div class="modal__footer">
@@ -85,66 +91,64 @@ import type { SetId } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 import { CardType } from "../dominion/card-type";
 import { CostType } from "../dominion/cost-type";
+import { Cards } from "../utils/cards";
+import { Randomizer } from "../randomizer/randomizer";
+
 
 /* import store  */
 import { useRandomizerStore } from "../pinia/randomizer-store";
+import { useI18n } from "vue-i18n";
 import type { RandomizeSupplyCardParams } from "../pinia/randomizer-store";
+import  { getUnselectedSupplyCards, getSelectedSupplyCards } from "../pinia/randomizer-actions"
+import { VISIBLE_CARD_TYPES } from "../dominion/card-type"
+import { VISIBLE_COSTS } from "../dominion/cost-type"
 
 /* import Components */
-
-interface VisibleType<T> {
-  type: T;
-  name: string;
-}
-const VISIBLE_CARD_TYPES: VisibleType<CardType>[] = [
-  { type: CardType.ACTION, name: "Action" },
-  { type: CardType.ACTION_SUPPLIER, name: "+2 Actions" },
-  { type: CardType.DRAWER, name: "+ Cards" },
-  { type: CardType.BUY_SUPPLIER, name: "+1 Buy" },
-  { type: CardType.ATTACK, name: "Attack" },
-  { type: CardType.DURATION, name: "Duration" },
-  { type: CardType.REACTION, name: "Reaction" },
-  { type: CardType.RESERVE, name: "Reserve" },
-  { type: CardType.TRASHING, name: "Trashing" },
-  { type: CardType.TREASURE, name: "Treasure" },
-  { type: CardType.VICTORY, name: "Victory" },
-];
-const VISIBLE_COSTS: VisibleType<CostType>[] = [
-  { type: CostType.TREASURE_2_OR_LESS, name: "0-2" },
-  { type: CostType.TREASURE_3, name: "3" },
-  { type: CostType.TREASURE_4, name: "4" },
-  { type: CostType.TREASURE_5, name: "5" },
-  { type: CostType.TREASURE_6, name: "6" },
-  { type: CostType.TREASURE_7, name: "7" },
-  { type: CostType.TREASURE_8_OR_MORE, name: "8+" },
-];
 
 export default defineComponent({
   name: "ReplaceSupplyCardModal",
   setup() {
+    const { t } = useI18n()
     const randomizerStore = useRandomizerStore()
-    const selectedSetIds = computed(() => randomizerStore.settings.selectedSets);
+    const selectedSetIds = computed(() => { console.log (randomizerStore.selection); return randomizerStore.settings.selectedSets});
     const selectedSetId = ref<SetId | null>(null);
     const selectedType = ref<CardType | null>(null);
-    const selectedCosts = [
-      CostType.TREASURE_2_OR_LESS,
-      CostType.TREASURE_3,
-      CostType.TREASURE_4,
-      CostType.TREASURE_5,
-      CostType.TREASURE_6,
-      CostType.TREASURE_7,
-      CostType.TREASURE_8_OR_MORE,
-    ];
+    const selectedCosts = ref<CostType[]>(VISIBLE_COSTS.map(cost => cost.type)); 
     const sets = computed(() => {
       return selectedSetIds.value.map((setId) => DominionSets.getSetById(setId)).sort((a, b) => {
         return a.name == b.name ? 0 : a.name < b.name ? -1 : 1;
       });
     });
 
+    const filteredVisibleTypes = computed(() => {
+      const randomizerSettings = randomizerStore.settings.randomizerSettings;
+      let outputTypes = []; // Commencez avec tous les types visibles
+      const excludeCardIds = getSelectedSupplyCards(randomizerStore).map((card) => card.id);
+      const includeCardIds = getUnselectedSupplyCards(randomizerStore).map((card) => card.id);
+    
+      const allSupplyCards =
+        Cards.getAllSupplyCards(Cards.getAllCardsFromSets(DominionSets.getAllSets()));
+      const allSupplyCardsToUse =
+        Randomizer.removeDuplicateCards(
+          allSupplyCards.filter(Cards.filterByIncludedSetIds(selectedSetIds.value)), [])
+          .filter(card => !excludeCardIds.includes(card.id))
+          .filter(card => !includeCardIds.includes(card.id))
+      for (const visibleType of VISIBLE_CARD_TYPES) {
+        if (visibleType.type === CardType.ATTACK  && !randomizerSettings.allowAttacks)  // Supposons que randomizerSettings.allowAttacks existe
+          continue;
+        if (allSupplyCardsToUse.some(card => card.isOfType(visibleType.type)))
+          outputTypes.push(visibleType);
+      }
+    
+      return outputTypes;
+    })
+
+
     const visibleTypes = VISIBLE_CARD_TYPES;
     const visibleCosts = VISIBLE_COSTS;
 
     const specifying = computed(() => { return randomizerStore.specifyingReplacementSupplyCard });
+    const specifying_names= computed(() => { return randomizerStore.selection.selectedSupplyIds.map(c=>t(c)).join(', ') });
     const handleSpecifyingChanged = () => {
       // Focus the modal so that escape works properly.	
       setTimeout(() => {
@@ -154,6 +158,20 @@ export default defineComponent({
       }, 0);
     }
     watch(specifying, handleSpecifyingChanged);
+
+    // New computed property to check if all costs are selected
+    const allCostsSelected = computed(() => {
+      return selectedCosts.value.length === visibleCosts.length;
+    });
+
+    // New method to toggle "Select All" / "Deselect All"
+    const toggleSelectAllCosts = () => {
+      if (allCostsSelected.value) {
+        selectedCosts.value = []; // Deselect all
+      } else {
+        selectedCosts.value = visibleCosts.map(cost => cost.type); // Select all
+      }
+    };
 
     const handleEscapeKey = () => {
       randomizerStore.CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD();
@@ -165,17 +183,23 @@ export default defineComponent({
       randomizerStore.RANDOMIZE_SUPPLY_CARD({
         selectedSetId: selectedSetId.value,
         selectedCardType: selectedType.value,
-        selectedCostTypes: selectedCosts
+        selectedCostTypes: selectedCosts.value
       } as RandomizeSupplyCardParams);
     }
+
+    
     return {
       specifying,
+      specifying_names,
       selectedSetId,
       selectedType,
       selectedCosts,
       sets,
       visibleTypes,
       visibleCosts,
+      filteredVisibleTypes,
+      allCostsSelected, // Make available to template
+      toggleSelectAllCosts, // Make available to template
       handleEscapeKey,
       handleCancel,
       handleRandomize
@@ -285,6 +309,42 @@ export default defineComponent({
 	  margin-left: 8px;
 	}
 
+  .standard-button {
+    /* Existing styles for standard-button */
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+  }
+  
+  .standard-button--is-grey {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .standard-button--is-primary {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  /* New style for the small button */
+  .standard-button--is-small {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 4px 8px; /* Smaller padding */
+    font-size: 14px; /* Smaller font size */
+    margin-bottom: 8px; /* Add some space below the button */
+  }
+  
+  .standard-button--is-small:hover {
+    background-color: #d0d0d0;
+  }
+  
 	@media (max-width: 570px) {
 	  .modal {
 	    height: calc(100vh - 8px);
@@ -329,5 +389,13 @@ export default defineComponent({
 	  .modal__body__section--cost .modal__body__section__option {
 	    width: 33%;
 	  }
+    
+    .modal__body__section--cost .modal__body__section__option {
+      width: auto; /* Reset width for the "Select/Deselect All" button */
+    }
+
+    .modal__body__section--cost .modal__body__section__option:first-child {
+      width: 100%; /* Make the button take full width */
+    }
 	}
 </style>

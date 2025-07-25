@@ -115,6 +115,11 @@ export default defineComponent({
         ownedSets: ownedSetIds.value,
         isUsingOnlyOwnedsets: ownedRestricted.value
       });
+      // Sélectionne tous les sets possédés pour le randomizer
+      randomizerStore.UPDATE_SETTINGS({
+        selectedSets: ownedSetIds.value.map(DominionSets.convertToSetId)
+      } as SettingsParams);
+
       if (!ownedSetIds.value.some(setid => SetsStore.selectedSetId == setid)){
         SetsStore.selectedSetId=ownedSetIds.value[0];
       }
@@ -152,7 +157,7 @@ export default defineComponent({
   border-left: 2px solid #ccc; 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .OwnedSize {
     /* Adjust styles for smaller screens, if needed */
     width: 100%; /* Adjust width for smaller devices */

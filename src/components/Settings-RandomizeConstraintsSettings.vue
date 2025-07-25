@@ -280,7 +280,7 @@ export default defineComponent({
   border-left: 0px solid #ccc;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .OwnedSize {
     /* Adjust styles for smaller screens, if needed */
     width: 100%;
@@ -316,7 +316,7 @@ export default defineComponent({
 }
 
 .constraintsettingscheckbox {
-  width: 30%
+  width: 80%
 }
 
 .nb-min-max {

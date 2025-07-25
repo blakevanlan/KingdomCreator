@@ -6,6 +6,7 @@ import * as PageIndex from "./messages/it/page-index.it.json";
 import * as PageRules from "./messages/it/page-rules.it.json";
 import * as PageSets from "./messages/it/page-sets.it.json";
 import * as PageBoxes from "./messages/it/page-boxes.it.json";
+import * as PageSearch from "./messages/it/page-search.it.json";
 import * as PageSettings from "./messages/it/page-settings.it.json";
 
 
@@ -27,6 +28,7 @@ import * as Cards_Plunder from "./messages/it/cards/cards.it.promos.json";
 import * as Cards_Promos from "./messages/it/cards/cards.it.plunder.json";
 import * as Cards_Prosperity from "./messages/it/cards/cards.it.prosperity.json";
 import * as Cards_Renaissance from "./messages/it/cards/cards.it.renaissance.json";
+import * as Cards_Risingsun from "./messages/it/cards/cards.it.risingsun.json";
 import * as Cards_Seaside from "./messages/it/cards/cards.it.seaside.json";
 
 export default {
@@ -38,6 +40,7 @@ export default {
   ...(PageRules as any).default,
   ...(PageSets as any).default,
   ...(PageBoxes as any).default,
+  ...(PageSearch as any).default,
   ...(PageSettings as any).default,
 /*
   ...(Cards as any).default,
@@ -59,6 +62,7 @@ export default {
   ...(Cards_Promos as any).default,
   ...(Cards_Prosperity as any).default,
   ...(Cards_Renaissance as any).default,
+  ...(Cards_Risingsun as any).default,
   ...(Cards_Seaside as any).default
 
 }

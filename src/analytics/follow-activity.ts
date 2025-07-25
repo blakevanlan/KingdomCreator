@@ -49,7 +49,7 @@ export class EventTracker {
   private static attemptToSend(category: Category, eventType: EventType, additionalData: Record<string, unknown> = {}) {
     try {
 	  //console.log(`${category}: ${eventType}`, additionalData);
-    EventTracker.walkstep(category, eventType, additionalData);
+    //EventTracker.walkstep(category, eventType, additionalData);
     } catch (e) {
       console.log(`ERROR in attempting to send event: ${category}: ${eventType}`);
     }

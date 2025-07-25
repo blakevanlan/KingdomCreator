@@ -6,6 +6,7 @@ import * as PageIndex from "./messages/nl/page-index.nl.json";
 import * as PageRules from "./messages/nl/page-rules.nl.json";
 import * as PageSets from "./messages/nl/page-sets.nl.json";
 import * as PageBoxes from "./messages/nl/page-boxes.nl.json";
+import * as PageSearch from "./messages/nl/page-search.nl.json";
 import * as PageSettings from "./messages/nl/page-settings.nl.json";
 
 //import * as Cards from "./messages/nl/cards.nl.json";
@@ -26,6 +27,7 @@ import * as Cards_Plunder from "./messages/nl/cards/cards.nl.plunder.json";
 import * as Cards_Promos from "./messages/nl/cards/cards.nl.promos.json";
 import * as Cards_Prosperity from "./messages/nl/cards/cards.nl.prosperity.json";
 import * as Cards_Renaissance from "./messages/nl/cards/cards.nl.renaissance.json";
+import * as Cards_Risingsun from "./messages/nl/cards/cards.nl.risingsun.json";
 import * as Cards_Seaside from "./messages/nl/cards/cards.nl.seaside.json";
 
 export default {
@@ -37,6 +39,7 @@ export default {
   ...(PageRules as any).default,
   ...(PageSets as any).default,
   ...(PageBoxes as any).default,
+  ...(PageSearch as any).default,
   ...(PageSettings as any).default,
 /*
   ...(Cards as any).default,
@@ -58,6 +61,7 @@ export default {
   ...(Cards_Promos as any).default,
   ...(Cards_Prosperity as any).default,
   ...(Cards_Renaissance as any).default,
+  ...(Cards_Risingsun as any).default,
   ...(Cards_Seaside as any).default
 
 }

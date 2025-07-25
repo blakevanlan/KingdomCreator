@@ -1,5 +1,8 @@
 <template>
   <div class="sidebar">
+    <a class="standard-button standard-button--is-primary standard-button--large desktop_randomize-button masking-button">
+      {{ "placeHolder" }}
+    </a>
     <div class="sidebar-content filters">
       <div class="sidebar-content-title">
         <span>{{ $t("Sets") }}</span>
@@ -292,5 +295,24 @@ export default defineComponent({
 .file-return:not(:empty):before {
   content: "Selected file: ";
   font-size: 0.8em;
+}
+
+.desktop_randomize-button,
+.condensed_randomize-button {
+  display: block;
+  margin: 2px;
+}
+
+.condensed_randomize-button {
+  margin-top: 12px;
+}
+
+.masking-button {
+  background: unset;
+  border-color: unset;
+  box-shadow: unset;
+  color:#ffffff;
+  pointer-events: none;
+  cursor: default;
 }
 </style>

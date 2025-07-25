@@ -18,6 +18,7 @@ export default defineComponent({
 
 <style scoped>
 .text-overlay {
+  position:absolute;
   background: rgba(30,30,30,0.7);
   box-sizing: border-box;
   color: #fff;

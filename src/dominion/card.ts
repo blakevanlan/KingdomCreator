@@ -7,3 +7,7 @@ export interface Card {
   readonly name: string;
   readonly orderstring: string;
 }
+export interface VisibleType<T> {
+  type: T;
+  name: string;
+}

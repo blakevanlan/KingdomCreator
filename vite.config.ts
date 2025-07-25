@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import packageJson from './package.json';
 
-import VueDevTools from 'vite-plugin-vue-devtools'
+//import VueDevTools from 'vite-plugin-vue-devtools'
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite';
@@ -23,7 +23,7 @@ const changelogPath = path.join(__dirname, 'Changelog.md');
 const readmePath = path.join(__dirname, 'README.md');
 const packageVersion = packageJson.version;
 console.log('packageVersion: ', packageJson.version);  
-const regex = /^### Changelog\s*\n\s*\d{4}\/\d{2}\/\d{2} - (\d+\.\d+\.\d+)/m;
+const regex = /^### Changelog\s*\n\s*\*\*\d{4}\/\d{2}\/\d{2} - (\d+\.\d+\.\d+)/m;
 const changelogText = fs.readFileSync(changelogPath, 'utf-8');
 const changelogVersionMatch = changelogText.match(regex);
 const changelogVersion = changelogVersionMatch ? changelogVersionMatch[1] : null;
@@ -90,7 +90,7 @@ export default defineConfig( ({ mode}) => {
         }
       },
       vue(),
-      mode == 'development' ? VueDevTools() : [],
+      //mode == 'development' ? VueDevTools() : [],
       legacy({ targets: ['defaults'] }),
       vueI18n({
         include: path.resolve(__dirname, './'+ publicationDir +'/locales/*.json'),

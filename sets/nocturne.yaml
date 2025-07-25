@@ -53,7 +53,7 @@ cards:
     isDuration: true
     isFate: false
     isNight: true
-    isReaction: true
+    isReaction: false
     isTrashing: false
     isTreasure: false
     isVictory: false
@@ -395,7 +395,7 @@ cards:
     isDrawer: false
     isDoom: true
     isDuration: false
-    isFate: true
+    isFate: false
     isNight: false
     isReaction: false
     isTrashing: false

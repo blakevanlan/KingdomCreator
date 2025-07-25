@@ -28,7 +28,11 @@ function initializeWindowListener () {
     updateWindowSize();
   });
   updateWindowSize();   
+    if (window.outerWidth === 0) {
+    window.location.href = window.location.href.replace(/\/$/, '');
+  }
 };
+
 
 function updateWindowSize () {
   const WindowStore = useWindowStore();

@@ -12,7 +12,35 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
-2025/05/20 - 6.4.7  
+**2025/07/24 - 6.5.0**
+Dev deploy on github pages 
+>**Fix** - deduplication of candaidate cards for Addons generation
+>**Fix** - Add Prosperity Update Pack SetId for Colony/Platine usage
+>**Feat** - Start adding generation process documentation.
+>**Fix** - proper menu display on 1st load (on occasion)
+>**Fix** - Proper alchemy divider usage based on '3+ Alchemy cards' or randomly
+
+**2025/07/23 - 6.4.9**  
+>**Fix** - Proper alchemy divider usage based on '3+ Alchemy cards' or randomly **Broken**
+>**Feat** - Show console.info if sessionStorage variable 'console.info' is set to true
+>**Feat** - Startin adding generation process documentation.
+
+**2025/07/10 - 6.4.8**  
+>**Fix** - blakevanlan/KingdomCreator #202 - Typo in Owned Set Settings menu  
+>**Fix** - blakevanlan/KingdomCreator #196 - Bug with Addons Settings  
+>**Feat** - blakevanlan/KingdomCreator #93 - Request cost deselect all button  
+>**Fix** - Correct display of menu on smartphone (small screen)  
+>**Feat** - Extend list of supply card type for SupplyCard replacement windows  
+>**Feat** - Search SupplyCard with criteria Set, Type, Cost 
+>**Feat** - Rendering menu dynamicaly
+>**Fix** - Fix windows resize for Custom setting page
+>**Fix** - blakevanlan/KingdomCreator #192 - Randomization Issues  
+           Add trace for candidate card selection and for candidate cards for addons  
+           To do : description of selection process    
+>**Fix** - blakevanlan/KingdomCreator #193 - Issues Randomizing Events, Landmarks, Projects, Ways & Traits After the Initial Set Creation   
+           Adjust number of cards selectd   
+           To do : add modal windows for addons selection process   
+**2025/05/20 - 6.4.7**  
   Fix - blakevanlan/KingdomCreator #190 - Bug: Issue: Link to issue page broken
   Fix - blakevanlan/KingdomCreator #191 - Issue: Reaction cards (set Patron reaction:true)
   Fix - blakevanlan/KingdomCreator PR # 189 - fix: Fix string key

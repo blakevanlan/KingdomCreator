@@ -168,7 +168,7 @@ export default defineComponent({
   border-right: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .DeskSize {
     /* Adjust styles for smaller screens, if needed */
     width: 100%; /* Adjust width for smaller devices */
@@ -195,6 +195,7 @@ export default defineComponent({
 .label-settings{
   width: 75%;
   align-self: center;
+  margin-right: 20px;;
 }
 
 .label-settings.indented {
@@ -231,7 +232,7 @@ export default defineComponent({
 }
 
 .slider-container input[type="range"] {
-  width: 200px; /* Increased width for range inputs */
+  min-width: 20px;
   margin-top: 0;
 }
 
@@ -273,6 +274,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 0 0 250px; /* Increased width for the wrapper */
+  flex: 0 0 150px; /* Increased width for the wrapper */
 }
 </style>
