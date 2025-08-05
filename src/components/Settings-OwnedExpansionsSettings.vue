@@ -33,12 +33,12 @@
       <div class="sets-column" v-for="(setId, index) in listedSetids.slice(0, Math.ceil(listedSetids.length / 2))" :key="index">
         <label class="checkbox">
           <input type="checkbox" v-model="ownedSetIds" :id="setId" :value="setId">
-          <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
+          <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
         </label>
         <template v-for="(version, versionIndex) in FindMultipleVersionSets(setId)" :key="versionIndex">
           <label class="checkbox suboption-set">
             <input type="checkbox" v-model="ownedSetIds" :id="version.idv2" :value="version.idv2">
-            <span>2nd</span>
+            <span>{{ $t("2nd") }}</span>
           </label>
         </template>
       </div>
@@ -47,12 +47,12 @@
       <div class="sets-column" v-for="(setId, index) in listedSetids.slice(Math.ceil(listedSetids.length / 2))" :key="index">
         <label class="checkbox">
           <input type="checkbox" v-model="ownedSetIds" :id="setId" :value="setId">
-          <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
+          <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
         </label>
         <template v-for="(version, versionIndex) in FindMultipleVersionSets(setId)" :key="versionIndex">
           <label class="checkbox suboption-set">
             <input type="checkbox" v-model="ownedSetIds" :id="version.idv2" :value="version.idv2">
-            <span>2nd</span>
+            <span>{{ $t("2nd") }}</span>
           </label>
         </template>
       </div>

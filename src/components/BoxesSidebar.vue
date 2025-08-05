@@ -24,14 +24,14 @@
           <label class="checkbox">
             <input type="radio" v-model="selectedBoxesSetId" :id="setId" :value="setId"
               @change="handleSelectionChange(setId)" />
-            <span>{{ $t(setId) }} <span v-if="findMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
+            <span>{{ $t(setId) }} <span v-if="findMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
           </label>
           <span v-if="findMultipleVersionSets(setId).length !== 0">
             <label class="checkbox suboption-set">
               <input type="radio" v-model="selectedBoxesSetId" :id="findMultipleVersionSets(setId)[0].idv2"
                 :value="findMultipleVersionSets(setId)[0].idv2" 
                 @change="handleSelectionChange(findMultipleVersionSets(setId)[0].idv2)" />
-              <span>2nd</span>
+              <span>{{ $t("2nd") }}</span>
             </label>
           </span>
         </div>

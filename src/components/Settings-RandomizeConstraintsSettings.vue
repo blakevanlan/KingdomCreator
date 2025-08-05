@@ -33,7 +33,7 @@
           <div class="sets-column" v-for="(setId, index) in listedSetids" :key="index">
             <label class="checkbox constraintsettingscheckbox">
               <input type="checkbox" :checked="selectedSets[setId]" v-model="selectedSets[setId]">
-              <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - 1st</span></span>
+              <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
             </label>
             <div class="nb-min-max">
               {{ $t("nb min(/nb max)") }}
