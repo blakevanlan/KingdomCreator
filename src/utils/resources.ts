@@ -81,6 +81,7 @@ export function getSetImageUrl(setId: string, language: Locale) {
   switch (language) {
     case Language.FRENCH:
     case Language.GERMAN:
+    case Language.POLISH:
       return `${BOXES_IMAGE_PREFEX}.${language}/${setId}.${ext}`;
     default:
       return `${BOXES_IMAGE_PREFEX}/${setId}.${ext}`;
@@ -91,6 +92,7 @@ export function getRulebookUrl(setId: string, language: Locale) {
   switch (language) {
     case Language.FRENCH:
     case Language.GERMAN:
+    case Language.POLISH:
       return `${RULE_PDF_PREFEX}.${language}/${setId}.pdf`;
     default:
       return `${RULE_PDF_PREFEX}/${setId}.pdf`;

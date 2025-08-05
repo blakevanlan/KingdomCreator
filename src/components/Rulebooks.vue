@@ -81,16 +81,7 @@ export default defineComponent({
               name: t(setid),
             } as RulebookInterface
           })
-          .filter((set) => !(
-            language.value == Language.FRENCH  
-              ? Set_To_Ignore_Rules[language.value].has(set.id as SetId) 
-              : "" )
-          )
-          .filter((set) => !(
-            language.value == Language.GERMAN  
-              ? Set_To_Ignore_Rules[language.value].has(set.id as SetId) 
-              : "" )
-          )
+          .filter((set) => !Set_To_Ignore_Rules[language.value]?.has?.(set.id as SetId));
         return listsets;
       }
       )

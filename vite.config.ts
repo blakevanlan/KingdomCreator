@@ -104,6 +104,7 @@ export default defineConfig( ({ mode}) => {
           '!'+ publicationDir +'/rules',
           '!'+ publicationDir +'/rules.fr',
           '!'+ publicationDir +'/rules.de',
+          '!'+ publicationDir +'/rules.pl',
           '!'+ publicationDir +'/img',
           '!'+ publicationDir +'/favicon.ico',
           '!'+ publicationDir +'/dominion-content.js',

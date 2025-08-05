@@ -80,10 +80,32 @@ const Set_To_Ignore_Rules_DE =
         SetId.RISING_SUN
 ]);
 
+const Set_To_Ignore_Rules_PL =
+    new Set([
+        SetId.ALCHEMY,
+        SetId.ALLIES,
+        SetId.BASE_SET_2_ADD,
+        SetId.DARK_AGES,
+        SetId.GUILDS,
+        SetId.GUILDSCORNUCOPIA,
+        SetId.GUILDSCORNUCOPIA_2,
+        SetId.GUILDSCORNUCOPIA_2_ADD,
+        SetId.HINTERLANDS,
+        SetId.HINTERLANDS_2_ADD,
+        SetId.INTRIGUE_2,
+        SetId.INTRIGUE_2_ADD,
+        SetId.MENAGERIE,
+        SetId.PROMOS,
+        SetId.PROSPERITY_2_ADD,
+        SetId.RISING_SUN,
+        SetId.SEASIDE_2_ADD,
+]);
+
 export const Set_To_Ignore_Rules = {
     'en': Set_To_Ignore_Rules_EN,
     'fr': Set_To_Ignore_Rules_FR,
-    'de': Set_To_Ignore_Rules_DE
+    'de': Set_To_Ignore_Rules_DE,
+    'pl': Set_To_Ignore_Rules_PL,
     };
 
 export interface VersionOfSet {
