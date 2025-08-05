@@ -47,6 +47,26 @@ export function getCardImageUrl(cardId: string, language: Language) {
             return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
           }
         }
+    case Language.POLISH:
+        if (findMultipleVersionSets(SetName[0]).length == 0) {
+          return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
+        } else {
+          if (lastletter == "2") {
+            localCardId = SetName[0].slice(0, SetName[0].length - 1) + '_' + cardName
+            if (!DominionSets.cards[localCardId]) {
+              localCardId = SetName[0].slice(0, SetName[0].length - 1) + '2add_' + cardName
+              if (!DominionSets.cards[localCardId]) {
+                return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
+              } else {
+                return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1) + '2add'}/${cardName}.jpg`;
+              }
+            } else {
+              return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1)}/${cardName}.jpg`;
+            }
+          } else {
+            return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
+          }
+        }
     default:
       if (findMultipleVersionSets(SetName[0]).length == 0) {
         return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;

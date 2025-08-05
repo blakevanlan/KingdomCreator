@@ -140,6 +140,6 @@ export const SETS_WITH_DUPLICATES: VersionOfSet[]= MultipleVersionSets.concat([
 ]);
 
 export const ImgNotInFR = [ SetId.PLUNDER, SetId.RISING_SUN ];
-export const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH]);
+export const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH, Language.POLISH]);
 
 
