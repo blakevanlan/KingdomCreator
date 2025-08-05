@@ -1,1 +1,20 @@
-{}
+{
+  "Search Cards": "Wyszukaj Karty",
+  "search_cards_page_subtitle": "Wyszukaj Karty przez dodatki",
+  "search_page_description": "Na tej stronie można wyszukiwać karty spełniające różne kryteria. \nWprowadź kryteria: część nazwy karty, zestaw(y), typ karty i koszt.",
+  "SearchFilters": "Filtry Wyszukiwania",
+  "CardName_Partial": "Nazwa Karty (częściowa)",
+  "SetsFilter": "Zestaw(y)",
+  "TypesFilter": "Typ(y)",
+  "CostsFilter": "Koszt(y)",
+  "SetsSelected": "Wybrany Zestaw|Wybrany Zestaw|Wybrane Zestawy",
+  "AnySet": "Dowolne Zestawy",
+  "AllSetsSelected": "Wybrane wszystkie Zestawy",
+  "AnyCost": "Dowolny Koszt",
+  "AllCostsSelected": "Wybrane wszystkie Koszty",
+  "CostsSelected": "Wybrany Koszt|Wybrany Koszt|Wybrane Koszty",
+  "AnyType": "Dowolny Typ",
+  "AllTypesSelected": "Wybrane wszystkie Typy",
+  "TypesSelected": "Wybrany Typ|Wybrany Typ|Wybrane Typy",
+  "Debt": "Żeton Długu|Żeton Długu|Żetony Długu"
+}

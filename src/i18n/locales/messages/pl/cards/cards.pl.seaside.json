@@ -24,7 +24,16 @@
   "seaside_pearldiver": "Poławiacz pereł",
   "seaside_merchantship": "Okręt kupiecki",
   "seaside_embargo": "Embargo",
-  "seaside_outpost": "Przyczółek\"",
+  "seaside_outpost": "Przyczółek",
+  "seaside2_astrolabe": "Astrolabium",
+  "seaside2_monkey": "Małpa",
+  "seaside2_seachart": "Mapa morska",
+  "seaside2_blockade": "Blokada",
+  "seaside2_sailor": "Żeglarz",
+  "seaside2_tidepools": "Baseny pływowe",
+  "seaside2_corsair": "Korsarz",
+  "seaside2_pirate": "Pirat",
+  "seaside2_seawitch": "Morska czarownica",
   "seaside2_smugglers": "Przemytnicy",
   "seaside2_salvager": "Wyławiacz",
   "seaside2_haven": "Przystań",
@@ -42,5 +51,5 @@
   "seaside2_warehouse": "Magazyn",
   "seaside2_lighthouse": "Latarnia morska",
   "seaside2_merchantship": "Okręt kupiecki",
-  "seaside2_outpost": "Przyczółek\""
+  "seaside2_outpost": "Przyczółek"
 }

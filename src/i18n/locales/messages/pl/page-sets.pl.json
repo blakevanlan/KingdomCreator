@@ -1,4 +1,22 @@
 {
   "sets_page_subtitle": "Rekomendowane zestawy po 10",
-  "sets_page_description": "Gracze Dominion mogą brać z dowolnym zestawem 10 kart królestwa, jednak poniższe zestawy zostały przygotowane z myślą o rozrywce oraz demonstracji interakcji pomiędzy kartami i strategii użycia kart."
+  "sets_page_description": "Gracze Dominion mogą brać z dowolnym zestawem 10 kart królestwa, jednak poniższe zestawy zostały przygotowane z myślą o rozrywce oraz demonstracji interakcji pomiędzy kartami i strategii użycia kart.",
+  "sets_page Sets": "Zestawy",
+  "Use Platinums/Colonies": "Używaj Platyn/Kolonii",
+  "Use Shelters": "Używaj Shelters",
+  "To Filter Sets": "Filtruj Zestawy",
+  "Recommended Kingdoms Sets": "{n} Polecany Zestaw Królestw|{n} Polecany Zestaw Królestw|{n} Polecanych Zestawów Królestw",
+  "Recommended Kingdom Set": "Polecane zestawy królestw",
+  "show filter": "pokaż filtr",
+  "hide filter": "ukryj filtr",
+  "reset filter": "zresetuj filtr",
+  "show Kingdoms list": "pokaż listę Królestw",
+  "hide Kingdoms list": "ukryj listę Królestw",
+  "All recommended sets": "Wszystkie polecane zestawy",
+  "Personal sets": "Własne zestawy",
+  "Bane": "Zguba",
+  "Filter Games": "Filtruj Gry",
+  "All Games": "Wszystkie Gry",
+  "Played Games": "Zagrane Gry",
+  "Not played Games": "Niezagrane Gry"
 }

@@ -1,1 +1,14 @@
-{}
+{
+  "settings_page_subtitle": "Spersonalizuj swoją rozgrywkę",
+  "settings_subtitle_desksize": "Dostosuj ustawienia rozmiaru królestwa, dodatków i poszczególnych typów kart.",
+  "settings_subtitle_owned_sets": "Ogranicz wyświetlanie wyłącznie do posiadanych zestawów",
+  "settings_subtitle_constraint": "Usuń karty z losowego wyboru",
+  "settings_page_subtitle2": "Spersonalizuj swoją rozgrywkę, dostosowując ustawienia wielkości królestwa, dodatków i poszczególnych typów kart.",
+  "Owned sets Settings": "Ustawienia posiadanych zestawów",
+  "Desk Size Setting": "Ustawienia rozmiaru stołu",
+  "Use Custom Configuration for DeckSize": "Użyj niestandardowej konfiguracji dla rozmiaru talii",
+  "Use Custom Configuration for Set Display": "Użyj niestandardowej konfiguracji do wyświetlania zestawów",
+  "Addons": "Dodatki",
+  "Force Addons usage": "Wymuś użycie Dodatków",
+  "cards_removed": "karta usunięta|karta usunięta|karty usunięte"
+}

@@ -23,7 +23,7 @@
   "intrigue_upgrade": "Rozbudowa",
   "intrigue_tribute": "Danina",
   "intrigue_greathall": "Westybul",
-  "intrigue_shantytown": "Rudera\"",
+  "intrigue_shantytown": "Rudera",
   "intrigue2_nobles": "Szlachta",
   "intrigue2_conspirator": "Spiskowiec",
   "intrigue2_miningvillage": "Osada górnicza",
@@ -42,5 +42,5 @@
   "intrigue2_harem": "Harem",
   "intrigue2_minion": "Sługus",
   "intrigue2_upgrade": "Rozbudowa",
-  "intrigue2_shantytown": "Rudera\""
+  "intrigue2_shantytown": "Rudera"
 }
