@@ -139,7 +139,41 @@ export const SETS_WITH_DUPLICATES: VersionOfSet[]= MultipleVersionSets.concat([
     { id: SetId.CORNUCOPIA,             idv2: SetId.GUILDSCORNUCOPIA_2 }
 ]);
 
-export const ImgNotInFR = [ SetId.PLUNDER, SetId.RISING_SUN ];
 export const LANGUAGES_WITH_TRANSLATED_CARDS = new Set([Language.ENGLISH, Language.FRENCH, Language.POLISH]);
 
+const ImgNotInFR = [ 
+    SetId.PLUNDER, 
+    SetId.RISING_SUN 
+];
 
+const ImgNotInPL = [ 
+    SetId.ADVENTURES,
+    SetId.ALCHEMY,
+    SetId.ALLIES,
+    SetId.CORNUCOPIA,
+    SetId.DARK_AGES,
+    SetId.EMPIRES,
+    SetId.GUILDS,
+    SetId.GUILDSCORNUCOPIA,
+    SetId.GUILDSCORNUCOPIA_2,
+    SetId.GUILDSCORNUCOPIA_2_ADD,
+    SetId.HINTERLANDS,
+    SetId.HINTERLANDS_2,
+    SetId.HINTERLANDS_2_ADD,
+    SetId.INTRIGUE,
+    SetId.INTRIGUE_2,
+    SetId.INTRIGUE_2_ADD,
+    SetId.MENAGERIE,
+    SetId.NOCTURNE,
+    SetId.PROMOS,
+    SetId.PROSPERITY,
+    SetId.PROSPERITY_2,
+    SetId.PROSPERITY_2_ADD,
+    SetId.RENAISSANCE,
+    SetId.RISING_SUN,
+];
+
+export const IMAGES_MISSING_FROM_TRANSLATIONS = new Map<Language, Set<SetId>>([
+    [Language.FRENCH, new Set(ImgNotInFR)],
+    [Language.POLISH, new Set(ImgNotInPL)],
+]);

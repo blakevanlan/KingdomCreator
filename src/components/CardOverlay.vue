@@ -31,7 +31,7 @@ import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
 import type { Card } from '../dominion/card';
-import { ImgNotInFR, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
+import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
 
 /* import store  */
 import { usei18nStore } from "../pinia/i18n-store";
@@ -57,7 +57,7 @@ export default defineComponent({
     const language = computed(() => i18nStore.language);
     const hasCardName = computed(() => {
       return !LANGUAGES_WITH_TRANSLATED_CARDS.has(language.value) ||
-          (language.value === Language.FRENCH && ImgNotInFR.includes(props.card.setId));
+        IMAGES_MISSING_FROM_TRANSLATIONS.get(language.value)?.has(props.card.setId);
     });
   
     return {

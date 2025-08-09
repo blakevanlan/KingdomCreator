@@ -18,7 +18,7 @@ import type { Card } from "../dominion/card";
 import { SupplyCard } from "../dominion/supply-card";
 import { DominionSets } from "../dominion/dominion-sets";
 import { ShowOverlayOptions } from "../utils/resources";
-import { ImgNotInFR, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
+import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
 import { Language } from '../i18n/language';
 import { getCardImageUrl } from "../utils/resources";
 
@@ -58,7 +58,7 @@ export default defineComponent({
           return false;
         case ShowOverlayOptions.CHECK:
           return !LANGUAGES_WITH_TRANSLATED_CARDS.has(language.value) ||
-            (language.value === Language.FRENCH && ImgNotInFR.includes(props.card.setId));
+            IMAGES_MISSING_FROM_TRANSLATIONS.get(language.value)?.has(props.card.setId);
       }
 
     });

@@ -1,6 +1,6 @@
 import type { Locale } from "vue-i18n";
 import { Language } from "../i18n/language";
-import { MultipleVersionSets, ImgNotInFR } from "../dominion/set-id";
+import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, SetId } from "../dominion/set-id";
 import { DominionSets } from "../dominion/dominion-sets";
 
 const IMAGE_PREFEX = "./img/cards";
@@ -23,69 +23,26 @@ export function getCardImageUrl(cardId: string, language: Language) {
   const cardName = cardId.replace(SetName[0] + '_', '')
   let localCardId = cardName
 
-  switch (language) {
-    case Language.FRENCH:
-        if (ImgNotInFR.some(x => x === SetName[0])) {
-          return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;
-        }
-        if (findMultipleVersionSets(SetName[0]).length == 0) {
-          return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-        } else {
-          if (lastletter == "2") {
-            localCardId = SetName[0].slice(0, SetName[0].length - 1) + '_' + cardName
-            if (!DominionSets.cards[localCardId]) {
-              localCardId = SetName[0].slice(0, SetName[0].length - 1) + '2add_' + cardName
-              if (!DominionSets.cards[localCardId]) {
-                return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-              } else {
-                return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1) + '2add'}/${cardName}.jpg`;
-              }
-            } else {
-              return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1)}/${cardName}.jpg`;
-            }
-          } else {
-            return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-          }
-        }
-    case Language.POLISH:
-        if (findMultipleVersionSets(SetName[0]).length == 0) {
-          return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-        } else {
-          if (lastletter == "2") {
-            localCardId = SetName[0].slice(0, SetName[0].length - 1) + '_' + cardName
-            if (!DominionSets.cards[localCardId]) {
-              localCardId = SetName[0].slice(0, SetName[0].length - 1) + '2add_' + cardName
-              if (!DominionSets.cards[localCardId]) {
-                return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-              } else {
-                return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1) + '2add'}/${cardName}.jpg`;
-              }
-            } else {
-              return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1)}/${cardName}.jpg`;
-            }
-          } else {
-            return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
-          }
-        }
-    default:
-      if (findMultipleVersionSets(SetName[0]).length == 0) {
-        return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;
-      } else {
-        if (lastletter == "2") {
-          localCardId = SetName[0].slice(0, SetName[0].length - 1) + '_' + cardName
+  if (IMAGES_MISSING_FROM_TRANSLATIONS.get(language)?.has(SetName[0] as SetId)) {
+    return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;
+  }
+  if (findMultipleVersionSets(SetName[0]).length == 0) {
+      return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
+  } else {
+      if (lastletter == "2") {
+      localCardId = SetName[0].slice(0, SetName[0].length - 1) + '_' + cardName
+      if (!DominionSets.cards[localCardId]) {
+          localCardId = SetName[0].slice(0, SetName[0].length - 1) + '2add_' + cardName
           if (!DominionSets.cards[localCardId]) {
-            localCardId = SetName[0].slice(0, SetName[0].length - 1) + '2add_' + cardName
-            if (!DominionSets.cards[localCardId]) {
-              return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;
-            } else {
-              return `${IMAGE_PREFEX}/${SetName[0].slice(0, SetName[0].length - 1) + '2add'}/${localCardId}.jpg`;
-            }
+          return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
           } else {
-            return `${IMAGE_PREFEX}/${SetName[0].slice(0, SetName[0].length - 1)}/${localCardId}.jpg`;
+          return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1) + '2add'}/${cardName}.jpg`;
           }
-        } else {
-          return `${IMAGE_PREFEX}/${SetName[0]}/${SetName[0]}_${cardName}.jpg`;
-        }
+      } else {
+          return `${IMAGE_PREFEX}.${language}/${SetName[0].slice(0, SetName[0].length - 1)}/${cardName}.jpg`;
+      }
+      } else {
+      return `${IMAGE_PREFEX}.${language}/${SetName[0]}/${cardName}.jpg`;
       }
   }
 }
