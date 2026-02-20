@@ -17,13 +17,16 @@
 </template>
 
 <script lang="ts">
+  /* import Vue, typescript */
 import { defineComponent } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
-import EnlargeButton from "../components/EnlargeButton.vue";
-import PresetBoxcontent from "../components/Boxes-PresetBoxcontent.vue";
-import BoxesSidebar from "../components/BoxesSidebar.vue";
 
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import EnlargeButton from '@/components/EnlargeButton.vue';
+import PresetBoxcontent from '@/components/boxes/Boxes-PresetBoxcontent.vue';
+import BoxesSidebar from '@/components/boxes/BoxesSidebar.vue';
+
+import useBase from './base';
 
 export default defineComponent({
   name: "Boxes", 

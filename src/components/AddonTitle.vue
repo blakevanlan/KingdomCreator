@@ -24,9 +24,9 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed } from "vue";
-import { useI18n } from "vue-i18n";
-import type { PropType } from "vue";
+import { defineComponent, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
 /* import store  */

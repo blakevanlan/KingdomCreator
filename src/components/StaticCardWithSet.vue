@@ -10,24 +10,23 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed, ref } from "vue";
-import type { PropType } from "vue";
+import { defineComponent, computed, ref } from 'vue';
+import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
-import type { Card } from "../dominion/card";
-import { SupplyCard } from "../dominion/supply-card";
-import { DominionSets } from "../dominion/dominion-sets";
-import { ShowOverlayOptions } from "../utils/resources";
-import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
-import { Language } from '../i18n/language';
-import { getCardImageUrl } from "../utils/resources";
+import type { Card } from '@/dominion/card';
+import { SupplyCard } from '@/dominion/supply-card';
+import { DominionSets } from '@/dominion/dominion-sets';
+import { ShowOverlayOptions } from '@/utils/resources';
+import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '@/dominion/set-id.ts';
+import { getCardImageUrl } from '@/utils/resources';
 
 /* import store  */
-import { usei18nStore } from "../pinia/i18n-store";
+import { usei18nStore } from '@/pinia/i18n-store';
 
 /* import Components */
-import StaticCard from "./StaticCard.vue";
-import CardOverlay from "./CardOverlay.vue";
+import StaticCard from './StaticCard.vue';
+import CardOverlay from './CardOverlay.vue';
 
 
 export default defineComponent({

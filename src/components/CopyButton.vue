@@ -19,7 +19,7 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from 'vue';
 
 /* import Dominion Objects and type*/
 /* import store  */

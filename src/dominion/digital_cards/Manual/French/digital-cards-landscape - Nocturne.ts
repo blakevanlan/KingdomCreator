@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Nocturne: DigitalCard[] = [
   /* landscape */	{	id: "theearthsgift",  frenchName: "Don de la terre",  artwork: "http://wiki.dominionstrategy.com/images/7/78/The_Earth%27s_GiftArt.jpg",

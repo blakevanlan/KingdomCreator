@@ -1,6 +1,6 @@
-import type {Addon} from "./addon"
-import {Cost} from "./cost"
-import type {SetId} from "./set-id"
+import type {Addon} from './addon';
+import {Cost} from './cost';
+import type {SetId} from './set-id';
 
 export class Landmark implements Addon {
   constructor(

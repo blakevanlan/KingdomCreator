@@ -30,12 +30,11 @@ import { defineComponent, computed } from 'vue';
 import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
-import type { Card } from '../dominion/card';
-import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '../dominion/set-id.ts'
+import type { Card } from '@/dominion/card';
+import { IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS } from '@/dominion/set-id.ts';
 
 /* import store  */
-import { usei18nStore } from "../pinia/i18n-store";
-import { Language } from '../i18n/language';
+import { usei18nStore } from '@/pinia/i18n-store';
 
 /* import Components */
 import TextOverlay from './TextOverlay.vue';

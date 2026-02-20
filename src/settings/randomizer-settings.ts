@@ -1,5 +1,5 @@
-import {DominionSets} from "../dominion/dominion-sets";
-import type {SetId} from "../dominion/set-id";
+import { DominionSets } from '@/dominion/dominion-sets';
+import type { SetId } from '@/dominion/set-id';
 
 export interface RandomizerSettingsParams {
   requireActionProvider?: boolean;

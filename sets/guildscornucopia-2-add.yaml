@@ -5,7 +5,6 @@ cards:
       treasure: 2
       potion: 0
     isAction: true
-    isActionSupplier: true
     isBuySupplier: true
     isDrawer: true
 
@@ -45,7 +44,7 @@ cards:
       treasure: 5
       potion: 0
     isAction: true
-    isActionSupplier: true
+    isDrawer: true
 
   - name: Footpad
     cost:
@@ -60,7 +59,6 @@ cards:
       potion: 0
     isAction: true
     isDrawer: true
-    isActionSupplier: true
 
 othercards:
   - name: Coronet

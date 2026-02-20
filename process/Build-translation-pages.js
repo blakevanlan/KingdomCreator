@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
-import { parse } from "csv-parse/sync";
-import { loadSets } from "./loader.js";
+import fs from 'fs';
+import path from 'path';
+import { parse } from 'csv-parse/sync';
+import { loadSets } from './loader.js';
 
 const sets = loadSets();
 let TRANSLATION_CSV = "./resources/Pages.csv";

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Menagerie: DigitalCard[] = [
   /* landscape */	{	id: "wayofthebutterfly",  frenchName: "Voie du papillon",  artwork: "http://wiki.dominionstrategy.com/images/3/36/Way_of_the_ButterflyArt.jpg",

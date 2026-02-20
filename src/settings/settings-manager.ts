@@ -1,5 +1,5 @@
-import {Settings} from "./settings"
-import Cookies from "js-cookie";
+import {Settings} from './settings';
+import Cookies from 'js-cookie';
 
 export function loadSettings(): Settings {
   try {

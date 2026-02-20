@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 
 export function AppCreateRouter(paths: string[], component: any) {
   return createRouter({

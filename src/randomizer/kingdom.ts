@@ -1,15 +1,16 @@
-import type { Boon } from "../dominion/boon";
-import type { Event } from "../dominion/event";
-import type { Landmark } from "../dominion/landmark";
-import type { Project } from "../dominion/project";
-import type { Way } from "../dominion/way";
-import type { Ally } from "../dominion/ally";
-import type { Trait } from "../dominion/trait";
-import type { Prophecy } from "../dominion/prophecy";
-import { Supply } from "../randomizer/supply";
-import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID, RIVERBOAT_IDS, APPROACHINGARMY_ID } from "./special-need-cards";
-import { DominionSets } from "../dominion/dominion-sets";
-import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import type { Boon } from '@/dominion/boon';
+import type { Event } from '@/dominion/event';
+import type { Landmark } from '@/dominion/landmark';
+import type { Project } from '@/dominion/project';
+import type { Way } from '@/dominion/way';
+import type { Ally } from '@/dominion/ally';
+import type { Trait } from '@/dominion/trait';
+import type { Prophecy } from '@/dominion/prophecy';
+import { Supply } from '@/randomizer/supply';
+import { YOUNG_WITCH_IDS, FERRYMAN_IDS, OBELISK_LANDMARK_ID, MOUSE_WAY_ID, RIVERBOAT_IDS, APPROACHINGARMY_ID } from './special-need-cards';
+import { DominionSets } from '@/dominion/dominion-sets';
+import { FORCE_ADDONS_USE, MAX_ADDONS_IN_KINGDOM, MAX_ADDONS_OF_TYPE, NUM_CARDS_IN_KINGDOM } from '@/settings/Settings-value';
+import { Addons_TYPE } from '@/dominion/addon';
 
 export class Kingdom {
   constructor(
@@ -80,6 +81,24 @@ export class Kingdom {
     if (this.traits.length >0 ) {
       if (this.supply.traitsSupply.length != this.traits.length) return false;
     }
+    return true;
+  }
+
+  public isKingdomValidForAddons() {
+      const currentAddons = [
+          ...this.events, 
+          ...this.landmarks, 
+          ...this.projects, 
+          ...this.ways, 
+          ...this.traits];
+    if (FORCE_ADDONS_USE() && currentAddons.length != MAX_ADDONS_IN_KINGDOM()) return false;
+    const isWithinQuotas = 
+          this.events.length <= MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT) &&
+          this.landmarks.length <= MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK) &&
+          this.projects.length <= MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT) &&
+          this.ways.length <= MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY) &&
+          this.traits.length <= MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT);
+    if (!isWithinQuotas) return false;
     return true;
   }
 }

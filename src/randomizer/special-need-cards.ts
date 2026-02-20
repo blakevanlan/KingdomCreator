@@ -1,4 +1,4 @@
-import {CardType} from "../dominion/card-type";
+import {CardType} from '@/dominion/card-type';
 
 // To handle special need of cards
 

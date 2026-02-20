@@ -1,4 +1,5 @@
 {
+  "Settings": "Settings",
   "settings_page_subtitle": "Customize your game experience",
   "settings_subtitle_desksize": "Adjust settings for kingdom size, add-ons, and individual card types.",
   "settings_subtitle_owned_sets": "Reduce display to only owned sets",
@@ -11,5 +12,8 @@
   "NB of kingdom for the Game": "NB of kingdom for the Game",
   "Addons": "Addons",
   "Force Addons usage": "Force Addons usage",
-  "cards_removed": "card removed|card removed|cards removed"
+  "cards_removed": "card removed|card removed|cards removed",
+  "ShortDeskSize": "Choose the number of kingdoms Cards and addons Cards",
+  "ShortOwnedSets": "Reduce the extension display to only the extensions you own",
+  "HowDoesItWorksDeskSize": "HowDoesItWorks"
 }

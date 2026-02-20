@@ -1,17 +1,17 @@
-import {Boon} from "./boon";
-import type {Card} from "./card";
-import {DominionSet} from "./dominion-set";
-import {Event} from "./event";
-import {Landmark} from "./landmark";
-import {Project} from "./project";
-import {SetId} from "./set-id";
-import {SupplyCard} from "./supply-card";
-import {Way} from "./way";
-import {Ally} from "./ally";
-import {Trait} from "./trait";
-import {Prophecy} from "./prophecy";
-import type { CardType } from "./card-type";
-import { OtherCard } from "./other-card";
+import {Boon} from './boon';
+import type {Card} from './card';
+import {DominionSet} from './dominion-set';
+import {Event} from './event';
+import {Landmark} from './landmark';
+import {Project} from './project';
+import {SetId} from './set-id';
+import {SupplyCard} from './supply-card';
+import {Way} from './way';
+import {Ally} from './ally';
+import {Trait} from './trait';
+import {Prophecy} from './prophecy';
+import type { CardType } from './card-type';
+import { OtherCard } from './other-card';
 
 declare global {
   interface Window { DominionSets: any; }

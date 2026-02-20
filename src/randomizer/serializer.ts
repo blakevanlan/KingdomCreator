@@ -1,15 +1,15 @@
-import type { Card} from "../dominion/card";
-import { DominionSets} from "../dominion/dominion-sets";
-import { Kingdom} from "./kingdom";
-import type { SupplyCard} from "../dominion/supply-card";
-import { Metadata as KingdomMetadata} from "./kingdom";
-import { Supply, Replacements} from "../randomizer/supply";
-import { Landmark } from "../dominion/landmark";
-import { Way } from "../dominion/way";
-import { Trait } from "../dominion/trait";
-import { Prophecy } from "../dominion/prophecy";
-import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
-import { OBELISK_LANDMARK_ID, APPROACHINGARMY_ID, MOUSE_WAY_ID } from "./special-need-cards";
+import type { Card} from '@/dominion/card';
+import { DominionSets} from '@/dominion/dominion-sets';
+import { Kingdom} from './kingdom';
+import type { SupplyCard} from '@/dominion/supply-card';
+import { Metadata as KingdomMetadata} from './kingdom';
+import { Supply, Replacements} from '@/randomizer/supply';
+import { Landmark } from '@/dominion/landmark';
+import { Way } from '@/dominion/way';
+import { Trait } from '@/dominion/trait';
+import { Prophecy } from '@/dominion/prophecy';
+import { NUM_CARDS_IN_KINGDOM } from '@/settings/Settings-value';
+import { OBELISK_LANDMARK_ID, APPROACHINGARMY_ID, MOUSE_WAY_ID } from './special-need-cards';
 
 
 export function serializeKingdom(kingdom: Kingdom): {[index: string]: string} {

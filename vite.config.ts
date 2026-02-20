@@ -1,14 +1,15 @@
 import { defineConfig } from 'vite';
 import path from 'path';
+import { fileURLToPath, URL } from 'node:url'; // Importation nécessaire
 import fs from 'fs';
 import packageJson from './package.json';
 
-//import VueDevTools from 'vite-plugin-vue-devtools'
+//import VueDevTools from 'vite-plugin-vue-devtools';
 import vue from '@vitejs/plugin-vue';
-import legacy from '@vitejs/plugin-legacy'
+import legacy from '@vitejs/plugin-legacy';
 import vueI18n from '@intlify/unplugin-vue-i18n/vite';
 import del  from 'rollup-plugin-delete';
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 import { DominionContentGenerate, HandleLocaleGenerateAndMerge } from './plugins/vite-dominion-content';
 import { exit } from 'process';
@@ -18,12 +19,13 @@ import { exit } from 'process';
 
 const devServerPort = 5173;
 const publicationDir = 'docs';
+const publicationHelpDir = 'help';
 
 const changelogPath = path.join(__dirname, 'Changelog.md');
 const readmePath = path.join(__dirname, 'README.md');
 const packageVersion = packageJson.version;
 console.log('packageVersion: ', packageJson.version);  
-const regex = /^### Changelog\s*\n\s*\*\*\d{4}\/\d{2}\/\d{2} - (\d+\.\d+\.\d+)/m;
+const regex = /^##{1,2} Changelog\s*\n\s*\*\*\d{4}\/\d{2}\/\d{2} - (\d+\.\d+\.\d+)/m;
 const changelogText = fs.readFileSync(changelogPath, 'utf-8');
 const changelogVersionMatch = changelogText.match(regex);
 const changelogVersion = changelogVersionMatch ? changelogVersionMatch[1] : null;
@@ -55,9 +57,6 @@ export default defineConfig( ({ mode}) => {
     appType: 'spa',
     base: baseDir,
     publicDir: false, //  Do not use publicDir feature to avoid duplcation of all image and pdf files.
-    /*
-    Do not use publicDir feature to avoid duplcation of all image and pdf files.
-    */
     define: {
       Pkgejson_Version: JSON.stringify(packageJson.version),
       Pkgejson_Name: JSON.stringify(packageJson.name),
@@ -70,7 +69,6 @@ export default defineConfig( ({ mode}) => {
         https://vitejs.dev/guide/api-plugin#universal-hooks */
         transformIndexHtml(html) {
           const datetime = new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'medium' });
-          //console.log('\nGenerate Date and Time: ', datetime);
           return html.replace(/id="datetime">/g, `id="datetime">${datetime}`);
         }
       },
@@ -114,7 +112,8 @@ export default defineConfig( ({ mode}) => {
         verbose: false
       }),
        viteStaticCopy({
-        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/' }
+        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/' },
+                    { src: 'help/*.md', dest: './' + publicationHelpDir + '/' },
           ]
       })
     ],
@@ -125,7 +124,8 @@ export default defineConfig( ({ mode}) => {
       //extensions: ['.ts', '.vue'],
       alias: {
         // Alias pour les modules non-Esbuild compatibles avec Vite
-        //'@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        //'@': path.resolve(__dirname, './src'),
         //'vue-i18n': 'vue-i18n/dist/vue-i18n.esm-bundler.js',
         //'vue': 'vue/dist/vue.esm-bundler.js', 
       },
@@ -142,7 +142,7 @@ export default defineConfig( ({ mode}) => {
           chunkFileNames: 'assets/[name]-[hash].js',
           assetFileNames: 'assets/[name]-[hash][extname]'
         }
-      }, 
+      },
     },
     server: {
       open: '/',

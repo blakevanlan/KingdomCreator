@@ -1,6 +1,6 @@
 // Pinia Store
 import { defineStore } from 'pinia';
-import type { SetId } from '../dominion/set-id';
+import type { SetId } from '@/dominion/set-id';
 
 interface SetConstraints {
   isSelected: boolean;

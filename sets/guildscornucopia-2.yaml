@@ -134,7 +134,6 @@ cards:
       treasure: 2
       potion: 0
     isAction: true
-    isActionSupplier: true
     isBuySupplier: true
     isDrawer: true
 
@@ -174,22 +173,21 @@ cards:
       treasure: 3
       potion: 0
     isAction: true
-    isActionSupplier: true
+    isDrawer: true
 
   - name: Footpad
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isAttack: true
 
   - name: Joust
     cost:
-      treasure: 3
+      treasure: 5
       potion: 0
     isAction: true
     isDrawer: true
-    isActionSupplier: true
 
 othercards:
   - name: Coronet

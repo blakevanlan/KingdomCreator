@@ -1,6 +1,6 @@
-import {SupplyDivider} from "./supply-divider";
-import type {SupplyDivision} from "./supply-division";
-import type {SupplyCard} from "../dominion/supply-card";
+import {SupplyDivider} from './supply-divider';
+import type {SupplyDivision} from './supply-division';
+import type {SupplyCard} from '@/dominion/supply-card';
 
 const DEBT_COST_VALUE = 1
 const POTION_COST_VALUE = 2

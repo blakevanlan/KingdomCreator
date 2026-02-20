@@ -1,7 +1,7 @@
-import type {Card} from "./card"
-import {CardType} from "./card-type"
-import {Cost} from "./cost"
-import {SetId} from "./set-id"
+import type {Card} from './card';
+import {CardType} from './card-type';
+import {Cost} from './cost';
+import {SetId} from './set-id';
 
 export class SupplyCard implements Card {
   constructor(

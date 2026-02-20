@@ -25,12 +25,12 @@ import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
 
 /* import Dominion Objects and type*/
-import { ShowOverlayOptions } from "../utils/resources.ts";
+import { ShowOverlayOptions } from '@/utils/resources.ts';
 
 /* import store  */
 /* import Components */
 import GridLayout , { Shape }from "./GridLayout.vue";
-import StaticCardWithSet from "./StaticCardWithSet.vue";
+import StaticCardWithSet from './StaticCardWithSet.vue';
 
 export default defineComponent({
   name: "GenericLayout",

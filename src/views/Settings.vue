@@ -10,12 +10,16 @@
 
 
 <script lang="ts">
+/* import Vue, typescript */
 import { defineComponent } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
-import DeskSizeSettings from "../components/Settings-DeskSizeSettings.vue";
-import RandomizeConstraintsSettings from "../components/Settings-RandomizeConstraintsSettings.vue";
-import OwnedExpansionsSettings from "../components/Settings-OwnedExpansionsSettings.vue";
+
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import DeskSizeSettings from '@/components/settings/Settings-DeskSizeSettings.vue';
+import RandomizeConstraintsSettings from '@/components/settings/Settings-RandomizeConstraintsSettings.vue';
+import OwnedExpansionsSettings from '@/components/settings/Settings-OwnedExpansionsSettings.vue';
+
+import useBase from './base';
 
 export default defineComponent({
   name: "Settings",
@@ -28,7 +32,6 @@ export default defineComponent({
   setup() {
     useBase();
     const selectedType = MenuItemType.SETTINGS;
-
     const buildType = process.env.NODE_ENV 
   
     return {

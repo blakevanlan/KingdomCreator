@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Prosperity: DigitalCard[] = [
 /* Prosperity *//* t */	{	id: "contraband",  frenchName: "Contrebande",  artwork: "http://wiki.dominionstrategy.com/images/0/0a/ContrabandArt.jpg",

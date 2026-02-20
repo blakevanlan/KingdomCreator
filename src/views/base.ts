@@ -1,13 +1,14 @@
 /* import Vue, typescript */
-import { computed, watch } from "vue";
-import type { I18n } from "vue-i18n";
-import { useRoute, useRouter } from "vue-router";
+import { computed, watch } from 'vue';
+import type { I18n } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
 
 /* import Dominion Objects and type*/
+
 /* import store  */
-import { usei18nStore } from "../pinia/i18n-store";
-import { Language, getLanguage } from "../i18n/language";
-import { i18n, getLocale } from "../i18n/i18n";
+import { usei18nStore } from '@/pinia/i18n-store';
+import { Language, getLanguage } from '@/i18n/language';
+import { i18n, getLocale } from '@/i18n/i18n';
 
 /* import Components */
   const useBase = () => {

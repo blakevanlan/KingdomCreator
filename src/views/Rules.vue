@@ -7,11 +7,13 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
 import { defineComponent } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
-import Rulebooks from "../components/Rulebooks.vue";
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import Rulebooks from '@/components/rules/Rulebooks.vue';
 
+import useBase from './base';
 
 export default defineComponent({
   name: "Rules", 

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Nocturne: DigitalCard[] = [
 /* Nocturne */  	{	id: "druid",  frenchName: "Druide",  artwork: "http://wiki.dominionstrategy.com/images/a/a3/DruidArt.jpg",

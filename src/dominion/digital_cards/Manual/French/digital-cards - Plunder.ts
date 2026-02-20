@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Plunder: DigitalCard[] = [
 /* Plunder *//* t */	{	id: "abundance",  frenchName: "Abondance",  artwork: "http://wiki.dominionstrategy.com/images/8/8f/AbundanceArt.jpg",

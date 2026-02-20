@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Hinterlands: DigitalCard[] = [
 /* Hinterlands */  	{	id: "bordervillage",  frenchName: "Village frontalier",  artwork: "http://wiki.dominionstrategy.com/images/2/2b/Border_VillageArt.jpg",

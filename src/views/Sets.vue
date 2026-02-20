@@ -42,17 +42,25 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
 import { defineComponent, computed, ref } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
-import PresetKingdomList from "../components/Sets-PresetKingdomList.vue";
-import SetsSidebar from "../components/SetsSidebar.vue";
-import { DominionKingdoms } from "../dominion/dominion-kingdoms";
-import { DominionSets } from "../dominion/dominion-sets";
-import { Sets_To_Ignore_Regroup } from "../dominion/set-id";
-import type { SetId } from "../dominion/set-id";
-import { useSetsStore } from '../pinia/sets-store';
-import { useSettingsStore } from '../pinia/settings-store';
+
+/* import Dominion Objects and type*/
+import { DominionKingdoms } from '@/dominion/dominion-kingdoms';
+import { DominionSets } from '@/dominion/dominion-sets';
+import { Sets_To_Ignore_Regroup } from '@/dominion/set-id';
+import type { SetId } from '@/dominion/set-id';
+
+/* import store  */
+import { useSetsStore } from '@/pinia/sets-store';
+import { useSettingsStore } from '@/pinia/settings-store';
+
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import PresetKingdomList from '@/components/sets/Sets-PresetKingdomList.vue';
+import SetsSidebar from '@/components/sets/SetsSidebar.vue';
+
+import useBase from './base';
 
 export default defineComponent({
   name: "Sets",

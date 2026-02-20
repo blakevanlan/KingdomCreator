@@ -1,24 +1,24 @@
-import {Cards} from "../utils/cards";
-import {SegmentedRange} from "../utils/segmented-range";
-import type {SupplyCard} from "../dominion/supply-card";
-import type {SupplyBan} from "./supply-ban";
-import type {SupplyCorrection} from "./supply-correction";
-import type {SupplyDivider} from "./supply-divider";
-import {SupplyDivision} from "./supply-division";
-import type {SupplyRequirement} from "./supply-requirement";
-import {Supply, Replacements} from "./supply";
-import {getRandomInt, selectRandom} from "../utils/rand";
-import { SupplyDivisions } from "./supply-divisions";
-import { YOUNG_WITCH_IDS, BANE_MIN_COST, BANE_MAX_COST } from "../randomizer/special-need-cards";
-import { DRUID_ID, BOONS_NB_FROM_DRUID} from "../randomizer/special-need-cards";
-import { FERRYMAN_IDS, FERRYMAN_MIN_COST, FERRYMAN_MAX_COST } from "../randomizer/special-need-cards";
-import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from "../randomizer/special-need-cards";
-import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from "../randomizer/special-need-cards";
-import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from "../randomizer/special-need-cards";
-import { RIVERBOAT_IDS, RIVERBOAT_CARDTYPE_REQUESTED, RIVERBOAT_CARDTYPE_NOTREQUESTED, RIVERBOAT_COST } from "../randomizer/special-need-cards";
-import { APPROACHINGARMY_ID, APPROACHINGARMY_CARDTYPE_REQUESTED } from "../randomizer/special-need-cards";
+import {Cards} from '@/utils/cards';
+import {SegmentedRange} from '@/utils/segmented-range';
+import type {SupplyCard} from '@/dominion/supply-card';
+import type {SupplyBan} from './supply-ban';
+import type {SupplyCorrection} from './supply-correction';
+import type {SupplyDivider} from './supply-divider';
+import {SupplyDivision} from './supply-division';
+import type {SupplyRequirement} from './supply-requirement';
+import {Supply, Replacements} from './supply';
+import {getRandomInt, selectRandom} from '@/utils/rand';
+import { SupplyDivisions } from './supply-divisions';
+import { YOUNG_WITCH_IDS, BANE_MIN_COST, BANE_MAX_COST } from '@/randomizer/special-need-cards';
+import { DRUID_ID, BOONS_NB_FROM_DRUID} from '@/randomizer/special-need-cards';
+import { FERRYMAN_IDS, FERRYMAN_MIN_COST, FERRYMAN_MAX_COST } from '@/randomizer/special-need-cards';
+import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from '@/randomizer/special-need-cards';
+import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from '@/randomizer/special-need-cards';
+import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from '@/randomizer/special-need-cards';
+import { RIVERBOAT_IDS, RIVERBOAT_CARDTYPE_REQUESTED, RIVERBOAT_CARDTYPE_NOTREQUESTED, RIVERBOAT_COST } from '@/randomizer/special-need-cards';
+import { APPROACHINGARMY_ID, APPROACHINGARMY_CARDTYPE_REQUESTED } from '@/randomizer/special-need-cards';
 
-import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import { NUM_CARDS_IN_KINGDOM } from '@/settings/Settings-value';
 
 export class SupplyBuilder {
   private dividers: SupplyDivider[] = [];

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Intrigue: DigitalCard[] = [
 /* Intrigue */  	{	id: "nobles",  frenchName: "Nobles",  artwork: "http://wiki.dominionstrategy.com/images/9/98/NoblesArt.jpg",

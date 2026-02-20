@@ -1,7 +1,7 @@
-import type { Locale } from "vue-i18n";
-import { Language } from "../i18n/language";
-import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, SetId } from "../dominion/set-id";
-import { DominionSets } from "../dominion/dominion-sets";
+import type { Locale } from 'vue-i18n';
+import { Language } from '@/i18n/language';
+import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, SetId } from '@/dominion/set-id';
+import { DominionSets } from '@/dominion/dominion-sets';
 
 const IMAGE_PREFEX = "./img/cards";
 const BOXES_IMAGE_PREFEX = "./img/boxes";

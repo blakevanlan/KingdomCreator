@@ -1,7 +1,7 @@
-import {DominionSets} from "../dominion/dominion-sets";
-import { RandomizerSettings } from "./randomizer-settings";
-import type { RandomizerSettingsParams } from "./randomizer-settings";
-import {SetId} from "../dominion/set-id";
+import { DominionSets } from '@/dominion/dominion-sets';
+import { RandomizerSettings } from './randomizer-settings';
+import type { RandomizerSettingsParams } from './randomizer-settings';
+import { SetId } from '@/dominion/set-id';
 
 export enum SortOption {
   SET = "set",

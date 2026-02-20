@@ -1,4 +1,4 @@
-import { Language } from '../i18n/language';
+import { Language } from '@/i18n/language';
 
 export enum SetId {
   ADVENTURES = "adventures",

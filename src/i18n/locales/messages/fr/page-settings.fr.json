@@ -1,4 +1,5 @@
 {
+  "Settings": "Configuration",
   "settings_page_subtitle": "Personnalisez votre expérience de jeu",
   "settings_subtitle_desksize": "Ajuster le nombres de cartes royaume, ainsi que des addons individuellement ou collectivement.",
   "settings_subtitle_owned_sets": "Réduiser l'affichage aux extensions que vous possédez",
@@ -11,5 +12,8 @@
   "NB of kingdom for the Game": "Nb de royaumes à utiliser",
   "Addons": "Addons",
   "Force Addons usage": "Forcer l'utilisation des Addons",
-  "cards_removed": "carte à ne pas utiliser|carte à ne pas utiliser|cartes à ne pas utiliser"
+  "cards_removed": "carte à ne pas utiliser|carte à ne pas utiliser|cartes à ne pas utiliser",
+  "ShortDeskSize": "Choississez le nombre de royaumes et le nombre de cartes spéciales ",
+  "ShortOwnedSets": "Réduissez l'affichage des extensions aux seules extensions que vous possédez",
+  "HowDoesItWorksDeskSize": "CommentCaMarche"
 }

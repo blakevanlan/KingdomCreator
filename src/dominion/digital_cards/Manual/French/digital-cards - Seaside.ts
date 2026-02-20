@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Seaside: DigitalCard[] = [
 /* Seaside */  	{	id: "ghostship",  frenchName: "Vaisseau Fantôme",  artwork: "http://wiki.dominionstrategy.com/images/5/5e/Ghost_ShipArt.jpg",

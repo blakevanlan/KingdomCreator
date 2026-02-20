@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Menagerie: DigitalCard[] = [
 /* Ménagerie */  	{	id: "horse",  frenchName: "Cheval",  artwork: "http://wiki.dominionstrategy.com/images/4/41/HorseArt.jpg",

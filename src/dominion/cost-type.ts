@@ -10,7 +10,7 @@ export enum CostType {
   WITH_DEBT = "withDebt",
 }
 
-import type { VisibleType } from "./card";
+import type { VisibleType } from './card';
 
 export const VISIBLE_COSTS: VisibleType<CostType>[] = [
   { type: CostType.TREASURE_2_OR_LESS, name: "0-2" },

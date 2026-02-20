@@ -1,5 +1,5 @@
-import {Range} from "./range";
-import {getRandomInt} from "./rand";
+import {Range} from './range';
+import {getRandomInt} from './rand';
 
 export class SegmentedRange extends Range {
   constructor(start: number, readonly segmentLengths: number[]) {

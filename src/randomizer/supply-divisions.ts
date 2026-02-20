@@ -1,11 +1,11 @@
-import type {CardType} from "../dominion/card-type";
-import {Cards} from "../utils/cards";
-import type {SupplyCard} from "../dominion/supply-card";
-import type { SupplyDivision } from "./supply-division";
-import type { SupplyDivider } from "./supply-divider";
-import type { SupplyBan } from "./supply-ban";
-import type { SupplyCorrection } from "./supply-correction";
-import { selectRandom } from "../utils/rand";
+import type {CardType} from '@/dominion/card-type';
+import {Cards} from '@/utils/cards';
+import type {SupplyCard} from '@/dominion/supply-card';
+import type { SupplyDivision } from './supply-division';
+import type { SupplyDivider } from './supply-divider';
+import type { SupplyBan } from './supply-ban';
+import type { SupplyCorrection } from './supply-correction';
+import { selectRandom } from '@/utils/rand';
 
 export class SupplyDivisions {
   static getLockedAndSelectedCards(divisions: SupplyDivision[]): SupplyCard[] {

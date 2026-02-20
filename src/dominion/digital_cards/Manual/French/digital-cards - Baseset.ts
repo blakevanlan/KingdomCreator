@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Baseset: DigitalCard[] = [
 /* Baseset */  	{	id: "adventurer",  frenchName: "Aventurier",  artwork: "http://wiki.dominionstrategy.com/images/7/76/AdventurerArt.jpg",

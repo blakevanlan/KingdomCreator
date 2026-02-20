@@ -1,9 +1,9 @@
 import { nextTick } from 'vue';
-import { createI18n } from 'vue-i18n'
-import type { Composer, I18n } from 'vue-i18n'
+import { createI18n } from 'vue-i18n';
+import type { Composer, I18n } from 'vue-i18n';
 
-import en from "./locales/en";
-import { Language, defaultLanguage } from "./language";
+import en from './locales/en';
+import { Language, defaultLanguage } from './language';
 
 export const i18n = createI18n({
   legacy: false,

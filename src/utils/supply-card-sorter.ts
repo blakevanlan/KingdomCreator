@@ -1,5 +1,5 @@
-import type { SupplyCard } from "../dominion/supply-card";
-import { SortOption } from "../settings/settings";
+import type { SupplyCard } from '@/dominion/supply-card';
+import { SortOption } from '@/settings/settings';
 import type { TranslateResult } from 'vue-i18n';
 
 export class SupplyCardSorter {

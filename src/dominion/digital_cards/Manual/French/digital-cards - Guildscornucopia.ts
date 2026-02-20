@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Guildscornucopia: DigitalCard[] = [
 /* Guildscornucopia2 */  	{	id: "farrier",  frenchName: "Maréchal-ferrant",  artwork: "http://wiki.dominionstrategy.com/images/e/e3/FarrierArt.jpg",

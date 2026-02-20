@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Allies: DigitalCard[] = [
   /* landscape */	{	id: "architectsguild",  frenchName: "Guilde des Architectes",  artwork: "http://wiki.dominionstrategy.com/images/3/3c/Architects%27_GuildArt.jpg",
