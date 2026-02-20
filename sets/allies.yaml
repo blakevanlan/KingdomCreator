@@ -237,7 +237,7 @@ cards:
 
   - name: Underling
     cost:
-      treasure: 2
+      treasure: 3
       potion: 0
       debt: 0
     isAction: true

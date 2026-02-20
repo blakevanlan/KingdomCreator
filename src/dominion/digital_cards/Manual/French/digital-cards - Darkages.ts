@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Darkages: DigitalCard[] = [
 /* Darkages */  	{	id: "armory",  frenchName: "Armurerie",  artwork: "http://wiki.dominionstrategy.com/images/9/91/ArmoryArt.jpg",

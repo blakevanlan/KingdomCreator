@@ -1,4 +1,4 @@
-import type { IllustratorCard, YearOfSet } from "./digital-cards-type"
+import type { IllustratorCard, YearOfSet } from './digital-cards-type';
 
 export const Year_set:YearOfSet[]=[
 { id: "baseset",                year: 2008, order:10 },

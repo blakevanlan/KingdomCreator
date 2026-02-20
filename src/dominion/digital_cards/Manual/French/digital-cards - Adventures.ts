@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Adventures: DigitalCard[] = [
 /* Adventures */  	{	id: "amulet",  frenchName: "Amulette",  artwork: "http://wiki.dominionstrategy.com/images/4/48/AmuletArt.jpg",

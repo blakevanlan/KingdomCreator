@@ -1,12 +1,12 @@
-import type { Card } from "./card"
-import type { Cost } from "./cost"
-import type { Event } from "./event"
-import type { Landmark } from "./landmark";
-import type { Project } from "./project";
-import type { Way } from "./way";
-import type { Ally } from "./ally";
-import type { Trait } from "./trait";
-import type { Prophecy } from "./prophecy";
+import type { Card } from './card';
+import type { Cost } from './cost';
+import type { Event } from './event';
+import type { Landmark } from './landmark';
+import type { Project } from './project';
+import type { Way } from './way';
+import type { Ally } from './ally';
+import type { Trait } from './trait';
+import type { Prophecy } from './prophecy';
 
 export enum Addons_TYPE {
   EVENT = 'Event',

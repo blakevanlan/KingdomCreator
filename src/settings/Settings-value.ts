@@ -1,6 +1,6 @@
 import { getActivePinia } from 'pinia'; // Import Pinia
-import { useSettingsStore } from '../pinia/settings-store';
-import { Addons_TYPE } from '../dominion/addon';
+import { useSettingsStore } from '@/pinia/settings-store';
+import { Addons_TYPE } from '@/dominion/addon';
 
 const Default_NUM_CARDS_IN_KINGDOM = 10
 const Default_MAX_ADDONS_IN_KINGDOM = 2;

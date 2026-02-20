@@ -1,7 +1,7 @@
-import type {CardType} from "../dominion/card-type";
-import type {CostType} from "../dominion/cost-type";
-import {SetId} from "../dominion/set-id";
-import { useSettingsStore } from '../pinia/settings-store';
+import type {CardType} from '@/dominion/card-type';
+import type {CostType} from '@/dominion/cost-type';
+import {SetId} from '@/dominion/set-id';
+import { useSettingsStore } from '@/pinia/settings-store';
 
 export class RandomizerOptions {
   constructor(

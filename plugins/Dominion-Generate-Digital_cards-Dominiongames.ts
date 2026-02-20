@@ -51,7 +51,7 @@ ${allData.map(row => Object.values(row as string).join('\t')).join('\n')}`;
 
     // Convertir les données en une chaîne de caractères, chaque ligne étant séparée par des retours à la ligne
     //const textData = mydata.map(row => Object.values(row as string ).join('\t')).join('\n');
-    const textDataLandscape = `import type { DigitalCard } from "./digital-cards-type";
+    const textDataLandscape = `import type { DigitalCard } from './digital-cards-type';
 
 export const Cards_list_${setid}: DigitalCard[] = [
 ${allData.map(row => Object.values(row as string).join('\t')).join('\n')}

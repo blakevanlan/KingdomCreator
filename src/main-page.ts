@@ -1,10 +1,11 @@
-import Index from './views/Index.vue'
-import Sets from './views/Sets.vue'
-import Rules from './views/Rules.vue'
-import Boxes from './views/Boxes.vue'
-import Cards from './views/Cards.vue'
-import Settings from './views/Settings.vue'
-import SearchCards from './views/SearchCards.vue'
+import Index from './views/Index.vue';
+import Sets from './views/Sets.vue';
+import Rules from './views/Rules.vue';
+import Boxes from './views/Boxes.vue';
+import Cards from './views/Cards.vue';
+import Settings from './views/Settings.vue';
+import SearchCards from './views/SearchCards.vue';
+import Help from './views/Help.vue';
 
 import { initialize } from './setup';
 import { AppCreateRouterMultiple } from './router';
@@ -19,5 +20,6 @@ initialize(AppCreateRouterMultiple([
                 { paths: ["/searchCards"], component : SearchCards },
                 { paths: ["/cards"], component : Cards },
                 { paths: ["/settings"], component : Settings },
-
+                { paths: ["/help"], component : Help }, 
+                { paths: ["/:pathMatch(.*)*"], component : Index } // catch all 404
             ]))

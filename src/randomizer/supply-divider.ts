@@ -1,8 +1,8 @@
-import {Range} from "../utils/range";
-import {SegmentedRange} from "../utils/segmented-range";
-import type {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivision} from "./supply-division";
-import {getRandomInts} from "../utils/rand";
+import {Range} from '@/utils/range';
+import {SegmentedRange} from '@/utils/segmented-range';
+import type {SupplyCard} from '@/dominion/supply-card';
+import {SupplyDivision} from './supply-division';
+import {getRandomInts} from '@/utils/rand';
 
 export abstract class SupplyDivider {
   constructor(readonly count: number) {

@@ -1,14 +1,14 @@
-import {Boon} from "./boon";
-import {SupplyCard} from "./supply-card";
-import {Event} from "./event";
-import {Landmark} from "./landmark";
-import {Project} from "./project";
-import {OtherCard} from "./other-card";
-import type {SetId} from "./set-id";
-import {Way} from "./way";
-import {Ally} from "./ally";
-import {Trait} from "./trait";
-import {Prophecy} from "./prophecy";
+import {Boon} from './boon';
+import {SupplyCard} from './supply-card';
+import {Event} from './event';
+import {Landmark} from './landmark';
+import {Project} from './project';
+import {OtherCard} from './other-card';
+import type {SetId} from './set-id';
+import {Way} from './way';
+import {Ally} from './ally';
+import {Trait} from './trait';
+import {Prophecy} from './prophecy';
 
 export class DominionSet {
   constructor(

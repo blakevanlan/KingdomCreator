@@ -1,6 +1,6 @@
-import type {SupplyCard} from "../dominion/supply-card";
-import { Cards } from "../utils/cards";
-import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import type {SupplyCard} from '@/dominion/supply-card';
+import { Cards } from '@/utils/cards';
+import { NUM_CARDS_IN_KINGDOM } from '@/settings/Settings-value';
 
 export class Supply {
   constructor(

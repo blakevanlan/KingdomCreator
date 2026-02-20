@@ -13,19 +13,24 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
 import { computed, defineComponent } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
 
+/* import Dominion Objects and type*/
+import { DominionSets } from '@/dominion/dominion-sets';
+import type { DominionSet } from '@/dominion/dominion-set';
 
-// import CardOnlineEditorComponent from "../components/card-online-editor.vue";
-import CardOnlinePageComponent from "../components/CardOnlinePageComponent.vue";
-import CardOnlinePageLandscapeComponent from "../components/CardOnlinePageLandscapeComponent.vue";
-import CardOnlinePageOthercardComponent from "../components/CardOnlinePageOthercardComponent.vue";
-import BoxesSidebar from "../components/BoxesSidebar.vue";
-import { DominionSets } from "../dominion/dominion-sets";
-import type { DominionSet } from "../dominion/dominion-set";
-import { useSetsStore } from "../pinia/sets-store";
+/* import store  */
+import { useSetsStore } from '@/pinia/sets-store';
+
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import CardOnlinePageComponent from '@/components/cards/CardOnlinePageComponent.vue';
+import CardOnlinePageLandscapeComponent from '@/components/cards/CardOnlinePageLandscapeComponent.vue';
+import CardOnlinePageOthercardComponent from '@/components/cards/CardOnlinePageOthercardComponent.vue';
+import BoxesSidebar from '@/components/boxes/BoxesSidebar.vue';
+
+import useBase from './base';
 
 export default defineComponent({
   name: "Cards",

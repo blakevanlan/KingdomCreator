@@ -16,17 +16,17 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed} from "vue";
-import type { PropType } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { defineComponent, computed} from 'vue';
+import type { PropType } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 /* import Dominion Objects and type*/
-import { Kingdom } from "../randomizer/kingdom";
-import { DominionSets } from "../dominion/dominion-sets";
-import { Supply, Replacements } from "../randomizer/supply";
-import { DominionKingdom } from "../dominion/dominion-kingdom";
-import { serializeKingdom } from "../randomizer/serializer";
-import { Language } from "../i18n/language";
+import { Kingdom } from '@/randomizer/kingdom';
+import { DominionSets } from '@/dominion/dominion-sets';
+import { Supply, Replacements } from '@/randomizer/supply';
+import { DominionKingdom } from '@/dominion/dominion-kingdom';
+import { serializeKingdom } from '@/randomizer/serializer';
+import { Language } from '@/i18n/language';
 
 /* import store  */
 /* import Components */

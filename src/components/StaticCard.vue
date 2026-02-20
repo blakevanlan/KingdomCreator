@@ -1,16 +1,16 @@
 <template>
   <div class="static-card" :class="{isVertical: isVertical}">
-    <img class="static-card__img" :src="cardImageUrl" :key="cardImageUrl" @error="incaseoferror"/>
+    <img class="static-card__img" :src="cardImageUrl" :key="cardImageUrl" loading="lazy" @error="incaseoferror"/>
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 /* import Dominion Objects and type*/
-import { incaseofImgerror } from '../utils/resources';
+import { incaseofImgerror } from '@/utils/resources';
 
 /* import store  */
 /* import Components */

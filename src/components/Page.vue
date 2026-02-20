@@ -89,17 +89,17 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed, ref, onMounted, onUnmounted} from "vue";
-import { useI18n } from "vue-i18n";
+import { defineComponent, computed, ref, onMounted, onUnmounted} from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 
 /* import Dominion Objects and type*/
 
 /* import store  */
-import { useWindowStore } from "../pinia/window-store";
-import { usei18nStore } from "../pinia/i18n-store";
-import { Language } from "../i18n/language";
+import { useWindowStore } from '@/pinia/window-store';
+import { usei18nStore } from '@/pinia/i18n-store';
+import { Language } from '@/i18n/language';
 
 /* import Components */
 

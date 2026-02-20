@@ -9,11 +9,11 @@
 
 <script lang="ts">
 /* import Vue, typescript */
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed } from 'vue';
 
 /* import Dominion Objects and type*/
 /* import store  */
-import { useWindowStore } from '../pinia/window-store';
+import { useWindowStore } from '@/pinia/window-store';
 
 /* import Components */
 

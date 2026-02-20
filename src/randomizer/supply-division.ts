@@ -1,6 +1,6 @@
-import {Cards} from "../utils/cards"
-import type {SupplyCard} from "../dominion/supply-card"
-import { Replacements } from "./supply";
+import {Cards} from '@/utils/cards';
+import type {SupplyCard} from '@/dominion/supply-card';
+import { Replacements } from './supply';
 
 export class SupplyDivision {
   readonly lockedAndSelectedCards: SupplyCard[];

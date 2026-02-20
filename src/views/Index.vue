@@ -9,14 +9,19 @@
 </template>
 
 <script lang="ts">
+/* import Vue, typescript */
 import { defineComponent, ref } from 'vue';
-import useBase from "./base";
-import Page, { MenuItemType } from "../components/Page.vue";
 
-import EnlargeButton from "../components/EnlargeButton.vue";
-import Randomizer from "../components/Randomizer.vue";
-import ReplaceSupplyCardModal from "../components/ReplaceSupplyCardModal.vue";
-import { useRandomizerStore } from '../pinia/randomizer-store';
+/* import store  */
+import { useRandomizerStore } from '@/pinia/randomizer-store';
+
+/* import Components */
+import Page, { MenuItemType } from '@/components/Page.vue';
+import EnlargeButton from '@/components/EnlargeButton.vue';
+import Randomizer from '@/components/randomize/Randomizer.vue';
+import ReplaceSupplyCardModal from '@/components/randomize/ReplaceSupplyCardModal.vue';
+
+import useBase from './base';
 
 export default defineComponent({
   name: "Index",

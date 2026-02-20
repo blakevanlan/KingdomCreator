@@ -32,12 +32,20 @@ ok tracer les requetes utilisateurs
 [x] - Fix - custom settings téléphone 
 [x] - Fix - custom settings owned order display
 
-[ ] - Doc - custom settings 
-[ ] - Feat - search non supply
-[ ] - Feat - full setup
-[ ] - Feat - nb card par extension (en créant de division)
+[x] - Feat - Allow help display
+[x] - Feat - Add tooltip on main page
+[x] - Fix - selection own versus Random
+[x] - Fix - selection own verus Box
+[x] - Feat - Add select/unselect all Randomizer/Settings
+[x] - Doc - custom settings owned set
+[x] - Feat - search non supply
+
+[ ] - Doc - custom settings constraint randomizer
+
 [ ] - Feat - specify addon replacement
 [ ] - Feat - allow replacement choix final 
+[ ] - Feat - nb card par extension (en créant de division)
+
 [ ] - Feat - allow save deck
 [ ] - Feat - online save of played deck
 [ ] - Feat - avoid all ready played deck génération
@@ -45,3 +53,5 @@ ok tracer les requetes utilisateurs
 [ ] - Feat - require attack
 
 [ ] - Feat - finalize cards French
+
+[ ] - Feat - full setup

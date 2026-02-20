@@ -1,4 +1,4 @@
-import type { DigitalCard } from "./../digital-cards-type"
+import type { DigitalCard } from './../digital-cards-type';
 
 
 export let Work_Card:DigitalCard = {  id: "amumlet", frenchName: "",  artwork:"",

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Renaissance: DigitalCard[] = [
   /* landscape */	{	id: "cathedral",  frenchName: "Cathédrale",  artwork: "http://wiki.dominionstrategy.com/images/f/fb/CathedralArt.jpg",

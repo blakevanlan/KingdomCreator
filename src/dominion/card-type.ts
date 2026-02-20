@@ -43,7 +43,7 @@ export enum CardType {
   COMMAND = "isCommand"
 }
 
-import type { VisibleType } from "./card";
+import type { VisibleType } from './card';
 
 export const VISIBLE_CARD_TYPES: VisibleType<CardType>[] = [
   { type: CardType.ACTION, name: "Action" },

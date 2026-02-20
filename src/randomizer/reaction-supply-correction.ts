@@ -1,11 +1,11 @@
-import {CardType} from "../dominion/card-type";
-import {Cards} from "../utils/cards";
-import {SegmentedRange} from "../utils/segmented-range";
-import type {SupplyCard} from "../dominion/supply-card";
-import type {SupplyCorrection} from "./supply-correction";
-import type {SupplyDivision} from "./supply-division";
-import {SupplyDivisions} from "./supply-divisions";
-import {getRandomInt} from "../utils/rand";
+import {CardType} from '@/dominion/card-type';
+import {Cards} from '@/utils/cards';
+import {SegmentedRange} from '@/utils/segmented-range';
+import type {SupplyCard} from '@/dominion/supply-card';
+import type {SupplyCorrection} from './supply-correction';
+import type {SupplyDivision} from './supply-division';
+import {SupplyDivisions} from './supply-divisions';
+import {getRandomInt} from '@/utils/rand';
 
 export class ReactionSupplyCorrection implements SupplyCorrection {
 

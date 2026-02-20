@@ -11,7 +11,7 @@
 <script lang="ts">
 /* import Vue, typescript */
 
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed } from 'vue';
 
 /* import Dominion Objects and type*/
 /* import store  */
@@ -91,6 +91,9 @@ export default defineComponent({
   bottom: 10%;
 }
 .riverboat-div{
+  bottom: 10%;
+}
+.approachingarmy-div{
   bottom: 10%;
 }
 

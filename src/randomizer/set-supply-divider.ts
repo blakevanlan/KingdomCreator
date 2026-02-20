@@ -1,8 +1,8 @@
-import {Cards} from "../utils/cards";
-import type {SetId} from "../dominion/set-id"
-import type {SupplyCard} from "../dominion/supply-card";
-import {SupplyDivider} from "./supply-divider";
-import type {SupplyDivision} from "./supply-division";
+import {Cards} from '@/utils/cards';
+import type {SetId} from '@/dominion/set-id';
+import type {SupplyCard} from '@/dominion/supply-card';
+import {SupplyDivider} from './supply-divider';
+import type {SupplyDivision} from './supply-division';
 
 export class SetSupplyDivider extends SupplyDivider {
   constructor(readonly setId: SetId, count: number) {

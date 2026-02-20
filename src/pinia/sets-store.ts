@@ -1,8 +1,8 @@
 // Pinia Store
 import { defineStore } from 'pinia';
 
-import { SetId } from "../dominion/set-id";
-import { SortOption } from "../settings/settings";
+import { SetId } from '@/dominion/set-id';
+import { SortOption } from '@/settings/settings';
 
 export interface State {
   setsOrderType: string,

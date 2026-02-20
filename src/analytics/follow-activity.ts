@@ -5,9 +5,9 @@
 	Triple-slash references instruct the compiler to include additional files in the compilation process.
 */
 
-//import * as Track from "../../node_modules/@types/google.analytics/index.d.ts";
-import { Kingdom } from "../randomizer/kingdom"
-import  { serializeKingdom } from "../randomizer/serializer"
+//import * as Track from '../../node_modules/@types/google.analytics/index.d.ts';
+import { Kingdom } from '@/randomizer/kingdom';
+import  { serializeKingdom } from '@/randomizer/serializer';
 
 export enum EventType {
   LOAD_FULL_KINGDOM_FROM_URL = "LOAD_FULL_KINGDOM_FROM_URL",

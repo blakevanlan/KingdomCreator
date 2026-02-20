@@ -1,12 +1,12 @@
-import { DominionSets } from "../../dominion/dominion-sets";
-import * as Common from "./messages/en/common.en.json";
-import * as Languages from "./messages/en/languages.en.json";
-import * as PageIndex from "./messages/en/page-index.en.json";
-import * as PageRules from "./messages/en/page-rules.en.json";
-import * as PageBoxes from "./messages/en/page-boxes.en.json";
-import * as PageSets from "./messages/en/page-sets.en.json";
-import * as PageSearch from "./messages/en/page-search.en.json";
-import * as PageSettings from "./messages/en/page-settings.en.json";
+import { DominionSets } from '@/dominion/dominion-sets';
+import * as Common from './messages/en/common.en.json';
+import * as Languages from './messages/en/languages.en.json';
+import * as PageIndex from './messages/en/page-index.en.json';
+import * as PageRules from './messages/en/page-rules.en.json';
+import * as PageBoxes from './messages/en/page-boxes.en.json';
+import * as PageSets from './messages/en/page-sets.en.json';
+import * as PageSearch from './messages/en/page-search.en.json';
+import * as PageSettings from './messages/en/page-settings.en.json';
 
 function createCardMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Risingsun: DigitalCard[] = [
   /* landscape */	{	id: "amass",  frenchName: "Amassement",  artwork: "http://wiki.dominionstrategy.com/images/e/e3/AmassArt.jpg",

@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Promo: DigitalCard[] = [
   /* landscape */	{	id: "summon",  frenchName: "Convocation",  artwork: "http://wiki.dominionstrategy.com/images/a/ad/SummonArt.jpg",

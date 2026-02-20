@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import type { SetId } from '../dominion/set-id';
-import type { CardType } from '../dominion/card-type';
-import type { CostType } from '../dominion/cost-type';
+import type { SetId } from '@/dominion/set-id';
+import type { CardType } from '@/dominion/card-type';
+import type { CostType } from '@/dominion/cost-type';
 
 export interface SearchState {
   searchName: string;

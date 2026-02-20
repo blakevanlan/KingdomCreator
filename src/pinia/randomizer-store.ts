@@ -1,29 +1,30 @@
 // Pinia Store
 import { defineStore } from 'pinia';
 
-import type { SettingsParams } from "../settings/settings";
-import { loadSettings, saveSettings } from "../settings/settings-manager";
-import { Selection } from "./selection";
-import type { SelectionParams } from "./selection";
-import { CardType } from "../dominion/card-type";
-import { RandomizerOptionsBuilder } from "../randomizer/randomizer-options";
-import { Cards } from "../utils/cards";
-import { Kingdom } from "../randomizer/kingdom";
-import { DominionSets } from "../dominion/dominion-sets";
-import { SupplyCard } from "../dominion/supply-card";
-import type { Addon, Addons } from "../dominion/addon";
+import type { SettingsParams } from '@/settings/settings';
+import { loadSettings, saveSettings } from '@/settings/settings-manager';
+import { Selection } from './selection';
+import type { SelectionParams } from './selection';
+import { CardType } from '@/dominion/card-type';
+import { RandomizerOptionsBuilder } from '@/randomizer/randomizer-options';
+import { Cards } from '@/utils/cards';
+import { Kingdom } from '@/randomizer/kingdom';
+import { DominionSets } from '@/dominion/dominion-sets';
+import { SupplyCard } from '@/dominion/supply-card';
+import type { Addon, Addons } from '@/dominion/addon';
 
-import { SetId } from "../dominion/set-id";
-import { CostType } from "../dominion/cost-type";
-import { Boon } from "../dominion/boon";
-import { Ally } from "../dominion/ally";
-import { Randomizer } from "../randomizer/randomizer";
+import { SetId } from '@/dominion/set-id';
+import { CostType } from '@/dominion/cost-type';
+import { Boon } from '@/dominion/boon';
+import { Ally } from '@/dominion/ally';
+import { Randomizer } from '@/randomizer/randomizer';
 
-import { EventTracker } from "../analytics/follow-activity";
-import { EventType } from "../analytics/follow-activity";
-import type { randomizerStoreState } from './randomizer-actions'
+import { EventTracker } from '@/analytics/follow-activity';
+import { EventType } from '@/analytics/follow-activity';
+import type { randomizerStoreState } from './randomizer-actions';
 import * as rA from './randomizer-actions'; // rA for randomizerActions
-import { NUM_CARDS_IN_KINGDOM } from "../settings/Settings-value";
+import { NUM_CARDS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_IN_KINGDOM, MAX_ADDONS_OF_TYPE } from '@/settings/Settings-value';
+import { Addons_TYPE } from '@/dominion/addon';
 
 
 const MIN_SETS_FOR_PRIORITIZE_OPTION = rA.MIN_SETS_FOR_PRIORITIZE_OPTION;
@@ -163,15 +164,26 @@ export const useRandomizerStore = defineStore(
     LOAD_INITIAL_KINGDOM(initialKingdom: Kingdom | null) {
       console.log(new Date().toLocaleTimeString(), 'LOAD_INITIAL_KINGDOM ', initialKingdom)
       if (initialKingdom) {
+        console.log("kingdom is valid : ", NUM_CARDS_IN_KINGDOM())
+
         // Use the kingdom as-is if it contains the correct number of supply cards.
         //if (initialKingdom.supply.supplyCards.length == 10) {
-        if (initialKingdom.supply.supplyCards.length == NUM_CARDS_IN_KINGDOM()) {
+        if (initialKingdom.supply.supplyCards.length == NUM_CARDS_IN_KINGDOM()
+            && initialKingdom.isKingdomValidForAddons()) {
           console.log("kingdom is valid : ", NUM_CARDS_IN_KINGDOM())
           EventTracker.trackEvent(EventType.LOAD_FULL_KINGDOM_FROM_URL);
           this.UPDATE_KINGDOM(initialKingdom);
           return;
         }
-        console.log ("kingdom is not valid", initialKingdom.supply.supplyCards.length, NUM_CARDS_IN_KINGDOM())
+        if (initialKingdom.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) {
+          console.log ("kingdom is not valid ", initialKingdom.supply.supplyCards.length, NUM_CARDS_IN_KINGDOM())
+        }
+        if (!initialKingdom.isKingdomValidForAddons()) {
+          console.log ("kingdom is not valid for addons", initialKingdom.events.map(e => e.id), 
+            initialKingdom.landmarks.map(l => l.id), initialKingdom.projects.map(p => p.id), 
+            initialKingdom.ways.map(w => w.id), initialKingdom.traits.map(t => t.id))
+        }
+
         // Randomize the rest of the set if there are less than 10 cards.
         // test if all cards are allowed
         const options =
@@ -189,6 +201,91 @@ export const useRandomizerStore = defineStore(
           projects: initialKingdom.projects, ways: initialKingdom.ways, 
           allies: [], prophecies: [], traits: initialKingdom.traits
         } as unknown as Addons;
+
+        const enforceAndFillAddons = (actualAddons: Addons) : Addons => {
+
+          // enforce per-type caps
+          actualAddons.events = actualAddons.events.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT));
+          actualAddons.landmarks = actualAddons.landmarks.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK));
+          actualAddons.projects = actualAddons.projects.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT));
+          actualAddons.ways = actualAddons.ways.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY));
+          actualAddons.traits = actualAddons.traits.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT));
+
+          // enforce total max
+          let maxAddonsInKingdom = MAX_ADDONS_IN_KINGDOM();
+          let total = actualAddons.events.length + actualAddons.landmarks.length + actualAddons.projects.length + actualAddons.ways.length + actualAddons.traits.length + actualAddons.allies.length + actualAddons.prophecies.length;
+          if (total > maxAddonsInKingdom) {
+            // trim in this order until within limit (least-impactful first)
+            const order: (keyof Addons)[] = ['traits','ways','projects','landmarks','events'];
+            for (const key of order) {
+              while ((actualAddons as any)[key].length > 0 && total > maxAddonsInKingdom) {
+                (actualAddons as any)[key].pop();
+                total--;
+              }
+              if (total <= maxAddonsInKingdom) break;
+            }
+          }
+
+          // Try to fill missing addons (inspired by randomizeSelectedAddons loop)
+          if (FORCE_ADDONS_USE() || total < maxAddonsInKingdom) {
+            const setIds = rA.getSelectedSetIds(this);
+
+            // start with currently known addon ids to avoid duplicates
+            let previousComplementarySelectedIds: string[] = Cards.extractIds(
+              (initialKingdom.events as any[])
+                .concat(initialKingdom.landmarks as any[])
+                .concat(initialKingdom.projects as any[])
+                .concat(initialKingdom.ways as any[])
+                .concat(initialKingdom.traits as any[])
+            );
+            let safetyNet = 0;
+            if (!FORCE_ADDONS_USE()) safetyNet = 49; // one-pass behavior when not forced
+            while (safetyNet < 50) {
+              safetyNet++;
+              const complementarySelectedCards = Randomizer.getRandomAddons(setIds, previousComplementarySelectedIds, NUM_CARDS_IN_KINGDOM());
+              for (const card of complementarySelectedCards) {
+                if (total >= maxAddonsInKingdom) break;
+                const typeName = card.constructor.name;
+                if (typeName == Addons_TYPE.EVENT) {
+                  if (actualAddons.events.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT)) {
+                    if (!actualAddons.events.find((x:any)=>x.id===card.id)) { actualAddons.events.push(card as any); total++; }
+                  }
+                } else if (typeName == Addons_TYPE.LANDMARK) {
+                  if (actualAddons.landmarks.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK)) {
+                    if (!actualAddons.landmarks.find((x:any)=>x.id===card.id)) { actualAddons.landmarks.push(card as any); total++; }
+                  }
+                } else if (typeName == Addons_TYPE.PROJECT) {
+                  if (actualAddons.projects.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT)) {
+                    if (!actualAddons.projects.find((x:any)=>x.id===card.id)) { actualAddons.projects.push(card as any); total++; }
+                  }
+                } else if (typeName == Addons_TYPE.WAY) {
+                  if (actualAddons.ways.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY)) {
+                    if (!actualAddons.ways.find((x:any)=>x.id===card.id)) { actualAddons.ways.push(card as any); total++; }
+                  }
+                } else if (typeName == Addons_TYPE.TRAIT) {
+                  if (actualAddons.traits.length < MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT)) {
+                    if (!actualAddons.traits.find((x:any)=>x.id===card.id)) { actualAddons.traits.push(card as any); total++; }
+                  }
+                }
+                if (total >= maxAddonsInKingdom) break;
+              }
+
+              if (FORCE_ADDONS_USE()) {
+                if (total >= maxAddonsInKingdom) {
+                  break;
+                } else {
+                  previousComplementarySelectedIds = [
+                    ...previousComplementarySelectedIds,
+                    ...complementarySelectedCards.map(card => card.id)
+                  ];
+                }
+              } else {
+                break; // only one pass when not forced
+              }
+            }
+          } 
+          return actualAddons;
+        };
         if (supply) {
           EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
           let kingdom
@@ -213,21 +310,30 @@ export const useRandomizerStore = defineStore(
               projects: regeneratedProjects, ways: regeneratedWays, 
               allies: [], prophecy: [], traits: regeneratedTraits
             } as unknown as Addons;
-            console.log("work needed", addonsForAdjustement)
+            //console.log("work needed", addonsForAdjustement)
+            addonsForAdjustement = enforceAndFillAddons(addonsForAdjustement);
+            // keep regenerated lists in sync with enforced addons
+            const finalEvents = addonsForAdjustement.events;
+            const finalLandmarks = addonsForAdjustement.landmarks;
+            const finalProjects = addonsForAdjustement.projects;
+            const finalWays = addonsForAdjustement.ways;
+            const finalTraits = addonsForAdjustement.traits;
+
             const regeneratedAdjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(supply, addonsForAdjustement, initialKingdom);
 
             kingdom = new Kingdom(
-              Date.now(), regeneratedAdjustedSupplyCards, regeneratedEvents, regeneratedLandmarks,
-              regeneratedProjects, regeneratedWays, initialKingdom.boons,
-              initialKingdom.ally, initialKingdom.prophecy, regeneratedTraits, initialKingdom.metadata);
+              Date.now(), regeneratedAdjustedSupplyCards, finalEvents, finalLandmarks,
+              finalProjects, finalWays, initialKingdom.boons,
+              initialKingdom.ally, initialKingdom.prophecy, finalTraits, initialKingdom.metadata);
           } else {
-            console.log("work needed 2", addonsForAdjustement)
+            //console.log("work needed 2", addonsForAdjustement)
+            addonsForAdjustement = enforceAndFillAddons(addonsForAdjustement);
             const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(supply, addonsForAdjustement, initialKingdom );
-
+console.log("adjustedSupplyCards", addonsForAdjustement)
             kingdom = new Kingdom(
-              Date.now(), adjustedSupplyCards, initialKingdom.events, initialKingdom.landmarks,
-              initialKingdom.projects, initialKingdom.ways, initialKingdom.boons,
-              initialKingdom.ally, initialKingdom.prophecy, initialKingdom.traits, initialKingdom.metadata);
+              Date.now(), adjustedSupplyCards, addonsForAdjustement.events, addonsForAdjustement.landmarks,
+              addonsForAdjustement.projects, addonsForAdjustement.ways, initialKingdom.boons,
+              initialKingdom.ally, initialKingdom.prophecy, addonsForAdjustement.traits, initialKingdom.metadata);
           }
           //console.log("LOAD_PARTIAL_KINGDOM_FROM_URL", kingdom)
           this.CLEAR_SELECTION();

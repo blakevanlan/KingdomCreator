@@ -1,4 +1,4 @@
-import type { DigitalCard } from "../../digital-cards-type";
+import type { DigitalCard } from '../../digital-cards-type';
 
 export const Cards_list_Cornucopia: DigitalCard[] = [
 /* Cornucopia */  	{	id: "harvest",  frenchName: "Récolte",  artwork: "http://wiki.dominionstrategy.com/images/1/15/HarvestArt.jpg",

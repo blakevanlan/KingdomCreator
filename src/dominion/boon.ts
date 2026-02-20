@@ -1,5 +1,5 @@
-import type { Card } from "./card";
-import type { SetId } from "./set-id";
+import type { Card } from './card';
+import type { SetId } from './set-id';
 
 export class Boon implements Card {
   constructor(
