@@ -11,7 +11,9 @@ import { defineComponent, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { VueMarkdownIt } from '@f3ve/vue-markdown-it';
 
-const HELP_BASE= 'help/'
+// En développement, les fichiers d'aide sont servis dans 'help/' car vite.co,fig.ts ne les recopient pas.
+// En production ils sont copiés dans 'docs/helpFiles/', renommé pour ne pas entrer en conflit avec le 'help' du SPA..
+const HELP_BASE = import.meta.env.MODE === 'development' ? 'help/' : 'helpFiles/'
 
 export default defineComponent({
   name: "Help",
@@ -25,7 +27,13 @@ export default defineComponent({
     const router = useRouter()
 
     onMounted(async () => {
-      const base = router.options.history.base;
+      let base = import.meta.env.BASE_URL;
+      // Normalize base for fetch: use '/' when BASE_URL is './' or empty
+      if (!base || base === './') base = '/';
+      if (!base.startsWith('/')) base = '/' + base;
+      if (!base.endsWith('/')) base = base + '/';
+      console.log('Resolved Base for fetch:', base, 'Env Base URL:', import.meta.env.BASE_URL)
+      console.log('Route query:', route.query, 'File param:', route.query?.file || route.query?.f || Object.keys(route.query)[0])
 
       const fileParam = route.query?.file || route.query?.f || Object.keys(route.query)[0]
 
@@ -40,7 +48,8 @@ export default defineComponent({
         return
       }
       try {
-        const response = await fetch(base + '/' +  HELP_BASE + fileName)
+        const fetchUrl = base + HELP_BASE + fileName
+        const response = await fetch(fetchUrl)
         const contentType = response.headers.get('content-type') || ''
         const text = await response.text()
         // Vérifie si le fichier est vraiment du markdown et non une page HTML d'erreur

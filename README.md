@@ -8,26 +8,29 @@ It is a kingdom randomizer, or card picker, for Dominion.
 Feel free to propose any improvements you see fit and send me a pull request!
 
 ### Changelog
+**2026/02/21 - 7.0.6** - Dev 7.0 Work in progress
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
+
 **2026/02/20 - 7.0.5** - Dev 7.0 Work in progress
 >***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2025/09/12 - 6.6.0** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2025/07/24 - 6.5.0** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2025/05/20 - 6.4.7** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2025/01/12 - 6.4.5** New Release  
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2025/01/02 - 6.4.4** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2024/12/28 - 6.4.3** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
 **2024/12/23 - 6.4.2** New Release
   Feat - RisingSun : handle prophecies, riverboat and approaching army

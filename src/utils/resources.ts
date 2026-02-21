@@ -1,11 +1,11 @@
 import type { Locale } from 'vue-i18n';
 import { Language } from '@/i18n/language';
-import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, SetId } from '@/dominion/set-id';
+import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS, SetId } from '@/dominion/set-id';
 import { DominionSets } from '@/dominion/dominion-sets';
 
-const IMAGE_PREFEX = "./img/cards";
-const BOXES_IMAGE_PREFEX = "./img/boxes";
-const RULE_PDF_PREFEX = "./rules";
+const IMAGE_PREFIX = "./img/cards";
+const BOXES_IMAGE_PREFIX = "./img/boxes";
+const RULE_PDF_PREFIX = "./rules";
 //const PNG_SET_IMAGES = new Set(["alchemy", "cornucopia", "guilds"]);
 const PNG_SET_IMAGES = new Set(["undefined"]);
 
@@ -26,25 +26,40 @@ export function getCardImageUrl(cardId: string, language: Language) {
   let localCardId = cardName
 
   if (IMAGES_MISSING_FROM_TRANSLATIONS.get(language)?.has(SetName_0_ as SetId)) {
-    return `${IMAGE_PREFEX}/${SetName_0_}/${SetName_0_}_${cardName}.jpg`;
+    return `${IMAGE_PREFIX}/${SetName_0_}/${SetName_0_}_${cardName}.jpg`;
   }
   if (findMultipleVersionSets(SetName_0_).length == 0) {
-      return `${IMAGE_PREFEX}.${language}/${SetName_0_}/${cardName}.jpg`;
+    if (language === Language.ENGLISH || !LANGUAGES_WITH_TRANSLATED_CARDS.has(language)) 
+      return `${IMAGE_PREFIX}/${SetName_0_}/${SetName_0_}_${cardName}.jpg`; 
+    else
+      return `${IMAGE_PREFIX}.${language}/${SetName_0_}/${cardName}.jpg`;
   } else {
       if (lastletter == "2") {
       localCardId = SetName_0_.slice(0, SetName_0_.length - 1) + '_' + cardName
-      if (!DominionSets.cards[localCardId]) {
-          localCardId = SetName_0_.slice(0, SetName_0_.length - 1) + '2add_' + cardName
-          if (!DominionSets.cards[localCardId]) {
-          return `${IMAGE_PREFEX}.${language}/${SetName_0_}/${cardName}.jpg`;
-          } else {
-          return `${IMAGE_PREFEX}.${language}/${SetName_0_.slice(0, SetName_0_.length - 1) + '2add'}/${cardName}.jpg`;
-          }
+        if (!DominionSets.cards[localCardId]) {
+            localCardId = SetName_0_.slice(0, SetName_0_.length - 1) + '2add_' + cardName
+            if (!DominionSets.cards[localCardId]) {
+              if(language === Language.ENGLISH) 
+                return `${IMAGE_PREFIX}/${SetName_0_}/${SetName_0_}_${cardName}.jpg`;
+              else
+                return `${IMAGE_PREFIX}.${language}/${SetName_0_}/${cardName}.jpg`;
+            } else {
+              if (language === Language.ENGLISH || !LANGUAGES_WITH_TRANSLATED_CARDS.has(language)) 
+                return `${IMAGE_PREFIX}/${SetName_0_.slice(0, SetName_0_.length - 1) + '2add'}/${SetName_0_.slice(0, SetName_0_.length - 1) + '2add'}_${cardName}.jpg`;
+              else
+                return `${IMAGE_PREFIX}.${language}/${SetName_0_.slice(0, SetName_0_.length - 1) + '2add'}/${cardName}.jpg`;
+            }
+        } else {
+            if (language === Language.ENGLISH || !LANGUAGES_WITH_TRANSLATED_CARDS.has(language)) 
+              return `${IMAGE_PREFIX}/${SetName_0_.slice(0, SetName_0_.length - 1)}/${SetName_0_.slice(0, SetName_0_.length - 1)}_${cardName}.jpg`;
+            else
+              return `${IMAGE_PREFIX}.${language}/${SetName_0_.slice(0, SetName_0_.length - 1)}/${cardName}.jpg`;
+        }
       } else {
-          return `${IMAGE_PREFEX}.${language}/${SetName_0_.slice(0, SetName_0_.length - 1)}/${cardName}.jpg`;
-      }
-      } else {
-      return `${IMAGE_PREFEX}.${language}/${SetName_0_}/${cardName}.jpg`;
+        if (language === Language.ENGLISH || !LANGUAGES_WITH_TRANSLATED_CARDS.has(language))
+          return `${IMAGE_PREFIX}/${SetName_0_}/${SetName_0_}_${cardName}.jpg`;
+        else
+          return `${IMAGE_PREFIX}.${language}/${SetName_0_}/${cardName}.jpg`;
       }
   }
 }
@@ -60,9 +75,9 @@ export function getSetImageUrl(setId: string, language: Locale) {
   switch (language) {
     case Language.FRENCH:
     case Language.GERMAN:
-      return `${BOXES_IMAGE_PREFEX}.${language}/${setId}.${ext}`;
+      return `${BOXES_IMAGE_PREFIX}.${language}/${setId}.${ext}`;
     default:
-      return `${BOXES_IMAGE_PREFEX}/${setId}.${ext}`;
+      return `${BOXES_IMAGE_PREFIX}/${setId}.${ext}`;
   }
 }
 
@@ -70,9 +85,9 @@ export function getRulebookUrl(setId: string, language: Locale) {
   switch (language) {
     case Language.FRENCH:
     case Language.GERMAN:
-      return `${RULE_PDF_PREFEX}.${language}/${setId}.pdf`;
+      return `${RULE_PDF_PREFIX}.${language}/${setId}.pdf`;
     default:
-      return `${RULE_PDF_PREFEX}/${setId}.pdf`;
+      return `${RULE_PDF_PREFIX}/${setId}.pdf`;
   }
 }
 

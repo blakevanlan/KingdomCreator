@@ -2,7 +2,7 @@
   "author": "Blake VanLandingham",
   "name": "kingdom-creator",
   "license": "MIT",
-  "version": "7.0.5",
+  "version": "7.0.6",
   "private": true,
   "type": "module",
   "repository": {
@@ -57,7 +57,7 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-static-copy": "^3.2.0",
-    "vue-tsc": "^3.2.4",
+    "vue-tsc": "^3.2.5",
     "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
   }
 }

@@ -12,6 +12,13 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+**2026/02/21 - 7.0.6** - Dev 7 Work in progress
+Dev deploy on github pages 
+>***Fix*** - avoid build images path with cards.en
+>***Fix*** - fix access to font path alegreya-...
+>***Fix*** - make help pages works when loaded on Github Pages
+>***Fix*** - Constraint FORCE_ADDON_USE at first load
+
 **2026/02/20 - 7.0.5** - Dev 7 Work in progress
 Dev deploy on github pages 
 >***Fix*** - Fix blinking on sort for Sets and Boxes

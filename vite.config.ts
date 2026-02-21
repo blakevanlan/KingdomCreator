@@ -19,7 +19,7 @@ import { exit } from 'process';
 
 const devServerPort = 5173;
 const publicationDir = 'docs';
-const publicationHelpDir = 'help';
+const publicationHelpDir = 'helpFiles';
 
 const changelogPath = path.join(__dirname, 'Changelog.md');
 const readmePath = path.join(__dirname, 'README.md');
@@ -174,6 +174,10 @@ export default defineConfig( ({ mode}) => {
         '/locales': {
           target: 'http://localhost:' + devServerPort,
           rewrite: (path) => path.replace(/^\/locales/, '/'+ publicationDir +'/locales'),
+        },
+        '/helpFiles': {
+          target: 'http://localhost:' + devServerPort,
+          rewrite: (path) => path.replace(/^\/helpFiles/, '/'+ publicationDir +'/helpFiles'),
         },
         '/?': {
           target: 'http://localhost:' + devServerPort,
