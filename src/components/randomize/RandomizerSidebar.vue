@@ -169,13 +169,23 @@ export default defineComponent({
     let previousSelectedSetIds: SetId[] = [];
 
     const setIds = computed(() => {
-      const AllSetIdsToConsider = DominionSets.getAllSetsIds()
+      const AllSetIdsToConsiderWithDuplicates = DominionSets.getAllSetsIds()
         .filter(setId => {
           if (settingsStore.isUsingOnlyOwnedsets)
             return settingsStore.ownedSets.indexOf(setId as never) != -1
           return true;
         })
-        .filter(setId => !HideMultipleVersionSets.includes(setId) && !Sets_To_Ignore_Regroup.has(setId))
+      const duplicatedSecondEditionIds = new Set(
+          AllSetIdsToConsiderWithDuplicates
+            .map(setId => MultipleVersionSets.find(pair => pair.idv2 === setId))
+            .filter((pair): pair is { id: SetId; idv2: SetId } => 
+                pair !== undefined && 
+                AllSetIdsToConsiderWithDuplicates.indexOf(pair.id) !== -1 && 
+                AllSetIdsToConsiderWithDuplicates.indexOf(pair.idv2) !== -1)
+            .map(pair => pair.idv2)
+      )
+      const AllSetIdsToConsider = AllSetIdsToConsiderWithDuplicates
+        .filter(setId => !duplicatedSecondEditionIds.has(setId))
       const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
         ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order || 0) - (Year_set.find(set => set.id === b)?.order || 0))
         : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))

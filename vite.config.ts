@@ -112,8 +112,8 @@ export default defineConfig( ({ mode}) => {
         verbose: false
       }),
        viteStaticCopy({
-        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/' },
-                    { src: 'help/*.md', dest: './' + publicationHelpDir + '/' },
+        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/', rename: { stripBase: 1 }},
+                    { src: 'help/*.md', dest: './' + publicationHelpDir + '/', rename: { stripBase: 1 }}
           ]
       })
     ],

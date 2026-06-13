@@ -12,6 +12,12 @@ Feel free to propose any improvements you see fit and send me a pull request!
 it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
 
 ### Changelog
+**2026/06/11 - 7.0.7** - Fix for 7.0
+Dev deploy on github pages 
+>***Fix*** - blakevanlan/KingdomCreator #220 - When you Use Custom Configuration for Set Display and only choose second editon the set isn't selectable 
+>***Fix*** - Fix copy of help without directory structure
+>***Feat*** - blakevanlan/KingdomCreator PR #221 - Added missing Dutch translations 
+
 **2026/02/21 - 7.0.6** - Dev 7 Work in progress
 Dev deploy on github pages 
 >***Fix*** - avoid build images path with cards.en
