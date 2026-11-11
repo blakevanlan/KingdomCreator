@@ -131,7 +131,7 @@ function GenerateTranslation() {
   }
   const resultPages = Object.keys(names);
   TestAndCreateDir(PROCESSING_DIR);
-  for (let i = 0; i < resultPages.length; i++) {
+  for (let i = 1; i < resultPages.length; i++) {
     const page = resultPages[i];
     if (page != "") {
       for (let n = 2; n < languages.length; n++) {
