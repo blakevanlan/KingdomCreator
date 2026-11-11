@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-import { loadSets, loadKingdoms } from './DominionContent-LoadFunc';
-import { mergeJSONLanguageFiles, Convert_to_CSV } from './DominionLocaleGeneration-Funcs';
-import { Generate_Digitalcard } from './Dominion-Generate-Digital_cards';
-import { Generate_Digitalcard_DominionGames } from './Dominion-Generate-Digital_cards-Dominiongames';
+import { loadSets, loadKingdoms } from './DominionContent-LoadFunc.js';
+import { mergeJSONLanguageFiles, Convert_to_CSV } from './DominionLocaleGeneration-Funcs.js';
+import { Generate_Digitalcard } from './Dominion-Generate-Digital_cards.js';
+import { Generate_Digitalcard_DominionGames } from './Dominion-Generate-Digital_cards-Dominiongames.js';
 const ProjectBaseDir = process.cwd();
 
 //  `DominionContentGeneration` is responsible for generating the Dominion content files.

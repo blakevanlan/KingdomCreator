@@ -1,0 +1,50 @@
+{
+  "terminal.integrated.env.windows": {
+    // node v22 + PortableGit près de VsCode
+    //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64\\bin;${execPath}\\..\\..\\PortableGit\\cmd;"
+
+    // bun + PortableGit près de VsCode
+    "PATH": "${env:PATH};${execPath}\\..\\..\\bun\\bin;${execPath}\\..\\..\\node-v26-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;"
+
+    // Sacem AppData\\Local\\Programs\\PortableGit + Documents\\Personnel\\# Portable App
+    //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;"
+
+    //"PATH": "${env:PATH};C:\\Users\\grosg\\Documents\\Personnel\\# Portable App\\node-v22-win-x64;C:\\Users\\grosg\\AppData\\Local\\Programs\\PortableGit\\cmd;"
+
+    //"PATH": "${env:PATH};"
+
+    // node v22 + PortableGit  près de VsCode
+    // ${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd
+
+    // buns + PortableGit  près de VsCode
+    // ${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd
+    // F:\\Carte 32 Go\\# Portable App\\bun\\bin;
+    //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;F:\\Carte 32 Go\\# Portable App\\bun\\bin"
+
+    //C:\\Users\\grosg\\Documents\\Personnel\\# Portable App\\node-v22-win-x64;
+    //F:\\Carte 32 Go\\# Portable App\\bun\\bin;
+    //D:\\Carte 32 Go\\# Portable App\\node-v22-win-x64;
+    //${execPath}\\..\\..\\PortableGit\\cmd;${execPath}\\..\\..\\PortableGit;
+    //C:\\Liberkey\\PortableApps\\
+    // pour utiliser node sur la clé.
+    //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v20-win-x64;D:\\Carte 32 Go\\# Portable App\\node-v22-win-x64"
+  },
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib",
+  //"workbench.colorTheme": "Solarized Light",
+  "files.eol": "\n",
+
+  "editor.formatOnSave": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.printWidth": 240,
+    "singleAttributePerLine": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "chat.tools.terminal.autoApprove": {
+    "bun": true
+  }
+}

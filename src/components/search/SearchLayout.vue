@@ -53,29 +53,51 @@ export default defineComponent({
   font-size: 24px;
 }
 
+
+
 .search-layout-wrapper {
   display: grid;
-  /* Utilisation de minmax : 
-     - 160px minimum pour que ça loge sur mobile
-     - 1fr pour que les cartes s'étirent et remplissent l'espace
-  */
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+  /* grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); */
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+  gap: 10px;
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 1px solid #eee;
 }
 
+/* 2. RÈGLE ADAPTATIVE : Dès qu'on a la place d'afficher 2 cartes ou plus à 180px */
+@media (min-width: 400px) {
+  .search-layout-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px; /* On repasse sur le gap d'origine */
+  }
+}
+
 /* Pour les éléments horizontaux (Events, Landmarks), on peut élargir le minimum */
 .search-layout-wrapper.horizontal {
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.search-layout-wrapper.horizontal {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+@media (min-width: 520px) {
+  .search-layout-wrapper.horizontal {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
 }
 
 .search-layout-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background: #fff;
   border: 1px solid #ddd;
+  max-width: 100%;
   border-radius: 8px;
   padding: 8px;
   transition: transform 0.2s;
@@ -103,5 +125,10 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.card-types {
+    white-space: unset;
+}
+
 
 </style>

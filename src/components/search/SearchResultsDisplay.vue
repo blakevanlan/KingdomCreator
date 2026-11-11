@@ -5,21 +5,22 @@
     <!-- Supply Cards -->
     <SearchLayout :items="searchGetCards('SupplyCard')" :title="$t('Kingdoms Cards')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
       :is-vertical="true" :generic-nb-columns="numberOfColumnsForSupplyCards" />
-      <div v-if="false">
+
     <!-- Events -->
     <SearchLayout :items="searchGetCards('Event')" :title="$t('Events')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
       :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
+
     <!-- Landmarks -->
     <SearchLayout :items="searchGetCards('Landmark')" :title="$t('Landmarks')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
       :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
-    <!-- Ways -->
-    <SearchLayout :items="searchGetCards('Way')" :title="$t('Ways')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
-      :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
     <!-- Projects -->
     <SearchLayout :items="searchGetCards('Project')" :title="$t('Projects')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
-      :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
-    <!--Boons -->
+          :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
+    <!-- Boons -->
     <SearchLayout :items="searchGetCards('Boon')" :title="$t('Boons')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
+      :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
+    <!-- Ways -->
+    <SearchLayout :items="searchGetCards('Way')" :title="$t('Ways')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
       :is-vertical="false" :generic-nb-columns="numberOfColumnsForAddons" />
     <!-- Allies -->
     <SearchLayout :items="searchGetCards('Ally')" :title="$t('Allies')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
@@ -33,9 +34,6 @@
     
     <SearchLayout :items="searchGetCards('OtherCard')" :title="$t('Other Cards')" :getCostName="getCostName" :getCardTypeNames="getCardTypeNames"
       :is-vertical="true" :generic-nb-columns="numberOfColumnsForSupplyCards" />
-
-        </div>
-
 
   </div>
 </template>
@@ -196,7 +194,6 @@ export default defineComponent({
       }
       if (SearchStore.selectedCostTypes.length > 0) {
         cards = cards.filter(card => {
-          console.log('Filtering cost for card', card.id, card.constructor.name);
           if (card instanceof SupplyCard || card instanceof OtherCard || isAddon(card)) {
             const cost = (card as SupplyCard | Addon).cost;
             if (!cost) return false;
@@ -282,6 +279,8 @@ export default defineComponent({
                 return card instanceof Ally;
               case 'Trait':
                 return card instanceof Trait;
+              case 'Boon':
+                return card instanceof Boon;
               case 'Prophecy':
                 return card instanceof Prophecy;
               case 'OtherCard':
@@ -344,7 +343,8 @@ h3 {
   border-radius: 8px;
   padding: 10px 6px 12px 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  width: 180px;
+  /* width: 180px; */
+  width: 100%;
   max-width: 100%;
 }
 
@@ -403,20 +403,5 @@ h3 {
 :deep(.static-card__img) {
   position: unset !important;
 }
-/*
-:deep(.card-overlay),
-:deep(.static-card__overlay) { 
-   right: unset !important;
-  top: 50% !important;
-  left: 50% !important;
-  bottom: unset !important;
-  transform: translate(0%, -250%) !important;
 
-  display: flex !important;
-  flex-direction: column;
-  align-items: center !important;
-  justify-content: center !important;
-  
-}
-  */
 </style>

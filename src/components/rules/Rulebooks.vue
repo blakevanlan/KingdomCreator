@@ -3,6 +3,29 @@
     <div class="rulebooks-description">
       {{ $t("rules_page_description") }}
     </div>
+    <div class="rulebooks-sort" role="group" :aria-label="$t('Sort')">
+      <span>{{ $t("Sort") }}:</span>
+      <label>
+        <input
+          type="radio"
+          name="rulebooks-sort"
+          value="alpha"
+          v-model="setsOrderType"
+          @change="handleSetOrderTypeChange('alpha')"
+        />
+        {{ $t("Alphabetical") }}
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="rulebooks-sort"
+          value="date"
+          v-model="setsOrderType"
+          @change="handleSetOrderTypeChange('date')"
+        />
+        {{ $t("Date") }}
+      </label>
+    </div>
     <GridLayout 
       :items="rulebooks"
       :number-of-columns="numberOfColumns"
@@ -22,11 +45,10 @@ import { defineComponent, computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 /* import Dominion Objects and type*/
-import { SetId, Set_To_Ignore_Rules, Sets_To_Ignore_Regroup } from '@/dominion/set-id';
+import { Sets_To_Ignore_Regroup } from '@/dominion/set-id';
 import { DominionSets } from '@/dominion/dominion-sets';
 import { Year_set } from '@/dominion/digital_cards/digital-cards-Illustrator';
-
-import { Language } from '@/i18n/language';
+import { hasRulebookVersions } from '@/dominion/rulebook-versions';
 
 /* import store  */
 import { usei18nStore } from '@/pinia/i18n-store';
@@ -55,6 +77,10 @@ export default defineComponent({
     const language = computed(() => {return i18nStore.language});
     const setsOrderType = ref(setsStore.setsOrderType)
 
+    const handleSetOrderTypeChange = (value: string) => {
+      setsStore.updateSetsOrderType(value);
+    };
+
     const numberOfColumns = computed(() => {
       if (WinSize.value < 600) return 1;
       if (WinSize.value < 1000) return 2;
@@ -68,21 +94,16 @@ export default defineComponent({
                     return settingsStore.ownedSets.indexOf(setId as never) != -1
                   } else { return true; }})
             .filter(setId => !Sets_To_Ignore_Regroup.has(setId))
-            .filter(setid => !Set_To_Ignore_Rules[Language.ENGLISH].has(setid))
+            .filter(setId => hasRulebookVersions(setId, language.value))
        //     .filter(setId => { return (HideMultipleVersionSets.indexOf(setId) == -1) })
        // const sortedSets = AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||0) - (Year_set.find(set => set.id === b)?.order ||0))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))
-        const listsets = sortedSets
-          .map(setid => {
-            return {
-              id: setid,
-              name: t(setid),
-            } as RulebookInterface
-          })
-          .filter((set) => !Set_To_Ignore_Rules[language.value as keyof typeof Set_To_Ignore_Rules].has(set.id as SetId));
-        return listsets;
+        return sortedSets.map(setid => ({
+          id: setid,
+          name: t(setid),
+        } as RulebookInterface));
       }
       )
 
@@ -90,9 +111,26 @@ export default defineComponent({
     return { 
       rulebooks,
       numberOfColumns,
+      setsOrderType,
+      handleSetOrderTypeChange,
       Shape
     };
   }
 });
 </script>
 
+<style scoped>
+.rulebooks-sort {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0 0 12px;
+}
+
+.rulebooks-sort label {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+}
+</style>

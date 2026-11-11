@@ -18,7 +18,7 @@
 /* import Vue, typescript */
 import { defineComponent, computed} from 'vue';
 import type { PropType } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 /* import Dominion Objects and type*/
 import { Kingdom } from '@/randomizer/kingdom';
@@ -41,7 +41,7 @@ export default defineComponent({
   },
   setup(props) {
     const route = useRoute();
-    const router = useRouter();
+    //const router = useRouter();
 
     const targetUrl = computed(() => {
       return handleClick();
@@ -50,6 +50,7 @@ export default defineComponent({
     const handleClick = () => {
       //const target = "lang=fr&supply=daimyo,familiar,fishmonger,goldmine,golem,herbalist,litter,rice,riverboat,vineyard&riverboat=scryingpool&events=credit,practice"
       //"lang=en&supply=crypt,devilsworkshop,figurine,flagship,fool,longship,pooka,shepherd,tools,tormentor&events=journey&traits=patient(flagship)"
+      //console.log("RandomizeLinkButton: handleClick called with kingdom:", props.kingdom);
       const redirectedKingdom = new Kingdom(0,
           new Supply(props.kingdom.supplyIds.map(Id => DominionSets.getSupplyCardById(Id)), 
               props.kingdom.baneCardId ? DominionSets.getSupplyCardById(props.kingdom.baneCardId) : null,

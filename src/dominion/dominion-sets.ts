@@ -227,96 +227,15 @@ export class DominionSets {
     }
     return cards;
   }
-}
 
-/*
-function mergeSets(set1: DominionSet, set2: DominionSet): DominionSet {
-  const mergedSet: DominionSet = {
-    ...set1, 
-    supplyCards: [...set1.supplyCards, ...set2.supplyCards].map((supplyCard1) => {
-      const mergedSupplyCard: SupplyCard = {
-        ...supplyCard1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: supplyCard1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia'),
-        isOfType: function (cardType: CardType): boolean { return true; }
-      };
-      return mergedSupplyCard;
-    }),
-    events: [...set1.events, ...set2.events].map((event1) => {
-      const mergedEvent: Event = {
-        ...event1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: event1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedEvent;
-    }),
-    landmarks: [...set1.landmarks, ...set2.landmarks].map((project1) => {
-      const mergedLandmark: Landmark = {
-        ...project1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: project1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedLandmark;
-    }),
-    projects: [...set1.projects, ...set2.projects].map((project1) => {
-      const mergedProject: Project = {
-        ...project1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: project1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedProject;
-    }),
-    boons: [...set1.boons, ...set2.boons].map((boon1) => {
-      const mergedBoon: Boon = {
-        ...boon1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: boon1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedBoon;
-    }),
-    ways: [...set1.ways, ...set2.ways].map((way1) => {
-      const mergedWay: Way = {
-        ...way1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: way1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedWay;
-    }),
-    allies: [...set1.allies, ...set2.allies].map((ally1) => {
-      const mergedAlly: Ally = {
-        ...ally1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: ally1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedAlly;
-    }),
-    traits: [...set1.traits, ...set2.traits].map((trait1) => {
-      const mergedTrait: Trait = {
-        ...trait1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: trait1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedTrait;
-    }),
-    prophecies: [...set1.prophecies, ...set2.prophecies].map((prophecy1) => {
-      const mergedProphecy: Prophecy = {
-        ...prophecy1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: prophecy1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia')
-      };
-      return mergedProphecy;
-    }),
-    otherCards: [...set1.otherCards, ...set2.otherCards].map((otherCard1) => {
-      const mergedOtherCard: OtherCard = {
-        ...otherCard1, 
-        setId: SetId.GUILDSCORNUCOPIA, 
-        id: otherCard1.id.replace('guilds', 'XX').replace('cornucopia', 'XX').replace('XX', 'guildscornucopia'),
-        isOfType: function (cardType: CardType): boolean { return true; }
-      };
-      return mergedOtherCard;
-    }),
-  };
-  return mergedSet;
-}
+  /*
+  public static getSetsWithTypeOfCard(typeOfCard: keyof DominionSet): DominionSet[] {
+    const allSets = DominionSets.getAllSets();
+    return allSets.filter(set => {
+      const cards = set[typeOfCard];
+      return Array.isArray(cards) && cards.length > 0;
+    });
+  }
   */
 
+}

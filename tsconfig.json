@@ -15,7 +15,7 @@
     //"declaration": true,
     //"rootDir": "./",
 
-    "baseUrl": ".",
+    //"baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },

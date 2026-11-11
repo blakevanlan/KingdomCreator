@@ -1,6 +1,6 @@
 import type { Locale } from 'vue-i18n';
 import { Language } from '@/i18n/language';
-import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, LANGUAGES_WITH_TRANSLATED_CARDS, SetId } from '@/dominion/set-id';
+import { MultipleVersionSets, IMAGES_MISSING_FROM_TRANSLATIONS, SetId, LANGUAGES_WITH_TRANSLATED_CARDS } from '@/dominion/set-id';
 import { DominionSets } from '@/dominion/dominion-sets';
 
 const IMAGE_PREFIX = "./img/cards";
@@ -88,7 +88,7 @@ export function getRulebookUrl(setId: string, language: Locale) {
       return `${RULE_PDF_PREFIX}.${language}/${setId}.pdf`;
     default:
       return `${RULE_PDF_PREFIX}/${setId}.pdf`;
-  }
+  } 
 }
 
 export function ChangeCss(selector: string, property: string, value: string) {
@@ -110,7 +110,7 @@ export function ChangeCss(selector: string, property: string, value: string) {
 export function incaseofImgerror(ev: any) {
   const imgsrc = ev.target.src;
   let First_try = false
-
+console.warn("/!\ incaseofImgerror imgsrc: " + imgsrc)
   const indextoInsert = imgsrc.lastIndexOf('/');
   // /img/cards.fr/baseset2*/artisan.jpg or 
   // /img/cards/baseset2*/basetset2_artisan.jpg

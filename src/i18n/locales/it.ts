@@ -8,7 +8,9 @@ import * as PageSets from './messages/it/page-sets.it.json';
 import * as PageBoxes from './messages/it/page-boxes.it.json';
 import * as PageSearch from './messages/it/page-search.it.json';
 import * as PageSettings from './messages/it/page-settings.it.json';
-
+import * as PageHistory from './messages/it/page-history.it.json';
+import * as PageWhatsNew from './messages/it/page-whatsnew.it.json';
+import * as GoogleSync from './messages/it/google-sync.it.json';
 
 //import * as Cards from './messages/it/cards.it.json';
 
@@ -42,6 +44,9 @@ export default {
   ...(PageBoxes as any).default,
   ...(PageSearch as any).default,
   ...(PageSettings as any).default,
+  ...(PageHistory as any).default,
+  ...(PageWhatsNew as any).default,
+  ...(GoogleSync as any).default,
 /*
   ...(Cards as any).default,
 */

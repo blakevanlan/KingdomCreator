@@ -8,7 +8,15 @@
     <transition name="slow-fade">
       <GridLayout :items="combinedItems" :number-of-columns="numberOfColumns" :is-vertical="false">
           <template v-slot:default="slotProps">
-            <FlippingCard :card="slotProps.item" :is-vertical="false" />
+            <FlippingCard :card="slotProps.item" :is-vertical="false">
+              <template v-slot:highlight-content>
+                <div v-if="slotProps.item"
+                  class="standard-button standard-button--is-primary standard-button--light-border"
+                  @click.stop="handleSpecify(slotProps.item)">
+                  Specify
+                </div>
+              </template>
+            </FlippingCard>
           </template>
         </GridLayout> 
     </transition>
@@ -23,6 +31,10 @@ import { defineComponent, computed, ref } from 'vue';
 /* import store  */
 import { useRandomizerStore } from '@/pinia/randomizer-store';
 import { useWindowStore } from '@/pinia/window-store';
+
+/* import Dominion Objects and type*/
+import { Ally } from '@/dominion/ally';
+import { Prophecy } from '@/dominion/prophecy';
 
 /* import Components */
 import AddonTitle from '../AddonTitle.vue';
@@ -55,14 +67,23 @@ export default defineComponent({
       return isEnlarged.value ? 1 : windowWidth.value > 525 ? 3 : 2;
     });
 
+    const handleSpecify = (card: any) => {
+      if (card instanceof Ally) {
+        randomizerStore.UPDATE_SPECIFYING_REPLACEMENT_ADDON(card);
+      } else if (card instanceof Prophecy) {
+        randomizerStore.UPDATE_SPECIFYING_REPLACEMENT_ADDON(card);
+      }
+    };
+
     return {
       ally,
       prophecy,
       combinedItems,
-      numberOfColumns
-    }
+      numberOfColumns,
+      handleSpecify
+    };
   }
-  })
+});
 </script>
 
 <style scoped>

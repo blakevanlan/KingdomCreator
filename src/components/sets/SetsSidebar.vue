@@ -100,16 +100,16 @@ import { DominionKingdoms } from '@/dominion/dominion-kingdoms';
 import { MultipleVersionSets, HideMultipleVersionSets } from '@/dominion/set-id';
 import { SetId, Set_To_Ignore_Kingdoms } from '@/dominion/set-id';
 import { Year_set } from '@/dominion/digital_cards/digital-cards-Illustrator';
+import { EventTracker, EventType } from '@/analytics/follow-activity';
 
 import { SortOption } from '@/settings/settings';
+import { load as Yaml_Parsing } from 'js-yaml';
 
 /* import store  */
 import { useSetsStore } from '@/pinia/sets-store';
 import { useSettingsStore } from '@/pinia/settings-store';
 
 /* import Components */
-
-declare function Yaml_Parsing(file_content: string): any;
 
 export default defineComponent({
   name: 'SetsSidebar',
@@ -127,6 +127,7 @@ export default defineComponent({
     let show_PersonalFileSelection_Input = ref(false);
 
     const kingdomsets = computed(() => { 
+        const _trigger = setsStore.needRefresh;
         const AllSetIdsToConsiderWithDuplicates = DominionKingdoms.getAllSets()
             .filter(setId => {
               if (settingsStore.isUsingOnlyOwnedsets)
@@ -146,6 +147,8 @@ export default defineComponent({
         const sortedSets = setsOrderType.value === 'date'   // Check if sortType has a value (not undefined)
             ? AllSetIdsToConsider.sort((a, b) => (Year_set.find(set => set.id === a)?.order ||1000) - (Year_set.find(set => set.id === b)?.order ||1000))
             : AllSetIdsToConsider.sort((a, b) => t(a).localeCompare(t(b)))
+
+        //console.log(sortedSets)
         return sortedSets;
       }
       );
@@ -171,12 +174,39 @@ export default defineComponent({
         let reader = new FileReader();
         reader.onload = (e) => {
           let kingdoms_object = Yaml_Parsing((reader.result as string));
-          let kingdoms = Object.keys(kingdoms_object).map((key) => { return kingdoms_object[key] })
-          let sets = kingdoms[0].map((json: any) => DominionKingdom.fromJson(json));
-          DominionKingdoms.kingdoms[SetId.PERSONAL] = sets;
-          /* to  request update of kigndom-list */
-          setsStore.updateSelectedSet(SetId.TO_FORCE_RELOAD); 
+          let kingdomsArray = (kingdoms_object as any).kingdoms && (kingdoms_object as any).kingdoms;
+          if (!kingdomsArray || !Array.isArray(kingdomsArray)) {
+            throw new Error("Le fichier YAML ne contient pas une liste valide sous la clé 'kingdoms'.");
+          }
+          let sets = kingdomsArray.map((json: any) => DominionKingdom.fromJson(json))
+          // Gestion particulière des traits (adaptée pour un tableau plat)
+          sets.forEach((kingdom: DominionKingdom) => {
+          if (kingdom.traitIds && Array.isArray(kingdom.traitIds)) {
+          kingdom.traitSupplyIds.length = 0;
+          
+          kingdom.traitIds.forEach((trait: any, index: number) => {
+            if (typeof trait !== 'string') {
+              console.error(`Trait at index ${index} is not a string:`, trait);
+              return;
+            }
+            
+            // Séparation du trait et de sa cible (ex: "Inheritance->Estate")
+            const traitParts = trait.split('->');
+            if (traitParts.length === 2) {
+              kingdom.traitIds[index] = traitParts[0]; // On garde juste le nom du trait
+              kingdom.traitSupplyIds.push(traitParts[1]); // On extrait la cible affectée
+            }
+          });
+        }
+      });
+          DominionKingdoms.kingdoms[SetId.PERSONAL] = sets;         
+          /* to request update of kingdom-list:
+             DominionKingdoms.kingdoms is a static non-reactive object,
+             so we use needRefresh to force computed properties to re-evaluate */
+          //setsStore.updateSelectedSet(SetId.TO_FORCE_RELOAD);
+          setsStore.updateNeedRefresh();
           setsStore.updateSelectedSet(SetId.PERSONAL); 
+  
         };
         reader.readAsText(file);
         file_name = file.name;
@@ -196,11 +226,11 @@ export default defineComponent({
       ];
 
     const handleSelectionChange = (value: SetId) => {
-      // console.log("handleSelectionChange", value);
       ((value as string).toLowerCase() == (SetId.PERSONAL as string))
         ? show_PersonalFileSelection_Input.value = true
         : show_PersonalFileSelection_Input.value = false;
       setsStore.updateSelectedSet(value);
+      EventTracker.trackEvent(EventType.SET_VIEW, { setId: value });
     };
 
     const handleSortChange = (value: SortOption) => {

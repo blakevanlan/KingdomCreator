@@ -75,7 +75,9 @@ header
   display: flex
   flex-direction: column
   justify-content: space-between
-  width: 35%;
+  /* Retirez width: 35% */
+  flex-shrink: 0 /* Empêche le titre de se faire écraser */
+  margin-right: 20px /* Assure un espace minimum avec le menu */
 
 .title
   font-size: 30px

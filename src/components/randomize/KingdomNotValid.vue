@@ -242,8 +242,9 @@ export default defineComponent({
         else if (kingdom.value.supply.traitsSupply.length > kingdom.value.traits.length)
           invalidSpecialCardRules.push(t("EachTraitSupply_has_Trait"))
         for (const traitSupplyId of kingdom.value.supply.traitsSupply) {
-          if (!((traitSupplyId as SupplyCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) || 
-                (traitSupplyId as SupplyCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_2) ))
+          const cleanCard = SupplyCard.from(traitSupplyId);
+          if (!((cleanCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_1) ||
+              (cleanCard).isOfType(TRAITS_CARDTYPE_POSSIBILITY_2)))
             invalidSpecialCardRules.push(t("invalid_trait_type"));
         }
       }

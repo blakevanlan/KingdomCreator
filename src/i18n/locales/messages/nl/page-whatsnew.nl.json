@@ -1,0 +1,19 @@
+{
+  "news_modal_title": "Wat is er nieuw?",
+  "news_modal_intro": "Ontdek de belangrijkste vernieuwingen in deze versie.",
+  "news_modal_close": "Sluit het venster met nieuwtjes",
+  "news_modal_settings_title": "Instellingen, uitbreidingen en generatie",
+  "news_modal_settings_description": "Beheer je eigen uitbreidingen en kies welke sets worden weergegeven.",
+  "news_modal_game_setup_title": "Spelconfiguratie",
+  "news_modal_game_setup_description": "Pas het aantal Koninkrijkskaarten en extra kaarten voor een spel aan.",
+  "news_modal_constraints_title": "Generatiebeperkingen",
+  "news_modal_constraints_description": "Stel minimum- en maximumaantallen kaarten per uitbreiding in of sluit specifieke kaarten uit bij het genereren.",
+  "news_modal_cloud_title": "Google Cloud-synchronisatie",
+  "news_modal_cloud_description": "Bewaar je configuratie en gegenereerde spellen in Google Drive, zodat ze op al je apparaten beschikbaar zijn.",
+  "news_modal_history_title": "Spelgeschiedenis",
+  "news_modal_history_description": "Houd een gedetailleerde geschiedenis bij van gegenereerde en gespeelde spellen.",
+  "news_modal_generation_title": "Verbeterde generatie en vervanging",
+  "news_modal_generation_description": "Vervang specifieke Koninkrijkskaarten en extra kaarten met een gerichtere, geoptimaliseerde werkwijze.",
+  "news_modal_confirm": "Begrepen!",
+  "news_modal_open_button": "Ontdek het nieuws"
+}

@@ -1,0 +1,332 @@
+rulebooks:
+  baseset:
+    en:
+      - year: 2008
+        url: https://wiki.dominionstrategy.com/images/6/61/Dominion_(base_set)~Rulebook~English~2008.pdf
+    fr:
+      - year: 2008
+        url: https://wiki.dominionstrategy.com/images/c/c7/Dominion_(base_set)~Rulebook~French~2008.pdf
+    de:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/a/a7/Dominion_(base_set)~Rulebook~German~2013.pdf
+    pl:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/0/05/Dominion_(base_set)~Rulebook~Polish~2009.pdf
+      - year: 2015
+        url: https://wiki.dominionstrategy.com/images/c/c6/Dominion_(base_set)~Rulebook~Polish~2015.pdf
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/1/19/Dominion_(base_set)~Rulebook~Polish~2016.pdf
+    es:
+      - year: 2008
+        url: https://wiki.dominionstrategy.com/images/0/07/Dominion_(base_set)~Rulebook~Spanish~2008.pdf
+  baseset2:
+    en:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/5/56/Dominion_(base_set)~Rulebook~English~2016.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/d/d6/Dominion_(base_set)~Rulebook~English~2021.pdf
+    de:
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/9/91/Dominion_(base_set)~Rulebook~German~2019.pdf
+    pl:
+      - year: 2018
+        url: https://wiki.dominionstrategy.com/images/8/81/Dominion_(base_set)~Rulebook~Polish~2018.pdf
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/e/ed/Dominion_(base_set)~Rulebook~Polish~2022.pdf
+    nl:
+      - year: 2008
+        url: https://wiki.dominionstrategy.com/images/9/9e/Dominion_(base_set)~Rulebook~Dutch~2016.pdf
+  intrigue:
+    en:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/3/35/Intrigue~Rulebook~English~2009.pdf
+    fr:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/7/73/Intrigue~Rulebook~French~2009.pdf
+    de:
+      - year: 2014
+        url: https://wiki.dominionstrategy.com/images/3/3b/Intrigue~Rulebook~German~2014.pdf
+    pl:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/2/29/Intrigue~Rulebook~Polish~2010.pdf
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/d/db/Intrigue~Rulebook~Polish~2016.pdf
+    es:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/2/26/Intrigue~Rulebook~Spanish~2009.pdf
+  intrigue2:
+    en:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/8/83/Intrigue~Rulebook~English~2016.pdf
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/2/2d/Intrigue~Rulebook~English~2019.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/5/56/Intrigue~Rulebook~English~2021.pdf
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/4/48/Intrigue~Rulebook~English~2022.pdf
+    de:
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/e/e4/Intrigue~Rulebook~German~2021.pdf
+    nl:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/9/9e/Intrigue~Rulebook~Dutch~2016.pdf
+  seaside:
+    en:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/8/8c/Seaside~Rulebook~English~2009.pdf
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/f/f1/Seaside~Rulebook~English~2017.pdf
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/5/5f/Seaside~Rulebook~English~2019.pdf
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/6/61/Seaside~Rulebook~English~2020.pdf
+    fr:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/b/bf/Seaside~Rulebook~French~2013.pdf
+    de:
+      - year: 2014
+        url: https://wiki.dominionstrategy.com/images/b/be/Seaside~Rulebook~German~2014.pdf
+    pl:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/9/91/Seaside~Rulebook~Polish~2016.pdf
+    es:
+      - year: 2009
+        url: https://wiki.dominionstrategy.com/images/4/4d/Seaside~Rulebook~Spanish~2009.pdf
+  seaside2:
+    en:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/9/98/Seaside~Rulebook~English~2022.pdf
+      - year: 2026
+        url: https://wiki.dominionstrategy.com/images/c/cc/Seaside~Rulebook~English~2026.pdf
+    de:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/c/cb/Seaside~Rulebook~German~2022.pdf
+    pl:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/5/50/Seaside~Rulebook~Polish~2022.pdf
+  alchemy:
+    en:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/e/ea/Alchemy~Rulebook~English~2010.pdf
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/9/9d/Alchemy~Rulebook~English~2011.pdf
+      - year: 2018
+        url: https://wiki.dominionstrategy.com/images/c/c3/Alchemy~Rulebook~English~2018.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/7/76/Alchemy~Rulebook~English~2021.pdf
+    fr:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/8/8f/Alchemy~Rulebook~French~2010.pdf
+    de:
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/7/7e/Alchemy~Rulebook~German~2019.pdf
+    es:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/6/63/Alchemy~Rulebook~Spanish~2010.pdf
+  prosperity:
+    en:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/d/d7/Prosperity~Rulebook~English~2010.pdf
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/f/fc/Prosperity~Rulebook~English~2017.pdf
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/c/cb/Prosperity~Rulebook~English~2019.pdf
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/c/ce/Prosperity~Rulebook~English~2020.pdf
+    fr:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/0/0f/Prosperity~Rulebook~French~2013.pdf
+    de:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/7/75/Prosperity~Rulebook~German~2016.pdf
+    pl:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/8/82/Prosperity~Rulebook~Polish~2016.pdf
+    es:
+      - year: 2010
+        url: https://wiki.dominionstrategy.com/images/c/c1/Prosperity~Rulebook~Spanish~2010.pdf
+  prosperity2:
+    en:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/3/3c/Prosperity~Rulebook~English~2022.pdf
+    de:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/8/82/Prosperity~Rulebook~German~2022.pdf
+    pl:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/0/0c/Prosperity~Rulebook~Polish~2022.pdf
+  cornucopia:
+    en:
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/5/59/Cornucopia~Rulebook~English~2011.pdf
+    fr:
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/3/35/Cornucopia~Rulebook~French~2011.pdf
+    de:
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/4/45/Cornucopia~Rulebook~German~2019.pdf
+    pl:
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/8/85/Cornucopia~Rulebook~Polish~2011.pdf
+    es:
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/e/ef/Cornucopia~Rulebook~Spanish~2011.pdf
+  guilds:
+    en:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/7/70/Guilds~Rulebook~English~2013.pdf
+    fr:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/d/da/Guilds~Rulebook~French~2013.pdf
+    de:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/3/32/Guilds~Rulebook~German~2013.pdf
+  guildscornucopia:
+    en:
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/1/1c/Cornucopia_%26_Guilds~Rulebook~English~2017.pdf
+  guildscornucopia2:
+    en:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/c/c8/Cornucopia_%26_Guilds~Rulebook~English~2024.pdf
+  hinterlands:
+    en:
+      - year: 2011
+        url: https://wiki.dominionstrategy.com/images/8/89/Hinterlands~Rulebook~English~2011.pdf
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/3/33/Hinterlands~Rulebook~English~2016.pdf
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/3/3a/Hinterlands~Rulebook~English~2020.pdf
+    fr:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/6/64/Hinterlands~Rulebook~French~2013.pdf
+    de:
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/d/db/Hinterlands~Rulebook~German~2019.pdf
+    es:
+      - year: 2012
+        url: https://wiki.dominionstrategy.com/images/1/11/Hinterlands~Rulebook~Spanish~2012.pdf
+  hinterlands2:
+    en:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/1/16/Hinterlands~Rulebook~English~2022.pdf
+    de:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/9/9e/Hinterlands~Rulebook~German~2022.pdf
+    pl:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/1/10/Hinterlands~Rulebook~Polish~2024.pdf
+  darkages:
+    en:
+      - year: 2012
+        url: https://wiki.dominionstrategy.com/images/1/18/Dark_Ages~Rulebook~English~2012.pdf
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/e/e5/Dark_Ages~Rulebook~English~2017.pdf
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/3/35/Dark_Ages~Rulebook~English~2020.pdf
+    fr:
+      - year: 2013
+        url: https://wiki.dominionstrategy.com/images/b/be/Dark_Ages~Rulebook~French~2013.pdf
+    de:
+      - year: 2019
+        url: https://wiki.dominionstrategy.com/images/9/93/Dark_Ages~Rulebook~German~2019.pdf
+    es:
+      - year: 2014
+        url: https://wiki.dominionstrategy.com/images/b/b9/Dark_Ages~Rulebook~Spanish~2014.pdf
+  adventures:
+    en:
+      - year: 2015
+        url: https://wiki.dominionstrategy.com/images/0/0e/Adventures~Rulebook~English~2015.pdf
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/2/2f/Adventures~Rulebook~English~2017.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/9/92/Adventures~Rulebook~English~2021.pdf
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/2/28/Adventures~Rulebook~English~2022.pdf
+    fr:
+      - year: 2015
+        url: https://wiki.dominionstrategy.com/images/0/0d/Adventures~Rulebook~French~2015.pdf
+    de:
+      - year: 2015
+        url: https://wiki.dominionstrategy.com/images/3/31/Adventures~Rulebook~German~2015.pdf
+    pl:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/c/c1/Adventures~Rulebook~Polish~2024.pdf
+  empires:
+    en:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/a/a9/Empires~Rulebook~English~2016.pdf
+      - year: 2018
+        url: https://wiki.dominionstrategy.com/images/a/af/Empires~Rulebook~English~2018.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/9/9d/Empires~Rulebook~English~2021.pdf
+    de:
+      - year: 2016
+        url: https://wiki.dominionstrategy.com/images/9/9f/Empires~Rulebook~German~2016.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/d/dc/Empires~Rulebook~German~2021.pdf
+    pl:
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/e/ed/Empires~Rulebook~Polish~2017.pdf
+  nocturne:
+    en:
+      - year: 2017
+        url: https://wiki.dominionstrategy.com/images/b/b3/Nocturne~Rulebook~English~2017.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/f/fd/Nocturne~Rulebook~English~2021.pdf
+    de:
+      - year: 2018
+        url: https://wiki.dominionstrategy.com/images/f/f1/Nocturne~Rulebook~German~2018.pdf
+    pl:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/3/37/Nocturne~Rulebook~Polish~2022.pdf
+  renaissance:
+    en:
+      - year: 2018
+        url: https://wiki.dominionstrategy.com/images/3/3e/Renaissance~Rulebook~English~2018.pdf
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/1/10/Renaissance~Rulebook~English~2021.pdf
+    de:
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/b/b4/Renaissance~Rulebook~German~2021.pdf
+    pl:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/3/36/Renaissance~Rulebook~Polish~2024.pdf
+  menagerie:
+    en:
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/4/47/Menagerie_%28expansion%29~Rulebook~English~2020.pdf
+      - year: 2025
+        url: https://wiki.dominionstrategy.com/images/b/bd/Menagerie_%28expansion%29~Rulebook~English~2025.pdf
+    de:
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/1/19/Menagerie_%28expansion%29~Rulebook~German~2020.pdf
+    nl:
+      - year: 2020
+        url: https://wiki.dominionstrategy.com/images/c/c3/Menagerie_%28expansion%29~Rulebook~Dutch~2020.pdf
+  allies:
+    en:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/1/1c/Allies~Rulebook~English~2022.pdf
+      - year: 2023
+        url: https://wiki.dominionstrategy.com/images/7/7a/Allies~Rulebook~English~2023.pdf
+    de:
+      - year: 2021
+        url: https://wiki.dominionstrategy.com/images/6/6b/Allies~Rulebook~German~2021.pdf
+  plunder:
+    en:
+      - year: 2022
+        url: https://wiki.dominionstrategy.com/images/7/70/Plunder_%28expansion%29~Rulebook~English~2022.pdf
+    de:
+      - year: 2023
+        url: https://wiki.dominionstrategy.com/images/5/50/Plunder_%28expansion%29~Rulebook~German~2023.pdf
+    pl:
+      - year: 2023
+        url: https://wiki.dominionstrategy.com/images/9/9b/Plunder_%28expansion%29~Rulebook~Polish~2023.pdf
+  risingsun:
+    en:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/b/b6/Rising_Sun~Rulebook~English~2024.pdf
+    de:
+      - year: 2024
+        url: https://wiki.dominionstrategy.com/images/5/5f/Rising_Sun~Rulebook~German~2024.pdf

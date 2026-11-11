@@ -153,7 +153,48 @@
   padding-bottom: 2px;
   margin-bottom: 2px;
   display: flex;
+  
   gap: 1rem;
-  align-items:flex-end;
+  align-items: flex-end;
 }
+
+.google-sync-message {
+  margin-top: 10px;
+  color: #555;
+  font-family: secondary-ont;
+  font-weight: 300;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .ownnedset-constraint-container {
+    gap: 0.15rem;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Slightly reduced from 24px but readable, or keep 20px 
+  .setlabel-settings {
+    font-size: 24px; 
+  }
+  */
+  .ownnedset-constraint-container .checkbox,
+  .ownnedset-constraint-container .sidebar-content-option {
+    margin-left: 2px !important;
+    padding: 0px !important;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+  .ownnedset-constraint-container input[type="radio"],
+  .ownnedset-constraint-container input[type="checkbox"] {
+    margin-left: 0px !important;
+    margin-right: 2px !important;
+  }
+}
+
 

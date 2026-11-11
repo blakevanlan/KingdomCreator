@@ -9,23 +9,26 @@ import { CardType } from '@/dominion/card-type';
 import { RandomizerOptionsBuilder } from '@/randomizer/randomizer-options';
 import { Cards } from '@/utils/cards';
 import { Kingdom } from '@/randomizer/kingdom';
+import { Supply } from '@/randomizer/supply';
 import { DominionSets } from '@/dominion/dominion-sets';
 import { SupplyCard } from '@/dominion/supply-card';
 import type { Addon, Addons } from '@/dominion/addon';
+import { getAddonTypeFromId, getAllowedAddonTypes } from '@/dominion/addon';
 
 import { SetId } from '@/dominion/set-id';
 import { CostType } from '@/dominion/cost-type';
 import { Boon } from '@/dominion/boon';
 import { Ally } from '@/dominion/ally';
+import { Prophecy } from '@/dominion/prophecy';
 import { Randomizer } from '@/randomizer/randomizer';
 
 import { EventTracker } from '@/analytics/follow-activity';
 import { EventType } from '@/analytics/follow-activity';
 import type { randomizerStoreState } from './randomizer-actions';
 import * as rA from './randomizer-actions'; // rA for randomizerActions
-import { NUM_CARDS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_IN_KINGDOM, MAX_ADDONS_OF_TYPE } from '@/settings/Settings-value';
+import { NUM_CARDS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_IN_KINGDOM, MAX_ADDONS_OF_TYPE, RANDOMIZATION_CONSTRAINT_USE } from '@/settings/Settings-value';
 import { Addons_TYPE } from '@/dominion/addon';
-
+import { useSettingsStore } from './settings-store';
 
 const MIN_SETS_FOR_PRIORITIZE_OPTION = rA.MIN_SETS_FOR_PRIORITIZE_OPTION;
 const MIN_CARDS_FOR_DISTRIBUTE_COST = rA.MIN_CARDS_FOR_DISTRIBUTE_COST;
@@ -44,6 +47,7 @@ export const useRandomizerStore = defineStore(
     selection: Selection.empty(),
     settings: loadSettings(),
     specifyingReplacementSupplyCard: (null as any) as SupplyCard,
+    specifyingReplacementAddon: (null as any) as Addon,
     isFullScreen: false,
   }),
   persist: [{
@@ -77,6 +81,17 @@ export const useRandomizerStore = defineStore(
         state.kingdom.projects as Addon[],
         state.kingdom.ways as Addon[],
         state.kingdom.traits as Addon[]
+      );
+    },
+    extendedAddons: (state: randomizerStoreState) => {
+      return (state.kingdom.events as Addon[]).concat(
+        state.kingdom.landmarks as Addon[],
+        state.kingdom.projects as Addon[],
+        state.kingdom.ways as Addon[],
+        state.kingdom.traits as Addon[],
+        state.kingdom.ally ? [state.kingdom.ally] : [] as Addon[],
+        state.kingdom.prophecy ? [state.kingdom.prophecy] : [] as Addon[],
+        state.kingdom.boons as Addon[]
       );
     },
     canHaveEvents: (state: randomizerStoreState) => {
@@ -136,14 +151,32 @@ export const useRandomizerStore = defineStore(
     }
   },
   actions: {
-    UPDATE_KINGDOM(kingdom: Kingdom) {
-      console.log(new Date().toLocaleTimeString(), "UPDATE_KINGDOM", kingdom)
-      EventTracker.trackEvent(EventType.UPDATE_KINGDOM, kingdom)
+    UPDATE_KINGDOM(kingdom: Kingdom, source = 'edit') {
+     //(new Date().toLocaleTimeString(), "UPDATE_KINGDOM", kingdom)
       this.kingdom = kingdom;
+      EventTracker.trackEvent(EventType.UPDATE_KINGDOM, kingdom);
+      const settingsStore = useSettingsStore();
+      EventTracker.trackKingdomActivity(kingdom, source, {
+        selectedSets: [...this.settings.selectedSets],
+        sortOption: this.settings.sortOption,
+        randomizerSettings: { ...this.settings.randomizerSettings },
+        appSettings: {
+          isUsingCustomDesksize: settingsStore.isUsingCustomDesksize,
+          KingdomNb: settingsStore.KingdomNb,
+          AddonsNb: settingsStore.AddonsNb,
+          forceAddonsUse: settingsStore.forceAddonsUse,
+          addonMax: { ...settingsStore.addonMax },
+          isUsingOnlyOwnedsets: settingsStore.isUsingOnlyOwnedsets,
+          ownedSets: [...settingsStore.ownedSets],
+          useConstraintOnRandomization: settingsStore.useConstraintOnRandomization,
+          setConstraints: settingsStore.setConstraints,
+        },
+      });
     },
     CLEAR_SELECTION() {
       this.selection = Selection.empty();
       this.specifyingReplacementSupplyCard = (null as any) as SupplyCard;
+      this.specifyingReplacementAddon = (null as any) as Addon;
     },
     UPDATE_SELECTION(selection: SelectionParams) {
       this.selection = this.selection.withParams(selection);
@@ -158,26 +191,33 @@ export const useRandomizerStore = defineStore(
     CLEAR_SPECIFYING_REPLACEMENT_SUPPLY_CARD() {
       this.specifyingReplacementSupplyCard = (null as any) as SupplyCard;
     },
+    UPDATE_SPECIFYING_REPLACEMENT_ADDON(addon: Addon) {
+      this.specifyingReplacementAddon = addon;
+    },
+    CLEAR_SPECIFYING_REPLACEMENT_ADDON() {
+      this.specifyingReplacementAddon = (null as any) as Addon;
+    },
     UPDATE_FULLSCREEN_RANDOMIZER(isFullScreenState: boolean) {
       this.isFullScreen = isFullScreenState;
     },
-    LOAD_INITIAL_KINGDOM(initialKingdom: Kingdom | null) {
-      console.log(new Date().toLocaleTimeString(), 'LOAD_INITIAL_KINGDOM ', initialKingdom)
+    LOAD_INITIAL_KINGDOM(initialKingdom: Kingdom | null, source = 'shared_url') {
+      //console.log(new Date().toLocaleTimeString(), 'LOAD_INITIAL_KINGDOM ', initialKingdom)
+      //EventTracker.trackEvent(EventType.LOAD_INITIAL_KINGDOM);
       if (initialKingdom) {
-        console.log("kingdom is valid : ", NUM_CARDS_IN_KINGDOM())
-
         // Use the kingdom as-is if it contains the correct number of supply cards.
         //if (initialKingdom.supply.supplyCards.length == 10) {
         if (initialKingdom.supply.supplyCards.length == NUM_CARDS_IN_KINGDOM()
             && initialKingdom.isKingdomValidForAddons()) {
-          console.log("kingdom is valid : ", NUM_CARDS_IN_KINGDOM())
-          EventTracker.trackEvent(EventType.LOAD_FULL_KINGDOM_FROM_URL);
-          this.UPDATE_KINGDOM(initialKingdom);
+          //console.log("kingdom is valid : ", NUM_CARDS_IN_KINGDOM())
+          if (source !== 'play_again') {
+            EventTracker.trackEvent(EventType.LOAD_FULL_KINGDOM_FROM_URL, initialKingdom);
+          }
+          this.UPDATE_KINGDOM(initialKingdom, source);
           return;
         }
-        if (initialKingdom.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) {
-          console.log ("kingdom is not valid ", initialKingdom.supply.supplyCards.length, NUM_CARDS_IN_KINGDOM())
-        }
+        // if (initialKingdom.supply.supplyCards.length != NUM_CARDS_IN_KINGDOM()) {
+        //   console.log ("kingdom is not valid ", initialKingdom.supply.supplyCards.length, NUM_CARDS_IN_KINGDOM())
+        // }
         if (!initialKingdom.isKingdomValidForAddons()) {
           console.log ("kingdom is not valid for addons", initialKingdom.events.map(e => e.id), 
             initialKingdom.landmarks.map(l => l.id), initialKingdom.projects.map(p => p.id), 
@@ -193,24 +233,26 @@ export const useRandomizerStore = defineStore(
             .setIncludeCardIds(Cards.extractIds(initialKingdom.supply.supplyCards))
             .build();
         //console.log(options)
-        const supply = Randomizer.createSupplySafe(options);
+        const supply = Randomizer.createSupplySafe(options, rA.randomizationTrackingData(this));
         //console.log(supply)
         
         let addonsForAdjustement ={ 
-          events: initialKingdom.events, landmarks: initialKingdom.landmarks, 
-          projects: initialKingdom.projects, ways: initialKingdom.ways, 
-          allies: [], prophecies: [], traits: initialKingdom.traits
+          events: initialKingdom.events ?? [], landmarks: initialKingdom.landmarks ?? [], 
+          projects: initialKingdom.projects ?? [], ways: initialKingdom.ways ?? [], 
+          allies: [], prophecies: [], traits: initialKingdom.traits ?? []
         } as unknown as Addons;
-
+        //console.log("addonsForAdjustement", addonsForAdjustement)
         const enforceAndFillAddons = (actualAddons: Addons) : Addons => {
-
           // enforce per-type caps
-          actualAddons.events = actualAddons.events.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT));
-          actualAddons.landmarks = actualAddons.landmarks.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK));
-          actualAddons.projects = actualAddons.projects.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT));
-          actualAddons.ways = actualAddons.ways.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY));
-          actualAddons.traits = actualAddons.traits.slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT));
-
+          //console.log("enforceAndFillAddons", actualAddons)
+          actualAddons.events = (actualAddons.events ?? []).slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.EVENT));
+          actualAddons.landmarks = (actualAddons.landmarks ?? []).slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.LANDMARK));
+          actualAddons.projects = (actualAddons.projects ?? []).slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.PROJECT));
+          actualAddons.ways = (actualAddons.ways ?? []).slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.WAY));
+          actualAddons.traits = (actualAddons.traits ?? []).slice(0, MAX_ADDONS_OF_TYPE(Addons_TYPE.TRAIT));
+          actualAddons.allies = actualAddons.allies ?? [];
+          actualAddons.prophecies = actualAddons.prophecies ?? [];
+          
           // enforce total max
           let maxAddonsInKingdom = MAX_ADDONS_IN_KINGDOM();
           let total = actualAddons.events.length + actualAddons.landmarks.length + actualAddons.projects.length + actualAddons.ways.length + actualAddons.traits.length + actualAddons.allies.length + actualAddons.prophecies.length;
@@ -287,7 +329,9 @@ export const useRandomizerStore = defineStore(
           return actualAddons;
         };
         if (supply) {
-          EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
+          if (source !== 'play_again') {
+            EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
+          }
           let kingdom
           if (initialKingdom.events.length + initialKingdom.landmarks.length +
             initialKingdom.projects.length + initialKingdom.ways.length +
@@ -329,7 +373,7 @@ export const useRandomizerStore = defineStore(
             //console.log("work needed 2", addonsForAdjustement)
             addonsForAdjustement = enforceAndFillAddons(addonsForAdjustement);
             const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(supply, addonsForAdjustement, initialKingdom );
-console.log("adjustedSupplyCards", addonsForAdjustement)
+            //console.log("adjustedSupplyCards", addonsForAdjustement)
             kingdom = new Kingdom(
               Date.now(), adjustedSupplyCards, addonsForAdjustement.events, addonsForAdjustement.landmarks,
               addonsForAdjustement.projects, addonsForAdjustement.ways, initialKingdom.boons,
@@ -337,7 +381,10 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
           }
           //console.log("LOAD_PARTIAL_KINGDOM_FROM_URL", kingdom)
           this.CLEAR_SELECTION();
-          this.UPDATE_KINGDOM(kingdom);
+          this.UPDATE_KINGDOM(
+            kingdom,
+            source === 'play_again' ? 'play_again' : 'shared_url_partial'
+          );
           return;
         } else {
           EventTracker.trackError(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
@@ -346,11 +393,11 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
       }
       // Do a full randomize since we failed to retrieve a kingdom from the URL.
       // clean selection in 
-      EventTracker.trackEvent(EventType.RANDOMIZE);
+      EventTracker.trackEvent(EventType.LOAD_INITIAL_RANDOMIZE, rA.randomizationTrackingData(this));
       this.RANDOMIZE();
     },
     RANDOMIZE() {
-      console.log(new Date().toLocaleTimeString(), 'RANDOMIZE')
+      //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE')
       //console.log(this.kingdom)
       if (this.selection.isEmpty()) {
         this.RANDOMIZE_FULL_KINGDOM();
@@ -363,6 +410,7 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
         //console.log("RANDOMIZE SupplyCards selected", selectedSupplyCards)
         newSupply = rA.randomizeSelectedCards(this) || newSupply
       } else { 
+        EventTracker.trackEvent(EventType.RANDOMIZE, rA.randomizationTrackingData(this));
         //console.log("RANDOMIZE no SupplyCards selected", selectedSupplyCards)
       }
 
@@ -403,21 +451,21 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
 
       const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(newSupply, 
             addonsForAdjustement, this.kingdom );
-      EventTracker.trackEvent(EventType.RANDOMIZE);
       const kingdom = new Kingdom(
         this.kingdom.id, adjustedSupplyCards, newEvents, newLandmarks, newProjects,
         newWays, newBoons, newAlly, newProphecy, newTraits, this.kingdom.metadata);
       this.CLEAR_SELECTION();
-      this.UPDATE_KINGDOM(kingdom);
+      this.UPDATE_KINGDOM(kingdom, 'random');
     },
 
     RANDOMIZE_FULL_KINGDOM() {
-      console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_FULL_KINGDOM')
-      EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM);
+      //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_FULL_KINGDOM')
+      const trackingData = rA.randomizationTrackingData(this);
+      EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM, trackingData);
 
       const setIds = rA.getSelectedSetIds(this);
       if (!setIds.length) {
-        EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM);
+        EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM, trackingData);
         console.log("Error : RANDOMIZE_FULL_KINGDOM - no set selected")
         // this.settings= loadSettings()
         // console.log("forced FULL", this.settings)
@@ -433,25 +481,28 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
         .build();
         //console.log(options)
       try {
-        EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM);
         const kingdom = Randomizer.createKingdom(options);
         //console.log("RANDOMIZE_FULL_KINGDOM", kingdom)
         this.CLEAR_SELECTION();
-        this.UPDATE_KINGDOM(kingdom);
+        this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
       } catch (error) {
         console.log("Error : RANDOMIZE_FULL_KINGDOM - error generating kingdom")
         if (typeof error === 'object' && error !== null) {
           console.log(`Failed to create supply: \n${error.toString()}`);
-          EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM, { message: error.toString() });
+          EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM, {
+            ...trackingData,
+            message: error.toString(),
+          });
           alert(`Failed to create supply: \n${error.toString()}`)
         } else
           console.log(`Failed to create supply: \n error is not an object`);
-          EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM)
+          EventTracker.trackError(EventType.RANDOMIZE_FULL_KINGDOM, trackingData)
       }
     },
 
     RANDOMIZE_SUPPLY_CARD(params: RandomizeSupplyCardParams) {
-      console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_SUPPLY_CARD')
+      //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_SUPPLY_CARD')
+      //console.log(params)
       const randomizerSettings = this.settings.randomizerSettings;
       const excludeTypes: CardType[] = [];
       if (params.selectedCardType && !randomizerSettings.allowAttacks) {
@@ -475,12 +526,33 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
         .setExcludeTypes(excludeTypes)
         .setExcludeCosts(excludeCosts)
         .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
-        .setBaneCardId(this.kingdom.supply.baneCard ? this.kingdom.supply.baneCard.id : null)
-        .setObeliskCardId(this.kingdom.supply.obeliskCard ? this.kingdom.supply.obeliskCard.id : null)
-        .setFerrymanCardId(this.kingdom.supply.ferrymanCard ? this.kingdom.supply.ferrymanCard.id : null)
-        .setMousewayCardId(this.kingdom.supply.mouseWay ? this.kingdom.supply.mouseWay.id : null)
-        .setRiverboatCardId(this.kingdom.supply.riverboatCard ? this.kingdom.supply.riverboatCard.id : null)
-        .setApproachingArmyCardId(this.kingdom.supply.approachingArmyCard ? this.kingdom.supply.approachingArmyCard.id : null);
+
+      // Preserve special card roles if they are not part of the current selection to be randomized.
+      const isBaneSelected = rA.isBaneCardSelected(this);
+      const isFerrymanSelected = rA.isFerrymanCardSelected(this);
+      const isMousewaySelected = rA.isMousewayCardSelected(this);
+      const isObeliskSelected = rA.isObeliskCardSelected(this);
+      const isRiverboatSelected = rA.isRiverboatCardSelected(this);
+      const isApproachingArmySelected = rA.isApproachingArmyCardSelected(this);
+
+      if (!isBaneSelected && this.kingdom.supply.baneCard) {
+        optionsBuilder.setBaneCardId(this.kingdom.supply.baneCard.id);
+      }
+      if (!isFerrymanSelected && this.kingdom.supply.ferrymanCard) {
+        optionsBuilder.setFerrymanCardId(this.kingdom.supply.ferrymanCard.id);
+      }
+      if (!isMousewaySelected && this.kingdom.supply.mouseWay) {
+        optionsBuilder.setMousewayCardId(this.kingdom.supply.mouseWay.id);
+      }
+      if (!isObeliskSelected && this.kingdom.supply.obeliskCard) {
+        optionsBuilder.setObeliskCardId(this.kingdom.supply.obeliskCard.id);
+      }
+      if (!isRiverboatSelected && this.kingdom.supply.riverboatCard) {
+        optionsBuilder.setRiverboatCardId(this.kingdom.supply.riverboatCard.id);
+      }
+      if (!isApproachingArmySelected && this.kingdom.supply.approachingArmyCard) {
+        optionsBuilder.setApproachingArmyCardId(this.kingdom.supply.approachingArmyCard.id);
+      }
 
       // Either set a specific card type or add supply card requirements if one isn't selected.
       if (params.selectedCardType) {
@@ -493,9 +565,9 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
           .setRequireTrashing(randomizerSettings.requireTrashing)
           .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
       }
-   
-      const supply = Randomizer.createSupplySafe(optionsBuilder.build());
-
+      //console.log("RANDOMIZE_SUPPLY_CARD optionsBuilder", optionsBuilder)
+      const supply = Randomizer.createSupplySafe(optionsBuilder.build(), rA.randomizationTrackingData(this));
+      //console.log("RANDOMIZE_SUPPLY_CARD supply", supply)
       if (supply) {
         const oldKingdom = this.kingdom;
         const newAlly = rA.randomizeSelectedAlly(this, supply)
@@ -515,14 +587,192 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
           newAlly, rA.randomizeSelectedProphecy(this, supply), 
           oldKingdom.traits, oldKingdom.metadata);
         this.CLEAR_SELECTION();
-        this.UPDATE_KINGDOM(kingdom);
-        EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE);
+        EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE, rA.randomizationTrackingData(this));
+        this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
       } else {
-        EventTracker.trackError(EventType.RANDOMIZE_SINGLE);
+        EventTracker.trackError(EventType.RANDOMIZE_SINGLE, rA.randomizationTrackingData(this));
       }
     },
+    REPLACE_SPECIFYING_CARD(selectedCard: SupplyCard) {
+      //console.log(new Date().toLocaleTimeString(), 'REPLACE_SPECIFYING_CARD', selectedCard)
+      if (!this.specifyingReplacementSupplyCard) return;  
+      //console.log(this.specifyingReplacementSupplyCard)
+
+      const oldKingdom = this.kingdom;
+      const unselectedCards = rA.getUnselectedSupplyCards(this).filter(c => c.id !== this.specifyingReplacementSupplyCard.id);
+      const includeCardIds = Cards.extractIds(unselectedCards).concat(selectedCard.id);
+
+      const options = new RandomizerOptionsBuilder()
+        .setSetIds(rA.getSelectedSetIds(this))
+        .setIncludeCardIds(includeCardIds)
+        .setExcludeCardIds([])
+        .setExcludeTypes(rA.getExcludeTypes(this))
+        .setUseAlchemyRecommendation(this.settings.randomizerSettings.isAlchemyRecommendationEnabled)
+        .build();
+
+      const newSupply = Randomizer.createSupply(options);
+      const newAlly = rA.randomizeSelectedAlly(this, newSupply)
+      const newProphecy = rA.randomizeSelectedProphecy(this, newSupply)
+      const addonsForAdjustement = { 
+        events: oldKingdom.events, landmarks: oldKingdom.landmarks, 
+        projects: oldKingdom.projects, ways: oldKingdom.ways, 
+        allies: newAlly ? [newAlly] : [], 
+        prophecies: newProphecy ? [newProphecy] : [], 
+        traits:  oldKingdom.traits 
+      } as unknown as Addons;
+      const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(newSupply, addonsForAdjustement, oldKingdom);
+      const kingdom = new Kingdom(
+        oldKingdom.id, adjustedSupplyCards, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
+        oldKingdom.ways, rA.randomizeSelectedBoons(this, newSupply),
+        newAlly, rA.randomizeSelectedProphecy(this, newSupply), 
+        oldKingdom.traits, oldKingdom.metadata);
+      this.CLEAR_SELECTION();
+      EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE, rA.randomizationTrackingData(this));
+      this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
+    },
+    REPLACE_SPECIFYING_ADDON(selectedAddon: Addon) {
+      //console.log(new Date().toLocaleTimeString(), 'REPLACE_SPECIFYING_ADDON', selectedAddon)
+      if (!this.specifyingReplacementAddon) return;
+      const oldKingdom = this.kingdom;
+
+      const getUnselectedAddons = (list: Addon[]) => list.filter(a => a.id !== this.specifyingReplacementAddon!.id);
+
+      const newEvents = getUnselectedAddons(oldKingdom.events);
+      const newLandmarks = getUnselectedAddons(oldKingdom.landmarks);
+      const newProjects = getUnselectedAddons(oldKingdom.projects);
+      const newWays = getUnselectedAddons(oldKingdom.ways);
+      const newTraits = getUnselectedAddons(oldKingdom.traits);
+      const newAlly = (oldKingdom.ally && oldKingdom.ally.id === this.specifyingReplacementAddon.id)
+        ? null : oldKingdom.ally;
+      const newProphecy = (oldKingdom.prophecy && oldKingdom.prophecy.id === this.specifyingReplacementAddon.id)
+        ? null : oldKingdom.prophecy;
+
+      const addonList: Addon[] = [...newEvents, ...newLandmarks, ...newProjects, ...newWays, ...newTraits];
+      if (newAlly) addonList.push(newAlly);
+      if (newProphecy) addonList.push(newProphecy);
+      addonList.push(selectedAddon);
+
+      const addonsForAdjustement = { 
+        events: Cards.getAllEvents(addonList), 
+        landmarks: Cards.getAllLandmarks(addonList), 
+        projects: Cards.getAllProjects(addonList), 
+        ways: Cards.getAllWays(addonList), 
+        allies: Cards.getAllAllies(addonList), 
+        prophecies: Cards.getAllProphecies(addonList), 
+        traits: Cards.getAllTraits(addonList)
+      } as unknown as Addons;
+
+      const adjustedSupplyCards = Randomizer.adjustSupplyBasedOnAddons(oldKingdom.supply, 
+        addonsForAdjustement, oldKingdom); 
+
+      const kingdom = new Kingdom(
+        oldKingdom.id, adjustedSupplyCards, addonsForAdjustement.events, addonsForAdjustement.landmarks, addonsForAdjustement.projects, addonsForAdjustement.ways, 
+        oldKingdom.boons, addonsForAdjustement.allies[0] || null, addonsForAdjustement.prophecies[0] || null, addonsForAdjustement.traits, oldKingdom.metadata);
+      this.CLEAR_SELECTION();
+      EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE, rA.randomizationTrackingData(this));
+      this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
+    },
+    RANDOMIZE_ADDON(params: { selectedSetId: SetId | null, selectedAddonType: Addons_TYPE | null }) {
+      //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_ADDON', params)
+      if (!this.specifyingReplacementAddon) return;
+
+      //console.log("RANDOMIZE_ADDON", this.specifyingReplacementAddon)
+      
+      const selectedAddonsCount = this.selection.selectedAddonIds.length
+/*
+        + (this.selection.selectedAllyId ? 1 : 0) 
+        + (this.selection.selectedProphecyId ? 1 : 0);
+*/
+
+      if (selectedAddonsCount > 0) {
+        const newAddons = rA.randomizeSelectedAddons(this, params.selectedSetId, params.selectedAddonType);
+        const unselectedAddons = [
+          ...rA.getUnselectedEvents(this),
+          ...rA.getUnselectedLandmarks(this),
+          ...rA.getUnselectedProjects(this),
+          ...rA.getUnselectedWays(this),
+          ...rA.getUnselectedTraits(this)
+        ];
+        const unselectedAlly= rA.getUnselectedAlly(this);
+        const unselectedProphecy = rA.getUnselectedProphecy(this);
+        if (unselectedAlly) unselectedAddons.push(unselectedAlly);
+        if (unselectedProphecy) unselectedAddons.push(unselectedProphecy); 
+        //console.log("newAddons", newAddons)
+        //console.log("unselectedAddons", unselectedAddons)
+        const allNewAddons = newAddons.concat(unselectedAddons);
+        const addonsForAdjustement = {
+          events: Cards.getAllEvents(allNewAddons),
+          landmarks: Cards.getAllLandmarks(allNewAddons),
+          projects: Cards.getAllProjects(allNewAddons),
+          ways: Cards.getAllWays(allNewAddons),
+          traits: Cards.getAllTraits(allNewAddons),
+          allies: [rA.getUnselectedAlly(this)].filter(Boolean) as Ally[],
+          prophecies: [rA.getUnselectedProphecy(this)].filter(Boolean) as Prophecy[]
+        } as Addons;
+
+        const adjustedSupply = Randomizer.adjustSupplyBasedOnAddons(this.kingdom.supply, addonsForAdjustement, this.kingdom);
+        const kingdom = new Kingdom(
+          this.kingdom.id, adjustedSupply, addonsForAdjustement.events, addonsForAdjustement.landmarks, addonsForAdjustement.projects, addonsForAdjustement.ways, this.kingdom.boons, addonsForAdjustement.allies[0] || null, addonsForAdjustement.prophecies[0] || null, addonsForAdjustement.traits, this.kingdom.metadata);
+        this.CLEAR_SELECTION();
+        this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
+        return;
+      }
+
+      const setIdsToUse = params.selectedSetId ? [params.selectedSetId] : rA.getSelectedSetIds(this);
+      const setsToSearch = setIdsToUse.map(id => DominionSets.getSetById(id));
+      
+      let availableAddons: Addon[] = [];
+      const currentAddonIds = new Set(this.extendedAddons.map(a => a.id));
+
+      const addonType = getAddonTypeFromId(this.specifyingReplacementAddon.id);
+      const typesToConsider = params.selectedAddonType ? [params.selectedAddonType] : getAllowedAddonTypes(addonType);
+
+      for (const set of setsToSearch) {
+        if (typesToConsider.includes(Addons_TYPE.EVENT) && set.events) availableAddons.push(...set.events);
+        if (typesToConsider.includes(Addons_TYPE.LANDMARK) && set.landmarks) availableAddons.push(...set.landmarks);
+        if (typesToConsider.includes(Addons_TYPE.PROJECT) && set.projects) availableAddons.push(...set.projects);
+        if (typesToConsider.includes(Addons_TYPE.WAY) && set.ways) availableAddons.push(...set.ways);
+        if (typesToConsider.includes(Addons_TYPE.TRAIT) && set.traits) availableAddons.push(...set.traits);
+        if (typesToConsider.includes(Addons_TYPE.ALLY) && set.allies) availableAddons.push(...set.allies);
+        if (typesToConsider.includes(Addons_TYPE.PROPHECY) && set.prophecies) availableAddons.push(...set.prophecies);
+        if (typesToConsider.includes(Addons_TYPE.BOON) && set.boons) availableAddons.push(...set.boons);
+      }
+
+      let potentialReplacements = availableAddons.filter(card => !currentAddonIds.has(card.id));
+
+      if (RANDOMIZATION_CONSTRAINT_USE()) {
+        const excludedCardIds = new Set(
+          setIdsToUse.flatMap(setId => {
+            const settingsStore = useSettingsStore();
+            const constraints = settingsStore.getSetConstraints(setId);
+            return (constraints && constraints.isSelected && constraints.excludedCards) ? constraints.excludedCards : [];
+          })
+        );
+        if (excludedCardIds.size > 0) {
+          potentialReplacements = potentialReplacements.filter(card => !excludedCardIds.has(card.id));
+        }
+      }
+
+      if (potentialReplacements.length > 0) {
+        const randomCard = potentialReplacements[Math.floor(Math.random() * potentialReplacements.length)];
+        this.REPLACE_SPECIFYING_ADDON(randomCard);
+      }
+    },
+    REPLACE_SPECIFYING_BOON(selectedBoon: Boon) {
+      //console.log(new Date().toLocaleTimeString(), 'REPLACE_SPECIFYING_BOON')
+      //if (!this.specifyingReplacementBoon) return;
+      const oldKingdom = this.kingdom;
+      //const newBoons = oldKingdom.boons.map(x => x.id === this.specifyingReplacementBoon.id ? selectedBoon : x);
+      const newBoons = oldKingdom.boons 
+      const kingdom = new Kingdom(
+        oldKingdom.id, oldKingdom.supply, oldKingdom.events, oldKingdom.landmarks, oldKingdom.projects,
+        oldKingdom.ways, newBoons, oldKingdom.ally, oldKingdom.prophecy, oldKingdom.traits, oldKingdom.metadata);
+      this.CLEAR_SELECTION();
+      EventTracker.trackEvent(EventType.RANDOMIZE_SINGLE, rA.randomizationTrackingData(this));
+      this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
+    },
     RANDOMIZE_UNDEFINED_ADDON() {
-      console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_UNDEFINED_ADDON')
+      //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_UNDEFINED_ADDON')
       const addons = rA.randomizeUndefinedAddon(this).concat(rA.getAddons(this));
       const kingdom = new Kingdom(
         this.kingdom.id,
@@ -536,7 +786,7 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
         this.kingdom.prophecy,
         Cards.getAllTraits(addons),
         this.kingdom.metadata);
-      this.UPDATE_KINGDOM(kingdom);
+      this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
     },
     TOGGLE_CARD_SELECTION(id: string) {
       //console.log('TOGGLE_CARD_SELECTION - ' + id)
@@ -591,4 +841,3 @@ console.log("adjustedSupplyCards", addonsForAdjustement)
     }
   }
 });
-

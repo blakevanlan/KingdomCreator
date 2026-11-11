@@ -8,6 +8,7 @@ export interface RandomizerSettingsParams {
   allowAttacks?: boolean;
   requireReaction?: boolean;
   requireTrashing?: boolean;
+  requireAttack?: boolean;
   distributeCost?: boolean;
   prioritizeSet?: SetId | null;
   isAlchemyRecommendationEnabled?: boolean;
@@ -20,6 +21,7 @@ export interface RandomizerSettingsParamsBoolean {
   allowAttacks?: boolean;
   requireReaction?: boolean;
   requireTrashing?: boolean;
+  requireAttack?: boolean;
   distributeCost?: boolean;
   isAlchemyRecommendationEnabled?: boolean;
 }
@@ -32,6 +34,7 @@ export class RandomizerSettings implements RandomizerSettingsParams {
       readonly allowAttacks: boolean,
       readonly requireReaction: boolean,
       readonly requireTrashing: boolean,
+      readonly requireAttack: boolean,
       readonly distributeCost: boolean,
       readonly prioritizeSet: SetId | null,
       readonly isAlchemyRecommendationEnabled: boolean) {
@@ -45,6 +48,7 @@ export class RandomizerSettings implements RandomizerSettingsParams {
         params.allowAttacks !== undefined ? params.allowAttacks : this.allowAttacks,
         params.requireReaction !== undefined ? params.requireReaction : this.requireReaction,
         params.requireTrashing !== undefined ? params.requireTrashing : this.requireTrashing,
+        params.requireAttack !== undefined ? params.requireAttack : this.requireAttack,
         params.distributeCost !== undefined ? params.distributeCost : this.distributeCost,
         params.prioritizeSet !== undefined ? params.prioritizeSet : this.prioritizeSet,
         params.isAlchemyRecommendationEnabled !== undefined ? params.isAlchemyRecommendationEnabled : this.isAlchemyRecommendationEnabled);
@@ -58,6 +62,7 @@ export class RandomizerSettings implements RandomizerSettingsParams {
         data.allowAttacks != null ? !!data.allowAttacks : true,
         !!data.requireReaction,
         !!data.requireTrashing,
+        !!data.requireAttack,
         !!data.distributeCost,
         DominionSets.convertToSetIdSafe(data.prioritizeSet),
         data.isAlchemyRecommendationEnabled != null ? !!data.isAlchemyRecommendationEnabled : true);

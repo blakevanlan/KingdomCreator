@@ -32,8 +32,8 @@ export default defineComponent({
       if (!base || base === './') base = '/';
       if (!base.startsWith('/')) base = '/' + base;
       if (!base.endsWith('/')) base = base + '/';
-      console.log('Resolved Base for fetch:', base, 'Env Base URL:', import.meta.env.BASE_URL)
-      console.log('Route query:', route.query, 'File param:', route.query?.file || route.query?.f || Object.keys(route.query)[0])
+      //console.log('Resolved Base for fetch:', base, 'Env Base URL:', import.meta.env.BASE_URL)
+      //console.log('Route query:', route.query, 'File param:', route.query?.file || route.query?.f || Object.keys(route.query)[0])
 
       const fileParam = route.query?.file || route.query?.f || Object.keys(route.query)[0]
 

@@ -1,0 +1,19 @@
+{
+  "news_modal_title": "What's new?",
+  "news_modal_intro": "Discover the key updates in this version.",
+  "news_modal_close": "Close the What’s New window",
+  "news_modal_settings_title": "Settings, Expansions & Generation",
+  "news_modal_settings_description": "Manage the expansions you own and choose which sets are shown.",
+  "news_modal_game_setup_title": "Game Configuration",
+  "news_modal_game_setup_description": "Adjust the number of Kingdom cards and Addons used to build a game.",
+  "news_modal_constraints_title": "Generation Constraints",
+  "news_modal_constraints_description": "Set minimum and maximum card quotas per expansion, or exclude specific cards from generation.",
+  "news_modal_cloud_title": "Google Cloud Sync",
+  "news_modal_cloud_description": "Save your configuration and generated games to Google Drive and keep them available across your devices.",
+  "news_modal_history_title": "History",
+  "news_modal_history_description": "Track a detailed history of generated and played games.",
+  "news_modal_generation_title": "Improved Generation & Replacement",
+  "news_modal_generation_description": "Replace specific Kingdom cards and Addons with a targeted, optimized workflow.",
+  "news_modal_confirm": "Got it!",
+  "news_modal_open_button": "Discover what’s new"
+}

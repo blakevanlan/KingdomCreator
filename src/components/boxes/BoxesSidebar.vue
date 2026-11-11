@@ -63,6 +63,7 @@ import { Year_set } from '@/dominion/digital_cards/digital-cards-Illustrator';
 
 import { MultipleVersionSets, HideMultipleVersionSets, Sets_To_Ignore_Regroup } from '@/dominion/set-id';
 import { SortOption } from '@/settings/settings';
+import { EventTracker, EventType } from '@/analytics/follow-activity';
 
 /* import store  */
 import { useSetsStore } from '@/pinia/sets-store';
@@ -114,6 +115,7 @@ export default defineComponent({
 
     const handleSelectionChange = (value: SetId) => {
       setsStore.updateSelectedBoxesSet(value);
+      EventTracker.trackEvent(EventType.BOXE_VIEW, { setId: value });
     };
 
     const handleSetOrderTypeChange = (value: string) => {

@@ -1,0 +1,19 @@
+{
+  "news_modal_title": "Quoi de neuf ?",
+  "news_modal_intro": "Découvrez les principales nouveautés de cette version.",
+  "news_modal_close": "Fermer la fenêtre des nouveautés",
+  "news_modal_settings_title": "Paramètres, extensions et génération",
+  "news_modal_settings_description": "Gérez les extensions que vous possédez et choisissez celles à afficher.",
+  "news_modal_game_setup_title": "Configuration du jeu",
+  "news_modal_game_setup_description": "Modifiez le nombre de cartes Royaume et d’Addons utilisés pour constituer une partie.",
+  "news_modal_constraints_title": "Contraintes de génération",
+  "news_modal_constraints_description": "Définissez des quotas minimum et maximum par extension, ou excluez des cartes précises de la génération.",
+  "news_modal_cloud_title": "Synchronisation Google Cloud",
+  "news_modal_cloud_description": "Sauvegardez votre configuration et les parties générées dans Google Drive pour les retrouver sur vos appareils.",
+  "news_modal_history_title": "Historique",
+  "news_modal_history_description": "Suivez en détail les parties générées et jouées.",
+  "news_modal_generation_title": "Génération & remplacement améliorés",
+  "news_modal_generation_description": "Remplacez précisément des cartes du Royaume ou des Addons grâce à un processus ciblé et optimisé.",
+  "news_modal_confirm": "C’est compris !",
+  "news_modal_open_button": "Découvrir les nouveautés"
+}

@@ -2,7 +2,7 @@
   "author": "Blake VanLandingham",
   "name": "kingdom-creator",
   "license": "MIT",
-  "version": "7.0.7",
+  "version": "7.1.17",
   "private": true,
   "type": "module",
   "repository": {
@@ -10,54 +10,63 @@
     "url": "https://github.com/blakevanlan/KingdomCreator"
   },
   "scripts": {
-    "GenComment": "Gen should be use to generate localy from XLSX to CSV, then use 'run dev'",
-    "DevComment": "dev should be use to generate localy from XLSX to CSV, then build translation and vite",
-    "Gen": "vite -- Gen",
-    "dev": "vite",
+    "Gen": "echo 'Generate Digital Card from xlsx, \nbuild translation files from xlsx, and run vite' && vite -- Gen",
+    "dev": "echo 'Build translation files from xlsx, and run vite' && vite",
     "cbuild": "run-p type-check \"build {@}\" --",
     "preview": "vite preview",
     "build": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "get-tsconfig": "tsc --showConfig"
+    "get-tsconfig": "tsc --showConfig",
+    "update-deps": "echo '\nAstuce : ajoute -- -u (maj package.json) ou -- -i (interactif)' && bunx npm-check-updates -p bun"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "gsap": "^3.15.1",
+    "js-cookie": "^3.0.8",
+    "pinia": "^4.1.0",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "vue": "^3.5.45",
+    "vue-i18n": "^11.4.18",
+    "vue-router": "^5.4.0",
+    "@f3ve/vue-markdown-it": "^0.2.3",
+    "js-yaml": "^5.5.0",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
-    "gsap": "^3.15.0",
-    "js-cookie": "^3.0.8",
-    "pinia": "^3.0.4",
-    "pinia-plugin-persistedstate": "^4.7.1",
-    "vue": "^3.5.38",
-    "vue-i18n": "^11.4.5",
-    "vue-router": "^5.1.0",
-    "@f3ve/vue-markdown-it": "^0.2.3"
-  },
-  "devDependencies": {
-    "csv-parse": "^6.2.1",
-    "@inquirer/checkbox": "^5.2.1",
-    "@inquirer/select": "^5.2.1",
-    "@intlify/unplugin-vue-i18n": "^11.2.3",
-    "rollup-plugin-delete": "^3.0.2",
+    "@inquirer/checkbox": "^5.2.8",
+    "@inquirer/select": "^5.2.8",
+    "@intlify/unplugin-vue-i18n": "^11.2.8",
     "@types/file-saver": "^2.0.7",
     "@types/js-cookie": "^3.0.6",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "^25.9.3",
-    "@vitejs/plugin-legacy": "^8.0.2",
-    "@vitejs/plugin-vue": "^6.0.7",
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-legacy": "^8.2.4",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vue/tsconfig": "^0.9.1",
-    "axios": "^1.17.0",
+    "axios": "^1.21.1",
+    "csv-parse": "^7.0.3",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
-    "js-yaml": "^4.2.0",
     "npm-run-all": "^4.1.5",
-    "sharp": "^0.35.1",
+    "rollup-plugin-delete": "^3.0.2",
+    "sharp": "^0.35.5",
     "stylus": "^0.64.0",
-    "terser": "^5.48.0",
+    "terser": "^5.51.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16",
+    "vite": "^8.3.6",
     "vite-plugin-static-copy": "^4.1.1",
-    "vue-tsc": "^3.3.4",
+    "vue-tsc": "^3.3.14",
     "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
+  },
+  "trustedDependencies": [
+    "core-js",
+    "esbuild"
+  ],
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.5"
+    },
+    "stylus": {
+      "glob": "^14.0.4"
+    }
   }
 }

@@ -16,6 +16,7 @@ import { incaseofImgerror } from '@/utils/resources';
 /* import Components */
 
 export default defineComponent({
+  name: "StaticCard",
   props: {
     cardImageUrl: {
       type: String,

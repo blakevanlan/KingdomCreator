@@ -1,4 +1,4 @@
-import { EventTracker } from "../analytics/follow-activity";
+import { EventTracker, getRandomizationTrackingData } from "../analytics/follow-activity";
 import { EventType } from "../analytics/follow-activity";
 import type { Settings } from "../settings/settings";
 import { CardType } from "../dominion/card-type";
@@ -13,6 +13,12 @@ import type { Addon } from "../dominion/addon";
 import type { Selection } from "./selection";
 import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE, USING_CUTOM_DESKSIZE } from "../settings/Settings-value";
 import { Addons_TYPE } from "../dominion/addon";
+import { SetId } from "../dominion/set-id";
+import type { Boon } from "../dominion/boon";
+import type { Ally } from "../dominion/ally";
+import type { Prophecy } from "../dominion/prophecy";
+import { useSettingsStore } from "./settings-store";
+import { useGoogleSyncStore } from "./google-sync-store";
 
 export const MIN_SETS_FOR_PRIORITIZE_OPTION = 3;
 export const MIN_CARDS_FOR_DISTRIBUTE_COST = 24;
@@ -22,7 +28,22 @@ export interface randomizerStoreState {
   selection: Selection;
   settings: Settings;
   specifyingReplacementSupplyCard: SupplyCard | null ;
+  specifyingReplacementAddon: Addon | null;
+  /*
+  specifyingReplacementBoon: Boon | null;
+  specifyingReplacementAlly: Ally | null;
+  specifyingReplacementProphecy: Prophecy | null;
+  */
   isFullScreen: boolean;
+}
+
+export function randomizationTrackingData(context: randomizerStoreState) {
+  const googleSyncStore = useGoogleSyncStore();
+  const googleDriveConnected = googleSyncStore.isSignedIn &&
+    googleSyncStore.isDriveAccessVerified &&
+    googleSyncStore.tokenExpirationTime !== null &&
+    googleSyncStore.tokenExpirationTime > Date.now();
+  return getRandomizationTrackingData(context.settings, useSettingsStore(), googleDriveConnected);
 }
 
 export function randomizeSelectedCards(context: randomizerStoreState): Supply | null {
@@ -76,26 +97,64 @@ export function randomizeSelectedCards(context: randomizerStoreState): Supply | 
   if (!isApproachingArmySelected && context.kingdom.supply.approachingArmyCard) {
     optionsBuilder.setApproachingArmyCardId(context.kingdom.supply.approachingArmyCard?.id ?? false)
   }
-  const supply = Randomizer.createSupplySafe(optionsBuilder.build());
+  const supply = Randomizer.createSupplySafe(optionsBuilder.build(), randomizationTrackingData(context));
   if (supply) {
-    EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE_SUPPLY);
+    EventTracker.trackEvent(EventType.RANDOMIZE_MULTIPLE_SUPPLY, randomizationTrackingData(context));
   } else {
-    EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY);
+    EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY, randomizationTrackingData(context));
   }
   return supply;
 }
 
-export function randomizeSelectedAddons(context: randomizerStoreState) {
+export function randomizeSelectedAddons(context: randomizerStoreState, 
+                      setId? : SetId| null, addonType?:Addons_TYPE| null) {
+  //console.log('randomizeSelectedAddons', setId, addonType)
   const newAddonsCount = getSelectedEvents(context).length
       + getSelectedLandmarks(context).length
       + getSelectedProjects(context).length
       + getSelectedWays(context).length
       + getSelectedTraits(context).length;
-  const addonIds = initializeExcludedCardIds(getSelectedSetIds(context), []);
+  const selectedSetIds = setId ? [setId] : getSelectedSetIds(context);
+  let initialExcludedCardIds: string[] = [];
+  if (addonType) {
+    // if addonType is provided, we want to exclude all other types of addons from the selected sets
+    // 1. Récupérer tous les addons des sets sélectionnés
+    const sets = selectedSetIds.map(id => DominionSets.getSetById(id));
+    for (const set of sets) {
+      initialExcludedCardIds.push(...set.events.map(c => c.id));
+      initialExcludedCardIds.push(...set.landmarks.map(c => c.id));
+      initialExcludedCardIds.push(...set.projects.map(c => c.id));
+      initialExcludedCardIds.push(...set.ways.map(c => c.id));
+      initialExcludedCardIds.push(...set.traits.map(c => c.id));
+    }
+    // 2. Filtrer pour ne garder que les types que l'on veut exclure
+    switch (addonType) {
+      case Addons_TYPE.EVENT:
+        initialExcludedCardIds = initialExcludedCardIds.filter(id => !sets.flatMap(s => s.events).some(c => c.id === id));
+        break;
+      case Addons_TYPE.LANDMARK:
+        initialExcludedCardIds = initialExcludedCardIds.filter(id => !sets.flatMap(s => s.landmarks).some(c => c.id === id));
+        break;
+      case Addons_TYPE.PROJECT:
+        initialExcludedCardIds = initialExcludedCardIds.filter(id => !sets.flatMap(s => s.projects).some(c => c.id === id));
+        break;
+      case Addons_TYPE.WAY:
+        initialExcludedCardIds = initialExcludedCardIds.filter(id => !sets.flatMap(s => s.ways).some(c => c.id === id));
+        break;
+      case Addons_TYPE.TRAIT:
+        initialExcludedCardIds = initialExcludedCardIds.filter(id => !sets.flatMap(s => s.traits).some(c => c.id === id));
+        break;
+      default:
+        // Si aucun type n'est spécifié, on n'exclut rien de spécifique (le comportement par défaut sera appliqué plus bas)
+        initialExcludedCardIds = [];
+    } 
+  }
+  //console.log('initialExcludedCardIds', initialExcludedCardIds)
+  const addonIds = initializeExcludedCardIds(selectedSetIds, initialExcludedCardIds);
   addonIds.push(...getAddons(context).map((addon) => addon.id));
-  EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
+  EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS, randomizationTrackingData(context));
   if (!USING_CUTOM_DESKSIZE()) {
-    return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, newAddonsCount);
+    return Randomizer.getRandomAddons(selectedSetIds, addonIds, newAddonsCount);
   } else {
     const kingdom = context.kingdom;
     const selectedEvents: Addon[] = [];
@@ -117,7 +176,7 @@ export function randomizeSelectedAddons(context: randomizerStoreState) {
     while(safetyNet<50)
     {
       safetyNet++;
-      const complementarySelectedCards = Randomizer.getRandomAddons(getSelectedSetIds(context), 
+      const complementarySelectedCards = Randomizer.getRandomAddons(selectedSetIds,
           previousComplementarySelectedIds, NUM_CARDS_IN_KINGDOM());
       for (const card of complementarySelectedCards) {
         if (card.constructor.name == Addons_TYPE.EVENT) {
@@ -144,10 +203,10 @@ export function randomizeSelectedAddons(context: randomizerStoreState) {
       if (FORCE_ADDONS_USE()) {
         if (selectedEvents.length + selectedLandmarks.length + selectedProjects.length 
               + selectedWays.length + selectedTraits.length == newAddonsCount)   {
-          console.log("randomizeSelectedAddons: forced addons use & addons number satisfied");
+          //console.log("randomizeSelectedAddons: forced addons use & addons number satisfied");
           break
         } else {
-          console.log("randomizeSelectedAddons: forced addons use & addons number not satisfied, retrying with new complementary cards");
+          //console.log("randomizeSelectedAddons: forced addons use & addons number not satisfied, retrying with new complementary cards");
           previousComplementarySelectedIds = [
             ...previousComplementarySelectedIds,
             ...complementarySelectedCards.map(card => card.id)
@@ -166,7 +225,7 @@ export function randomizeSelectedAddons(context: randomizerStoreState) {
 export function randomizeUndefinedAddon(context: randomizerStoreState) :Addon[] {
   const addonIds = initializeExcludedCardIds(getSelectedSetIds(context), []);
   addonIds.push(...getAddons(context).map((addon) => addon.id));
-  EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS);
+  EventTracker.trackEvent(EventType.RANDOMIZE_EVENTS_AND_LANDMARKS, randomizationTrackingData(context));
   if (!USING_CUTOM_DESKSIZE()) {
     // return 1 new addon bescause standard rules are not generating problems
     return Randomizer.getRandomAddons(getSelectedSetIds(context), addonIds, 1);
@@ -208,7 +267,7 @@ export function randomizeUndefinedAddon(context: randomizerStoreState) :Addon[] 
 
 export function randomizeSelectedBoons(context: randomizerStoreState, supply: Supply) {
   if (getSelectedBoons(context).length) {
-    EventTracker.trackEvent(EventType.RANDOMIZE_BOONS);
+    EventTracker.trackEvent(EventType.RANDOMIZE_BOONS, randomizationTrackingData(context));
   }
   return Randomizer.getRandomBoons(supply, getUnselectedBoons(context));
 }
@@ -220,8 +279,8 @@ export function randomizeSelectedAlly(context: randomizerStoreState, supply: Sup
     if (!context.kingdom.ally) return Randomizer.getRandomAlly(supply)
     return context.kingdom.ally
   }
-  console.log('RANDOMIZE_ALLY')
-  EventTracker.trackEvent(EventType.RANDOMIZE_ALLY);
+  //console.log('RANDOMIZE_ALLY')
+  EventTracker.trackEvent(EventType.RANDOMIZE_ALLY, randomizationTrackingData(context));
   return Randomizer.getRandomAlly(supply, selectedAlly[0]!.id);
 }
 
@@ -233,8 +292,8 @@ export function randomizeSelectedProphecy(context: randomizerStoreState, supply:
     if (!context.kingdom.prophecy) return Randomizer.getRandomProphecy(supply)
     return context.kingdom.prophecy
   }
-  console.log('RANDOMIZE_PROPHECY')
-  EventTracker.trackEvent(EventType.RANDOMIZE_PROPHECY);
+  //console.log('RANDOMIZE_PROPHECY')
+  EventTracker.trackEvent(EventType.RANDOMIZE_PROPHECY, randomizationTrackingData(context));
   return Randomizer.getRandomProphecy(supply, selectedProphecy[0]!.id);
 }
 
@@ -257,6 +316,7 @@ export function createRandomizerOptionsBuilder(context: randomizerStoreState) {
       .setRequireCardProvider(randomizerSettings.requireCardProvider)
       .setRequireBuyProvider(randomizerSettings.requireBuyProvider)
       .setRequireTrashing(randomizerSettings.requireTrashing)
+      .setRequireAttack(!!randomizerSettings.requireAttack)
       .setRequireReactionIfAttacks(randomizerSettings.requireReaction)
       .setUseAlchemyRecommendation(randomizerSettings.isAlchemyRecommendationEnabled)
       .setDistributeCost(

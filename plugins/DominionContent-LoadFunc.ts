@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import yaml from 'js-yaml';
+//import yaml from 'js-yaml';
+import {load as yaml_load} from 'js-yaml';
 
 
 function loadFilesFromDirectory(directory : string) {
@@ -18,13 +19,13 @@ function loadFilesFromDirectory(directory : string) {
       continue;
     }
     const id = tokenize(path.basename(filename, '.yaml'));
-    values[id] = yaml.load(fs.readFileSync(filePath, 'utf8'));
+    values[id] = yaml_load(fs.readFileSync(filePath, 'utf8'));
   }
   return values;
 }
 
 export function loadSets() {
-  const sets = loadFilesFromDirectory(path.join(__dirname, '../sets'));
+  const sets = loadFilesFromDirectory(path.join(import.meta.dirname, '../sets'));
   // Add the id for each set.
   for (let setId in sets) {
     sets[setId].id = setId;
@@ -49,7 +50,7 @@ export function loadSets() {
 }
 
 export function loadKingdoms() {
-  const kingdoms = loadFilesFromDirectory(path.join(__dirname, '../kingdoms'));
+  const kingdoms = loadFilesFromDirectory(path.join(import.meta.dirname, '../kingdoms'));
   identifyTraitSuppliesForKingdoms(kingdoms);
   return kingdoms;
 }

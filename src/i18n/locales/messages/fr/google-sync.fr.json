@@ -1,0 +1,19 @@
+{
+  "Connect": "Se connecter",
+  "Signed as": "Connecté : {name} (Sync active). Cliquer pour se déconnecter ?`",
+  "Cloud backup disabled": "Sauvegarde cloud désactivée. Cliquer pour lier votre Google Drive.",
+  "Do you want to sign out": "Voulez-vous vous déconnecter de Google Drive ",
+  "Google Sync": "Synchronisation Google Drive",
+  "Save and restore your settings": "Sauvegardez et restaurez vos paramètres d'un navigateur à l'autre grâce à Google Drive.",
+  "Google Drive sync is not configured yet": "La synchronisation Google Drive n'est pas encore configurée. Définissez <code>VITE_GOOGLE_CLIENT_ID</code> dans votre environnement pour l'activer.",
+  "Sign in with Google": "Se connecter avec Google",
+  "Sign in as": "Se connecter en tant que {name}",
+  "Signed in as": "Connecté en tant que {name}",
+  "Sign Out Google": "Déconnecter Google",
+  "Save to Drive": "Enregistrer sur le Drive",
+  "Restore from Drive": "Restaurer depuis le Drive",
+  "Play_It": "Jouer !",
+  "Saving": "Enregistrement…",
+  "Played": "Joué",
+  "Unknown or invalid kingdom": "Royaume inconnu ou invalide"
+}

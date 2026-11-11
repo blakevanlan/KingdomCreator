@@ -1,57 +1,46 @@
-import { defineConfig } from 'vite';
+import { defineConfig,loadEnv } from 'vite';
 import path from 'path';
 import { fileURLToPath, URL } from 'node:url'; // Importation nécessaire
 import fs from 'fs';
-import packageJson from './package.json';
+import packageJson from './package.json' with { type: 'json' };
 
-//import VueDevTools from 'vite-plugin-vue-devtools';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import vueI18n from '@intlify/unplugin-vue-i18n/vite';
 import del  from 'rollup-plugin-delete';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-import { DominionContentGenerate, HandleLocaleGenerateAndMerge } from './plugins/vite-dominion-content';
-import { exit } from 'process';
+import { DominionContentGenerate, HandleLocaleGenerateAndMerge } from './plugins/vite-dominion-content.js';
 
-// On-demand components auto importing for Vue.
-//import UnPluginVueComponents from 'unplugin-vue-components/vite'; 
+import { CheckVersions_Package_Readme_Changelog } from './plugins/Check-Version-Package-Readme-Changelog.js';
+import { fixChangelogSpaces } from './plugins/Fix-Changelog.js'; 
 
 const devServerPort = 5173;
 const publicationDir = 'docs';
 const publicationHelpDir = 'helpFiles';
 
-const changelogPath = path.join(__dirname, 'Changelog.md');
-const readmePath = path.join(__dirname, 'README.md');
-const packageVersion = packageJson.version;
-console.log('packageVersion: ', packageJson.version);  
-const regex = /^##{1,2} Changelog\s*\n\s*\*\*\d{4}\/\d{2}\/\d{2} - (\d+\.\d+\.\d+)/m;
-const changelogText = fs.readFileSync(changelogPath, 'utf-8');
-const changelogVersionMatch = changelogText.match(regex);
-const changelogVersion = changelogVersionMatch ? changelogVersionMatch[1] : null;
-console.log('changelogVersion: ', changelogVersion);  
-const readmeText = fs.readFileSync(readmePath, 'utf-8');
-const readmeVersionMatch = readmeText.match(regex);
-const readmeVersion = readmeVersionMatch ? readmeVersionMatch[1] : null;
-console.log('readmeVersion: ', readmeVersion);  
+CheckVersions_Package_Readme_Changelog();
+fixChangelogSpaces();
 
-if (packageVersion != changelogVersion || packageVersion != readmeVersion || changelogVersion != readmeVersion) {
-  console.log("inconsistency in version number. Please Check")
-  exit(0);
-}
+export default defineConfig( ({ command, mode }) => {
+  console.log(`\nVite config loaded with command: '${command}', mode: '${mode}'`);
 
-export default defineConfig( ({ mode}) => {
+  // Détecte si nous sommes en mode 'preview'.
+  const isPreview = command === 'serve' && mode === 'production';
+  const isBuild = command === 'build' && mode === 'production';
+  const isDev = command === 'serve' && mode === 'development';
+  console.log(`\nisPreview: ${isPreview}, isBuild: ${isBuild}, isDev: ${isDev}\n`);
 
-  if (mode === 'production' || mode === 'development') {
-   // mergeJSONLanguageFiles();
+  let baseDir = './'
+  // N'exécuter la génération de contenu que pour la commande 'build'
+  if (isBuild || isDev) {
     DominionContentGenerate('docs');
     let ArgGenLocale = 'Merge';
-    if (process.argv.slice(3)[0] == 'Gen') {
+    if (process.argv.includes('Gen')) {
       ArgGenLocale = 'Gen&Merge';
     }
     HandleLocaleGenerateAndMerge(ArgGenLocale, 'docs')
   }
-  let baseDir = './'
 
   return {
     appType: 'spa',
@@ -64,40 +53,50 @@ export default defineConfig( ({ mode}) => {
       Pkgejson_Date: JSON.stringify(new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'numeric' }))
     },
     plugins: [
-      { name: 'add-datetime',
-        /* vite hook the plugin should use: transformIndexHtml()
-        https://vitejs.dev/guide/api-plugin#universal-hooks */
-        transformIndexHtml(html) {
-          const datetime = new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'medium' });
-          return html.replace(/id="datetime">/g, `id="datetime">${datetime}`);
-        }
-      },
-      {
-        name: 'copy-index',
-        /* vite hook the plugin should use: closeBundle()
-        https://vitejs.dev/guide/api-plugin#universal-hooks */
-        closeBundle() {
-          try {
-          fs.copyFileSync(
-            path.resolve(__dirname, './'+ publicationDir +'/index.html'), 
-            path.resolve(__dirname, './'+ publicationDir +'/404.html'))
-          } catch (err) {
-            if (err) throw err;
-            console.log('index.html copied successfully');
+      !isBuild ? undefined  :  // si build alors ==>
+        { name: 'add-datetime',
+          /* vite hook the plugin should use: transformIndexHtml()
+          https://vitejs.dev/guide/api-plugin#universal-hooks */
+          transformIndexHtml(html: string ) {
+            const datetime = new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'medium' });
+            const jsYamlVersion = packageJson.devDependencies['js-yaml'].replace(/[\^~]/, '');
+
+            return html.replace(/id="datetime">/g, `id="datetime">${datetime}`)
           }
-        }
-      },
-      vue(),
-      //mode == 'development' ? VueDevTools() : [],
-      legacy({ targets: ['defaults'] }),
-      vueI18n({
-        include: path.resolve(__dirname, './'+ publicationDir +'/locales/*.json'),
-        compositionOnly: true,
-        fullInstall: true,
-        allowDynamic: true,
-        runtimeOnly: false
-      }),
-      del({
+        },
+      !isBuild ? undefined  :  // si build alors ==>
+        {
+          name: 'copy-index',
+          /* vite hook the plugin should use: closeBundle()
+          https://vitejs.dev/guide/api-plugin#universal-hooks */
+          closeBundle() {
+            try {
+            fs.copyFileSync(
+              path.resolve(import.meta.dirname, './'+ publicationDir +'/index.html'), 
+              path.resolve(import.meta.dirname, './'+ publicationDir +'/404.html'))
+              console.log('index.html copied successfully');
+
+            } catch (err) {
+              if (err) throw err;
+              console.error('index.html copied failure!');
+            } 
+          }
+        },
+      isPreview ? undefined  : 
+        vue(),
+      isPreview ? undefined  :  // si preview alors ==>
+        legacy({ targets: ['defaults'] }),
+      isPreview ? undefined  :  // si preview alors ==>
+        vueI18n({
+          // Appliquer ce plugin uniquement si ce n'est pas un 'preview'
+          include: path.resolve(import.meta.dirname, './'+ publicationDir +'/locales/*.json'),
+          compositionOnly: true,
+          fullInstall: true,
+          allowDynamic: true,
+          runtimeOnly: false,
+        }),
+      isPreview ? undefined  :
+        del({
         targets: [publicationDir +'/*',
           '!'+ publicationDir +'/rules',
           '!'+ publicationDir +'/rules.fr',
@@ -110,13 +109,14 @@ export default defineConfig( ({ mode}) => {
           '!'+ publicationDir +'/CNAME',
           '!'+ publicationDir +'/ads.txt'],
         verbose: false
-      }),
-       viteStaticCopy({
-        targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/', rename: { stripBase: 1 }},
+        }),
+      !isBuild ? undefined  : 
+        viteStaticCopy({
+          targets: [ { src: 'styles/normalize-v8.css', dest: 'assets/', rename: { stripBase: 1 }},
                     { src: 'help/*.md', dest: './' + publicationHelpDir + '/', rename: { stripBase: 1 }}
-          ]
-      })
-    ],
+          ],
+        }),
+    ].filter(Boolean),
     optimizeDeps: {
       include: ['vue', 'vue-i18n']
     },
@@ -125,7 +125,7 @@ export default defineConfig( ({ mode}) => {
       alias: {
         // Alias pour les modules non-Esbuild compatibles avec Vite
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        //'@': path.resolve(__dirname, './src'),
+        //'@': path.resolve(import.meta.dirname, './src'),
         //'vue-i18n': 'vue-i18n/dist/vue-i18n.esm-bundler.js',
         //'vue': 'vue/dist/vue.esm-bundler.js', 
       },
@@ -184,7 +184,7 @@ export default defineConfig( ({ mode}) => {
           // rewrite: (path) => path.replace(/^\/?/, '/docs/index.html?'),
           rewrite: (path) => path.replace(/^\/?/, '/index.html?'),
         },
-      },
+      }
     },
     preview: {
      proxy: { }

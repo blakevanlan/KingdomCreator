@@ -43,6 +43,7 @@
         <BaneCardCover isType="Obelisk" v-if="isObeliskCard(slotProps.item)" />
         <BaneCardCover isType="MouseWay" v-if="isMouseWayCard(slotProps.item)" />
         <BaneCardCover isType="Riverboat" v-if="isRiverboatCard(slotProps.item)" />
+        <BaneCardCover isType="ApproachingArmy" v-if="isApproachingArmyCard(slotProps.item)" />
         <BaneCardCover :is-type="traitsTitle(0)" v-if="isTraitsCard(slotProps.item, 0)" />
         <BaneCardCover :is-type="traitsTitle(1)" v-if="isTraitsCard(slotProps.item, 1)" />
       </template>
@@ -196,7 +197,57 @@ export default defineComponent({
     };
 
     const getCards = (cardIds: string[]) => {
-      return SupplyCardSorter.sort(cardIds.map(DominionSets.getCardById) as SupplyCard[], setsStore.sortSet as SortOption, t);
+      // Fonction utilitaire pour trier un groupe d'IDs spécifique
+      const sortGroup = (ids: string[]) => {
+        return SupplyCardSorter.sort(
+          ids.map(DominionSets.getCardById) as SupplyCard[],
+          setsStore.sortSet as SortOption,
+          t,
+        );
+      };
+
+      // Filtrage des IDs par catégorie selon l'ordre demandé
+      const events = cardIds.filter((id) =>
+        props.kingdom.eventIds.includes(id),
+      );
+      const landmarks = cardIds.filter((id) =>
+        props.kingdom.landmarkIds.includes(id),
+      );
+      const projects = cardIds.filter((id) =>
+        props.kingdom.projectIds.includes(id),
+      );
+      const ways = cardIds.filter((id) => props.kingdom.wayIds.includes(id));
+      const traits = cardIds.filter((id) =>
+        props.kingdom.traitIds.includes(id),
+      );
+      const allies = cardIds.filter((id) => props.kingdom.allyIds.includes(id));
+      const prophecies = cardIds.filter((id) =>
+        props.kingdom.prophecyIds.includes(id),
+      );
+
+      // Identification des cartes restantes (cartes de réserve standard, boons, etc.)
+      const categorizedIds = new Set([
+        ...events,
+        ...landmarks,
+        ...projects,
+        ...ways,
+        ...traits,
+        ...allies,
+        ...prophecies,
+      ]);
+      const remaining = cardIds.filter((id) => !categorizedIds.has(id));
+
+      // On trie chaque groupe et on les fusionne dans l'ordre attendu
+      return [
+        ...sortGroup(remaining),
+        ...sortGroup(events),
+        ...sortGroup(landmarks),
+        ...sortGroup(projects),
+        ...sortGroup(ways),
+        ...sortGroup(traits),
+        ...sortGroup(allies),
+        ...sortGroup(prophecies),
+      ];
     };
 
     const isBaneCard = (supplyCard: SupplyCard) => {
@@ -220,11 +271,17 @@ export default defineComponent({
         props.kingdom.riverboatActionCardId == supplyCard.id;
     };
     const isTraitsCard = (supplyCard: SupplyCard, index: number) => {
-      return props.kingdom.traitSupplyIds[index]  &&
-        props.kingdom.traitSupplyIds[index] == supplyCard.id;
+      const traitSupplyId = props.kingdom.traitSupplyIds[index];
+      if (!traitSupplyId) return false;
+      const cleanId = traitSupplyId.includes("->") ? traitSupplyId.split("->")[1] : traitSupplyId;
+      return cleanId == supplyCard.id;
     };
     const traitsTitle = (index: number) => {
       return "trait#"+ props.kingdom.traitIds[index];
+    };
+    const isApproachingArmyCard = (supplyCard: SupplyCard) => {
+      return props.kingdom.approachingArmyCardId &&
+        props.kingdom.approachingArmyCardId == supplyCard.id;
     };
 
     const isPlayFavImg = (kingdomName: string) => {
@@ -289,6 +346,7 @@ export default defineComponent({
       isObeliskCard,
       isMouseWayCard,
       isRiverboatCard,
+      isApproachingArmyCard,
       isTraitsCard,
       traitsTitle,
       isPlayFavImg,

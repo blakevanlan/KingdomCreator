@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import type { SetId } from '@/dominion/set-id';
 import type { CardType } from '@/dominion/card-type';
 import type { CostType } from '@/dominion/cost-type';
+import { SortOption } from '@/settings/settings';
 
 export interface SearchState {
   searchName: string;
@@ -19,7 +20,7 @@ export const useSearchStore = defineStore(
     selectedSetIds: [],
     selectedCardTypes: [],
     selectedCostTypes: [],
-    selectedSortOption: 'ALPHABETICAL',
+    selectedSortOption: SortOption.ALPHABETICAL,
   }),
   persist: true,
 });

@@ -2,6 +2,7 @@ import type {CardType} from '@/dominion/card-type';
 import type {CostType} from '@/dominion/cost-type';
 import {SetId} from '@/dominion/set-id';
 import { useSettingsStore } from '@/pinia/settings-store';
+import { RANDOMIZATION_CONSTRAINT_USE } from '@/settings/Settings-value';
 
 export class RandomizerOptions {
   constructor(
@@ -16,6 +17,7 @@ export class RandomizerOptions {
     readonly requireBuyProvider: boolean,
     readonly requireReactionIfAttacks: boolean,
     readonly requireTrashing: boolean,
+    readonly requireAttack: boolean,
     readonly distributeCost: boolean,
     readonly prioritizeSet: SetId | null,
     readonly baneCardId: string | null,
@@ -31,17 +33,13 @@ export class RandomizerOptions {
 
 export const initializeExcludedCardIds = (setIds: SetId[], initialExcludedCardIds: string[]): string[] => {
   const settingsStore = useSettingsStore();
-  const useConstraints = settingsStore.useConstraintOnRandomization;
-  if (!useConstraints) {
+  if (!RANDOMIZATION_CONSTRAINT_USE()) {
     return initialExcludedCardIds;
   }
-  const excludedFromSettings = setIds.reduce((acc, setId) => {
-    const setConstraints = settingsStore.getSetConstraints(setId);
-    if (setConstraints && setConstraints.isSelected && setConstraints.excludedCards) {
-      acc.push(...setConstraints.excludedCards);
-    }
-    return acc;
-  }, [] as string[]);
+  const excludedFromSettings = setIds.flatMap(setId => {
+    const constraints = settingsStore.getSetConstraints(setId);
+    return (constraints && constraints.isSelected && constraints.excludedCards) ? constraints.excludedCards : [];
+  });
   return [...new Set([...initialExcludedCardIds, ...excludedFromSettings])];
 }
 
@@ -57,6 +55,7 @@ export class RandomizerOptionsBuilder {
   requireBuyProvider: boolean = false;
   requireReactionIfAttacks: boolean = false;
   requireTrashing: boolean = false;
+  requireAttack: boolean = false;
   distributeCost: boolean = false;
   prioritizeSet: SetId | null = null;
   baneCardId: string | null = null;
@@ -122,6 +121,11 @@ export class RandomizerOptionsBuilder {
     return this;
   }
 
+  setRequireAttack(requireAttack: boolean) {
+    this.requireAttack = requireAttack;
+    return this;
+  }
+
   setDistributeCost(distributeCost: boolean) {
     this.distributeCost = distributeCost;
     return this;
@@ -180,6 +184,7 @@ export class RandomizerOptionsBuilder {
         this.requireBuyProvider,
         this.requireReactionIfAttacks,
         this.requireTrashing,
+        this.requireAttack,
         this.distributeCost,
         this.prioritizeSet,
         this.baneCardId,
