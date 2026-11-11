@@ -13,6 +13,7 @@
   "Require Drawer": "Require Drawer",
   "Require Buy": "Require Buy",
   "Allow Attacks": "Allow Attacks",
+  "Require Attack": "Require Attack",
   "Require Reaction": "Require Reaction",
   "Require Trashing": "Require Trashing",
   "Distribute Cost": "Distribute Cost",
@@ -70,5 +71,9 @@
   "Riverboatcard_needs_RB": "The presence of a riverboat carry card requires a \"Riverboat\"",
   "APA_needs_aApproachingarmycard": "Approaching Army Prophecy requires an approaching army card",
   "approachingarmycard_Cardtype": "the approachiong army card must have be type Attack",
-  "approachingarmy_needs_APA": "The presence of a riverboat carry card requires a \"Riverboat\""
+  "approachingarmy_needs_APA": "The presence of a riverboat carry card requires a \"Riverboat\"",
+  "Choose Card": "Choose Card",
+  "Search card...": "Search card...",
+  "No matching cards": "No matching cards",
+  "ChooseCardExplanation": "Or click on a card to instantly replace it in the Kingdom."
 }

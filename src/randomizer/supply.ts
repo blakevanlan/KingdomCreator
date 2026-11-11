@@ -13,8 +13,8 @@ export class Supply {
       readonly approachingArmyCard : SupplyCard | null,
       readonly traitsSupply: SupplyCard[],
       readonly replacements: Replacements) {
-    if (supplyCards.length > NUM_CARDS_IN_KINGDOM()) {
-      throw new Error("Unable to create supply with more than 10 cards.");
+    if (supplyCards.length > Math.max(10, NUM_CARDS_IN_KINGDOM())) {
+      throw new Error("Unable to create supply with more than " + NUM_CARDS_IN_KINGDOM() + " cards.");
     }
   }
 

@@ -59,12 +59,13 @@ setup(props) {
 
   // get the selected set ID from the store and filter kingdoms accordingly
   const kingdoms = computed(() => {
+    const _trigger = setsStore.needRefresh;
     const setId:SetId = setsStore.selectedSetId;
     let returnedKingdom: DominionKingdom[] = [];
-
     if (setId === SetId.ALL) {
       returnedKingdom  =  DominionKingdoms.getAllKingdoms();
     } else if (!(setId in DominionKingdoms.kingdoms)) { 
+      console.log("return sets empty")
       return []; 
     } else {
       returnedKingdom =  DominionKingdoms.kingdoms[setId] as DominionKingdom[]
@@ -74,7 +75,7 @@ setup(props) {
       returnedKingdom = returnedKingdom
         .filter(kd => { return kd.setIds.every(setid => OwnedSets.has(setid))})
     } 
-
+    //console.log(returnedKingdom)
     return returnedKingdom
   })
 

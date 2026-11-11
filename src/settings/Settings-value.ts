@@ -77,3 +77,19 @@ export const MAX_ADDONS_OF_TYPE = (addontype: string) : number => {
     // Pinia store is not initialized
     return Default_MAX_ADDONS_IN_KINGDOM
 }
+
+// use Randomization Constraint
+const Default_RANDOMIZATION_CONSTRAINT_USE = false;
+export const RANDOMIZATION_CONSTRAINT_USE = () : boolean => {
+    const activePinia = getActivePinia();
+    if (activePinia) {
+        // Pinia store is initialized*
+        const settingStore = useSettingsStore();
+        if (settingStore.useConstraintOnRandomization)
+            return settingStore.useConstraintOnRandomization
+        // isUsingCustomDesksize is false
+    } 
+    // Pinia store is not initialized
+    return Default_RANDOMIZATION_CONSTRAINT_USE
+}
+

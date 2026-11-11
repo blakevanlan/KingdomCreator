@@ -7,6 +7,9 @@ import * as PageBoxes from './messages/en/page-boxes.en.json';
 import * as PageSets from './messages/en/page-sets.en.json';
 import * as PageSearch from './messages/en/page-search.en.json';
 import * as PageSettings from './messages/en/page-settings.en.json';
+import * as PageHistory from './messages/en/page-history.en.json';  
+import * as PageWhatsNew from './messages/en/page-whatsnew.en.json';
+import * as GoogleSync from './messages/en/google-sync.en.json';
 
 function createCardMessages(): {[index: string]: string} {
   const messages: {[index: string]: string} = {};
@@ -35,6 +38,9 @@ export default {
   ...(PageBoxes as any).default,
   ...(PageSets as any).default,
   ...(PageSearch as any).default,
-  ...(PageSettings as any).default
+  ...(PageSettings as any).default,
+  ...(PageHistory as any).default,
+  ...(PageWhatsNew as any).default,
+  ...(GoogleSync as any).default
 };
 

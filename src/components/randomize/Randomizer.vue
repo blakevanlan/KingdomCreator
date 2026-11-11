@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <RandomizerSidebar @randomize="handleRandomize" />
+    <RandomizerSidebar :playedButtonText="playedButtonText" @randomize="handleRandomize" @played="handlePlayed"/>
     <div class="main">
       <KingdomNotValid />
       <SortableSupplyCards />
@@ -31,7 +31,11 @@ import type { Card } from '@/dominion/card';
 import { useRandomizerStore } from '@/pinia/randomizer-store';
 import { useWindowStore } from '@/pinia/window-store';
 import { usei18nStore } from '@/pinia/i18n-store';
+import { useHistoryStore } from '@/pinia/history-store';
+import { useGoogleSyncStore } from '@/pinia/google-sync-store';
 import { deserializeKingdom, serializeKingdom } from '@/randomizer/serializer';
+import { generateKingdomHash } from '@/randomizer/kingdom-hash';
+import { EventTracker, EventType } from '@/analytics/follow-activity';
 
 /* import Components */
 import Addons from './Addons.vue';
@@ -44,6 +48,7 @@ import KingdomNotValid from './KingdomNotValid.vue';
 
 import CopyButton from '../CopyButton.vue';
 import FullScreenButton from './FullScreenButton.vue';
+import type { Kingdom } from '@/randomizer/kingdom.ts';
 
 export default defineComponent({
   name: "Randomizer",
@@ -62,6 +67,8 @@ export default defineComponent({
     const randomizerStore = useRandomizerStore();
     const windowStore = useWindowStore();
     const i18nStore = usei18nStore();
+    const historyStore = useHistoryStore(); 
+    const googleSyncStore = useGoogleSyncStore();
     const { t } = useI18n();
     const route = useRoute();
     const router = useRouter();
@@ -69,15 +76,33 @@ export default defineComponent({
     const settings = ref(randomizerStore.settings);
 
     const isCondensed = computed(() =>{ return windowStore.isCondensed});
-    // const randomizerSettings = randomizerStore.settings.randomizerSettings;
+    const isSaving = ref(false);
 
-    const onKingdomChanged= () => {
+    const currentKingdomHash = computed(() => {
+      return kingdom.value ? generateKingdomHash(kingdom.value) : null;
+    });
+
+    const isKingdomPlayed = computed(() => {
+      const hash = currentKingdomHash.value;
+      return !!(hash && historyStore.playedKingdoms[hash]);
+    });
+
+    const playedButtonText = computed(() => {
+      if (!kingdom.value) return t('Play_It');
+      if (isSaving.value) return t('Saving');
+
+      return isKingdomPlayed.value ? t('Played') : t('Play_It');
+    });
+
+    const onKingdomChanged= (newKingdom: Kingdom) => {
+      if (!newKingdom) return;
       const query = {  lang: i18nStore.language,
           ...serializeKingdom(kingdom.value)
         }
       if (!isEqual(route.query, query)) {
         router.replace({ query })
       }
+
     }
     watch(kingdom, onKingdomChanged)
 
@@ -98,6 +123,21 @@ export default defineComponent({
 
     const handleRandomize = () => {
       randomizerStore.RANDOMIZE()
+    }
+
+    const handlePlayed = async () => {
+      if (googleSyncStore.isSignedIn) {
+        EventTracker.trackEvent(EventType.MARK_KINGDOM_PLAYED,kingdom.value);
+      }
+      if (historyStore.isKingdomAlreadyPlayed(kingdom.value)) return;
+      isSaving.value = true;
+      try {
+        await historyStore.addKingdomToHistory(kingdom.value);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        isSaving.value = false;
+      }
     }
 
     const isEqual = (a: any, b: any) => {
@@ -122,6 +162,8 @@ export default defineComponent({
     return {
       supplyCardsCopyText,
       handleRandomize,
+      handlePlayed,
+      playedButtonText,
       kingdom,
       settings,
       isCondensed

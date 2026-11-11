@@ -1,0 +1,19 @@
+{
+  "Connect": "Sign in",
+  "Signed as": "Signed as: {name} (Sync active). Click to sign out?",
+  "Cloud backup disabled": "Cloud backup disabled. Click to link your Google Drive.",
+  "Do you want to sign out": "Do you want to sign out of Google Drive?",
+  "Google Sync": "Google Drive Sync",
+  "Save and restore your settings": "Save and restore your settings across browsers using Google Drive.",
+  "Google Drive sync is not configured yet": "Google Drive sync is not configured yet. Set <code>VITE_GOOGLE_CLIENT_ID</code> in your environment to enable it.",
+  "Sign in with Google": "Sign in with Google",
+  "Sign in as": "Sign in as {name}",
+  "Signed in as": "Signed in as {name}",
+  "Sign Out Google": "Sign Out Google",
+  "Save to Drive": "Save to Drive",
+  "Restore from Drive": "Restore from Drive",
+  "Play_It": "Play it!",
+  "Saving": "Saving…",
+  "Played": "Played",
+  "Unknown or invalid kingdom": "Unknown or invalid kingdom"
+}

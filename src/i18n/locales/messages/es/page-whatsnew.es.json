@@ -1,0 +1,19 @@
+{
+  "news_modal_title": "¿Qué hay de nuevo?",
+  "news_modal_intro": "Descubre las principales novedades de esta versión.",
+  "news_modal_close": "Cerrar la ventana de novedades",
+  "news_modal_settings_title": "Ajustes, expansiones y generación",
+  "news_modal_settings_description": "Gestiona las expansiones que tienes y elige cuáles se muestran.",
+  "news_modal_game_setup_title": "Configuración de la partida",
+  "news_modal_game_setup_description": "Ajusta el número de cartas de Reino y complementos de la partida.",
+  "news_modal_constraints_title": "Restricciones de generación",
+  "news_modal_constraints_description": "Define cuotas mínimas y máximas de cartas por expansión o excluye cartas concretas de la generación.",
+  "news_modal_cloud_title": "Sincronización con Google Cloud",
+  "news_modal_cloud_description": "Guarda tu configuración y las partidas generadas en Google Drive para tenerlas disponibles en tus dispositivos.",
+  "news_modal_history_title": "Historial",
+  "news_modal_history_description": "Lleva un seguimiento detallado de las partidas generadas y jugadas.",
+  "news_modal_generation_title": "Generación y reemplazo mejorados",
+  "news_modal_generation_description": "Reemplaza cartas del Reino y complementos concretos con un proceso más preciso y optimizado.",
+  "news_modal_confirm": "¡Entendido!",
+  "news_modal_open_button": "Descubre las novedades"
+}

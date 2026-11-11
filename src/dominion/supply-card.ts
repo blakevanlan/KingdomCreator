@@ -47,6 +47,9 @@ export class SupplyCard implements Card {
     readonly isLiaison: boolean,
     readonly isCover: boolean,
 
+    //Plunder
+    readonly isLootSupplier: boolean,
+
     // Rising sun
     readonly isOmen: boolean,
     readonly isShadow: boolean,
@@ -116,12 +119,16 @@ export class SupplyCard implements Card {
       case CardType.COVER:
         return this.isCover;
 
+  // Plunder
+      case CardType.LOOT_SUPPLIER:
+        return this.isLootSupplier;
+
   // Rising Sun
     case CardType.OMEN:
       return this.isOmen;
     case CardType.SHADOW:
       return this.isShadow;
-  // Promps
+  // Promos
       case CardType.COMMAND:
         return this.isCommand;
       
@@ -173,6 +180,9 @@ export class SupplyCard implements Card {
       data.isLiaison ?? false,
       data.isCover ?? false,
   
+  // Plunder
+      data.isLootSupplier ?? false,
+
   // Rising Sun
       data.isOmen ?? false,
       data.isShadow ?? false,
@@ -226,7 +236,10 @@ export class SupplyCard implements Card {
       json["isLiaison"] || false,
       json["isCover"] || false,
 
-  // Allies
+  // Plunder
+      json["isLootSupplier"] || false,
+
+  // Rising Sun
       json["isOmen"] || false,
       json["isShadow"] || false,
       

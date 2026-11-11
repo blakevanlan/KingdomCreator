@@ -7,7 +7,15 @@
       <GridLayout v-if="activeBoons.length" class="boons" :class="{ 'boons--is-enlarged': isEnlarged }"
         :items="activeBoons" :number-of-columns="numberOfColumns" :is-vertical="false">
         <template v-slot:default="slotProps">
-          <FlippingCard :card="slotProps.item" :is-vertical="false" />
+          <FlippingCard :card="slotProps.item" :is-vertical="false">
+            <template v-slot:highlight-content>
+              <div v-if="slotProps.item"
+                class="standard-button standard-button--is-primary standard-button--light-border"
+                @click.stop="handleSpecify(slotProps.item)">
+                Specify
+              </div>
+            </template>
+          </FlippingCard>
         </template>
       </GridLayout>
     </transition>
@@ -79,10 +87,15 @@ export default defineComponent({
     };
     watch(boons, handleBoonsChanged)
 
+    const handleSpecify = (boon: any) => {
+      randomizerStore.UPDATE_SPECIFYING_REPLACEMENT_ADDON(boon);
+    };
+
     return {
       numberOfColumns,
       activeBoons,
-      isEnlarged
+      isEnlarged,
+      handleSpecify,
     }
   }
 });

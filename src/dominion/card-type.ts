@@ -35,6 +35,9 @@ export enum CardType {
   LIAISON = "isLiaison",
   COVER = "isCover",
 
+  // Plunder 
+  LOOT_SUPPLIER = "isLootSupplier",
+  
   // Rising sun
   OMEN = "isOmen",
   SHADOW = "isShadow",
@@ -65,6 +68,8 @@ export const VISIBLE_CARD_TYPES: VisibleType<CardType>[] = [
   { type: CardType.ARTIFACT_SUPPLIER, name: "Artifact" }, // Renaissance
   { type: CardType.VILLAGE_SUPPLIER, name: "Villager" },
   { type: CardType.LIAISON, name: "Liaison" },          // Allies
+  { type: CardType.COVER, name: "Cover" },
+  { type: CardType.LOOT_SUPPLIER, name: "Loot Supplier"},        // Plunder
   { type: CardType.OMEN, name: "Omen" },          // Rising Sun
   { type: CardType.SHADOW, name: "Shadow"},
   { type: CardType.COMMAND, name: "Command"},     // Promo

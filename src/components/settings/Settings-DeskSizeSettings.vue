@@ -85,8 +85,10 @@
 
 <script lang="ts">
 
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch, computed } from 'vue';
 import { RouterLink } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
 import { SwitchGroup, SwitchLabel, Switch } from '@headlessui/vue';
 import { useSettingsStore } from '@/pinia/settings-store';
 import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline';
@@ -103,15 +105,38 @@ export default defineComponent({
   },
   setup() {
     const SettingsStore = useSettingsStore();
-    const isUsingCustomDesksize = ref(SettingsStore.isUsingCustomDesksize);
-    const KingdomNb = ref(SettingsStore.KingdomNb);
-    const AddonsNb = ref(SettingsStore.AddonsNb);
-    const EventsMax = ref(SettingsStore.addonMax.Events);
-    const LandmarksMax = ref(SettingsStore.addonMax.Landmarks);
-    const ProjectsMax = ref(SettingsStore.addonMax.Projects);
-    const WaysMax = ref(SettingsStore.addonMax.Ways);
-    const TraitsMax = ref(SettingsStore.addonMax.Traits);
-    const forceAddonsUse = ref(SettingsStore.forceAddonsUse)
+    const {
+      isUsingCustomDesksize,
+      KingdomNb,
+      AddonsNb,
+      forceAddonsUse,
+      addonMax: addonMaxObj 
+    } = storeToRefs(SettingsStore);
+
+    const EventsMax = computed({
+      get: () => addonMaxObj.value.Events,
+      set: (val) => { addonMaxObj.value.Events = val; }
+    });
+
+    const LandmarksMax = computed({
+      get: () => addonMaxObj.value.Landmarks,
+      set: (val) => { addonMaxObj.value.Landmarks = val; }
+    });
+
+    const ProjectsMax = computed({
+      get: () => addonMaxObj.value.Projects,
+      set: (val) => { addonMaxObj.value.Projects = val; }
+    });
+
+    const WaysMax = computed({
+      get: () => addonMaxObj.value.Ways,
+      set: (val) => { addonMaxObj.value.Ways = val; }
+    });
+
+    const TraitsMax = computed({
+      get: () => addonMaxObj.value.Traits,
+      set: (val) => { addonMaxObj.value.Traits = val; }
+    });
 
     watch(AddonsNb,
       () => {
@@ -125,7 +150,7 @@ export default defineComponent({
     );
 
     watch(
-      [EventsMax, LandmarksMax, ProjectsMax, WaysMax, TraitsMax],
+      [EventsMax, LandmarksMax, ProjectsMax, WaysMax, TraitsMax, addonMaxObj],
       () => {
         const minAddonsNb = Math.max(EventsMax.value, LandmarksMax.value, ProjectsMax.value, 
               WaysMax.value, TraitsMax.value)
@@ -142,13 +167,7 @@ export default defineComponent({
         KingdomNb: KingdomNb.value,
         AddonsNb: AddonsNb.value,
         forceAddonsUse : forceAddonsUse.value,
-        addonMax: {
-          Events: EventsMax.value,
-          Landmarks: LandmarksMax.value,
-          Projects: ProjectsMax.value,
-          Ways: WaysMax.value,
-          Traits: TraitsMax.value
-        }
+        //addonMax: addonMaxObj.value
       });
     };
 
@@ -161,6 +180,7 @@ export default defineComponent({
 
     watch(
       [isUsingCustomDesksize, KingdomNb, AddonsNb, forceAddonsUse, 
+        addonMaxObj, 
         EventsMax, LandmarksMax, ProjectsMax, WaysMax, 
         TraitsMax],
       updateStoreValues,
@@ -171,6 +191,7 @@ export default defineComponent({
       KingdomNb,
       AddonsNb,
       forceAddonsUse,
+      addonMaxObj,
       EventsMax,
       LandmarksMax,
       ProjectsMax,

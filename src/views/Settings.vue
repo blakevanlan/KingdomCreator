@@ -4,6 +4,7 @@
       <DeskSizeSettings />
       <OwnedExpansionsSettings />
       <RandomizeConstraintsSettings />
+      <GoogleSyncSettings />
     </div>
   </Page>
 </template>
@@ -18,6 +19,7 @@ import Page, { MenuItemType } from '@/components/Page.vue';
 import DeskSizeSettings from '@/components/settings/Settings-DeskSizeSettings.vue';
 import RandomizeConstraintsSettings from '@/components/settings/Settings-RandomizeConstraintsSettings.vue';
 import OwnedExpansionsSettings from '@/components/settings/Settings-OwnedExpansionsSettings.vue';
+import GoogleSyncSettings from '@/components/settings/Settings-GoogleSync.vue';
 
 import useBase from './base';
 
@@ -28,6 +30,7 @@ export default defineComponent({
     OwnedExpansionsSettings,
     RandomizeConstraintsSettings,
     DeskSizeSettings,
+    GoogleSyncSettings,
   },
   setup() {
     useBase();
@@ -49,4 +52,5 @@ export default defineComponent({
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 </style>

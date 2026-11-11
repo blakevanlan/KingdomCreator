@@ -8,7 +8,7 @@ cartes en Francais
 
 Cartes des boites avec overlay si pas FR ou EN
 
-Recherche de cartes par critères 
+
 
 Settings
     ok liste des extensions à afficher/masquer
@@ -16,7 +16,6 @@ Settings
             nb de cartes par extension
             extensions au hasard
     
-Gestion sur un cloud de mes paramètres
 
 Gérer const devServerPort = 5173; si dejà utilisé.
 ok tracer les requetes utilisateurs
@@ -37,21 +36,25 @@ ok tracer les requetes utilisateurs
 [x] - Fix - selection own versus Random
 [x] - Fix - selection own verus Box
 [x] - Feat - Add select/unselect all Randomizer/Settings
-[x] - Doc - custom settings owned set
+[x] - Doc  - custom settings owned set
 [x] - Feat - search non supply
+[x] - Feat - allow suply replacement choix final 
+[x] - Feat - allow save deck
+[x] - Feat - online save of played deck
+[x] - Feat - avoid all ready played deck génération
+[x] - Feat - Gestion sur un cloud de mes paramètres (sauvegarde)
 
-[ ] - Doc - custom settings constraint randomizer
+[x] - Doc - custom settings constraint randomizer
+[x] - Feat - specify addon replacement
+[x] - Feat - nb card par extension (en créant de division)
 
-[ ] - Feat - specify addon replacement
-[ ] - Feat - allow replacement choix final 
-[ ] - Feat - nb card par extension (en créant de division)
 
-[ ] - Feat - allow save deck
-[ ] - Feat - online save of played deck
-[ ] - Feat - avoid all ready played deck génération
 [ ] - Feat - custom settings colony / shelter 
+
 [ ] - Feat - require attack
+[ ] - Feat - full setup
 
 [ ] - Feat - finalize cards French
 
-[ ] - Feat - full setup
+
+

@@ -1,34 +1,805 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sélecteur de logs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suivi — Dominion Randomizer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font: 15px/1.5 system-ui, sans-serif;
+      color: #202735;
+      background: #f5f6f8;
+    }
+    * { box-sizing: border-box; }
+    body { width: 100%; max-width: 1800px; margin: 0 auto; padding: 1.5rem; }
+    h1 { margin: 0 0 .25rem; font-size: 1.7rem; }
+    h2 { margin: 0 0 1rem; font-size: 1.25rem; }
+    h3 { margin: 0 0 .6rem; font-size: 1rem; }
+    .muted { color: #667085; }
+    .panel { margin-top: 1rem; padding: 1rem; border: 1px solid #d8dde5; border-radius: .5rem; background: #fff; }
+    .toolbar, .filters, .maintenance { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+    label { display: grid; flex: 1 1 200px; gap: .25rem; font-weight: 600; }
+    input, select, button { min-height: 2.4rem; padding: .4rem .65rem; border: 1px solid #c5ccd6; border-radius: .35rem; font: inherit; }
+    button { cursor: pointer; background: #f7f8fa; }
+    button:hover { background: #e9edf2; }
+    button.primary { border-color: #284f7c; color: #fff; background: #284f7c; }
+    button.primary:hover { background: #1c3e64; }
+    button.danger { border-color: #c0392b; color: #a5281c; background: #fff; }
+    button.danger:hover { background: #fff1f0; }
+    button:disabled, select:disabled { cursor: not-allowed; opacity: .55; }
+    #status { min-height: 1.5rem; margin: .75rem 0; }
+    .error { color: #b42318; }
+    .success { color: #16703c; }
+    [hidden] { display: none !important; }
+    .filters { margin: 1rem 0; }
+    .filters label { flex: 0 1 280px; }
+    .maintenance { justify-content: space-between; padding-top: 1rem; border-top: 1px solid #e6e9ee; }
+    .maintenance form { display: flex; flex-wrap: wrap; align-items: end; gap: .6rem; }
+    .maintenance label { flex: 0 1 190px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: .6rem .7rem; border-bottom: 1px solid #e3e7ed; text-align: left; vertical-align: top; }
+    th { background: #f7f8fa; white-space: nowrap; }
+    td { overflow-wrap: anywhere; }
+    .resizable-table { table-layout: fixed; }
+    .resizable-table th { position: relative; overflow: hidden; text-overflow: ellipsis; }
+    .resizable-table td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .resizable-table th:last-child, .resizable-table td:last-child { white-space: normal; }
+    .resizable-table td:last-child { overflow-wrap: anywhere; }
+    .column-resizer {
+      position: absolute;
+      top: 0;
+      right: -3px;
+      bottom: 0;
+      z-index: 1;
+      width: 7px;
+      cursor: col-resize;
+      touch-action: none;
+      background: linear-gradient(to right, transparent 2px, #b8c2d0 2px, #b8c2d0 3px, transparent 3px);
+    }
+    .column-resizer:hover, .column-resizer:focus-visible { background: #284f7c66; outline: none; }
+    .raw-table { min-width: 1000px; }
+    .raw-table td.params { min-width: 260px; }
+    .kingdoms { min-width: 1200px; }
+    pre { max-height: 20rem; overflow: auto; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: .82rem/1.45 ui-monospace, monospace; }
+    .pagination { display: flex; align-items: center; gap: .75rem; margin-top: .8rem; }
+    .pagination p { flex: 1 1 auto; min-width: 12rem; margin: 0; text-align: center; }
+    .pagination label { flex: 0 0 11rem; }
+    .pagination select { width: 100%; }
+    .metrics, .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .metric { padding: .8rem 1rem; border: 1px solid #e0e4ea; border-radius: .4rem; background: #fff; color: #596579; }
+    .metric strong { display: block; color: #172235; font-size: 1.65rem; }
+    .analytics-grid { margin-top: 1rem; }
+    .analytics-box { min-width: 0; padding: .9rem; border: 1px solid #e0e4ea; border-radius: .4rem; background: #fff; }
+    .count-table th { white-space: normal; }
+    .count-table td:last-child { width: 1%; text-align: right; white-space: nowrap; }
+    #cards-panel { grid-column: 1 / -1; }
+    .count-columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+    .count-columns table { min-width: 0; }
+    .raw-table th:first-child, .raw-table td:first-child { width: 2.5rem; text-align: center; }
+    .error-selection { width: 1rem; height: 1rem; min-height: auto; margin: 0; padding: 0; border-radius: .15rem; vertical-align: middle; }
+    .settings-list { columns: 2 320px; }
+    .settings-list table { break-inside: avoid; margin-bottom: 1rem; }
+    .settings-list th { width: 48%; white-space: normal; overflow-wrap: anywhere; }
+    .kingdoms td { min-width: 100px; }
+    .empty { color: #667085; text-align: center; }
+    details summary { color: #284f7c; cursor: pointer; }
+    @media (max-width: 850px) {
+      .analytics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .count-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .metrics, .analytics-grid { grid-template-columns: 1fr; }
+      .count-columns { grid-template-columns: 1fr; }
+      .pagination { flex-wrap: wrap; }
+      .pagination p { order: 1; flex: 1 1 100%; }
+      .pagination label { flex: 1 1 8rem; }
+      .maintenance { align-items: stretch; }
+      .maintenance form { width: 100%; }
+      .maintenance form button { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Sélectionnez une source pour afficher les logs</h1>
-    <form method="get" action="server.php">
-        <label for="source">Source :</label>
-        <select name="source" id="source">
-            <!-- Les options seront injectées dynamiquement -->
-        </select>
-        <button type="submit">Afficher les logs</button>
-    </form>
+  <header>
+    <h1>Suivi — Dominion Randomizer</h1>
+    <p class="muted">Journaux bruts et analyse de l’usage. Un identifiant temporaire regroupe les événements d’un onglet, sans identifiant de joueur ni hash de royaume.</p>
+  </header>
 
-    <script>
-        // Charger les sources dynamiquement
-        fetch('server.php?listSources=true')
-            .then(response => response.json())
-            .then(sources => {
-                const select = document.getElementById('source');
-                sources.forEach(source => {
-                    const option = document.createElement('option');
-                    option.value = source;
-                    option.textContent = source;
-                    select.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Erreur lors du chargement des sources :', error));
-    </script>
+  <form class="toolbar panel" id="dashboard-form">
+    <label>Source
+      <select id="source" required></select>
+    </label>
+    <label>Jeton administrateur
+      <input id="token" type="password" autocomplete="current-password" required>
+    </label>
+    <button class="primary" type="submit">Charger</button>
+  </form>
+
+  <p id="status" role="status" aria-live="polite"></p>
+
+  <main id="dashboard" hidden>
+    <section class="panel" aria-labelledby="raw-heading">
+      <h2 id="raw-heading">Données brutes</h2>
+      <p class="muted">Événements enregistrés dans la base sélectionnée, du plus récent au plus ancien.</p>
+      <div class="filters">
+        <label>Action (EventType)
+          <select id="event-type"><option value="">Toutes les actions</option></select>
+        </label>
+        <label>Session ID
+          <input id="session-id" maxlength="64" placeholder="Filtrer par identifiant de session">
+        </label>
+        <label>Contenu des paramètres
+          <input id="params-search" maxlength="500" placeholder="Texte exact à retrouver dans le JSON">
+        </label>
+        <button id="refresh-logs" type="button">Actualiser</button>
+      </div>
+      <p class="muted">La recherche des paramètres porte sur le texte exact saisi. La sélection se conserve entre les pages et s’efface si un filtre change (1 000 lignes maximum).</p>
+      <div class="table-wrap">
+        <table class="raw-table resizable-table" data-resize-key="raw-events">
+          <thead><tr>
+            <th><input id="select-page-logs" class="error-selection" type="checkbox" aria-label="Sélectionner toutes les lignes de cette page"></th>
+            <th>Date</th><th>Catégorie</th><th>EventType</th><th>Session ID</th><th>Pays</th><th>Appareil</th><th>Paramètres</th>
+          </tr></thead>
+          <tbody id="logs"></tbody>
+        </table>
+      </div>
+      <button class="danger" id="delete-selected-logs" type="button" disabled>Supprimer les lignes sélectionnées (0)</button>
+      <div class="pagination">
+        <button id="previous-page" type="button">Précédent</button>
+        <p id="page-label" aria-live="polite"></p>
+        <label>Événements par page
+          <select id="page-size">
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="250">250</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+          </select>
+        </label>
+        <button id="next-page" type="button">Suivant</button>
+      </div>
+      <div class="maintenance">
+        <button class="danger" id="clear-database" type="button">Vider toutes les données de cette base</button>
+        <form id="purge-form">
+          <label>Supprimer jusqu’au (date incluse)
+            <input id="purge-date" type="date" required>
+          </label>
+          <button class="danger" type="submit">Supprimer les anciennes données</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="analytics" aria-labelledby="analytics-heading">
+      <h2 id="analytics-heading">Vue analytique</h2>
+      <div class="metrics">
+        <div class="metric">Instantanés de royaume<strong id="kingdom-total">0</strong></div>
+        <div class="metric">Reprises depuis l’historique<strong id="replay-total">0</strong></div>
+        <div class="metric">Demandes de randomisation<strong id="randomization-total">0</strong></div>
+        <div class="metric">Ouvertures des nouveautés<strong id="news-open-total">0</strong></div>
+        <div class="metric">Clics sur « Joué »<strong id="played-total">0</strong></div>
+      </div>
+      <p class="muted">Les compteurs de randomisation correspondent aux événements enregistrés ; une même action peut en produire plusieurs.</p>
+      <div class="analytics-grid">
+        <article class="analytics-box"><h3>Actions (EventType)</h3><div class="table-wrap"><table class="count-table"><tbody id="event-counts"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Origine des royaumes</h3><div class="table-wrap"><table class="count-table"><tbody id="activity-sources"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Extensions configurées</h3><div class="table-wrap"><table class="count-table"><tbody id="sets"></tbody></table></div></article>
+        <article class="analytics-box" id="cards-panel"><h3>Cartes et addons les plus utilisés</h3><div class="count-columns" id="cards"></div></article>
+        <article class="analytics-box"><h3>Pages consultées</h3><div class="table-wrap"><table class="count-table"><tbody id="pages"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Langues des règles</h3><div class="table-wrap"><table class="count-table"><tbody id="page-languages"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Sets consultés dans la page Sets</h3><div class="table-wrap"><table class="count-table"><tbody id="viewed-sets"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Sets consultés dans Boxes</h3><div class="table-wrap"><table class="count-table"><tbody id="viewed-boxes-sets"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Types de randomisation</h3><div class="table-wrap"><table class="count-table"><tbody id="randomization-types"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Sets utilisés pour randomiser</h3><div class="table-wrap"><table class="count-table"><tbody id="randomization-sets"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Configuration des randomisations</h3><div class="table-wrap"><table class="count-table"><tbody id="randomization-configuration"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Réglages ajustés</h3><div class="table-wrap"><table class="count-table"><tbody id="randomization-adjustments"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Erreurs enregistrées</h3><div class="table-wrap"><table class="count-table"><tbody id="event-errors"></tbody></table></div></article>
+      </div>
+      <section>
+        <h3>Réglages observés sur les royaumes</h3>
+        <div class="settings-list" id="settings"></div>
+      </section>
+      <section>
+        <h3>Réglages utilisés lors des randomisations</h3>
+        <div class="settings-list" id="randomization-settings"></div>
+      </section>
+      <section>
+        <h3>Royaumes récents</h3>
+        <div class="table-wrap">
+          <table class="kingdoms resizable-table" data-resize-key="recent-kingdoms">
+            <thead><tr><th>Date</th><th>Session ID</th><th>Origine</th><th>Composition</th><th>Extensions configurées</th><th>Réglages</th></tr></thead>
+            <tbody id="kingdoms"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="muted">
+    This product includes GeoLite Data created by MaxMind, available from
+    <a href="https://www.maxmind.com" target="_blank" rel="noopener noreferrer">MaxMind</a>.
+  </footer>
+
+  <script>
+    const sourceSelect = document.getElementById('source');
+    const tokenInput = document.getElementById('token');
+    const status = document.getElementById('status');
+    const dashboard = document.getElementById('dashboard');
+    const eventTypeSelect = document.getElementById('event-type');
+    const sessionIdInput = document.getElementById('session-id');
+    const paramsSearchInput = document.getElementById('params-search');
+    const pageSizeSelect = document.getElementById('page-size');
+    let currentPage = 1;
+    let lastPage = 1;
+    const selectedLogIds = new Set();
+    const maxSelectedLogs = 1000;
+
+    const settingNames = {
+      requireActionProvider: 'Exiger un générateur d’Actions',
+      requireCardProvider: 'Exiger un générateur de cartes',
+      requireBuyProvider: 'Exiger un générateur d’Achats',
+      allowAttacks: 'Autoriser les attaques',
+      requireReaction: 'Exiger une réaction aux attaques',
+      requireTrashing: 'Exiger du trash',
+      requireAttack: 'Exiger une attaque',
+      distributeCost: 'Répartir les coûts',
+      prioritizeSet: 'Extension prioritaire',
+      isAlchemyRecommendationEnabled: 'Recommandation Alchimie',
+      isUsingCustomDesksize: 'Taille de royaume personnalisée',
+      KingdomNb: 'Nombre de cartes du royaume',
+      AddonsNb: 'Nombre d’addons',
+      forceAddonsUse: 'Forcer l’utilisation des addons',
+      addonMax: 'Maximum par type d’addon',
+      isUsingOnlyOwnedsets: 'Extensions possédées uniquement',
+      ownedSets: 'Extensions possédées',
+      useConstraintOnRandomization: 'Contraintes d’extensions activées',
+      setConstraints: 'Contraintes par extension',
+      sortOption: 'Tri des cartes',
+    };
+
+    function apiUrl(parameters) {
+      const query = new URLSearchParams({ source: sourceSelect.value, ...parameters });
+      return 'server.php?' + query;
+    }
+
+    async function apiFetch(url, options = {}) {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...(options.headers || {}),
+          'X-Dashboard-Token': tokenInput.value,
+        },
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Erreur de chargement.');
+      return result;
+    }
+
+    function setStatus(message, kind = '') {
+      status.className = kind;
+      status.textContent = message;
+    }
+
+    function addCell(row, value, className = '') {
+      const cell = document.createElement('td');
+      if (className) cell.className = className;
+      cell.textContent = value;
+      row.append(cell);
+      return cell;
+    }
+
+    function updateLogSelectionControls() {
+      const pageCheckboxes = [...document.querySelectorAll('#logs input.log-selection')];
+      const selectedPageCount = pageCheckboxes.filter(checkbox => checkbox.checked).length;
+      const selectPageCheckbox = document.getElementById('select-page-logs');
+      selectPageCheckbox.checked = pageCheckboxes.length > 0 && selectedPageCount === pageCheckboxes.length;
+      selectPageCheckbox.indeterminate = selectedPageCount > 0 && selectedPageCount < pageCheckboxes.length;
+
+      const deleteButton = document.getElementById('delete-selected-logs');
+      deleteButton.disabled = selectedLogIds.size === 0;
+      deleteButton.textContent = `Supprimer les lignes sélectionnées (${selectedLogIds.size})`;
+    }
+
+    function setupResizableTable(table) {
+      if (table.dataset.resizable === 'true') return;
+      const headers = [...table.querySelectorAll('thead tr:first-child th')];
+      if (headers.length < 2) return;
+
+      const colgroup = document.createElement('colgroup');
+      const savedRatios = (() => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(`analytics-column-widths-${table.dataset.resizeKey}`) || 'null');
+          return table.classList.contains('raw-table') &&
+            Array.isArray(saved) &&
+            saved.length === headers.length - 1
+            ? [0.45, ...saved]
+            : saved;
+        } catch {
+          return null;
+        }
+      })();
+      headers.forEach(() => colgroup.append(document.createElement('col')));
+      table.prepend(colgroup);
+      table.dataset.resizable = 'true';
+      table.style.width = '100%';
+
+      let ratios = headers.map((_, index) =>
+        Number.isFinite(savedRatios?.[index]) && savedRatios[index] > 0
+          ? savedRatios[index]
+            : [0.45, 1.2, 1, 1.4, 1.5, 3, 2][index] || 1
+      );
+      const fitColumns = () => {
+        const minTableWidth = table.classList.contains('raw-table') ? 1000 : 1200;
+        const width = Math.max(table.parentElement.clientWidth, minTableWidth, headers.length * 80);
+        const ratioTotal = ratios.reduce((sum, ratio) => sum + ratio, 0);
+        const widths = ratios.map(ratio => width * ratio / ratioTotal);
+        const colWidths = widths.map(columnWidth => Math.max(80, columnWidth));
+        const widthTotal = colWidths.reduce((sum, columnWidth) => sum + columnWidth, 0);
+        table.style.width = `${widthTotal}px`;
+        colWidths.forEach((columnWidth, index) => {
+          colgroup.children[index].style.width = `${columnWidth}px`;
+        });
+      };
+      const saveRatios = () => {
+        try {
+          localStorage.setItem(
+            `analytics-column-widths-${table.dataset.resizeKey}`,
+            JSON.stringify([...colgroup.children].map(column => parseFloat(column.style.width)))
+          );
+        } catch {
+          // Keep the current widths even if browser storage is unavailable.
+        }
+        ratios = [...colgroup.children].map(column => parseFloat(column.style.width));
+      };
+      fitColumns();
+
+      headers.slice(0, -1).forEach((header, index) => {
+        const handle = document.createElement('span');
+        handle.className = 'column-resizer';
+        handle.setAttribute('role', 'separator');
+        handle.setAttribute('aria-orientation', 'vertical');
+        handle.setAttribute('aria-label', `Ajuster la largeur de la colonne ${header.textContent.trim()}`);
+        handle.tabIndex = 0;
+        header.append(handle);
+
+        const resize = delta => {
+          const firstWidth = parseFloat(colgroup.children[index].style.width);
+          const nextWidth = parseFloat(colgroup.children[index + 1].style.width);
+          const adjustedDelta = Math.max(80 - firstWidth, Math.min(delta, nextWidth - 80));
+          colgroup.children[index].style.width = `${firstWidth + adjustedDelta}px`;
+          colgroup.children[index + 1].style.width = `${nextWidth - adjustedDelta}px`;
+        };
+
+        handle.addEventListener('pointerdown', event => {
+          event.preventDefault();
+          handle.setPointerCapture(event.pointerId);
+          const startX = event.clientX;
+          const firstWidth = parseFloat(colgroup.children[index].style.width);
+          const nextWidth = parseFloat(colgroup.children[index + 1].style.width);
+          handle.onpointermove = moveEvent => {
+            const delta = Math.max(80 - firstWidth, Math.min(moveEvent.clientX - startX, nextWidth - 80));
+            colgroup.children[index].style.width = `${firstWidth + delta}px`;
+            colgroup.children[index + 1].style.width = `${nextWidth - delta}px`;
+          };
+          handle.onpointerup = () => {
+            handle.onpointermove = null;
+            handle.onpointerup = null;
+            saveRatios();
+          };
+        });
+        handle.addEventListener('keydown', event => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          resize(event.key === 'ArrowRight' ? 16 : -16);
+          saveRatios();
+        });
+      });
+      window.addEventListener('resize', fitColumns);
+    }
+
+    async function loadLogs() {
+      const data = await apiFetch(apiUrl({
+        logs: 'true',
+        eventType: eventTypeSelect.value,
+        sessionId: sessionIdInput.value.trim(),
+        paramsSearch: paramsSearchInput.value.trim(),
+        page: String(currentPage),
+        perPage: pageSizeSelect.value,
+      }));
+      const selectedType = eventTypeSelect.value;
+      eventTypeSelect.replaceChildren(new Option('Toutes les actions', ''));
+      data.eventTypes.forEach(type => eventTypeSelect.add(new Option(type, type)));
+      if (data.eventTypes.includes(selectedType)) {
+        eventTypeSelect.value = selectedType;
+      } else if (selectedType) {
+        eventTypeSelect.value = '';
+        selectedLogIds.clear();
+        currentPage = 1;
+        return loadLogs();
+      }
+
+      lastPage = Math.max(1, Math.ceil(data.totalCount / data.perPage));
+      currentPage = Math.min(currentPage, lastPage);
+      const target = document.getElementById('logs');
+      target.replaceChildren();
+      document.getElementById('select-page-logs').checked = false;
+      document.getElementById('select-page-logs').indeterminate = false;
+
+      if (!data.logs.length) {
+        const row = document.createElement('tr');
+        const cell = addCell(row, 'Aucune donnée pour cette action.', 'empty');
+        cell.colSpan = 8;
+        target.append(row);
+      } else {
+        data.logs.forEach(log => {
+          const row = document.createElement('tr');
+          const selection = addCell(row, '');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'error-selection log-selection';
+          checkbox.value = String(log.id);
+          checkbox.checked = selectedLogIds.has(Number(log.id));
+          checkbox.setAttribute('aria-label', `Sélectionner ${log.eventOrError} ${log.eventType} du ${log.date}`);
+          selection.append(checkbox);
+          addCell(row, log.date);
+          addCell(row, log.eventOrError);
+          addCell(row, log.eventType);
+          addCell(row, log.sessionId || '—');
+          let paramsData = {};
+          try {
+            paramsData = JSON.parse(log.params || '{}');
+          } catch {
+            paramsData = {};
+          }
+          let clientContext = {};
+          try {
+            clientContext = JSON.parse(log.clientContext || '{}');
+          } catch {
+            clientContext = {};
+          }
+          addCell(row, clientContext.country || paramsData.country || '—');
+          addCell(row, clientContext.device || paramsData.device || '—');
+          const params = addCell(row, '', 'params');
+          const pre = document.createElement('pre');
+          pre.textContent = JSON.stringify(paramsData) || log.params || '';
+          params.append(pre);
+          target.append(row);
+        });
+      }
+      updateLogSelectionControls();
+
+      document.getElementById('page-label').textContent =
+        `${data.totalCount} événement(s) — page ${currentPage} sur ${lastPage}`;
+      document.getElementById('previous-page').disabled = currentPage <= 1;
+      document.getElementById('next-page').disabled = currentPage >= lastPage;
+    }
+
+    function renderCounts(target, counts) {
+      target.replaceChildren();
+      const entries = Object.entries(counts || {});
+      if (!entries.length) {
+        const row = document.createElement('tr');
+        addCell(row, 'Aucune donnée').colSpan = 2;
+        row.firstChild.className = 'empty';
+        target.append(row);
+        return;
+      }
+      entries.forEach(([label, count]) => {
+        const row = document.createElement('tr');
+        addCell(row, label);
+        addCell(row, String(count));
+        target.append(row);
+      });
+    }
+
+    function renderCountColumns(target, counts, columnCount = 4) {
+      target.replaceChildren();
+      const entries = Object.entries(counts || {});
+      if (!entries.length) {
+        const empty = document.createElement('p');
+        empty.className = 'muted';
+        empty.textContent = 'Aucune donnée';
+        target.append(empty);
+        return;
+      }
+
+      const rowsPerColumn = Math.ceil(entries.length / columnCount);
+      for (let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+        const columnEntries = entries.slice(
+          columnIndex * rowsPerColumn,
+          (columnIndex + 1) * rowsPerColumn
+        );
+        if (!columnEntries.length) continue;
+
+        const table = document.createElement('table');
+        table.className = 'count-table';
+        const body = document.createElement('tbody');
+        columnEntries.forEach(([label, count]) => {
+          const row = document.createElement('tr');
+          addCell(row, label);
+          addCell(row, String(count));
+          body.append(row);
+        });
+        table.append(body);
+        target.append(table);
+      }
+    }
+
+    function formatSettingValue(value) {
+      if (Array.isArray(value)) return value.length ? value.join(', ') : 'Aucune';
+      if (value && typeof value === 'object') return JSON.stringify(value);
+      if (value === null || value === '') return 'Aucune';
+      if (value === 'true') return 'Oui';
+      if (value === 'false') return 'Non';
+      return String(value);
+    }
+
+    function renderSettings(settingsData) {
+      const target = document.getElementById('settings');
+      target.replaceChildren();
+      Object.entries(settingsData || {}).forEach(([group, values]) => {
+        const table = document.createElement('table');
+        const heading = document.createElement('thead');
+        const headingRow = document.createElement('tr');
+        const headingCell = document.createElement('th');
+        headingCell.colSpan = 2;
+        headingCell.textContent = group === 'appSettings' || group === 'applicationSettings'
+          ? 'Réglages de l’application'
+          : 'Réglages du randomizer';
+        headingRow.append(headingCell);
+        heading.append(headingRow);
+        const body = document.createElement('tbody');
+        Object.entries(values).forEach(([name, counts]) => {
+          const row = document.createElement('tr');
+          addCell(row, settingNames[name] || name);
+          addCell(row, Object.entries(counts)
+            .map(([value, count]) => `${formatSettingValue(value)} : ${count}`).join(', '));
+          body.append(row);
+        });
+        table.append(heading, body);
+        target.append(table);
+      });
+      if (!target.children.length) {
+        const empty = document.createElement('p');
+        empty.className = 'muted';
+        empty.textContent = 'Aucun réglage enregistré.';
+        target.append(empty);
+      }
+    }
+
+    function renderKingdoms(items) {
+      const target = document.getElementById('kingdoms');
+      target.replaceChildren();
+      if (!items.length) {
+        const row = document.createElement('tr');
+        addCell(row, 'Aucun royaume enregistré.').colSpan = 6;
+        row.firstChild.className = 'empty';
+        target.append(row);
+        return;
+      }
+      items.forEach(item => {
+        const row = document.createElement('tr');
+        addCell(row, item.date);
+        addCell(row, item.sessionId || '—');
+        addCell(row, item.source === 'play_again' ? 'Play Again' : item.source);
+        const kingdom = item.kingdom || {};
+        const composition = [
+          ...(kingdom.supply || []),
+          ...(kingdom.events || []),
+          ...(kingdom.landmarks || []),
+          ...(kingdom.projects || []),
+          ...(kingdom.ways || []),
+          ...(kingdom.boons || []),
+          ...(kingdom.traits || []),
+          ...(kingdom.ally ? [kingdom.ally] : []),
+          ...(kingdom.prophecy ? [kingdom.prophecy] : []),
+          ...Object.values(kingdom.specialSupply || {}).flatMap(value => Array.isArray(value) ? value : [value]).filter(Boolean),
+        ];
+        addCell(row, composition.join(', '));
+        addCell(row, (item.configuration?.selectedSets || []).join(', '));
+        const settingsCell = addCell(row, '');
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = 'Voir les réglages';
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(item.configuration || {}, null, 2);
+        details.append(summary, pre);
+        settingsCell.append(details);
+        target.append(row);
+      });
+    }
+
+    async function loadAnalytics() {
+      const data = await apiFetch(apiUrl({ analytics: 'summary' }));
+      document.getElementById('kingdom-total').textContent = data.kingdomEvents;
+      document.getElementById('randomization-total').textContent = data.randomizationEvents || 0;
+      const interactions = data.interactions || {};
+      document.getElementById('news-open-total').textContent = interactions.NEWS_MODAL_OPEN || 0;
+      document.getElementById('played-total').textContent = interactions.MARK_KINGDOM_PLAYED || 0;
+      document.getElementById('replay-total').textContent = interactions.HISTORY_KINGDOM_REPLAY || 0;
+      renderCounts(document.getElementById('event-counts'), data.eventTypes);
+      renderCounts(document.getElementById('activity-sources'), data.sources);
+      renderCounts(document.getElementById('sets'), data.topSets);
+      renderCountColumns(document.getElementById('cards'), data.topCards);
+      renderCounts(document.getElementById('pages'), data.pages);
+      renderCounts(document.getElementById('page-languages'), data.pageLanguages);
+      renderCounts(document.getElementById('viewed-sets'), data.viewedSets);
+      renderCounts(document.getElementById('viewed-boxes-sets'), data.viewedBoxesSets);
+      renderCounts(document.getElementById('randomization-types'), data.randomizationTypes);
+      renderCounts(document.getElementById('randomization-sets'), data.randomizationSets);
+      const configurationLabels = {
+        configurationAdjusted: 'Configuration ajustée',
+        configurationSimplified: 'Configuration simplifiée',
+        googleDriveConnected: 'Google Drive connecté',
+      };
+      const configurationCounts = {};
+      Object.entries(data.randomizationConfiguration || {}).forEach(([name, values]) => {
+        Object.entries(values).forEach(([value, count]) => {
+          configurationCounts[`${configurationLabels[name] || name} — ${value}`] = count;
+        });
+      });
+      renderCounts(document.getElementById('randomization-configuration'), configurationCounts);
+      renderCounts(document.getElementById('randomization-adjustments'), data.randomizationAdjustedElements);
+      renderCounts(document.getElementById('event-errors'), data.errors);
+      renderSettings(data.settings);
+      renderSettings(data.randomizationSettings);
+      renderKingdoms(data.recentKingdoms || []);
+    }
+
+    async function refreshDashboard(showStatus = true) {
+      if (showStatus) setStatus('Chargement des journaux et des statistiques…');
+      dashboard.hidden = false;
+      document.querySelectorAll('.resizable-table').forEach(setupResizableTable);
+      try {
+        await Promise.all([loadLogs(), loadAnalytics()]);
+        setStatus('');
+      } catch (error) {
+        setStatus(error.message || 'Erreur de chargement.', 'error');
+      }
+    }
+
+    async function maintainDatabase(payload, confirmation) {
+      if (!confirm(confirmation)) return;
+      setStatus('Suppression en cours…');
+      try {
+        const result = await apiFetch(apiUrl({}), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        selectedLogIds.clear();
+        currentPage = 1;
+        updateLogSelectionControls();
+        await refreshDashboard(false);
+        setStatus(`${result.message} (${result.deletedCount} événement(s)).`, 'success');
+      } catch (error) {
+        setStatus(error.message || 'Erreur lors de la suppression.', 'error');
+      }
+    }
+
+    async function loadSources() {
+      const response = await fetch('server.php?listSources=true');
+      if (!response.ok) throw new Error('Impossible de charger les sources.');
+      const sources = await response.json();
+      sourceSelect.replaceChildren();
+      sources.forEach(source => sourceSelect.add(new Option(source, source)));
+      if (!sources.length) {
+        sourceSelect.disabled = true;
+        document.querySelector('#dashboard-form button').disabled = true;
+        setStatus('Aucune source enregistrée pour le moment.');
+      }
+    }
+
+    document.getElementById('dashboard-form').addEventListener('submit', event => {
+      event.preventDefault();
+      currentPage = 1;
+      selectedLogIds.clear();
+      updateLogSelectionControls();
+      refreshDashboard();
+    });
+    function resetLogSelectionForFilterChange() {
+      selectedLogIds.clear();
+      currentPage = 1;
+      updateLogSelectionControls();
+      loadLogs().catch(error => setStatus(error.message, 'error'));
+    }
+    eventTypeSelect.addEventListener('change', resetLogSelectionForFilterChange);
+    sessionIdInput.addEventListener('change', resetLogSelectionForFilterChange);
+    paramsSearchInput.addEventListener('change', resetLogSelectionForFilterChange);
+    paramsSearchInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        resetLogSelectionForFilterChange();
+      }
+    });
+    document.getElementById('refresh-logs').addEventListener('click', () => {
+      selectedLogIds.clear();
+      updateLogSelectionControls();
+      currentPage = 1;
+      loadLogs().catch(error => setStatus(error.message, 'error'));
+    });
+    pageSizeSelect.addEventListener('change', () => {
+      currentPage = 1;
+      loadLogs().catch(error => setStatus(error.message, 'error'));
+    });
+    document.getElementById('select-page-logs').addEventListener('change', event => {
+      const pageCheckboxes = [...document.querySelectorAll('#logs input.log-selection')];
+      const nextSelection = new Set(selectedLogIds);
+      pageCheckboxes.forEach(checkbox => {
+        const id = Number(checkbox.value);
+        if (event.target.checked) nextSelection.add(id);
+        else nextSelection.delete(id);
+      });
+      if (nextSelection.size > maxSelectedLogs) {
+        event.target.checked = false;
+        updateLogSelectionControls();
+        setStatus(`Vous pouvez sélectionner au maximum ${maxSelectedLogs} lignes à la fois.`, 'error');
+        return;
+      }
+      selectedLogIds.clear();
+      nextSelection.forEach(id => selectedLogIds.add(id));
+      pageCheckboxes.forEach(checkbox => { checkbox.checked = event.target.checked; });
+      updateLogSelectionControls();
+    });
+    document.getElementById('logs').addEventListener('change', event => {
+      if (!event.target.matches('input.log-selection')) return;
+      const id = Number(event.target.value);
+      if (event.target.checked && selectedLogIds.size >= maxSelectedLogs) {
+        event.target.checked = false;
+        setStatus(`Vous pouvez sélectionner au maximum ${maxSelectedLogs} lignes à la fois.`, 'error');
+        return;
+      }
+      if (event.target.checked) selectedLogIds.add(id);
+      else selectedLogIds.delete(id);
+      updateLogSelectionControls();
+    });
+    document.getElementById('delete-selected-logs').addEventListener('click', async () => {
+      const ids = [...selectedLogIds];
+      if (!ids.length) return;
+      if (!confirm(`Supprimer définitivement ${ids.length} ligne(s) sélectionnée(s) ?`)) return;
+
+      setStatus('Suppression des lignes sélectionnées…');
+      try {
+        const result = await apiFetch(apiUrl({}), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete-logs', ids }),
+        });
+        selectedLogIds.clear();
+        currentPage = 1;
+        updateLogSelectionControls();
+        await Promise.all([loadLogs(), loadAnalytics()]);
+        setStatus(`${result.message} (${result.deletedCount} ligne(s)).`, 'success');
+      } catch (error) {
+        setStatus(error.message || 'Erreur lors de la suppression.', 'error');
+      }
+    });
+    document.getElementById('previous-page').addEventListener('click', () => {
+      if (currentPage > 1) currentPage--;
+      loadLogs().catch(error => setStatus(error.message, 'error'));
+    });
+    document.getElementById('next-page').addEventListener('click', () => {
+      if (currentPage < lastPage) currentPage++;
+      loadLogs().catch(error => setStatus(error.message, 'error'));
+    });
+    document.getElementById('clear-database').addEventListener('click', () => {
+      maintainDatabase(
+        { action: 'clear' },
+        `Supprimer définitivement toutes les données de la base « ${sourceSelect.value} » ?`
+      );
+    });
+    document.getElementById('purge-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const date = document.getElementById('purge-date').value;
+      if (!date) return;
+      maintainDatabase(
+        { action: 'purge-before', date },
+        `Supprimer définitivement tous les événements de la base « ${sourceSelect.value} » jusqu’au ${date} inclus ?`
+      );
+    });
+
+    loadSources().catch(error => setStatus(error.message || 'Erreur de chargement des sources.', 'error'));
+  </script>
 </body>
 </html>

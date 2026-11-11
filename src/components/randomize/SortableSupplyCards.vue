@@ -159,9 +159,10 @@ export default defineComponent({
     }
     watch(numberOfColumns, handleNumberOfColumnsChanged)
     const isSpecialCard = (supplyCard: SupplyCard) => {
-      return isBaneCard(supplyCard) || isFerrymanCard (supplyCard) || 
-          isObeliskCard (supplyCard) || isMouseWayCard (supplyCard) || 
-          isRiverboatCard (supplyCard) || isApproachingArmyCard (supplyCard)
+      return isBaneCard(supplyCard) || isFerrymanCard (supplyCard)  
+          || isMouseWayCard (supplyCard) || isRiverboatCard (supplyCard) 
+          || isApproachingArmyCard (supplyCard)
+          //|| isObeliskCard (supplyCard) 
     }
     const isBaneCard = (supplyCard: SupplyCard) => {
       return kingdom.value.supply.baneCard &&

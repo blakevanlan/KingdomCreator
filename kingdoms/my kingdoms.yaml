@@ -1,4 +1,60 @@
 kingdoms:
+  - name: Testing Code 2 - full blow
+    sets:
+      - baseset2
+      - intrigue
+      - cornucopia
+      - prosperity
+      - alchemy
+      - menagerie
+      - empires
+      - renaissance
+      - guildscornucopia2
+      - plunder
+      - hinterlands
+      - allies
+      - risingsun
+      - seaside2
+      - nocturne
+    supply:
+      - nocturne_druid
+      - baseset2_market
+      - cornucopia_youngwitch
+      - prosperity_grandmarket
+      - alchemy_alchemist
+      - guildscornucopia2_ferryman
+      - risingsun_kitsune
+      - alchemy_university
+      - allies_broker
+      - risingsun_riverboat
+    bane: prosperity_traderoute
+    obeliskActionCard: alchemy_alchemist
+    wayofthemouseActionCard: hinterlands_crossroads
+    ferrymanGain: intrigue_greathall
+    riverboatActionCard: hinterlands_inn
+    approachingArmy: seaside2_corsair
+    events:
+      - risingsun_event_gather
+    landmarks:
+      - empires_landmark_obelisk
+    projects:
+      - renaissance_project_citadel
+    ways:
+      - menagerie_way_wayofthemouse
+    traits:
+      - plunder_trait_hasty->baseset2_market
+    allies:
+      - allies_ally_orderofastrologers
+    prophecies:
+      - risingsun_prophecy_approachingarmy
+    boons:
+      - nocturne_boon_theswampsgift
+      - nocturne_boon_theflamesgift
+      - nocturne_boon_thewindsgift
+    metadata:
+      colonies: true
+      shelters: true
+
   - name: Testing Code
     sets:
       - baseset
@@ -27,10 +83,10 @@ kingdoms:
     ferrymanGain: prosperity_grandmarket
     landmarks:
       - empires_landmark_obelisk
-    ways: 
+    ways:
       - menagerie_way_wayofthemouse
     traits:
-      - plunder_trait_shy->alchemy_transmute
+      - plunder_trait_hasty->baseset_market
     metadata:
       colonies: true
       shelters: true

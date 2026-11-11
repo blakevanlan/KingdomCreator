@@ -1,12 +1,34 @@
 <template>
-  <a class="rulebook" target="_rulebookDominion" :href="rulebookUrl" @click.prevent="openRulebook">
-    <img class="rulebook__img" :src="imageUrl" />
-    <TextOverlay>
-      <span class="rulebook__overlay" :class="rulebook.id">
-        {{ rulebook.name }}
+  <div class="rulebook">
+    <a class="rulebook__cover" target="_rulebookDominion" :href="latestRulebookUrl" @click.prevent="openRulebook">
+      <img class="rulebook__img" :src="imageUrl" />
+      <TextOverlay>
+        <span class="rulebook__overlay" :class="rulebook.id">
+          {{ rulebook.name }}
+        </span>
+      </TextOverlay>
+    </a>
+    <div v-if="rulebookVersions.versions.length" class="rulebook__versions">
+      <span
+        v-if="rulebookVersions.language !== lang"
+        class="rulebook__version-language"
+        :aria-label="`Rulebook language: ${rulebookVersions.language}`"
+      >
+        {{ rulebookVersions.language.toUpperCase() }}
       </span>
-    </TextOverlay>
-  </a>
+      <a
+        v-for="version in rulebookVersions.versions"
+        :key="`${rulebookVersions.language}-${version.year}`"
+        class="rulebook__version"
+        :href="version.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="`${rulebook.name} - ${version.year} (${rulebookVersions.language})`"
+      >
+        {{ version.year }}
+      </a>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,6 +37,7 @@ import { defineComponent, computed } from 'vue';
 
 /* import Dominion Objects and type*/
 import { getSetImageUrl, getRulebookUrl } from '@/utils/resources';
+import { getRulebookVersions } from '@/dominion/rulebook-versions';
 
 /* import store  */
 import { usei18nStore } from '@/pinia/i18n-store';
@@ -44,33 +67,37 @@ export default defineComponent({
       return getSetImageUrl(props.rulebook.id, lang.value);
     });
 
-    const rulebookUrl = computed(() => {
-      return getRulebookUrl(props.rulebook.id, lang.value);
+    const rulebookVersions = computed(() =>
+      getRulebookVersions(props.rulebook.id, lang.value)
+    );
+
+    const latestRulebookUrl = computed(() => {
+      const versions = rulebookVersions.value.versions;
+      return versions[versions.length - 1]?.url
+        ?? getRulebookUrl(props.rulebook.id, lang.value);
     });
 
     const openRulebook = () => {
-      // 1. Créer une nouvelle fenêtre vide
       const newWindow = window.open('', props.rulebook.name);
       if (newWindow) {
-        // 2. On définit le titre de l'onglet
         newWindow.document.title = props.rulebook.name;
-        // 3. On crée un iframe proprement
         const iframe = newWindow.document.createElement('iframe');
-        iframe.src = rulebookUrl.value;
+        iframe.src = latestRulebookUrl.value;
         iframe.style.width = '100%';
         iframe.style.height = '100vh';
         iframe.style.border = 'none';
         iframe.style.display = 'block';
 
-        // 4. On nettoie le body et on insère l'iframe
         newWindow.document.body.style.margin = '0';
         newWindow.document.body.appendChild(iframe);
       }
-    };  
+    };
 
     return {
+      lang,
       imageUrl,
-      rulebookUrl,
+      rulebookVersions,
+      latestRulebookUrl,
       openRulebook,
     };
   }
@@ -83,9 +110,22 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100%;
+  pointer-events: all;
+  position: absolute;
+  top: 0;
   text-decoration: none;
+  width: 100%;
 }
-.rulebook,
+.rulebook__cover {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 .rulebook__img {
   height: 100%;
   pointer-events: all;
@@ -94,7 +134,36 @@ export default defineComponent({
   width: 100%;
   object-fit: contain;
 }
-
+.rulebook__versions {
+  align-items: center;
+  bottom: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15em 0.45em;
+  justify-content: center;
+  position: absolute;
+  width: 96%;
+  z-index: 3;
+}
+.rulebook__version {
+  color: #fff;
+  font-size: clamp(0.75rem, 1.6vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+  text-shadow: 0 1px 3px #000, 1px 1px 3px #000;
+}
+.rulebook__version-language {
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-shadow: 0 1px 3px #000, 1px 1px 3px #000;
+}
+.rulebook__version:hover,
+.rulebook__version:focus-visible {
+  color: #ffc928;
+  text-decoration: underline;
+}
 .rulebook__overlay {
   font-size: 15px;
   text-decoration: none;

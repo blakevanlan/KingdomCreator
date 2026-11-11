@@ -27,22 +27,23 @@ import { SupplyDivisions } from './supply-divisions';
 import { TypeSupplyBan } from './type-supply-ban';
 import { TypeSupplyRequirement } from './type-supply-requirement';
 import { getRandomInt, getRandomInts, selectRandomN } from '@/utils/rand';
-import type { Boon } from '@/dominion/boon';
 import { Way } from '@/dominion/way';
 import { Ally } from '@/dominion/ally';
 import { Trait } from '@/dominion/trait';
 import { Prophecy } from '@/dominion/prophecy';
+import { Boon } from '@/dominion/boon';
 import { DRUID_ID, BOONS_NB_FROM_DRUID } from './special-need-cards';
 import { APPROACHINGARMY_ID, APPROACHINGARMY_CARDTYPE_REQUESTED } from './special-need-cards';
 import { OBELISK_LANDMARK_ID, OBELISK_CARDTYPE_REQUESTED } from './special-need-cards';
 import { MOUSE_WAY_ID, MOUSE_MIN_COST, MOUSE_MAX_COST } from './special-need-cards';
 import { TRAITS_CARDTYPE_POSSIBILITY_1, TRAITS_CARDTYPE_POSSIBILITY_2 } from './special-need-cards';
-import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE } from '@/settings/Settings-value';
+import { NUM_CARDS_IN_KINGDOM, MAX_ADDONS_IN_KINGDOM, FORCE_ADDONS_USE, MAX_ADDONS_OF_TYPE, RANDOMIZATION_CONSTRAINT_USE } from '@/settings/Settings-value';
 
 import { EventTracker, EventType } from '@/analytics/follow-activity';
 
 import { getActivePinia } from 'pinia'; // Import Pinia
 import { useRandomizerStore } from '@/pinia/randomizer-store';
+import { useSettingsStore } from '@/pinia/settings-store';
 
 const MAX_RETRIES = 3;
 
@@ -112,13 +113,19 @@ export class Randomizer {
     return Cards.filterSetsByAllowedSetIds(DominionSets.getAllSets(), SavedSetIds);
   }
 
-  static createSupplySafe(randomizerOptions: RandomizerOptions): Supply | null {
+  static createSupplySafe(
+    randomizerOptions: RandomizerOptions,
+    trackingData: Record<string, unknown> = {}
+  ): Supply | null {
     try {
       return this.createSupplyWithRetries(randomizerOptions);
     } catch (error) {
       if (typeof error === 'object' && error !== null) {
         console.log(`Failed to create supply: \n${error.toString()}`);
-        EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY, { message: error.toString() });
+        EventTracker.trackError(EventType.RANDOMIZE_MULTIPLE_SUPPLY, {
+          ...trackingData,
+          message: error.toString(),
+        });
         alert(`Failed to create supply: \n${error.toString()}`)
       }
       else
@@ -234,30 +241,46 @@ export class Randomizer {
       console.info('[Randomizer - createSupply] Requirement: trashing');
       supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.TRASHING, false));
     }
+    if (randomizerOptions.requireAttack) {
+      console.info('[Randomizer - createSupply] Requirement: attack');
+      supplyBuilder.addRequirement(new TypeSupplyRequirement(CardType.ATTACK, false));
+    }
 
     // Configure dividers.
     let remainingCards = NUM_CARDS_IN_KINGDOM();
 
-    if (randomizerOptions.prioritizeSet && randomizerOptions.prioritizeSet != SetId.ALCHEMY) {
-      console.info('[Randomizer - createSupply] Prioritized set:', randomizerOptions.prioritizeSet);
-      supplyBuilder.addDivider(
-        new SetSupplyDivider(randomizerOptions.prioritizeSet, NUM_PRIORITIZED_SET));
-      remainingCards -= NUM_PRIORITIZED_SET;
-    }
+    // 
+    if (RANDOMIZATION_CONSTRAINT_USE()) {
+      const settingsStore = useSettingsStore();
+      const dist = this.getConstraintsDistribution(randomizerOptions.setIds, settingsStore);
+      for (const [setId, count] of dist.entries()) {
+        if (count > 0) {
+          console.info(`[Randomizer - createSupply] Adding constraint divider for set ${setId}: ${count} cards`);
+          supplyBuilder.addDivider(new SetSupplyDivider(setId, count));
+        }
+      }
+    } else {
+      if (randomizerOptions.prioritizeSet && randomizerOptions.prioritizeSet != SetId.ALCHEMY) {
+        console.info('[Randomizer - createSupply] Prioritized set:', randomizerOptions.prioritizeSet);
+        supplyBuilder.addDivider(
+          new SetSupplyDivider(randomizerOptions.prioritizeSet, NUM_PRIORITIZED_SET));
+        remainingCards -= NUM_PRIORITIZED_SET;
+      }
 
-    // Add the Alchemy divider if "+3 Alchemy cards" is selected or
-    // if Alchemy set is prioritized or randomly (1 chance out of number of sets)
-    if (this.shouldUseAlchemyDivider(randomizerOptions)) {
-      // Determine the number of Alchemy cards to use.
-      const alchemyCardsToUse = this.getNumberOfAlchemyCardsToUse(randomizerOptions, remainingCards);
-      console.info('[Randomizer - createSupply] Using Alchemy divider, number of cards:', alchemyCardsToUse);
-      supplyBuilder.addDivider(new SetSupplyDivider(SetId.ALCHEMY, alchemyCardsToUse));
-      remainingCards -= alchemyCardsToUse;
-    }
-    // if not banning all Alchemy cards to respect the recommendation 3 to 5 alchemy cards
-    else if (randomizerOptions.setIds.length > 1) {
-      console.info('[Randomizer - createSupply] Ban all Alchemy sets');
-      supplyBuilder.addBan(new SetSupplyBan([SetId.ALCHEMY]));
+      // Add the Alchemy divider if "+3 Alchemy cards" is selected or
+      // if Alchemy set is prioritized or randomly (1 chance out of number of sets)
+      if (this.shouldUseAlchemyDivider(randomizerOptions)) {
+        // Determine the number of Alchemy cards to use.
+        const alchemyCardsToUse = this.getNumberOfAlchemyCardsToUse(randomizerOptions, remainingCards);
+        console.info('[Randomizer - createSupply] Using Alchemy divider, number of cards:', alchemyCardsToUse);
+        supplyBuilder.addDivider(new SetSupplyDivider(SetId.ALCHEMY, alchemyCardsToUse));
+        remainingCards -= alchemyCardsToUse;
+      }
+      // if not banning all Alchemy cards to respect the recommendation 3 to 5 alchemy cards
+      else if (randomizerOptions.setIds.length > 1) {
+        console.info('[Randomizer - createSupply] Ban all Alchemy sets');
+        supplyBuilder.addBan(new SetSupplyBan([SetId.ALCHEMY]));
+      }
     }
 
     let highCardsInKingdom = -1;
@@ -285,7 +308,6 @@ export class Randomizer {
         console.info('[Randomizer - createSupply] Correction: supplyBuilder adjusted for required reaction if attacks.');
         supplyBuilder = correctedSupplyBuilder;
         console.info('[Randomizer - createSupply] Correct Supply for Reaction, Cards to keep:', existingCards.map(c => c.id).sort());
-        console.log(supplyBuilder)
         supply = this.buildSupplyWithRetries(supplyBuilder, existingCards);
         console.info('[Randomizer - createSupply] Correct Supply for Reaction, Cards selected:', supply.supplyCards.map(c => c.id).sort());
       }
@@ -344,10 +366,10 @@ export class Randomizer {
       if (FORCE_ADDONS_USE()) {
         if (selectedEvents.length + selectedLandmarks.length + selectedProjects.length 
               + selectedWays.length + selectedTraits.length == MAX_ADDONS_IN_KINGDOM())   {
-          console.log("getAddons: forced addons use & addons number satisfied");
+          //console.log("getAddons: forced addons use & addons number satisfied");
           break
         } else {
-          console.log("getAddons: forced addons use & addons number not satisfied, retrying with new selectedCards");
+          //console.log("getAddons: forced addons use & addons number not satisfied, retrying with new selectedCards");
           previousComplementarySelectedIds = [
             ...previousComplementarySelectedIds,
             ...selectedCards.map(card => card.id)
@@ -371,6 +393,7 @@ export class Randomizer {
       allies: selectedAllies,
       prophecies: selectedProphecies,
       traits: selectedTraits,
+      boons: []
     };
   }
 
@@ -502,7 +525,7 @@ export class Randomizer {
                     && card.id != supply.baneCard?.id 
                     && card.id != supply.riverboatCard?.id )
             .filter(card => card.isOfType(APPROACHINGARMY_CARDTYPE_REQUESTED))
-        // console.log(candidateCards)
+        //console.log(candidateCards)
         // ugly by definition if No APPROACHINGARMY_CARDTYPE_REQUESTED present
         const randomIndex = Math.floor(Math.random() * candidateCards.length);
         calculateApproachingArmyCard  = candidateCards[randomIndex]
@@ -545,7 +568,7 @@ export class Randomizer {
   }
 
   private static selectRandomCards<T>(cards: T[], numberToSelect: number): T[] {
-    console.log('[Randomizer] Random selecting',numberToSelect, 'among', cards.length);
+    //console.log('[Randomizer] Random selecting',numberToSelect, 'among', cards.length);
     const randomIndices = getRandomInts(numberToSelect, cards.length);
     const selectedCards: T[] = [];
     for (const index of randomIndices) {
@@ -693,5 +716,51 @@ export class Randomizer {
   private static replaceSetIdInCardId(cardId: string, newSetId: string) {
     return newSetId + '_' + cardId.split('_')[1];
   }
-}
 
+  private static getConstraintsDistribution(setIds: SetId[], settingsStore: any): Map<SetId, number> {
+    const distribution = new Map<SetId, number>();
+    const mins = new Map<SetId, number>();
+    const maxes = new Map<SetId, number>();
+
+    let sumMin = 0;
+    for (const setId of setIds) {
+      const c = settingsStore.getSetConstraints(setId);
+      if (c && c.isSelected) {
+        const min = typeof c.minCards === 'number' ? c.minCards : 0;
+        const max = typeof c.maxCards === 'number' ? c.maxCards : NUM_CARDS_IN_KINGDOM();
+        mins.set(setId, min);
+        maxes.set(setId, max);
+        sumMin += min;
+      } else {
+        mins.set(setId, 0);
+        maxes.set(setId, NUM_CARDS_IN_KINGDOM());
+      }
+    }
+
+    if (sumMin > NUM_CARDS_IN_KINGDOM()) {
+      sumMin = 0;
+      for (const setId of setIds) {
+        mins.set(setId, 0);
+      }
+    }
+
+    for (const setId of setIds) {
+      distribution.set(setId, mins.get(setId)!);
+    }
+
+    let remaining = NUM_CARDS_IN_KINGDOM() - sumMin;
+    let safetyCounter = 0;
+    while (remaining > 0 && safetyCounter < 1000) {
+      safetyCounter++;
+      const candidates = setIds.filter(setId => distribution.get(setId)! < maxes.get(setId)!);
+      if (candidates.length === 0) {
+        break;
+      }
+      const randomSet = candidates[Math.floor(Math.random() * candidates.length)];
+      distribution.set(randomSet, distribution.get(randomSet)! + 1);
+      remaining--;
+    }
+
+    return distribution;
+  }
+}

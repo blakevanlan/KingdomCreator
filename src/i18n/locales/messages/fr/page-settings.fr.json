@@ -15,5 +15,7 @@
   "cards_removed": "carte à ne pas utiliser|carte à ne pas utiliser|cartes à ne pas utiliser",
   "ShortDeskSize": "Choississez le nombre de royaumes et le nombre de cartes spéciales ",
   "ShortOwnedSets": "Réduissez l'affichage des extensions aux seules extensions que vous possédez",
-  "HowDoesItWorksDeskSize": "CommentCaMarche"
+  "HowDoesItWorksDeskSize": "CommentCaMarche",
+  "HowDoesItWorksOwnedSets": "CommentCaMarcheOwnedSets",
+  "HowDoesItWorksRandomizeConstraints": "CommentCaMarcheRandomizeConstraints"
 }

@@ -1,0 +1,19 @@
+{
+  "news_modal_title": "Quali sono le novità?",
+  "news_modal_intro": "Scopri le principali novità di questa versione.",
+  "news_modal_close": "Chiudi la finestra delle novità",
+  "news_modal_settings_title": "Impostazioni, espansioni e generazione",
+  "news_modal_settings_description": "Gestisci le espansioni che possiedi e scegli quali set visualizzare.",
+  "news_modal_game_setup_title": "Configurazione della partita",
+  "news_modal_game_setup_description": "Modifica il numero di carte Regno e aggiunte usate per una partita.",
+  "news_modal_constraints_title": "Vincoli di generazione",
+  "news_modal_constraints_description": "Imposta quote minime e massime per espansione oppure escludi carte specifiche dalla generazione.",
+  "news_modal_cloud_title": "Sincronizzazione Google Cloud",
+  "news_modal_cloud_description": "Salva la configurazione e le partite generate su Google Drive per ritrovarle su tutti i tuoi dispositivi.",
+  "news_modal_history_title": "Cronologia",
+  "news_modal_history_description": "Tieni traccia dettagliata delle partite generate e giocate.",
+  "news_modal_generation_title": "Generazione e sostituzione migliorate",
+  "news_modal_generation_description": "Sostituisci carte del Regno e aggiunte specifiche con un flusso più mirato e ottimizzato.",
+  "news_modal_confirm": "Ho capito!",
+  "news_modal_open_button": "Scopri le novità"
+}

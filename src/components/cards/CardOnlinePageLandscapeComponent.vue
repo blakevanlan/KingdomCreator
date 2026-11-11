@@ -371,8 +371,11 @@ export default defineComponent({
           debt: 0
         } as Cost);
       }
-      card = card as Addon
-      return card.cost
+      return (card as Addon).cost ?? {
+        treasure: 0,
+        potion: 0,
+        debt: 0
+      } as Cost;
     }
 
     const getCardNameFontSize= (currentCard: DigitalCard) => {

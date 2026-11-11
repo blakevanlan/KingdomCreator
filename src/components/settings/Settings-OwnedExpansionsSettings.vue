@@ -17,7 +17,7 @@
                 <QuestionMarkCircleIcon class="QuestionMark" />
               </RouterLink>
             </div>
-          <Switch as="button" v-model="ownedRestricted" v-slot="{ checked }" :class="ownedRestricted ? 'switch-bg-indigo-600' : 'switch-bg-gray-200'"
+          <Switch as="button" v-model="isUsingOnlyOwnedsets" v-slot="{ checked }" :class="isUsingOnlyOwnedsets ? 'switch-bg-indigo-600' : 'switch-bg-gray-200'"
             class="relative-switchcss">
             <span class="SwitchSpan" :class="{ 'translate-x-5': checked, 'translate-x-0': !checked }" />
           </Switch>
@@ -38,7 +38,7 @@
           </label>
           <label class="checkbox sidebar-content-option" style="margin-left:10px;">
             <input type="checkbox" 
-                   :checked="listedSetids.length > 0 && ownedSetIds.length === listedSetids.length"
+                   :checked="listedSetids.length > 0 && ownedSets.length === listedSetids.length"
                    @change="toggleAllSets($event)" />
             <span>{{ $t('Select All') }}</span>
           </label>
@@ -47,12 +47,12 @@
         <div class="sets">
           <div class="set" v-for="setId in listedSetids" :key="setId">
             <label class="checkbox">
-              <input :id="setId" type="checkbox" v-model="ownedSetIds"  :value="setId">
+              <input :id="setId" type="checkbox" v-model="ownedSets"  :value="setId">
               <span>{{ $t(setId) }} <span v-if="FindMultipleVersionSets(setId).length !== 0"> - {{ $t("1st") }}</span></span>
             </label>
             <span v-if="FindMultipleVersionSets(setId).length !== 0">
               <label class="checkbox suboption-set">
-                <input :id="(FindMultipleVersionSets(setId))[0]!.idv2" type="checkbox" v-model="ownedSetIds" 
+                <input :id="(FindMultipleVersionSets(setId))[0]!.idv2" type="checkbox" v-model="ownedSets" 
                   :value="(FindMultipleVersionSets(setId))[0]!.idv2">
                 <span>{{ $t("2nd") }}</span>
               </label>
@@ -70,6 +70,8 @@
 /* import Vue, typescript */
 import { defineComponent, ref, computed, watch } from 'vue';
 import { RouterLink } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
 import { SwitchGroup, Switch, SwitchLabel } from '@headlessui/vue';
 import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline';
 import { useI18n } from 'vue-i18n';
@@ -101,8 +103,11 @@ export default defineComponent({
     const randomizerStore = useRandomizerStore()
     const { t } = useI18n();
     
-    const ownedRestricted = ref(SettingsStore.isUsingOnlyOwnedsets);
-    const ownedSetIds = ref(SettingsStore.ownedSets);
+    const {
+      isUsingOnlyOwnedsets,
+      ownedSets
+    } = storeToRefs(SettingsStore);
+
     const setsOrderType = ref("alpha");
 
     const listedSetids = computed(() => { 
@@ -116,7 +121,7 @@ export default defineComponent({
       }
       );
 
-        watch([ownedSetIds, ownedRestricted], ([newOwnedSetIds, newOwnedRestricted], [oldOwnedSetIds, oldOwnedRestricted]) => {
+        watch([ownedSets, isUsingOnlyOwnedsets], ([newOwnedSetIds, newOwnedRestricted], [oldOwnedSetIds, oldOwnedRestricted]) => {
           // Détection fine des changements de SetId
           const added = newOwnedSetIds.filter((x) => !oldOwnedSetIds.includes(x));
           const removed = oldOwnedSetIds.filter((x) => !newOwnedSetIds.includes(x));
@@ -160,17 +165,17 @@ export default defineComponent({
     const toggleAllSets = (event: Event) => {
       const checked = (event.target as HTMLInputElement).checked;
       if (checked) {
-        ownedSetIds.value = [...listedSetids.value];
+        ownedSets.value = [...listedSetids.value];
       } else {
-        ownedSetIds.value = [];
+        ownedSets.value = [];
       }
     }
 
     return {
-      ownedRestricted,
+      isUsingOnlyOwnedsets,
       listedSetids,
       setsOrderType,
-      ownedSetIds,
+      ownedSets,
       FindMultipleVersionSets,
       getHelpMarkdownUrl,
       toggleAllSets
