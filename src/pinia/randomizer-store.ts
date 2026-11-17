@@ -152,26 +152,28 @@ export const useRandomizerStore = defineStore(
   },
   actions: {
     UPDATE_KINGDOM(kingdom: Kingdom, source = 'edit') {
-     //(new Date().toLocaleTimeString(), "UPDATE_KINGDOM", kingdom)
+     //console.log(new Date().toLocaleTimeString(), "UPDATE_KINGDOM + KINGDOM_ACTIVITY", kingdom)
       this.kingdom = kingdom;
-      EventTracker.trackEvent(EventType.UPDATE_KINGDOM, kingdom);
-      const settingsStore = useSettingsStore();
-      EventTracker.trackKingdomActivity(kingdom, source, {
-        selectedSets: [...this.settings.selectedSets],
-        sortOption: this.settings.sortOption,
-        randomizerSettings: { ...this.settings.randomizerSettings },
-        appSettings: {
-          isUsingCustomDesksize: settingsStore.isUsingCustomDesksize,
-          KingdomNb: settingsStore.KingdomNb,
-          AddonsNb: settingsStore.AddonsNb,
-          forceAddonsUse: settingsStore.forceAddonsUse,
-          addonMax: { ...settingsStore.addonMax },
-          isUsingOnlyOwnedsets: settingsStore.isUsingOnlyOwnedsets,
-          ownedSets: [...settingsStore.ownedSets],
-          useConstraintOnRandomization: settingsStore.useConstraintOnRandomization,
-          setConstraints: settingsStore.setConstraints,
-        },
-      });
+      if (source !== 'no_url') {
+        EventTracker.trackEvent(EventType.UPDATE_KINGDOM, kingdom);
+        const settingsStore = useSettingsStore();
+        EventTracker.trackKINGDOM_ACTIVITY(kingdom, source, {
+          selectedSets: [...this.settings.selectedSets],
+          sortOption: this.settings.sortOption,
+          randomizerSettings: { ...this.settings.randomizerSettings },
+          appSettings: {
+            isUsingCustomDesksize: settingsStore.isUsingCustomDesksize,
+            KingdomNb: settingsStore.KingdomNb,
+            AddonsNb: settingsStore.AddonsNb,
+            forceAddonsUse: settingsStore.forceAddonsUse,
+            addonMax: { ...settingsStore.addonMax },
+            isUsingOnlyOwnedsets: settingsStore.isUsingOnlyOwnedsets,
+            ownedSets: [...settingsStore.ownedSets],
+            useConstraintOnRandomization: settingsStore.useConstraintOnRandomization,
+            setConstraints: settingsStore.setConstraints,
+          },
+        });
+      }
     },
     CLEAR_SELECTION() {
       this.selection = Selection.empty();
@@ -330,7 +332,7 @@ export const useRandomizerStore = defineStore(
         };
         if (supply) {
           if (source !== 'play_again') {
-            EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL);
+            EventTracker.trackEvent(EventType.LOAD_PARTIAL_KINGDOM_FROM_URL, initialKingdom);
           }
           let kingdom
           if (initialKingdom.events.length + initialKingdom.landmarks.length +
@@ -393,14 +395,14 @@ export const useRandomizerStore = defineStore(
       }
       // Do a full randomize since we failed to retrieve a kingdom from the URL.
       // clean selection in 
-      EventTracker.trackEvent(EventType.LOAD_INITIAL_RANDOMIZE, rA.randomizationTrackingData(this));
-      this.RANDOMIZE();
+      //EventTracker.trackEvent(EventType.LOAD_INITIAL_RANDOMIZE, rA.randomizationTrackingData(this));
+      this.RANDOMIZE(source);
     },
-    RANDOMIZE() {
+    RANDOMIZE(source = 'shared_url') {
       //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE')
       //console.log(this.kingdom)
       if (this.selection.isEmpty()) {
-        this.RANDOMIZE_FULL_KINGDOM();
+        this.RANDOMIZE_FULL_KINGDOM(source);
         return;
       }
       const selectedSupplyCards = rA.getSelectedSupplyCards(this);
@@ -458,10 +460,12 @@ export const useRandomizerStore = defineStore(
       this.UPDATE_KINGDOM(kingdom, 'random');
     },
 
-    RANDOMIZE_FULL_KINGDOM() {
+    RANDOMIZE_FULL_KINGDOM(source = 'shared_url') {
       //console.log(new Date().toLocaleTimeString(), 'RANDOMIZE_FULL_KINGDOM')
       const trackingData = rA.randomizationTrackingData(this);
-      EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM, trackingData);
+      if (source !== 'no_url') {
+        EventTracker.trackEvent(EventType.RANDOMIZE_FULL_KINGDOM, trackingData);
+      }
 
       const setIds = rA.getSelectedSetIds(this);
       if (!setIds.length) {
@@ -484,7 +488,7 @@ export const useRandomizerStore = defineStore(
         const kingdom = Randomizer.createKingdom(options);
         //console.log("RANDOMIZE_FULL_KINGDOM", kingdom)
         this.CLEAR_SELECTION();
-        this.UPDATE_KINGDOM(kingdom, 'randomize_partial');
+        this.UPDATE_KINGDOM(kingdom, source);
       } catch (error) {
         console.log("Error : RANDOMIZE_FULL_KINGDOM - error generating kingdom")
         if (typeof error === 'object' && error !== null) {

@@ -106,7 +106,7 @@ export enum EventType {
   UPDATE_KINGDOM = "UPDATE_KINGDOM",
   KINGDOM_ACTIVITY = "KINGDOM_ACTIVITY",
   PAGE_VIEW = "PAGE_VIEW",
-  BOXE_VIEW = "BOXE_VIEW",
+  BOX_VIEW = "BOX_VIEW",
   SET_VIEW = "SET_VIEW",
   RANDOMIZER_VIEW = "RANDOMIZER_VIEW",
   RULEBOOK_VIEW = "RULEBOOK_VIEW",
@@ -184,7 +184,7 @@ export class EventTracker {
     EventTracker.attemptToSend(Category.ERROR, errorType, additionalData);
   }
 
-  static trackKingdomActivity(
+  static trackKINGDOM_ACTIVITY(
     kingdom: Kingdom,
     source: string,
     configuration: Record<string, unknown>
@@ -247,7 +247,10 @@ export class EventTracker {
     lastEventSignature = signature;
     persistLastEventSignature(signature);
 
-    const body = JSON.stringify(data);
+    const body = JSON.stringify({
+      ...data,
+      clientTimestamp: new Date().toISOString(),
+    });
     void fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },

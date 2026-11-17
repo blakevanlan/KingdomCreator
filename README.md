@@ -7,59 +7,59 @@ It is a kingdom randomizer, or card picker, for Dominion.
 
 Feel free to propose any improvements you see fit and send me a pull request!
 
-### Changelog
+## Changelog
+**2026/11/13 - 7.1.18** - Handling mutiple rlease of rules
+>***Feat*** (see [Changelog.md](./Changelog.md))
+
 **2026/11/11 - 7.1.17** - Handling mutiple rlease of rules
 >***Feat*** (see [Changelog.md](./Changelog.md))
 
 **2026/02/20 - 7.0.5** - Dev 7.0 Work in progress
 >***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2025/09/12 - 6.6.0** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+**2025/09/12 - 6.6.0** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2025/07/24 - 6.5.0** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+**2025/07/24 - 6.5.0** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2025/05/20 - 6.4.7** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))  
+**2025/05/20 - 6.4.7** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))  
 
-**2025/01/12 - 6.4.5** New Release  
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+**2025/01/12 - 6.4.5** New Release    
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2025/01/02 - 6.4.4** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+**2025/01/02 - 6.4.4** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2024/12/28 - 6.4.3** New Release
-    **Fix & Feat** (see [Changelog.md](./Changelog.md))
+**2024/12/28 - 6.4.3** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-**2024/12/23 - 6.4.2** New Release
-  Feat - RisingSun : handle prophecies, riverboat and approaching army
-  Feat - add option to exclude cards from randomization
-  Feat - Recommended kingdoms: Add a link to start building a randomized deck based on it
-  Fix & Feat (see [Changelog.md](./Changelog.md))
+**2024/12/23 - 6.4.2** New Release  
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
 
-2024/09/24 - 6.3.1
+2024/09/24 - 6.3.1  
 New Release
-  Fix (see [Changelog.md](./Changelog.md))
+>***Fix*** (see [Changelog.md](./Changelog.md))
 
-2024/09/23 - 6.3.0
+2024/09/23 - 6.3.0  
 New Release
-  Fix & Feat (see [Changelog.md](./Changelog.md))
+>***Fix & Feat*** (see [Changelog.md](./Changelog.md))
   
-2024/07/10 - 6.2.0
-New release
+2024/07/10 - 6.2.0  
+New release  
   Fixing enlargde display for Addons, Boons, Allies
 
-2024/07/08 - 6.1.0
-New release
+2024/07/08 - 6.1.0  
+New release  
   Fixing boon display
 
-2024/07/04 - 6.1.0
-New release
-  add German rules and box
-  add menu for new set tools
-## Development
-it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
+2024/07/04 - 6.1.0  
+New release  
+  add German rules and box  
+  add menu for new set tools  
+## Development  
+it uses vue 3, vite.js, Pinia, vue-i18n and node.js v24 or bun  
 
 ##### Rendering
 This is a static site.
