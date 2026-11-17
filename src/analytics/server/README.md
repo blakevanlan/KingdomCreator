@@ -91,7 +91,7 @@ identifiant de compte n’est transmis.
 Chaque page suivie possède son événement dédié : `RANDOMIZER_VIEW`,
 `RULEBOOK_VIEW`, `SEARCH_CARDS_VIEW`, `CARDS_VIEW`, `SETTINGS_VIEW`,
 `HELP_VIEW` et `HISTORY_VIEW`. Les ouvertures et changements de set dans Boxes
-utilisent `BOXE_VIEW`, et ceux dans Sets utilisent `SET_VIEW`, chacun avec
+utilisent `BOX_VIEW`, et ceux dans Sets utilisent `SET_VIEW`, chacun avec
 l’identifiant du set consulté. `RULEBOOK_VIEW` inclut la langue affichée.
 `PAGE_VIEW` n’est plus envoyé par la nouvelle version, mais reste pris en charge
 pour afficher les anciennes données. Les anciens `PAGE_VIEW` de Boxes et Sets

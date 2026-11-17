@@ -11,6 +11,44 @@ function respond($status, $data) {
     exit;
 }
 
+function parseAnalyticsDateTimeFilter($value, $label) {
+    if ($value === '') {
+        return null;
+    }
+
+    $date = DateTimeImmutable::createFromFormat('!Y-m-d\TH:i', $value);
+    $dateErrors = DateTimeImmutable::getLastErrors();
+    if (!$date ||
+        ($dateErrors !== false && ($dateErrors['warning_count'] || $dateErrors['error_count'])) ||
+        $date->format('Y-m-d\TH:i') !== $value) {
+        respond(400, ['error' => 'Le filtre ' . $label . ' doit respecter le format AAAA-MM-JJ HH:MM.']);
+    }
+
+    return $date;
+}
+
+function parseClientTimestamp($value) {
+    if (!is_string($value) ||
+        !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/', $value)) {
+        return false;
+    }
+
+    $date = DateTimeImmutable::createFromFormat(
+        '!Y-m-d\TH:i:s.v\Z',
+        $value,
+        new DateTimeZone('UTC')
+    );
+    $dateErrors = DateTimeImmutable::getLastErrors();
+    if (!$date ||
+        ($dateErrors !== false && ($dateErrors['warning_count'] || $dateErrors['error_count'])) ||
+        $date->format('Y-m-d\TH:i:s.v\Z') !== $value) {
+        return false;
+    }
+
+    return $date->setTimezone(new DateTimeZone(date_default_timezone_get()))
+        ->format('Y-m-d H:i:s.u');
+}
+
 function requireDashboardAuth($adminToken) {
     $providedToken = $_SERVER['HTTP_X_DASHBOARD_TOKEN'] ?? '';
     if (!$adminToken || !$providedToken || !hash_equals($adminToken, $providedToken)) {
@@ -20,6 +58,16 @@ function requireDashboardAuth($adminToken) {
                 : 'Le serveur doit configurer ANALYTICS_DASHBOARD_TOKEN.',
         ]);
     }
+}
+
+function getRequestIp() {
+    $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+    if (!is_string($remoteAddress) ||
+        filter_var($remoteAddress, FILTER_VALIDATE_IP) === false) {
+        return null;
+    }
+
+    return $remoteAddress;
 }
 
 function incrementAnalyticsCount(&$counts, $label) {
@@ -36,9 +84,8 @@ function incrementAnalyticsCount(&$counts, $label) {
 }
 
 function getRequestCountry() {
-    $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
-    if (!is_string($remoteAddress) ||
-        filter_var($remoteAddress, FILTER_VALIDATE_IP) === false) {
+    $remoteAddress = getRequestIp();
+    if ($remoteAddress === null) {
         return 'unknown';
     }
 
@@ -148,7 +195,8 @@ try {
             eventType TEXT NOT NULL,
             params TEXT,
             sessionId TEXT,
-            clientContext TEXT
+            clientContext TEXT,
+            clientDate TEXT
         )
     ");
     $columns = $db->query('PRAGMA table_info(RequestLog)')->fetchAll(PDO::FETCH_COLUMN, 1);
@@ -157,6 +205,9 @@ try {
     }
     if (!in_array('clientContext', $columns, true)) {
         $db->exec('ALTER TABLE RequestLog ADD COLUMN clientContext TEXT');
+    }
+    if (!in_array('clientDate', $columns, true)) {
+        $db->exec('ALTER TABLE RequestLog ADD COLUMN clientDate TEXT');
     }
 } catch (Exception $e) {
     error_log('Analytics database connection failed: ' . $e->getMessage());
@@ -196,7 +247,7 @@ if ($method === 'POST') {
                 }
 
                 $endExclusive = $date->modify('+1 day')->format('Y-m-d') . ' 00:00:00';
-                $stmt = $db->prepare('DELETE FROM RequestLog WHERE date < :endExclusive');
+                $stmt = $db->prepare('DELETE FROM RequestLog WHERE COALESCE(clientDate, date) < :endExclusive');
                 $stmt->execute([':endExclusive' => $endExclusive]);
                 respond(200, [
                     'message' => 'Les données jusqu’à cette date incluse ont été supprimées.',
@@ -251,6 +302,14 @@ if ($method === 'POST') {
         respond(400, ['error' => 'Données d’événement invalides.']);
     }
 
+    $clientDate = null;
+    if (array_key_exists('clientTimestamp', $input)) {
+        $clientDate = parseClientTimestamp($input['clientTimestamp']);
+        if ($clientDate === false) {
+            respond(400, ['error' => 'L’horodatage client est invalide.']);
+        }
+    }
+
     $paramsData = $input['params'];
     if (!is_array($paramsData)) {
         $paramsData = ['data' => $paramsData];
@@ -275,6 +334,7 @@ if ($method === 'POST') {
     }
     unset($clientContext['country'], $clientContext['ip']);
     unset($paramsData['country'], $paramsData['ip']);
+    $clientContext['ip'] = getRequestIp();
     $clientContext['country'] = getRequestCountry();
 
     $params = json_encode($paramsData);
@@ -288,8 +348,8 @@ if ($method === 'POST') {
 
     try {
         $stmt = $db->prepare(
-            'INSERT INTO RequestLog (date, eventOrError, eventType, params, sessionId, clientContext) ' .
-            'VALUES (:date, :eventOrError, :eventType, :params, :sessionId, :clientContext)'
+            'INSERT INTO RequestLog (date, eventOrError, eventType, params, sessionId, clientContext, clientDate) ' .
+            'VALUES (:date, :eventOrError, :eventType, :params, :sessionId, :clientContext, :clientDate)'
         );
         $stmt->execute([
             ':date' => (new DateTimeImmutable())->format('Y-m-d H:i:s.u'),
@@ -298,6 +358,7 @@ if ($method === 'POST') {
             ':params' => $params,
             ':sessionId' => $input['sessionId'] ?? null,
             ':clientContext' => $clientContextJson,
+            ':clientDate' => $clientDate,
         ]);
         respond(200, ['message' => 'Requête enregistrée.']);
     } catch (Exception $e) {
@@ -397,9 +458,9 @@ if (isset($_GET['analytics']) && $_GET['analytics'] === 'summary') {
                     incrementAnalyticsCount($summary['viewedBoxesSets'], $data['setId']);
                 }
             }
-            if (in_array($eventType, ['BOXE_VIEW', 'SET_VIEW'], true) &&
+            if (in_array($eventType, ['BOX_VIEW', 'SET_VIEW'], true) &&
                 is_string($data['setId'] ?? null)) {
-                $target = $eventType === 'BOXE_VIEW' ? 'viewedBoxesSets' : 'viewedSets';
+                $target = $eventType === 'BOX_VIEW' ? 'viewedBoxesSets' : 'viewedSets';
                 incrementAnalyticsCount($summary[$target], $data['setId']);
             }
 
@@ -566,7 +627,7 @@ if (isset($_GET['analytics']) && $_GET['analytics'] === 'summary') {
         $summary['topCards'] = array_slice($summary['cards'], 0, 20, true);
 
         $recent = $db->query(
-            "SELECT date, params, sessionId FROM RequestLog WHERE eventType = 'KINGDOM_ACTIVITY' ORDER BY date DESC, id DESC LIMIT 50"
+            "SELECT COALESCE(clientDate, date) AS date, date AS receivedAt, params, sessionId FROM RequestLog WHERE eventType = 'KINGDOM_ACTIVITY' ORDER BY COALESCE(clientDate, date) DESC, id DESC LIMIT 50"
         );
         while ($row = $recent->fetch(PDO::FETCH_ASSOC)) {
             $activity = json_decode($row['params'], true);
@@ -582,7 +643,7 @@ if (isset($_GET['analytics']) && $_GET['analytics'] === 'summary') {
         }
         if (!$summary['recentKingdoms']) {
             $recentUpdates = $db->query(
-                "SELECT date, params, sessionId FROM RequestLog WHERE eventType = 'UPDATE_KINGDOM' ORDER BY date DESC, id DESC LIMIT 50"
+                "SELECT COALESCE(clientDate, date) AS date, date AS receivedAt, params, sessionId FROM RequestLog WHERE eventType = 'UPDATE_KINGDOM' ORDER BY COALESCE(clientDate, date) DESC, id DESC LIMIT 50"
             );
             while ($row = $recentUpdates->fetch(PDO::FETCH_ASSOC)) {
                 $kingdom = decodeLegacyKingdom(json_decode($row['params'], true));
@@ -604,19 +665,23 @@ if (isset($_GET['analytics']) && $_GET['analytics'] === 'summary') {
 }
 
 if (isset($_GET['logs']) && $_GET['logs'] === 'true') {
+    $category = $_GET['category'] ?? '';
+    if (!is_string($category) || !in_array($category, ['', 'event', 'error'], true)) {
+        respond(400, ['error' => 'Le filtre Catégorie est invalide.']);
+    }
     $eventType = $_GET['eventType'] ?? '';
     if (!is_string($eventType) || strlen($eventType) > 80) {
         respond(400, ['error' => 'Le filtre EventType est invalide.']);
     }
     $page = max(1, (int)($_GET['page'] ?? 1));
-    $perPage = $_GET['perPage'] ?? '50';
-    if (!is_string($perPage) || !in_array($perPage, ['50', '100', '250', '500', '1000'], true)) {
+    $perPage = $_GET['perPage'] ?? '25';
+    if (!is_string($perPage) || !in_array($perPage, ['10','25', '50', '100', '250', '500', '1000'], true)) {
         respond(400, ['error' => 'Le nombre de lignes par page est invalide.']);
     }
     $perPage = (int)$perPage;
     $sessionId = $_GET['sessionId'] ?? '';
     if (!is_string($sessionId) || strlen($sessionId) > 64 ||
-        ($sessionId !== '' && !preg_match('/^[A-Fa-f0-9-]+$/', $sessionId))) {
+        ($sessionId !== '' && !preg_match('/^[A-Fa-f0-9*?-]+$/', $sessionId))) {
         respond(400, ['error' => 'L’identifiant de session est invalide.']);
     }
     $paramsSearch = $_GET['paramsSearch'] ?? '';
@@ -624,14 +689,65 @@ if (isset($_GET['logs']) && $_GET['logs'] === 'true') {
         respond(400, ['error' => 'Le filtre sur les paramètres est invalide.']);
     }
     $filters = [];
+    $params = [];
+    if ($category !== '') {
+        $filters[] = 'eventOrError = :category';
+        $params[':category'] = $category;
+    }
     if ($eventType !== '') {
         $filters[] = 'eventType = :eventType';
+        $params[':eventType'] = $eventType;
     }
     if ($sessionId !== '') {
-        $filters[] = 'sessionId = :sessionId';
+        $filters[] = 'sessionId LIKE :sessionId';
+        $params[':sessionId'] = '%' . strtr($sessionId, ['*' => '%', '?' => '_']) . '%';
     }
     if ($paramsSearch !== '') {
         $filters[] = "instr(COALESCE(params, ''), :paramsSearch) > 0";
+        $params[':paramsSearch'] = $paramsSearch;
+    }
+
+    $country = $_GET['country'] ?? '';
+    if (!is_string($country) ||
+        ($country !== '' && !preg_match('/^(?:[A-Za-z]{2}|unknown)$/i', $country))) {
+        respond(400, ['error' => 'Le filtre pays est invalide.']);
+    }
+    if (strcasecmp($country, 'unknown') === 0) {
+        $country = 'unknown';
+    } elseif ($country !== '') {
+        $country = strtoupper($country);
+    }
+    if ($country !== '') {
+        $filters[] = "json_extract(CASE WHEN json_valid(clientContext) THEN clientContext ELSE '{}' END, '$.country') = :country";
+        $params[':country'] = $country;
+    }
+
+    $browser = $_GET['browser'] ?? '';
+    if (!is_string($browser) || strlen($browser) > 80) {
+        respond(400, ['error' => 'Le filtre navigateur est invalide.']);
+    }
+    if ($browser !== '') {
+        $filters[] = "json_extract(CASE WHEN json_valid(clientContext) THEN clientContext ELSE '{}' END, '$.browser') = :browser";
+        $params[':browser'] = $browser;
+    }
+
+    $startDate = $_GET['startDate'] ?? '';
+    $endDate = $_GET['endDate'] ?? '';
+    if (!is_string($startDate) || !is_string($endDate)) {
+        respond(400, ['error' => 'Les filtres date/heure sont invalides.']);
+    }
+    $startDate = parseAnalyticsDateTimeFilter($startDate, 'de début');
+    $endDate = parseAnalyticsDateTimeFilter($endDate, 'de fin');
+    if ($startDate !== null && $endDate !== null && $startDate > $endDate) {
+        respond(400, ['error' => 'La date/heure de début doit précéder la date/heure de fin.']);
+    }
+    if ($startDate !== null) {
+        $filters[] = 'COALESCE(clientDate, date) >= :startDate';
+        $params[':startDate'] = $startDate->format('Y-m-d H:i:s.u');
+    }
+    if ($endDate !== null) {
+        $filters[] = 'COALESCE(clientDate, date) < :endDate';
+        $params[':endDate'] = $endDate->modify('+1 minute')->format('Y-m-d H:i:s.u');
     }
     $where = $filters ? ' WHERE ' . implode(' AND ', $filters) : '';
 
@@ -639,31 +755,37 @@ if (isset($_GET['logs']) && $_GET['logs'] === 'true') {
         $eventTypes = $db->query(
             'SELECT DISTINCT eventType FROM RequestLog ORDER BY eventType'
         )->fetchAll(PDO::FETCH_COLUMN);
+        $countries = $db->query(
+            "SELECT DISTINCT country FROM (
+                SELECT json_extract(
+                    CASE WHEN json_valid(clientContext) THEN clientContext ELSE '{}' END,
+                    '$.country'
+                ) AS country
+                FROM RequestLog
+            ) WHERE country IS NOT NULL AND country <> '' ORDER BY country"
+        )->fetchAll(PDO::FETCH_COLUMN);
+        $browsers = $db->query(
+            "SELECT DISTINCT browser FROM (
+                SELECT json_extract(
+                    CASE WHEN json_valid(clientContext) THEN clientContext ELSE '{}' END,
+                    '$.browser'
+                ) AS browser
+                FROM RequestLog
+            ) WHERE browser IS NOT NULL AND browser <> '' ORDER BY browser"
+        )->fetchAll(PDO::FETCH_COLUMN);
         $countStmt = $db->prepare('SELECT COUNT(*) FROM RequestLog' . $where);
-        if ($eventType !== '') {
-            $countStmt->bindValue(':eventType', $eventType);
-        }
-        if ($sessionId !== '') {
-            $countStmt->bindValue(':sessionId', $sessionId);
-        }
-        if ($paramsSearch !== '') {
-            $countStmt->bindValue(':paramsSearch', $paramsSearch);
+        foreach ($params as $key => $value) {
+            $countStmt->bindValue($key, $value);
         }
         $countStmt->execute();
         $totalCount = (int)$countStmt->fetchColumn();
 
         $stmt = $db->prepare(
-            'SELECT id, date, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $where .
-            ' ORDER BY date DESC, id DESC LIMIT :limit OFFSET :offset'
+            'SELECT id, COALESCE(clientDate, date) AS date, date AS receivedAt, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $where .
+            ' ORDER BY COALESCE(clientDate, date) DESC, id DESC LIMIT :limit OFFSET :offset'
         );
-        if ($eventType !== '') {
-            $stmt->bindValue(':eventType', $eventType);
-        }
-        if ($sessionId !== '') {
-            $stmt->bindValue(':sessionId', $sessionId);
-        }
-        if ($paramsSearch !== '') {
-            $stmt->bindValue(':paramsSearch', $paramsSearch);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
         }
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', ($page - 1) * $perPage, PDO::PARAM_INT);
@@ -671,6 +793,8 @@ if (isset($_GET['logs']) && $_GET['logs'] === 'true') {
         respond(200, [
             'logs' => $stmt->fetchAll(PDO::FETCH_ASSOC),
             'eventTypes' => $eventTypes,
+            'countries' => $countries,
+            'browsers' => $browsers,
             'page' => $page,
             'perPage' => $perPage,
             'totalCount' => $totalCount,
@@ -692,11 +816,11 @@ $where = [];
 $params = [];
 
 if ($startDate) {
-    $where[] = 'date >= :startDate';
+    $where[] = 'COALESCE(clientDate, date) >= :startDate';
     $params[':startDate'] = str_replace('T', ' ', $startDate);
 }
 if ($endDate) {
-    $where[] = 'date <= :endDate';
+    $where[] = 'COALESCE(clientDate, date) <= :endDate';
     $params[':endDate'] = str_replace('T', ' ', $endDate);
 }
 if ($search) {
@@ -720,17 +844,18 @@ try {
 
     if (isset($_GET['download']) && $_GET['download'] === 'csv') {
         $stmt = $db->prepare(
-            'SELECT date, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $whereSql .
-            ' ORDER BY date DESC, id DESC'
+            'SELECT COALESCE(clientDate, date) AS date, date AS receivedAt, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $whereSql .
+            ' ORDER BY COALESCE(clientDate, date) DESC, id DESC'
         );
         $stmt->execute($params);
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="logs.csv"');
         $output = fopen('php://output', 'w');
-        fputcsv($output, ['Date', 'Type', 'Event', 'Session ID', 'Paramètres', 'Contexte client']);
+        fputcsv($output, ['Date client', 'Date réception serveur', 'Type', 'Event', 'Session ID', 'Paramètres', 'Contexte client']);
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($output, [
                 $row['date'],
+                $row['receivedAt'],
                 $row['eventOrError'],
                 $row['eventType'],
                 $row['sessionId'],
@@ -743,8 +868,8 @@ try {
     }
 
     $stmt = $db->prepare(
-        'SELECT date, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $whereSql .
-        ' ORDER BY date DESC, id DESC LIMIT :limit OFFSET :offset'
+        'SELECT COALESCE(clientDate, date) AS date, date AS receivedAt, eventOrError, eventType, params, sessionId, clientContext FROM RequestLog' . $whereSql .
+        ' ORDER BY COALESCE(clientDate, date) DESC, id DESC LIMIT :limit OFFSET :offset'
     );
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);

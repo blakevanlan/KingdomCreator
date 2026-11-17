@@ -9,9 +9,13 @@ As I became a maintainer for Kingdom Creator, https://www.dominionrandomizer.com
 Feel free to propose any improvements you see fit and send me a pull request!
 
 ## Development
-it uses vue 3, vite.js, Pinia, vue-i18n and node.js v20
+it uses vue 3, vite.js, Pinia, vue-i18n and node.js v24 or bun
 
 ### Changelog
+**2026/11/13 - 7.1.18** - analytics enhancements
+>***Fix*** - avoid traking robot 1st page load  
+>***Feat*** - add filter on follow analytcis  
+
 **2026/11/11 - 7.1.17** - analytics info
 >***Feat*** - Introducing analytics informatiosn to follow randomizer usage  
 >***Fix*** - precise palyed button behavior  

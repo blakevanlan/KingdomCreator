@@ -36,7 +36,7 @@ const trackedPages: Record<string, EventType> = {
   '/index.html': EventType.RANDOMIZER_VIEW,
   '/sets': EventType.SET_VIEW,
   '/rulebooks': EventType.RULEBOOK_VIEW,
-  '/boxes': EventType.BOXE_VIEW,
+  '/boxes': EventType.BOX_VIEW,
   '/searchcards': EventType.SEARCH_CARDS_VIEW,
   '/cards': EventType.CARDS_VIEW,
   '/settings': EventType.SETTINGS_VIEW,
@@ -53,7 +53,7 @@ router.afterEach((to, from, failure) => {
   const eventType = trackedPages[pageKey];
   if (!eventType) return;
 
-  if (eventType === EventType.BOXE_VIEW || eventType === EventType.SET_VIEW) {
+  if (eventType === EventType.BOX_VIEW || eventType === EventType.SET_VIEW) {
     const setsStore = useSetsStore();
     const setId = eventType === EventType.SET_VIEW
       ? setsStore.selectedSetId

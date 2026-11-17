@@ -115,7 +115,7 @@ export default defineComponent({
 
     const handleSelectionChange = (value: SetId) => {
       setsStore.updateSelectedBoxesSet(value);
-      EventTracker.trackEvent(EventType.BOXE_VIEW, { setId: value });
+      EventTracker.trackEvent(EventType.BOX_VIEW, { setId: value });
     };
 
     const handleSetOrderTypeChange = (value: string) => {

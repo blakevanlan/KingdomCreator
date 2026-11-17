@@ -156,7 +156,11 @@ export default defineComponent({
 
     onBeforeMount(() => {
       const kingdomFromUrl = deserializeKingdom(route.query, settings.value.selectedSets)
-      randomizerStore.LOAD_INITIAL_KINGDOM(kingdomFromUrl)
+      if (kingdomFromUrl) {
+        randomizerStore.LOAD_INITIAL_KINGDOM(kingdomFromUrl)
+      } else {
+        randomizerStore.LOAD_INITIAL_KINGDOM(kingdomFromUrl,'no_url')
+      }
     })
 
     return {

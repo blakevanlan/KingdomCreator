@@ -4,7 +4,7 @@
     //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64\\bin;${execPath}\\..\\..\\PortableGit\\cmd;"
 
     // bun + PortableGit près de VsCode
-    "PATH": "${env:PATH};${execPath}\\..\\..\\bun\\bin;${execPath}\\..\\..\\node-v26-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;"
+    //"PATH": "${env:PATH};${execPath}\\..\\..\\bun\\bin;${execPath}\\..\\..\\node-v26-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;"
 
     // Sacem AppData\\Local\\Programs\\PortableGit + Documents\\Personnel\\# Portable App
     //"PATH": "${env:PATH};${execPath}\\..\\..\\node-v22-win-x64;${execPath}\\..\\..\\PortableGit\\cmd;"

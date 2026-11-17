@@ -33,7 +33,8 @@
     .success { color: #16703c; }
     [hidden] { display: none !important; }
     .filters { margin: 1rem 0; }
-    .filters label { flex: 0 1 280px; }
+    .filters label { flex: 0 1 220px; }
+    .date-filter-group { display: grid; flex: 0 1 220px; align-self: flex-start; gap: .45rem; }
     .maintenance { justify-content: space-between; padding-top: 1rem; border-top: 1px solid #e6e9ee; }
     .maintenance form { display: flex; flex-wrap: wrap; align-items: end; gap: .6rem; }
     .maintenance label { flex: 0 1 190px; }
@@ -61,13 +62,28 @@
     .column-resizer:hover, .column-resizer:focus-visible { background: #284f7c66; outline: none; }
     .raw-table { min-width: 1000px; }
     .raw-table td.params { min-width: 260px; }
+    .raw-table th.details-column, .raw-table td.details-column { text-align: center; white-space: nowrap; }
+    .raw-table td.details-column { overflow: visible; text-overflow: clip; }
+    .details-button { min-width: 2rem; min-height: 2rem; padding: .1rem .45rem; font-size: 1.2rem; line-height: 1; }
+    #log-details-dialog {
+      width: min(52rem, calc(100vw - 2rem));
+      max-height: calc(100vh - 2rem);
+      padding: 1rem;
+      border: 1px solid #d8dde5;
+      border-radius: .5rem;
+    }
+    #log-details-dialog::backdrop { background: rgb(20 30 45 / 55%); }
+    .dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .dialog-heading h2 { margin: 0; }
+    #log-details-content { max-height: 70vh; margin-top: 1rem; }
     .kingdoms { min-width: 1200px; }
     pre { max-height: 20rem; overflow: auto; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: .82rem/1.45 ui-monospace, monospace; }
     .pagination { display: flex; align-items: center; gap: .75rem; margin-top: .8rem; }
     .pagination p { flex: 1 1 auto; min-width: 12rem; margin: 0; text-align: center; }
     .pagination label { flex: 0 0 11rem; }
     .pagination select { width: 100%; }
-    .metrics, .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .analytics-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
     .metric { padding: .8rem 1rem; border: 1px solid #e0e4ea; border-radius: .4rem; background: #fff; color: #596579; }
     .metric strong { display: block; color: #172235; font-size: 1.65rem; }
     .analytics-grid { margin-top: 1rem; }
@@ -76,6 +92,7 @@
     .count-table td:last-child { width: 1%; text-align: right; white-space: nowrap; }
     #cards-panel { grid-column: 1 / -1; }
     .count-columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+    .count-columns-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .count-columns table { min-width: 0; }
     .raw-table th:first-child, .raw-table td:first-child { width: 2.5rem; text-align: center; }
     .error-selection { width: 1rem; height: 1rem; min-height: auto; margin: 0; padding: 0; border-radius: .15rem; vertical-align: middle; }
@@ -125,23 +142,44 @@
       <h2 id="raw-heading">Données brutes</h2>
       <p class="muted">Événements enregistrés dans la base sélectionnée, du plus récent au plus ancien.</p>
       <div class="filters">
-        <label>Action (EventType)
+        <div class="date-filter-group">
+          <label>Date/heure de début
+            <input id="start-date" type="datetime-local" step="60">
+          </label>
+          <label>Date/heure de fin
+            <input id="end-date" type="datetime-local" step="60">
+          </label>
+        </div>
+        <label>Catégorie
+          <select id="event-category">
+            <option value="">Toutes les catégories</option>
+            <option value="event">Événement</option>
+            <option value="error">Erreur</option>
+          </select>
+        </label>
+        <label>EventType
           <select id="event-type"><option value="">Toutes les actions</option></select>
         </label>
         <label>Session ID
-          <input id="session-id" maxlength="64" placeholder="Filtrer par identifiant de session">
+          <input id="session-id" maxlength="64" placeholder="Fragment de session ou joker * / ?">
+        </label>
+        <label>Pays
+          <select id="country-filter"><option value="">Tous les pays</option></select>
+        </label>
+        <label>Navigateur
+          <select id="browser-filter"><option value="">Tous les navigateurs</option></select>
         </label>
         <label>Contenu des paramètres
           <input id="params-search" maxlength="500" placeholder="Texte exact à retrouver dans le JSON">
         </label>
         <button id="refresh-logs" type="button">Actualiser</button>
       </div>
-      <p class="muted">La recherche des paramètres porte sur le texte exact saisi. La sélection se conserve entre les pages et s’efface si un filtre change (1 000 lignes maximum).</p>
+      <p class="muted">La session recherche un fragment; * et ? servent de jokers. La date de fin inclut la minute choisie. La sélection se conserve entre les pages et s’efface si un filtre change (1 000 lignes maximum).</p>
       <div class="table-wrap">
         <table class="raw-table resizable-table" data-resize-key="raw-events">
           <thead><tr>
             <th><input id="select-page-logs" class="error-selection" type="checkbox" aria-label="Sélectionner toutes les lignes de cette page"></th>
-            <th>Date</th><th>Catégorie</th><th>EventType</th><th>Session ID</th><th>Pays</th><th>Appareil</th><th>Paramètres</th>
+            <th>Date</th><th>Catégorie</th><th>EventType</th><th>Session ID</th><th>Pays</th><th>Appareil</th><th>Navigateur</th><th>Paramètres</th><th class="details-column">Détails</th>
           </tr></thead>
           <tbody id="logs"></tbody>
         </table>
@@ -152,6 +190,7 @@
         <p id="page-label" aria-live="polite"></p>
         <label>Événements par page
           <select id="page-size">
+            <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="250">250</option>
@@ -183,9 +222,9 @@
       </div>
       <p class="muted">Les compteurs de randomisation correspondent aux événements enregistrés ; une même action peut en produire plusieurs.</p>
       <div class="analytics-grid">
-        <article class="analytics-box"><h3>Actions (EventType)</h3><div class="table-wrap"><table class="count-table"><tbody id="event-counts"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Actions (EventType)</h3><div class="count-columns count-columns-2" id="event-counts"></div></article>
         <article class="analytics-box"><h3>Origine des royaumes</h3><div class="table-wrap"><table class="count-table"><tbody id="activity-sources"></tbody></table></div></article>
-        <article class="analytics-box"><h3>Extensions configurées</h3><div class="table-wrap"><table class="count-table"><tbody id="sets"></tbody></table></div></article>
+        <article class="analytics-box"><h3>Extensions configurées</h3><div class="count-columns count-columns-2" id="sets"></div></article>
         <article class="analytics-box" id="cards-panel"><h3>Cartes et addons les plus utilisés</h3><div class="count-columns" id="cards"></div></article>
         <article class="analytics-box"><h3>Pages consultées</h3><div class="table-wrap"><table class="count-table"><tbody id="pages"></tbody></table></div></article>
         <article class="analytics-box"><h3>Langues des règles</h3><div class="table-wrap"><table class="count-table"><tbody id="page-languages"></tbody></table></div></article>
@@ -216,6 +255,13 @@
       </section>
     </section>
   </main>
+  <dialog id="log-details-dialog" aria-labelledby="log-details-heading">
+    <div class="dialog-heading">
+      <h2 id="log-details-heading">Détails complets de la ligne</h2>
+      <button id="close-log-details" type="button">Fermer</button>
+    </div>
+    <pre id="log-details-content"></pre>
+  </dialog>
   <footer class="muted">
     This product includes GeoLite Data created by MaxMind, available from
     <a href="https://www.maxmind.com" target="_blank" rel="noopener noreferrer">MaxMind</a>.
@@ -226,14 +272,25 @@
     const tokenInput = document.getElementById('token');
     const status = document.getElementById('status');
     const dashboard = document.getElementById('dashboard');
+    const categorySelect = document.getElementById('event-category');
     const eventTypeSelect = document.getElementById('event-type');
     const sessionIdInput = document.getElementById('session-id');
+    const countryFilterSelect = document.getElementById('country-filter');
+    const browserFilterSelect = document.getElementById('browser-filter');
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
     const paramsSearchInput = document.getElementById('params-search');
+    const logDetailsDialog = document.getElementById('log-details-dialog');
+    const logDetailsContent = document.getElementById('log-details-content');
     const pageSizeSelect = document.getElementById('page-size');
     let currentPage = 1;
     let lastPage = 1;
     const selectedLogIds = new Set();
     const maxSelectedLogs = 1000;
+
+    document.getElementById('close-log-details').addEventListener('click', () => {
+      logDetailsDialog.close();
+    });
 
     const settingNames = {
       requireActionProvider: 'Exiger un générateur d’Actions',
@@ -310,11 +367,7 @@
       const savedRatios = (() => {
         try {
           const saved = JSON.parse(localStorage.getItem(`analytics-column-widths-${table.dataset.resizeKey}`) || 'null');
-          return table.classList.contains('raw-table') &&
-            Array.isArray(saved) &&
-            saved.length === headers.length - 1
-            ? [0.45, ...saved]
-            : saved;
+          return Array.isArray(saved) && saved.length === headers.length ? saved : null;
         } catch {
           return null;
         }
@@ -327,7 +380,9 @@
       let ratios = headers.map((_, index) =>
         Number.isFinite(savedRatios?.[index]) && savedRatios[index] > 0
           ? savedRatios[index]
-            : [0.45, 1.2, 1, 1.4, 1.5, 3, 2][index] || 1
+            : table.classList.contains('raw-table')
+              ? [0.45, 1.1, 0.8, 1.3, 1.6, 0.65, 0.75, 0.9, 3.4, 0.6][index] || 1
+              : [0.45, 1.2, 1, 1.4, 1.5, 3, 2][index] || 1
       );
       const fitColumns = () => {
         const minTableWidth = table.classList.contains('raw-table') ? 1000 : 1200;
@@ -401,19 +456,46 @@
     async function loadLogs() {
       const data = await apiFetch(apiUrl({
         logs: 'true',
+        category: categorySelect.value,
         eventType: eventTypeSelect.value,
         sessionId: sessionIdInput.value.trim(),
+        country: countryFilterSelect.value,
+        browser: browserFilterSelect.value,
+        startDate: startDateInput.value,
+        endDate: endDateInput.value,
         paramsSearch: paramsSearchInput.value.trim(),
         page: String(currentPage),
         perPage: pageSizeSelect.value,
       }));
       const selectedType = eventTypeSelect.value;
+      const selectedCountry = countryFilterSelect.value;
+      const selectedBrowser = browserFilterSelect.value;
       eventTypeSelect.replaceChildren(new Option('Toutes les actions', ''));
       data.eventTypes.forEach(type => eventTypeSelect.add(new Option(type, type)));
+      countryFilterSelect.replaceChildren(new Option('Tous les pays', ''));
+      data.countries.forEach(country => countryFilterSelect.add(new Option(country, country)));
+      browserFilterSelect.replaceChildren(new Option('Tous les navigateurs', ''));
+      data.browsers.forEach(browser => browserFilterSelect.add(new Option(browser, browser)));
       if (data.eventTypes.includes(selectedType)) {
         eventTypeSelect.value = selectedType;
       } else if (selectedType) {
         eventTypeSelect.value = '';
+        selectedLogIds.clear();
+        currentPage = 1;
+        return loadLogs();
+      }
+      if (data.countries.includes(selectedCountry)) {
+        countryFilterSelect.value = selectedCountry;
+      } else if (selectedCountry) {
+        countryFilterSelect.value = '';
+        selectedLogIds.clear();
+        currentPage = 1;
+        return loadLogs();
+      }
+      if (data.browsers.includes(selectedBrowser)) {
+        browserFilterSelect.value = selectedBrowser;
+      } else if (selectedBrowser) {
+        browserFilterSelect.value = '';
         selectedLogIds.clear();
         currentPage = 1;
         return loadLogs();
@@ -429,7 +511,7 @@
       if (!data.logs.length) {
         const row = document.createElement('tr');
         const cell = addCell(row, 'Aucune donnée pour cette action.', 'empty');
-        cell.colSpan = 8;
+        cell.colSpan = 10;
         target.append(row);
       } else {
         data.logs.forEach(log => {
@@ -460,10 +542,32 @@
           }
           addCell(row, clientContext.country || paramsData.country || '—');
           addCell(row, clientContext.device || paramsData.device || '—');
+          addCell(row, clientContext.browser || paramsData.browser || '—');
           const params = addCell(row, '', 'params');
           const pre = document.createElement('pre');
           pre.textContent = JSON.stringify(paramsData) || log.params || '';
           params.append(pre);
+          const detailsCell = addCell(row, '', 'details-column');
+          const detailsButton = document.createElement('button');
+          detailsButton.type = 'button';
+          detailsButton.className = 'details-button';
+          detailsButton.textContent = '+';
+          detailsButton.setAttribute('aria-label', `Afficher tous les champs de la ligne ${log.id}`);
+          detailsButton.addEventListener('click', () => {
+            const details = { ...log };
+            for (const field of ['params', 'clientContext']) {
+              if (typeof details[field] === 'string') {
+                try {
+                  details[field] = JSON.parse(details[field]);
+                } catch {
+                  // Keep the original value when a legacy row contains invalid JSON.
+                }
+              }
+            }
+            logDetailsContent.textContent = JSON.stringify(details, null, 2);
+            logDetailsDialog.showModal();
+          });
+          detailsCell.append(detailsButton);
           target.append(row);
         });
       }
@@ -618,9 +722,9 @@
       document.getElementById('news-open-total').textContent = interactions.NEWS_MODAL_OPEN || 0;
       document.getElementById('played-total').textContent = interactions.MARK_KINGDOM_PLAYED || 0;
       document.getElementById('replay-total').textContent = interactions.HISTORY_KINGDOM_REPLAY || 0;
-      renderCounts(document.getElementById('event-counts'), data.eventTypes);
+      renderCountColumns(document.getElementById('event-counts'), data.eventTypes, 2);
       renderCounts(document.getElementById('activity-sources'), data.sources);
-      renderCounts(document.getElementById('sets'), data.topSets);
+      renderCountColumns(document.getElementById('sets'), data.topSets, 2);
       renderCountColumns(document.getElementById('cards'), data.topCards);
       renderCounts(document.getElementById('pages'), data.pages);
       renderCounts(document.getElementById('page-languages'), data.pageLanguages);
@@ -704,8 +808,19 @@
       updateLogSelectionControls();
       loadLogs().catch(error => setStatus(error.message, 'error'));
     }
+    categorySelect.addEventListener('change', resetLogSelectionForFilterChange);
     eventTypeSelect.addEventListener('change', resetLogSelectionForFilterChange);
     sessionIdInput.addEventListener('change', resetLogSelectionForFilterChange);
+    sessionIdInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        resetLogSelectionForFilterChange();
+      }
+    });
+    countryFilterSelect.addEventListener('change', resetLogSelectionForFilterChange);
+    browserFilterSelect.addEventListener('change', resetLogSelectionForFilterChange);
+    startDateInput.addEventListener('change', resetLogSelectionForFilterChange);
+    endDateInput.addEventListener('change', resetLogSelectionForFilterChange);
     paramsSearchInput.addEventListener('change', resetLogSelectionForFilterChange);
     paramsSearchInput.addEventListener('keydown', event => {
       if (event.key === 'Enter') {

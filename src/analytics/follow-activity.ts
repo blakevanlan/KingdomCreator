@@ -3,8 +3,14 @@ import  { serializeKingdom } from "@/randomizer/serializer"
 import type { Settings } from '@/settings/settings';
 import type { SettingsState } from '@/pinia/settings-store';
 
-const SESSION_ID_STORAGE_KEY = 'analytics-session-id';
+const SESSION_STORAGE_KEY = 'analytics-session';
 const LAST_EVENT_SIGNATURE_STORAGE_KEY = 'analytics-last-event-signature';
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+
+type AnalyticsSession = {
+  sessionId: string;
+  lastActivityAt: number;
+};
 
 function getClientContext(): { browser: string; device: string } {
   const userAgent = navigator.userAgent;
@@ -33,21 +39,102 @@ function getClientContext(): { browser: string; device: string } {
 }
 
 const clientContext = getClientContext();
+let fallbackSession: AnalyticsSession | null = null;
+let hasWarnedAboutLocalStorage = false;
+let localStorageUnavailable = false;
 
-function getSessionId(): string {
+function parseAnalyticsSession(value: string | null): AnalyticsSession | null {
+  if (!value) return null;
+
   try {
-    const storedSessionId = sessionStorage.getItem(SESSION_ID_STORAGE_KEY);
-    if (storedSessionId) return storedSessionId;
+    const parsed: unknown = JSON.parse(value);
+    if (
+      typeof parsed !== 'object' ||
+      parsed === null ||
+      !('sessionId' in parsed) ||
+      typeof parsed.sessionId !== 'string' ||
+      !('lastActivityAt' in parsed) ||
+      typeof parsed.lastActivityAt !== 'number' ||
+      !Number.isFinite(parsed.lastActivityAt)
+    ) {
+      return null;
+    }
 
-    const sessionId = crypto.randomUUID();
-    sessionStorage.setItem(SESSION_ID_STORAGE_KEY, sessionId);
-    return sessionId;
+    return {
+      sessionId: parsed.sessionId,
+      lastActivityAt: parsed.lastActivityAt,
+    };
   } catch {
-    return crypto.randomUUID();
+    return null;
   }
 }
 
-const sessionId = getSessionId();
+function isSessionActive(session: AnalyticsSession, now: number): boolean {
+  return now >= session.lastActivityAt &&
+    now - session.lastActivityAt < SESSION_TIMEOUT_MS;
+}
+
+function warnLocalStorageUnavailable(error: unknown): void {
+  if (hasWarnedAboutLocalStorage) return;
+  hasWarnedAboutLocalStorage = true;
+  console.warn(
+    'Analytics session could not be shared between tabs because localStorage is unavailable.',
+    error
+  );
+}
+
+function getFallbackSessionId(now: number): string {
+  if (fallbackSession && isSessionActive(fallbackSession, now)) {
+    fallbackSession = { ...fallbackSession, lastActivityAt: now };
+    return fallbackSession.sessionId;
+  }
+
+  fallbackSession = {
+    sessionId: crypto.randomUUID(),
+    lastActivityAt: now,
+  };
+  return fallbackSession.sessionId;
+}
+
+function getSessionId(now = Date.now()): string {
+  if (localStorageUnavailable) return getFallbackSessionId(now);
+
+  let storedSession: AnalyticsSession | null;
+  try {
+    storedSession = parseAnalyticsSession(localStorage.getItem(SESSION_STORAGE_KEY));
+  } catch (error) {
+    warnLocalStorageUnavailable(error);
+    localStorageUnavailable = true;
+    return getFallbackSessionId(now);
+  }
+
+  if (storedSession && isSessionActive(storedSession, now)) {
+    const updatedSession = { ...storedSession, lastActivityAt: now };
+    fallbackSession = updatedSession;
+    try {
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(updatedSession));
+    } catch (error) {
+      warnLocalStorageUnavailable(error);
+      localStorageUnavailable = true;
+    }
+    return updatedSession.sessionId;
+  }
+
+  const newSession = {
+    sessionId: crypto.randomUUID(),
+    lastActivityAt: now,
+  };
+  fallbackSession = newSession;
+  try {
+    localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newSession));
+  } catch (error) {
+    warnLocalStorageUnavailable(error);
+    localStorageUnavailable = true;
+  }
+
+  return newSession.sessionId;
+}
+
 let hasWarnedAboutSessionStorage = false;
 
 function warnSessionStorageUnavailable(error: unknown): void {
@@ -58,7 +145,7 @@ function warnSessionStorageUnavailable(error: unknown): void {
 
 function getLastEventSignature(): string | null {
   try {
-    return sessionStorage.getItem(LAST_EVENT_SIGNATURE_STORAGE_KEY);
+    return localStorage.getItem(LAST_EVENT_SIGNATURE_STORAGE_KEY);
   } catch (error) {
     warnSessionStorageUnavailable(error);
     return null;
@@ -67,7 +154,7 @@ function getLastEventSignature(): string | null {
 
 function persistLastEventSignature(signature: string): void {
   try {
-    sessionStorage.setItem(LAST_EVENT_SIGNATURE_STORAGE_KEY, signature);
+    localStorage.setItem(LAST_EVENT_SIGNATURE_STORAGE_KEY, signature);
   } catch (error) {
     warnSessionStorageUnavailable(error);
   }
@@ -106,7 +193,7 @@ export enum EventType {
   UPDATE_KINGDOM = "UPDATE_KINGDOM",
   KINGDOM_ACTIVITY = "KINGDOM_ACTIVITY",
   PAGE_VIEW = "PAGE_VIEW",
-  BOXE_VIEW = "BOXE_VIEW",
+  BOX_VIEW = "BOX_VIEW",
   SET_VIEW = "SET_VIEW",
   RANDOMIZER_VIEW = "RANDOMIZER_VIEW",
   RULEBOOK_VIEW = "RULEBOOK_VIEW",
@@ -184,7 +271,7 @@ export class EventTracker {
     EventTracker.attemptToSend(Category.ERROR, errorType, additionalData);
   }
 
-  static trackKingdomActivity(
+  static trackKINGDOM_ACTIVITY(
     kingdom: Kingdom,
     source: string,
     configuration: Record<string, unknown>
@@ -235,7 +322,7 @@ export class EventTracker {
   ) {
     const endpoint = `https://suivi.71yeti.fr/server.php?source=${encodeURIComponent(window.location.hostname)}`;
     const data = {
-      sessionId,
+      sessionId: getSessionId(),
       eventOrError: type,
       eventType: query,
       clientContext,
@@ -247,7 +334,10 @@ export class EventTracker {
     lastEventSignature = signature;
     persistLastEventSignature(signature);
 
-    const body = JSON.stringify(data);
+    const body = JSON.stringify({
+      ...data,
+      clientTimestamp: new Date().toISOString(),
+    });
     void fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
